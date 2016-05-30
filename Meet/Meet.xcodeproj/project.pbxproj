@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E43671CFC56EA00730DEA /* UIViewController+HUD.m */; };
+		1F4E436B1CFC578200730DEA /* UIViewController+HiderLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E436A1CFC578200730DEA /* UIViewController+HiderLine.m */; };
+		1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E436F1CFC57F900730DEA /* ThemeTools.m */; };
 		C96B69724244D7EDB8E4D323 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E573AEF258C48EC6DAC3AFD /* libPods.a */; };
 		DA018EDB1CD1BCD90051D2D7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018EDA1CD1BCD90051D2D7 /* MainViewController.m */; };
 		DA018F271CD38AEF0051D2D7 /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F261CD38AEF0051D2D7 /* MeViewController.m */; };
@@ -114,6 +117,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F4E43611CFC43F200730DEA /* Meet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Meet-Bridging-Header.h"; sourceTree = "<group>"; };
+		1F4E43641CFC470F00730DEA /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
+		1F4E43661CFC56EA00730DEA /* UIViewController+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HUD.h"; sourceTree = "<group>"; };
+		1F4E43671CFC56EA00730DEA /* UIViewController+HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HUD.m"; sourceTree = "<group>"; };
+		1F4E43691CFC578200730DEA /* UIViewController+HiderLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HiderLine.h"; sourceTree = "<group>"; };
+		1F4E436A1CFC578200730DEA /* UIViewController+HiderLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HiderLine.m"; sourceTree = "<group>"; };
+		1F4E436E1CFC57F900730DEA /* ThemeTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeTools.h; sourceTree = "<group>"; };
+		1F4E436F1CFC57F900730DEA /* ThemeTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeTools.m; sourceTree = "<group>"; };
 		3E573AEF258C48EC6DAC3AFD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		66298249F0C940E6B752F33E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		A77C177DBA85B7B5A4E9AD4B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -338,6 +349,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F4E43651CFC56AE00730DEA /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				1F4E43661CFC56EA00730DEA /* UIViewController+HUD.h */,
+				1F4E43671CFC56EA00730DEA /* UIViewController+HUD.m */,
+				1F4E43691CFC578200730DEA /* UIViewController+HiderLine.h */,
+				1F4E436A1CFC578200730DEA /* UIViewController+HiderLine.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		8E40E9729E6AB1EC00EF25FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -424,9 +446,11 @@
 				DA3626651CD1A75C00A8AE39 /* LaunchScreen.storyboard */,
 				DA3626801CD1A9D300A8AE39 /* Meet.pch */,
 				DA3626811CD1AADD00A8AE39 /* Define.h */,
+				1F4E43641CFC470F00730DEA /* Theme.h */,
 				DA3626681CD1A75C00A8AE39 /* Info.plist */,
 				DA018F541CD4DAFB0051D2D7 /* Localizable.strings */,
 				DA3626571CD1A75C00A8AE39 /* Supporting Files */,
+				1F4E43611CFC43F200730DEA /* Meet-Bridging-Header.h */,
 			);
 			path = Meet;
 			sourceTree = "<group>";
@@ -442,10 +466,13 @@
 		DA3626701CD1A98E00A8AE39 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				1F4E43651CFC56AE00730DEA /* Category */,
 				DA3626711CD1A98E00A8AE39 /* AppData.h */,
 				DA3626721CD1A98E00A8AE39 /* AppData.m */,
 				DA3626731CD1A98E00A8AE39 /* UITools.h */,
 				DA3626741CD1A98E00A8AE39 /* UITools.m */,
+				1F4E436E1CFC57F900730DEA /* ThemeTools.h */,
+				1F4E436F1CFC57F900730DEA /* ThemeTools.m */,
 				DA018F341CD443670051D2D7 /* UINavigationBar+BackgroundColor.h */,
 				DA018F351CD443670051D2D7 /* UINavigationBar+BackgroundColor.m */,
 				DAF5C7F71CDF479C00DA7901 /* NetWorkObject.h */,
@@ -993,6 +1020,7 @@
 				DA018F4E1CD4C03B0051D2D7 /* MyPhotoItem.m in Sources */,
 				DAF5C8201CE0D0ED00DA7901 /* WXAccessModel.m in Sources */,
 				DAF5C8BC1CE6D6AD00DA7901 /* NSObject+RMArchivable.m in Sources */,
+				1F4E436B1CFC578200730DEA /* UIViewController+HiderLine.m in Sources */,
 				DAF5C8541CE5A5C100DA7901 /* UIView+frameAdjust.m in Sources */,
 				DAF5C8841CE5B95000DA7901 /* CoreTextLinkData.m in Sources */,
 				DA018F391CD44B210051D2D7 /* ThreeImageCell.m in Sources */,
@@ -1019,6 +1047,7 @@
 				DA41592E1CECA074006970DF /* MoreDescriptionDao.m in Sources */,
 				DABF8AEF1CE9B83300CA2A1D /* AllMeetViewController.m in Sources */,
 				DA6B1C591CEC4DAC0020021D /* MoveViewController.m in Sources */,
+				1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */,
 				DAF5C8BF1CE6D6AD00DA7901 /* RMMapper.m in Sources */,
 				DABF8AE01CE7509400CA2A1D /* MyMeetsViewController.m in Sources */,
 				DA018EDB1CD1BCD90051D2D7 /* MainViewController.m in Sources */,
@@ -1028,6 +1057,7 @@
 				DA6B1C531CEC4DAC0020021D /* ChoicenessViewController.m in Sources */,
 				DAF5C8851CE5B95000DA7901 /* CoreTextUtils.m in Sources */,
 				DAF5C8821CE5B95000DA7901 /* CoreTextData.m in Sources */,
+				1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */,
 				DA4A890E1CDCA8D000649983 /* WeChatResgisterViewController.m in Sources */,
 				DA6B1C571CEC4DAC0020021D /* HomeMainViewController.m in Sources */,
 				DA018F271CD38AEF0051D2D7 /* MeViewController.m in Sources */,
@@ -1172,6 +1202,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Meet/Meet.pch";
@@ -1191,6 +1222,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.meet.meet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Meet/Meet-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -1200,6 +1233,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Meet/Meet.pch";
@@ -1219,6 +1253,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.meet.meet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Meet/Meet-Bridging-Header.h";
 			};
 			name = Release;
 		};
