@@ -10,6 +10,8 @@
 
 @interface ManListCell : UITableViewCell
 
+- (void)configCell:(NSString *)title array:(NSArray *)array string:(NSString *)string;
+
 @property (assign, nonatomic) NSInteger index;
 
 @end

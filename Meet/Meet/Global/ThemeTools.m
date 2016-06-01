@@ -24,7 +24,7 @@ static ThemeTools *themetools = nil;
 + (void)appTheme:(AppThemeColor)theme {
     switch (theme) {
         case AppThemeColorCustom:
-            [ThemeTools tabBarTintColor:[UIColor blackColor] titleColor:[UIColor lightGrayColor] selectTitleColor:[UIColor blackColor]];
+            [ThemeTools navigationBarTintColor:NavigationBarTintColorCustome titleColor:NavigationBarTitleColorCustome];
             break;
         case AppThemeColorBlue:
             break;
@@ -35,6 +35,14 @@ static ThemeTools *themetools = nil;
     }
 }
 
+
+/**
+ *  设置TabBar颜色 已废弃
+ *
+ *  @param barTintColor
+ *  @param titleColor
+ *  @param selectColor
+ */
 + (void)tabBarTintColor:(UIColor *)barTintColor titleColor:(UIColor *)titleColor selectTitleColor:(UIColor *)selectColor {
     [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:titleColor} forState:UIControlStateNormal];
     [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:selectColor} forState:UIControlStateSelected];
@@ -43,8 +51,11 @@ static ThemeTools *themetools = nil;
 }
 
 + (void)navigationBarTintColor:(UIColor *)navigationBarColor titleColor:(UIColor*)titleColor{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     [[UINavigationBar appearance] setBarTintColor:navigationBarColor];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:titleColor}];
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackTranslucent];
+    
 }
 
 @end

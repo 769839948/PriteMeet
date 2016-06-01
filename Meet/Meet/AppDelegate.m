@@ -21,6 +21,7 @@
 #import "WXAccessModel.h"
 #import "WXUserInfo.h"
 #import "NSUserDefaults+RMSaveCustomObject.h"
+#import "ThemeTools.h"
 
 @interface AppDelegate ()<WXApiDelegate,NSURLConnectionDelegate> {
     NSURLConnection *_connection;
@@ -28,6 +29,8 @@
     
     MBProgressHUD *loadingHUD;
 }
+
+
 
 @end
 
@@ -37,11 +40,11 @@
 ///what 's app
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+
+    [ThemeTools appTheme:AppThemeColorCustom];
     [Fabric with:@[[Crashlytics class]]];////////
     // TODO: Move this to where you establish a user session
     [self logUser];
-    
     [WXApi registerApp:@"wx49c4b6f590f83469"];
 //    [TalkingData sessionStarted:@"7244A450FDAFB46FFEF7C1B68FBA93D3" withChannelId:@"app store"];
     

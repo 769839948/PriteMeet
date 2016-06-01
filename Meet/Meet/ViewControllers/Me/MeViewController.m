@@ -136,7 +136,7 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
+//    [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
 }
 
 #pragma mark - UIGestureRecognizerDelegate

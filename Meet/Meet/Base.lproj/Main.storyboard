@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="YvN-E0-H3R">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="aek-99-7ih">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -121,28 +121,26 @@
             </objects>
             <point key="canvasLocation" x="3244" y="231"/>
         </scene>
-        <!--首页-->
-        <scene sceneID="zWZ-KB-NWK">
+        <!--Main Navigation Controller-->
+        <scene sceneID="reN-eO-R77">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xp4-K0-K5v" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="首页" image="home" id="pEZ-JQ-vJ5">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
-                    </tabBarItem>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="6Mm-dC-flG">
+                <navigationController id="aek-99-7ih" userLabel="Main Navigation Controller" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lM5-S0-t02">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.019981184554973774" green="0.019981184554973774" blue="0.019981184554973774" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
-                    <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="V0u-Ua-dmJ" kind="relationship" relationship="rootViewController" id="kpy-Jr-8wG"/>
+                        <segue destination="V0u-Ua-dmJ" kind="relationship" relationship="rootViewController" id="egz-nV-O8Q"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bDa-Pr-vDk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rd3-ug-1Tc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2822" y="922"/>
+            <point key="canvasLocation" x="2229" y="329"/>
         </scene>
-        <!--Frist Home View Controller-->
+        <!--Meet-->
         <scene sceneID="smA-kx-vd5">
             <objects>
                 <viewController id="V0u-Ua-dmJ" customClass="FristHomeViewController" sceneMemberID="viewController">
@@ -154,9 +152,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RVi-9b-7eS">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="RVi-9b-7eS">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="V0u-Ua-dmJ" id="nUY-bz-a4H"/>
                                     <outlet property="delegate" destination="V0u-Ua-dmJ" id="Qxz-Eg-BpU"/>
@@ -171,14 +169,21 @@
                             <constraint firstItem="RVi-9b-7eS" firstAttribute="leading" secondItem="Sh6-Pm-of4" secondAttribute="leading" id="q41-iN-Cm3"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="L9c-eR-gZx"/>
+                    <navigationItem key="navigationItem" title="Meet" id="L9c-eR-gZx">
+                        <barButtonItem key="leftBarButtonItem" title="筛选" id="q7d-X6-GMx"/>
+                        <barButtonItem key="rightBarButtonItem" title="个人信息" id="1TM-ol-1u5">
+                            <connections>
+                                <segue destination="eL6-J4-zfW" kind="push" id="Dr4-PJ-RSS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="RVi-9b-7eS" id="Bo4-sl-7qh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dnb-ul-drN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3268" y="922"/>
+            <point key="canvasLocation" x="2752" y="329"/>
         </scene>
         <!--My Meets View Controller-->
         <scene sceneID="eT8-Ye-8tR">
@@ -305,7 +310,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bAa-YV-e5s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3188" y="1543"/>
+            <point key="canvasLocation" x="3540" y="887"/>
         </scene>
         <!--订单-->
         <scene sceneID="tpS-VQ-IbF">
@@ -416,7 +421,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P0j-ii-XBg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3160" y="1634"/>
+            <point key="canvasLocation" x="2256" y="1998"/>
         </scene>
         <!--Me View Controller-->
         <scene sceneID="PUf-Xe-Uz9">
@@ -567,7 +572,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cmq-RK-mfh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3302" y="2398"/>
+            <point key="canvasLocation" x="3250" y="1486"/>
         </scene>
         <!--My Display View Controller-->
         <scene sceneID="S8p-y4-KaP">
@@ -697,7 +702,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aI1-XJ-Uyc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3747" y="2131"/>
+            <point key="canvasLocation" x="3715" y="1747"/>
         </scene>
         <!--我-->
         <scene sceneID="5Dj-XL-xhh">
@@ -728,9 +733,7 @@
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="xp4-K0-K5v" kind="relationship" relationship="viewControllers" id="RqK-FO-4ES"/>
                         <segue destination="73x-lI-rwb" kind="relationship" relationship="viewControllers" id="EVD-V1-vVg"/>
-                        <segue destination="eTk-47-xvS" kind="relationship" relationship="viewControllers" id="t4r-Fr-l5k"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Gw-7e-nb2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -739,10 +742,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="home" width="23" height="23"/>
         <image name="tabbar_ discover_HL" width="23" height="23"/>
         <image name="tabbar_discover" width="23" height="23"/>
         <image name="tabbar_me" width="23" height="23"/>
         <image name="tabbar_meHL" width="23" height="23"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Dr4-PJ-RSS"/>
+    </inferredMetricsTieBreakers>
 </document>

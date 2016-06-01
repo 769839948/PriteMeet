@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E43671CFC56EA00730DEA /* UIViewController+HUD.m */; };
 		1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E436F1CFC57F900730DEA /* ThemeTools.m */; };
+		1F55157E1CFEEFE5005B82FA /* InterestCollectViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F55157D1CFEEFE5005B82FA /* InterestCollectViewCell.m */; };
 		1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */; };
 		1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5931CFDF931002345C1 /* NSString+StringSize.m */; };
 		1FC2C1451CFD3311001D6D10 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C1421CFD3311001D6D10 /* NSString+Utils.m */; };
@@ -129,6 +130,8 @@
 		1F4E43671CFC56EA00730DEA /* UIViewController+HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HUD.m"; sourceTree = "<group>"; };
 		1F4E436E1CFC57F900730DEA /* ThemeTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeTools.h; sourceTree = "<group>"; };
 		1F4E436F1CFC57F900730DEA /* ThemeTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeTools.m; sourceTree = "<group>"; };
+		1F55157C1CFEEFE5005B82FA /* InterestCollectViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestCollectViewCell.h; sourceTree = "<group>"; };
+		1F55157D1CFEEFE5005B82FA /* InterestCollectViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestCollectViewCell.m; sourceTree = "<group>"; };
 		1FA4E58F1CFDF91F002345C1 /* InterestCollectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestCollectView.h; sourceTree = "<group>"; };
 		1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestCollectView.m; sourceTree = "<group>"; };
 		1FA4E5921CFDF931002345C1 /* NSString+StringSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSize.h"; sourceTree = "<group>"; };
@@ -538,6 +541,8 @@
 				DA018F2C1CD39D570051D2D7 /* ManListCell.m */,
 				1FA4E58F1CFDF91F002345C1 /* InterestCollectView.h */,
 				1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */,
+				1F55157C1CFEEFE5005B82FA /* InterestCollectViewCell.h */,
+				1F55157D1CFEEFE5005B82FA /* InterestCollectViewCell.m */,
 				DA018F371CD44B210051D2D7 /* ThreeImageCell.h */,
 				DA018F381CD44B210051D2D7 /* ThreeImageCell.m */,
 				DA018F461CD4BAC60051D2D7 /* PhotoTableCell.h */,
@@ -1084,6 +1089,7 @@
 				DA4A890E1CDCA8D000649983 /* WeChatResgisterViewController.m in Sources */,
 				DA6B1C571CEC4DAC0020021D /* HomeMainViewController.m in Sources */,
 				DA018F271CD38AEF0051D2D7 /* MeViewController.m in Sources */,
+				1F55157E1CFEEFE5005B82FA /* InterestCollectViewCell.m in Sources */,
 				DA6B1C561CEC4DAC0020021D /* HomeBaseViewController.m in Sources */,
 				DA6CEEF21CD9EF9D00EEABFF /* CellButton.m in Sources */,
 				DA6B1C521CEC4DAC0020021D /* FristHomeViewController.m in Sources */,

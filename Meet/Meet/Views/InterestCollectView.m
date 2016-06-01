@@ -8,6 +8,7 @@
 
 #import "InterestCollectView.h"
 #import "NSString+StringSize.h"
+#import "InterestCollectViewCell.h"
 
 @implementation InterestCollectView
 
@@ -20,7 +21,7 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
     if (self) {
         _interstArray = [[NSMutableArray alloc] init];
         self.backgroundColor = [UIColor whiteColor];
-        [self registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+        [self registerClass:[InterestCollectViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
         self.delegate = self;
         self.dataSource = self;
     }
@@ -29,8 +30,12 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
 
 - (void)setCollectViewData:(NSArray *)array;
 {
-    _interstArray = [array mutableCopy];
-    [self reloadData];
+    if (_interstArray.count == 0) {
+        _interstArray = [array mutableCopy];
+        [self reloadData];
+    }
+    float height = [self.collectionViewLayout collectionViewContentSize].height;
+    NSLog(@"---------%f",height);
 }
 
 - (NSInteger)numberOfSections
@@ -40,27 +45,24 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-//    return 10;
+    //    return 10;
     return _interstArray.count;
 }
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [self dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    InterestCollectViewCell *cell = [self dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    if (cell == nil) {
+        NSLog(@"---");
+    }
     cell.backgroundColor = [UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0];
     cell.layer.cornerRadius = 2.0f;
-    UILabel *label = [[UILabel alloc] init];
-    label.textColor = [UIColor whiteColor];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.text = [_interstArray objectAtIndex:indexPath.row];
-    label.frame = cell.bounds;
-    label.font = [UIFont fontWithName:@"PingFangSC-Light" size:13.0f];
-    label.backgroundColor = [UIColor clearColor];
-    [cell.contentView addSubview:label];
-    
+    cell.titleLabel.text = [_interstArray objectAtIndex:indexPath.row];
     return cell;
 }
+
+
 
 // Uncomment this method to specify if the specified item should be highlighted during tracking
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -98,10 +100,8 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
 -(CGFloat)cellWidth:(NSString *)itemString
 {
     CGFloat cellWidth;
-    cellWidth = [NSString widthForString:itemString fontSize:18];
+    cellWidth = [itemString widthWithFont:[UIFont systemFontOfSize:18.0] constrainedToHeight:27];
     return cellWidth;
 }
-
-
 
 @end
