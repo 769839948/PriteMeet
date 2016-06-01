@@ -739,7 +739,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="home" width="30" height="30"/>
+        <image name="home" width="23" height="23"/>
         <image name="tabbar_ discover_HL" width="23" height="23"/>
         <image name="tabbar_discover" width="23" height="23"/>
         <image name="tabbar_me" width="23" height="23"/>

@@ -401,7 +401,7 @@
     if ([textField isKindOfClass:[CellTextField class]]) {
         CellTextField *cellTextField = (CellTextField *)textField;
         _editingSection = cellTextField.section;
-        MoreDescriptionModel *model = _dicContentModels[FORMAT(@"%d",_editingSection)];
+        MoreDescriptionModel *model = _dicContentModels[FORMAT(@"%lu",(unsigned long)_editingSection)];
         if (![model.title isEqualToString:textField.text]) {
             isModifyText = YES;
             model.title = textField.text;
@@ -425,7 +425,7 @@
     if ([textView isKindOfClass:[CellTextView class]]) {
         CellTextView *cellText = (CellTextView *)textView;
         _editingIndexPath = cellText.indexPath;
-        MoreDescriptionModel *model = _dicContentModels[FORMAT(@"%d",_editingIndexPath.section)];
+        MoreDescriptionModel *model = _dicContentModels[FORMAT(@"%ld",(long)_editingIndexPath.section)];
         if (![model.content isEqualToString:textView.text]) {
             isModifyText = YES;
             model.content = textView.text;

@@ -17,6 +17,7 @@
 
 #define IOS_7LAST ([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0)?1:0
 #define IOS_8LAST ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)?1:0
+#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 #define NAVIGATION_BAR_COLOR   [UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0.8]
 

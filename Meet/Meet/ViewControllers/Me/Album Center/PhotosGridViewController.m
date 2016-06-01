@@ -116,12 +116,16 @@ static CGSize AssetGridThumbnailSize;
     _arraySelectdAssets = nil;
     _selectAssetsDic = nil;
 }
-
+/**
+ *  调试注释了
+ *
+ *  @param notification <#notification description#>
+ */
 - (void)iClouldImageLoadComplete:(NSNotification *)notification {
-    MWPhoto *photo = [notification object];
-     NSLog(@"%d",photo.index);
-    PhotoGridCell *cell = (PhotoGridCell *)[_collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:photo.index inSection:0]];
-    cell.isICloudAsset = NO;
+//    MWPhoto *photo = [notification object];
+//     NSLog(@"%ld",(long)photo.index);
+//    PhotoGridCell *cell = (PhotoGridCell *)[_collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:photo.index inSection:0]];
+//    cell.isICloudAsset = NO;
 }
 
 - (void)loadImageDataFormAlbum
@@ -559,12 +563,12 @@ static CGSize AssetGridThumbnailSize;
     } else {
         if (_arraySelectdAssets.count + _alreadyHaveNum == _maxSelected && selected) {
             [[UITools shareInstance] showMessageToView:photoBrowser.view message:[NSString stringWithFormat:@"最多选择%ld张图片",(long)_maxSelected] autoHide:YES];
-            [photoBrowser setCurrentPhotoSelectedButtonType:NO];
+//            [photoBrowser setCurrentPhotoSelectedButtonType:NO];
             return ;
         }
         PhotoGridCell *cell = (PhotoGridCell *)[_collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
         if (cell.isICloudAsset && selected) {
-            [photoBrowser setCurrentPhotoSelectedButtonType:NO];
+//            [photoBrowser setCurrentPhotoSelectedButtonType:NO];
             return ;
         }
         [self setPhotoSelected:selected atIndex:index];

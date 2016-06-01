@@ -24,7 +24,7 @@ static ThemeTools *themetools = nil;
 + (void)appTheme:(AppThemeColor)theme {
     switch (theme) {
         case AppThemeColorCustom:
-            
+            [ThemeTools tabBarTintColor:[UIColor blackColor] titleColor:[UIColor lightGrayColor] selectTitleColor:[UIColor blackColor]];
             break;
         case AppThemeColorBlue:
             break;

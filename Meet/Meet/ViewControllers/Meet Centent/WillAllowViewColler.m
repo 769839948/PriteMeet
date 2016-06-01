@@ -69,8 +69,8 @@
         ManListCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (!cell) {
             cell = (ManListCell *)[[NSBundle mainBundle] loadNibNamed:@"ManListCell" owner:self options:nil][0];
-            cell.likeButton.hidden = YES;
-            cell.likeNumberLabel.hidden = YES;
+//            cell.likeButton.hidden = YES;
+//            cell.likeNumberLabel.hidden = YES;
         }
         return cell;
     } else {

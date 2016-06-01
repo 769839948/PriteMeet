@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [ThemeTools tabBarTintColor:[UIColor blackColor] titleColor:[UIColor lightGrayColor] selectTitleColor:[UIColor blackColor]];
+    [ThemeTools appTheme:AppThemeColorCustom];
     // Do any additional setup after loading the view.
 //    self.tabBar.barTintColor = [UIColor whiteColor];
 //    self.tabBar.tintColor = TabBarTitleColor;

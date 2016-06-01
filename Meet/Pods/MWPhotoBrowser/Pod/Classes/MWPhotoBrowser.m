@@ -219,23 +219,18 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
         self.navigationItem.rightBarButtonItem = _doneButton;
     } else {
         // We're not first so show back button
-//        UIViewController *previousViewController = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-2];
-//        NSString *backButtonTitle = previousViewController.navigationItem.backBarButtonItem ? previousViewController.navigationItem.backBarButtonItem.title : previousViewController.title;
-//        UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:backButtonTitle style:UIBarButtonItemStylePlain target:nil action:nil];
-//        // Appearance
-//        [newBackButton setBackButtonBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-//        [newBackButton setBackButtonBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
-//        [newBackButton setBackButtonBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-//        [newBackButton setBackButtonBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsLandscapePhone];
-//        [newBackButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateNormal];
-//        [newBackButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateHighlighted];
-//        _previousViewControllerBackButton = previousViewController.navigationItem.backBarButtonItem; // remember previous
-//        previousViewController.navigationItem.backBarButtonItem = newBackButton;
-        
-        UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"barbutton_back"] style:UIBarButtonItemStylePlain target:self action:@selector(backBarButtonAction:)];
-        item.tintColor = [UIColor whiteColor];
-        self.navigationItem.leftBarButtonItem = item;
-        
+        UIViewController *previousViewController = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-2];
+        NSString *backButtonTitle = previousViewController.navigationItem.backBarButtonItem ? previousViewController.navigationItem.backBarButtonItem.title : previousViewController.title;
+        UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:backButtonTitle style:UIBarButtonItemStylePlain target:nil action:nil];
+        // Appearance
+        [newBackButton setBackButtonBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        [newBackButton setBackButtonBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
+        [newBackButton setBackButtonBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+        [newBackButton setBackButtonBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsLandscapePhone];
+        [newBackButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateNormal];
+        [newBackButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateHighlighted];
+        _previousViewControllerBackButton = previousViewController.navigationItem.backBarButtonItem; // remember previous
+        previousViewController.navigationItem.backBarButtonItem = newBackButton;
     }
 
     // Toolbar items
@@ -299,11 +294,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     _performingLayout = NO;
     
 }
-
-- (void)backBarButtonAction:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 
 // Release any retained subviews of the main view.
 - (void)viewDidUnload {
@@ -721,11 +711,10 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 - (UIImage *)imageForPhoto:(id<MWPhoto>)photo {
 	if (photo) {
 		// Get image or obtain in background
-        photo.index = _currentPageIndex;
 		if ([photo underlyingImage]) {
 			return [photo underlyingImage];
 		} else {
-            [photo loadUnderlyingImageAndNotifyWihtIndex:_currentPageIndex];
+            [photo loadUnderlyingImageAndNotify];
 		}
 	}
 	return nil;
@@ -740,18 +729,16 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
             if (pageIndex > 0) {
                 // Preload index - 1
                 id <MWPhoto> photo = [self photoAtIndex:pageIndex-1];
-                photo.index = pageIndex-1;
                 if (![photo underlyingImage]) {
-                    [photo loadUnderlyingImageAndNotifyWihtIndex:pageIndex -1];
+                    [photo loadUnderlyingImageAndNotify];
                     MWLog(@"Pre-loading image at index %lu", (unsigned long)pageIndex-1);
                 }
             }
             if (pageIndex < [self numberOfPhotos] - 1) {
                 // Preload index + 1
                 id <MWPhoto> photo = [self photoAtIndex:pageIndex+1];
-                  photo.index = pageIndex + 1;
                 if (![photo underlyingImage]) {
-                    [photo loadUnderlyingImageAndNotifyWihtIndex:pageIndex+1];
+                    [photo loadUnderlyingImageAndNotify];
                     MWLog(@"Pre-loading image at index %lu", (unsigned long)pageIndex+1);
                 }
             }
@@ -881,14 +868,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
         
     }
 }
-
-//////==================added for jia hui==============///////
-- (void)setCurrentPhotoSelectedButtonType:(BOOL)select {
-    MWPhoto *photo = [self photoAtIndex:_currentPageIndex];
-    MWZoomingScrollView *page = [self pageDisplayingPhoto:photo];
-    page.selectedButton.selected = select;
-}
-//////=============================================///////
 
 - (BOOL)isDisplayingPageForIndex:(NSUInteger)index {
 	for (MWZoomingScrollView *page in _visiblePages)

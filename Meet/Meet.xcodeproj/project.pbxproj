@@ -8,13 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E43671CFC56EA00730DEA /* UIViewController+HUD.m */; };
-		1F4E436B1CFC578200730DEA /* UIViewController+HiderLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E436A1CFC578200730DEA /* UIViewController+HiderLine.m */; };
 		1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E436F1CFC57F900730DEA /* ThemeTools.m */; };
-		C96B69724244D7EDB8E4D323 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E573AEF258C48EC6DAC3AFD /* libPods.a */; };
+		1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */; };
+		1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5931CFDF931002345C1 /* NSString+StringSize.m */; };
+		1FC2C1451CFD3311001D6D10 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C1421CFD3311001D6D10 /* NSString+Utils.m */; };
+		1FC2C1491CFD3332001D6D10 /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C1481CFD3332001D6D10 /* NSDate+Category.m */; };
+		1FC2C14C1CFD3583001D6D10 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C14B1CFD3583001D6D10 /* NSDateFormatter+Category.m */; };
+		1FC2C14F1CFD362B001D6D10 /* UIViewController+hideExcessLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C14E1CFD362B001D6D10 /* UIViewController+hideExcessLine.m */; };
 		DA018EDB1CD1BCD90051D2D7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018EDA1CD1BCD90051D2D7 /* MainViewController.m */; };
 		DA018F271CD38AEF0051D2D7 /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F261CD38AEF0051D2D7 /* MeViewController.m */; };
 		DA018F2E1CD39D570051D2D7 /* ManListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F2C1CD39D570051D2D7 /* ManListCell.m */; };
-		DA018F2F1CD39D570051D2D7 /* ManListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA018F2D1CD39D570051D2D7 /* ManListCell.xib */; };
 		DA018F361CD443670051D2D7 /* UINavigationBar+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F351CD443670051D2D7 /* UINavigationBar+BackgroundColor.m */; };
 		DA018F391CD44B210051D2D7 /* ThreeImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F381CD44B210051D2D7 /* ThreeImageCell.m */; };
 		DA018F451CD4B9AA0051D2D7 /* PhotoGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F441CD4B9AA0051D2D7 /* PhotoGridCell.m */; };
@@ -114,27 +117,36 @@
 		DAF5C8C91CE6F3EB00DA7901 /* MyPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5C8C81CE6F3EB00DA7901 /* MyPhotosViewController.m */; };
 		DAF5C8CD1CE6F79900DA7901 /* PhotosGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5C8CC1CE6F79900DA7901 /* PhotosGridViewController.m */; };
 		DAF5C8D11CE6F87A00DA7901 /* SendInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5C8D01CE6F87A00DA7901 /* SendInviteViewController.m */; };
+		F0E56C1B70EA36CD2F1FDC2D /* Pods_Meet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01422377568E95CDDD430F0B /* Pods_Meet.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01422377568E95CDDD430F0B /* Pods_Meet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Meet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		02C96CF04F633E7BC70CC3F6 /* Pods-Meet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Meet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Meet/Pods-Meet.debug.xcconfig"; sourceTree = "<group>"; };
 		1F4E43611CFC43F200730DEA /* Meet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Meet-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F4E43641CFC470F00730DEA /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
 		1F4E43661CFC56EA00730DEA /* UIViewController+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HUD.h"; sourceTree = "<group>"; };
 		1F4E43671CFC56EA00730DEA /* UIViewController+HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HUD.m"; sourceTree = "<group>"; };
-		1F4E43691CFC578200730DEA /* UIViewController+HiderLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HiderLine.h"; sourceTree = "<group>"; };
-		1F4E436A1CFC578200730DEA /* UIViewController+HiderLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HiderLine.m"; sourceTree = "<group>"; };
 		1F4E436E1CFC57F900730DEA /* ThemeTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeTools.h; sourceTree = "<group>"; };
 		1F4E436F1CFC57F900730DEA /* ThemeTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeTools.m; sourceTree = "<group>"; };
-		3E573AEF258C48EC6DAC3AFD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		66298249F0C940E6B752F33E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		A77C177DBA85B7B5A4E9AD4B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		1FA4E58F1CFDF91F002345C1 /* InterestCollectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestCollectView.h; sourceTree = "<group>"; };
+		1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestCollectView.m; sourceTree = "<group>"; };
+		1FA4E5921CFDF931002345C1 /* NSString+StringSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSize.h"; sourceTree = "<group>"; };
+		1FA4E5931CFDF931002345C1 /* NSString+StringSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StringSize.m"; sourceTree = "<group>"; };
+		1FC2C1411CFD3311001D6D10 /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
+		1FC2C1421CFD3311001D6D10 /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
+		1FC2C1471CFD3332001D6D10 /* NSDate+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Category.h"; sourceTree = "<group>"; };
+		1FC2C1481CFD3332001D6D10 /* NSDate+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Category.m"; sourceTree = "<group>"; };
+		1FC2C14A1CFD3583001D6D10 /* NSDateFormatter+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Category.h"; sourceTree = "<group>"; };
+		1FC2C14B1CFD3583001D6D10 /* NSDateFormatter+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Category.m"; sourceTree = "<group>"; };
+		1FC2C14D1CFD362B001D6D10 /* UIViewController+hideExcessLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+hideExcessLine.h"; sourceTree = "<group>"; };
+		1FC2C14E1CFD362B001D6D10 /* UIViewController+hideExcessLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+hideExcessLine.m"; sourceTree = "<group>"; };
 		DA018ED91CD1BCD90051D2D7 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		DA018EDA1CD1BCD90051D2D7 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		DA018F251CD38AEF0051D2D7 /* MeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeViewController.h; sourceTree = "<group>"; };
 		DA018F261CD38AEF0051D2D7 /* MeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeViewController.m; sourceTree = "<group>"; };
 		DA018F2B1CD39D570051D2D7 /* ManListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManListCell.h; sourceTree = "<group>"; };
 		DA018F2C1CD39D570051D2D7 /* ManListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManListCell.m; sourceTree = "<group>"; };
-		DA018F2D1CD39D570051D2D7 /* ManListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ManListCell.xib; sourceTree = "<group>"; };
 		DA018F341CD443670051D2D7 /* UINavigationBar+BackgroundColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+BackgroundColor.h"; sourceTree = "<group>"; };
 		DA018F351CD443670051D2D7 /* UINavigationBar+BackgroundColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+BackgroundColor.m"; sourceTree = "<group>"; };
 		DA018F371CD44B210051D2D7 /* ThreeImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreeImageCell.h; sourceTree = "<group>"; };
@@ -322,6 +334,7 @@
 		DAF5C8CC1CE6F79900DA7901 /* PhotosGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosGridViewController.m; sourceTree = "<group>"; };
 		DAF5C8CF1CE6F87A00DA7901 /* SendInviteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendInviteViewController.h; sourceTree = "<group>"; };
 		DAF5C8D01CE6F87A00DA7901 /* SendInviteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendInviteViewController.m; sourceTree = "<group>"; };
+		E6D34CBD6F1B1ABC5F814AD4 /* Pods-Meet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Meet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Meet/Pods-Meet.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -342,7 +355,7 @@
 				DA4A891A1CDD91EB00649983 /* libz.tbd in Frameworks */,
 				DA4A89181CDD91B300649983 /* SystemConfiguration.framework in Frameworks */,
 				DAF5C8C01CE6D6AD00DA7901 /* libTalkingData.a in Frameworks */,
-				C96B69724244D7EDB8E4D323 /* libPods.a in Frameworks */,
+				F0E56C1B70EA36CD2F1FDC2D /* Pods_Meet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,12 +365,29 @@
 		1F4E43651CFC56AE00730DEA /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				1FA4E5921CFDF931002345C1 /* NSString+StringSize.h */,
+				1FA4E5931CFDF931002345C1 /* NSString+StringSize.m */,
+				1FC2C1471CFD3332001D6D10 /* NSDate+Category.h */,
+				1FC2C1481CFD3332001D6D10 /* NSDate+Category.m */,
+				1FC2C1411CFD3311001D6D10 /* NSString+Utils.h */,
+				1FC2C1421CFD3311001D6D10 /* NSString+Utils.m */,
 				1F4E43661CFC56EA00730DEA /* UIViewController+HUD.h */,
 				1F4E43671CFC56EA00730DEA /* UIViewController+HUD.m */,
-				1F4E43691CFC578200730DEA /* UIViewController+HiderLine.h */,
-				1F4E436A1CFC578200730DEA /* UIViewController+HiderLine.m */,
+				1FC2C14A1CFD3583001D6D10 /* NSDateFormatter+Category.h */,
+				1FC2C14B1CFD3583001D6D10 /* NSDateFormatter+Category.m */,
+				1FC2C14D1CFD362B001D6D10 /* UIViewController+hideExcessLine.h */,
+				1FC2C14E1CFD362B001D6D10 /* UIViewController+hideExcessLine.m */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		5AF50953ADC31DBA8A53F5F5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				02C96CF04F633E7BC70CC3F6 /* Pods-Meet.debug.xcconfig */,
+				E6D34CBD6F1B1ABC5F814AD4 /* Pods-Meet.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		8E40E9729E6AB1EC00EF25FD /* Frameworks */ = {
@@ -373,19 +403,10 @@
 				DA4A891D1CDD920F00649983 /* libc++.tbd */,
 				DA4A891B1CDD91FB00649983 /* libsqlite3.0.tbd */,
 				DA4A89191CDD91EB00649983 /* libz.tbd */,
-				3E573AEF258C48EC6DAC3AFD /* libPods.a */,
 				DAF5C8061CE0301500DA7901 /* 3rd */,
+				01422377568E95CDDD430F0B /* Pods_Meet.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A9BD1C90034C0D5FF415BC46 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				66298249F0C940E6B752F33E /* Pods.debug.xcconfig */,
-				A77C177DBA85B7B5A4E9AD4B /* Pods.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		DA018EDC1CD1D2CD0051D2D7 /* Home */ = {
@@ -419,8 +440,8 @@
 				DA3626701CD1A98E00A8AE39 /* Global */,
 				DA3626561CD1A75C00A8AE39 /* Meet */,
 				DA3626551CD1A75C00A8AE39 /* Products */,
-				A9BD1C90034C0D5FF415BC46 /* Pods */,
 				8E40E9729E6AB1EC00EF25FD /* Frameworks */,
+				5AF50953ADC31DBA8A53F5F5 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -515,7 +536,8 @@
 			children = (
 				DA018F2B1CD39D570051D2D7 /* ManListCell.h */,
 				DA018F2C1CD39D570051D2D7 /* ManListCell.m */,
-				DA018F2D1CD39D570051D2D7 /* ManListCell.xib */,
+				1FA4E58F1CFDF91F002345C1 /* InterestCollectView.h */,
+				1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */,
 				DA018F371CD44B210051D2D7 /* ThreeImageCell.h */,
 				DA018F381CD44B210051D2D7 /* ThreeImageCell.m */,
 				DA018F461CD4BAC60051D2D7 /* PhotoTableCell.h */,
@@ -858,13 +880,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA36266B1CD1A75C00A8AE39 /* Build configuration list for PBXNativeTarget "Meet" */;
 			buildPhases = (
-				8D6B7E664C0DF6C66AC6EBE8 /* Check Pods Manifest.lock */,
+				31B960ED13A9BF5B3033EA2F /* 📦 Check Pods Manifest.lock */,
 				DA3626501CD1A75C00A8AE39 /* Sources */,
 				DA3626511CD1A75C00A8AE39 /* Frameworks */,
 				DA3626521CD1A75C00A8AE39 /* Resources */,
-				42CD09A0E22CA5DFC1A6CAF8 /* Embed Pods Frameworks */,
-				002E7C7CE4BDF9C11689ECA4 /* Copy Pods Resources */,
 				DAF5C8051CDF5F8A00DA7901 /* ShellScript */,
+				20447C414DCADD2CD6F7421E /* 📦 Embed Pods Frameworks */,
+				2AC1911FB4BC27B959A10850 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -917,7 +939,6 @@
 				DA4A89021CDC388B00649983 /* Login.storyboard in Resources */,
 				DA018F521CD4DAFB0051D2D7 /* Localizable.strings in Resources */,
 				DAF5C8C21CE6D6AD00DA7901 /* README.txt in Resources */,
-				DA018F2F1CD39D570051D2D7 /* ManListCell.xib in Resources */,
 				DA6CEEEA1CD97E9A00EEABFF /* Me.storyboard in Resources */,
 				DA1A67EC1CEF107C00F9CC9D /* area.plist in Resources */,
 				DA3626671CD1A75C00A8AE39 /* LaunchScreen.storyboard in Resources */,
@@ -933,44 +954,44 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		002E7C7CE4BDF9C11689ECA4 /* Copy Pods Resources */ = {
+		20447C414DCADD2CD6F7421E /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Meet/Pods-Meet-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		42CD09A0E22CA5DFC1A6CAF8 /* Embed Pods Frameworks */ = {
+		2AC1911FB4BC27B959A10850 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Meet/Pods-Meet-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8D6B7E664C0DF6C66AC6EBE8 /* Check Pods Manifest.lock */ = {
+		31B960ED13A9BF5B3033EA2F /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1002,6 +1023,7 @@
 				DA1A67EF1CEFD81D00F9CC9D /* WXLoginViewController.m in Sources */,
 				DA6CEF131CDAF42300EEABFF /* AddInformationViewController.m in Sources */,
 				DA4A88FB1CDB5CB700649983 /* UITextView+Placeholder.m in Sources */,
+				1FC2C1451CFD3311001D6D10 /* NSString+Utils.m in Sources */,
 				DAF5C8271CE0D1B500DA7901 /* SuperDao.m in Sources */,
 				DA018F2E1CD39D570051D2D7 /* ManListCell.m in Sources */,
 				DA4A89081CDC9A3200649983 /* GetCodeViewController.m in Sources */,
@@ -1020,7 +1042,6 @@
 				DA018F4E1CD4C03B0051D2D7 /* MyPhotoItem.m in Sources */,
 				DAF5C8201CE0D0ED00DA7901 /* WXAccessModel.m in Sources */,
 				DAF5C8BC1CE6D6AD00DA7901 /* NSObject+RMArchivable.m in Sources */,
-				1F4E436B1CFC578200730DEA /* UIViewController+HiderLine.m in Sources */,
 				DAF5C8541CE5A5C100DA7901 /* UIView+frameAdjust.m in Sources */,
 				DAF5C8841CE5B95000DA7901 /* CoreTextLinkData.m in Sources */,
 				DA018F391CD44B210051D2D7 /* ThreeImageCell.m in Sources */,
@@ -1033,6 +1054,7 @@
 				DA6B1C541CEC4DAC0020021D /* CoffeeViewController.m in Sources */,
 				DA6CEF021CDA402C00EEABFF /* TextViewCell.m in Sources */,
 				DAF5C89D1CE6191000DA7901 /* MHFacebookImageViewer.m in Sources */,
+				1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */,
 				DA3626591CD1A75C00A8AE39 /* main.m in Sources */,
 				DAF5C8211CE0D0ED00DA7901 /* WXUserInfo.m in Sources */,
 				DABF8AF21CE9D41100CA2A1D /* BaseMeetViewController.m in Sources */,
@@ -1048,6 +1070,7 @@
 				DABF8AEF1CE9B83300CA2A1D /* AllMeetViewController.m in Sources */,
 				DA6B1C591CEC4DAC0020021D /* MoveViewController.m in Sources */,
 				1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */,
+				1FC2C14F1CFD362B001D6D10 /* UIViewController+hideExcessLine.m in Sources */,
 				DAF5C8BF1CE6D6AD00DA7901 /* RMMapper.m in Sources */,
 				DABF8AE01CE7509400CA2A1D /* MyMeetsViewController.m in Sources */,
 				DA018EDB1CD1BCD90051D2D7 /* MainViewController.m in Sources */,
@@ -1068,7 +1091,10 @@
 				DAF5C82A1CE0D3C000DA7901 /* UserInfoDao.m in Sources */,
 				DABF8B071CEB18E700CA2A1D /* MeetBaseViewController.m in Sources */,
 				DA6B1C5A1CEC4DAC0020021D /* ShowViewController.m in Sources */,
+				1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */,
 				DAF5C8CD1CE6F79900DA7901 /* PhotosGridViewController.m in Sources */,
+				1FC2C1491CFD3332001D6D10 /* NSDate+Category.m in Sources */,
+				1FC2C14C1CFD3583001D6D10 /* NSDateFormatter+Category.m in Sources */,
 				DABF8AF81CEAC29A00CA2A1D /* SetingViewController.m in Sources */,
 				DAF5C8831CE5B95000DA7901 /* CoreTextImageData.m in Sources */,
 				DAF5C8871CE5B95000DA7901 /* CTFrameParserConfig.m in Sources */,
@@ -1198,7 +1224,7 @@
 		};
 		DA36266C1CD1A75C00A8AE39 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 66298249F0C940E6B752F33E /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 02C96CF04F633E7BC70CC3F6 /* Pods-Meet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1229,7 +1255,7 @@
 		};
 		DA36266D1CD1A75C00A8AE39 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A77C177DBA85B7B5A4E9AD4B /* Pods.release.xcconfig */;
+			baseConfigurationReference = E6D34CBD6F1B1ABC5F814AD4 /* Pods-Meet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

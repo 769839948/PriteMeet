@@ -72,7 +72,7 @@ static NSString *const tableName = @"MoreDescriptionTable";
 }
 
 - (MoreDescriptionModel *)selectMoreDescriptionByUserID:(NSString *)rserId andIndex:(NSInteger)index {
-    NSString *whereSql = [NSString stringWithFormat:@"%@ = '%@' AND %@ = %d", k_More_userId,rserId,k_More_index,index];
+    NSString *whereSql = [NSString stringWithFormat:@"%@ = '%@' AND %@ = %ld", k_More_userId,rserId,k_More_index,(long)index];
     NSArray *array = [self selectWithWhere:whereSql];
     if (array.count >0) {
         return array[0];

@@ -11,10 +11,12 @@
 #import "ManListCell.h"
 #import "WeChatResgisterViewController.h"
 
-@interface FristHomeViewController ()<UIGestureRecognizerDelegate>
+@interface FristHomeViewController ()<UIGestureRecognizerDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) UIView *bottomView;
+@property (nonatomic, strong) UILabel *numberMeet;
 
 @end
 
@@ -22,22 +24,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setUpTableView];
+    [self setUpBottonView];
+    [self setUpNavigationBar];
     
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    [self setNeedsStatusBarAppearanceUpdate];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-    if (IOS_7LAST) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = self;
-    }
-    self.navigationItem.title = @"Meet";
-    self.tableView.rowHeight = 100;
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-         NSLog(@"进入刷新状态");
-        // 进入刷新状态后会自动调用这个block
-    }];
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
     
-    [self.tableView.mj_header beginRefreshing];
     
 }
 
@@ -65,31 +56,104 @@
     return YES;
 }
 
-#pragma mark - UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (void)setUpNavigationBar
+{
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    [self setNeedsStatusBarAppearanceUpdate];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    if (IOS_7LAST) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    }
+    self.navigationItem.title = @"Meet";
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"筛选" style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick:)];
+}
+
+- (void)setUpBottonView
+{
+    _bottomView = [[UIView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width - 84, [[UIScreen mainScreen] bounds].size.height - 74 , 56, 54)];
+    [_bottomView addSubview:[self myMeetBt:CGRectMake(0, 0, 54, 54)]];
+    [_bottomView addSubview:[self myMeetNumber:CGRectMake(_bottomView.frame.size.width - 18, 0, 18, 18)]];
+    NSLog(@"%f",[[UIScreen mainScreen] bounds].size.height);
+    [self.view addSubview:_bottomView];
+}
+
+- (UIButton *)myMeetBt:(CGRect)frame
+{
+    UIButton *meetBt = [UIButton buttonWithType:UIButtonTypeCustom];
+    meetBt.frame = frame;
+    meetBt.layer.cornerRadius = frame.size.width/2;
+    meetBt.layer.backgroundColor = [[UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0] CGColor];
+    
+    return meetBt;
+}
+
+- (UILabel *)myMeetNumber:(CGRect)frame
+{
+    _numberMeet = [[UILabel alloc] initWithFrame:frame];
+    _numberMeet.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:79.0/255.0 blue:79.0/255.0 alpha:1.0];
+    _numberMeet.text = @"6";
+    _numberMeet.font = [UIFont systemFontOfSize:9.0];
+    _numberMeet.textColor = [UIColor whiteColor];
+    _numberMeet.textAlignment = NSTextAlignmentCenter;
+    _numberMeet.clipsToBounds = YES;
+    _numberMeet.layer.cornerRadius = 9;
+    return _numberMeet;
+}
+
+- (void)setUpTableView
+{
+    _tableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds] style:UITableViewStyleGrouped];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:251.0/255.0 blue:251.0/255.0 alpha:1.0];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:_tableView];
+}
+#pragma mark - LeftButtonPress
+- (void)leftItemClick:(UIBarButtonItem *)sender
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"筛选" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"智能推荐",@"离我最近", nil];
+    [actionSheet showInView:self.view];
+}
+
+#pragma make - UITableViewDelegate&DataSource
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 320;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.00001;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 10;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 10;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return 70;
-//}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *const cellIdentifier = @"choicenessCell";
-    ManListCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-        cell = (ManListCell *)[[NSBundle mainBundle] loadNibNamed:@"ManListCell" owner:self options:nil][0];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIndef = @"MainTableViewCell";
+    ManListCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndef];
+    
+    if (cell == nil) {
+        cell = [[ManListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndef];
     }
-    //    cell.textLabel.text = FORMAT(@"choicenessCell %ld",(long)indexPath.row);
+    
     return cell;
 }
 
-#pragma mark - tableView Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ([AppData shareInstance].isLogin) {
@@ -101,6 +165,18 @@
             
         }];
     }
+}
+
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+}
+
+- (void)actionSheetCancel:(UIActionSheet *)actionSheet
+{
+    
 }
 
 /*

@@ -166,7 +166,7 @@
     if (img) {
         [cell displayImage];
     } else {
-        [photo loadUnderlyingImageAndNotifyWihtIndex:indexPath.row];
+        [photo loadUnderlyingImageAndNotify];
     }
     return cell;
 }

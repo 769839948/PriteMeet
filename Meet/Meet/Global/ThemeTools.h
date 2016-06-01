@@ -23,7 +23,7 @@ typedef enum _AppThemeColor{
 
 + (void)appTheme:(AppThemeColor)theme;
 
-+ (void)tabBarTintColor:(UIColor *)barTintColor titleColor:(UIColor *)titleColor selectTitleColor:(UIColor *)selectColor;
+//+ (void)tabBarTintColor:(UIColor *)barTintColor titleColor:(UIColor *)titleColor selectTitleColor:(UIColor *)selectColor;
 + (void)navigationBarTintColor:(UIColor *)navigationBarColor titleColor:(UIColor*)titleColor;
 
 @end

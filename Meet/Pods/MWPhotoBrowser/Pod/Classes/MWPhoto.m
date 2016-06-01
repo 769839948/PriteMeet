@@ -145,9 +145,8 @@
     return _underlyingImage;
 }
 
-- (void)loadUnderlyingImageAndNotifyWihtIndex:(NSInteger)index {
+- (void)loadUnderlyingImageAndNotify {
     NSAssert([[NSThread currentThread] isMainThread], @"This method must be called on the main thread.");
-    self.index = index;
     if (_loadingInProgress) return;
     _loadingInProgress = YES;
     @try {
@@ -303,16 +302,10 @@
     };
     
     _assetRequestID = [imageManager requestImageForAsset:asset targetSize:targetSize contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
-//        if([[info objectForKey:PHImageResultIsInCloudKey] boolValue]) {
-//            ////iCloud 上的不加载？？
-//            [self cancelImageRequest];
-//        } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.underlyingImage = result;
-                [self imageLoadingComplete];
-            });
-//        }
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.underlyingImage = result;
+            [self imageLoadingComplete];
+        });
     }];
 
 }
