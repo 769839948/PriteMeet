@@ -10,12 +10,15 @@
 		1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E43671CFC56EA00730DEA /* UIViewController+HUD.m */; };
 		1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E436F1CFC57F900730DEA /* ThemeTools.m */; };
 		1F55157E1CFEEFE5005B82FA /* InterestCollectViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F55157D1CFEEFE5005B82FA /* InterestCollectViewCell.m */; };
+		1F5515841CFEF859005B82FA /* EqualSpaceFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5515831CFEF859005B82FA /* EqualSpaceFlowLayout.m */; };
+		1F5515871CFF07A1005B82FA /* Pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F5515861CFF07A1005B82FA /* Pic.png */; };
 		1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */; };
 		1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5931CFDF931002345C1 /* NSString+StringSize.m */; };
 		1FC2C1451CFD3311001D6D10 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C1421CFD3311001D6D10 /* NSString+Utils.m */; };
 		1FC2C1491CFD3332001D6D10 /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C1481CFD3332001D6D10 /* NSDate+Category.m */; };
 		1FC2C14C1CFD3583001D6D10 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C14B1CFD3583001D6D10 /* NSDateFormatter+Category.m */; };
 		1FC2C14F1CFD362B001D6D10 /* UIViewController+hideExcessLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C14E1CFD362B001D6D10 /* UIViewController+hideExcessLine.m */; };
+		1FCAA98A1CFF200900C84ED2 /* UIViewController+ScrollingNavbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAA9891CFF200900C84ED2 /* UIViewController+ScrollingNavbar.m */; };
 		DA018EDB1CD1BCD90051D2D7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018EDA1CD1BCD90051D2D7 /* MainViewController.m */; };
 		DA018F271CD38AEF0051D2D7 /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F261CD38AEF0051D2D7 /* MeViewController.m */; };
 		DA018F2E1CD39D570051D2D7 /* ManListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F2C1CD39D570051D2D7 /* ManListCell.m */; };
@@ -132,6 +135,9 @@
 		1F4E436F1CFC57F900730DEA /* ThemeTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeTools.m; sourceTree = "<group>"; };
 		1F55157C1CFEEFE5005B82FA /* InterestCollectViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestCollectViewCell.h; sourceTree = "<group>"; };
 		1F55157D1CFEEFE5005B82FA /* InterestCollectViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestCollectViewCell.m; sourceTree = "<group>"; };
+		1F5515821CFEF859005B82FA /* EqualSpaceFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EqualSpaceFlowLayout.h; path = ../../Views/EqualSpaceFlowLayout.h; sourceTree = "<group>"; };
+		1F5515831CFEF859005B82FA /* EqualSpaceFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EqualSpaceFlowLayout.m; path = ../../Views/EqualSpaceFlowLayout.m; sourceTree = "<group>"; };
+		1F5515861CFF07A1005B82FA /* Pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Pic.png; path = Meet/Views/Pic.png; sourceTree = "<group>"; };
 		1FA4E58F1CFDF91F002345C1 /* InterestCollectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestCollectView.h; sourceTree = "<group>"; };
 		1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestCollectView.m; sourceTree = "<group>"; };
 		1FA4E5921CFDF931002345C1 /* NSString+StringSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSize.h"; sourceTree = "<group>"; };
@@ -144,6 +150,8 @@
 		1FC2C14B1CFD3583001D6D10 /* NSDateFormatter+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Category.m"; sourceTree = "<group>"; };
 		1FC2C14D1CFD362B001D6D10 /* UIViewController+hideExcessLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+hideExcessLine.h"; sourceTree = "<group>"; };
 		1FC2C14E1CFD362B001D6D10 /* UIViewController+hideExcessLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+hideExcessLine.m"; sourceTree = "<group>"; };
+		1FCAA9881CFF200900C84ED2 /* UIViewController+ScrollingNavbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ScrollingNavbar.h"; sourceTree = "<group>"; };
+		1FCAA9891CFF200900C84ED2 /* UIViewController+ScrollingNavbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ScrollingNavbar.m"; sourceTree = "<group>"; };
 		DA018ED91CD1BCD90051D2D7 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		DA018EDA1CD1BCD90051D2D7 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		DA018F251CD38AEF0051D2D7 /* MeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeViewController.h; sourceTree = "<group>"; };
@@ -384,6 +392,17 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		1F5515851CFEF8A5005B82FA /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				1F5515821CFEF859005B82FA /* EqualSpaceFlowLayout.h */,
+				1F5515831CFEF859005B82FA /* EqualSpaceFlowLayout.m */,
+				1FCAA9881CFF200900C84ED2 /* UIViewController+ScrollingNavbar.h */,
+				1FCAA9891CFF200900C84ED2 /* UIViewController+ScrollingNavbar.m */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		5AF50953ADC31DBA8A53F5F5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -437,6 +456,7 @@
 		DA36264B1CD1A75C00A8AE39 = {
 			isa = PBXGroup;
 			children = (
+				1F5515861CFF07A1005B82FA /* Pic.png */,
 				DA36267A1CD1A98E00A8AE39 /* ViewControllers */,
 				DA36267B1CD1A98E00A8AE39 /* Views */,
 				DA3626751CD1A98E00A8AE39 /* Model */,
@@ -490,6 +510,7 @@
 		DA3626701CD1A98E00A8AE39 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				1F5515851CFEF8A5005B82FA /* Other */,
 				1F4E43651CFC56AE00730DEA /* Category */,
 				DA3626711CD1A98E00A8AE39 /* AppData.h */,
 				DA3626721CD1A98E00A8AE39 /* AppData.m */,
@@ -953,6 +974,7 @@
 				DA4A88F81CDB2BFD00649983 /* LabelAndTextFieldCell.xib in Resources */,
 				DAF5C8BB1CE6D6AD00DA7901 /* README.txt in Resources */,
 				DA3626621CD1A75C00A8AE39 /* Main.storyboard in Resources */,
+				1F5515871CFF07A1005B82FA /* Pic.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1046,6 +1068,7 @@
 				DAF5C8A01CE6191000DA7901 /* UIImageView+MHFacebookImageViewer.m in Sources */,
 				DA018F4E1CD4C03B0051D2D7 /* MyPhotoItem.m in Sources */,
 				DAF5C8201CE0D0ED00DA7901 /* WXAccessModel.m in Sources */,
+				1F5515841CFEF859005B82FA /* EqualSpaceFlowLayout.m in Sources */,
 				DAF5C8BC1CE6D6AD00DA7901 /* NSObject+RMArchivable.m in Sources */,
 				DAF5C8541CE5A5C100DA7901 /* UIView+frameAdjust.m in Sources */,
 				DAF5C8841CE5B95000DA7901 /* CoreTextLinkData.m in Sources */,
@@ -1091,6 +1114,7 @@
 				DA018F271CD38AEF0051D2D7 /* MeViewController.m in Sources */,
 				1F55157E1CFEEFE5005B82FA /* InterestCollectViewCell.m in Sources */,
 				DA6B1C561CEC4DAC0020021D /* HomeBaseViewController.m in Sources */,
+				1FCAA98A1CFF200900C84ED2 /* UIViewController+ScrollingNavbar.m in Sources */,
 				DA6CEEF21CD9EF9D00EEABFF /* CellButton.m in Sources */,
 				DA6B1C521CEC4DAC0020021D /* FristHomeViewController.m in Sources */,
 				DAF5C8C91CE6F3EB00DA7901 /* MyPhotosViewController.m in Sources */,

@@ -32,9 +32,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title =  @"我";
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    self.navigationController.navigationBar.barTintColor = NAVIGATION_BAR_COLOR;
+//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+//    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+//    self.navigationController.navigationBar.barTintColor = NAVIGATION_BAR_COLOR;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutAction:) name:@"UserLogoutNotification" object:nil];
     
     if (IOS_7LAST) {

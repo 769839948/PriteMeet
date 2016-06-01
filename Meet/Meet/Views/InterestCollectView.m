@@ -22,6 +22,7 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
         _interstArray = [[NSMutableArray alloc] init];
         self.backgroundColor = [UIColor whiteColor];
         [self registerClass:[InterestCollectViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+        self.scrollEnabled = NO;
         self.delegate = self;
         self.dataSource = self;
     }
@@ -100,7 +101,7 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
 -(CGFloat)cellWidth:(NSString *)itemString
 {
     CGFloat cellWidth;
-    cellWidth = [itemString widthWithFont:[UIFont systemFontOfSize:18.0] constrainedToHeight:27];
+    cellWidth = [itemString widthWithFont:[UIFont systemFontOfSize:13.0] constrainedToHeight:18] + 18;
     return cellWidth;
 }
 

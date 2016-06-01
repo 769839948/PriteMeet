@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EqualSpaceFlowLayout.h"
 
-@interface InterestCollectView : UICollectionView<UICollectionViewDataSource,UICollectionViewDelegate>
+@interface InterestCollectView : UICollectionView<UICollectionViewDataSource,UICollectionViewDelegate,EqualSpaceFlowLayoutDelegate>
 
 @property (nonatomic, copy) NSMutableArray *interstArray;
 

@@ -11,6 +11,7 @@
 #import "ManListCell.h"
 #import "WeChatResgisterViewController.h"
 #import "NSString+StringSize.h"
+#import "UIViewController+ScrollingNavbar.h"
 
 @interface FristHomeViewController ()<UIGestureRecognizerDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -52,18 +53,32 @@
 
 - (void)setUpNavigationBar
 {
+    
+    self.navigationItem.titleView = [self titleView];
     self.navigationItem.title = @"Meet";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"筛选" style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick:)];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_filter"] style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick:)];
+    if (IOS_7LAST) {
+        self.navigationController.navigationBar.translucent = NO;
+    }
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"个人资料" style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick:)];
+}
+
+- (UIView *)titleView
+{
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 70, 25)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:titleView.frame];
+    imageView.image = [UIImage imageNamed:@"navigationbar_title"];
+    [titleView addSubview:imageView];
+    return titleView;
 }
 
 - (void)setUpBottonView
 {
-    _bottomView = [[UIView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width - 84, [[UIScreen mainScreen] bounds].size.height - 74 , 56, 54)];
+    _bottomView = [[UIView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width - 84, [[UIScreen mainScreen] bounds].size.height - 74, 56, 54)];
     [_bottomView addSubview:[self myMeetBt:CGRectMake(0, 0, 54, 54)]];
     [_bottomView addSubview:[self myMeetNumber:CGRectMake(_bottomView.frame.size.width - 18, 0, 18, 18)]];
     NSLog(@"%f",[[UIScreen mainScreen] bounds].size.height);
-    [self.view addSubview:_bottomView];
+    [[UIApplication sharedApplication].keyWindow addSubview:_bottomView];
 }
 
 - (UIButton *)myMeetBt:(CGRect)frame
@@ -93,12 +108,13 @@
 {
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    [self followScrollView:_tableView];
     _tableView.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:251.0/255.0 blue:251.0/255.0 alpha:1.0];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tableView];
 }
 #pragma mark - NavigationBarButtonClick
-- (void)leftItemClick:(UIBarButtonItem *)sender
+- (IBAction)leftItemClick:(UIBarButtonItem *)sender
 {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"筛选" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"智能推荐",@"离我最近", nil];
     [actionSheet showInView:self.view];
@@ -114,15 +130,15 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat height;
-    NSArray *array = @[@"旅行顾问",@"创意总监",@"谈判专家",@"顾问",@"测试一下",@"come on"];
+    NSArray *array = @[@"培养功夫",@"体态训练",@"金牌得主",@"私教",@"杨氏太极第六代"];
     NSString *instresTitleString = @"  ";
     for (NSString *instrestTitle in array) {
         instresTitleString = [instresTitleString stringByAppendingString:instrestTitle];
         instresTitleString = [instresTitleString stringByAppendingString:@"  "];
     }
-    float instrestHeight = [instresTitleString heightWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:20.0f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
+    float instrestHeight = [instresTitleString heightWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:24.0f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
     
-    float titleHeight = [@"陈涛 美匠科技联合创始人这是一条测试数据来看看会不会换行" heightWithFont:[UIFont fontWithName:@"PingFangSC-Regular" size:22.55f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
+    float titleHeight = [@"叶泳湘 杨氏太极第六代女传人 国际武术金牌" heightWithFont:[UIFont fontWithName:@"PingFangSC-Regular" size:22.55f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
     //    NSString *reuseIdentifier = cellIndef;
     //    MainTableViewCell *cell = [self.offscreenCells objectForKey:reuseIdentifier];
     //    if (!cell) {
@@ -136,7 +152,7 @@
     ////        [cell layoutIfNeeded];
     //        height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
     //    }
-    height = instrestHeight + titleHeight + 320 - 30 - 27;
+    height = instrestHeight + titleHeight + 320 - 30 - 27 - 200 + ([[UIScreen mainScreen] bounds].size.width - 20)*200/355;
     return height;
     //    return 360;
 }
@@ -169,7 +185,7 @@
     if (cell == nil) {
         cell = [[ManListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndef];
     }
-    [cell configCell:@"陈涛 美匠科技联合创始人这是一条测试数据来看看会不会换行" array:@[@"旅行顾问",@"创意总监",@"谈判专家",@"顾问",@"测试一下",@"come on"] string:@"62人想见   和你相隔 820M"];
+    [cell configCell:@"叶泳湘 杨氏太极第六代女传人 国际武术金牌" array:@[@"培养功夫",@"体态训练",@"金牌得主",@"私教",@"杨氏太极第六代"] string:@"92人想见   和你相隔 820M "];
     return cell;
 }
 

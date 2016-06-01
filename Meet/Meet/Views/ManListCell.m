@@ -10,8 +10,9 @@
 #import "InterestCollectView.h"
 #import "Masonry.h"
 #import "NSString+StringSize.h"
+#import "EqualSpaceFlowLayout.h"
 
-@interface ManListCell ()
+@interface ManListCell ()<EqualSpaceFlowLayoutDelegate>
 
 @property (nonatomic, strong) UIView *showdowView;
 @property (nonatomic, strong) UIView *personalView;
@@ -26,8 +27,6 @@
 @property (nonatomic, strong) UILabel *bottomLine;
 
 @property (nonatomic, assign) BOOL didSetupConstraints;
-
-@property (nonatomic, strong)UICollectionViewFlowLayout *flowLayout;
 
 @end
 
@@ -57,7 +56,7 @@
     
     
     _photoImage = [[UIImageView alloc] init];
-    _photoImage.backgroundColor = [UIColor blackColor];
+//    _photoImage.backgroundColor = [UIColor blackColor];
     _photoImage.image = [UIImage imageNamed:@"Pic"];
     [_personalView addSubview:_photoImage];
     
@@ -88,11 +87,10 @@
     [_personalView addSubview:_ageNumber];
     
     //确定是水平滚动，还是垂直滚动
-    self.flowLayout=[[UICollectionViewFlowLayout alloc] init];
-    self.flowLayout.estimatedItemSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width - 20, 27);
+    EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] init];
     
-    [self.flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    _interestView = [[InterestCollectView alloc] initWithFrame:CGRectZero collectionViewLayout:self.flowLayout];
+    _interestView = [[InterestCollectView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+    flowLayout.delegate = _interestView;
     //    [_interestView setCollectViewData:@[@"旅行顾问",@"创意总监",@"谈判专家",@"顾问"]];
     [_personalView addSubview:_interestView];
     [self updateConstraints];
@@ -106,11 +104,11 @@
     NSString *instresTitleString = @"  ";
     for (NSString *instrestTitle in array) {
         instresTitleString = [instresTitleString stringByAppendingString:instrestTitle];
-        instresTitleString = [instresTitleString stringByAppendingString:@"  "];
+        instresTitleString = [instresTitleString stringByAppendingString:@"   "];
     }
-    float instrestHeight = [title heightWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:20.0f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
-    float height = [self.flowLayout collectionViewContentSize].height;
-    NSLog(@"---------%f",height);
+    float instrestHeight = [title heightWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:21.0f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
+//    float height = [flowLayout collectionViewContentSize].height;
+//    NSLog(@"---------%f",height);
     
     float titleHeight = [title heightWithFont:HomeViewNameFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
     __weak typeof(self) weakSelf = self;
@@ -129,7 +127,7 @@
             make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(14);
             make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-14);
             make.bottom.mas_equalTo(weakSelf.personalView.mas_bottom).offset(-14);
-            make.height.offset(instrestHeight + 5);
+            make.height.offset(instrestHeight);
         }];
         [self updateConstraints];
     }
@@ -172,7 +170,7 @@
             make.top.mas_equalTo(weakSelf.personalView.mas_top).offset(0);
             make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(0);
             make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(0);
-            make.height.offset(200);
+            make.height.offset(([[UIScreen mainScreen] bounds].size.width - 20)*200/355);
         }];
         
         [_ageNumber mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -202,7 +200,7 @@
             make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(17);
             make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(14);
             make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-14);
-            make.bottom.mas_equalTo(weakSelf.personalView.mas_bottom).offset(-14);
+            make.bottom.mas_equalTo(weakSelf.personalView.mas_bottom).offset(-17);
             make.height.offset(27);
         }];
         

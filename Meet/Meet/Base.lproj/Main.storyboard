@@ -170,8 +170,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Meet" id="L9c-eR-gZx">
-                        <barButtonItem key="leftBarButtonItem" title="筛选" id="q7d-X6-GMx"/>
-                        <barButtonItem key="rightBarButtonItem" title="个人信息" id="1TM-ol-1u5">
+                        <barButtonItem key="leftBarButtonItem" image="navigationbar_filter" id="q7d-X6-GMx">
+                            <color key="tintColor" red="0.090952557743497711" green="0.094117647058823528" blue="0.093350662235280088" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="leftItemClick:" destination="V0u-Ua-dmJ" id="2KO-cB-isI"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="Icon_User" id="1TM-ol-1u5">
+                            <color key="tintColor" red="0.094117647058823528" green="0.094117647058823528" blue="0.094117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="eL6-J4-zfW" kind="push" id="Dr4-PJ-RSS"/>
                             </connections>
@@ -432,15 +438,15 @@
                         <viewControllerLayoutGuide type="bottom" id="S2m-KT-sKc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="10z-7z-Zje">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="84" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dXe-pA-4FZ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="84" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dXe-pA-4FZ">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MeInfoIdentifierCell" rowHeight="84" id="l7B-Vk-ACb">
-                                        <rect key="frame" x="0.0" y="92" width="320" height="84"/>
+                                        <rect key="frame" x="0.0" y="28" width="320" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l7B-Vk-ACb" id="45b-TE-jp4">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="83.5"/>
@@ -495,7 +501,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="peopleIDIdentifier" rowHeight="66" id="Xty-Ls-wzp">
-                                        <rect key="frame" x="0.0" y="176" width="320" height="66"/>
+                                        <rect key="frame" x="0.0" y="112" width="320" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xty-Ls-wzp" id="w8H-bR-N8J">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="65.5"/>
@@ -562,6 +568,7 @@
                             <constraint firstAttribute="bottom" secondItem="dXe-pA-4FZ" secondAttribute="bottom" id="l38-au-hjg"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="lWg-rL-Gfu"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
@@ -742,6 +749,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Icon_User" width="18" height="20"/>
+        <image name="navigationbar_filter" width="22" height="18"/>
         <image name="tabbar_ discover_HL" width="23" height="23"/>
         <image name="tabbar_discover" width="23" height="23"/>
         <image name="tabbar_me" width="23" height="23"/>

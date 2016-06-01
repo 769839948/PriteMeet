@@ -10,5 +10,6 @@
 
 
 @interface FristHomeViewController : UIViewController///////第一版时用的界面
+- (IBAction)leftItemClick:(UIBarButtonItem *)sender;
 
 @end
