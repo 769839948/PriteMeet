@@ -232,12 +232,7 @@
     CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
     if (translation.y < 0)
     {
-        [_bottomView beginAnimations:@"HideArrow" context:nil];
-        [_bottomView setAnimationCurve:UIViewAnimationCurveEaseOut];
-        [_bottomView setAnimationDuration:1.0];
-        [_bottomView setAnimationDelay:1.0];
-        arrow.alpha = 1.0;
-        [UIView commitAnimations];
+        _bottomView.hidden = YES;
     }else if(translation.y > 0){
         _bottomView.hidden = NO;
     }else{
