@@ -38,7 +38,7 @@
 - (float)delayDistance { return [objc_getAssociatedObject(self, @selector(delayDistance)) floatValue]; }
 
 
-- (void)followScrollView:(UIView*)scrollableView
+- (void)followScrollView:(UIView *)scrollableView
 {
 	[self followScrollView:scrollableView withDelay:0];
 }

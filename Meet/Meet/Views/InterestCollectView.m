@@ -31,12 +31,18 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
 
 - (void)setCollectViewData:(NSArray *)array;
 {
+    _edgX = 0;
     if (_interstArray.count == 0) {
         _interstArray = [array mutableCopy];
         [self reloadData];
     }
     float height = [self.collectionViewLayout collectionViewContentSize].height;
     NSLog(@"---------%f",height);
+}
+
+- (void)setEdgX:(CGFloat)edgX
+{
+    _edgX = edgX;
 }
 
 - (NSInteger)numberOfSections
@@ -84,12 +90,17 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
 //定义每个UICollectionView 的 margin
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
+    
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 6;
+    if (_edgX == 0) {
+        return 6;
+    }else{
+        return _edgX;
+    }
 }
 
 //每个item之间的间距

@@ -17,6 +17,7 @@
 
 
 + (void)customNavigationBackButtonAndTitle:(NSString *)title forController:(UIViewController *)controller;
++ (void)customNavigationBackButtonForController:(UIViewController *)controller action:(SEL)select normalImage:(UIImage *)normalImage selectImage:(UIImage *)selectImage;
 
 + (void)customNavigationLeftBarButtonForController:(UIViewController *)controller action:(SEL)select;
 - (void)customNavigationLeftBarButtonForController:(UIViewController *)controller;/////has pop method in self from appdelegate

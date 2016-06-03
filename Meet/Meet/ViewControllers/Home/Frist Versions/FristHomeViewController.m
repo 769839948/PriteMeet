@@ -12,6 +12,7 @@
 #import "WeChatResgisterViewController.h"
 #import "NSString+StringSize.h"
 #import "UIViewController+ScrollingNavbar.h"
+#import "Meet-Swift.h"
 
 @interface FristHomeViewController ()<UIGestureRecognizerDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -27,8 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpTableView];
-    [self setUpBottonView];
     [self setUpNavigationBar];
+    
 }
 
 - (void)loadNewData {
@@ -36,6 +37,19 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.tableView.mj_header endRefreshing];
     });
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self setUpBottonView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.bottomView removeFromSuperview];
+    [super viewWillDisappear:animated];
+    [self showNavBarAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,7 +70,17 @@
     
     self.navigationItem.titleView = [self titleView];
     self.navigationItem.title = @"Meet";
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_filter"] style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick:)];
+    UIButton *fillteBt = [UIButton buttonWithType:UIButtonTypeCustom];
+    [fillteBt setImage:[UIImage imageNamed:@"navigationbar_fittle"] forState:UIControlStateNormal];
+    [fillteBt setFrame:CGRectMake(0, 0, 40, 40)];
+    [fillteBt addTarget:self action:@selector(leftItemClick:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftBarItem = [[UIBarButtonItem alloc] initWithCustomView:fillteBt];
+    self.navigationItem.leftBarButtonItem = leftBarItem;
+//    let uploadBt = UIButton(type: UIButtonType.Custom)
+//    uploadBt.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+//    uploadBt.setImage(UIImage(named: "navigationbar_upload"), forState: UIControlState.Normal)
+//    uploadBt.frame = CGRectMake(0, 0, 40, 40);
+//    let uploadItem = UIBarButtonItem(customView: uploadBt)
     if (IOS_7LAST) {
         self.navigationController.navigationBar.translucent = NO;
     }
@@ -86,6 +110,8 @@
     UIButton *meetBt = [UIButton buttonWithType:UIButtonTypeCustom];
     meetBt.frame = frame;
     meetBt.layer.cornerRadius = frame.size.width/2;
+//    [meetBt setBackgroundImage:[UIImage imageNamed:@"meet_order"] forState:UIControlStateNormal];
+    [meetBt setImage:[UIImage imageNamed:@"meet_order"] forState:UIControlStateNormal];
     meetBt.layer.backgroundColor = [[UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0] CGColor];
     
     return meetBt;
@@ -109,7 +135,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self followScrollView:_tableView];
-    _tableView.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:251.0/255.0 blue:251.0/255.0 alpha:1.0];
+    _tableView.backgroundColor = [UIColor colorWithHexString:TableViewBackGroundColor];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tableView];
 }
@@ -194,15 +220,32 @@
     if ([AppData shareInstance].isLogin) {
         
     } else {
-//        UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Login" bundle:[NSBundle mainBundle]];
-//        WeChatResgisterViewController *resgisterVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"WeChatResgisterNavigation"];
-//        [self presentViewController:resgisterVC animated:YES completion:^{
-//            
-//        }];
+        MeetDetailViewController *meetDetailView = [[MeetDetailViewController alloc] init];
+        [meetDetailView showNavbar];
+        [self.navigationController pushViewController:meetDetailView animated:YES];
     }
 }
 
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
+    if (translation.y < 0)
+    {
+        [_bottomView beginAnimations:@"HideArrow" context:nil];
+        [_bottomView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        [_bottomView setAnimationDuration:1.0];
+        [_bottomView setAnimationDelay:1.0];
+        arrow.alpha = 1.0;
+        [UIView commitAnimations];
+    }else if(translation.y > 0){
+        _bottomView.hidden = NO;
+    }else{
+        
+    }
+}
+
+    
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {

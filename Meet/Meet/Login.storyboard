@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -273,7 +273,9 @@
                             <constraint firstItem="FrC-sO-j2M" firstAttribute="top" secondItem="cvL-Ke-Eqi" secondAttribute="bottom" id="L6S-Lv-C7C"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="JYW-me-R4Y"/>
+                    <navigationItem key="navigationItem" id="JYW-me-R4Y">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="2NM-kj-PsK"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="scrollView" destination="cvL-Ke-Eqi" id="04L-2K-P9N"/>
                     </connections>
@@ -306,12 +308,12 @@
             </objects>
             <point key="canvasLocation" x="2291" y="542"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Login Navigation Controller-->
         <scene sceneID="bYF-Tt-rxt">
             <objects>
-                <navigationController storyboardIdentifier="loginMainNavigation" automaticallyAdjustsScrollViewInsets="NO" id="BvB-Xh-kA4" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="loginMainNavigation" automaticallyAdjustsScrollViewInsets="NO" id="BvB-Xh-kA4" userLabel="Login Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackTranslucent" id="TEV-5c-CXy">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TEV-5c-CXy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -322,7 +324,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CY8-Z3-KXF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1395" y="542"/>
+            <point key="canvasLocation" x="1468" y="542"/>
         </scene>
         <!--We Chat Resgister View Controller-->
         <scene sceneID="VPG-gz-71g">
@@ -425,8 +427,15 @@
                             <outletCollection property="gestureRecognizers" destination="F6d-Mm-QYL" appends="YES" id="vGa-az-OKz"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" id="a4u-DQ-J0v"/>
+                    <navigationItem key="navigationItem" id="a4u-DQ-J0v">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="TBk-We-fhF">
+                            <connections>
+                                <action selector="backAction:" destination="DsA-Qk-f5l" id="2ZI-tH-hgi"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="checkField" destination="wCN-BF-YbP" id="xSh-nJ-zBJ"/>
                         <segue destination="OmV-lt-3zT" kind="push" identifier="pushToWXLogin" id="Z4x-vO-Bea"/>
                     </connections>
                 </viewController>
@@ -512,9 +521,9 @@
         <!--Navigation Controller-->
         <scene sceneID="DdW-R9-EWd">
             <objects>
-                <navigationController storyboardIdentifier="WeChatResgisterNavigation" automaticallyAdjustsScrollViewInsets="NO" id="cXe-Bo-bd9" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="weChatResgisterNavigation" automaticallyAdjustsScrollViewInsets="NO" id="cXe-Bo-bd9" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="v61-TK-9PU">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="v61-TK-9PU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -532,6 +541,6 @@
         <image name="weChat" width="44" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rc7-iO-4g4"/>
+        <segue reference="6et-L1-Js4"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -20,6 +20,9 @@
 #import "UITools.h"
 #import "AppDelegate.h"
 #import "UIView+frameAdjust.h"
+#import "UIColor+Hex.h"
+#import "RequestUrl.h"
+#import "EMAlertView.h"
 
 #endif
 

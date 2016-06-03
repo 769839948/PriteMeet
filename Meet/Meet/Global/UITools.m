@@ -38,6 +38,17 @@ static UITools *tools = nil;
     controller.navigationItem.leftBarButtonItem = item;
 }
 
++ (void)customNavigationBackButtonForController:(UIViewController *)controller action:(SEL)select normalImage:(UIImage *)normalImage selectImage:(UIImage *)selectImage
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:controller action:select forControlEvents:UIControlEventTouchUpInside];
+    [button setBackgroundImage:normalImage forState:UIControlStateNormal];
+    [button setBackgroundImage:selectImage forState:UIControlStateSelected];
+    button.frame = CGRectMake(0, 0, 40, 40);
+    controller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:normalImage style:UIBarButtonItemStylePlain target:controller action:select];
+//    controller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+}
+
 + (void)navigationRightBarButtonForController:(UIViewController *)controller action:(SEL)select normalTitle:(NSString *)normal selectedTitle:(NSString *)selected
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];

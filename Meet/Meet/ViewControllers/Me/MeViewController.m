@@ -264,7 +264,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (![AppData shareInstance].isLogin) {
         UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Login" bundle:[NSBundle mainBundle]];
-        WeChatResgisterViewController *resgisterVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"WeChatResgisterNavigation"];
+        UINavigationController *resgisterVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"weChatResgisterNavigation"];
         [self presentViewController:resgisterVC animated:YES completion:^{
             
         }];

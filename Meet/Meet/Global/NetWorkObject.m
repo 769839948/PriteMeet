@@ -31,7 +31,8 @@
                       failure:(void (^)(NSURLSessionDataTask *, NSError *))failure {
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        manager.securityPolicy.allowInvalidCertificates = NO;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.securityPolicy.allowInvalidCertificates = NO;
     manager.requestSerializer.timeoutInterval = 10.0f;
     manager.requestSerializer.HTTPShouldHandleCookies = YES;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -40,6 +41,7 @@
     [acceptContentTypes addObject:@"text/plain"];
     [acceptContentTypes addObject:@"text/html"];
     [acceptContentTypes addObject:@"application/json"];
+    [acceptContentTypes addObject:@"charset=utf-8"];
     manager.responseSerializer.acceptableContentTypes = acceptContentTypes;
     
     NSURLSessionDataTask *stack =  [manager GET:(NSString *)URLString
@@ -50,6 +52,37 @@
     [stack resume];
     return stack;
 }
+
+
++ (NSURLSessionDataTask *)POST:(NSString *)URLString
+                    parameters:(id)parameters
+                      progress:(void (^)(NSProgress *progress))progress
+                       success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+                       failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.securityPolicy.allowInvalidCertificates = NO;
+    manager.requestSerializer.timeoutInterval = 10.0f;
+    manager.requestSerializer.HTTPShouldHandleCookies = YES;
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    NSMutableSet *acceptContentTypes = [NSMutableSet setWithSet:manager.responseSerializer.acceptableContentTypes];
+    [acceptContentTypes addObject:@"text/plain"];
+    [acceptContentTypes addObject:@"text/html"];
+    [acceptContentTypes addObject:@"application/json"];
+    [acceptContentTypes addObject:@"charset=utf-8"];
+    manager.responseSerializer.acceptableContentTypes = acceptContentTypes;
+    
+    NSURLSessionDataTask *stack = [manager POST:(NSString *)URLString
+                                      parameters:(id)parameters
+                                        progress:((void (^)(NSProgress * _Nonnull))progress)
+                                         success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success
+                                         failure:(void (^)(NSURLSessionDataTask * _Nullable, NSError * _Nonnull))failure];
+    [stack resume];
+    return stack;
+}
+
 
 + (NSURLSessionDownloadTask *)downloadTask:(NSString *)URLString
                                   progress:(void (^)(NSProgress *downloadProgress))downloadProgress
@@ -67,7 +100,6 @@
         [downloadTask resume];
     return downloadTask;
 }
-
 
 
 @end

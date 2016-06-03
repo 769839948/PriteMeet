@@ -17,6 +17,8 @@
 #import "NetWorkObject.h"
 #import "UISheetView.h"
 #import "UserInfoDao.h"
+#import "UserInfoViewModel.h"
+
 
 typedef NS_ENUM(NSUInteger, SectonContentType) {
     SectionProfile,
@@ -82,6 +84,8 @@ typedef NS_ENUM(NSUInteger, RowType) {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewConstraint;
 @property (strong, nonatomic) NSMutableArray *photos;
 
+@property (strong, nonatomic) UserInfoViewModel *viewModel;
+
 @end
 
 @implementation MyProfileViewController
@@ -90,8 +94,8 @@ typedef NS_ENUM(NSUInteger, RowType) {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"个人信息";
-    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
-    [UITools navigationRightBarButtonForController:self action:@selector(saveAction:) normalTitle:@"保存" selectedTitle:nil];
+//    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
+//    [UITools navigationRightBarButtonForController:self action:@selector(saveAction:) normalTitle:@"保存" selectedTitle:nil];
     _titleContentArray = @[@"头像",@"真实姓名",@"性别",@"出生日期",@"身高",@"手机号",@"微信号",@"工作生活城市",@"年收入",@"情感状态",@"家乡",@"星座"];
     _dicValues = [NSMutableDictionary dictionary];
     
@@ -110,6 +114,21 @@ typedef NS_ENUM(NSUInteger, RowType) {
         [self downLoadUserWeChatImage];
     }
     [self mappingContentDicValue];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(buttonPress:)];
+    
+    _viewModel = [[UserInfoViewModel alloc] init];
+}
+
+- (void)buttonPress:(UIBarButtonItem *)sebder
+{
+    [_viewModel updateUserInfo:nil success:^(NSDictionary *object) {
+        
+    } fail:^(NSDictionary *object) {
+        
+    } loadingString:^(NSString *str) {
+        
+    }];
 }
 
 - (void)loadPickViewData {

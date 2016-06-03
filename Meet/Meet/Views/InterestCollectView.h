@@ -13,6 +13,8 @@
 
 @property (nonatomic, copy) NSMutableArray *interstArray;
 
+@property (nonatomic, assign) CGFloat edgX;
+
 - (void)setCollectViewData:(NSArray *)array;
 
 @end
