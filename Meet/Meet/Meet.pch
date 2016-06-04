@@ -23,6 +23,9 @@
 #import "UIColor+Hex.h"
 #import "RequestUrl.h"
 #import "EMAlertView.h"
+#import "UIViewController+HUD.h"
+#import "NSObject+PerformSelector.h"
+
 
 #endif
 

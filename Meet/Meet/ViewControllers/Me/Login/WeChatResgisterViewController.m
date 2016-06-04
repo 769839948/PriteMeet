@@ -12,6 +12,7 @@
 #import "WXAccessModel.h"
 #import "WXUserInfo.h"
 #import "LoginViewModel.h"
+#import "WXLoginViewController.h"
 
 //#import <Fabric/Fabric.h>
 //#import <Crashlytics/Crashlytics.h>
@@ -36,6 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _viewModel = [[LoginViewModel alloc] init];
+    checkField.text = @"Z3pavMk";
     // Do any additional setup after loading the view.
     if (IOS_7LAST) {
         self.navigationController.interactivePopGestureRecognizer.delegate = self;
@@ -72,18 +74,28 @@
     }else{
         __weak typeof(self) weakSelf = self;
         [_viewModel checkCode:checkField.text Success:^(NSDictionary *object) {
-            
+            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
             [weakSelf performSegueWithIdentifier:@"pushToWXLogin" sender:self];
         } Fail:^(NSDictionary *object) {
+            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
             [EMAlertView showAlertWithTitle:@"提示" message:@"邀请码错误请重新输入" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
                 
             } cancelButtonTitle:@"确定" otherButtonTitles:nil];
         } showLoding:^(NSString *str) {
-            
+            [self performSelectorOnMainThread:@selector(showHudInView:hint:) withObject:weakSelf.view withObject:str waitUntilDone:YES];
+            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
         }];
     }
     
     
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"pushToWXLogin"]) {
+        WXLoginViewController *wxLoginView = segue.destinationViewController; //获取目的试图控制器对象，跟原来一样，在.m文件中要引入头文件
+        wxLoginView.code = checkField.text;
+    }
 }
 
 - (IBAction)useWeChatLogin:(id)sender {
@@ -107,20 +119,36 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"OldUserLoginWihtWechat" object:nil];
      NSNumber *state = [notification object];
     if (state) {
+        __weak typeof(self) weakSelf = self;
         [_viewModel oldUserLogin:[WXUserInfo shareInstance] Success:^(NSDictionary *object) {
-            [[UserInfo shareInstance] mappingValuesFormWXUserInfo:[WXUserInfo shareInstance]];
-            [[UserInfoDao shareInstance] insertBean:[UserInfo shareInstance]];
-            [[UserInfoDao shareInstance] selectUserInfoWithUserId:[UserInfo shareInstance].userId];/////重新获取到 [UserInfo shareInstance]主要是为了得到idKye
+            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
             
-            [self dismissViewControllerAnimated:YES completion:^{
-                [AppData shareInstance].isLogin = YES;
+            [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
+                [[UserInfo shareInstance] mappingValuesFormWXUserInfo:[WXUserInfo shareInstance]];
+                [[UserInfoDao shareInstance] insertBean:[UserInfo shareInstance]];
+                [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
+                [[UserInfoDao shareInstance] selectUserInfoWithUserId:[UserInfo shareInstance].userId];
+                [self mappingNetData:object];
+                [[UserInfoDao shareInstance] insertBean:[UserInfo shareInstance]];
+                [self dismissViewControllerAnimated:YES completion:^{
+                    [AppData shareInstance].isLogin = YES;
+                    
+                }];
+            } fail:^(NSDictionary *object) {
+                [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
+            } loadingString:^(NSString *str) {
+                
             }];
+            /////重新获取到 [UserInfo shareInstance]主要是为了得到idKye
+            
         } Fail:^(NSDictionary *object) {
+            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
             [EMAlertView showAlertWithTitle:@"提示" message:@"用户不存在请创建" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
                 
             } cancelButtonTitle:@"确定" otherButtonTitles:nil];
         } showLoding:^(NSString *str) {
-            
+            [self performSelectorOnMainThread:@selector(showHudInView:hint:) withObject:weakSelf.view withObject:str waitUntilDone:YES];
+
         }];
 //        NSString *unionid = [WXUserInfo shareInstance].unionid;
 //        ////判断是不是真的是老用户，此微信号是否真的注册过！！
@@ -134,6 +162,23 @@
     }
 }
 
+- (void)mappingNetData:(NSDictionary *)dic
+{
+//    [UserInfo shareInstance].headimgurl = [dic objectForKey:@"avatar"];
+//    [UserInfo shareInstance].brithday = [dic objectForKey:@"birthday"];
+//    [UserInfo shareInstance].constellation = [dic objectForKey:@"constellation"];
+//    [UserInfo shareInstance].sex = [dic objectForKey:@"gender"];
+//    [UserInfo shareInstance].eMail = [dic objectForKey:@"eMail"];
+//    [UserInfo shareInstance].height = [dic objectForKey:@"height"];
+//    [UserInfo shareInstance].workCity = [dic objectForKey:@"workCity"];
+//    [UserInfo shareInstance].income = [dic objectForKey:@"income"];
+//    [UserInfo shareInstance].city = [dic objectForKey:@"location"];
+//    [UserInfo shareInstance].phoneNo = [dic objectForKey:@"mobile_num"];
+//    [UserInfo shareInstance].name = [dic objectForKey:@"real_name"];
+//    [UserInfo shareInstance].WX_No = [dic objectForKey:@"weixin_num"];
+    UserInfo *useriNfo = [UserInfo shareInstance];
+    NSLog(@"");
+}
 
 #pragma mark - sender to WeChat
 -(void)sendAuthRequest {
@@ -164,8 +209,10 @@
 
 - (BOOL)isEmpty
 {
+    
     BOOL ret = NO;
     if (checkField.text.length == 0) {
+    
         ret = YES;
     }
     return ret;

@@ -10,5 +10,6 @@
 
 @interface WeChatResgisterViewController : UIViewController
 
+@property (nonatomic, strong) NSString *string;
 
 @end

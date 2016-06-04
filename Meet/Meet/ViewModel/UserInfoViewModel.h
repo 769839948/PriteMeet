@@ -15,4 +15,13 @@
                   fail:(Fail)failBlock
          loadingString:(LoadingView)loading;
 
+- (void)getUserInfo:(NSString *)openId
+               success:(Success)successBlock
+                  fail:(Fail)failBlock
+         loadingString:(LoadingView)loading;
+
+- (void)uploadImage:(UIImage *)image openId:(NSString *)openId
+            success:(Success)successBlock
+               fail:(Fail)failBlock
+      loadingString:(LoadingView)loading;
 @end

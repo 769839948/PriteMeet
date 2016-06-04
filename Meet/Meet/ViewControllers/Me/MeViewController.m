@@ -16,6 +16,8 @@
 #import "SendInviteViewController.h"
 #import "SetingViewController.h"
 #import "WeChatResgisterViewController.h"
+#import "UserInfoViewModel.h"
+
 
 @interface MeViewController () <UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource> {
     NSMutableArray *_imagesArray;
@@ -23,7 +25,7 @@
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (nonatomic, strong) UserInfoViewModel *viewModel;
 
 @end
 
@@ -43,9 +45,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadTableViewCell:) name:FRIST_LOGIN_NOTIFICATION_Key object:nil];
 
     _imagesArray = [NSMutableArray array];
-    
     [self loadHeadImageView];
     [self checkDocumentGetSmallImagesAndUpdate];
+    _viewModel = [[UserInfoViewModel alloc] init];
+    
 }
 
 - (void)updateHeadTableViewCell:(NSNotification *)notification {

@@ -47,8 +47,8 @@
     _imagesNameArray = [NSMutableArray array];
 //    imageDocument = FORMAT(@"image%@",[UserInfo shareInstance].userId);
     
-    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
-    [UITools navigationRightBarButtonForController:self action:@selector(editAction:) normalTitle:@"编辑" selectedTitle:@"完成"];
+//    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
+//    [UITools navigationRightBarButtonForController:self action:@selector(editAction:) normalTitle:@"编辑" selectedTitle:@"完成"];
     _smallImageDocumetPath = [[AppData shareInstance] getCachesSmallImageWithImageIndexPath:_selectIndexPath];
     _bigImageDocumetPath = [[AppData shareInstance] getCachesBigImageWithImageIndexPath:_selectIndexPath];
     

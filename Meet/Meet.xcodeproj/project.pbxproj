@@ -29,6 +29,7 @@
 		1F6850981D000642007F3C07 /* HYBLoopScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6850921D000642007F3C07 /* HYBLoopScrollView.m */; };
 		1F6850991D000642007F3C07 /* HYBPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6850941D000642007F3C07 /* HYBPageControl.m */; };
 		1F68509A1D000642007F3C07 /* UIView+HYBUIViewCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6850961D000642007F3C07 /* UIView+HYBUIViewCommon.m */; };
+		1F6E8BE51D0276C00044CD40 /* NSObject+PerformSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E8BE41D0276C00044CD40 /* NSObject+PerformSelector.m */; };
 		1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */; };
 		1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5931CFDF931002345C1 /* NSString+StringSize.m */; };
 		1FC2C1451CFD3311001D6D10 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C1421CFD3311001D6D10 /* NSString+Utils.m */; };
@@ -194,6 +195,8 @@
 		1F6850941D000642007F3C07 /* HYBPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYBPageControl.m; sourceTree = "<group>"; };
 		1F6850951D000642007F3C07 /* UIView+HYBUIViewCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+HYBUIViewCommon.h"; sourceTree = "<group>"; };
 		1F6850961D000642007F3C07 /* UIView+HYBUIViewCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HYBUIViewCommon.m"; sourceTree = "<group>"; };
+		1F6E8BE31D0276C00044CD40 /* NSObject+PerformSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+PerformSelector.h"; sourceTree = "<group>"; };
+		1F6E8BE41D0276C00044CD40 /* NSObject+PerformSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+PerformSelector.m"; sourceTree = "<group>"; };
 		1FA4E58F1CFDF91F002345C1 /* InterestCollectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestCollectView.h; sourceTree = "<group>"; };
 		1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestCollectView.m; sourceTree = "<group>"; };
 		1FA4E5921CFDF931002345C1 /* NSString+StringSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSize.h"; sourceTree = "<group>"; };
@@ -461,6 +464,8 @@
 				1FDA53A51D003DC800C170BC /* UIColor+Hex.m */,
 				1FCAFFCA1D012B6900BF53A1 /* UIViewController+NavigationItemColor.h */,
 				1FCAFFCB1D012B6900BF53A1 /* UIViewController+NavigationItemColor.m */,
+				1F6E8BE31D0276C00044CD40 /* NSObject+PerformSelector.h */,
+				1F6E8BE41D0276C00044CD40 /* NSObject+PerformSelector.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1278,6 +1283,7 @@
 				DAF5C7F91CDF479C00DA7901 /* NetWorkObject.m in Sources */,
 				DA41592B1CECA057006970DF /* MoreDescriptionModel.m in Sources */,
 				1F6850201CFFD3D2007F3C07 /* MeetDetailViewController.swift in Sources */,
+				1F6E8BE51D0276C00044CD40 /* NSObject+PerformSelector.m in Sources */,
 				DABF8AEC1CE9B7BD00CA2A1D /* WillAllowViewColler.m in Sources */,
 				DABF8B0A1CEB22A100CA2A1D /* UserProtocolViewController.m in Sources */,
 				DAF5C8861CE5B95000DA7901 /* CTFrameParser.m in Sources */,

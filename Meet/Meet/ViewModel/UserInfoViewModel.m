@@ -11,13 +11,16 @@
 
 @implementation UserInfoViewModel
 
-- (void)updateUserInfo:(UserInfo *)model
+- (void)updateUserInfo:(UserInfo *)userInfo
                success:(Success)successBlock
                   fail:(Fail)failBlock
                     loadingString:(LoadingView)loading
 {
-    NSDictionary *parameters = @{@"openid":@"WXUserInfo.openid",@"nickname":@"ceshi shuxi",@"sex":@"WXUserInfo.sex",@"head_img_url":@"http://rd.wechat.com/redirect/confirm?block_type=26&url=http%3A%2F%2F7xsatk.com1.z0.glb.clouddn.com%2Fe07ffb0def9cbefd97e2b177e914390b.jpg%3FimageMogr%2Fv2%2Fthumbnail%2F913x651&version=11020201&devicetype=iMac+MacBookPro12%2C1+OSX+OSX+10.11.5+build(15F34)&lang=en&scene=0&pass_ticket=k3dIY9RdsxdpRp6ASoS5R3cMveV2R22iNyn%2BWPPV%2BYOQsNw6OX6GmH%2F7GauDDZzx",@"union_id":@"WXUserInfo.unionid",@"province":@"WXUserInfo.province",@"city":@"WXUserInfo.city",@"country":@"WXUserInfo.country"};
-    [self.manager POST:RequestUpdateUser parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+//    loading(@"更新个人资料");
+    NSDictionary *parameters = @{@"openid":userInfo.userId,@"nickname":userInfo.name,@"gender":userInfo.sex,@"head_img_url":userInfo.headimgurl,@"province":userInfo.country,@"city":userInfo.city,@"income":userInfo.income,@"height":userInfo.height,@"birthday":userInfo.brithday,@"mobile_num":userInfo.phoneNo,@"weixin_num":userInfo.WX_No,@"hometown":userInfo.home,@"industry_id":userInfo.country,@"affection":userInfo.state,@"real_name":userInfo.name};
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestUpdateUser];
+
+    [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
@@ -29,6 +32,51 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failBlock(@{@"error":@"error"});
     }];
+}
+
+- (void)getUserInfo:(NSString *)openId
+            success:(Success)successBlock
+               fail:(Fail)failBlock
+      loadingString:(LoadingView)loading
+{
+    loading(@"获取个人信息中");
+    NSDictionary *parameters = @{@"openId":openId};
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestGetUserInfo];
+
+    [self.manager GET:url parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([[responseObject objectForKey:@"success"] boolValue]) {
+            successBlock(responseObject);
+        }else{
+            failBlock(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failBlock(@{@"":@""});
+    }];
+}
+
+- (void)uploadImage:(UIImage *)image openId:(NSString *)openId
+            success:(Success)successBlock
+               fail:(Fail)failBlock
+      loadingString:(LoadingView)loading
+{
+    loading(@"用户信息保存中");
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUploadUserPhoto,openId];
+
+//    NSString *url = [RequestUploadUserPhoto stringByAppendingString:openId];
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+    
+    [self.manager POST:url parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [formData appendPartWithFileData:imageData name:@"avatar" fileName:@"123456.jpg" mimeType:@"image/png"];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        successBlock(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failBlock(@{@"error":@"上传失败"});
+    }];
+
 }
 
 @end

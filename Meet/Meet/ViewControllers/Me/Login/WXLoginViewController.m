@@ -67,7 +67,8 @@
     NSNumber *state = [notification object];
     if (state.intValue) {
         __weak typeof(self) weakSelf = self;
-        [_viewModel postWXUserInfo:[WXUserInfo shareInstance] Success:^(NSDictionary *object) {
+        [_viewModel postWXUserInfo:[WXUserInfo shareInstance] withCode:self.code Success:^(NSDictionary *object) {
+            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
             [[UserInfo shareInstance] mappingValuesFormWXUserInfo:[WXUserInfo shareInstance]];
             [AppData shareInstance].isLogin = YES;
             [[UserInfoDao shareInstance] insertBean:[UserInfo shareInstance]];
@@ -77,9 +78,19 @@
             myProfileVC.isFristLogin = YES;
             [weakSelf.navigationController pushViewController:myProfileVC animated:YES];
         } Fail:^(NSDictionary *object) {
-            
+            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
+            if ([[object objectForKey:@"error"] isEqualToString:@"oldUser"]) {
+                [[UserInfo shareInstance] mappingValuesFormWXUserInfo:[WXUserInfo shareInstance]];
+                [AppData shareInstance].isLogin = YES;
+                [[UserInfoDao shareInstance] insertBean:[UserInfo shareInstance]];
+                [[UserInfoDao shareInstance] selectUserInfoWithUserId:[WXUserInfo shareInstance].unionid];/////获取到 [UserInfo shareInstance]的idKye 以后保存需要
+                UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
+                MyProfileViewController *myProfileVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"MyProfileViewController"];
+                myProfileVC.isFristLogin = YES;
+                [weakSelf.navigationController pushViewController:myProfileVC animated:YES];
+            }
         } showLoding:^(NSString *str) {
-            
+            [self performSelectorOnMainThread:@selector(showHudInView:hint:) withObject:weakSelf.view withObject:str waitUntilDone:YES];
         }];
         
     }

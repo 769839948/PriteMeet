@@ -12,6 +12,7 @@
 @interface LoginViewModel : BaseRequestViewModel
 
 - (void)postWXUserInfo:(WXUserInfo *)WXUserInfo
+                            withCode:(NSString *)code
                                  Success:(Success)successBlock
                                     Fail:(Fail)failBlock
                               showLoding:(LoadingView)loading;
@@ -25,5 +26,10 @@
           Success:(Success)successBlock
              Fail:(Fail)failBlock
                showLoding:(LoadingView)loading;
+
+- (void)getUserInfo:(NSString *)openId
+            success:(Success)successBlock
+               fail:(Fail)failBlock
+      loadingString:(LoadingView)loading;
 
 @end

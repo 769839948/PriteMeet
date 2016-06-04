@@ -23,7 +23,7 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"描述个人亮点";
     [self customNavigationBar];
-    [UITools navigationRightBarButtonForController:self action:@selector(saveAction:) normalTitle:@"保存" selectedTitle:nil];
+//    [UITools navigationRightBarButtonForController:self action:@selector(saveAction:) normalTitle:@"保存" selectedTitle:nil];
     _textView = [[UITextView alloc] initWithFrame:CGRectMake(3, 0, self.view.bounds.size.width - 6, self.view.bounds.size.height)];
     _textView.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
     _textView.placeholder = @"添更多亮点，更有利于别人搜索到你";

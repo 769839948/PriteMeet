@@ -13,5 +13,6 @@ target "Meet" do
     pod 'Crashlytics'
     pod 'Masonry'
     pod 'pop', '~> 1.0'
+    pod 'SnapKit'
 
 end

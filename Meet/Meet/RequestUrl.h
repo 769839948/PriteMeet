@@ -13,9 +13,11 @@
  *  后台请求数据URL存放处
  */
 //微信登陆后发送微信信息给后台服务器
-#define  RequestCreateUser           @"http://senzapps.cc/api/account/user/create"
-#define  RequestCheckUser            @"http://senzapps.cc/api/account/user/check"
-#define  RequestUpdateUser           @"http://senzapps.cc/api/account/user/update"
-#define  RequestCheckInvitationCode  @"http://senzapps.cc/api/invitation/check/"
-
+#define  RequestBaseUrl              @"http://senzapps.cc/"
+#define  RequestCreateUser           @"api/account/user/create"
+#define  RequestCheckUser            @"api/account/user/check"
+#define  RequestUpdateUser           @"api/account/user/update"
+#define  RequestCheckInvitationCode  @"api/invitation/check/"
+#define  RequestGetUserInfo          @"api/user/base_info/"
+#define  RequestUploadUserPhoto      @"api/user/avatar/"
 #endif /* RequestUrl_h */

@@ -10,4 +10,6 @@
 
 @interface WXLoginViewController : UIViewController
 
+@property (nonatomic, strong) NSString *code;
+
 @end

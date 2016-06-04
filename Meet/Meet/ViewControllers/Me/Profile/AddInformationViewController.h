@@ -15,7 +15,8 @@ typedef NS_ENUM(NSUInteger, ViewEditType) {
 
 @interface AddInformationViewController : UIViewController
 
-@property (strong, nonatomic) NSArray *arrayTitles;
+@property (copy, nonatomic) NSArray *arrayTitles;
+@property (copy, nonatomic) NSString *cachTitles;
 @property (copy, nonatomic) NSString *navTitle;
 @property (copy, nonatomic) NSIndexPath *indexPath;
 @property (assign, nonatomic) ViewEditType viewType;

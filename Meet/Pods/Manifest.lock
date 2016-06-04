@@ -32,6 +32,7 @@ PODS:
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
+  - SnapKit (0.21.0)
   - SQLCipher (3.3.1):
     - SQLCipher/standard (= 3.3.1)
   - SQLCipher/common (3.3.1)
@@ -49,6 +50,7 @@ DEPENDENCIES:
   - MWPhotoBrowser (~> 2.1.1)
   - pop (~> 1.0)
   - SDWebImage (~> 3.7)
+  - SnapKit
   - SQLCipher (~> 3.3.1)
 
 SPEC CHECKSUMS:
@@ -63,8 +65,9 @@ SPEC CHECKSUMS:
   MWPhotoBrowser: 5836d7aa041dc05a13de380c246826578adc5ea5
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
+  SnapKit: 2756fe24b706367af224c9c508d2f9166d03354c
   SQLCipher: d490d2effe735895d2204d25a154b1e722278421
 
-PODFILE CHECKSUM: e64ea4f8be0451746a10f83c72c5c9a6ea8d67ac
+PODFILE CHECKSUM: 4b3830adb3d8e411caf35ce28306893de93eb23e
 
 COCOAPODS: 1.0.0

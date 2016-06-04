@@ -44,8 +44,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"个人介绍";
-    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
-    [UITools navigationRightBarButtonForController:self action:@selector(editAction:) normalTitle:@"编辑" selectedTitle:nil];
+//    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
+//    [UITools navigationRightBarButtonForController:self action:@selector(editAction:) normalTitle:@"编辑" selectedTitle:nil];
     self.hidesBottomBarWhenPushed = YES;
     _dicContentImages = [NSMutableDictionary dictionary];
     [self loadDocumentGetAllBigImages];

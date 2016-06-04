@@ -84,6 +84,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewConstraint;
 @property (strong, nonatomic) NSMutableArray *photos;
 
+@property (strong, nonatomic) NSString *headImageUrl;
 @property (strong, nonatomic) UserInfoViewModel *viewModel;
 
 @end
@@ -94,6 +95,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"个人信息";
+    _headImageUrl = @"";
 //    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
 //    [UITools navigationRightBarButtonForController:self action:@selector(saveAction:) normalTitle:@"保存" selectedTitle:nil];
     _titleContentArray = @[@"头像",@"真实姓名",@"性别",@"出生日期",@"身高",@"手机号",@"微信号",@"工作生活城市",@"年收入",@"情感状态",@"家乡",@"星座"];
@@ -110,25 +112,17 @@ typedef NS_ENUM(NSUInteger, RowType) {
     _datePicker.maximumDate = [NSDate  date];
     _picker.backgroundColor = [UIColor whiteColor];
     
+    _viewModel = [[UserInfoViewModel alloc] init];
+    
     if (_isFristLogin) {
         [self downLoadUserWeChatImage];
+        [self loadServerData];
     }
     [self mappingContentDicValue];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(buttonPress:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveAction:)];
     
-    _viewModel = [[UserInfoViewModel alloc] init];
-}
-
-- (void)buttonPress:(UIBarButtonItem *)sebder
-{
-    [_viewModel updateUserInfo:nil success:^(NSDictionary *object) {
-        
-    } fail:^(NSDictionary *object) {
-        
-    } loadingString:^(NSString *str) {
-        
-    }];
+    
 }
 
 - (void)loadPickViewData {
@@ -182,7 +176,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
         _dicPickSelectValues[_titleContentArray[RowSex]] = [NSNumber numberWithInt:sexNum.intValue - 1];
     }
     
-    NSString *height = [UserInfo shareInstance].height;
+    NSString *height = [NSString stringWithFormat:@"%@",[UserInfo shareInstance].height];
     if (![height isKindOfClass:[NSNull class]] && height != nil && height.length >2) {
         NSInteger heightRow = [_arrayHeightPick indexOfObject:height];
         [_dicPickSelectValues setObject:[NSNumber numberWithInteger:heightRow] forKey:_titleContentArray[RowHeight]];
@@ -191,7 +185,8 @@ typedef NS_ENUM(NSUInteger, RowType) {
     [self locationRowMappingForRow:RowWorkLocation];
     [self locationRowMappingForRow:RowHome];
     
-    NSString *income = [UserInfo shareInstance].income;
+    NSString *income = [NSString stringWithFormat:@"%@",[UserInfo shareInstance].income];
+//    NSString *income = ;
     if (![income isKindOfClass:[NSNull class]] && income != nil && income.length >2) {
         NSInteger incomRow = [_arrayIncomePick indexOfObject:income];
         [_dicPickSelectValues setObject:[NSNumber numberWithInteger:incomRow] forKey:_titleContentArray[RowIncome]];
@@ -204,8 +199,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
         [_dicPickSelectValues setObject:[NSNumber numberWithInteger:stateRow] forKey:_titleContentArray[RowState]];
     }
  
-    
-    NSString *constellation = [UserInfo shareInstance].constellation;
+    NSString *constellation = [NSString stringWithFormat:@"%@",[UserInfo shareInstance].constellation];
+
+//    NSString *constellation = [UserInfo shareInstance].constellation;
     if (![constellation isKindOfClass:[NSNull class]] && constellation != nil && constellation.length >2) {
         NSInteger constellationRow = [_arrayConstellationPick indexOfObject:constellation];
         [_dicPickSelectValues setObject:[NSNumber numberWithInteger:constellationRow] forKey:_titleContentArray[RowConstellation]];
@@ -318,6 +314,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
     }
 }
 
+/**
+ *  返回用户的所有信息数据
+ */
 - (void)mappingUserInfoWithDicValues {
     ////图像URL 服务器返回后待加入
     [UserInfo shareInstance].name = _dicValues[_titleContentArray[RowName]];
@@ -359,6 +358,33 @@ typedef NS_ENUM(NSUInteger, RowType) {
         
         }
     }];
+}
+
+- (void)loadServerData
+{
+    [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
+        [self mappingNetData:object];
+        
+    } fail:^(NSDictionary *object) {
+        
+    } loadingString:^(NSString *str) {
+        
+    }];
+}
+
+- (void)mappingNetData:(NSDictionary *)dic
+{
+    [UserInfo shareInstance].headimgurl = [dic objectForKey:@"avatar"];
+    [UserInfo shareInstance].brithday = [dic objectForKey:@"birthday"];
+    [UserInfo shareInstance].constellation = [dic objectForKey:@"constellation"];
+    [UserInfo shareInstance].sex = [dic objectForKey:@"gender"];
+    [UserInfo shareInstance].eMail = [dic objectForKey:@"eMail"];
+    [UserInfo shareInstance].height = [dic objectForKey:@"height"];
+    [UserInfo shareInstance].workCity = [dic objectForKey:@"workCity"];
+    [UserInfo shareInstance].income = [dic objectForKey:@"income"];
+    [UserInfo shareInstance].city = [dic objectForKey:@"location"];
+    [UserInfo shareInstance].phoneNo = [dic objectForKey:@"mobile_num"];
+    [UserInfo shareInstance].WX_No = [dic objectForKey:@"weixin_num"];
 }
 
 - (void)reloadUerImage:(NSString *)imagePath {
@@ -412,11 +438,32 @@ typedef NS_ENUM(NSUInteger, RowType) {
         [self sexItemModify];
         return ;
     }
-    /////保存到服务器返回后再保存到本地
+    if ([_headImageUrl isEqualToString:@""]) {
+        [UserInfo shareInstance].headimgurl = [WXUserInfo shareInstance].headimgurl;
+    }else{
+        [UserInfo shareInstance].headimgurl =  _headImageUrl;
+        
+    }
+    __weak typeof(self) weakSelf = self;
     [self mappingUserInfoWithDicValues];
-    [[UserInfoDao shareInstance] updateBean:[UserInfo shareInstance]];
-    [[UITools shareInstance] showMessageToView:self.view message:@"保存成功" autoHide:YES];
-    [self backAction:nil];
+    [_viewModel updateUserInfo:[UserInfo shareInstance] success:^(NSDictionary *object) {
+        [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
+        [[UserInfoDao shareInstance] updateBean:[UserInfo shareInstance]];
+        [[UITools shareInstance] showMessageToView:self.view message:@"保存成功" autoHide:YES];
+        UIImage *image = _dicValues[_titleContentArray[0]];
+        NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+        NSString *saveImagePath = [self imageSaveParth];
+        if ([imageData writeToFile:saveImagePath atomically:NO]) {
+            //        NSLog(@"保存 成功");
+        }
+        [self reloadUerImage:saveImagePath];
+
+        
+    } fail:^(NSDictionary *object) {
+        [[UITools shareInstance] showMessageToView:self.view message:@"保存失败" autoHide:YES];
+    } loadingString:^(NSString *str) {
+    }];
+    /////保存到服务器返回后再保存到本地
 }
 
 - (IBAction)tapGestureRecognizer:(UITapGestureRecognizer *)sender {
@@ -648,6 +695,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 cell = (LabelAndTextFieldCell *)[[[NSBundle mainBundle] loadNibNamed:@"LabelAndTextFieldCell" owner:self options:nil] objectAtIndex:0];
                 cell.textField.delegate = self;
             }
+            cell.tag = row;
             cell.titelLabel.text = _titleContentArray[row];
             cell.textField.placeholder = _titleContentArray[row];
             cell.textField.indexPath = indexPath;
@@ -759,8 +807,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 [_picker selectRow:_pickerSelectRow inComponent:0 animated:NO];
             }
         }
-    } else if(section == 1 || section == 3 ) {
-
+    }
+    
+    if(section == 1 || section == 3 ) {
         [self performSegueWithIdentifier:@"pushToAddInformationVC" sender:indexPath];
     }
 }
@@ -815,19 +864,30 @@ typedef NS_ENUM(NSUInteger, RowType) {
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        ///头像上传后再保存到本地 刷新
-//    });
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        ///头像上传后再保存到本地 刷新
+        [_viewModel uploadImage:[UIImage imageWithContentsOfFile:[self imageSaveParth]] openId:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
+            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
+            
+            if ([[object objectForKey:@"success"] boolValue]) {
+                _headImageUrl = [object objectForKey:@"avatar"];
+            }else{
+                [[UITools shareInstance] showMessageToView:self.view message:@"上传失败" autoHide:YES];
+            }
+            
+        } fail:^(NSDictionary *object) {
+            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
+            [[UITools shareInstance] showMessageToView:self.view message:@"上传失败" autoHide:YES];
+            
+        } loadingString:^(NSString *str) {
+            
+        }];
+    });
     
     UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
-    NSString *saveImagePath = [self imageSaveParth];
-    if ([imageData writeToFile:saveImagePath atomically:NO]) {
-//        NSLog(@"保存 成功");
-    }
-    
+    _dicValues[_titleContentArray[0]] = image;
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     [self.navigationController dismissViewControllerAnimated: YES completion:^{
-        [self reloadUerImage:saveImagePath];
         if (_isFristLogin) {
             
         } else
@@ -912,10 +972,12 @@ typedef NS_ENUM(NSUInteger, RowType) {
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"pushToAddInformationVC"]) {
         AddInformationViewController *addInfom = (AddInformationViewController *)[segue destinationViewController];
+        UITableViewCell *cell = (UITableViewCell *)[_tableView cellForRowAtIndexPath:addInfom.indexPath];
         if ([sender isKindOfClass:[NSIndexPath class]]) {
             addInfom.indexPath = (NSIndexPath *)sender;
         }
-        if ( _selectRow == _arrayWorkExper.count || _selectRow == _arrayEducateExper.count ) {
+        addInfom.cachTitles = cell.textLabel.text;
+        if ( addInfom.indexPath.row == _arrayWorkExper.count || addInfom.indexPath.row == _arrayEducateExper.count ) {
             addInfom.viewType = ViewTypeAdd;
         } else {
             addInfom.viewType = ViewTypeEdit;

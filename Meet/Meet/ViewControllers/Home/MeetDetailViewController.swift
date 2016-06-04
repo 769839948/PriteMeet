@@ -7,10 +7,15 @@
 //
 
 import UIKit
- 
+
+
+let deviceWidth = UIScreen.mainScreen().bounds.size.width
+let deviceHeight = UIScreen.mainScreen().bounds.size.height
+
 class MeetDetailViewController: UIViewController {
 
     var tableView:UITableView!
+    var bottomView:UIView!
     let sectionInfoTableViewCell = "SectionInfoTableViewCell"
     let newMeetInfoTableViewCell = "NewMeetInfoTableViewCell"
     let wantMeetTableViewCell = "WantMeetTableViewCell"
@@ -25,11 +30,12 @@ class MeetDetailViewController: UIViewController {
         super.viewDidLoad()
         self.setUpTableView()
         self.setUpNavigationBar()
+        self.setUpBottomView()
         // Do any additional setup after loading the view.
     }
 
     func setUpTableView() {
-        self.tableView = UITableView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height - 64), style: .Grouped)
+        self.tableView = UITableView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height - 64 - 49), style: .Grouped)
         self.tableView.backgroundColor = UIColor.init(colorLiteralRed: 251.0/255.0, green: 251.0/255.0, blue: 251.0/255.0, alpha: 1.0)
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -43,6 +49,19 @@ class MeetDetailViewController: UIViewController {
         self.view.addSubview(self.tableView)
         
         
+    }
+    
+    func setUpBottomView(){
+        self.bottomView = UIView(frame: CGRectMake(0,UIScreen.mainScreen().bounds.size.height - 49 - 64, deviceWidth, 49))
+        
+        self.bottomView.backgroundColor = UIColor.init(hexString: "FF4F4F")
+        let label = UILabel(frame: self.bottomView.bounds)
+        label.text = "立即约见"
+        label.textAlignment = NSTextAlignment.Center
+        label.textColor = UIColor.init(hexString: "FFFFFF")
+        label.font = UIFont.init(name: "PingFangSC-Semibold", size: 15)
+        self.bottomView.addSubview(label)
+        self.view.addSubview(self.bottomView)
     }
     
     func setUpNavigationBar(){
@@ -108,7 +127,7 @@ class MeetDetailViewController: UIViewController {
 
 extension MeetDetailViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }
 

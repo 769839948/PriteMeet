@@ -87,6 +87,7 @@
             _sheetView = [[UISheetView alloc] initWithContenArray:@[@"退出登录",@"取消"] titleMessage:@"退出后依然会保留当前用户信息"];
             _sheetView.delegate = self;
         }
+        [AppData shareInstance].isLogin = NO;
         [_sheetView show];
     } else if ([str isEqualToString:@"关于Meet"]) {
         [self performSegueWithIdentifier:@"PushToAboutViewController" sender:self];

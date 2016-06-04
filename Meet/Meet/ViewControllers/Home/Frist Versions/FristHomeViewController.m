@@ -13,6 +13,7 @@
 #import "NSString+StringSize.h"
 #import "UIViewController+ScrollingNavbar.h"
 #import "Meet-Swift.h"
+#import "MJRefresh.h"
 
 @interface FristHomeViewController ()<UIGestureRecognizerDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -29,6 +30,7 @@
     [super viewDidLoad];
     [self setUpTableView];
     [self setUpNavigationBar];
+    [self setUpRefreshView];
     
 }
 
@@ -76,15 +78,9 @@
     [fillteBt addTarget:self action:@selector(leftItemClick:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftBarItem = [[UIBarButtonItem alloc] initWithCustomView:fillteBt];
     self.navigationItem.leftBarButtonItem = leftBarItem;
-//    let uploadBt = UIButton(type: UIButtonType.Custom)
-//    uploadBt.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-//    uploadBt.setImage(UIImage(named: "navigationbar_upload"), forState: UIControlState.Normal)
-//    uploadBt.frame = CGRectMake(0, 0, 40, 40);
-//    let uploadItem = UIBarButtonItem(customView: uploadBt)
     if (IOS_7LAST) {
         self.navigationController.navigationBar.translucent = NO;
     }
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"个人资料" style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick:)];
 }
 
 - (UIView *)titleView
@@ -103,6 +99,13 @@
     [_bottomView addSubview:[self myMeetNumber:CGRectMake(_bottomView.frame.size.width - 18, 0, 18, 18)]];
     NSLog(@"%f",[[UIScreen mainScreen] bounds].size.height);
     [[UIApplication sharedApplication].keyWindow addSubview:_bottomView];
+}
+
+- (void)setUpRefreshView
+{
+//    _tableView.mj_header = [MJRefreshHeader headerWithRefreshingBlock:^{
+//        <#code#>
+//    }]
 }
 
 - (UIButton *)myMeetBt:(CGRect)frame
@@ -217,13 +220,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if ([AppData shareInstance].isLogin) {
-        
-    } else {
-        MeetDetailViewController *meetDetailView = [[MeetDetailViewController alloc] init];
-        [meetDetailView showNavbar];
-        [self.navigationController pushViewController:meetDetailView animated:YES];
-    }
+    MeetDetailViewController *meetDetailView = [[MeetDetailViewController alloc] init];
+    [meetDetailView showNavbar];
+    [self.navigationController pushViewController:meetDetailView animated:YES];
+//    if ([AppData shareInstance].isLogin) {
+//        
+//    } else {
+//        
+//    }
 }
 
 

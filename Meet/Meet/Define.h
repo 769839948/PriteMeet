@@ -9,6 +9,9 @@
 #ifndef Define_h
 #define Define_h
 
+
+//#definition code @"BqT7gmS"
+
 #define SHARE_APPDELEGATE ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
 #define FORMAT(format, ...) [NSString stringWithFormat:(format), ##__VA_ARGS__]

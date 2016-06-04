@@ -15,9 +15,9 @@
 {
     manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    manager.securityPolicy.allowInvalidCertificates = NO;
+//    manager.securityPolicy.allowInvalidCertificates = NO;
     manager.requestSerializer.timeoutInterval = 10.0f;
-    manager.requestSerializer.HTTPShouldHandleCookies = YES;
+//    manager.requestSerializer.HTTPShouldHandleCookies = YES;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     
     NSMutableSet *acceptContentTypes = [NSMutableSet setWithSet:manager.responseSerializer.acceptableContentTypes];
@@ -25,6 +25,7 @@
     [acceptContentTypes addObject:@"text/html"];
     [acceptContentTypes addObject:@"application/json"];
     [acceptContentTypes addObject:@"charset=utf-8"];
+    [acceptContentTypes addObject:@"multipart/form-data"];
     manager.responseSerializer.acceptableContentTypes = acceptContentTypes;
     return manager;
 }

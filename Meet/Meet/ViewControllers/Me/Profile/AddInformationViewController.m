@@ -36,8 +36,8 @@
         _arrayTitles = @[@"学校",@"专业",@"学历"];
     }
     self.navigationItem.title = _navTitle;
-    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
-    [UITools navigationRightBarButtonForController:self action:@selector(saveAction:) normalTitle:@"保存" selectedTitle:nil];
+//    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
+//    [UITools navigationRightBarButtonForController:self action:@selector(saveAction:) normalTitle:@"保存" selectedTitle:nil];
 }
 
 - (void)didReceiveMemoryWarning {
