@@ -35,8 +35,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的邀约";
-    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
-    [UITools navigationRightBarButtonForController:self action:@selector(doneAction:) normalTitle:@"完成" selectedTitle:nil];
+//    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
+//    [UITools navigationRightBarButtonForController:self action:@selector(doneAction:) normalTitle:@"完成" selectedTitle:nil];
     self.hidesBottomBarWhenPushed = YES;
     _arraySelectItem = [NSMutableArray array];
     [self loadButtonItemsWihtArray:@[@"吃饭",@"喝茶",@"喝咖啡",@"看电影",@"运动",@"周边游",@"公益活动",@"其它活动",@"这个名字很长很长很长"]];

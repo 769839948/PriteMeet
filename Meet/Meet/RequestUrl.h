@@ -14,7 +14,7 @@
  */
 //微信登陆后发送微信信息给后台服务器
 #define  RequestBaseUrl              @"http://senzapps.cc/"
-#define  RequestCreateUser           @"api/account/user/create"
+#define  RequestCreateUser           @"api/account/user/signin"
 #define  RequestCheckUser            @"api/account/user/check"
 #define  RequestUpdateUser           @"api/account/user/update"
 #define  RequestCheckInvitationCode  @"api/invitation/check/"

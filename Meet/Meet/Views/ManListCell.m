@@ -100,15 +100,29 @@
 {
     _nameLabel.text = title;
     _meetNumber.text = string;
-    [_interestView setCollectViewData:array];
-    NSString *instresTitleString = @"  ";
-    for (NSString *instrestTitle in array) {
-        instresTitleString = [instresTitleString stringByAppendingString:instrestTitle];
-        instresTitleString = [instresTitleString stringByAppendingString:@"   "];
+    float instrestHeight = 0;
+    if (array.count == 0) {
+        instrestHeight = 0.0;
+        __weak typeof(self) weakSelf = self;
+        _interestView.hidden  = YES;
+        [_meetNumber mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(1);
+            make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(14);
+            make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-14);
+            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-14);
+            make.height.offset(17);
+        }];
+        [self updateConstraints];
+    }else{
+        [_interestView setCollectViewData:array];
+        NSString *instresTitleString = @"  ";
+        for (NSString *instrestTitle in array) {
+            instresTitleString = [instresTitleString stringByAppendingString:instrestTitle];
+            instresTitleString = [instresTitleString stringByAppendingString:@"  "];
+        }
+        instrestHeight = [instresTitleString heightWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:24.0f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
+        
     }
-    float instrestHeight = [title heightWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:21.0f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
-//    float height = [flowLayout collectionViewContentSize].height;
-//    NSLog(@"---------%f",height);
     
     float titleHeight = [title heightWithFont:HomeViewNameFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
     __weak typeof(self) weakSelf = self;

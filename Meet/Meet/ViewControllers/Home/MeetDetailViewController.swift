@@ -140,8 +140,6 @@ extension MeetDetailViewController : UITableViewDataSource {
             return 2
         case 2:
             return 2
-        case 3:
-            return 5
         default:
             return 0
         }
@@ -164,7 +162,7 @@ extension MeetDetailViewController : UITableViewDataSource {
         case 0:
             switch indexPath.row {
             case 0:
-                return (UIScreen.mainScreen().bounds.size.width - 20)*236/255
+                return (UIScreen.mainScreen().bounds.size.width - 20)*236/355
             case 1:
                 return 195
             case 2:
@@ -204,7 +202,7 @@ extension MeetDetailViewController : UITableViewDataSource {
         case 0:
             switch indexPath.row {
             case 0:
-                return (UIScreen.mainScreen().bounds.size.width - 20)*236/255
+                return (UIScreen.mainScreen().bounds.size.width - 20)*236/355
             case 1:
                 return 195
             case 2:
@@ -250,7 +248,9 @@ extension MeetDetailViewController : UITableViewDataSource {
                     return cell
                 case 1:
                     let cell = tableView.dequeueReusableCellWithIdentifier(meetInfoTableViewCell, forIndexPath: indexPath) as! MeetInfoTableViewCell
-                    cell.configCell("尤雅", position: "隐舍THESECRET 掌门人", meetNumber: "上海 浦东新区   和你相隔 28200", interestCollectArray: ["美食顾问","Cocktail","谈判专家","顾问"])
+                    cell.configCell("尤雅", position: "隐舍THESECRET 掌门人", meetNumber: "上海 浦东新区   和你相隔 28200 m", interestCollectArray: ["美食顾问","Cocktail","谈判专家","顾问"])
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell.userInteractionEnabled = false
                     return cell
                 case 2:
                     let identifier = "CompayTableViewCell"
@@ -258,6 +258,8 @@ extension MeetDetailViewController : UITableViewDataSource {
                     if cell == nil{
                         cell = CompayTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: identifier)
                     }
+                    cell!.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell?.userInteractionEnabled = false
                     return cell!
                 default:
                     let identifier = "MoreTableViewCell"
@@ -271,11 +273,13 @@ extension MeetDetailViewController : UITableViewDataSource {
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
-                    cell.configCell("meetdetail_aboutus", titleString: "关于我们的那些事")
+                    cell.configCell("meetdetail_aboutus", titleString: "关于他")
                 return cell
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier(aboutUsInfoTableViewCell, forIndexPath: indexPath) as! AboutUsInfoTableViewCell
                 cell.configCell(["毕业于中央戏剧学院表演系，是一名制片人，也是隐舍 THESECRET 的掌门人。","最不像表演系的表演系学生，这点从入学开始就逐渐暴露，同学和老师评价我是表演系里最会导演的，导演系里最会制片的，制片专业里长得最好看。","喜欢戏剧，喜欢电影，喜欢旅行，做过制片人，地产，投资，酒吧。"])
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                cell.userInteractionEnabled = false
                 return cell
             }
             
@@ -283,11 +287,13 @@ extension MeetDetailViewController : UITableViewDataSource {
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
-                cell.configCell("meetdetail_newmeet", titleString: "最新邀约")
+                cell.configCell("meetdetail_newmeet", titleString: "他的邀约")
                 return cell
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier(newMeetInfoTableViewCell, forIndexPath: indexPath) as! NewMeetInfoTableViewCell
                 cell.configCell("欢迎来到隐舍 THESECRET。这里没有酒单， 放眼望去，你看到的是与弗里达相关的一切，迷人而神秘的夜色。走进这扇门，你将开始一段奇遇。在这里，我将根据你的喜好、心情，调制专属于你的鸡尾酒，为你带来最奇妙的美好体验。", array: ["周边旅行","谈天说地","聊天","创业咨询","品酒","定制理财"])
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                cell.userInteractionEnabled = false
                 return cell
             }
         default:

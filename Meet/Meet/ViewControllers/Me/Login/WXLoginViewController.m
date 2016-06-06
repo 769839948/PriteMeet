@@ -9,6 +9,7 @@
 #import "WXLoginViewController.h"
 
 #import "MyProfileViewController.h"
+#import "BaseUserInfoViewController.h"
 #import "WXApi.h"
 
 #import "WXApiObject.h"
@@ -74,9 +75,9 @@
             [[UserInfoDao shareInstance] insertBean:[UserInfo shareInstance]];
             [[UserInfoDao shareInstance] selectUserInfoWithUserId:[WXUserInfo shareInstance].unionid];/////获取到 [UserInfo shareInstance]的idKye 以后保存需要
             UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
-            MyProfileViewController *myProfileVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"MyProfileViewController"];
-            myProfileVC.isFristLogin = YES;
-            [weakSelf.navigationController pushViewController:myProfileVC animated:YES];
+            BaseUserInfoViewController *baseUserInfo = [meStoryBoard instantiateViewControllerWithIdentifier:@"BaseInfoViewController"];
+//            myProfileVC.isFristLogin = YES;
+            [weakSelf.navigationController pushViewController:baseUserInfo animated:YES];
         } Fail:^(NSDictionary *object) {
             [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
             if ([[object objectForKey:@"error"] isEqualToString:@"oldUser"]) {
@@ -85,9 +86,13 @@
                 [[UserInfoDao shareInstance] insertBean:[UserInfo shareInstance]];
                 [[UserInfoDao shareInstance] selectUserInfoWithUserId:[WXUserInfo shareInstance].unionid];/////获取到 [UserInfo shareInstance]的idKye 以后保存需要
                 UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
-                MyProfileViewController *myProfileVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"MyProfileViewController"];
-                myProfileVC.isFristLogin = YES;
-                [weakSelf.navigationController pushViewController:myProfileVC animated:YES];
+                BaseUserInfoViewController *baseUserInfo = [meStoryBoard instantiateViewControllerWithIdentifier:@"BaseInfoViewController"];
+                //            myProfileVC.isFristLogin = YES;
+                [weakSelf.navigationController pushViewController:baseUserInfo animated:YES];
+                //这里是在调试中
+//                MyProfileViewController *myProfileVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"MyProfileViewController"];
+//                myProfileVC.isFristLogin = YES;
+//                [weakSelf.navigationController pushViewController:myProfileVC animated:YES];
             }
         } showLoding:^(NSString *str) {
             [self performSelectorOnMainThread:@selector(showHudInView:hint:) withObject:weakSelf.view withObject:str waitUntilDone:YES];

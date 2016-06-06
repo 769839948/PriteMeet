@@ -15,6 +15,9 @@
     NSMutableDictionary *_dicValues;
 }
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, copy) NSMutableArray *cachTitleArray;
+
 @end
 
 @implementation AddInformationViewController
@@ -22,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _dicValues = [NSMutableDictionary dictionary];
+    _cachTitleArray = [NSMutableArray array];
     NSString *str;
     if (_viewType == ViewTypeEdit) {
         str = @"编辑";
@@ -30,14 +34,25 @@
     }
     if (_indexPath.section == 1 ) {////work
         _navTitle = [str stringByAppendingString:@"工作经历"];
+         NSArray  *array = [_cachTitles componentsSeparatedByString:@"-"];
+        [_cachTitleArray addObjectsFromArray:array];
+        while (_cachTitleArray.count < 2) {
+            [_cachTitleArray addObject:@""];
+        }
         _arrayTitles = @[@"公司",@"职位"];
     } else if (_indexPath.section == 3) {
         _navTitle = [str stringByAppendingString:@"教育背景"];
+        NSArray  *array = [_cachTitles componentsSeparatedByString:@"-"];
+        [_cachTitleArray addObjectsFromArray:array];
+        while (_cachTitleArray.count < 3) {
+            [_cachTitleArray addObject:@""];
+        }
         _arrayTitles = @[@"学校",@"专业",@"学历"];
     }
     self.navigationItem.title = _navTitle;
 //    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
 //    [UITools navigationRightBarButtonForController:self action:@selector(saveAction:) normalTitle:@"保存" selectedTitle:nil];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveAction:)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,6 +67,19 @@
 
 - (void)saveAction:(id)sender {
     
+    if (self.block) {
+        NSString *str = @"";
+        for (NSInteger i = 0; i < _cachTitleArray.count ; i ++) {
+            NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
+            LabelAndTextFieldCell *cell = (LabelAndTextFieldCell *)[self.tableView cellForRowAtIndexPath:path];
+            str = [str stringByAppendingString:cell.textField.text];
+            if (i < _cachTitleArray.count - 1) {
+                str = [str stringByAppendingString:@" - "];
+            }
+        }
+        self.block(self.indexPath,str,self.viewType);
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -93,6 +121,9 @@
             cell.textField.delegate = self;
         }
         cell.titelLabel.text = _arrayTitles[indexPath.row];
+        if (_viewType == ViewTypeEdit) {
+            cell.textField.text = _cachTitleArray[indexPath.row];
+        }
         cell.textField.indexPath = indexPath;
         cell.textField.placeholder = _arrayTitles[indexPath.row];
             return cell;
@@ -102,6 +133,20 @@
 #pragma mark - tableView Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (_viewType == ViewTypeEdit && indexPath.row == _cachTitleArray.count) {
+        [EMAlertView showAlertWithTitle:@"提示" message:@"确定删除？" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+            switch (buttonIndex) {
+                case 0:
+                    break;
+                default:
+                    if (self.block) {
+                        self.block(_indexPath,@"",ViewTypeDelete);
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                    break;
+            }
+        } cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+    }
     
 }
 

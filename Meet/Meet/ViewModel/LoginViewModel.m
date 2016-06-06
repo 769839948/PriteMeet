@@ -37,8 +37,10 @@
     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (![[responseObject objectForKey:@"success"] boolValue]) {
-            NSDictionary *parameters = @{@"openid":WXUserInfo.openid,@"nickname":WXUserInfo.nickname,@"sex":WXUserInfo.sex,@"head_img_url":WXUserInfo.headimgurl,@"union_id":WXUserInfo.unionid,@"province":WXUserInfo.province,@"city":WXUserInfo.city,@"country":WXUserInfo.country,@"code":@"Z3pavMk"};
-            [self.manager POST:RequestCreateUser parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+            NSDictionary *parameters = @{@"openid":WXUserInfo.openid,@"nickname":WXUserInfo.nickname,@"sex":WXUserInfo.sex,@"head_img_url":WXUserInfo.headimgurl,@"province":WXUserInfo.province,@"city":WXUserInfo.city,@"country":WXUserInfo.country,@"union_id":WXUserInfo.unionid,@"code":code};
+            NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestCreateUser];
+
+            [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
                 
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 if ([[responseObject objectForKey:@"success"] boolValue]) {

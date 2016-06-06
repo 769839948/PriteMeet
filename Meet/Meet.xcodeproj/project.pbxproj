@@ -43,6 +43,11 @@
 		1FCAFFD81D0181AA00BF53A1 /* EMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFD71D0181AA00BF53A1 /* EMAlertView.m */; };
 		1FCAFFDB1D01983B00BF53A1 /* UserInfoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFDA1D01983B00BF53A1 /* UserInfoViewModel.m */; };
 		1FDA53A61D003DC800C170BC /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA53A51D003DC800C170BC /* UIColor+Hex.m */; };
+		1FFB5F301D0527F700021F77 /* UserEduModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F2F1D0527F700021F77 /* UserEduModel.m */; };
+		1FFB5F331D05287A00021F77 /* UserWorks.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F321D05287A00021F77 /* UserWorks.m */; };
+		1FFB5F351D054BD900021F77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FFB5F341D054BD900021F77 /* Assets.xcassets */; };
+		1FFB5F381D05650400021F77 /* BaseUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F371D05650400021F77 /* BaseUserInfoViewController.m */; };
+		1FFB5F3B1D056D9600021F77 /* MoreInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F3A1D056D9600021F77 /* MoreInfoViewController.m */; };
 		DA018EDB1CD1BCD90051D2D7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018EDA1CD1BCD90051D2D7 /* MainViewController.m */; };
 		DA018F271CD38AEF0051D2D7 /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F261CD38AEF0051D2D7 /* MeViewController.m */; };
 		DA018F2E1CD39D570051D2D7 /* ManListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F2C1CD39D570051D2D7 /* ManListCell.m */; };
@@ -59,7 +64,6 @@
 		DA3626591CD1A75C00A8AE39 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3626581CD1A75C00A8AE39 /* main.m */; };
 		DA36265C1CD1A75C00A8AE39 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA36265B1CD1A75C00A8AE39 /* AppDelegate.m */; };
 		DA3626621CD1A75C00A8AE39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA3626601CD1A75C00A8AE39 /* Main.storyboard */; };
-		DA3626641CD1A75C00A8AE39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA3626631CD1A75C00A8AE39 /* Assets.xcassets */; };
 		DA3626671CD1A75C00A8AE39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA3626651CD1A75C00A8AE39 /* LaunchScreen.storyboard */; };
 		DA36267C1CD1A98E00A8AE39 /* AppData.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3626721CD1A98E00A8AE39 /* AppData.m */; };
 		DA36267D1CD1A98E00A8AE39 /* UITools.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3626741CD1A98E00A8AE39 /* UITools.m */; };
@@ -224,6 +228,15 @@
 		1FCAFFDA1D01983B00BF53A1 /* UserInfoViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewModel.m; sourceTree = "<group>"; };
 		1FDA53A41D003DC800C170BC /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		1FDA53A51D003DC800C170BC /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		1FFB5F2E1D0527F700021F77 /* UserEduModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEduModel.h; sourceTree = "<group>"; };
+		1FFB5F2F1D0527F700021F77 /* UserEduModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEduModel.m; sourceTree = "<group>"; };
+		1FFB5F311D05287A00021F77 /* UserWorks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserWorks.h; sourceTree = "<group>"; };
+		1FFB5F321D05287A00021F77 /* UserWorks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserWorks.m; sourceTree = "<group>"; };
+		1FFB5F341D054BD900021F77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1FFB5F361D05650400021F77 /* BaseUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseUserInfoViewController.h; sourceTree = "<group>"; };
+		1FFB5F371D05650400021F77 /* BaseUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseUserInfoViewController.m; sourceTree = "<group>"; };
+		1FFB5F391D056D9600021F77 /* MoreInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreInfoViewController.h; sourceTree = "<group>"; };
+		1FFB5F3A1D056D9600021F77 /* MoreInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreInfoViewController.m; sourceTree = "<group>"; };
 		DA018ED91CD1BCD90051D2D7 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		DA018EDA1CD1BCD90051D2D7 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		DA018F251CD38AEF0051D2D7 /* MeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeViewController.h; sourceTree = "<group>"; };
@@ -256,7 +269,6 @@
 		DA36265A1CD1A75C00A8AE39 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DA36265B1CD1A75C00A8AE39 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		DA3626611CD1A75C00A8AE39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		DA3626631CD1A75C00A8AE39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA3626661CD1A75C00A8AE39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA3626681CD1A75C00A8AE39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA3626711CD1A98E00A8AE39 /* AppData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppData.h; sourceTree = "<group>"; };
@@ -668,13 +680,13 @@
 				DA6CEEE91CD97E9A00EEABFF /* Me.storyboard */,
 				DABF8AF31CEAC0DC00CA2A1D /* Seting.storyboard */,
 				DA4A89011CDC388B00649983 /* Login.storyboard */,
-				DA3626631CD1A75C00A8AE39 /* Assets.xcassets */,
 				DA3626651CD1A75C00A8AE39 /* LaunchScreen.storyboard */,
 				DA3626801CD1A9D300A8AE39 /* Meet.pch */,
 				DA3626811CD1AADD00A8AE39 /* Define.h */,
 				1FCAFFD41D01532000BF53A1 /* RequestUrl.h */,
 				1F4E43641CFC470F00730DEA /* Theme.h */,
 				DA3626681CD1A75C00A8AE39 /* Info.plist */,
+				1FFB5F341D054BD900021F77 /* Assets.xcassets */,
 				DA018F541CD4DAFB0051D2D7 /* Localizable.strings */,
 				DA3626571CD1A75C00A8AE39 /* Supporting Files */,
 				1F4E43611CFC43F200730DEA /* Meet-Bridging-Header.h */,
@@ -898,6 +910,10 @@
 				DA6CEF0C1CDAF33300EEABFF /* MoreProfileViewController.m */,
 				DAF5C8C71CE6F3EB00DA7901 /* MyPhotosViewController.h */,
 				DAF5C8C81CE6F3EB00DA7901 /* MyPhotosViewController.m */,
+				1FFB5F361D05650400021F77 /* BaseUserInfoViewController.h */,
+				1FFB5F371D05650400021F77 /* BaseUserInfoViewController.m */,
+				1FFB5F391D056D9600021F77 /* MoreInfoViewController.h */,
+				1FFB5F3A1D056D9600021F77 /* MoreInfoViewController.m */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -966,6 +982,10 @@
 				DAF5C8171CE0D0ED00DA7901 /* BaseModel.m */,
 				DAF5C8181CE0D0ED00DA7901 /* UserInfo.h */,
 				DAF5C8191CE0D0ED00DA7901 /* UserInfo.m */,
+				1FFB5F2E1D0527F700021F77 /* UserEduModel.h */,
+				1FFB5F2F1D0527F700021F77 /* UserEduModel.m */,
+				1FFB5F311D05287A00021F77 /* UserWorks.h */,
+				1FFB5F321D05287A00021F77 /* UserWorks.m */,
 				DA4159291CECA057006970DF /* MoreDescriptionModel.h */,
 				DA41592A1CECA057006970DF /* MoreDescriptionModel.m */,
 				DAF5C81A1CE0D0ED00DA7901 /* WXAccessModel.h */,
@@ -1153,9 +1173,9 @@
 				DA6CEEEA1CD97E9A00EEABFF /* Me.storyboard in Resources */,
 				DA1A67EC1CEF107C00F9CC9D /* area.plist in Resources */,
 				DA3626671CD1A75C00A8AE39 /* LaunchScreen.storyboard in Resources */,
+				1FFB5F351D054BD900021F77 /* Assets.xcassets in Resources */,
 				DABF8AF41CEAC0DC00CA2A1D /* Seting.storyboard in Resources */,
 				DAF5C8471CE2DA6E00DA7901 /* LabelTableViewCell.xib in Resources */,
-				DA3626641CD1A75C00A8AE39 /* Assets.xcassets in Resources */,
 				DA4A88F81CDB2BFD00649983 /* LabelAndTextFieldCell.xib in Resources */,
 				DAF5C8BB1CE6D6AD00DA7901 /* README.txt in Resources */,
 				DA3626621CD1A75C00A8AE39 /* Main.storyboard in Resources */,
@@ -1244,6 +1264,7 @@
 				DA6CEEFA1CD9FA7200EEABFF /* LabelAndTextFieldCell.m in Sources */,
 				DA4A88F61CDB1DD900649983 /* AddStarViewController.m in Sources */,
 				DA018F451CD4B9AA0051D2D7 /* PhotoGridCell.m in Sources */,
+				1FFB5F3B1D056D9600021F77 /* MoreInfoViewController.m in Sources */,
 				DA018F591CD78E9C0051D2D7 /* ImageAndTitleView.m in Sources */,
 				DA36267C1CD1A98E00A8AE39 /* AppData.m in Sources */,
 				DA4A88FE1CDB5D7A00649983 /* CellTextView.m in Sources */,
@@ -1260,6 +1281,7 @@
 				DAF5C8541CE5A5C100DA7901 /* UIView+frameAdjust.m in Sources */,
 				DAF5C8841CE5B95000DA7901 /* CoreTextLinkData.m in Sources */,
 				DA018F391CD44B210051D2D7 /* ThreeImageCell.m in Sources */,
+				1FFB5F381D05650400021F77 /* BaseUserInfoViewController.m in Sources */,
 				DAF5C88E1CE5B9B700DA7901 /* CTTextView.m in Sources */,
 				1FCAFFCC1D012B6900BF53A1 /* UIViewController+NavigationItemColor.m in Sources */,
 				DAF5C83A1CE18A2400DA7901 /* UISheetView.m in Sources */,
@@ -1282,6 +1304,7 @@
 				DA6B1C581CEC4DAC0020021D /* HomeMoreViewController.m in Sources */,
 				DAF5C7F91CDF479C00DA7901 /* NetWorkObject.m in Sources */,
 				DA41592B1CECA057006970DF /* MoreDescriptionModel.m in Sources */,
+				1FFB5F301D0527F700021F77 /* UserEduModel.m in Sources */,
 				1F6850201CFFD3D2007F3C07 /* MeetDetailViewController.swift in Sources */,
 				1F6E8BE51D0276C00044CD40 /* NSObject+PerformSelector.m in Sources */,
 				DABF8AEC1CE9B7BD00CA2A1D /* WillAllowViewColler.m in Sources */,
@@ -1331,6 +1354,7 @@
 				1FC2C14C1CFD3583001D6D10 /* NSDateFormatter+Category.m in Sources */,
 				DABF8AF81CEAC29A00CA2A1D /* SetingViewController.m in Sources */,
 				DAF5C8831CE5B95000DA7901 /* CoreTextImageData.m in Sources */,
+				1FFB5F331D05287A00021F77 /* UserWorks.m in Sources */,
 				1FCAFFD31D01517A00BF53A1 /* LoginViewModel.m in Sources */,
 				DAF5C8871CE5B95000DA7901 /* CTFrameParserConfig.m in Sources */,
 				DAF5C8911CE5C0EE00DA7901 /* MyDisplayViewController.m in Sources */,

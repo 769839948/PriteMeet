@@ -45,9 +45,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
 };
 
 @interface MyProfileViewController () <UITableViewDelegate,UITableViewDataSource,UIPickerViewDataSource, UIPickerViewDelegate,UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UISheetViewDelegate,UIAlertViewDelegate> {
-    NSArray *_titleContentArray;
     
-    __weak IBOutlet UIView *_chooseView;
     __weak IBOutlet UIView *_bottomPickerView;
     __weak IBOutlet UIDatePicker *_datePicker;
     __weak IBOutlet UIPickerView *_picker;
@@ -62,9 +60,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
     NSMutableArray *_arrayStatesPick;/////省
     NSMutableDictionary *_dicCityPick;////区市 key为省
     
-    
-    NSInteger _selectRow;////仅限Section0里
-    NSInteger _pickerSelectRow;
     
     NSMutableDictionary *_dicValues;////////tableView内容数据缓存 Key为对应的Title Value为用户填入的结果
     NSMutableDictionary *_dicPickSelectValues;////保存pickView对应的位置 ，value为pickView所选的位置，key为对应的title字符串
@@ -84,8 +79,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewConstraint;
 @property (strong, nonatomic) NSMutableArray *photos;
 
-@property (strong, nonatomic) NSString *headImageUrl;
-@property (strong, nonatomic) UserInfoViewModel *viewModel;
 
 @end
 
@@ -98,7 +91,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     _headImageUrl = @"";
 //    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
 //    [UITools navigationRightBarButtonForController:self action:@selector(saveAction:) normalTitle:@"保存" selectedTitle:nil];
-    _titleContentArray = @[@"头像",@"真实姓名",@"性别",@"出生日期",@"身高",@"手机号",@"微信号",@"工作生活城市",@"年收入",@"情感状态",@"家乡",@"星座"];
+    _titleContentArray = @[@"头像",@"真实姓名",@"性别",@"出生",@"身高",@"手机号",@"微信号",@"工作生活城市",@"年收入",@"情感状态",@"家乡",@"星座"];
     _dicValues = [NSMutableDictionary dictionary];
     
     
@@ -131,12 +124,12 @@ typedef NS_ENUM(NSUInteger, RowType) {
         _dicPickSelectValues = [NSMutableDictionary dictionary];
         _dicPickLocationValue = [NSMutableDictionary dictionary];
         _arraySexPick = @[@"男",@"女"];
-        _arrayHeightPick = [NSMutableArray arrayWithObject:@"150CM以下"];
+        _arrayHeightPick = [NSMutableArray arrayWithObject:@"150cm以下"];
         for (int i = 150; i <= 190; i++) {
             NSString *str = FORMAT(@"%dcm",i);
             [_arrayHeightPick addObject:str];
         }
-        [_arrayHeightPick addObject:@"190以上"];
+        [_arrayHeightPick addObject:@"190cm以上"];
         _arrayIncomePick = @[@"10W以下",@"10W-20w",@"20W-30w",@"30W-50w",@"50W-100w",@"100W以上"];
         _arrayLovedPick = @[@"单身并享受单身的状态",@"单身但渴望找到另一半",@"已有男女朋友，但未婚",@"已婚",@"离异，寻觅中",@"丧偶，寻觅中"];
         _arrayConstellationPick = @[@"水平座",@"双鱼座",@"白羊座",@"金牛座",@"双子座",@"巨蟹座",@"狮子座",@"处女座",@"天秤座",@"天蝎座",@"射手座",@"摩羯座"];
@@ -152,19 +145,25 @@ typedef NS_ENUM(NSUInteger, RowType) {
             _arrayStatesPick = [NSMutableArray arrayWithCapacity:28];
             _dicCityPick = [NSMutableDictionary dictionaryWithCapacity:28];
         }
+        _stateArray = [[NSMutableDictionary alloc] init];
         [array enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL * stop) {
             NSString *stateName = dic[@"State"];
             [_arrayStatesPick addObject:stateName];
+            [_stateArray setValue:dic[@"StateId"] forKey:stateName];
             NSArray *cities = dic[@"Cities"];
             NSMutableArray *temp = [NSMutableArray array];
             [cities enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * stop) {
                 NSString *cityName = obj[@"city"];
+                [self.stateArray setValue:obj[@"cityId"] forKey:cityName];
+//                NSLog(@"%@",dic);
                 [temp addObject:cityName];
             }];
             [_dicCityPick setObject:temp forKey:stateName];
         }];
         [self mappingCacheData];
+        NSLog(@"");
     });
+
 }
 
 - (void)mappingCacheData {
@@ -446,7 +445,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     }
     __weak typeof(self) weakSelf = self;
     [self mappingUserInfoWithDicValues];
-    [_viewModel updateUserInfo:[UserInfo shareInstance] success:^(NSDictionary *object) {
+    [_viewModel updateUserInfo:[UserInfo shareInstance] withStateArray:[self.stateArray copy] success:^(NSDictionary *object) {
         [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
         [[UserInfoDao shareInstance] updateBean:[UserInfo shareInstance]];
         [[UITools shareInstance] showMessageToView:self.view message:@"保存成功" autoHide:YES];
@@ -456,7 +455,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
         if ([imageData writeToFile:saveImagePath atomically:NO]) {
             //        NSLog(@"保存 成功");
         }
-        [self reloadUerImage:saveImagePath];
+        [weakSelf reloadUerImage:saveImagePath];
 
         
     } fail:^(NSDictionary *object) {
@@ -607,6 +606,8 @@ typedef NS_ENUM(NSUInteger, RowType) {
         }
     } else
         return (NSString *)[self setPickerViewContentArray:_selectRow][row];
+    
+    
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
@@ -616,7 +617,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
             [pickerView reloadComponent:1];
             return ;
         } else {
-            
+            _pickerSelectRow = row;
         }
     }  else
         _pickerSelectRow = row;
@@ -654,7 +655,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     } else if( section == 1) {
         return _arrayWorkExper.count + 1;
     } else if (section == 2) {
-        return  _arrayOccupationLable.count+ 1;
+        return  _arrayOccupationLable.count;
     } else if (section == 3) {
         return  _arrayEducateExper.count+ 1;
     }else if (section == 4 || section == 5) {
@@ -726,13 +727,18 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 cell.textLabel.text =  @"添加工作经历";
             }
         } else if(section == 2) {
-            if (row < _arrayOccupationLable.count) {
-                cell.textLabel.text = _arrayOccupationLable[row];
-                cell.imageView.image = nil;
-            } else {
-                cell.imageView.image = [UIImage imageNamed:@"imageAdd"];
-                cell.textLabel.text =  @"添加职业标签";
+            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(30, 10, ScreenWidth - 60, cell.bounds.size.height - 20)];
+            textField.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+            if (_arrayWorkExper.count > 1) {
+                textField.text = _arrayWorkExper[row];
+            }else{
+                textField.placeholder = @"请填写职业标签";
             }
+            while ([cell.contentView.subviews lastObject] != nil)
+            {
+                [(UIView*)[cell.contentView.subviews lastObject] removeFromSuperview];
+            }
+            [cell.contentView addSubview:textField];
         } else if (section == 3) {
             if (row < _arrayEducateExper.count) {
                 cell.textLabel.text = _arrayEducateExper[row];
@@ -972,15 +978,47 @@ typedef NS_ENUM(NSUInteger, RowType) {
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"pushToAddInformationVC"]) {
         AddInformationViewController *addInfom = (AddInformationViewController *)[segue destinationViewController];
-        UITableViewCell *cell = (UITableViewCell *)[_tableView cellForRowAtIndexPath:addInfom.indexPath];
+        addInfom.block = ^(NSIndexPath *path, NSString *string, ViewEditType type){
+            if (type == ViewTypeAdd) {
+                if (path.section == 1){
+                    [_arrayWorkExper addObject:string];
+                }else{
+                    [_arrayEducateExper addObject:string];
+                }
+            }else if (type == ViewTypeEdit){
+                if (path.section == 1){
+                    [_arrayWorkExper replaceObjectAtIndex:path.row withObject:string];
+                }else{
+                    [_arrayEducateExper replaceObjectAtIndex:path.row withObject:string];
+                }
+            }else{
+                if (path.section == 1){
+                    [_arrayWorkExper removeObjectAtIndex:path.row];
+                }else{
+                    [_arrayEducateExper removeObjectAtIndex:path.row];
+                }
+            }
+            NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
+            [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+        };
         if ([sender isKindOfClass:[NSIndexPath class]]) {
             addInfom.indexPath = (NSIndexPath *)sender;
         }
-        addInfom.cachTitles = cell.textLabel.text;
-        if ( addInfom.indexPath.row == _arrayWorkExper.count || addInfom.indexPath.row == _arrayEducateExper.count ) {
+//        UITableViewCell *cell = (UITableViewCell *)[_tableView cellForRowAtIndexPath:addInfom.indexPath];
+        if (addInfom.indexPath.row == _arrayWorkExper.count && addInfom.indexPath.section == 1){
             addInfom.viewType = ViewTypeAdd;
-        } else {
+
+        }else if (addInfom.indexPath.row == _arrayEducateExper.count && addInfom.indexPath.section == 3){
+            addInfom.viewType = ViewTypeAdd;
+        }else {
             addInfom.viewType = ViewTypeEdit;
+            if (addInfom.indexPath.section == 1) {
+                addInfom.cachTitles = [_arrayWorkExper objectAtIndex:addInfom.indexPath.row];
+            }else{
+                addInfom.cachTitles = [_arrayEducateExper objectAtIndex:addInfom.indexPath.row];
+
+            }
         }
     } else if ([segue.identifier isEqualToString:@"ModalToStarVC"]) {
 //        AddStarViewController *starVC = (AddStarViewController *)[segue destinationViewController];

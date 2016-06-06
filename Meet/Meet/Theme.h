@@ -29,7 +29,7 @@
 #define lineLabelBackgroundColor @"#F2F2F2"
 
 #define AboutUsLabelFont [UIFont fontWithName:@"PingFangTC-Light" size:14.0]
-#define AboutUsLabelColor @"#4D4D4D"
+#define AboutUsLabelColor @"4D4D4D"
 
 
 #endif /* Theme_h */

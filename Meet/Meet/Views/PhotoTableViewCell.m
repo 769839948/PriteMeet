@@ -43,7 +43,7 @@
     
     // 当有导航条时，若距离上面不点满，或者被挡一部分，请一定要设置这一行，因为7.0之后self.view的起点坐标从
     // 状态栏开始的。
-    _loop = [HYBLoopScrollView loopScrollViewWithFrame:CGRectMake(10, 0, [[UIScreen mainScreen] bounds].size.width - 20, ([[UIScreen mainScreen] bounds].size.width - 20)*236/255) imageUrls:images timeInterval:3 didSelect:^(NSInteger atIndex) {
+    _loop = [HYBLoopScrollView loopScrollViewWithFrame:CGRectMake(10, 0, [[UIScreen mainScreen] bounds].size.width - 20, ([[UIScreen mainScreen] bounds].size.width - 20)*236/355) imageUrls:images timeInterval:3 didSelect:^(NSInteger atIndex) {
         
     } didScroll:^(NSInteger toIndex) {
         

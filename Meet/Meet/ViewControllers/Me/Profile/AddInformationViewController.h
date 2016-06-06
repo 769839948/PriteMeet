@@ -7,13 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+
+
 typedef NS_ENUM(NSUInteger, ViewEditType) {
     ViewTypeEdit,
     ViewTypeAdd,
+    ViewTypeDelete,
 };
+
+typedef void (^AddInfoBlock)(NSIndexPath *indexPath, NSString *string,ViewEditType type);
 
 
 @interface AddInformationViewController : UIViewController
+
+@property (strong, nonatomic) AddInfoBlock block;
 
 @property (copy, nonatomic) NSArray *arrayTitles;
 @property (copy, nonatomic) NSString *cachTitles;

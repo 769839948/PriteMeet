@@ -159,13 +159,21 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat height;
-    NSArray *array = @[@"培养功夫",@"体态训练",@"金牌得主",@"私教",@"杨氏太极第六代"];
-    NSString *instresTitleString = @"  ";
-    for (NSString *instrestTitle in array) {
-        instresTitleString = [instresTitleString stringByAppendingString:instrestTitle];
-        instresTitleString = [instresTitleString stringByAppendingString:@"  "];
+    NSArray *array = @[];
+    //    NSArray *array = @[@"培养功夫",@"体态训练",@"金牌得主",@"私教",@"杨氏太极第六代"];
+    float instrestHeight = 0;
+    if (array.count == 0) {
+        instrestHeight = 0.0;
+    }else{
+        NSString *instresTitleString = @"  ";
+        for (NSString *instrestTitle in array) {
+            instresTitleString = [instresTitleString stringByAppendingString:instrestTitle];
+            instresTitleString = [instresTitleString stringByAppendingString:@"  "];
+        }
+        instrestHeight = [instresTitleString heightWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:24.0f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
     }
-    float instrestHeight = [instresTitleString heightWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:24.0f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
+
+    
     
     float titleHeight = [@"叶泳湘 杨氏太极第六代女传人 国际武术金牌" heightWithFont:[UIFont fontWithName:@"PingFangSC-Regular" size:22.55f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
     //    NSString *reuseIdentifier = cellIndef;
@@ -214,7 +222,10 @@
     if (cell == nil) {
         cell = [[ManListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndef];
     }
-    [cell configCell:@"叶泳湘 杨氏太极第六代女传人 国际武术金牌" array:@[@"培养功夫",@"体态训练",@"金牌得主",@"私教",@"杨氏太极第六代"] string:@"92人想见   和你相隔 820M "];
+    NSArray *array = @[];
+    //    NSArray *array = @[@"培养功夫",@"体态训练",@"金牌得主",@"私教",@"杨氏太极第六代"];
+    [cell configCell:@"叶泳湘 杨氏太极第六代女传人 国际武术金牌" array:array string:@"92人想见   和你相隔 820m "];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 

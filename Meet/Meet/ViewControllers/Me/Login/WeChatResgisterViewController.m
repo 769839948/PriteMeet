@@ -68,22 +68,22 @@
 - (IBAction)checkCodeButtonAction:(id)sender {
     #warning check code and into WeChat Longin
     if ([self isEmpty]) {
-        [EMAlertView showAlertWithTitle:@"提示" message:@"请输入邀请码" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+        [EMAlertView showAlertWithTitle:@"验证码错误" message:@"请输入正确有效的验证码" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             
-        } cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        } cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
     }else{
         __weak typeof(self) weakSelf = self;
         [_viewModel checkCode:checkField.text Success:^(NSDictionary *object) {
-            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
+//            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
             [weakSelf performSegueWithIdentifier:@"pushToWXLogin" sender:self];
         } Fail:^(NSDictionary *object) {
-            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
-            [EMAlertView showAlertWithTitle:@"提示" message:@"邀请码错误请重新输入" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+//            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
+            [EMAlertView showAlertWithTitle:@"验证码错误" message:@"请输入正确有效的验证码" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
                 
-            } cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            } cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         } showLoding:^(NSString *str) {
-            [self performSelectorOnMainThread:@selector(showHudInView:hint:) withObject:weakSelf.view withObject:str waitUntilDone:YES];
-            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
+//            [self performSelectorOnMainThread:@selector(showHudInView:hint:) withObject:weakSelf.view withObject:str waitUntilDone:YES];
+//            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
         }];
     }
     
@@ -143,9 +143,9 @@
             
         } Fail:^(NSDictionary *object) {
             [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
-            [EMAlertView showAlertWithTitle:@"提示" message:@"用户不存在请创建" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+            [EMAlertView showAlertWithTitle:@"账号不存在" message:@"Meet暂未开放注册，请获得邀请码后再重新登录" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
                 
-            } cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            } cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         } showLoding:^(NSString *str) {
             [self performSelectorOnMainThread:@selector(showHudInView:hint:) withObject:weakSelf.view withObject:str waitUntilDone:YES];
 
