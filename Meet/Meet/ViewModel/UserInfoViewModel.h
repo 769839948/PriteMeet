@@ -22,9 +22,11 @@
          loadingString:(LoadingView)loading;
 
 - (void)updateEduExp:(NSString *)eduString
+           witheduId:(NSString *)eduId
              success:(Success)successBlock
                 fail:(Fail)failBlock
        loadingString:(LoadingView)loading;
+
 
 - (void)addWorkExperent:(NSString *)workString
                success:(Success)successBlock
@@ -32,9 +34,20 @@
           loadingString:(LoadingView)loading;
 
 - (void)updateWorkExperent:(NSString *)workString
+                withWorkId:(NSString *)workId
                    success:(Success)successBlock
                       fail:(Fail)failBlock
              loadingString:(LoadingView)loading;
+
+- (void)deleteWorkExperent:(NSString *)workId
+                   success:(Success)successBlock
+                      fail:(Fail)failBlock
+             loadingString:(LoadingView)loading;
+
+- (void)deleteEduExperent:(NSString *)eduId
+                  success:(Success)successBlock
+                     fail:(Fail)failBlock
+            loadingString:(LoadingView)loading;
 
 - (void)getUserInfo:(NSString *)openId
                success:(Success)successBlock

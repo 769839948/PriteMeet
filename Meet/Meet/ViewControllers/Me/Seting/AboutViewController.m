@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"关于Meet";
-    _logoImageView.layer.cornerRadius = 5;
+//    _logoImageView.layer.cornerRadius = 5;
     _logoImageView.layer.masksToBounds = YES;
     self.hidesBottomBarWhenPushed = YES;
     [self setUpNavigationBarItem];
@@ -35,6 +35,7 @@
 - (void)setUpNavigationBarItem
 {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"联系客服" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarPress:)];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithHexString:AboutUsLabelColor];
 }
 
 - (void)rightBarPress:(UIBarButtonItem *)sender

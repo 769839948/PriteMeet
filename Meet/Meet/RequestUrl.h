@@ -21,7 +21,6 @@
 #define  RequestGetUserInfo          @"api/user/base_info/"
 #define  RequestUploadUserPhoto      @"api/user/avatar/"
 
-#define  RequestAddWorkExp           @"api/user/work_info/"
-#define  RequestAddEduExp            @"api/user/edu_info/"
-
+#define  RequestAddWorkExp           @"api/user/work_info"
+#define  RequestAddEduExp            @"api/user/edu_info"
 #endif /* RequestUrl_h */

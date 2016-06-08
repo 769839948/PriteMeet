@@ -61,7 +61,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
     NSMutableArray *_arrayStatesPick;/////省
     NSMutableDictionary *_dicCityPick;////区市 key为省
     
-    
+    NSMutableArray *_workeExperId;
+    NSMutableArray *_eduExperId;
+
     NSMutableDictionary *_dicValues;////////tableView内容数据缓存 Key为对应的Title Value为用户填入的结果
     NSMutableDictionary *_dicPickSelectValues;////保存pickView对应的位置 ，value为pickView所选的位置，key为对应的title字符串
     NSMutableDictionary *_dicPickLocationValue;/////工作地点 和 家乡pick 值 （key为对应的title字符串 value为pickView所选的位置数组（） ）
@@ -75,6 +77,8 @@ typedef NS_ENUM(NSUInteger, RowType) {
     UIAlertView *_sexAlertView;
     BOOL _isNotSelectHeight;
 }
+
+
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewConstraint;
@@ -116,6 +120,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     
 }
 
+
 /**
  *  设置导航栏标题
  */
@@ -132,9 +137,12 @@ typedef NS_ENUM(NSUInteger, RowType) {
 - (NSArray *)workExpArray
 {
     NSMutableArray *workArray = [NSMutableArray array];
+    _workeExperId = [NSMutableArray array];
+    NSArray *dic = [UserInfo sharedInstance].work_expirence;
     for (NSDictionary *dic in [UserInfo sharedInstance].work_expirence) {
         NSString *workString = [NSString stringWithFormat:@"%@ - %@",dic[@"company_name"],dic[@"profession"]];
         [workArray addObject:workString];
+        [_workeExperId addObject:dic[@"id"]];
     }
     return workArray;
 }
@@ -142,9 +150,13 @@ typedef NS_ENUM(NSUInteger, RowType) {
 - (NSArray *)eduWorkExpArray
 {
     NSMutableArray *workArray = [NSMutableArray array];
+    _eduExperId = [NSMutableArray array];
+    NSArray *dic = [UserInfo sharedInstance].edu_expirence;
+
     for (NSDictionary *dic in [UserInfo sharedInstance].edu_expirence) {
         NSString *workString = [NSString stringWithFormat:@"%@ - %@ - %@",dic[@"graduated"],dic[@"major"], dic[@"education"]];
         [workArray addObject:workString];
+        [_eduExperId addObject:dic[@"id"]];
     }
     return workArray;
 }
@@ -375,8 +387,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
     [UserInfo sharedInstance].hometown = hometown;
     [UserInfo sharedInstance].constellation = [constellation integerValue];
     [UserInfo sharedInstance].gender = [_dicValues[_titleContentArray[RowSex]] integerValue];
-    [UserInfo sharedInstance].work_expirence = [_arrayWorkExper copy];
-    [UserInfo sharedInstance].edu_expirence = [_arrayEducateExper copy];
 }
 
 - (void)updateViewConstraints {
@@ -725,7 +735,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
         } else if(section == 2) {
             UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(30, 10, ScreenWidth - 60, cell.bounds.size.height - 20)];
             textField.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
-            if (_arrayWorkExper.count > 1) {
+            if (_arrayWorkExper.count >= 1) {
                 textField.text = _arrayWorkExper[row];
             }else{
                 textField.placeholder = @"请填写职业标签";
@@ -873,11 +883,12 @@ typedef NS_ENUM(NSUInteger, RowType) {
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         ///头像上传后再保存到本地 刷新
-        [_viewModel uploadImage:[UIImage imageWithContentsOfFile:[self imageSaveParth]] openId:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
+        [_viewModel uploadImage:[info valueForKey:UIImagePickerControllerEditedImage] openId:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
             [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
             
             if ([[object objectForKey:@"success"] boolValue]) {
                 [UserInfo sharedInstance].avatar = [object objectForKey:@"avatar"];
+                [UserInfo synchronize];
             }else{
                 [[UITools shareInstance] showMessageToView:self.view message:@"上传失败" autoHide:YES];
             }
@@ -980,6 +991,10 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 if (path.section == 1){
                     [weakSelf.viewModel addWorkExperent:string success:^(NSDictionary *object) {
                         [_arrayWorkExper addObject:string];
+                        [_workeExperId addObject:object[@"work_id"]];
+                        [self updateWorkUserFile:[_arrayWorkExper copy] withId:[_workeExperId copy]];
+                        NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
+                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
                     } fail:^(NSDictionary *object) {
                         
                     } loadingString:^(NSString *str) {
@@ -988,6 +1003,10 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 }else{
                     [weakSelf.viewModel addEduExperent:string success:^(NSDictionary *object) {
                         [_arrayEducateExper addObject:string];
+                        [_eduExperId addObject:object[@"edu_id"]];
+                        [self updateEduUserFile:[_arrayEducateExper copy] withEduId:[_eduExperId copy]];
+                        NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
+                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
                     } fail:^(NSDictionary *object) {
                         
                     } loadingString:^(NSString *str) {
@@ -996,18 +1015,22 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 }
             }else if (type == ViewTypeEdit){
                 if (path.section == 1){
-                    [weakSelf.viewModel updateWorkExperent:string success:^(NSDictionary *object) {
+                    [weakSelf.viewModel updateWorkExperent:string withWorkId:_workeExperId[path.row] success:^(NSDictionary *object) {
                         [_arrayWorkExper replaceObjectAtIndex:path.row withObject:string];
-
+                        [self updateWorkUserFile:[_arrayWorkExper copy] withId:[_workeExperId copy]];
+                        NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
+                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
                     } fail:^(NSDictionary *object) {
                         
                     } loadingString:^(NSString *str) {
                         
                     }];
                 }else{
-                    [weakSelf.viewModel updateEduExp:string success:^(NSDictionary *object) {
+                    [weakSelf.viewModel updateEduExp:string witheduId:_eduExperId[path.row] success:^(NSDictionary *object) {
                         [_arrayEducateExper replaceObjectAtIndex:path.row withObject:string];
-                        
+                        [self updateEduUserFile:[_arrayEducateExper copy] withEduId:[_eduExperId copy]];
+                        NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
+                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
                     } fail:^(NSDictionary *object) {
                         
                     } loadingString:^(NSString *str) {
@@ -1016,13 +1039,35 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 }
             }else{
                 if (path.section == 1){
-                    [_arrayWorkExper removeObjectAtIndex:path.row];
+                    
+                    [weakSelf.viewModel deleteWorkExperent:_workeExperId[path.row] success:^(NSDictionary *object) {
+                        [_arrayWorkExper removeObjectAtIndex:path.row];
+                        [_workeExperId removeObjectAtIndex:path.row];
+                        [self updateWorkUserFile:[_arrayWorkExper copy] withId:[_workeExperId copy]];
+                        NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
+                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                    } fail:^(NSDictionary *object) {
+                        
+                    } loadingString:^(NSString *str) {
+                        
+                    }];
                 }else{
-                    [_arrayEducateExper removeObjectAtIndex:path.row];
+                    [weakSelf.viewModel deleteEduExperent:_eduExperId[path.row] success:^(NSDictionary *object) {
+                        [_arrayEducateExper removeObjectAtIndex:path.row];
+                        [_eduExperId removeObjectAtIndex:path.row];
+                        [self updateEduUserFile:[_arrayEducateExper copy] withEduId:[_eduExperId copy]];
+                        NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
+                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                    } fail:^(NSDictionary *object) {
+                        
+                    } loadingString:^(NSString *str) {
+                        
+                    }];
+                    
                 }
+                
             }
-            NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
-            [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            
             
         };
         if ([sender isKindOfClass:[NSIndexPath class]]) {
@@ -1053,9 +1098,40 @@ typedef NS_ENUM(NSUInteger, RowType) {
     }
 }
 
-- (void)addWorkExp:(NSString *)string
+- (void)updateWorkUserFile:(NSArray *)workArray withId:(NSArray *)workId
 {
-//    __weak typeof(self) weakSelf = self;
+    NSMutableArray *changeArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < workArray.count; i ++) {
+        NSArray *array = [[workArray objectAtIndex:i] componentsSeparatedByString:@" - "];
+        NSString *workIdString = [workId objectAtIndex:i];
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        [dic setValue:array[0] forKey:@"company_name"];
+        [dic setValue:array[1] forKey:@"profession"];
+        [dic setValue:workIdString forKey:@"id"];
+        [dic setValue:@0 forKey:@"income"];
+        [changeArray addObject:dic];
+    }
+    [UserInfo sharedInstance].work_expirence = [changeArray mutableCopy];
+    [UserInfo synchronize];
+    
+}
+
+- (void)updateEduUserFile:(NSArray *)eduArray withEduId:(NSArray *)eduId
+{
+    NSMutableArray *changeArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < eduArray.count; i ++) {
+        NSArray *array = [[eduArray objectAtIndex:i] componentsSeparatedByString:@" - "];
+        NSString *eduIdString = [eduId objectAtIndex:i];
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        [dic setValue:array[0] forKey:@"graduated"];
+        [dic setValue:array[1] forKey:@"major"];
+        [dic setValue:array[2] forKey:@"education"];
+        [dic setValue:eduIdString forKey:@"id"];
+        [changeArray addObject:dic];
+    }
+    [UserInfo sharedInstance].edu_expirence = [changeArray mutableCopy];
+    [UserInfo synchronize];
+    //    __weak typeof(self) weakSelf = self;
     
 }
 

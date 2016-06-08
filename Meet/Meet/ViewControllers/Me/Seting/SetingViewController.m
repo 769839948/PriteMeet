@@ -11,6 +11,8 @@
 #import <MessageUI/MessageUI.h>
 #import "AboutViewController.h"
 #import "UserInfo.h"
+#import "NSFileManager+Cache.h"
+#import "NSFileManager+Paths.h"
 #import "UIViewController+hideExcessLine.h"
 
 @interface SetingViewController ()<UITableViewDelegate,UITableViewDataSource,UISheetViewDelegate,MFMailComposeViewControllerDelegate> {
@@ -85,8 +87,18 @@
         cell.textLabel.textColor = [UIColor colorWithHexString:TableViewTextColor];
     }
     
+    if (indexPath.row == 1) {
+        UILabel *cacheLable = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth/2, 16, ScreenWidth/2 - 20, 16)];
+        cacheLable.font = SettingViewLabelFont;
+        cacheLable.textAlignment = NSTextAlignmentRight;
+        cacheLable.text = [self cacheSize];
+        cacheLable.textColor = [UIColor colorWithHexString:TableViewTextColor];
+        [cell.contentView addSubview:cacheLable];
+    }
+    
     if (indexPath.row == 1 || indexPath.row == 5) {
         cell.accessoryType = UITableViewCellAccessoryNone;
+        
     }else{
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
@@ -99,7 +111,13 @@
     if (indexPath.row == 0) {
         
     }else if (indexPath.row == 1){
-        
+        __weak typeof(self) weakSelf = self;
+        [EMAlertView showAlertWithTitle:@"清理缓存" message:@"确定清理缓存" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+            if (buttonIndex == 1) {
+                [NSFileManager clearCache:[NSFileManager jk_cachesPath]];
+                [weakSelf.tableView reloadData];
+            }
+        } cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
     }else if (indexPath.row == 2){
         [self performSegueWithIdentifier:@"PushToAboutViewController" sender:self];
 
@@ -176,6 +194,35 @@
     [_sheetView hidden];
 }
 
+
+/**
+ *  计算缓存大小
+ *
+ *  @return 返回 NSString 大小
+ */
+-(NSString *)cacheSize
+{
+    NSString *roundSize = [self notRounding:[NSFileManager folderSizeAtPath:[NSFileManager jk_cachesPath]] afterPoint:2];
+    NSString *cahceSize = [NSString stringWithFormat:@"%@M",roundSize];
+    return cahceSize;
+}
+/**
+ *  四舍五入问题
+ *
+ *  @param price    传入float 参数
+ *  @param position 保留小数点后几位
+ *
+ *  @return 返回NSString
+ */
+-(NSString *)notRounding:(float)price afterPoint:(int)position{
+    
+    NSDecimalNumberHandler* roundingBehavior = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown scale:position raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];
+    NSDecimalNumber *ouncesDecimal;
+    NSDecimalNumber *roundedOunces;
+    ouncesDecimal = [[NSDecimalNumber alloc] initWithFloat:price];
+    roundedOunces = [ouncesDecimal decimalNumberByRoundingAccordingToBehavior:roundingBehavior];
+    return [NSString stringWithFormat:@"%@",roundedOunces];
+}
 
 #pragma mark - Navigation
 // In a storyboard-based application, you will often want to do a little preparation before navigation

@@ -32,6 +32,9 @@
 		1F6E8BE51D0276C00044CD40 /* NSObject+PerformSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E8BE41D0276C00044CD40 /* NSObject+PerformSelector.m */; };
 		1F79BAA21D06AF5C00814DED /* ProfileKeyValue.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F79BAA11D06AF5C00814DED /* ProfileKeyValue.txt */; };
 		1F79BAD21D071CF700814DED /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BAD11D071CF700814DED /* UserInfo.m */; };
+		1F79BAD51D080A0500814DED /* NSFileManager+Paths.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BAD41D080A0500814DED /* NSFileManager+Paths.m */; };
+		1F79BAD81D080B7B00814DED /* NSFileManager+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BAD71D080B7B00814DED /* NSFileManager+Utils.m */; };
+		1F79BADB1D080B9100814DED /* NSFileManager+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BADA1D080B9100814DED /* NSFileManager+Cache.m */; };
 		1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */; };
 		1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5931CFDF931002345C1 /* NSString+StringSize.m */; };
 		1FC2C1451CFD3311001D6D10 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C1421CFD3311001D6D10 /* NSString+Utils.m */; };
@@ -202,6 +205,12 @@
 		1F79BAA11D06AF5C00814DED /* ProfileKeyValue.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ProfileKeyValue.txt; sourceTree = "<group>"; };
 		1F79BAD01D071CF700814DED /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		1F79BAD11D071CF700814DED /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
+		1F79BAD31D080A0500814DED /* NSFileManager+Paths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+Paths.h"; sourceTree = "<group>"; };
+		1F79BAD41D080A0500814DED /* NSFileManager+Paths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Paths.m"; sourceTree = "<group>"; };
+		1F79BAD61D080B7B00814DED /* NSFileManager+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+Utils.h"; sourceTree = "<group>"; };
+		1F79BAD71D080B7B00814DED /* NSFileManager+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Utils.m"; sourceTree = "<group>"; };
+		1F79BAD91D080B9100814DED /* NSFileManager+Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+Cache.h"; sourceTree = "<group>"; };
+		1F79BADA1D080B9100814DED /* NSFileManager+Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Cache.m"; sourceTree = "<group>"; };
 		1FA4E58F1CFDF91F002345C1 /* InterestCollectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestCollectView.h; sourceTree = "<group>"; };
 		1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestCollectView.m; sourceTree = "<group>"; };
 		1FA4E5921CFDF931002345C1 /* NSString+StringSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSize.h"; sourceTree = "<group>"; };
@@ -471,6 +480,12 @@
 				1FCAFFCB1D012B6900BF53A1 /* UIViewController+NavigationItemColor.m */,
 				1F6E8BE31D0276C00044CD40 /* NSObject+PerformSelector.h */,
 				1F6E8BE41D0276C00044CD40 /* NSObject+PerformSelector.m */,
+				1F79BAD31D080A0500814DED /* NSFileManager+Paths.h */,
+				1F79BAD41D080A0500814DED /* NSFileManager+Paths.m */,
+				1F79BAD61D080B7B00814DED /* NSFileManager+Utils.h */,
+				1F79BAD71D080B7B00814DED /* NSFileManager+Utils.m */,
+				1F79BAD91D080B9100814DED /* NSFileManager+Cache.h */,
+				1F79BADA1D080B9100814DED /* NSFileManager+Cache.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1295,6 +1310,7 @@
 				1F6850201CFFD3D2007F3C07 /* MeetDetailViewController.swift in Sources */,
 				1F6E8BE51D0276C00044CD40 /* NSObject+PerformSelector.m in Sources */,
 				DABF8AEC1CE9B7BD00CA2A1D /* WillAllowViewColler.m in Sources */,
+				1F79BADB1D080B9100814DED /* NSFileManager+Cache.m in Sources */,
 				DABF8B0A1CEB22A100CA2A1D /* UserProtocolViewController.m in Sources */,
 				DAF5C8861CE5B95000DA7901 /* CTFrameParser.m in Sources */,
 				DABF8AEF1CE9B83300CA2A1D /* AllMeetViewController.m in Sources */,
@@ -1317,6 +1333,7 @@
 				1F6850361CFFD77A007F3C07 /* BaseTableViewCell.m in Sources */,
 				1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */,
 				1FCAFFD01D01515D00BF53A1 /* BaseRequestViewModel.m in Sources */,
+				1F79BAD51D080A0500814DED /* NSFileManager+Paths.m in Sources */,
 				DA4A890E1CDCA8D000649983 /* WeChatResgisterViewController.m in Sources */,
 				DA6B1C571CEC4DAC0020021D /* HomeMainViewController.m in Sources */,
 				1F6850261CFFD431007F3C07 /* MeetInfoTableViewCell.m in Sources */,
@@ -1327,6 +1344,7 @@
 				1F68502C1CFFD458007F3C07 /* SectionInfoTableViewCell.m in Sources */,
 				1F6850321CFFD4B3007F3C07 /* WantMeetTableViewCell.m in Sources */,
 				1FCAA98A1CFF200900C84ED2 /* UIViewController+ScrollingNavbar.m in Sources */,
+				1F79BAD81D080B7B00814DED /* NSFileManager+Utils.m in Sources */,
 				DA6CEEF21CD9EF9D00EEABFF /* CellButton.m in Sources */,
 				1F79BAD21D071CF700814DED /* UserInfo.m in Sources */,
 				DA6B1C521CEC4DAC0020021D /* FristHomeViewController.m in Sources */,
