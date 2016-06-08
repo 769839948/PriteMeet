@@ -16,10 +16,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [UITools customNavigationLeftBarButtonForController:self action:@selector(backButtonAction:)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick:)];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithHexString:@"202020"];
+    
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor colorWithHexString:@"202020"];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+//    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackTranslucent];
 }
 
-- (void)backButtonAction:(UIButton *)sender {
+- (void)leftItemClick:(UINavigationItem *)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 

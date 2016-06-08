@@ -16,7 +16,6 @@
 
 //#import <Fabric/Fabric.h>
 //#import <Crashlytics/Crashlytics.h>
-#import "UserInfoDao.h"
 
 @interface WeChatResgisterViewController ()<UIGestureRecognizerDelegate>
 {
@@ -37,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _viewModel = [[LoginViewModel alloc] init];
-    checkField.text = @"Z3pavMk";
+    checkField.text = @"1t5uAGB";
     // Do any additional setup after loading the view.
     if (IOS_7LAST) {
         self.navigationController.interactivePopGestureRecognizer.delegate = self;
@@ -124,12 +123,9 @@
             [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
             
             [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
-                [[UserInfo shareInstance] mappingValuesFormWXUserInfo:[WXUserInfo shareInstance]];
-                [[UserInfoDao shareInstance] insertBean:[UserInfo shareInstance]];
+                /////获取到 [UserInfo shareInstance]的idKye 以后保存需要
+                [UserInfo synchronizeWithDic:object];
                 [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
-                [[UserInfoDao shareInstance] selectUserInfoWithUserId:[UserInfo shareInstance].userId];
-                [self mappingNetData:object];
-                [[UserInfoDao shareInstance] insertBean:[UserInfo shareInstance]];
                 [self dismissViewControllerAnimated:YES completion:^{
                     [AppData shareInstance].isLogin = YES;
                     
@@ -162,23 +158,7 @@
     }
 }
 
-- (void)mappingNetData:(NSDictionary *)dic
-{
-//    [UserInfo shareInstance].headimgurl = [dic objectForKey:@"avatar"];
-//    [UserInfo shareInstance].brithday = [dic objectForKey:@"birthday"];
-//    [UserInfo shareInstance].constellation = [dic objectForKey:@"constellation"];
-//    [UserInfo shareInstance].sex = [dic objectForKey:@"gender"];
-//    [UserInfo shareInstance].eMail = [dic objectForKey:@"eMail"];
-//    [UserInfo shareInstance].height = [dic objectForKey:@"height"];
-//    [UserInfo shareInstance].workCity = [dic objectForKey:@"workCity"];
-//    [UserInfo shareInstance].income = [dic objectForKey:@"income"];
-//    [UserInfo shareInstance].city = [dic objectForKey:@"location"];
-//    [UserInfo shareInstance].phoneNo = [dic objectForKey:@"mobile_num"];
-//    [UserInfo shareInstance].name = [dic objectForKey:@"real_name"];
-//    [UserInfo shareInstance].WX_No = [dic objectForKey:@"weixin_num"];
-    UserInfo *useriNfo = [UserInfo shareInstance];
-    NSLog(@"");
-}
+
 
 #pragma mark - sender to WeChat
 -(void)sendAuthRequest {

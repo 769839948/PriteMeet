@@ -7,6 +7,7 @@
 //
 
 #import "ThemeTools.h"
+#import "IQBarButtonItem.h"
 
 @implementation ThemeTools
 
@@ -54,7 +55,10 @@ static ThemeTools *themetools = nil;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     [[UINavigationBar appearance] setBarTintColor:navigationBarColor];
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackTranslucent];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:titleColor}];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:titleColor,NSFontAttributeName:[UIFont systemFontOfSize:18]}];
+    [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName:titleColor,NSFontAttributeName:[UIFont systemFontOfSize:18]};
+//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:titleColor}];
+//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName: }];
     
 }
 

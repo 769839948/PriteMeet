@@ -14,8 +14,6 @@
 #import "CoreTextData.h"
 #import "CTFrameParser.h"
 #import "UIImageView+MHFacebookImageViewer.h"
-#import "MoreDescriptionDao.h"
-#import "MoreDescriptionModel.h"
 
 @interface MyDisplayViewController () {
     __weak IBOutlet UIScrollView *_scrollView;
@@ -59,9 +57,9 @@
 
 - (void)moreDescriptionModelsFromDB {
     [_arrayContentModels removeAllObjects];
-    NSString *userId = [UserInfo shareInstance].userId;
-    NSArray *array = [[MoreDescriptionDao shareInstance] selectMoreDescriptionByUserIDOrderByIndexASC:userId];
-    [_arrayContentModels addObjectsFromArray:array];
+//    NSString *userId = [UserInfo shareInstance].userId;
+//    NSArray *array = [[MoreDescriptionDao shareInstance] selectMoreDescriptionByUserIDOrderByIndexASC:userId];
+//  [_arrayContentModels addObjectsFromArray:array];
 }
 
 - (void)loadCoreTextViewAndImageViews {
@@ -71,35 +69,35 @@
             [subView removeFromSuperview];
         }
     }
-    for (NSInteger i = 0; i < _arrayContentModels.count; i++) {
-        MoreDescriptionModel *model = _arrayContentModels[i];
-        _scrollViewContentHeight += SECTION_MARGIN;
-        CTTextView *coreTextView = [[CTTextView alloc] init];//
-        CTFrameParserConfig *config = [[CTFrameParserConfig alloc] init];
-        config.width = IMAGAVIEW_W;
-        NSString *modelTitle = model.title;
-        if (modelTitle == nil) {
-            modelTitle = @"";
-        }
-        NSString *titlStr = [model.title stringByAppendingString:@"\n"];
-        NSString *modelContent = model.content;
-        if (modelContent == nil) {
-            modelContent = @"";
-        }
-        NSString *contentStr= [titlStr stringByAppendingString:modelContent];
-        NSDictionary *attr = [CTFrameParser attributesWithConfig:config];
-        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:contentStr attributes:attr];
-        [attStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(0, titlStr.length)];
-        [attStr addAttribute:NSBackgroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(titlStr.length, contentStr.length - titlStr.length)];
-        
-        CoreTextData *data = [CTFrameParser parseAttributedContent:attStr config:config];
-        coreTextView.data = data;
-        coreTextView.backgroundColor = [UIColor whiteColor];
-        coreTextView.frame = CGRectMake(IMAGEVIEW_X, _scrollViewContentHeight, IMAGAVIEW_W, data.height);
-        [_scrollView addSubview:coreTextView];
-        _scrollViewContentHeight += data.height;
-        [self loadImageViewsWithSection:i];
-    }
+//    for (NSInteger i = 0; i < _arrayContentModels.count; i++) {
+//        MoreDescriptionModel *model = _arrayContentModels[i];
+//        _scrollViewContentHeight += SECTION_MARGIN;
+//        CTTextView *coreTextView = [[CTTextView alloc] init];//
+//        CTFrameParserConfig *config = [[CTFrameParserConfig alloc] init];
+//        config.width = IMAGAVIEW_W;
+//        NSString *modelTitle = model.title;
+//        if (modelTitle == nil) {
+//            modelTitle = @"";
+//        }
+//        NSString *titlStr = [model.title stringByAppendingString:@"\n"];
+//        NSString *modelContent = model.content;
+//        if (modelContent == nil) {
+//            modelContent = @"";
+//        }
+//        NSString *contentStr= [titlStr stringByAppendingString:modelContent];
+//        NSDictionary *attr = [CTFrameParser attributesWithConfig:config];
+//        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:contentStr attributes:attr];
+//        [attStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(0, titlStr.length)];
+//        [attStr addAttribute:NSBackgroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(titlStr.length, contentStr.length - titlStr.length)];
+//        
+//        CoreTextData *data = [CTFrameParser parseAttributedContent:attStr config:config];
+//        coreTextView.data = data;
+//        coreTextView.backgroundColor = [UIColor whiteColor];
+//        coreTextView.frame = CGRectMake(IMAGEVIEW_X, _scrollViewContentHeight, IMAGAVIEW_W, data.height);
+//        [_scrollView addSubview:coreTextView];
+//        _scrollViewContentHeight += data.height;
+//        [self loadImageViewsWithSection:i];
+//    }
     _scrollViewConstraintH.constant = _scrollViewContentHeight + 10;
 }
 

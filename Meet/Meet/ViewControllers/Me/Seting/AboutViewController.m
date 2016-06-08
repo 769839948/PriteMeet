@@ -29,6 +29,17 @@
     _logoImageView.layer.cornerRadius = 5;
     _logoImageView.layer.masksToBounds = YES;
     self.hidesBottomBarWhenPushed = YES;
+    [self setUpNavigationBarItem];
+}
+
+- (void)setUpNavigationBarItem
+{
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"联系客服" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarPress:)];
+}
+
+- (void)rightBarPress:(UIBarButtonItem *)sender
+{
+    
 }
 
 - (void)didReceiveMemoryWarning {

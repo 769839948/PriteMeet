@@ -13,8 +13,6 @@
 #import "UITextView+Placeholder.h"
 #import "CellTextView.h"
 #import "MyPhotosViewController.h"
-#import "MoreDescriptionDao.h"
-#import "MoreDescriptionModel.h"
 
 #define TABLE_HEADER_VIEW_H         49
 
@@ -77,35 +75,35 @@
 }
 
 - (void)cacheMoreDescriptionModelInDicContent {
-    for (int i = 0; i < _arraySection.count -1; i++) {
-        NSString *key = FORMAT(@"%d",i);
-        MoreDescriptionModel *model;
-        if (_arrayModel.count == 0) {
-            model = [self createDescriptionModelForIndex:i];
-        } else {
-            model = [[MoreDescriptionDao shareInstance] selectMoreDescriptionByUserID:[UserInfo shareInstance].userId andIndex:i];
-            if (!model) {
-                model = [self createDescriptionModelForIndex:i];
-            }
-        }
-        [_dicContentModels setObject:model forKey:key];
-    }
+//    for (int i = 0; i < _arraySection.count -1; i++) {
+//        NSString *key = FORMAT(@"%d",i);
+//        MoreDescriptionModel *model;
+//        if (_arrayModel.count == 0) {
+//            model = [self createDescriptionModelForIndex:i];
+//        } else {
+//            model = [[MoreDescriptionDao shareInstance] selectMoreDescriptionByUserID:[UserInfo shareInstance].userId andIndex:i];
+//            if (!model) {
+//                model = [self createDescriptionModelForIndex:i];
+//            }
+//        }
+//        [_dicContentModels setObject:model forKey:key];
+//    }
 }
 
-- (MoreDescriptionModel *)createDescriptionModelForIndex:(NSInteger) index {
-    MoreDescriptionModel *model = [[MoreDescriptionModel alloc] init];
-    model.userId = [UserInfo shareInstance].userId;
-    model.index = index;
-    model.title = _dicHeaderContent[_arraySection[index]];
-    return model;
-}
+//- (MoreDescriptionModel *)createDescriptionModelForIndex:(NSInteger) index {
+//    MoreDescriptionModel *model = [[MoreDescriptionModel alloc] init];
+//    model.userId = [UserInfo shareInstance].userId;
+//    model.index = index;
+//    model.title = _dicHeaderContent[_arraySection[index]];
+//    return model;
+//}
 
 - (void)moreDescriptionModelsFromDB {
-    NSString *userId = [UserInfo shareInstance].userId;
-    NSArray *array = [[MoreDescriptionDao shareInstance] selectMoreDescriptionByUserID:userId];
-    if (array.count > 0) {
-        [_arrayModel addObjectsFromArray:array];
-    }
+//    NSString *userId = [UserInfo shareInstance].userId;
+//    NSArray *array = [[MoreDescriptionDao shareInstance] selectMoreDescriptionByUserID:userId];
+//    if (array.count > 0) {
+//        [_arrayModel addObjectsFromArray:array];
+//    }
 }
 
 #pragma mark - read Images
@@ -198,24 +196,24 @@
 }
 
 - (void)saveAction:(id)sender {
-    for (MoreDescriptionModel *model in _dicContentModels.allValues) {
-        if (model.idKey.length > 0) {
-            [[MoreDescriptionDao shareInstance] updateBean:model];
-        } else
-            [[MoreDescriptionDao shareInstance] insertBean:model];
-    }
-    if (isModifyImages) {
-        self.modifyBlock();
-    }
-    if (_editType == 0){
-        [self dismissViewControllerAnimated:YES completion:^{
-        }];
-    } else {
-        if (isModifyText) {
-            self.modifyTextBlock();
-        }
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+//    for (MoreDescriptionModel *model in _dicContentModels.allValues) {
+//        if (model.idKey.length > 0) {
+//            [[MoreDescriptionDao shareInstance] updateBean:model];
+//        } else
+//            [[MoreDescriptionDao shareInstance] insertBean:model];
+//    }
+//    if (isModifyImages) {
+//        self.modifyBlock();
+//    }
+//    if (_editType == 0){
+//        [self dismissViewControllerAnimated:YES completion:^{
+//        }];
+//    } else {
+//        if (isModifyText) {
+//            self.modifyTextBlock();
+//        }
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
 }
 
 #pragma mark - Image File Writ
@@ -340,12 +338,12 @@
             }
             cell.textView.placeholder = _dicPlaceHolder[_arraySection[indexPath.section]];
             cell.textView.indexPath = indexPath;
-            MoreDescriptionModel *model = _dicContentModels[FORMAT(@"%ld",(long)indexPath.section)];
-            NSString *modelContent = model.content;
-            if (modelContent == nil) {
-                modelContent = @"";
-            }
-            cell.textView.text = modelContent;
+//            MoreDescriptionModel *model = _dicContentModels[FORMAT(@"%ld",(long)indexPath.section)];
+//            NSString *modelContent = model.content;
+//            if (modelContent == nil) {
+//                modelContent = @"";
+//            }
+            cell.textView.text = @"修改中";
             return cell;
         }
     } else if (indexPath.row == 1){
@@ -401,11 +399,11 @@
     if ([textField isKindOfClass:[CellTextField class]]) {
         CellTextField *cellTextField = (CellTextField *)textField;
         _editingSection = cellTextField.section;
-        MoreDescriptionModel *model = _dicContentModels[FORMAT(@"%lu",(unsigned long)_editingSection)];
-        if (![model.title isEqualToString:textField.text]) {
-            isModifyText = YES;
-            model.title = textField.text;
-        }
+//        MoreDescriptionModel *model = _dicContentModels[FORMAT(@"%lu",(unsigned long)_editingSection)];
+//        if (![model.title isEqualToString:textField.text]) {
+//            isModifyText = YES;
+//            model.title = textField.text;
+//        }
     }
 }
 
@@ -425,11 +423,11 @@
     if ([textView isKindOfClass:[CellTextView class]]) {
         CellTextView *cellText = (CellTextView *)textView;
         _editingIndexPath = cellText.indexPath;
-        MoreDescriptionModel *model = _dicContentModels[FORMAT(@"%ld",(long)_editingIndexPath.section)];
-        if (![model.content isEqualToString:textView.text]) {
-            isModifyText = YES;
-            model.content = textView.text;
-        }
+//        MoreDescriptionModel *model = _dicContentModels[FORMAT(@"%ld",(long)_editingIndexPath.section)];
+//        if (![model.content isEqualToString:textView.text]) {
+//            isModifyText = YES;
+//            model.content = textView.text;
+//        }
     }
 }
 

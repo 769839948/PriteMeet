@@ -17,9 +17,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="MZO-bD-o6g">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MZO-bD-o6g">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Vaa-uk-D5J" id="TTv-sj-Y2L"/>
                                     <outlet property="delegate" destination="Vaa-uk-D5J" id="akU-n6-MYi"/>
@@ -102,40 +102,10 @@ Meet  1.0.0 Beta</string>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="25u-KT-6eW">
                                 <rect key="frame" x="76" y="431" width="168" height="21"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="客服电话:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f4g-44-zXA">
-                                        <rect key="frame" x="0.0" y="0.0" width="63" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="63" id="LA7-XX-TYp"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vAc-oG-fms">
-                                        <rect key="frame" x="69" y="0.0" width="99" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="99" id="PsX-e8-Ihs"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title="400-100-3456">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="serverButtonAction:" destination="jBC-aJ-gmZ" eventType="touchUpInside" id="Mgv-SS-qIf"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="168" id="Dpe-hR-LNs"/>
-                                    <constraint firstItem="f4g-44-zXA" firstAttribute="top" secondItem="25u-KT-6eW" secondAttribute="top" id="QZU-02-ot1"/>
-                                    <constraint firstItem="vAc-oG-fms" firstAttribute="top" secondItem="25u-KT-6eW" secondAttribute="top" id="UI8-q0-yLL"/>
-                                    <constraint firstItem="f4g-44-zXA" firstAttribute="leading" secondItem="25u-KT-6eW" secondAttribute="leading" id="Vr8-qi-gAJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="f4g-44-zXA" secondAttribute="bottom" id="XnV-e8-SlW"/>
-                                    <constraint firstAttribute="bottom" secondItem="vAc-oG-fms" secondAttribute="bottom" id="Z5I-oZ-B3a"/>
                                     <constraint firstAttribute="height" constant="21" id="sES-35-LMW"/>
-                                    <constraint firstAttribute="trailing" secondItem="vAc-oG-fms" secondAttribute="trailing" id="xA0-4t-gN7"/>
                                 </constraints>
                             </view>
                         </subviews>

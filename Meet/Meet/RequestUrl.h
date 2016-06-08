@@ -16,8 +16,12 @@
 #define  RequestBaseUrl              @"http://senzapps.cc/"
 #define  RequestCreateUser           @"api/account/user/signin"
 #define  RequestCheckUser            @"api/account/user/check"
-#define  RequestUpdateUser           @"api/account/user/update"
+#define  RequestUpdateUser           @"api/user/base_info/"
 #define  RequestCheckInvitationCode  @"api/invitation/check/"
 #define  RequestGetUserInfo          @"api/user/base_info/"
 #define  RequestUploadUserPhoto      @"api/user/avatar/"
+
+#define  RequestAddWorkExp           @"api/user/work_info/"
+#define  RequestAddEduExp            @"api/user/edu_info/"
+
 #endif /* RequestUrl_h */

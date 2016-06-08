@@ -1,134 +1,312 @@
 //
 //  UserInfo.m
-//  ControlBusinessSoEasy
+//  NSKeyedArchiverDemo
 //
-//  Created by jiahui on 16/3/20.
-//  Copyright © 2016年 JiaHui. All rights reserved.
+//  Created by Zhang on 6/7/16.
+//  Copyright © 2016 Zhang. All rights reserved.
 //
 
 #import "UserInfo.h"
-#import "UserInfoDao.h"
-#import <objc/runtime.h>
-
- NSString *const k_User_userId = @"User_userId";
- NSString *const k_User_loginType = @"User_loginType";
- NSString *const k_User_name = @"User_name";
- NSString *const k_User_city = @"User_city";
- NSString *const k_User_country = @"User_country";
- NSString *const k_User_headimgurl = @"User_headimgurl";
- NSString *const k_User_sex = @"User_sex";
- NSString *const k_User_eMail = @"User_eMail";
- NSString *const k_User_modifySex = @"User_modifySex";
-
- NSString *const k_User_brithday = @"User_brithday";
- NSString *const k_User_height = @"User_height";
- NSString *const k_User_phoneNo = @"User_phoneNo";
- NSString *const k_User_WX_No = @"User_WX_No";
- NSString *const k_User_workCity = @"User_workCity";
- NSString *const k_User_income = @"User_income";
- NSString *const k_User_state = @"User_state";
- NSString *const k_User_home = @"User_home";
- NSString *const k_User_constellation = @"User_constellation";
+#import <UIKit/UIKit.h>
+//文件地址名称
+#define kEncodedObjectPath_User ([[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"UserInfo"])
 
 @implementation UserInfo
 
-+ (instancetype)shareInstance {
-    static UserInfo *shareInstance = nil;
-    static dispatch_once_t  onceToken;
+static UserInfo *userInfo=nil;
+
++ (instancetype)sharedInstance
+{
+    static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        shareInstance = [[UserInfo alloc] init];
-//        shareInstance.userId = @"1234567890";
-//        shareInstance.name = @"public";
+        if([UserInfo isLoggedIn])
+        {
+            userInfo = [NSKeyedUnarchiver unarchiveObjectWithFile:kEncodedObjectPath_User];
+        }
+        else
+        {
+            userInfo = [[UserInfo alloc] init];
+        }
     });
-    return shareInstance;
+    return userInfo;
 }
 
-- (void)mappingValuesFormUserInfo:(UserInfo *)user {
-    self.idKey = user.idKey;
-    unsigned count;
-    objc_property_t *properties = class_copyPropertyList([self class], &count);
-    for (int i = 0; i < count; i++) {
-        NSString *key = [NSString stringWithUTF8String:property_getName(properties[i])];
-        [self setValue:[user valueForKey:key] forKey:key];
+//是否归档成功
++ (BOOL)synchronize
+{
+    return [NSKeyedArchiver archiveRootObject:[UserInfo sharedInstance] toFile:kEncodedObjectPath_User];
+}
+
++ (BOOL)isLoggedIn
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    return [fileManager fileExistsAtPath:kEncodedObjectPath_User];
+}
+
++ (BOOL)logout
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    BOOL result = [fileManager removeItemAtPath:kEncodedObjectPath_User error:&error];
+    if (!result) {
+        NSLog(@"注销失败！\%@",error);
+    }else{
+        
     }
+    [UserInfo sharedInstance].real_name  = nil;
+    [UserInfo sharedInstance].location  = nil;
+    [UserInfo sharedInstance].birthday  = nil;
+    [UserInfo sharedInstance].mobile_num  = nil;
+    [UserInfo sharedInstance].religion  = 0;
+    [UserInfo sharedInstance].birthday  = nil;
+    [UserInfo sharedInstance].user_name  = nil;
+    [UserInfo sharedInstance].country  = nil;
+    [UserInfo sharedInstance].wechat_union_id  = nil;
+    [UserInfo sharedInstance].affection  = 0;
+    [UserInfo sharedInstance].weixin_num  = nil;
+    [UserInfo sharedInstance].smoke  = 0;
+    [UserInfo sharedInstance].work_expirence  = @[];
+    [UserInfo sharedInstance].constellation  = 0;
+    [UserInfo sharedInstance].id_card  = nil;
+    [UserInfo sharedInstance].industry  = nil;
+    [UserInfo sharedInstance].social_id  = nil;
+    [UserInfo sharedInstance].drink  = 0;
+    [UserInfo sharedInstance].gender  = 0;
+    [UserInfo sharedInstance].height  = 0;
+    [UserInfo sharedInstance].avatar  = nil;
+    [UserInfo sharedInstance].age  = 0;
+    [UserInfo sharedInstance].income  = 0;
+    [UserInfo sharedInstance].edu_expirence  = @[];
+    [UserInfo sharedInstance].created  = nil;
+    [UserInfo sharedInstance].hometown  = nil;
+    [UserInfo sharedInstance].isFirstLogin = NO;
+    return result;
 }
 
-- (void)mappingValuesFormWXUserInfo:(WXUserInfo *)wxUser {
-    self.userId = wxUser.unionid;
-    self.sex = wxUser.sex;
-    self.headimgurl = wxUser.headimgurl;
-    self.city = wxUser.city;
-    self.country = wxUser.country;
-    self.name = wxUser.nickname;
-    self.loginType = [NSNumber numberWithInteger:1];
+- (id)init
+{
+    if (self = [super init]) {
+        
+    }
+    return self;
 }
 
-- (NSDictionary *)dictionaryWithUserInfo {
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    unsigned count;
-    objc_property_t *properties = class_copyPropertyList([self class], &count);
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [self init];
+    if (self) {
+        self.real_name = [aDecoder decodeObjectForKey:@"real_name"];
+        self.location = [aDecoder decodeObjectForKey:@"location"];
+        self.birthday = [aDecoder decodeObjectForKey:@"birthday"];
+        self.mobile_num = [aDecoder decodeObjectForKey:@"mobile_num"];
+        self.religion = [aDecoder decodeIntegerForKey:@"religion"];
+        self.user_name = [aDecoder decodeObjectForKey:@"user_name"];
+        self.country = [aDecoder decodeObjectForKey:@"country"];
+        self.wechat_union_id = [aDecoder decodeObjectForKey:@"wechat_union_id"];
+        self.affection = [aDecoder decodeIntegerForKey:@"affection"];
+        self.weixin_num = [aDecoder decodeObjectForKey:@"weixin_num"];
+        self.smoke = [aDecoder decodeIntegerForKey:@"smoke"];
+        self.work_expirence = [aDecoder decodeObjectForKey:@"work_expirence"];
+        self.constellation = [aDecoder decodeIntegerForKey:@"constellation"];
+        self.id_card = [aDecoder decodeObjectForKey:@"id_card"];
+        self.industry = [aDecoder decodeObjectForKey:@"industry"];
+        self.social_id = [aDecoder decodeObjectForKey:@"social_id"];
+        self.drink = [aDecoder decodeIntegerForKey:@"drink"];
+        self.gender = [aDecoder decodeIntegerForKey:@"gender"];
+        self.height = [aDecoder decodeIntegerForKey:@"height"];
+        self.avatar = [aDecoder decodeObjectForKey:@"avatar"];
+        self.age = [aDecoder decodeIntegerForKey:@"age"];
+        self.income = [aDecoder decodeIntegerForKey:@"income"];
+        self.edu_expirence = [aDecoder decodeObjectForKey:@"edu_expirence"];
+        self.created = [aDecoder decodeObjectForKey:@"created"];
+        self.hometown = [aDecoder decodeObjectForKey:@"hometown"];
+        self.isFirstLogin = [aDecoder decodeBoolForKey:@"isFirstLogin"];
+
+    }
+    return self;
+}
+
+#pragma mark - NSCoding
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.real_name forKey:@"real_name"];
+    [aCoder encodeObject:self.location forKey:@"location"];
+    [aCoder encodeObject:self.birthday forKey:@"birthday"];
+    [aCoder encodeObject:self.mobile_num forKey:@"mobile_num"];
+    [aCoder encodeInteger:self.religion forKey:@"religion"];
+    [aCoder encodeObject:self.user_name forKey:@"user_name"];
+    [aCoder encodeObject:self.country forKey:@"country"];
+    [aCoder encodeObject:self.wechat_union_id forKey:@"wechat_union_id"];
+    [aCoder encodeInteger:self.affection forKey:@"affection"];
+    [aCoder encodeObject:self.weixin_num forKey:@"weixin_num"];
+    [aCoder encodeInteger:self.smoke forKey:@"smoke"];
+    [aCoder encodeObject:self.work_expirence forKey:@"work_expirence"];
+    [aCoder encodeInteger:self.constellation forKey:@"constellation"];
+    [aCoder encodeObject:self.id_card forKey:@"id_card"];
+    [aCoder encodeObject:self.industry forKey:@"industry"];
+    [aCoder encodeObject:self.social_id forKey:@"social_id"];
+    [aCoder encodeInteger:self.drink forKey:@"drink"];
+    [aCoder encodeInteger:self.age forKey:@"age"];
+    [aCoder encodeInteger:self.height forKey:@"height"];
+    [aCoder encodeInteger:self.income forKey:@"income"];
+    [aCoder encodeObject:self.avatar forKey:@"avatar"];
+    [aCoder encodeObject:self.edu_expirence forKey:@"edu_expirence"];
+    [aCoder encodeObject:self.created forKey:@"created"];
+    [aCoder encodeObject:self.hometown forKey:@"hometown"];
+    [aCoder encodeBool:self.isFirstLogin forKey:@"isFirstLogin"];
+}
+
++ (BOOL)synchronizeWithDic:(NSDictionary *)dic
+{
+    [UserInfo sharedInstance].real_name  = dic[@"real_name"];
+    [UserInfo sharedInstance].location  = dic[@"location"];
+    [UserInfo sharedInstance].birthday  = dic[@"birthday"];
+    [UserInfo sharedInstance].mobile_num  = dic[@"mobile_num"];
+    [UserInfo sharedInstance].religion  = [dic[@"religion"] integerValue];
+    [UserInfo sharedInstance].birthday  = dic[@"birthday"];
+    [UserInfo sharedInstance].user_name  = dic[@"user_name"];
+    [UserInfo sharedInstance].country  = dic[@"country"];
+    [UserInfo sharedInstance].wechat_union_id  = dic[@"wechat_union_id"];
+    [UserInfo sharedInstance].affection  = [dic[@"affection"] integerValue];
+    [UserInfo sharedInstance].weixin_num  = dic[@"weixin_num"];
+    [UserInfo sharedInstance].smoke  = [dic[@"smoke"] integerValue];
+    [UserInfo sharedInstance].work_expirence  = dic[@"work_expirence"];
+    [UserInfo sharedInstance].constellation  = [dic[@"constellation"] integerValue];
+    [UserInfo sharedInstance].id_card  = dic[@"id_card"];
+    [UserInfo sharedInstance].industry  = dic[@"industry"];
+    [UserInfo sharedInstance].social_id  = dic[@"social_id"];
+    [UserInfo sharedInstance].drink  = [dic[@"drink"] integerValue];
+    [UserInfo sharedInstance].gender  = [dic[@"gender"] integerValue];
+    [UserInfo sharedInstance].height  = [dic[@"height"] integerValue];
+    [UserInfo sharedInstance].avatar  = dic[@"avatar"];
+    [UserInfo sharedInstance].age  = [dic[@"age"] integerValue];
+    [UserInfo sharedInstance].income  = [dic[@"income"] integerValue];
+    [UserInfo sharedInstance].edu_expirence  = dic[@"edu_expirence"];
+    [UserInfo sharedInstance].created  = dic[@"created"];
+    [UserInfo sharedInstance].hometown  = dic[@"hometown"];
     
-    for (int i = 0; i < count; i++) {
-        NSString *key = [NSString stringWithUTF8String:property_getName(properties[i])];
-        [dict setObject:[self valueForKey:key] forKey:key];
-    }
-    free(properties);
-    return [NSDictionary dictionaryWithDictionary:dict];
-}
-
-
-#pragma mark - DB use
-- (NSArray *)columnArray {
-    return @[k_User_userId,k_User_loginType,k_User_name, k_User_city, k_User_country, k_User_headimgurl, k_User_sex, k_User_eMail,k_User_modifySex,k_User_brithday,k_User_height,k_User_phoneNo,k_User_WX_No,k_User_workCity,k_User_income,k_User_state,k_User_home,k_User_constellation];
-}
-
-- (NSArray *)valueArray {
-    if (!_loginType) {
-        _loginType = (NSNumber *)[NSNumber numberWithInteger:1];
-    }
-    if (!_eMail) {
-        _eMail = (NSString *)[NSNull null];
-    }
-    if (!_modifySex) {
-        _modifySex = 0;
-    }
-    if (!_brithday) {
-        _brithday = (NSString *)[NSNull null];
-    }
-    if (!_height) {
-        _height = (NSString *)[NSNull null];
-    }
-    if (!_phoneNo) {
-        _phoneNo = (NSString *)[NSNull null];
-    }
-    if (!_WX_No) {
-        _WX_No = (NSString *)[NSNull null];
-    }
-    if (!_workCity) {
-        _workCity = (NSString *)[NSNull null];
-    }
-    if (!_income) {
-        _income = (NSString *)[NSNull null];
-    }
-    if (!_state) {
-        _state = (NSString *)[NSNull null];
-    }
-    if (!_home) {
-        _home = (NSString *)[NSNull null];
-    }
-    if (!_constellation) {
-        _constellation = (NSString *)[NSNull null];
-    }
+    [UserInfo sharedInstance].isFirstLogin = YES;
     
-    return @[_userId,_loginType,_name,_city,_country,_headimgurl,_sex,_eMail,[NSNumber numberWithInt:_modifySex],_brithday,_height,_phoneNo,_WX_No,_workCity,_income,_state,_home,_constellation];
+    return [self synchronize];
 }
 
-- (BOOL)deleteBean {
-    return [[UserInfoDao shareInstance] deleteBeanWithIdKey:self.idKey];
++ (BOOL)saveCacheImage:(UIImage *)image withName:(NSString *)name
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = paths[0];
+    [path stringByAppendingPathComponent:@"/uploadImage"];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    
+    if (![fm fileExistsAtPath:path])
+    {
+        NSError *error = nil;
+        [fm createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
+    }
+    [path stringByAppendingFormat:@"/%@",name];
+    NSData *imageData = UIImagePNGRepresentation(image);
+    return [imageData writeToFile:path atomically:YES];
 }
 
-- (NSString *)description {
-    return @"SmallCaregoryBean";
++ (UIImage *)imageForName:(NSString *)name
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = paths[0];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    [path stringByAppendingFormat:@"/uploadImage/%@",name];
+    if (![fm isReadableFileAtPath:path])
+    {
+        return nil;
+    }
+    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    return [[UIImage alloc] initWithData:data];
 }
+/*
++ (BOOL)saveBaseData:(id)data WithName:(NSString *)name
+{
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSArray *paths    = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path    = paths.lastObject;
+    NSString *temPath = [path stringByAppendingPathComponent:@"baseData"];
+    
+    if (![fm fileExistsAtPath:temPath])
+    {
+        NSError *error = nil;
+        [fm createDirectoryAtPath:temPath withIntermediateDirectories:YES attributes:nil error:&error];
+    }
+    NSString *filePath = [temPath stringByAppendingFormat:@"/%@.plist",name];
+    return [NSKeyedArchiver archiveRootObject:data toFile:filePath];
+}
+
++ (id)getBaseDataWithName:(NSString *)name
+{
+    NSFileManager *fm  = [NSFileManager defaultManager];
+    NSArray *paths     = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path     = paths[0];
+    NSString *filePath = [path stringByAppendingFormat:@"/baseData/%@.plist",name];
+    //    LSLog(@"read_path = %@",filePath);
+    if (![fm isReadableFileAtPath:filePath])
+    {
+        return nil;
+    }
+    id dat = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+    return dat;
+}
+
++ (void)saveChatWithMessageArray:(NSMutableArray *)message withKey:(NSString *)key
+{
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSArray *paths    = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path    = paths.lastObject;
+    NSString *temPath = [path stringByAppendingPathComponent:@"ChatData"];
+    
+    if (![fm fileExistsAtPath:temPath])
+    {
+        NSError *error = nil;
+        [fm createDirectoryAtPath:temPath withIntermediateDirectories:YES attributes:nil error:&error];
+    }
+    NSString *filePath = [temPath stringByAppendingFormat:@"/%@.plist",key];
+    [NSKeyedArchiver archiveRootObject:message toFile:filePath];
+}
+
++ (id)getChatMessageWithKey:(NSString *)key
+{
+    
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSArray *paths    = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path    = paths.lastObject;
+    NSString *temPath = [path stringByAppendingPathComponent:@"ChatData"];
+    if (![fm fileExistsAtPath:temPath])
+    {
+        return nil;
+    }
+    NSString *filePath = [temPath stringByAppendingFormat:@"/%@.plist",key];
+    NSData *dat        = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+    return dat;
+}
+
+*/
+@end
+@class Edu_Expirence,Work_Expirence;
+@interface Edu_Expirence : NSObject
+
+@property (nonatomic, assign) long long id;
+
+@property (nonatomic, assign) NSInteger education;
+
+@property (nonatomic, copy) NSString *graduated;
+
+@property (nonatomic, copy) NSString *major;
 
 @end
+
+@interface Work_Expirence : NSObject
+
+@property (nonatomic, copy) NSString *company_name;
+
+@property (nonatomic, assign) NSInteger industry_id;
+
+@property (nonatomic, assign) NSInteger income;
+
+@property (nonatomic, copy) NSString *profession;
+
+@end
+

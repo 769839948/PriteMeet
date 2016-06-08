@@ -13,7 +13,6 @@
 #import "WXApi.h"
 
 #import "WXApiObject.h"
-#import "UserInfoDao.h"
 #import "UserInfo.h"
 #import "LoginViewModel.h"
 
@@ -70,29 +69,26 @@
         __weak typeof(self) weakSelf = self;
         [_viewModel postWXUserInfo:[WXUserInfo shareInstance] withCode:self.code Success:^(NSDictionary *object) {
             [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
-            [[UserInfo shareInstance] mappingValuesFormWXUserInfo:[WXUserInfo shareInstance]];
             [AppData shareInstance].isLogin = YES;
-            [[UserInfoDao shareInstance] insertBean:[UserInfo shareInstance]];
-            [[UserInfoDao shareInstance] selectUserInfoWithUserId:[WXUserInfo shareInstance].unionid];/////获取到 [UserInfo shareInstance]的idKye 以后保存需要
             UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
             BaseUserInfoViewController *baseUserInfo = [meStoryBoard instantiateViewControllerWithIdentifier:@"BaseInfoViewController"];
-//            myProfileVC.isFristLogin = YES;
             [weakSelf.navigationController pushViewController:baseUserInfo animated:YES];
         } Fail:^(NSDictionary *object) {
             [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
             if ([[object objectForKey:@"error"] isEqualToString:@"oldUser"]) {
-                [[UserInfo shareInstance] mappingValuesFormWXUserInfo:[WXUserInfo shareInstance]];
-                [AppData shareInstance].isLogin = YES;
-                [[UserInfoDao shareInstance] insertBean:[UserInfo shareInstance]];
-                [[UserInfoDao shareInstance] selectUserInfoWithUserId:[WXUserInfo shareInstance].unionid];/////获取到 [UserInfo shareInstance]的idKye 以后保存需要
-                UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
-                BaseUserInfoViewController *baseUserInfo = [meStoryBoard instantiateViewControllerWithIdentifier:@"BaseInfoViewController"];
-                //            myProfileVC.isFristLogin = YES;
-                [weakSelf.navigationController pushViewController:baseUserInfo animated:YES];
+                [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
+                    [UserInfo synchronizeWithDic:object];
+                    [self dismissViewControllerAnimated:YES completion:^{
+                        [AppData shareInstance].isLogin = YES;
+                        
+                    }];
+                } fail:^(NSDictionary *object) {
+                    [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
+                } loadingString:^(NSString *str) {
+                    
+                }];/////获取到 [UserInfo shareInstance]的idKye 以后保存需要
+                
                 //这里是在调试中
-//                MyProfileViewController *myProfileVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"MyProfileViewController"];
-//                myProfileVC.isFristLogin = YES;
-//                [weakSelf.navigationController pushViewController:myProfileVC animated:YES];
             }
         } showLoding:^(NSString *str) {
             [self performSelectorOnMainThread:@selector(showHudInView:hint:) withObject:weakSelf.view withObject:str waitUntilDone:YES];

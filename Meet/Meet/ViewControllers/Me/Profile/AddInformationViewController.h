@@ -6,8 +6,7 @@
 //  Copyright © 2016年 Meet. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
+#import "MeetBaseViewController.h"
 
 typedef NS_ENUM(NSUInteger, ViewEditType) {
     ViewTypeEdit,
@@ -18,7 +17,7 @@ typedef NS_ENUM(NSUInteger, ViewEditType) {
 typedef void (^AddInfoBlock)(NSIndexPath *indexPath, NSString *string,ViewEditType type);
 
 
-@interface AddInformationViewController : UIViewController
+@interface AddInformationViewController : MeetBaseViewController
 
 @property (strong, nonatomic) AddInfoBlock block;
 

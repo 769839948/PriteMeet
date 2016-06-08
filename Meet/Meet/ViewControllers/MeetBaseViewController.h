@@ -12,7 +12,7 @@
 @interface MeetBaseViewController : UIViewController<UINavigationControllerDelegate> /////子controller 左返回方法已经实现，侧滑返回事件实现
 
 
-- (void)backButtonAction:(UIButton *)sender;
+- (void)leftItemClick:(UINavigationItem *)sender;
 
 - (void)popGestureRecognizerDidAction;
 

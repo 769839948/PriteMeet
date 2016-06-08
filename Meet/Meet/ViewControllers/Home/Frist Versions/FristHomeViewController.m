@@ -14,6 +14,8 @@
 #import "UIViewController+ScrollingNavbar.h"
 #import "Meet-Swift.h"
 #import "MJRefresh.h"
+#import "ProfileKeyAndValue.h"
+#import "MeViewController.h"
 
 @interface FristHomeViewController ()<UIGestureRecognizerDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -69,7 +71,6 @@
 
 - (void)setUpNavigationBar
 {
-    
     self.navigationItem.titleView = [self titleView];
     self.navigationItem.title = @"Meet";
     UIButton *fillteBt = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -81,6 +82,20 @@
     if (IOS_7LAST) {
         self.navigationController.navigationBar.translucent = NO;
     }
+    
+    UIButton *icon_User = [UIButton buttonWithType:UIButtonTypeCustom];
+    [icon_User setImage:[UIImage imageNamed:@"Icon_User"] forState:UIControlStateNormal];
+    [icon_User setFrame:CGRectMake(0, 0, 40, 40)];
+    [icon_User addTarget:self action:@selector(rightItemPess:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:icon_User];
+}
+
+- (void)rightItemPess:(UIBarButtonItem *)sender
+{
+    UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    
+    MeViewController *meViewController = [meStoryBoard instantiateViewControllerWithIdentifier:@"MeViewController"];
+    [self.navigationController pushViewController:meViewController animated:YES];
 }
 
 - (UIView *)titleView
@@ -97,7 +112,6 @@
     _bottomView = [[UIView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width - 84, [[UIScreen mainScreen] bounds].size.height - 74, 56, 54)];
     [_bottomView addSubview:[self myMeetBt:CGRectMake(0, 0, 54, 54)]];
     [_bottomView addSubview:[self myMeetNumber:CGRectMake(_bottomView.frame.size.width - 18, 0, 18, 18)]];
-    NSLog(@"%f",[[UIScreen mainScreen] bounds].size.height);
     [[UIApplication sharedApplication].keyWindow addSubview:_bottomView];
 }
 

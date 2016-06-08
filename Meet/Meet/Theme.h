@@ -26,10 +26,28 @@
 
 
 #define MeetDetailLineColor [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1.0]
-#define lineLabelBackgroundColor @"#F2F2F2"
+#define lineLabelBackgroundColor @"E7E7E7"
 
 #define AboutUsLabelFont [UIFont fontWithName:@"PingFangTC-Light" size:14.0]
 #define AboutUsLabelColor @"4D4D4D"
 
+#define SettingViewLabelFont [UIFont fontWithName:@"PingFangTC-Light" size:14.0]
 
+#define TableViewTextColor @"202020"
+
+#define IQKeyboardManagerTinColor @"202020"
+#define IQKeyboardManagerplaceholderFont [UIFont fontWithName:@"PingFangSC-Regular" size:14.0]
+#define IQKeyboardManagerFont [UIFont fontWithName:@"PingFangSC-Light" size:14.0]
+
+
+//IQKeyboardManager Color
+////Tint color
+//[[self appearance] setTintColor:[UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0]];
+//
+////Title
+////    [[self appearance] setTitleFont:[UIFont fontWithName:@"PingFangSC-Light" size:14.0]];
+//
+//[[self appearance] setTitlePositionAdjustment:UIOffsetZero forBarMetrics:UIBarMetricsDefault];
+//[[self appearance] setTitleTextAttributes:@{UITextAttributeFont:[UIFont fontWithName:@"PingFangSC-Light" size:14.0]} forState:UIControlStateNormal];
+//
 #endif /* Theme_h */

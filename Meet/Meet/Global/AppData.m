@@ -16,7 +16,7 @@ static AppData *appData = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         appData = [[AppData alloc] init];
-        appData.userInfo = [UserInfo shareInstance];
+        appData.userInfo = [UserInfo sharedInstance];
         appData.wxAppID = @"wx49c4b6f590f83469";
         appData.wxAppSecret = @"dad2dab904e70125dcc50ea066809a20";
     });
@@ -148,7 +148,7 @@ NSString *const UserInfoDatabaseName = @"MeetUserDB.db";
 
 - (NSString *)getCacheMostContetnImagePath {/////更多信息内容路径
     NSString *cacheDirectoryPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *path = [cacheDirectoryPath stringByAppendingPathComponent:[UserInfo shareInstance].userId];
+    NSString *path = [cacheDirectoryPath stringByAppendingPathComponent:[UserInfo sharedInstance].user_name];
     NSString *mostPath = [path stringByAppendingPathComponent:@"MostContent"];
     
     NSFileManager *mager = [NSFileManager defaultManager];
@@ -166,7 +166,7 @@ NSString *const UserInfoDatabaseName = @"MeetUserDB.db";
 
 + (NSString *)getCachesDirectoryUserInfoDocumetPathDocument:(NSString *)document {//
     NSString *cacheDirectoryPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *path = [cacheDirectoryPath stringByAppendingPathComponent:[[UserInfo shareInstance].userId stringByAppendingPathComponent:document]];
+    NSString *path = [cacheDirectoryPath stringByAppendingPathComponent:[[UserInfo sharedInstance].user_name stringByAppendingPathComponent:document]];
     NSFileManager *mager = [NSFileManager defaultManager];
     if (![mager fileExistsAtPath:path]) {
         //        NSLog(@"File not found Couldn't find the file at path: %@",path);

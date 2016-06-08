@@ -17,6 +17,7 @@
 #import "SetingViewController.h"
 #import "WeChatResgisterViewController.h"
 #import "UserInfoViewModel.h"
+#import "WXUserInfo.h"
 
 
 @interface MeViewController () <UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource> {
@@ -44,11 +45,60 @@
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeadTableViewCell:) name:FRIST_LOGIN_NOTIFICATION_Key object:nil];
 
+    if ([UserInfo isLoggedIn]) {
+        
+    }
     _imagesArray = [NSMutableArray array];
     [self loadHeadImageView];
     [self checkDocumentGetSmallImagesAndUpdate];
     _viewModel = [[UserInfoViewModel alloc] init];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if ([UserInfo sharedInstance].isFirstLogin && [UserInfo isLoggedIn]) {
+        [UserInfo sharedInstance].isFirstLogin = NO;
+        [UserInfo synchronize];
+        [self downLoadUserWeChatImage];
+    }
+}
+
+
+- (void)downLoadUserWeChatImage {
+    __weak typeof(self) weakSelf = self;
+    [NetWorkObject downloadTask:[UserInfo sharedInstance].avatar progress:^(NSProgress *downloadProgress) {
+        
+    } destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+        return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
+    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        NSLog(@"File downloaded to: %@", filePath.path);
+        UIImage *image = [UIImage imageWithContentsOfFile:filePath.path];
+        
+        NSData *imgData = UIImageJPEGRepresentation(image, 1);
+        NSString *saveImagePath = [weakSelf imageSaveParth];
+        if ([imgData writeToFile:[weakSelf imageSaveParth] atomically:NO]) {
+            NSError *error;
+            if (![[NSFileManager defaultManager] removeItemAtPath:filePath.path error:&error]) {
+                NSLog(@"error :%@",error.localizedDescription);
+            }
+            [weakSelf reloadUerImage:saveImagePath];
+        } else {
+            
+        }
+    }];
+}
+
+- (NSString *)imageSaveParth {
+    NSString *saveFilePath = [AppData getCachesDirectoryUserInfoDocumetPathDocument:@"headimg"];
+    NSString *saveImagePath = [saveFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"0.JPG"]];
+    return saveImagePath;
+}
+
+- (void)reloadUerImage:(NSString *)imagePath {
+    _headImage = [UIImage imageWithContentsOfFile:imagePath];
+    [self.tableView reloadData];
 }
 
 - (void)updateHeadTableViewCell:(NSNotification *)notification {
@@ -59,7 +109,7 @@
 
 - (void)loadHeadImageView {
     _headImage = nil;
-    if (![AppData shareInstance].isLogin) {
+    if (![UserInfo isLoggedIn]) {
         return ;
     }
     NSString *saveFilePath = [AppData getCachesDirectoryUserInfoDocumetPathDocument:@"headimg"];
@@ -187,11 +237,11 @@
         } else
             imageView.image = [UIImage imageNamed:@"RadarKeyboard_HL"];
         UILabel *nameLabel = (UILabel *)[cell viewWithTag:2];
-        nameLabel.text = [UserInfo shareInstance].name;
+        nameLabel.text = [UserInfo sharedInstance].user_name;
         
         UILabel *detailLabel = (UILabel *)[cell viewWithTag:3];
         detailLabel.text = @"68%完成度";
-        if (![AppData shareInstance].isLogin) {
+        if (![UserInfo isLoggedIn]) {
             nameLabel.text = @"未登录";
             detailLabel.text = @"";
         }
@@ -265,7 +315,7 @@
 #pragma mark - tableView Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (![AppData shareInstance].isLogin) {
+    if (![UserInfo isLoggedIn]) {
         UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Login" bundle:[NSBundle mainBundle]];
         UINavigationController *resgisterVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"weChatResgisterNavigation"];
         [self presentViewController:resgisterVC animated:YES completion:^{
@@ -274,18 +324,20 @@
         return ;
     }
      if (indexPath.row == 0) {
+         __weak typeof(self) weakSelf = self;
         UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
+
         MyProfileViewController *myProfileVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"MyProfileViewController"];
          myProfileVC.block = ^(BOOL updateImage, BOOL updateInfo){
              if (updateImage) {
-                 [self loadHeadImageView];
+                 [weakSelf loadHeadImageView];
              }
-             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+             [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
              if (updateInfo) {
-                 [self checkDocumentGetSmallImagesAndUpdate];
+                 [weakSelf checkDocumentGetSmallImagesAndUpdate];
              }
          };
-        [self.navigationController pushViewController:myProfileVC animated:YES];
+        [weakSelf.navigationController pushViewController:myProfileVC animated:YES];
     } else if (indexPath.row == 1) {
         //////展示更多个人信息
         [self performSegueWithIdentifier:@"pushToMyDisplayVC" sender:self];
@@ -299,6 +351,8 @@
         [self.navigationController pushViewController:setingVC animated:YES];
     }
 }
+
+
 
 #pragma mark - Navigation
 // In a storyboard-based application, you will often want to do a little preparation before navigation

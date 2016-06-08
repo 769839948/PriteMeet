@@ -16,11 +16,25 @@
                   fail:(Fail)failBlock
          loadingString:(LoadingView)loading;
 
-- (void)updateEduUserInfo:(UserInfo *)model
+- (void)addEduExperent:(NSString *)workString
                success:(Success)successBlock
                   fail:(Fail)failBlock
          loadingString:(LoadingView)loading;
 
+- (void)updateEduExp:(NSString *)eduString
+             success:(Success)successBlock
+                fail:(Fail)failBlock
+       loadingString:(LoadingView)loading;
+
+- (void)addWorkExperent:(NSString *)workString
+               success:(Success)successBlock
+                  fail:(Fail)failBlock
+          loadingString:(LoadingView)loading;
+
+- (void)updateWorkExperent:(NSString *)workString
+                   success:(Success)successBlock
+                      fail:(Fail)failBlock
+             loadingString:(LoadingView)loading;
 
 - (void)getUserInfo:(NSString *)openId
                success:(Success)successBlock

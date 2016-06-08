@@ -6,21 +6,21 @@
 //  Copyright © 2016年 Meet. All rights reserved.
 //
 
+
 #define  FRIST_LOGIN_NOTIFICATION_Key  @"modifiUserInfoNotification"
 
 typedef void(^needReloadProfileCellBlock)(BOOL updateImaeg,BOOL updateInfo);
 
 #import <UIKit/UIKit.h>
 #import "UserInfoViewModel.h"
+#import "MeetBaseViewController.h"
 
-@interface MyProfileViewController : UIViewController
+@interface MyProfileViewController : MeetBaseViewController
 {
 
 }
 
 @property (nonatomic, weak) IBOutlet UIView *chooseView;
-
-@property (assign, nonatomic) BOOL isFristLogin;///////第一次登录进入的
 
 @property (copy, nonatomic) needReloadProfileCellBlock block;
 

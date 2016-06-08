@@ -10,6 +10,8 @@
 #import "LabelAndTextFieldCell.h"
 #import "CellTextField.h"
 #import "LabelTableViewCell.h"
+#import "IQUIView+IQKeyboardToolbar.h"
+
 
 @interface AddInformationViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate> {
     NSMutableDictionary *_dicValues;
@@ -52,18 +54,16 @@
     self.navigationItem.title = _navTitle;
 //    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
 //    [UITools navigationRightBarButtonForController:self action:@selector(saveAction:) normalTitle:@"保存" selectedTitle:nil];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveAction:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"setting_savebt"] style:UIBarButtonItemStylePlain target:self action:@selector(saveAction:)];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithHexString:@"202020"];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Action
-- (void)backAction:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (void)saveAction:(id)sender {
     
@@ -99,7 +99,10 @@
     if (indexPath.row == _arrayTitles.count) {
         return 120;
     }
-    return 49;
+    if (indexPath.row == 0) {
+        return 71;
+    }
+    return 50;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -109,7 +112,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == _arrayTitles.count) {
         LabelTableViewCell *cell = (LabelTableViewCell *)[[NSBundle mainBundle] loadNibNamed:@"LabelTableViewCell" owner:self options:nil][0];
-        [cell labeAddLayerMargin:YES andSetLabelText:@"删除"];
+        if (indexPath.section == 1 ) {
+            cell.label.text = @"删除工作经历";
+        }else{
+            cell.label.text = @"删除教育经历";
+        }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     } else {
@@ -126,7 +133,9 @@
         }
         cell.textField.indexPath = indexPath;
         cell.textField.placeholder = _arrayTitles[indexPath.row];
-            return cell;
+        //IQKeyboardItem
+        [cell.textField addLeftRightOnKeyboardWithTarget:self leftButtonTitle:@"放弃" rightButtonTitle:@"确定" leftButtonAction:@selector(editDone:) rightButtonAction:@selector(editDone:) shouldShowPlaceholder:YES];
+        return cell;
     }
 }
 
@@ -190,6 +199,11 @@
     NSString *dictionKey = @"key";
     dictionKey = _arrayTitles[row];
     _dicValues[dictionKey] = textfield.text;
+}
+
+- (void)editDone:(UIBarButtonItem *)sender
+{
+    [self.view endEditing:YES];
 }
 
 /*

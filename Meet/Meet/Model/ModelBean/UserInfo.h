@@ -1,64 +1,95 @@
 //
 //  UserInfo.h
-//  ControlBusinessSoEasy
+//  NSKeyedArchiverDemo
 //
-//  Created by jiahui on 16/3/20.
-//  Copyright © 2016年 JiaHui. All rights reserved.
+//  Created by Zhang on 6/7/16.
+//  Copyright © 2016 Zhang. All rights reserved.
 //
 
-#import "BaseModel.h"
-#import "WXUserInfo.h"
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-extern NSString *const k_User_userId;
-extern NSString *const k_User_loginType;
-extern NSString *const k_User_name;
-extern NSString *const k_User_city;
-extern NSString *const k_User_country;
-extern NSString *const k_User_headimgurl;
-extern NSString *const k_User_sex;
-extern NSString *const k_User_eMail;
-extern NSString *const k_User_modifySex;
+@class Edu_Expirence,Work_Expirence;
 
-extern NSString *const k_User_brithday;
-extern NSString *const k_User_height;
-extern NSString *const k_User_phoneNo;
-extern NSString *const k_User_WX_No;
-extern NSString *const k_User_workCity;
-extern NSString *const k_User_income;
-extern NSString *const k_User_state;
-extern NSString *const k_User_home;
-extern NSString *const k_User_constellation;
-
-@interface UserInfo : BaseModel
-
-@property (copy, nonatomic) NSString *userId;
-@property (nonatomic, strong) NSNumber *loginType;////0，1 （0为退出登录的用户，1为当前正在使用的用户）
-@property (copy, nonatomic) NSString *name;
-@property (copy, nonatomic) NSString *city;
-@property (copy, nonatomic) NSString *country;
-@property (copy, nonatomic) NSString *headimgurl;
-@property (strong, nonatomic) NSNumber *sex;/////1为男  2为女(因为是和微信同步，所以也这样设置了，)
-@property (copy, nonatomic) NSString *eMail;
-////已经更改过性别 ？
-@property (assign, nonatomic) NSInteger modifySex;
-@property (copy, nonatomic) NSString *brithday;
-@property (copy, nonatomic) NSString *height;
-@property (copy, nonatomic) NSString *phoneNo;
-@property (copy, nonatomic) NSString *WX_No;
-@property (copy, nonatomic) NSString *workCity;
-@property (copy, nonatomic) NSString *income;
-@property (copy, nonatomic) NSString *state;
-@property (copy, nonatomic) NSString *home;
-@property (copy, nonatomic) NSString *constellation;
+@interface UserInfo : NSObject
 
 
+@property (nonatomic, copy) NSString *real_name;
 
-+ (instancetype)shareInstance;
+@property (nonatomic, copy) NSString *location;
 
-- (void)mappingValuesFormUserInfo:(UserInfo *)user;//////DB use
-- (void)mappingValuesFormWXUserInfo:(WXUserInfo *)wxUser;
+@property (nonatomic, copy) NSString *birthday;
 
-- (NSDictionary *)dictionaryWithUserInfo;
+@property (nonatomic, copy) NSString *mobile_num;
+
+@property (nonatomic, assign) NSInteger religion;
+
+@property (nonatomic, copy) NSString *user_name;
+
+@property (nonatomic, copy) NSString *country;
+
+@property (nonatomic, copy) NSString *wechat_union_id;
+
+@property (nonatomic, assign) NSInteger affection;
+
+@property (nonatomic, copy) NSString *weixin_num;
+
+@property (nonatomic, assign) NSInteger smoke;
+
+@property (nonatomic, strong) NSArray<Work_Expirence *> *work_expirence;
+
+@property (nonatomic, assign) NSInteger constellation;
+
+@property (nonatomic, copy) NSString *id_card;
+
+@property (nonatomic, copy) NSString *industry;
+
+@property (nonatomic, copy) NSString *social_id;
+
+@property (nonatomic, assign) NSInteger drink;
+
+@property (nonatomic, assign) long long id;
+
+@property (nonatomic, assign) NSInteger gender;
+
+@property (nonatomic, assign) NSInteger height;
+
+@property (nonatomic, copy) NSString *avatar;
+
+@property (nonatomic, assign) NSInteger age;
+
+@property (nonatomic, assign) NSInteger income;
+
+@property (nonatomic, strong) NSArray<Edu_Expirence *> *edu_expirence;
+
+@property (nonatomic, copy) NSString *created;
+
+@property (nonatomic, copy) NSString *hometown;
+
+@property (nonatomic, assign) BOOL isFirstLogin;
+
++ (instancetype)sharedInstance;
+
++ (BOOL)synchronizeWithDic:(NSDictionary *)dic;
+
++ (BOOL)synchronize;
+
++ (BOOL)isLoggedIn;
+
++ (BOOL)logout;
+
++ (BOOL)saveCacheImage:(UIImage *)image withName:(NSString *)name;
+
++ (UIImage *)imageForName:(NSString *)name;
+
+//+ (BOOL)saveBaseData:(id)data WithName:(NSString *)name;
+//
+//+ (id)getBaseDataWithName:(NSString *)name;
+//
+//+ (void)saveChatWithMessageArray:(NSMutableArray *)message withKey:(NSString *)key;
+//
+//+ (id)getChatMessageWithKey:(NSString *)key;
+
 
 
 @end

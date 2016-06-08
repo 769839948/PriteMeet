@@ -6,7 +6,8 @@
 //  Copyright © 2016年 Meet. All rights reserved.
 //
 
+#import "MeetBaseViewController.h"
 
-@interface MeViewController : UIViewController
+@interface MeViewController : MeetBaseViewController
 
 @end

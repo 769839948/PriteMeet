@@ -12,5 +12,4 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *label;
 
-- (void)labeAddLayerMargin:(BOOL)isSet andSetLabelText:(NSString *)text;
 @end

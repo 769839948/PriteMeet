@@ -10,7 +10,7 @@
 #import "LabelAndTextFieldCell.h"
 #import "UISheetView.h"
 #import "UserInfoViewModel.h"
-
+#import "WXUserInfo.h"
 
 @interface BaseUserInfoViewController ()
 
@@ -31,14 +31,14 @@
         return ;
     }
     if ([self.headImageUrl isEqualToString:@""]) {
-        [UserInfo shareInstance].headimgurl = [WXUserInfo shareInstance].headimgurl;
+        [UserInfo sharedInstance].avatar = [WXUserInfo shareInstance].headimgurl;
     }else{
-        [UserInfo shareInstance].headimgurl =  self.headImageUrl;
+        [UserInfo sharedInstance].avatar =  self.headImageUrl;
         
     }
     __weak typeof(self) weakSelf = self;
     [self mappingUserInfoWithDicValues];
-    [self.viewModel updateUserInfo:[UserInfo shareInstance] withStateArray:[self.stateArray copy] success:^(NSDictionary *object) {
+    [self.viewModel updateUserInfo:[UserInfo sharedInstance] withStateArray:[self.stateArray copy] success:^(NSDictionary *object) {
         [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
 //        [[UserInfoDao shareInstance] updateBean:[UserInfo shareInstance]];
         [[UITools shareInstance] showMessageToView:self.view message:@"保存成功" autoHide:YES];

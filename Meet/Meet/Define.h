@@ -35,4 +35,6 @@
 #define GETUser_info_FromWX_URLStr [WX_userInfo_URL_str stringByAppendingFormat:@"?access_token=%@&openid=%@",[WXAccessModel shareInstance].access_token,[WXAccessModel shareInstance].openid]
 
 
+#define loginStateChange  @"loginStateChange"
+
 #endif /* Define_h */

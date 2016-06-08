@@ -17,11 +17,11 @@
 #import "NetWorkObject.h"
 
 #import "UserInfo.h"
-#import "UserInfoDao.h"
 #import "WXAccessModel.h"
 #import "WXUserInfo.h"
 #import "NSUserDefaults+RMSaveCustomObject.h"
 #import "ThemeTools.h"
+#import "IQKeyboardManager.h"
 
 @interface AppDelegate ()<WXApiDelegate,NSURLConnectionDelegate> {
     NSURLConnection *_connection;
@@ -48,15 +48,15 @@
     [WXApi registerApp:@"wx49c4b6f590f83469"];
 //    [TalkingData sessionStarted:@"7244A450FDAFB46FFEF7C1B68FBA93D3" withChannelId:@"app store"];
     
-    if ([[AppData shareInstance] initUserDataBaseToDocument]) {
-//        NSLog(@" 数据库 规划成功");
-        [[UserInfoDao shareInstance] selectUserWithUserLoginType];
-        if ([UserInfo shareInstance].userId && [UserInfo shareInstance].userId.length > 1 && ![[UserInfo shareInstance].userId isEqualToString:@""]) {
-            [AppData shareInstance].isLogin = YES;
-        }
-    } else {
-        NSLog(@"用户信息 数据库 创建失败");
-    }
+//    if ([[AppData shareInstance] initUserDataBaseToDocument]) {
+////        NSLog(@" 数据库 规划成功");
+//        [[UserInfoDao shareInstance] selectUserWithUserLoginType];
+//        if ([UserInfo sharedInstance].userId && [UserInfo shareInstance].userId.length > 1 && ![[UserInfo sharedInstance].userId isEqualToString:@""]) {
+//            [AppData shareInstance].isLogin = YES;
+//        }
+//    } else {
+//        NSLog(@"用户信息 数据库 创建失败");
+//    }
     
     NSDictionary *access_TokenDic = [[NSUserDefaults standardUserDefaults] objectForKey:keyAccessModelSave];
     NSDictionary *weChatUserInfoDic = [[NSUserDefaults standardUserDefaults] objectForKey:keyWXUserInfo];
@@ -65,6 +65,8 @@
 //    if (![[userInfoDic objectForKey:@"userId"] isEqualToString:@"1234567890"]) {
 //        [AppData shareInstance].isLogin = YES;
 //    }
+    [self setIQkeyboardManager];
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-value"
     [[WXAccessModel shareInstance] initWithDictionary:access_TokenDic];
@@ -82,6 +84,17 @@
     [CrashlyticsKit setUserName:@"Test User"];
 }
 
+- (void)setIQkeyboardManager
+{
+    [IQKeyboardManager sharedManager].enable = YES;
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+    [IQKeyboardManager sharedManager].toolbarTintColor = [UIColor colorWithHexString:IQKeyboardManagerTinColor];
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+    [IQKeyboardManager sharedManager].shouldShowTextFieldPlaceholder = YES;
+    [IQKeyboardManager sharedManager].shouldToolbarUsesTextFieldTintColor = NO;
+    [IQKeyboardManager sharedManager].placeholderFont = IQKeyboardManagerFont;
+    
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

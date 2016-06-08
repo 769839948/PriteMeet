@@ -30,6 +30,8 @@
 		1F6850991D000642007F3C07 /* HYBPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6850941D000642007F3C07 /* HYBPageControl.m */; };
 		1F68509A1D000642007F3C07 /* UIView+HYBUIViewCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6850961D000642007F3C07 /* UIView+HYBUIViewCommon.m */; };
 		1F6E8BE51D0276C00044CD40 /* NSObject+PerformSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E8BE41D0276C00044CD40 /* NSObject+PerformSelector.m */; };
+		1F79BAA21D06AF5C00814DED /* ProfileKeyValue.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F79BAA11D06AF5C00814DED /* ProfileKeyValue.txt */; };
+		1F79BAD21D071CF700814DED /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BAD11D071CF700814DED /* UserInfo.m */; };
 		1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */; };
 		1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5931CFDF931002345C1 /* NSString+StringSize.m */; };
 		1FC2C1451CFD3311001D6D10 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C1421CFD3311001D6D10 /* NSString+Utils.m */; };
@@ -48,6 +50,7 @@
 		1FFB5F351D054BD900021F77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FFB5F341D054BD900021F77 /* Assets.xcassets */; };
 		1FFB5F381D05650400021F77 /* BaseUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F371D05650400021F77 /* BaseUserInfoViewController.m */; };
 		1FFB5F3B1D056D9600021F77 /* MoreInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F3A1D056D9600021F77 /* MoreInfoViewController.m */; };
+		1FFB5F3E1D069A8800021F77 /* ProfileKeyAndValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F3D1D069A8800021F77 /* ProfileKeyAndValue.m */; };
 		DA018EDB1CD1BCD90051D2D7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018EDA1CD1BCD90051D2D7 /* MainViewController.m */; };
 		DA018F271CD38AEF0051D2D7 /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F261CD38AEF0051D2D7 /* MeViewController.m */; };
 		DA018F2E1CD39D570051D2D7 /* ManListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F2C1CD39D570051D2D7 /* ManListCell.m */; };
@@ -67,8 +70,6 @@
 		DA3626671CD1A75C00A8AE39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA3626651CD1A75C00A8AE39 /* LaunchScreen.storyboard */; };
 		DA36267C1CD1A98E00A8AE39 /* AppData.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3626721CD1A98E00A8AE39 /* AppData.m */; };
 		DA36267D1CD1A98E00A8AE39 /* UITools.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3626741CD1A98E00A8AE39 /* UITools.m */; };
-		DA41592B1CECA057006970DF /* MoreDescriptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DA41592A1CECA057006970DF /* MoreDescriptionModel.m */; };
-		DA41592E1CECA074006970DF /* MoreDescriptionDao.m in Sources */ = {isa = PBXBuildFile; fileRef = DA41592D1CECA074006970DF /* MoreDescriptionDao.m */; };
 		DA4A88F61CDB1DD900649983 /* AddStarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4A88F51CDB1DD900649983 /* AddStarViewController.m */; };
 		DA4A88F81CDB2BFD00649983 /* LabelAndTextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA4A88F71CDB2BFC00649983 /* LabelAndTextFieldCell.xib */; };
 		DA4A88FB1CDB5CB700649983 /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4A88FA1CDB5CB700649983 /* UITextView+Placeholder.m */; };
@@ -117,11 +118,8 @@
 		DAF5C8021CDF491700DA7901 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF5C8011CDF491700DA7901 /* CoreMotion.framework */; };
 		DAF5C8041CDF492600DA7901 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF5C8031CDF492600DA7901 /* Security.framework */; };
 		DAF5C81E1CE0D0ED00DA7901 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5C8171CE0D0ED00DA7901 /* BaseModel.m */; };
-		DAF5C81F1CE0D0ED00DA7901 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5C8191CE0D0ED00DA7901 /* UserInfo.m */; };
 		DAF5C8201CE0D0ED00DA7901 /* WXAccessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5C81B1CE0D0ED00DA7901 /* WXAccessModel.m */; };
 		DAF5C8211CE0D0ED00DA7901 /* WXUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5C81D1CE0D0ED00DA7901 /* WXUserInfo.m */; };
-		DAF5C8271CE0D1B500DA7901 /* SuperDao.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5C8261CE0D1B500DA7901 /* SuperDao.m */; };
-		DAF5C82A1CE0D3C000DA7901 /* UserInfoDao.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5C8291CE0D3C000DA7901 /* UserInfoDao.m */; };
 		DAF5C83A1CE18A2400DA7901 /* UISheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5C8391CE18A2400DA7901 /* UISheetView.m */; };
 		DAF5C8461CE2DA6E00DA7901 /* LabelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5C8441CE2DA6E00DA7901 /* LabelTableViewCell.m */; };
 		DAF5C8471CE2DA6E00DA7901 /* LabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAF5C8451CE2DA6E00DA7901 /* LabelTableViewCell.xib */; };
@@ -201,6 +199,9 @@
 		1F6850961D000642007F3C07 /* UIView+HYBUIViewCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HYBUIViewCommon.m"; sourceTree = "<group>"; };
 		1F6E8BE31D0276C00044CD40 /* NSObject+PerformSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+PerformSelector.h"; sourceTree = "<group>"; };
 		1F6E8BE41D0276C00044CD40 /* NSObject+PerformSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+PerformSelector.m"; sourceTree = "<group>"; };
+		1F79BAA11D06AF5C00814DED /* ProfileKeyValue.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ProfileKeyValue.txt; sourceTree = "<group>"; };
+		1F79BAD01D071CF700814DED /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
+		1F79BAD11D071CF700814DED /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 		1FA4E58F1CFDF91F002345C1 /* InterestCollectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestCollectView.h; sourceTree = "<group>"; };
 		1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestCollectView.m; sourceTree = "<group>"; };
 		1FA4E5921CFDF931002345C1 /* NSString+StringSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSize.h"; sourceTree = "<group>"; };
@@ -237,6 +238,8 @@
 		1FFB5F371D05650400021F77 /* BaseUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseUserInfoViewController.m; sourceTree = "<group>"; };
 		1FFB5F391D056D9600021F77 /* MoreInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreInfoViewController.h; sourceTree = "<group>"; };
 		1FFB5F3A1D056D9600021F77 /* MoreInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreInfoViewController.m; sourceTree = "<group>"; };
+		1FFB5F3C1D069A8800021F77 /* ProfileKeyAndValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileKeyAndValue.h; sourceTree = "<group>"; };
+		1FFB5F3D1D069A8800021F77 /* ProfileKeyAndValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileKeyAndValue.m; sourceTree = "<group>"; };
 		DA018ED91CD1BCD90051D2D7 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		DA018EDA1CD1BCD90051D2D7 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		DA018F251CD38AEF0051D2D7 /* MeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeViewController.h; sourceTree = "<group>"; };
@@ -277,10 +280,6 @@
 		DA3626741CD1A98E00A8AE39 /* UITools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITools.m; sourceTree = "<group>"; };
 		DA3626801CD1A9D300A8AE39 /* Meet.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Meet.pch; sourceTree = "<group>"; };
 		DA3626811CD1AADD00A8AE39 /* Define.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Define.h; sourceTree = "<group>"; };
-		DA4159291CECA057006970DF /* MoreDescriptionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreDescriptionModel.h; sourceTree = "<group>"; };
-		DA41592A1CECA057006970DF /* MoreDescriptionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreDescriptionModel.m; sourceTree = "<group>"; };
-		DA41592C1CECA074006970DF /* MoreDescriptionDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreDescriptionDao.h; sourceTree = "<group>"; };
-		DA41592D1CECA074006970DF /* MoreDescriptionDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreDescriptionDao.m; sourceTree = "<group>"; };
 		DA4A88F41CDB1DD900649983 /* AddStarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddStarViewController.h; sourceTree = "<group>"; };
 		DA4A88F51CDB1DD900649983 /* AddStarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddStarViewController.m; sourceTree = "<group>"; };
 		DA4A88F71CDB2BFC00649983 /* LabelAndTextFieldCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LabelAndTextFieldCell.xib; sourceTree = "<group>"; };
@@ -364,16 +363,10 @@
 		DAF5C8031CDF492600DA7901 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DAF5C8161CE0D0ED00DA7901 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
 		DAF5C8171CE0D0ED00DA7901 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
-		DAF5C8181CE0D0ED00DA7901 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
-		DAF5C8191CE0D0ED00DA7901 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 		DAF5C81A1CE0D0ED00DA7901 /* WXAccessModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXAccessModel.h; sourceTree = "<group>"; };
 		DAF5C81B1CE0D0ED00DA7901 /* WXAccessModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXAccessModel.m; sourceTree = "<group>"; };
 		DAF5C81C1CE0D0ED00DA7901 /* WXUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXUserInfo.h; sourceTree = "<group>"; };
 		DAF5C81D1CE0D0ED00DA7901 /* WXUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXUserInfo.m; sourceTree = "<group>"; };
-		DAF5C8251CE0D1B500DA7901 /* SuperDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperDao.h; sourceTree = "<group>"; };
-		DAF5C8261CE0D1B500DA7901 /* SuperDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperDao.m; sourceTree = "<group>"; };
-		DAF5C8281CE0D3C000DA7901 /* UserInfoDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoDao.h; sourceTree = "<group>"; };
-		DAF5C8291CE0D3C000DA7901 /* UserInfoDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoDao.m; sourceTree = "<group>"; };
 		DAF5C8381CE18A2400DA7901 /* UISheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UISheetView.h; sourceTree = "<group>"; };
 		DAF5C8391CE18A2400DA7901 /* UISheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UISheetView.m; sourceTree = "<group>"; };
 		DAF5C8431CE2DA6E00DA7901 /* LabelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelTableViewCell.h; sourceTree = "<group>"; };
@@ -673,6 +666,7 @@
 		DA3626561CD1A75C00A8AE39 /* Meet */ = {
 			isa = PBXGroup;
 			children = (
+				1F79BAA11D06AF5C00814DED /* ProfileKeyValue.txt */,
 				DA1A67EB1CEF107C00F9CC9D /* area.plist */,
 				DA36265A1CD1A75C00A8AE39 /* AppDelegate.h */,
 				DA36265B1CD1A75C00A8AE39 /* AppDelegate.m */,
@@ -720,6 +714,8 @@
 				DAF5C7F81CDF479C00DA7901 /* NetWorkObject.m */,
 				DAF5C8521CE5A5C000DA7901 /* UIView+frameAdjust.h */,
 				DAF5C8531CE5A5C000DA7901 /* UIView+frameAdjust.m */,
+				1FFB5F3C1D069A8800021F77 /* ProfileKeyAndValue.h */,
+				1FFB5F3D1D069A8800021F77 /* ProfileKeyAndValue.m */,
 			);
 			name = Global;
 			path = Meet/Global;
@@ -965,12 +961,6 @@
 		DAF5C8141CE0D0ED00DA7901 /* Dao */ = {
 			isa = PBXGroup;
 			children = (
-				DAF5C8251CE0D1B500DA7901 /* SuperDao.h */,
-				DAF5C8261CE0D1B500DA7901 /* SuperDao.m */,
-				DAF5C8281CE0D3C000DA7901 /* UserInfoDao.h */,
-				DAF5C8291CE0D3C000DA7901 /* UserInfoDao.m */,
-				DA41592C1CECA074006970DF /* MoreDescriptionDao.h */,
-				DA41592D1CECA074006970DF /* MoreDescriptionDao.m */,
 			);
 			path = Dao;
 			sourceTree = "<group>";
@@ -978,16 +968,14 @@
 		DAF5C8151CE0D0ED00DA7901 /* ModelBean */ = {
 			isa = PBXGroup;
 			children = (
+				1F79BAD01D071CF700814DED /* UserInfo.h */,
+				1F79BAD11D071CF700814DED /* UserInfo.m */,
 				DAF5C8161CE0D0ED00DA7901 /* BaseModel.h */,
 				DAF5C8171CE0D0ED00DA7901 /* BaseModel.m */,
-				DAF5C8181CE0D0ED00DA7901 /* UserInfo.h */,
-				DAF5C8191CE0D0ED00DA7901 /* UserInfo.m */,
 				1FFB5F2E1D0527F700021F77 /* UserEduModel.h */,
 				1FFB5F2F1D0527F700021F77 /* UserEduModel.m */,
 				1FFB5F311D05287A00021F77 /* UserWorks.h */,
 				1FFB5F321D05287A00021F77 /* UserWorks.m */,
-				DA4159291CECA057006970DF /* MoreDescriptionModel.h */,
-				DA41592A1CECA057006970DF /* MoreDescriptionModel.m */,
 				DAF5C81A1CE0D0ED00DA7901 /* WXAccessModel.h */,
 				DAF5C81B1CE0D0ED00DA7901 /* WXAccessModel.m */,
 				DAF5C81C1CE0D0ED00DA7901 /* WXUserInfo.h */,
@@ -1175,6 +1163,7 @@
 				DA3626671CD1A75C00A8AE39 /* LaunchScreen.storyboard in Resources */,
 				1FFB5F351D054BD900021F77 /* Assets.xcassets in Resources */,
 				DABF8AF41CEAC0DC00CA2A1D /* Seting.storyboard in Resources */,
+				1F79BAA21D06AF5C00814DED /* ProfileKeyValue.txt in Resources */,
 				DAF5C8471CE2DA6E00DA7901 /* LabelTableViewCell.xib in Resources */,
 				DA4A88F81CDB2BFD00649983 /* LabelAndTextFieldCell.xib in Resources */,
 				DAF5C8BB1CE6D6AD00DA7901 /* README.txt in Resources */,
@@ -1257,7 +1246,6 @@
 				DA6CEF131CDAF42300EEABFF /* AddInformationViewController.m in Sources */,
 				DA4A88FB1CDB5CB700649983 /* UITextView+Placeholder.m in Sources */,
 				1FC2C1451CFD3311001D6D10 /* NSString+Utils.m in Sources */,
-				DAF5C8271CE0D1B500DA7901 /* SuperDao.m in Sources */,
 				DA018F2E1CD39D570051D2D7 /* ManListCell.m in Sources */,
 				DA4A89081CDC9A3200649983 /* GetCodeViewController.m in Sources */,
 				DABF8AE91CE9B76000CA2A1D /* WillMeetViewColler.m in Sources */,
@@ -1278,6 +1266,7 @@
 				1F5515841CFEF859005B82FA /* EqualSpaceFlowLayout.m in Sources */,
 				DAF5C8BC1CE6D6AD00DA7901 /* NSObject+RMArchivable.m in Sources */,
 				1F68503A1CFFDD05007F3C07 /* HomeViewModel.m in Sources */,
+				1FFB5F3E1D069A8800021F77 /* ProfileKeyAndValue.m in Sources */,
 				DAF5C8541CE5A5C100DA7901 /* UIView+frameAdjust.m in Sources */,
 				DAF5C8841CE5B95000DA7901 /* CoreTextLinkData.m in Sources */,
 				DA018F391CD44B210051D2D7 /* ThreeImageCell.m in Sources */,
@@ -1286,7 +1275,6 @@
 				1FCAFFCC1D012B6900BF53A1 /* UIViewController+NavigationItemColor.m in Sources */,
 				DAF5C83A1CE18A2400DA7901 /* UISheetView.m in Sources */,
 				DAF5C8461CE2DA6E00DA7901 /* LabelTableViewCell.m in Sources */,
-				DAF5C81F1CE0D0ED00DA7901 /* UserInfo.m in Sources */,
 				DA018F361CD443670051D2D7 /* UINavigationBar+BackgroundColor.m in Sources */,
 				DA36265C1CD1A75C00A8AE39 /* AppDelegate.m in Sources */,
 				DA6B1C541CEC4DAC0020021D /* CoffeeViewController.m in Sources */,
@@ -1303,14 +1291,12 @@
 				1F68503D1CFFE4F2007F3C07 /* NewMeetInfoTableViewCell.m in Sources */,
 				DA6B1C581CEC4DAC0020021D /* HomeMoreViewController.m in Sources */,
 				DAF5C7F91CDF479C00DA7901 /* NetWorkObject.m in Sources */,
-				DA41592B1CECA057006970DF /* MoreDescriptionModel.m in Sources */,
 				1FFB5F301D0527F700021F77 /* UserEduModel.m in Sources */,
 				1F6850201CFFD3D2007F3C07 /* MeetDetailViewController.swift in Sources */,
 				1F6E8BE51D0276C00044CD40 /* NSObject+PerformSelector.m in Sources */,
 				DABF8AEC1CE9B7BD00CA2A1D /* WillAllowViewColler.m in Sources */,
 				DABF8B0A1CEB22A100CA2A1D /* UserProtocolViewController.m in Sources */,
 				DAF5C8861CE5B95000DA7901 /* CTFrameParser.m in Sources */,
-				DA41592E1CECA074006970DF /* MoreDescriptionDao.m in Sources */,
 				DABF8AEF1CE9B83300CA2A1D /* AllMeetViewController.m in Sources */,
 				DA6B1C591CEC4DAC0020021D /* MoveViewController.m in Sources */,
 				1FCAFFD81D0181AA00BF53A1 /* EMAlertView.m in Sources */,
@@ -1342,9 +1328,9 @@
 				1F6850321CFFD4B3007F3C07 /* WantMeetTableViewCell.m in Sources */,
 				1FCAA98A1CFF200900C84ED2 /* UIViewController+ScrollingNavbar.m in Sources */,
 				DA6CEEF21CD9EF9D00EEABFF /* CellButton.m in Sources */,
+				1F79BAD21D071CF700814DED /* UserInfo.m in Sources */,
 				DA6B1C521CEC4DAC0020021D /* FristHomeViewController.m in Sources */,
 				DAF5C8C91CE6F3EB00DA7901 /* MyPhotosViewController.m in Sources */,
-				DAF5C82A1CE0D3C000DA7901 /* UserInfoDao.m in Sources */,
 				DABF8B071CEB18E700CA2A1D /* MeetBaseViewController.m in Sources */,
 				DA6B1C5A1CEC4DAC0020021D /* ShowViewController.m in Sources */,
 				1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */,

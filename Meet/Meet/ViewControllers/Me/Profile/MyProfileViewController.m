@@ -16,9 +16,10 @@
 #import "AddStarViewController.h"
 #import "NetWorkObject.h"
 #import "UISheetView.h"
-#import "UserInfoDao.h"
+#import "ProfileKeyAndValue.h"
 #import "UserInfoViewModel.h"
-
+#import "IQUIView+IQKeyboardToolbar.h"
+#import "WXUserInfo.h"
 
 typedef NS_ENUM(NSUInteger, SectonContentType) {
     SectionProfile,
@@ -89,15 +90,17 @@ typedef NS_ENUM(NSUInteger, RowType) {
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"个人信息";
     _headImageUrl = @"";
-//    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
-//    [UITools navigationRightBarButtonForController:self action:@selector(saveAction:) normalTitle:@"保存" selectedTitle:nil];
+    [self setNavigationBarItem];
+    
     _titleContentArray = @[@"头像",@"真实姓名",@"性别",@"出生",@"身高",@"手机号",@"微信号",@"工作生活城市",@"年收入",@"情感状态",@"家乡",@"星座"];
     _dicValues = [NSMutableDictionary dictionary];
     
     
-    _arrayWorkExper = [NSMutableArray arrayWithArray:@[@"产品总监 - 面包旅行",@"产品经理 - 百度"]];
+    _arrayWorkExper = [NSMutableArray arrayWithArray:[self workExpArray]];
+//    [NSMutableArray arrayWithArray:@[@"产品总监 - 面包旅行",@"产品经理 - 百度"]];
     _arrayOccupationLable = [NSMutableArray arrayWithArray:@[@"产品总监, 产品经理 "]];
-    _arrayEducateExper = [NSMutableArray arrayWithArray:@[@"哈尔滨工业大学 - 电子商务 - 本科 ",@"光山县第三高级中学 - 高中"]];
+    _arrayEducateExper = [NSMutableArray arrayWithArray:[self eduWorkExpArray]];
+    //[NSMutableArray arrayWithArray:@[@"哈尔滨工业大学 - 电子商务 - 本科 ",@"光山县第三高级中学 - 高中"]];
     [self loadPickViewData];
     
     _chooseView.hidden = YES;
@@ -107,18 +110,47 @@ typedef NS_ENUM(NSUInteger, RowType) {
     
     _viewModel = [[UserInfoViewModel alloc] init];
     
-    if (_isFristLogin) {
-        [self downLoadUserWeChatImage];
-        [self loadServerData];
-    }
-    [self mappingContentDicValue];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveAction:)];
+    
     
     
 }
 
+/**
+ *  设置导航栏标题
+ */
+- (void)setNavigationBarItem
+{
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveAction:)];
+}
+
+- (void)leftItemClick:(UIBarButtonItem *)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (NSArray *)workExpArray
+{
+    NSMutableArray *workArray = [NSMutableArray array];
+    for (NSDictionary *dic in [UserInfo sharedInstance].work_expirence) {
+        NSString *workString = [NSString stringWithFormat:@"%@ - %@",dic[@"company_name"],dic[@"profession"]];
+        [workArray addObject:workString];
+    }
+    return workArray;
+}
+
+- (NSArray *)eduWorkExpArray
+{
+    NSMutableArray *workArray = [NSMutableArray array];
+    for (NSDictionary *dic in [UserInfo sharedInstance].edu_expirence) {
+        NSString *workString = [NSString stringWithFormat:@"%@ - %@ - %@",dic[@"graduated"],dic[@"major"], dic[@"education"]];
+        [workArray addObject:workString];
+    }
+    return workArray;
+}
+
 - (void)loadPickViewData {
+    __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         ///pickView cache
         _dicPickSelectValues = [NSMutableDictionary dictionary];
@@ -130,7 +162,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
             [_arrayHeightPick addObject:str];
         }
         [_arrayHeightPick addObject:@"190cm以上"];
-        _arrayIncomePick = @[@"10W以下",@"10W-20w",@"20W-30w",@"30W-50w",@"50W-100w",@"100W以上"];
+        _arrayIncomePick = @[@"10W以下",@"10W~20W",@"20W~30W",@"30W~50W",@"50W~100W",@"100W以上"];
         _arrayLovedPick = @[@"单身并享受单身的状态",@"单身但渴望找到另一半",@"已有男女朋友，但未婚",@"已婚",@"离异，寻觅中",@"丧偶，寻觅中"];
         _arrayConstellationPick = @[@"水平座",@"双鱼座",@"白羊座",@"金牛座",@"双子座",@"巨蟹座",@"狮子座",@"处女座",@"天秤座",@"天蝎座",@"射手座",@"摩羯座"];
        
@@ -154,65 +186,65 @@ typedef NS_ENUM(NSUInteger, RowType) {
             NSMutableArray *temp = [NSMutableArray array];
             [cities enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * stop) {
                 NSString *cityName = obj[@"city"];
-                [self.stateArray setValue:obj[@"cityId"] forKey:cityName];
+                [weakSelf.stateArray setValue:obj[@"cityId"] forKey:cityName];
 //                NSLog(@"%@",dic);
                 [temp addObject:cityName];
             }];
             [_dicCityPick setObject:temp forKey:stateName];
         }];
-        [self mappingCacheData];
+        [weakSelf mappingCacheData];
+        [weakSelf mappingContentDicValue];
+
         NSLog(@"");
     });
 
 }
 
 - (void)mappingCacheData {
-    if (![AppData shareInstance].isLogin) {
-        return ;
-    }
-    NSNumber *sexNum = [UserInfo shareInstance].sex;
-    if (sexNum && ![sexNum isKindOfClass:[NSNull class]]) {
-        _dicPickSelectValues[_titleContentArray[RowSex]] = [NSNumber numberWithInt:sexNum.intValue - 1];
-    }
     
-    NSString *height = [NSString stringWithFormat:@"%@",[UserInfo shareInstance].height];
-    if (![height isKindOfClass:[NSNull class]] && height != nil && height.length >2) {
-        NSInteger heightRow = [_arrayHeightPick indexOfObject:height];
-        [_dicPickSelectValues setObject:[NSNumber numberWithInteger:heightRow] forKey:_titleContentArray[RowHeight]];
-    }
-    
-    [self locationRowMappingForRow:RowWorkLocation];
-    [self locationRowMappingForRow:RowHome];
-    
-    NSString *income = [NSString stringWithFormat:@"%@",[UserInfo shareInstance].income];
-//    NSString *income = ;
-    if (![income isKindOfClass:[NSNull class]] && income != nil && income.length >2) {
-        NSInteger incomRow = [_arrayIncomePick indexOfObject:income];
-        [_dicPickSelectValues setObject:[NSNumber numberWithInteger:incomRow] forKey:_titleContentArray[RowIncome]];
-    }
-   
-    
-    NSString *state = [UserInfo shareInstance].state;
-    if (![state isKindOfClass:[NSNull class]] && state != nil && state.length >2) {
-        NSInteger stateRow = [_arrayStatesPick indexOfObject:state];
-        [_dicPickSelectValues setObject:[NSNumber numberWithInteger:stateRow] forKey:_titleContentArray[RowState]];
-    }
- 
-    NSString *constellation = [NSString stringWithFormat:@"%@",[UserInfo shareInstance].constellation];
-
-//    NSString *constellation = [UserInfo shareInstance].constellation;
-    if (![constellation isKindOfClass:[NSNull class]] && constellation != nil && constellation.length >2) {
-        NSInteger constellationRow = [_arrayConstellationPick indexOfObject:constellation];
-        [_dicPickSelectValues setObject:[NSNumber numberWithInteger:constellationRow] forKey:_titleContentArray[RowConstellation]];
-    }
+//    NSNumber *sexNum = [UserInfo shareInstance].sex;
+//    if (sexNum && ![sexNum isKindOfClass:[NSNull class]]) {
+//        _dicPickSelectValues[_titleContentArray[RowSex]] = [NSNumber numberWithInt:sexNum.intValue - 1];
+//    }
+//    
+//    NSString *height = [NSString stringWithFormat:@"%@",[UserInfo shareInstance].height];
+//    if (![height isKindOfClass:[NSNull class]] && height != nil && height.length >2) {
+//        NSInteger heightRow = [_arrayHeightPick indexOfObject:height];
+//        [_dicPickSelectValues setObject:[NSNumber numberWithInteger:heightRow] forKey:_titleContentArray[RowHeight]];
+//    }
+//    
+//    [self locationRowMappingForRow:RowWorkLocation];
+//    [self locationRowMappingForRow:RowHome];
+//    
+//    NSString *income = [NSString stringWithFormat:@"%@",[UserInfo shareInstance].income];
+////    NSString *income = ;
+//    if (![income isKindOfClass:[NSNull class]] && income != nil && income.length >2) {
+//        NSInteger incomRow = [_arrayIncomePick indexOfObject:income];
+//        [_dicPickSelectValues setObject:[NSNumber numberWithInteger:incomRow] forKey:_titleContentArray[RowIncome]];
+//    }
+//   
+//    
+//    NSString *state = [UserInfo shareInstance].state;
+//    if (![state isKindOfClass:[NSNull class]] && state != nil && state.length >2) {
+//        NSInteger stateRow = [_arrayStatesPick indexOfObject:state];
+//        [_dicPickSelectValues setObject:[NSNumber numberWithInteger:stateRow] forKey:_titleContentArray[RowState]];
+//    }
+// 
+//    NSString *constellation = [NSString stringWithFormat:@"%@",[UserInfo shareInstance].constellation];
+//
+////    NSString *constellation = [UserInfo shareInstance].constellation;
+//    if (![constellation isKindOfClass:[NSNull class]] && constellation != nil && constellation.length >2) {
+//        NSInteger constellationRow = [_arrayConstellationPick indexOfObject:constellation];
+//        [_dicPickSelectValues setObject:[NSNumber numberWithInteger:constellationRow] forKey:_titleContentArray[RowConstellation]];
+//    }
 }
 
 - (void)locationRowMappingForRow:(NSInteger)row {
     NSString *locationCity ;
     if (row == RowWorkLocation) {
-        locationCity = [UserInfo shareInstance].workCity;
+        locationCity = [UserInfo sharedInstance].location;
     } else if (row == RowHome) {
-        locationCity = [UserInfo shareInstance].home;
+        locationCity = [UserInfo sharedInstance].hometown;
     }
     if (![locationCity isKindOfClass:[NSNull class]] && locationCity != nil && locationCity.length > 2) {
         NSArray *stateAndCity = [locationCity componentsSeparatedByString:@","];
@@ -276,41 +308,45 @@ typedef NS_ENUM(NSUInteger, RowType) {
 }
 
 - (void)mappingContentDicValue{
-    if (![AppData shareInstance].isLogin) {
-        return ;
-    }
+    
     UIImage *image = [UIImage imageWithContentsOfFile:[self imageSaveParth]];
     _dicValues[_titleContentArray[RowHeadImage]] = image;
-    _dicValues[_titleContentArray[RowName]] = [UserInfo shareInstance].name;
-    _dicValues[_titleContentArray[RowSex]] = [UserInfo shareInstance].sex.intValue == 1 ? @"男":@"女";
-    
-    if (![[UserInfo shareInstance].brithday isKindOfClass:[NSNull class]]) {
-        _dicValues[_titleContentArray[RowBirthday]] = [UserInfo shareInstance].brithday;
+    _dicValues[_titleContentArray[RowName]] = [UserInfo sharedInstance].user_name;
+    _dicValues[_titleContentArray[RowSex]] = [UserInfo sharedInstance].gender == 0 ? @"男":@"女";
+    _dicValues[_titleContentArray[RowBirthday]] = [UserInfo sharedInstance].birthday;
+    _dicValues[_titleContentArray[RowHeight]] = [NSString stringWithFormat:@"%ldcm",(long)[UserInfo sharedInstance].height];
+    _dicValues[_titleContentArray[RowPhoneNumber]] = [UserInfo sharedInstance].mobile_num;
+    _dicValues[_titleContentArray[RowWX_Id]] = [UserInfo sharedInstance].weixin_num;
+    NSArray *locationArray = [[UserInfo sharedInstance].location componentsSeparatedByString:@","];
+    _dicValues[_titleContentArray[RowWorkLocation]] = [NSString stringWithFormat:@"%@,%@",[self valueKey:locationArray[0]],[self valueKey:locationArray[1]]];
+    _dicValues[_titleContentArray[RowIncome]] = [self valueKey:[UserInfo sharedInstance].income colume:@"income"];
+    _dicValues[_titleContentArray[RowState]] = [self valueKey:[UserInfo sharedInstance].affection colume:@"affection"];
+    NSArray *homeArray = [[UserInfo sharedInstance].hometown componentsSeparatedByString:@","];
+    _dicValues[_titleContentArray[RowHome]] = [NSString stringWithFormat:@"%@,%@",[self valueKey:homeArray[0]],[self valueKey:homeArray[1]]];
+    _dicValues[_titleContentArray[RowConstellation]] = [self valueKey:[UserInfo sharedInstance].constellation colume:@"constellation"];
+}
+
+- (NSString *)valueKey:(NSString *)value
+{
+    NSString *keyString = @"";
+    for (NSString *key in [self.stateArray allKeys]) {
+        if ([[self.stateArray objectForKey:key] isEqualToString:value]) {
+            keyString = key;
+        }
     }
-    if (![[UserInfo shareInstance].height isKindOfClass:[NSNull class]]) {
-        _dicValues[_titleContentArray[RowHeight]] = [UserInfo shareInstance].height;
+    return keyString;
+}
+
+- (NSString *)valueKey:(NSInteger)value colume:(NSString *)colume
+{
+    NSString *keyString = @"";
+    NSDictionary *dic = [[ProfileKeyAndValue shareInstance].appDic objectForKey:colume];
+    for (NSString *key in dic) {
+        if ([dic[key] integerValue] == value) {
+            keyString = key;
+        }
     }
-    if (![[UserInfo shareInstance].phoneNo isKindOfClass:[NSNull class]]) {
-        _dicValues[_titleContentArray[RowPhoneNumber]] = [UserInfo shareInstance].phoneNo;
-    }
-    if (![[UserInfo shareInstance].WX_No isKindOfClass:[NSNull class]]) {
-        _dicValues[_titleContentArray[RowWX_Id]] = [UserInfo shareInstance].WX_No;
-    }
-    if (![[UserInfo shareInstance].workCity isKindOfClass:[NSNull class]]) {
-        _dicValues[_titleContentArray[RowWorkLocation]] = [UserInfo shareInstance].workCity;
-    }
-    if (![[UserInfo shareInstance].income isKindOfClass:[NSNull class]]) {
-        _dicValues[_titleContentArray[RowIncome]] = [UserInfo shareInstance].income;
-    }
-    if (![[UserInfo shareInstance].state isKindOfClass:[NSNull class]]) {
-        _dicValues[_titleContentArray[RowState]] = [UserInfo shareInstance].state;
-    }
-    if (![[UserInfo shareInstance].home isKindOfClass:[NSNull class]]) {
-        _dicValues[_titleContentArray[RowHome]] = [UserInfo shareInstance].home;
-    }
-    if (![[UserInfo shareInstance].constellation isKindOfClass:[NSNull class]]) {
-        _dicValues[_titleContentArray[RowConstellation]] = [UserInfo shareInstance].constellation;
-    }
+    return keyString;
 }
 
 /**
@@ -318,80 +354,29 @@ typedef NS_ENUM(NSUInteger, RowType) {
  */
 - (void)mappingUserInfoWithDicValues {
     ////图像URL 服务器返回后待加入
-    [UserInfo shareInstance].name = _dicValues[_titleContentArray[RowName]];
-    [UserInfo shareInstance].brithday = _dicValues[_titleContentArray[RowBirthday]];
-    [UserInfo shareInstance].height = _dicValues[_titleContentArray[RowHeight]];
-    [UserInfo shareInstance].phoneNo = _dicValues[_titleContentArray[RowPhoneNumber]];
-    [UserInfo shareInstance].WX_No = _dicValues[_titleContentArray[RowWX_Id]];
-    [UserInfo shareInstance].workCity = _dicValues[_titleContentArray[RowWorkLocation]];
-    [UserInfo shareInstance].income = _dicValues[_titleContentArray[RowIncome]];
-    [UserInfo shareInstance].state = _dicValues[_titleContentArray[RowState]];
-    [UserInfo shareInstance].home = _dicValues[_titleContentArray[RowHome]];
-    [UserInfo shareInstance].constellation = _dicValues[_titleContentArray[RowConstellation]];
-}
-
-- (NSString *)imageSaveParth {
-    NSString *saveFilePath = [AppData getCachesDirectoryUserInfoDocumetPathDocument:@"headimg"];
-    NSString *saveImagePath = [saveFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"0.JPG"]];
-    return saveImagePath;
-}
-
-- (void)downLoadUserWeChatImage {
-    [NetWorkObject downloadTask:[UserInfo shareInstance].headimgurl progress:^(NSProgress *downloadProgress) {
-        
-    } destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-        NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-        return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
-    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-        NSLog(@"File downloaded to: %@", filePath.path);
-        UIImage *image = [UIImage imageWithContentsOfFile:filePath.path];
-        NSData *imgData = UIImageJPEGRepresentation(image, 1);
-        NSString *saveImagePath = [self imageSaveParth];
-        if ([imgData writeToFile:[self imageSaveParth] atomically:NO]) {
-            NSError *error;
-            if (![[NSFileManager defaultManager] removeItemAtPath:filePath.path error:&error]) {
-                 NSLog(@"error :%@",error.localizedDescription);
-            }
-            [self reloadUerImage:saveImagePath];
-        } else {
-        
-        }
-    }];
-}
-
-- (void)loadServerData
-{
-    [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
-        [self mappingNetData:object];
-        
-    } fail:^(NSDictionary *object) {
-        
-    } loadingString:^(NSString *str) {
-        
-    }];
-}
-
-- (void)mappingNetData:(NSDictionary *)dic
-{
-    [UserInfo shareInstance].headimgurl = [dic objectForKey:@"avatar"];
-    [UserInfo shareInstance].brithday = [dic objectForKey:@"birthday"];
-    [UserInfo shareInstance].constellation = [dic objectForKey:@"constellation"];
-    [UserInfo shareInstance].sex = [dic objectForKey:@"gender"];
-    [UserInfo shareInstance].eMail = [dic objectForKey:@"eMail"];
-    [UserInfo shareInstance].height = [dic objectForKey:@"height"];
-    [UserInfo shareInstance].workCity = [dic objectForKey:@"workCity"];
-    [UserInfo shareInstance].income = [dic objectForKey:@"income"];
-    [UserInfo shareInstance].city = [dic objectForKey:@"location"];
-    [UserInfo shareInstance].phoneNo = [dic objectForKey:@"mobile_num"];
-    [UserInfo shareInstance].WX_No = [dic objectForKey:@"weixin_num"];
-}
-
-- (void)reloadUerImage:(NSString *)imagePath {
-    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
-    if (image) {
-        _dicValues[_titleContentArray[0]] = image;
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    }
+    NSDictionary *locationDic = [ProfileKeyAndValue shareInstance].appDic;
+    NSArray *workcity = [_dicValues[_titleContentArray[RowWorkLocation]] componentsSeparatedByString:@","];
+    NSString *location = [NSString stringWithFormat:@"%@,%@",[self.stateArray objectForKey:workcity[0]],[self.stateArray objectForKey:workcity[1]]];
+    NSArray *home = [_dicValues[_titleContentArray[RowHome]] componentsSeparatedByString:@","];
+    NSString *hometown = [NSString stringWithFormat:@"%@,%@",[self.stateArray objectForKey:home[0]],[self.stateArray objectForKey:home[1]]];
+    NSString *affection = [[locationDic objectForKey:@"affection"] objectForKey:_dicValues[_titleContentArray[RowState]]];
+    NSString *rowHeight = _dicValues[_titleContentArray[RowHeight]];
+    NSString *height = [rowHeight substringToIndex:rowHeight.length - 2];
+    NSString *income = [[locationDic objectForKey:@"income"] objectForKey:_dicValues[_titleContentArray[RowIncome]]];
+    NSString *constellation = [[locationDic objectForKey:@"constellation"] objectForKey:_dicValues[_titleContentArray[RowConstellation]]];
+    [UserInfo sharedInstance].user_name = _dicValues[_titleContentArray[RowName]];
+    [UserInfo sharedInstance].birthday = _dicValues[_titleContentArray[RowBirthday]];
+    [UserInfo sharedInstance].height = [height integerValue];
+    [UserInfo sharedInstance].mobile_num = _dicValues[_titleContentArray[RowPhoneNumber]];
+    [UserInfo sharedInstance].weixin_num = _dicValues[_titleContentArray[RowWX_Id]];
+    [UserInfo sharedInstance].location = location;
+    [UserInfo sharedInstance].income = [income integerValue];
+    [UserInfo sharedInstance].affection = [affection integerValue];
+    [UserInfo sharedInstance].hometown = hometown;
+    [UserInfo sharedInstance].constellation = [constellation integerValue];
+    [UserInfo sharedInstance].gender = [_dicValues[_titleContentArray[RowSex]] integerValue];
+    [UserInfo sharedInstance].work_expirence = [_arrayWorkExper copy];
+    [UserInfo sharedInstance].edu_expirence = [_arrayEducateExper copy];
 }
 
 - (void)updateViewConstraints {
@@ -424,12 +409,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
 
 #pragma mark - Action
 - (void)backAction:(id)sender {
-    if (_isFristLogin) {
-        [self dismissViewControllerAnimated:YES completion:^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:FRIST_LOGIN_NOTIFICATION_Key object:nil];
-        }];
-    } else
-        [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)saveAction:(id)sender {
@@ -437,33 +417,42 @@ typedef NS_ENUM(NSUInteger, RowType) {
         [self sexItemModify];
         return ;
     }
-    if ([_headImageUrl isEqualToString:@""]) {
-        [UserInfo shareInstance].headimgurl = [WXUserInfo shareInstance].headimgurl;
-    }else{
-        [UserInfo shareInstance].headimgurl =  _headImageUrl;
-        
-    }
     __weak typeof(self) weakSelf = self;
     [self mappingUserInfoWithDicValues];
-    [_viewModel updateUserInfo:[UserInfo shareInstance] withStateArray:[self.stateArray copy] success:^(NSDictionary *object) {
+    [_viewModel updateUserInfo:[UserInfo sharedInstance] withStateArray:[self.stateArray copy] success:^(NSDictionary *object) {
         [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
-        [[UserInfoDao shareInstance] updateBean:[UserInfo shareInstance]];
         [[UITools shareInstance] showMessageToView:self.view message:@"保存成功" autoHide:YES];
         UIImage *image = _dicValues[_titleContentArray[0]];
         NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
-        NSString *saveImagePath = [self imageSaveParth];
+        NSString *saveImagePath = [weakSelf imageSaveParth];
         if ([imageData writeToFile:saveImagePath atomically:NO]) {
             //        NSLog(@"保存 成功");
         }
         [weakSelf reloadUerImage:saveImagePath];
-
-        
+        weakSelf.block(YES, NO);
+        [UserInfo synchronize];
     } fail:^(NSDictionary *object) {
         [[UITools shareInstance] showMessageToView:self.view message:@"保存失败" autoHide:YES];
     } loadingString:^(NSString *str) {
     }];
     /////保存到服务器返回后再保存到本地
 }
+
+
+- (NSString *)imageSaveParth {
+    NSString *saveFilePath = [AppData getCachesDirectoryUserInfoDocumetPathDocument:@"headimg"];
+    NSString *saveImagePath = [saveFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"0.JPG"]];
+    return saveImagePath;
+}
+
+- (void)reloadUerImage:(NSString *)imagePath {
+    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    if (image) {
+        _dicValues[_titleContentArray[0]] = image;
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    }
+}
+
 
 - (IBAction)tapGestureRecognizer:(UITapGestureRecognizer *)sender {
     if (_selectRow == 2) {////Sex Item
@@ -496,9 +485,14 @@ typedef NS_ENUM(NSUInteger, RowType) {
             NSString *locationStr = FORMAT(@"%@,%@",fristValue,secondValue);
             _dicValues[key] = locationStr;
         } else {
-            NSString *result = [self setPickerViewContentArray:_selectRow][_pickerSelectRow];
-            _dicValues[key] = result;
-            [_dicPickSelectValues setObject:[NSNumber numberWithInt:_pickerSelectRow] forKey:key];
+            if (self.pickerSelectRow < 0) {
+                
+            }else{
+                NSString *result = [self setPickerViewContentArray:self.selectRow][self.pickerSelectRow];
+                _dicValues[key] = result;
+                [_dicPickSelectValues setObject:[NSNumber numberWithInt:_pickerSelectRow] forKey:key];
+            }
+           
         }
     } else {////_datePicker
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -546,21 +540,21 @@ typedef NS_ENUM(NSUInteger, RowType) {
 }
 
 - (void)sexItemModify {
-    if (![UserInfo shareInstance].modifySex) {
-        if (!_sexAlertView) {
-            _sexAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"reminder", @"") message:NSLocalizedString(@"Once confirm the gender，you can't change any more！", @"")  delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"")  otherButtonTitles:NSLocalizedString(@"Ok", @"") , nil];
-        }
-        [_sexAlertView show];
-    }
+//    if (![UserInfo shareInstance].modifySex) {
+//        if (!_sexAlertView) {
+//            _sexAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"reminder", @"") message:NSLocalizedString(@"Once confirm the gender，you can't change any more！", @"")  delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"")  otherButtonTitles:NSLocalizedString(@"Ok", @"") , nil];
+//        }
+//        [_sexAlertView show];
+//    }
 }
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView == _sexAlertView) {
         if (buttonIndex == 1) {
-            [UserInfo shareInstance].modifySex = 1;
-            NSNumber *value = _dicPickSelectValues[_titleContentArray[RowSex]];
-            [UserInfo shareInstance].sex = [NSNumber numberWithInt:value.intValue + 1];
-            [[UserInfoDao shareInstance] updateBean:[UserInfo shareInstance]];
+//            [UserInfo shareInstance].modifySex = 1;
+//            NSNumber *value = _dicPickSelectValues[_titleContentArray[RowSex]];
+//            [UserInfo shareInstance].sex = [NSNumber numberWithInt:value.intValue + 1];
+//            [[UserInfoDao shareInstance] updateBean:[UserInfo shareInstance]];
             [self mappingPickContentInDic];
             [self showChooseViewAnimation:NO];
         } else {
@@ -617,10 +611,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
             [pickerView reloadComponent:1];
             return ;
         } else {
-            _pickerSelectRow = row;
         }
     }  else
-        _pickerSelectRow = row;
+        self.pickerSelectRow = row;
 }
 
 - (NSArray *)pickViewComponent2Content:(NSInteger)component0Row {
@@ -701,6 +694,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
             cell.textField.placeholder = _titleContentArray[row];
             cell.textField.indexPath = indexPath;
             cell.textField.text = _dicValues[_titleContentArray[row]];
+            cell.textField.textColor = [UIColor redColor];
+            //IQKeyboardItem
+            [cell.textField addLeftRightOnKeyboardWithTarget:self leftButtonTitle:@"放弃" rightButtonTitle:@"确定" leftButtonAction:@selector(editDone:) rightButtonAction:@selector(editDone:) shouldShowPlaceholder:YES];
             return  cell;
         } else {
             NSString *cellIdentifier = @"profileLabelCell";
@@ -769,12 +765,17 @@ typedef NS_ENUM(NSUInteger, RowType) {
     return  cell;
 }
 
+- (void)editDone:(UIBarButtonItem *)sender
+{
+    [self.view endEditing:YES];
+}
+
 #pragma mark - tableView Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 0 && indexPath.row == 2 && [UserInfo shareInstance].modifySex) {////Sex Item
-        return ;
-    }
+//    if (indexPath.section == 0 && indexPath.row == 2 && [UserInfo sharedInstance].modifySex) {////Sex Item
+//        return ;
+//    }
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
     if (section == 0) {
@@ -876,7 +877,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
             [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
             
             if ([[object objectForKey:@"success"] boolValue]) {
-                _headImageUrl = [object objectForKey:@"avatar"];
+                [UserInfo sharedInstance].avatar = [object objectForKey:@"avatar"];
             }else{
                 [[UITools shareInstance] showMessageToView:self.view message:@"上传失败" autoHide:YES];
             }
@@ -894,11 +895,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
     _dicValues[_titleContentArray[0]] = image;
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     [self.navigationController dismissViewControllerAnimated: YES completion:^{
-        if (_isFristLogin) {
-            
-        } else
-            self.block(YES, NO);
-        
     }];
 }
 
@@ -978,18 +974,45 @@ typedef NS_ENUM(NSUInteger, RowType) {
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"pushToAddInformationVC"]) {
         AddInformationViewController *addInfom = (AddInformationViewController *)[segue destinationViewController];
+        __weak typeof(self) weakSelf = self;
         addInfom.block = ^(NSIndexPath *path, NSString *string, ViewEditType type){
             if (type == ViewTypeAdd) {
                 if (path.section == 1){
-                    [_arrayWorkExper addObject:string];
+                    [weakSelf.viewModel addWorkExperent:string success:^(NSDictionary *object) {
+                        [_arrayWorkExper addObject:string];
+                    } fail:^(NSDictionary *object) {
+                        
+                    } loadingString:^(NSString *str) {
+                        
+                    }];
                 }else{
-                    [_arrayEducateExper addObject:string];
+                    [weakSelf.viewModel addEduExperent:string success:^(NSDictionary *object) {
+                        [_arrayEducateExper addObject:string];
+                    } fail:^(NSDictionary *object) {
+                        
+                    } loadingString:^(NSString *str) {
+                        
+                    }];
                 }
             }else if (type == ViewTypeEdit){
                 if (path.section == 1){
-                    [_arrayWorkExper replaceObjectAtIndex:path.row withObject:string];
+                    [weakSelf.viewModel updateWorkExperent:string success:^(NSDictionary *object) {
+                        [_arrayWorkExper replaceObjectAtIndex:path.row withObject:string];
+
+                    } fail:^(NSDictionary *object) {
+                        
+                    } loadingString:^(NSString *str) {
+                        
+                    }];
                 }else{
-                    [_arrayEducateExper replaceObjectAtIndex:path.row withObject:string];
+                    [weakSelf.viewModel updateEduExp:string success:^(NSDictionary *object) {
+                        [_arrayEducateExper replaceObjectAtIndex:path.row withObject:string];
+                        
+                    } fail:^(NSDictionary *object) {
+                        
+                    } loadingString:^(NSString *str) {
+                        
+                    }];
                 }
             }else{
                 if (path.section == 1){
@@ -1028,6 +1051,12 @@ typedef NS_ENUM(NSUInteger, RowType) {
 ////            [self checkDocumentGetSmallImages];
 //        };
     }
+}
+
+- (void)addWorkExp:(NSString *)string
+{
+//    __weak typeof(self) weakSelf = self;
+    
 }
 
 @end
