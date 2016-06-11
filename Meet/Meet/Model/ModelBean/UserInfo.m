@@ -142,7 +142,7 @@ static UserInfo *userInfo=nil;
     [aCoder encodeObject:self.work_expirence forKey:@"work_expirence"];
     [aCoder encodeInteger:self.constellation forKey:@"constellation"];
     [aCoder encodeObject:self.id_card forKey:@"id_card"];
-    [aCoder encodeObject:self.industry forKey:@"industry"];
+    [aCoder encodeInteger:self.industry forKey:@"industry"];
     [aCoder encodeObject:self.social_id forKey:@"social_id"];
     [aCoder encodeInteger:self.drink forKey:@"drink"];
     [aCoder encodeInteger:self.age forKey:@"age"];
@@ -172,7 +172,7 @@ static UserInfo *userInfo=nil;
     [UserInfo sharedInstance].work_expirence  = dic[@"work_expirence"];
     [UserInfo sharedInstance].constellation  = [dic[@"constellation"] integerValue];
     [UserInfo sharedInstance].id_card  = dic[@"id_card"];
-    [UserInfo sharedInstance].industry  = dic[@"industry"];
+    [UserInfo sharedInstance].industry  = [dic[@"industry"] integerValue];
     [UserInfo sharedInstance].social_id  = dic[@"social_id"];
     [UserInfo sharedInstance].drink  = [dic[@"drink"] integerValue];
     [UserInfo sharedInstance].gender  = [dic[@"gender"] integerValue];
@@ -185,6 +185,8 @@ static UserInfo *userInfo=nil;
     [UserInfo sharedInstance].hometown  = dic[@"hometown"];
     
     [UserInfo sharedInstance].isFirstLogin = YES;
+    
+    
     
     return [self synchronize];
 }
@@ -284,29 +286,11 @@ static UserInfo *userInfo=nil;
 }
 
 */
-@end
-@class Edu_Expirence,Work_Expirence;
-@interface Edu_Expirence : NSObject
-
-@property (nonatomic, assign) long long id;
-
-@property (nonatomic, assign) NSInteger education;
-
-@property (nonatomic, copy) NSString *graduated;
-
-@property (nonatomic, copy) NSString *major;
-
+//
+//+ (NSDictionary *)objectClassInArray{
+//    return @{@"edu_expirence" : [Edu_Expirence class], @"work_expirence" : [Work_Expirence class]};
+//}
 @end
 
-@interface Work_Expirence : NSObject
 
-@property (nonatomic, copy) NSString *company_name;
-
-@property (nonatomic, assign) NSInteger industry_id;
-
-@property (nonatomic, assign) NSInteger income;
-
-@property (nonatomic, copy) NSString *profession;
-
-@end
 

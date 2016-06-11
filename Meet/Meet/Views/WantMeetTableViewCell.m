@@ -14,7 +14,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self setWhiteView:NO isMoreCell:NO];
+        [self setWhiteView:NO isBottom:NO];
     }
     return self;
 }

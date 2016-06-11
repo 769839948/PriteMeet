@@ -35,6 +35,9 @@
 		1F79BAD51D080A0500814DED /* NSFileManager+Paths.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BAD41D080A0500814DED /* NSFileManager+Paths.m */; };
 		1F79BAD81D080B7B00814DED /* NSFileManager+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BAD71D080B7B00814DED /* NSFileManager+Utils.m */; };
 		1F79BADB1D080B9100814DED /* NSFileManager+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BADA1D080B9100814DED /* NSFileManager+Cache.m */; };
+		1F79BADF1D090AEE00814DED /* SetInvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BADE1D090AEE00814DED /* SetInvitationViewController.swift */; };
+		1F79BAE31D09248B00814DED /* ZHPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BAE21D09248B00814DED /* ZHPickView.m */; };
+		1F79BB121D0AB98E00814DED /* AutomaticBulletAndNumberLists.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BB111D0AB98E00814DED /* AutomaticBulletAndNumberLists.m */; };
 		1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */; };
 		1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5931CFDF931002345C1 /* NSString+StringSize.m */; };
 		1FC2C1451CFD3311001D6D10 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C1421CFD3311001D6D10 /* NSString+Utils.m */; };
@@ -211,6 +214,11 @@
 		1F79BAD71D080B7B00814DED /* NSFileManager+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Utils.m"; sourceTree = "<group>"; };
 		1F79BAD91D080B9100814DED /* NSFileManager+Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+Cache.h"; sourceTree = "<group>"; };
 		1F79BADA1D080B9100814DED /* NSFileManager+Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Cache.m"; sourceTree = "<group>"; };
+		1F79BADE1D090AEE00814DED /* SetInvitationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetInvitationViewController.swift; sourceTree = "<group>"; };
+		1F79BAE11D09248B00814DED /* ZHPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPickView.h; sourceTree = "<group>"; };
+		1F79BAE21D09248B00814DED /* ZHPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPickView.m; sourceTree = "<group>"; };
+		1F79BB101D0AB98E00814DED /* AutomaticBulletAndNumberLists.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutomaticBulletAndNumberLists.h; sourceTree = "<group>"; };
+		1F79BB111D0AB98E00814DED /* AutomaticBulletAndNumberLists.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutomaticBulletAndNumberLists.m; sourceTree = "<group>"; };
 		1FA4E58F1CFDF91F002345C1 /* InterestCollectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestCollectView.h; sourceTree = "<group>"; };
 		1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestCollectView.m; sourceTree = "<group>"; };
 		1FA4E5921CFDF931002345C1 /* NSString+StringSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSize.h"; sourceTree = "<group>"; };
@@ -223,8 +231,8 @@
 		1FC2C14B1CFD3583001D6D10 /* NSDateFormatter+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Category.m"; sourceTree = "<group>"; };
 		1FC2C14D1CFD362B001D6D10 /* UIViewController+hideExcessLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+hideExcessLine.h"; sourceTree = "<group>"; };
 		1FC2C14E1CFD362B001D6D10 /* UIViewController+hideExcessLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+hideExcessLine.m"; sourceTree = "<group>"; };
-		1FCAA9881CFF200900C84ED2 /* UIViewController+ScrollingNavbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ScrollingNavbar.h"; sourceTree = "<group>"; };
-		1FCAA9891CFF200900C84ED2 /* UIViewController+ScrollingNavbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ScrollingNavbar.m"; sourceTree = "<group>"; };
+		1FCAA9881CFF200900C84ED2 /* UIViewController+ScrollingNavbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+ScrollingNavbar.h"; path = "../Other/UIViewController+ScrollingNavbar.h"; sourceTree = "<group>"; };
+		1FCAA9891CFF200900C84ED2 /* UIViewController+ScrollingNavbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+ScrollingNavbar.m"; path = "../Other/UIViewController+ScrollingNavbar.m"; sourceTree = "<group>"; };
 		1FCAFFCA1D012B6900BF53A1 /* UIViewController+NavigationItemColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NavigationItemColor.h"; sourceTree = "<group>"; };
 		1FCAFFCB1D012B6900BF53A1 /* UIViewController+NavigationItemColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavigationItemColor.m"; sourceTree = "<group>"; };
 		1FCAFFCE1D01515D00BF53A1 /* BaseRequestViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseRequestViewModel.h; sourceTree = "<group>"; };
@@ -279,7 +287,7 @@
 		DA3626541CD1A75C00A8AE39 /* Meet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA3626581CD1A75C00A8AE39 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DA36265A1CD1A75C00A8AE39 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		DA36265B1CD1A75C00A8AE39 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DA36265B1CD1A75C00A8AE39 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../../AppDelegate.m; sourceTree = "<group>"; };
 		DA3626611CD1A75C00A8AE39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DA3626661CD1A75C00A8AE39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA3626681CD1A75C00A8AE39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -292,8 +300,8 @@
 		DA4A88F41CDB1DD900649983 /* AddStarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddStarViewController.h; sourceTree = "<group>"; };
 		DA4A88F51CDB1DD900649983 /* AddStarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddStarViewController.m; sourceTree = "<group>"; };
 		DA4A88F71CDB2BFC00649983 /* LabelAndTextFieldCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LabelAndTextFieldCell.xib; sourceTree = "<group>"; };
-		DA4A88F91CDB5CB700649983 /* UITextView+Placeholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Placeholder.h"; sourceTree = "<group>"; };
-		DA4A88FA1CDB5CB700649983 /* UITextView+Placeholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Placeholder.m"; sourceTree = "<group>"; };
+		DA4A88F91CDB5CB700649983 /* UITextView+Placeholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITextView+Placeholder.h"; path = "../../Views/UITextView+Placeholder.h"; sourceTree = "<group>"; };
+		DA4A88FA1CDB5CB700649983 /* UITextView+Placeholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextView+Placeholder.m"; path = "../../Views/UITextView+Placeholder.m"; sourceTree = "<group>"; };
 		DA4A88FC1CDB5D7A00649983 /* CellTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellTextView.h; sourceTree = "<group>"; };
 		DA4A88FD1CDB5D7A00649983 /* CellTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellTextView.m; sourceTree = "<group>"; };
 		DA4A89011CDC388B00649983 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -462,6 +470,10 @@
 		1F4E43651CFC56AE00730DEA /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				1FCAA9881CFF200900C84ED2 /* UIViewController+ScrollingNavbar.h */,
+				1FCAA9891CFF200900C84ED2 /* UIViewController+ScrollingNavbar.m */,
+				DA4A88F91CDB5CB700649983 /* UITextView+Placeholder.h */,
+				DA4A88FA1CDB5CB700649983 /* UITextView+Placeholder.m */,
 				1FA4E5921CFDF931002345C1 /* NSString+StringSize.h */,
 				1FA4E5931CFDF931002345C1 /* NSString+StringSize.m */,
 				1FC2C1471CFD3332001D6D10 /* NSDate+Category.h */,
@@ -495,8 +507,6 @@
 			children = (
 				1F5515821CFEF859005B82FA /* EqualSpaceFlowLayout.h */,
 				1F5515831CFEF859005B82FA /* EqualSpaceFlowLayout.m */,
-				1FCAA9881CFF200900C84ED2 /* UIViewController+ScrollingNavbar.h */,
-				1FCAA9891CFF200900C84ED2 /* UIViewController+ScrollingNavbar.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -512,6 +522,9 @@
 		1F6850171CFFD30E007F3C07 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1F79BB101D0AB98E00814DED /* AutomaticBulletAndNumberLists.h */,
+				1F79BB111D0AB98E00814DED /* AutomaticBulletAndNumberLists.m */,
+				1F79BAE01D09248500814DED /* ZHPickView */,
 				1FCAFFD51D0181AA00BF53A1 /* EMAlertView */,
 				1F68508E1D000642007F3C07 /* HYBLoopScrollView */,
 				1F6850181CFFD31A007F3C07 /* YYCycleScrollView */,
@@ -577,6 +590,15 @@
 				1F6850961D000642007F3C07 /* UIView+HYBUIViewCommon.m */,
 			);
 			path = HYBLoopScrollView;
+			sourceTree = "<group>";
+		};
+		1F79BAE01D09248500814DED /* ZHPickView */ = {
+			isa = PBXGroup;
+			children = (
+				1F79BAE11D09248B00814DED /* ZHPickView.h */,
+				1F79BAE21D09248B00814DED /* ZHPickView.m */,
+			);
+			path = ZHPickView;
 			sourceTree = "<group>";
 		};
 		1FCAFFCD1D01510100BF53A1 /* ViewModel */ = {
@@ -684,7 +706,6 @@
 				1F79BAA11D06AF5C00814DED /* ProfileKeyValue.txt */,
 				DA1A67EB1CEF107C00F9CC9D /* area.plist */,
 				DA36265A1CD1A75C00A8AE39 /* AppDelegate.h */,
-				DA36265B1CD1A75C00A8AE39 /* AppDelegate.m */,
 				DA3626601CD1A75C00A8AE39 /* Main.storyboard */,
 				DA6CEEE91CD97E9A00EEABFF /* Me.storyboard */,
 				DABF8AF31CEAC0DC00CA2A1D /* Seting.storyboard */,
@@ -792,8 +813,6 @@
 				DA4A88F71CDB2BFC00649983 /* LabelAndTextFieldCell.xib */,
 				DA6CEEFF1CDA402C00EEABFF /* TextViewCell.h */,
 				DA6CEF001CDA402C00EEABFF /* TextViewCell.m */,
-				DA4A88F91CDB5CB700649983 /* UITextView+Placeholder.h */,
-				DA4A88FA1CDB5CB700649983 /* UITextView+Placeholder.m */,
 				DA4A88FC1CDB5D7A00649983 /* CellTextView.h */,
 				DA4A88FD1CDB5D7A00649983 /* CellTextView.m */,
 				DAF5C8381CE18A2400DA7901 /* UISheetView.h */,
@@ -923,6 +942,7 @@
 				DAF5C8C81CE6F3EB00DA7901 /* MyPhotosViewController.m */,
 				1FFB5F361D05650400021F77 /* BaseUserInfoViewController.h */,
 				1FFB5F371D05650400021F77 /* BaseUserInfoViewController.m */,
+				1F79BADE1D090AEE00814DED /* SetInvitationViewController.swift */,
 				1FFB5F391D056D9600021F77 /* MoreInfoViewController.h */,
 				1FFB5F3A1D056D9600021F77 /* MoreInfoViewController.m */,
 			);
@@ -995,6 +1015,7 @@
 				DAF5C81B1CE0D0ED00DA7901 /* WXAccessModel.m */,
 				DAF5C81C1CE0D0ED00DA7901 /* WXUserInfo.h */,
 				DAF5C81D1CE0D0ED00DA7901 /* WXUserInfo.m */,
+				DA36265B1CD1A75C00A8AE39 /* AppDelegate.m */,
 			);
 			path = ModelBean;
 			sourceTree = "<group>";
@@ -1319,6 +1340,7 @@
 				1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */,
 				1FC2C14F1CFD362B001D6D10 /* UIViewController+hideExcessLine.m in Sources */,
 				DAF5C8BF1CE6D6AD00DA7901 /* RMMapper.m in Sources */,
+				1F79BB121D0AB98E00814DED /* AutomaticBulletAndNumberLists.m in Sources */,
 				DABF8AE01CE7509400CA2A1D /* MyMeetsViewController.m in Sources */,
 				DA018EDB1CD1BCD90051D2D7 /* MainViewController.m in Sources */,
 				DA6CEEF61CD9EFA800EEABFF /* CellTextField.m in Sources */,
@@ -1333,6 +1355,7 @@
 				1F6850361CFFD77A007F3C07 /* BaseTableViewCell.m in Sources */,
 				1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */,
 				1FCAFFD01D01515D00BF53A1 /* BaseRequestViewModel.m in Sources */,
+				1F79BADF1D090AEE00814DED /* SetInvitationViewController.swift in Sources */,
 				1F79BAD51D080A0500814DED /* NSFileManager+Paths.m in Sources */,
 				DA4A890E1CDCA8D000649983 /* WeChatResgisterViewController.m in Sources */,
 				DA6B1C571CEC4DAC0020021D /* HomeMainViewController.m in Sources */,
@@ -1351,6 +1374,7 @@
 				DAF5C8C91CE6F3EB00DA7901 /* MyPhotosViewController.m in Sources */,
 				DABF8B071CEB18E700CA2A1D /* MeetBaseViewController.m in Sources */,
 				DA6B1C5A1CEC4DAC0020021D /* ShowViewController.m in Sources */,
+				1F79BAE31D09248B00814DED /* ZHPickView.m in Sources */,
 				1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */,
 				DAF5C8CD1CE6F79900DA7901 /* PhotosGridViewController.m in Sources */,
 				1F6850981D000642007F3C07 /* HYBLoopScrollView.m in Sources */,

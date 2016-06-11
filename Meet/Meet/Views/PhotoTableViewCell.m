@@ -22,10 +22,8 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self setWhiteView:NO isMoreCell:NO];
         self.whitView.hidden = YES;
         self.showdowView.hidden = YES;
-        self.backgroundColor = [UIColor whiteColor];
         _loop = [[HYBLoopScrollView alloc] init];
         [self.contentView addSubview:_loop];
         
@@ -40,8 +38,6 @@
                         @"http://7xrs9h.com1.z0.glb.clouddn.com/wp-content/uploads/2016/03/QQ20160322-5@2x-e1458635879420.png"
                         ];
     
-    
-    // 当有导航条时，若距离上面不点满，或者被挡一部分，请一定要设置这一行，因为7.0之后self.view的起点坐标从
     // 状态栏开始的。
     _loop = [HYBLoopScrollView loopScrollViewWithFrame:CGRectMake(10, 0, [[UIScreen mainScreen] bounds].size.width - 20, ([[UIScreen mainScreen] bounds].size.width - 20)*236/355) imageUrls:images timeInterval:3 didSelect:^(NSInteger atIndex) {
         

@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _viewModel = [[LoginViewModel alloc] init];
-    checkField.text = @"1t5uAGB";
+    checkField.text = @"lJeNj60";
     // Do any additional setup after loading the view.
     if (IOS_7LAST) {
         self.navigationController.interactivePopGestureRecognizer.delegate = self;
@@ -66,23 +66,21 @@
 
 - (IBAction)checkCodeButtonAction:(id)sender {
     #warning check code and into WeChat Longin
+//    [self performSegueWithIdentifier:@"pushToWXLogin" sender:self];
     if ([self isEmpty]) {
-        [EMAlertView showAlertWithTitle:@"验证码错误" message:@"请输入正确有效的验证码" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+        [EMAlertView showAlertWithTitle:nil message:@"请输入邀请码" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             
-        } cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        } cancelButtonTitle:@"朕知道了" otherButtonTitles:nil];
     }else{
         __weak typeof(self) weakSelf = self;
         [_viewModel checkCode:checkField.text Success:^(NSDictionary *object) {
-//            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
             [weakSelf performSegueWithIdentifier:@"pushToWXLogin" sender:self];
         } Fail:^(NSDictionary *object) {
-//            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
-            [EMAlertView showAlertWithTitle:@"验证码错误" message:@"请输入正确有效的验证码" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+            NSDictionary *msgDic = [object objectForKey:@"msg"];
+            [EMAlertView showAlertWithTitle:[msgDic objectForKey:@"title"] message:[msgDic objectForKey:@"content"] completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
                 
-            } cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+            } cancelButtonTitle:@"朕知道了" otherButtonTitles:nil];
         } showLoding:^(NSString *str) {
-//            [self performSelectorOnMainThread:@selector(showHudInView:hint:) withObject:weakSelf.view withObject:str waitUntilDone:YES];
-//            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
         }];
     }
     
@@ -120,30 +118,26 @@
     if (state) {
         __weak typeof(self) weakSelf = self;
         [_viewModel oldUserLogin:[WXUserInfo shareInstance] Success:^(NSDictionary *object) {
-            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
             
             [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
                 /////获取到 [UserInfo shareInstance]的idKye 以后保存需要
                 [UserInfo synchronizeWithDic:object];
-                [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
-                [self dismissViewControllerAnimated:YES completion:^{
+                [weakSelf dismissViewControllerAnimated:YES completion:^{
                     [AppData shareInstance].isLogin = YES;
                     
                 }];
             } fail:^(NSDictionary *object) {
-                [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
             } loadingString:^(NSString *str) {
                 
             }];
             /////重新获取到 [UserInfo shareInstance]主要是为了得到idKye
             
         } Fail:^(NSDictionary *object) {
-            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
+//            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
             [EMAlertView showAlertWithTitle:@"账号不存在" message:@"Meet暂未开放注册，请获得邀请码后再重新登录" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
                 
-            } cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+            } cancelButtonTitle:@"朕知道了" otherButtonTitles:nil];
         } showLoding:^(NSString *str) {
-            [self performSelectorOnMainThread:@selector(showHudInView:hint:) withObject:weakSelf.view withObject:str waitUntilDone:YES];
 
         }];
 //        NSString *unionid = [WXUserInfo shareInstance].unionid;

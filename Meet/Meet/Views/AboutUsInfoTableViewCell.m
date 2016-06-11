@@ -37,6 +37,9 @@
 @property (nonatomic, strong) UILabel *lineLabel;
 @property (nonatomic, strong) UILabel *textlabel;
 
+@property (nonatomic, copy) NSMutableArray *stringArray;
+@property (nonatomic, assign) BOOL isFirstLoad;
+
 @end
 
 @implementation AboutUsInfoTableViewCell
@@ -45,8 +48,9 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self setWhiteView:YES isMoreCell:NO];
-//        self.whitView.hidden = YES;
+        _isFirstLoad = YES;
+        _stringArray = [NSMutableArray array];
+        [self setWhiteView:YES isBottom:YES];
         [self setUpView];
 
     }
@@ -55,19 +59,28 @@
 
 - (void)setUpView
 {
-    _lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 1, ScreenWidth - 40, 0.5)];
-    _lineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
-    [self.contentView addSubview:_lineLabel];
+    if (_lineLabel == nil) {
+        _lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 1, ScreenWidth - 40, 0.5)];
+        _lineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
+        [self.contentView addSubview:_lineLabel];
+    }
+    
 }
 
 - (void)configCell:(NSArray *)stringArray
 {
-    float maxHeight = 10.0;
-    for (NSInteger i = 0; i < stringArray.count; i ++) {
-        CustomLabel *customLabel = [CustomLabel setUpLabel:CGRectMake(19, (maxHeight) + 10, ScreenWidth - 38, 0) text:[stringArray objectAtIndex:i]];
-        [self.contentView addSubview:customLabel];
-        maxHeight = CGRectGetMaxY(customLabel.frame);
+    if (_isFirstLoad && stringArray != _stringArray) {
+        float maxHeight = 10.0;
+        for (NSInteger i = 0; i < stringArray.count; i ++) {
+            CustomLabel *customLabel = [CustomLabel setUpLabel:CGRectMake(19, (maxHeight) + 10, ScreenWidth - 38, 0) text:[stringArray objectAtIndex:i]];
+            
+            [self.contentView addSubview:customLabel];
+            maxHeight = CGRectGetMaxY(customLabel.frame);
+        }
+        _stringArray = [stringArray mutableCopy];
+        _isFirstLoad = NO;
     }
+    
 }
 
 - (void)updateConstraints

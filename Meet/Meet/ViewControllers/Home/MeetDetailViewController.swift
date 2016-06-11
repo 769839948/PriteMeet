@@ -248,7 +248,7 @@ extension MeetDetailViewController : UITableViewDataSource {
                     return cell
                 case 1:
                     let cell = tableView.dequeueReusableCellWithIdentifier(meetInfoTableViewCell, forIndexPath: indexPath) as! MeetInfoTableViewCell
-                    cell.configCell("尤雅", position: "隐舍THESECRET 掌门人", meetNumber: "上海 浦东新区   和你相隔 28200 m", interestCollectArray: ["美食顾问","Cocktail","谈判专家","顾问"])
+                    cell.configCell("尤雅", position: "隐舍THESECRET 掌门人", meetNumber: "上海 浦东新区   和你相隔28200m", interestCollectArray: ["美食顾问","Cocktail","谈判专家","顾问"])
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
                     cell.userInteractionEnabled = false
                     return cell

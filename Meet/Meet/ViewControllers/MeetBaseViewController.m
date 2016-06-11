@@ -20,8 +20,14 @@
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithHexString:@"202020"];
     
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor colorWithHexString:@"202020"];
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
 //    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackTranslucent];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+
 }
 
 - (void)leftItemClick:(UINavigationItem *)sender {

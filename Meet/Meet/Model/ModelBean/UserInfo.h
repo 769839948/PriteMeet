@@ -42,7 +42,7 @@
 
 @property (nonatomic, copy) NSString *id_card;
 
-@property (nonatomic, copy) NSString *industry;
+@property (nonatomic, assign) NSInteger industry;
 
 @property (nonatomic, copy) NSString *social_id;
 

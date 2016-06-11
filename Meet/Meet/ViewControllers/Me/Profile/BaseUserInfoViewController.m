@@ -11,6 +11,7 @@
 #import "UISheetView.h"
 #import "UserInfoViewModel.h"
 #import "WXUserInfo.h"
+#import "Meet-Swift.h"
 
 @interface BaseUserInfoViewController ()
 
@@ -30,17 +31,9 @@
         [self sexItemModify];
         return ;
     }
-    if ([self.headImageUrl isEqualToString:@""]) {
-        [UserInfo sharedInstance].avatar = [WXUserInfo shareInstance].headimgurl;
-    }else{
-        [UserInfo sharedInstance].avatar =  self.headImageUrl;
-        
-    }
     __weak typeof(self) weakSelf = self;
     [self mappingUserInfoWithDicValues];
     [self.viewModel updateUserInfo:[UserInfo sharedInstance] withStateArray:[self.stateArray copy] success:^(NSDictionary *object) {
-        [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
-//        [[UserInfoDao shareInstance] updateBean:[UserInfo shareInstance]];
         [[UITools shareInstance] showMessageToView:self.view message:@"保存成功" autoHide:YES];
         UIImage *image = self.dicValues[self.titleContentArray[0]];
         NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
@@ -49,8 +42,9 @@
             //        NSLog(@"保存 成功");
         }
         [weakSelf reloadUerImage:saveImagePath];
-        
-        
+        UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
+        SetInvitationViewController *invitationView = [meStoryBoard instantiateViewControllerWithIdentifier:@"SetInvitationViewController"];
+        [weakSelf.navigationController pushViewController:invitationView animated:YES];
     } fail:^(NSDictionary *object) {
         [[UITools shareInstance] showMessageToView:self.view message:@"保存失败" autoHide:YES];
     } loadingString:^(NSString *str) {
@@ -59,6 +53,10 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 8;
 }
 
 - (void)didReceiveMemoryWarning {

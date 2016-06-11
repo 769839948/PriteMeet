@@ -11,14 +11,17 @@
 #import "CellTextField.h"
 #import "LabelTableViewCell.h"
 #import "IQUIView+IQKeyboardToolbar.h"
+#import "ZHPickView.h"
 
-
-@interface AddInformationViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate> {
+@interface AddInformationViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIActionSheetDelegate,ZHPickViewDelegate> {
     NSMutableDictionary *_dicValues;
 }
 
+@property (nonatomic, strong) ZHPickView *pickerView;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) NSMutableArray *cachTitleArray;
+@property (nonatomic, copy) NSArray *pickArray;
 
 @end
 
@@ -50,14 +53,38 @@
             [_cachTitleArray addObject:@""];
         }
         _arrayTitles = @[@"学校",@"专业",@"学历"];
+        _pickArray = @[@"专科", @"本科", @"硕士", @"博士", @"博士后", @"MBA", @"其他"];
     }
     self.navigationItem.title = _navTitle;
-//    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
-//    [UITools navigationRightBarButtonForController:self action:@selector(saveAction:) normalTitle:@"保存" selectedTitle:nil];
+
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"setting_savebt"] style:UIBarButtonItemStylePlain target:self action:@selector(saveAction:)];
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithHexString:@"202020"];
 }
 
+
+- (void)pickerViewShow
+{
+    if (_pickerView == nil) {
+        _pickerView = [[ZHPickView alloc] initPickviewWithArray:_pickArray isHaveNavControler:NO];
+        _pickerView.delegate = self;
+        [_pickerView setTintFont:IQKeyboardManagerFont color:[UIColor colorWithHexString:IQKeyboardManagerTinColor]];
+        [_pickerView setToobarCenterTitle:@"学历" color:[UIColor colorWithHexString:IQKeyboardManagerTinColor] font:IQKeyboardManagerplaceholderFont];
+        [_pickerView setPickViewColer:[UIColor whiteColor]];
+        [_pickerView setToolbarTintColor:[UIColor whiteColor]];
+        [_pickerView show];
+    }else{
+        [_pickerView show];
+    }
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if (![_pickerView isHidden]) {
+        [_pickerView remove];
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -74,13 +101,14 @@
             LabelAndTextFieldCell *cell = (LabelAndTextFieldCell *)[self.tableView cellForRowAtIndexPath:path];
             str = [str stringByAppendingString:cell.textField.text];
             if (i < _cachTitleArray.count - 1) {
-                str = [str stringByAppendingString:@" - "];
+                str = [str stringByAppendingString:@"-"];
             }
         }
         self.block(self.indexPath,str,self.viewType);
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
+
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -112,7 +140,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == _arrayTitles.count) {
         LabelTableViewCell *cell = (LabelTableViewCell *)[[NSBundle mainBundle] loadNibNamed:@"LabelTableViewCell" owner:self options:nil][0];
-        if (indexPath.section == 1 ) {
+        if (_indexPath.section == 1 ) {
             cell.label.text = @"删除工作经历";
         }else{
             cell.label.text = @"删除教育经历";
@@ -133,8 +161,14 @@
         }
         cell.textField.indexPath = indexPath;
         cell.textField.placeholder = _arrayTitles[indexPath.row];
+        cell.textField.delegate = self;
+        cell.tag = indexPath.row;
+        if (_indexPath.section == 3 && indexPath.row == 2) {
+            cell.textField.enabled = NO;
+        }
+        cell.textField.userInteractionEnabled = YES;
         //IQKeyboardItem
-        [cell.textField addLeftRightOnKeyboardWithTarget:self leftButtonTitle:@"放弃" rightButtonTitle:@"确定" leftButtonAction:@selector(editDone:) rightButtonAction:@selector(editDone:) shouldShowPlaceholder:YES];
+//        [cell.textField addLeftRightOnKeyboardWithTarget:self leftButtonTitle:@"放弃" rightButtonTitle:@"确定" leftButtonAction:@selector(editDone:) rightButtonAction:@selector(editDone:) shouldShowPlaceholder:YES];
         return cell;
     }
 }
@@ -142,8 +176,14 @@
 #pragma mark - tableView Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (_viewType == ViewTypeEdit && indexPath.row == _cachTitleArray.count) {
-        [EMAlertView showAlertWithTitle:@"提示" message:@"确定删除？" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+    if (_viewType == ViewTypeEdit && indexPath.row == _cachTitleArray.count ) {
+        NSString *message = @"";
+        if (_indexPath.section == 1){
+            message = @"确定删除此段工作经历？";
+        }else{
+            message = @"确定删除此教育背景吗？";
+        }
+        [EMAlertView showAlertWithTitle:nil message:message completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             switch (buttonIndex) {
                 case 0:
                     break;
@@ -155,6 +195,9 @@
                     break;
             }
         } cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+    }
+    if (_indexPath.section == 3 && indexPath.row == 2) {
+        [self pickerViewShow];
     }
     
 }
@@ -169,7 +212,10 @@
         if ((indexPath.section == 0) && (indexPath.row == 4 || indexPath.row == 5 )) {
             [textField setKeyboardType:UIKeyboardTypeNumberPad];
             return  YES;
-        } else {
+        }else if ((indexPath.section == 0) && (indexPath.row == 2)){
+            
+            return NO;
+        }else {
             [textField setKeyboardType:UIKeyboardTypeDefault];
         }
     }
@@ -204,6 +250,36 @@
 - (void)editDone:(UIBarButtonItem *)sender
 {
     [self.view endEditing:YES];
+}
+
+
+-(void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultString:(NSString *)resultString
+{
+    [_pickerView remove];
+    LabelAndTextFieldCell *cellTextField = (LabelAndTextFieldCell *)[self.view viewWithTag:2];
+    cellTextField.textField.text = resultString;
+    
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return _pickArray.count;
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    NSString *string = _pickArray[row];
+    return string;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+//    self.selectItem = _pickArray[row];
 }
 
 /*

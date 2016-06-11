@@ -17,7 +17,7 @@
 #define  RequestCreateUser           @"api/account/user/signin"
 #define  RequestCheckUser            @"api/account/user/check"
 #define  RequestUpdateUser           @"api/user/base_info/"
-#define  RequestCheckInvitationCode  @"api/invitation/check/"
+#define  RequestCheckInvitationCode  @"api/invitation/check"
 #define  RequestGetUserInfo          @"api/user/base_info/"
 #define  RequestUploadUserPhoto      @"api/user/avatar/"
 

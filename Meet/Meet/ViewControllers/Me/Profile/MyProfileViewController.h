@@ -38,6 +38,8 @@ typedef void(^needReloadProfileCellBlock)(BOOL updateImaeg,BOOL updateInfo);
 
 @property (copy, nonatomic) NSMutableDictionary *stateArray;
 
+@property (assign, nonatomic) BOOL fromeMeView;
+
 - (void)mappingUserInfoWithDicValues;
 
 - (void)reloadUerImage:(NSString *)imagePath;

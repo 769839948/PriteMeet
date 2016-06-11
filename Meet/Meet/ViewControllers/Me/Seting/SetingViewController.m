@@ -32,7 +32,7 @@
 //    [UITools customNavigationLeftBarButtonForController:self action:@selector(backButtonAction:)];
     self.navigationItem.title = @"设置";
     self.tableView.backgroundColor = [UIColor whiteColor];
-    _contentArray = @[@"新消息通知",@"清除缓存",@"关于我们",@"意见反馈",@"赏个好评",@"退出登录"];
+    _contentArray = @[@"新消息通知",@"清除缓存",@"关于我们",@"反馈吐槽",@"喜欢Meet? 去赏个好评",@"退出登录"];
 //    _contentDic = @{@0:@[@"清除缓存"],@1:@[@"关于Meet",@"意见反馈",@"给Meet好评"],@2:@[@"退出登录"]};
     
     _tableView.rowHeight = 49;
@@ -91,7 +91,11 @@
         UILabel *cacheLable = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth/2, 16, ScreenWidth/2 - 20, 16)];
         cacheLable.font = SettingViewLabelFont;
         cacheLable.textAlignment = NSTextAlignmentRight;
-        cacheLable.text = [self cacheSize];
+        if ([[self cacheSize] integerValue] < 1) {
+            cacheLable.text = @"";
+        }else{
+            cacheLable.text = [self cacheSize];
+        }
         cacheLable.textColor = [UIColor colorWithHexString:TableViewTextColor];
         [cell.contentView addSubview:cacheLable];
     }
@@ -111,11 +115,11 @@
     if (indexPath.row == 0) {
         
     }else if (indexPath.row == 1){
-        __weak typeof(self) weakSelf = self;
-        [EMAlertView showAlertWithTitle:@"清理缓存" message:@"确定清理缓存" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+//        __weak typeof(self) weakSelf = self;
+        [EMAlertView showAlertWithTitle:nil message:@"确定清除缓存？" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             if (buttonIndex == 1) {
                 [NSFileManager clearCache:[NSFileManager jk_cachesPath]];
-                [weakSelf.tableView reloadData];
+                [self.tableView reloadData];
             }
         } cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
     }else if (indexPath.row == 2){
@@ -131,7 +135,7 @@
         composeVC.mailComposeDelegate = self;
         // Configure the fields of the interface.、/////@"feedback@momeet.com"
         //Email
-        NSString *email = [UserInfo sharedInstance].user_name;
+        NSString *email = @"769839948@qq.com";
         if (email != nil && email.length > 1) {
             [composeVC setToRecipients:@[email]];
         } else
@@ -142,14 +146,23 @@
         // Present the view controller modally.
         [self presentViewController:composeVC animated:YES completion:nil];
     }else if (indexPath.row == 4){
+        NSString *str = [NSString stringWithFormat:
+                         @"https://itunes.apple.com/cn/app/id444934666?mt=8"];
         
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
     }else{
-        if ( !_sheetView) {
-            _sheetView = [[UISheetView alloc] initWithContenArray:@[@"退出登录",@"取消"] titleMessage:@"退出后依然会保留当前用户信息"];
-            _sheetView.delegate = self;
-        }
-        [AppData shareInstance].isLogin = NO;
-        [_sheetView show];
+        __weak typeof(self) weakSelf = self;
+        [EMAlertView showAlertWithTitle:nil message:@"确定退出登录？" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+            if (buttonIndex == 1) {
+                [UserInfo logout];
+                [AppData shareInstance].isLogin = NO;
+                if (weakSelf.logoutBlock) {
+                    weakSelf.logoutBlock();
+                }
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }
+        } cancelButtonTitle:@"取消" otherButtonTitles:@"退出",nil];
+
     }
     
 }

@@ -29,10 +29,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.showdowView.hidden = YES;
-        self.backgroundColor = [UIColor whiteColor];
-        [self setWhiteView:YES isMoreCell:NO];
-        self.whitView.hidden = YES;
-        [self.whitView setFrame:CGRectMake(0, 0, self.showdowView.frame.size.width, self.showdowView.frame.size.height)];
+        [self setWhiteView:NO isBottom:NO];
         [self setUpView];
     }
     return self;
@@ -100,8 +97,8 @@
     if (instrestHeight > 30) {
         [_interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
             make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32);
             make.height.offset(instrestHeight);
         }];
@@ -135,8 +132,8 @@
         }];
         [_interestView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
             make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32);
             make.height.offset(30);
         }];

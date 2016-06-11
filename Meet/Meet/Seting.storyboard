@@ -86,6 +86,9 @@
                                         <integer key="value" value="14"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="useProtocolAction:" destination="jBC-aJ-gmZ" eventType="touchUpInside" id="cQ4-qV-7PW"/>
+                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PRK-hA-xeP">
                                 <rect key="frame" x="43" y="253" width="240" height="128"/>

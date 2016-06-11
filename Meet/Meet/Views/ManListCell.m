@@ -58,6 +58,11 @@
     _photoImage = [[UIImageView alloc] init];
 //    _photoImage.backgroundColor = [UIColor blackColor];
     _photoImage.image = [UIImage imageNamed:@"Pic"];
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, self.contentView.bounds.size.width - 20, ([[UIScreen mainScreen] bounds].size.width - 20)*200/355) byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 0)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = _photoImage.bounds;
+    maskLayer.path = maskPath.CGPath;
+    _photoImage.layer.mask = maskLayer;
     [_personalView addSubview:_photoImage];
     
     _nameLabel = [[UILabel alloc] init];

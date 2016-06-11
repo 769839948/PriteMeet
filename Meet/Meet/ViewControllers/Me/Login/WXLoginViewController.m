@@ -68,13 +68,18 @@
     if (state.intValue) {
         __weak typeof(self) weakSelf = self;
         [_viewModel postWXUserInfo:[WXUserInfo shareInstance] withCode:self.code Success:^(NSDictionary *object) {
-            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
-            [AppData shareInstance].isLogin = YES;
-            UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
-            BaseUserInfoViewController *baseUserInfo = [meStoryBoard instantiateViewControllerWithIdentifier:@"BaseInfoViewController"];
-            [weakSelf.navigationController pushViewController:baseUserInfo animated:YES];
+            [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
+                /////获取到 [UserInfo shareInstance]的idKye 以后保存需要
+                [UserInfo synchronizeWithDic:object];
+                UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
+                BaseUserInfoViewController *baseUserInfo = [meStoryBoard instantiateViewControllerWithIdentifier:@"BaseInfoViewController"];
+                [weakSelf.navigationController pushViewController:baseUserInfo animated:YES];
+            } fail:^(NSDictionary *object) {
+            } loadingString:^(NSString *str) {
+                
+            }];
+            
         } Fail:^(NSDictionary *object) {
-            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
             if ([[object objectForKey:@"error"] isEqualToString:@"oldUser"]) {
                 [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
                     [UserInfo synchronizeWithDic:object];
@@ -83,7 +88,6 @@
                         
                     }];
                 } fail:^(NSDictionary *object) {
-                    [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
                 } loadingString:^(NSString *str) {
                     
                 }];/////获取到 [UserInfo shareInstance]的idKye 以后保存需要
@@ -91,7 +95,6 @@
                 //这里是在调试中
             }
         } showLoding:^(NSString *str) {
-            [self performSelectorOnMainThread:@selector(showHudInView:hint:) withObject:weakSelf.view withObject:str waitUntilDone:YES];
         }];
         
     }

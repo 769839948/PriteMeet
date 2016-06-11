@@ -33,8 +33,8 @@
         
         __weak typeof(self) weakSelf = self;
         [_lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(weakSelf.contentView.mas_left).offset(20);
-            make.right.equalTo(weakSelf.contentView.mas_right).offset(-20);
+            make.left.equalTo(weakSelf.contentView.mas_left).offset(10);
+            make.right.equalTo(weakSelf.contentView.mas_right).offset(-10);
             make.bottom.equalTo(weakSelf.contentView.mas_bottom).offset(0);
             make.height.offset(0.5);
         }];

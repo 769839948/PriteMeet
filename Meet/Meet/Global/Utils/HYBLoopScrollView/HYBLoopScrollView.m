@@ -44,10 +44,14 @@ NSString * const kCellIdentifier = @"ReuseCellIdentifier";
 
 - (void)layoutSubviews {
   [super layoutSubviews];
-  
-  self.imageView.frame = self.bounds;
-  self.titleLabel.frame = CGRectMake(0, self.hyb_height - 30, self.hyb_width, 30);
-  self.titleLabel.hidden = self.titleLabel.text.length > 0 ? NO : YES;
+    self.imageView.frame = self.bounds;
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_imageView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 0)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = _imageView.bounds;
+    maskLayer.path = maskPath.CGPath;
+    _imageView.layer.mask = maskLayer;
+    self.titleLabel.frame = CGRectMake(0, self.hyb_height - 30, self.hyb_width, 30);
+    self.titleLabel.hidden = self.titleLabel.text.length > 0 ? NO : YES;
 }
 
 @end

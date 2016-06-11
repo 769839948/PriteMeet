@@ -8,6 +8,10 @@
 
 #import "MeetBaseViewController.h"
 
+typedef void (^Logout)();
+
 @interface SetingViewController : MeetBaseViewController
+
+@property (nonatomic, strong) Logout logoutBlock;
 
 @end

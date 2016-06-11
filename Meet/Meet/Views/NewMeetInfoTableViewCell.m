@@ -30,7 +30,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self setWhiteView:YES isMoreCell:NO];
+        [self setWhiteView:YES isBottom:YES];
         [self setUpView];
     }
     return self;
@@ -38,9 +38,11 @@
 
 - (void)setUpView
 {
-    _lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 1, ScreenWidth - 40, 0.5)];
-    _lineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
-    [self.contentView addSubview:_lineLabel];
+    if (_lineLabel == nil) {
+        _lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 1, ScreenWidth - 40, 0.5)];
+        _lineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
+        [self.contentView addSubview:_lineLabel];
+    }
     
     
     //确定是水平滚动，还是垂直滚动

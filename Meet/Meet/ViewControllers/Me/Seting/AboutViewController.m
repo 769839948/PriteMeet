@@ -40,7 +40,10 @@
 
 - (void)rightBarPress:(UIBarButtonItem *)sender
 {
-    
+    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"18513008226 "];
+    UIWebView * callWebview = [[UIWebView alloc] init];
+    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+    [self.view addSubview:callWebview];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,12 +53,6 @@
 
 
 #pragma mark - Action
-- (IBAction)serverButtonAction:(UIButton *)button {
-    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",button.currentTitle];
-    UIWebView * callWebview = [[UIWebView alloc] init];
-    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
-    [self.view addSubview:callWebview];
-}
 
 - (IBAction)useProtocolAction:(UIButton *)sender {
     if (_userProtocolVC) {

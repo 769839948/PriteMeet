@@ -13,10 +13,12 @@
 #import "UITextView+Placeholder.h"
 #import "CellTextView.h"
 #import "MyPhotosViewController.h"
+#import "UISheetView.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
 #define TABLE_HEADER_VIEW_H         49
 
-@interface MoreProfileViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIGestureRecognizerDelegate,UITextViewDelegate> {
+@interface MoreProfileViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIGestureRecognizerDelegate,UITextViewDelegate,UISheetViewDelegate, UIImagePickerControllerDelegate> {
     NSMutableArray *_arrayModel;
     NSMutableArray *_arraySection;
     NSMutableDictionary *_dicHeaderContent;
@@ -26,7 +28,8 @@
     NSMutableArray *_arrayHaveImageIndex;/////那些位置有图片 得到本地图片用
     NSMutableArray *_arrayCacheImgaeKeys;
     
-    
+    UISheetView *_sheetView;
+
     
     BOOL keyboardShow;
     CGRect tableViewFrame;
@@ -39,6 +42,8 @@
     BOOL isModifyText;
 }
 
+
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -49,9 +54,8 @@
     [super viewDidLoad];
     if (_editType == 0) {
         [self customNavigationBar];
-    } else {
-        [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
     }
+
     self.navigationItem.title = @"更多个人介绍";
     self.view.backgroundColor = [UIColor whiteColor];
 //    self.hidesBottomBarWhenPushed = YES;
@@ -104,6 +108,13 @@
 //    if (array.count > 0) {
 //        [_arrayModel addObjectsFromArray:array];
 //    }
+}
+
+- (void)leftItemClick:(UINavigationItem *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 #pragma mark - read Images
@@ -377,6 +388,14 @@
 #pragma mark - tableView Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(indexPath.section == 0 && indexPath.row == 1)
+    {
+        if ( !_sheetView) {
+            _sheetView = [[UISheetView alloc] initWithContenArray:@[@"拍照",@"相册选择",@"取消"]];
+            _sheetView.delegate = self;
+        }
+        [_sheetView show];
+    }
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -443,20 +462,58 @@
     return YES;
 }
 
+#pragma mark - UISheetViewDelegate
+- (void)sheetView:(UISheetView *)sheet didSelectRowAtIndex:(NSInteger)index {
+    switch (index) {
+        case 0: //照相机
+        {
+            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+            imagePicker.delegate = self;
+            imagePicker.allowsEditing = YES;
+            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
+            [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
+            imagePicker.mediaTypes = mediaTypes;
+            [self presentViewController:imagePicker animated:YES completion:nil];
+            break;
+        }
+        case 1: //相簿
+        {
+            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+            imagePicker.delegate = self;
+            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
+            [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
+            imagePicker.mediaTypes = mediaTypes;
+            imagePicker.allowsEditing = YES;
+            imagePicker.navigationBar.tintColor = [UIColor whiteColor];
+            imagePicker.navigationBar.barTintColor = self.navigationController.navigationBar.barTintColor;
+            [imagePicker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+            [self presentViewController:imagePicker animated:YES completion:nil];
+            break;
+        }
+            
+        default:
+            break;
+    }
+    [_sheetView hidden];
+}
+
+
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"puthToMyPhotosVC"]) {
-        NSIndexPath *indexPath = [_tableView indexPathForCell:sender];
-        MyPhotosViewController *myPhotosVC = (MyPhotosViewController *)[segue destinationViewController];
-        myPhotosVC.selectIndexPath = indexPath;
-        myPhotosVC.maxIamges = 2;
-        myPhotosVC.updateBlock = ^(BOOL modify){
-            isModifyImages = YES;
-            [self loadSmallImagesInCachWithIndexPath:indexPath isReload:YES];
-            [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        };
-        
-    }
+//    if ([segue.identifier isEqualToString:@"puthToMyPhotosVC"]) {
+//        NSIndexPath *indexPath = [_tableView indexPathForCell:sender];
+//        MyPhotosViewController *myPhotosVC = (MyPhotosViewController *)[segue destinationViewController];
+//        myPhotosVC.selectIndexPath = indexPath;
+//        myPhotosVC.maxIamges = 2;
+//        myPhotosVC.updateBlock = ^(BOOL modify){
+//            isModifyImages = YES;
+//            [self loadSmallImagesInCachWithIndexPath:indexPath isReload:YES];
+//            [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+//        };
+//        
+//    }
 }
 
 

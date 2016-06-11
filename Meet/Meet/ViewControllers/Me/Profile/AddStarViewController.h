@@ -6,8 +6,10 @@
 //  Copyright © 2016年 Meet. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "MeetBaseViewController.h"
 
-@interface AddStarViewController : UIViewController
+@interface AddStarViewController : MeetBaseViewController
+
+
 
 @end

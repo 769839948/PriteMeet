@@ -80,7 +80,7 @@
             NSLog(@"%@",responseObject);
             successBlock(responseObject);
         }else{
-            failBlock(@{@"error":@"fail"});
+            failBlock(responseObject);
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

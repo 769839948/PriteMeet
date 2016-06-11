@@ -29,7 +29,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.showdowView.hidden = YES;
-        [self setWhiteView:YES isMoreCell:YES];
+        [self setWhiteView:NO isBottom:NO];
         [self setUpView];
     }
     return self;

@@ -29,7 +29,7 @@ static ProfileKeyAndValue *profileData = nil;
     NSString*filePath=[[NSBundle mainBundle] pathForResource:@"ProfileKeyValue"ofType:@"txt"];
     
     NSString *str=[[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
-    NSLog(@"%@",str);
+//    NSLog(@"%@",str);
     return [self dictionaryWithJsonString:str];
     //;
 }

@@ -16,6 +16,8 @@
 #import "MJRefresh.h"
 #import "ProfileKeyAndValue.h"
 #import "MeViewController.h"
+#import "ThemeTools.h"
+
 
 @interface FristHomeViewController ()<UIGestureRecognizerDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -46,7 +48,13 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
     [self setUpBottonView];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
+    [self.navigationController.navigationBar setBarTintColor:NavigationBarTintColorCustome];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated

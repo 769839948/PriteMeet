@@ -16,21 +16,21 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="确定删除" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DUZ-wn-wnd">
-                        <rect key="frame" x="43" y="85" width="256" height="18.5"/>
+                        <rect key="frame" x="33" y="85" width="256" height="18.5"/>
                         <fontDescription key="fontDescription" name="PingFangSC-Light" family="PingFang SC" pointSize="13"/>
                         <color key="textColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="setting_delete" translatesAutoresizingMaskIntoConstraints="NO" id="3bq-YS-v3Z">
-                        <rect key="frame" x="20" y="87" width="13" height="15.5"/>
+                        <rect key="frame" x="10" y="87" width="13" height="15.5"/>
                     </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottomMargin" secondItem="DUZ-wn-wnd" secondAttribute="bottom" constant="8" id="8IN-XB-loY"/>
-                    <constraint firstItem="3bq-YS-v3Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="12" id="Bgc-6x-3Tr"/>
+                    <constraint firstItem="3bq-YS-v3Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="2" id="Bgc-6x-3Tr"/>
                     <constraint firstAttribute="bottomMargin" secondItem="3bq-YS-v3Z" secondAttribute="bottom" constant="9" id="SFI-Fd-w1K"/>
-                    <constraint firstItem="DUZ-wn-wnd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="35" id="chs-PV-CeA"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="DUZ-wn-wnd" secondAttribute="trailing" constant="13" id="ufk-vK-php"/>
+                    <constraint firstItem="DUZ-wn-wnd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="25" id="chs-PV-CeA"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="DUZ-wn-wnd" secondAttribute="trailing" constant="23" id="ufk-vK-php"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

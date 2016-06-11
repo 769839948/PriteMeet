@@ -23,7 +23,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self setWhiteView:YES isMoreCell:NO];
+        [self setWhiteView:YES isBottom:YES];
         [self setUpView];
     }
     return self;

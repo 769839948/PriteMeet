@@ -33,6 +33,7 @@
 
 #define SettingViewLabelFont [UIFont fontWithName:@"PingFangTC-Light" size:14.0]
 
+
 #define TableViewTextColor @"202020"
 
 #define IQKeyboardManagerTinColor @"202020"

@@ -18,7 +18,7 @@
 #import "WeChatResgisterViewController.h"
 #import "UserInfoViewModel.h"
 #import "WXUserInfo.h"
-
+//#import "UIViewController+hiderExcessLine.h"
 
 @interface MeViewController () <UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource> {
     NSMutableArray *_imagesArray;
@@ -57,6 +57,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     if ([UserInfo sharedInstance].isFirstLogin && [UserInfo isLoggedIn]) {
         [UserInfo sharedInstance].isFirstLogin = NO;
         [UserInfo synchronize];
@@ -232,7 +234,7 @@
         UIImageView *imageView = (UIImageView *)[cell viewWithTag:1];
         imageView.layer.cornerRadius = imageView.bounds.size.width/2;
         imageView.layer.masksToBounds = YES;
-        if (_headImage) {
+        if ([UserInfo isLoggedIn]) {
             imageView.image = _headImage;
         } else
             imageView.image = [UIImage imageNamed:@"RadarKeyboard_HL"];
@@ -328,6 +330,7 @@
         UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
 
         MyProfileViewController *myProfileVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"MyProfileViewController"];
+         myProfileVC.fromeMeView = YES;
          myProfileVC.block = ^(BOOL updateImage, BOOL updateInfo){
              if (updateImage) {
                  [weakSelf loadHeadImageView];
@@ -346,8 +349,12 @@
         SendInviteViewController *sendInviteVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"SendInviteViewController"];
         [self.navigationController pushViewController:sendInviteVC animated:YES];
     } else if (indexPath.row == 6) {///////设置
+        __weak typeof(self) weakSelf = self;
         UIStoryboard *setingStoryBoard = [UIStoryboard storyboardWithName:@"Seting" bundle:[NSBundle mainBundle]];
         SetingViewController *setingVC = [setingStoryBoard instantiateViewControllerWithIdentifier:@"SetingViewController"];
+        setingVC.logoutBlock = ^(){
+            [weakSelf.tableView reloadData];
+        };
         [self.navigationController pushViewController:setingVC animated:YES];
     }
 }

@@ -22,6 +22,7 @@
 #import "NSUserDefaults+RMSaveCustomObject.h"
 #import "ThemeTools.h"
 #import "IQKeyboardManager.h"
+#import "AFNetworkActivityIndicatorManager.h"
 
 @interface AppDelegate ()<WXApiDelegate,NSURLConnectionDelegate> {
     NSURLConnection *_connection;
@@ -65,8 +66,10 @@
 //    if (![[userInfoDic objectForKey:@"userId"] isEqualToString:@"1234567890"]) {
 //        [AppData shareInstance].isLogin = YES;
 //    }
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     [self setIQkeyboardManager];
 
+    
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-value"
     [[WXAccessModel shareInstance] initWithDictionary:access_TokenDic];

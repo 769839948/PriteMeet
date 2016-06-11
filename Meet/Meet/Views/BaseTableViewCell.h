@@ -29,4 +29,6 @@
 - (void)setWhiteView:(BOOL)isOnBottom isMoreCell:(BOOL)isMoreCell
 ;
 
+- (void)setWhiteView:(BOOL)isCornerRadius isBottom:(BOOL)isBottom;
+
 @end

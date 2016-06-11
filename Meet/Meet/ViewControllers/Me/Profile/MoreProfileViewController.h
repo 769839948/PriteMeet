@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MeetBaseViewController.h"
 
 typedef void(^modifyImagesBlock)(void);
 typedef void(^modifyContentTextBlock)(void);
 
-@interface MoreProfileViewController : UIViewController
+@interface MoreProfileViewController : MeetBaseViewController
 
 ////是编辑页面（1，为编辑（从MeVC图片cell push进入的），0 为个人信息弹入的）
 @property (assign, nonatomic) NSInteger editType;
