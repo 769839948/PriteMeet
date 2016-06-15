@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @protocol  EqualSpaceFlowLayoutDelegate<UICollectionViewDelegateFlowLayout>
+
 @end
 
 @interface EqualSpaceFlowLayout : UICollectionViewFlowLayout
+
 @property (nonatomic,weak) id<EqualSpaceFlowLayoutDelegate> delegate;
+
 @end

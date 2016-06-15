@@ -11,6 +11,6 @@
 @interface NewMeetInfoTableViewCell : BaseTableViewCell
 
 - (void)configCell:(NSString *)meetstring array:(NSArray *)array;
-
+- (void)isHaveShadowColor:(BOOL)isShadowColor;
 
 @end

@@ -24,8 +24,6 @@
     if (self) {
         self.whitView.hidden = YES;
         self.showdowView.hidden = YES;
-        _loop = [[HYBLoopScrollView alloc] init];
-        [self.contentView addSubview:_loop];
         
     }
     return self;
@@ -39,7 +37,8 @@
                         ];
     
     // 状态栏开始的。
-    _loop = [HYBLoopScrollView loopScrollViewWithFrame:CGRectMake(10, 0, [[UIScreen mainScreen] bounds].size.width - 20, ([[UIScreen mainScreen] bounds].size.width - 20)*236/355) imageUrls:images timeInterval:3 didSelect:^(NSInteger atIndex) {
+   
+    _loop = [HYBLoopScrollView loopScrollViewWithFrame:CGRectMake(10, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355) imageUrls:images timeInterval:3 didSelect:^(NSInteger atIndex) {
         
     } didScroll:^(NSInteger toIndex) {
         
@@ -60,8 +59,8 @@
         __weak typeof(self) weakSelf = self;
         [_loop mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(0);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(0);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(0);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
             make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(0);
         }];
         self.didSetupConstraints = YES;

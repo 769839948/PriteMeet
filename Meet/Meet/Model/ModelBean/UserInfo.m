@@ -7,9 +7,16 @@
 //
 
 #import "UserInfo.h"
+#import "UserExtenModel.h"
+#import "UserInviteModel.h"
+
 #import <UIKit/UIKit.h>
 //文件地址名称
-#define kEncodedObjectPath_User ([[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"UserInfo"])
+#define kEncodedObjectPath_User ([[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"UserInfo"])
+
+@implementation Completeness
+
+@end
 
 @implementation UserInfo
 
@@ -19,6 +26,7 @@ static UserInfo *userInfo=nil;
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        
         if([UserInfo isLoggedIn])
         {
             userInfo = [NSKeyedUnarchiver unarchiveObjectWithFile:kEncodedObjectPath_User];
@@ -48,6 +56,8 @@ static UserInfo *userInfo=nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error;
     BOOL result = [fileManager removeItemAtPath:kEncodedObjectPath_User error:&error];
+    [UserExtenModel remoUserExtenModel];
+    [UserInviteModel removeInvite];
     if (!result) {
         NSLog(@"注销失败！\%@",error);
     }else{
@@ -80,6 +90,9 @@ static UserInfo *userInfo=nil;
     [UserInfo sharedInstance].created  = nil;
     [UserInfo sharedInstance].hometown  = nil;
     [UserInfo sharedInstance].isFirstLogin = NO;
+    [UserInfo sharedInstance].completeness = nil;
+    [UserInfo sharedInstance].personal_label = nil;
+    [UserInfo sharedInstance].job_label = nil;
     return result;
 }
 
@@ -121,7 +134,9 @@ static UserInfo *userInfo=nil;
         self.created = [aDecoder decodeObjectForKey:@"created"];
         self.hometown = [aDecoder decodeObjectForKey:@"hometown"];
         self.isFirstLogin = [aDecoder decodeBoolForKey:@"isFirstLogin"];
-
+        self.completeness = [aDecoder decodeObjectForKey:@"completeness"];
+        self.personal_label = [aDecoder decodeObjectForKey:@"personal_label"];
+        self.job_label = [aDecoder decodeObjectForKey:@"job_label"];
     }
     return self;
 }
@@ -153,6 +168,9 @@ static UserInfo *userInfo=nil;
     [aCoder encodeObject:self.created forKey:@"created"];
     [aCoder encodeObject:self.hometown forKey:@"hometown"];
     [aCoder encodeBool:self.isFirstLogin forKey:@"isFirstLogin"];
+    [aCoder encodeObject:self.completeness forKey:@"completeness"];
+    [aCoder encodeObject:self.job_label forKey:@"job_label"];
+    [aCoder encodeObject:self.personal_label forKey:@"personal_label"];
 }
 
 + (BOOL)synchronizeWithDic:(NSDictionary *)dic
@@ -183,12 +201,17 @@ static UserInfo *userInfo=nil;
     [UserInfo sharedInstance].edu_expirence  = dic[@"edu_expirence"];
     [UserInfo sharedInstance].created  = dic[@"created"];
     [UserInfo sharedInstance].hometown  = dic[@"hometown"];
-    
+    [UserInfo sharedInstance].job_label = dic[@"job_label"];
+    [UserInfo sharedInstance].personal_label = dic[@"personal_label"];
     [UserInfo sharedInstance].isFirstLogin = YES;
     
+    Completeness *completeness = [[Completeness alloc] init];
+    completeness.completeness = [[dic[@"completeness"] objectForKey:@"completeness"] integerValue];
+    completeness.next_page = [[dic[@"completeness"] objectForKey:@"next_page"] integerValue];
+    completeness.msg = [dic[@"completeness"] objectForKey:@"msg"];
+    [UserInfo sharedInstance].completeness = completeness;
     
-    
-    return [self synchronize];
+    return [UserInfo synchronize];
 }
 
 + (BOOL)saveCacheImage:(UIImage *)image withName:(NSString *)name
@@ -206,6 +229,7 @@ static UserInfo *userInfo=nil;
     [path stringByAppendingFormat:@"/%@",name];
     NSData *imageData = UIImagePNGRepresentation(image);
     return [imageData writeToFile:path atomically:YES];
+    
 }
 
 + (UIImage *)imageForName:(NSString *)name

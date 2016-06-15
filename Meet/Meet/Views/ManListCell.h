@@ -14,4 +14,7 @@
 
 @property (assign, nonatomic) NSInteger index;
 
+
++ (void)homeNameLabelColor:(UILabel *)nameLable;
+
 @end

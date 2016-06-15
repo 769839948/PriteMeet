@@ -8,9 +8,18 @@
 
 import UIKit
 
-
-let deviceWidth = UIScreen.mainScreen().bounds.size.width
-let deviceHeight = UIScreen.mainScreen().bounds.size.height
+func meetHeight(meetString:String, instrestArray:NSArray) -> CGFloat
+{
+    var instresTitleString = "  ";
+    for string in instrestArray {
+        instresTitleString = instresTitleString.stringByAppendingString(string as! String)
+        instresTitleString = instresTitleString.stringByAppendingString("    ")
+    }
+    
+    let instrestHeight = instresTitleString.heightWithFont(UIFont.init(name: "PingFangTC-Light", size: 23.0), constrainedToWidth: UIScreen.mainScreen().bounds.size.width - 40) + 10
+    let titleHeight = meetString.heightWithFont(UIFont.init(name: "PingFangTC-Light", size: 14.0), constrainedToWidth: UIScreen.mainScreen().bounds.size.width - 38)
+    return titleHeight + instrestHeight + 60
+}
 
 class MeetDetailViewController: UIViewController {
 
@@ -52,7 +61,7 @@ class MeetDetailViewController: UIViewController {
     }
     
     func setUpBottomView(){
-        self.bottomView = UIView(frame: CGRectMake(0,UIScreen.mainScreen().bounds.size.height - 49 - 64, deviceWidth, 49))
+        self.bottomView = UIView(frame: CGRectMake(0,UIScreen.mainScreen().bounds.size.height - 49 - 64, ScreenWidth, 49))
         
         self.bottomView.backgroundColor = UIColor.init(hexString: "FF4F4F")
         let label = UILabel(frame: self.bottomView.bounds)
@@ -65,12 +74,11 @@ class MeetDetailViewController: UIViewController {
     }
     
     func setUpNavigationBar(){
-//        UITools.customNavigationBackButtonForController(self, action: #selector(MeetDetailViewController.leftItemClick(_:)), normalImage: UIImage(named: "navigationbar_back"), selectImage: nil)
+
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_back"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MeetDetailViewController.leftItemClick(_:)))
         self.navigaitonItemColor(UIColor.init(hexString: "202020"))
         
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.init(hexString: "202020")
-//        let uploadItem = UIBarButtonItem(image: UIImage(named: "navigationbar_upload"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MeetDetailViewController.rigthItemClick(_:)))
         let uploadBt = UIButton(type: UIButtonType.Custom)
         uploadBt.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         uploadBt.setImage(UIImage(named: "navigationbar_upload"), forState: UIControlState.Normal)
@@ -86,6 +94,8 @@ class MeetDetailViewController: UIViewController {
         let colloctItem = UIBarButtonItem(customView: colloctBt)
         self.navigationItem.rightBarButtonItems = [uploadItem,colloctItem]
     }
+    
+    
     
     func leftItemClick(sender:UIBarButtonItem){
         self.navigationController?.popViewControllerAnimated(true)
@@ -110,18 +120,7 @@ class MeetDetailViewController: UIViewController {
         return height
     }
     
-    func meetHeight(meetString:String, instrestArray:NSArray) -> CGFloat
-    {
-        var instresTitleString = "  ";
-        for string in instrestArray {
-            instresTitleString = instresTitleString.stringByAppendingString(string as! String)
-            instresTitleString = instresTitleString.stringByAppendingString("    ")
-        }
-        
-        let instrestHeight = instresTitleString.heightWithFont(UIFont.init(name: "PingFangTC-Light", size: 21.0), constrainedToWidth: UIScreen.mainScreen().bounds.size.width - 40) + 10 
-        let titleHeight = meetString.heightWithFont(UIFont.init(name: "PingFangTC-Light", size: 14.0), constrainedToWidth: UIScreen.mainScreen().bounds.size.width - 38)
-        return titleHeight + instrestHeight + 60
-    }
+    
 
 }
 
@@ -226,7 +225,7 @@ extension MeetDetailViewController : UITableViewDataSource {
                 return 49
             default:
                 
-                return self.meetHeight("欢迎来到隐舍 THESECRET。这里没有酒单， 放眼望去，你看到的是与弗里达相关的一切，迷人而神秘的夜色。走进这扇门，你将开始一段奇遇。在这里，我将根据你的喜好、心情，调制专属于你的鸡尾酒，为你带来最奇妙的美好体验。", instrestArray: ["周边旅行","谈天说地","聊天","创业咨询","品酒","定制理财"])
+                return meetHeight("为你带来最奇妙的美好体验。", instrestArray: ["创业咨询","品酒","定制理财"])
             }
         default:
             switch indexPath.row {
@@ -291,7 +290,7 @@ extension MeetDetailViewController : UITableViewDataSource {
                 return cell
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier(newMeetInfoTableViewCell, forIndexPath: indexPath) as! NewMeetInfoTableViewCell
-                cell.configCell("欢迎来到隐舍 THESECRET。这里没有酒单， 放眼望去，你看到的是与弗里达相关的一切，迷人而神秘的夜色。走进这扇门，你将开始一段奇遇。在这里，我将根据你的喜好、心情，调制专属于你的鸡尾酒，为你带来最奇妙的美好体验。", array: ["周边旅行","谈天说地","聊天","创业咨询","品酒","定制理财"])
+                cell.configCell("为你带来最奇妙的美好体验。", array: ["创业咨询","品酒","定制理财"])
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.userInteractionEnabled = false
                 return cell

@@ -28,7 +28,7 @@ NSString * const kCellIdentifier = @"ReuseCellIdentifier";
   if (self = [super initWithFrame:frame]) {
     self.imageView = [[HYBLoadImageView alloc] init];
     [self addSubview:self.imageView];
-    self.imageView.isCircle = YES;
+    self.imageView.isCircle = NO;
     
     self.titleLabel = [[UILabel alloc] init];
     self.titleLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];

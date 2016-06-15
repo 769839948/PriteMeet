@@ -58,7 +58,7 @@
     _photoImage = [[UIImageView alloc] init];
 //    _photoImage.backgroundColor = [UIColor blackColor];
     _photoImage.image = [UIImage imageNamed:@"Pic"];
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, self.contentView.bounds.size.width - 20, ([[UIScreen mainScreen] bounds].size.width - 20)*200/355) byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 0)];
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, ScreenWidth - 20, ([[UIScreen mainScreen] bounds].size.width - 20)*200/355) byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 0)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame = _photoImage.bounds;
     maskLayer.path = maskPath.CGPath;
@@ -151,18 +151,21 @@
         [self updateConstraints];
     }
     
-    _nameLabel.frame = CGRectMake(0, 0, 100, 100);
-    _nameLabel.font = [UIFont systemFontOfSize:22.55f];
-    NSArray *textArray = [_nameLabel.text componentsSeparatedByString:@" "];
-    NSString *userName = [NSString stringWithFormat:@"%@",[textArray objectAtIndex:0]];
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:_nameLabel.text];
-    [str addAttribute:NSFontAttributeName value:HomeViewNameFont range:NSMakeRange(0, userName.length)];
-    [str addAttributes:@{NSForegroundColorAttributeName:HomeViewNameColor} range:NSMakeRange(0, userName.length)];
-    [str addAttributes:@{NSForegroundColorAttributeName:HomeViewPositionColor} range:NSMakeRange(userName.length, _nameLabel.text.length - userName.length)];
-    [str addAttribute:NSFontAttributeName value:HomeViewPositionFont range:NSMakeRange(userName.length, _nameLabel.text.length - userName.length)];
-    _nameLabel.attributedText = str;
+    [ManListCell homeNameLabelColor:_nameLabel];
     
     [self updateConstraintsIfNeeded];
+}
+
++ (void)homeNameLabelColor:(UILabel *)nameLable
+{
+    NSArray *textArray = [nameLable.text componentsSeparatedByString:@" "];
+    NSString *userName = [NSString stringWithFormat:@"%@",[textArray objectAtIndex:0]];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:nameLable.text];
+    [str addAttribute:NSFontAttributeName value:HomeViewNameFont range:NSMakeRange(0, userName.length)];
+    [str addAttributes:@{NSForegroundColorAttributeName:HomeViewNameColor} range:NSMakeRange(0, userName.length)];
+    [str addAttributes:@{NSForegroundColorAttributeName:HomeViewPositionColor} range:NSMakeRange(userName.length, nameLable.text.length - userName.length)];
+    [str addAttribute:NSFontAttributeName value:HomeViewPositionFont range:NSMakeRange(userName.length, nameLable.text.length - userName.length)];
+    nameLable.attributedText = str;
 }
 
 

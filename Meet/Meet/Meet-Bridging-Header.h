@@ -1,7 +1,8 @@
 //
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
-
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "PhotoTableViewCell.h"
 #import "MeetInfoTableViewCell.h"
 #import "CompayTableViewCell.h"
@@ -16,5 +17,27 @@
 #import "UIViewController+NavigationItemColor.h"
 #import "UIColor+Hex.h"
 #import "UITools.h"
-
+#import "UserInfoViewModel.h"
+#import "MyProfileViewController.h"
+#import "SendInviteViewController.h"
+#import "SetingViewController.h"
+#import "NetWorkObject.h"
 #import "Define.h"
+#import "AppData.h"
+#import "Theme.h"
+#import "ManListCell.h"
+#import "UIImage+ImageEffects.h"
+#import "UIImage+PureColor.h"
+#import "UserExtenModel.h"
+#import "MoreProfileViewController.h"
+#import "AddStarViewController.h"
+#import "UIImage+Alpha.h"
+#import "UserInviteModel.h"
+
+
+
+
+
+
+
+

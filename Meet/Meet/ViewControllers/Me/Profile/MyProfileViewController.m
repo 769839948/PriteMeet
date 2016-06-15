@@ -10,7 +10,7 @@
 #import "CellTextField.h"
 #import "LabelAndTextFieldCell.h"
 #import "TextViewCell.h"
-//#import "CellPlaceHolderTextView.h"
+#import "UIImage+PureColor.h"
 #import "MoreProfileViewController.h"
 #import "AddInformationViewController.h"
 #import "AddStarViewController.h"
@@ -97,7 +97,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"个人信息";
     _headImageUrl = @"";
-    [self setNavigationBarItem];
     
     _titleContentArray = @[@"头像",@"真实姓名",@"性别",@"生日",@"身高",@"工作生活城市",@"手机号",@"微信号",@"行业",@"年收入",@"情感状态",@"家乡",@"星座"];
     _dicValues = [NSMutableDictionary dictionary];
@@ -124,13 +123,19 @@ typedef NS_ENUM(NSUInteger, RowType) {
     
 }
 
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setNavigationBarItem];
+}
 /**
  *  设置导航栏标题
  */
 - (void)setNavigationBarItem
 {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveAction:)];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:[UIColor whiteColor]] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)leftItemClick:(UIBarButtonItem *)sender
@@ -825,7 +830,8 @@ typedef NS_ENUM(NSUInteger, RowType) {
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         }
-        cell.textLabel.text = @"空空如也~";
+        cell.textLabel.numberOfLines = 0;
+        cell.textLabel.text = @"1 地方不开门地方不开门\n2 好纠结快快快\n3 呵呵几节课\n4 刚好回家";
         return cell;
 //        TextViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 //        if (!cell) {
@@ -1086,13 +1092,14 @@ typedef NS_ENUM(NSUInteger, RowType) {
                         [self updateWorkUserFile:[_arrayWorkExper copy] withId:[_workeExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
                         [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                        NSIndexSet *job_label=[[NSIndexSet alloc] initWithIndex:2];
+                        [self.tableView reloadSections:job_label withRowAnimation:UITableViewRowAnimationAutomatic];
                     } fail:^(NSDictionary *object) {
                         
                     } loadingString:^(NSString *str) {
                         
                     }];
                 }else{
-                    
                     [weakSelf.viewModel addEduExperent:string success:^(NSDictionary *object) {
                         [_arrayEducateExper addObject:string];
                         [_eduExperId addObject:object[@"edu_id"]];
@@ -1112,6 +1119,8 @@ typedef NS_ENUM(NSUInteger, RowType) {
                         [self updateWorkUserFile:[_arrayWorkExper copy] withId:[_workeExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
                         [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                        NSIndexSet *job_label=[[NSIndexSet alloc] initWithIndex:2];
+                        [self.tableView reloadSections:job_label withRowAnimation:UITableViewRowAnimationAutomatic];
                     } fail:^(NSDictionary *object) {
                         
                     } loadingString:^(NSString *str) {
@@ -1138,6 +1147,8 @@ typedef NS_ENUM(NSUInteger, RowType) {
                         [self updateWorkUserFile:[_arrayWorkExper copy] withId:[_workeExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
                         [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                        NSIndexSet *job_label=[[NSIndexSet alloc] initWithIndex:2];
+                        [self.tableView reloadSections:job_label withRowAnimation:UITableViewRowAnimationAutomatic];
                     } fail:^(NSDictionary *object) {
                         
                     } loadingString:^(NSString *str) {

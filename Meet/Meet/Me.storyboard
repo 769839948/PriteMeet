@@ -512,7 +512,7 @@
         <!--个人亮点-->
         <scene sceneID="w7f-qL-SiO">
             <objects>
-                <viewController id="JKW-f1-f5B" customClass="AddStarViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddStarViewController" id="JKW-f1-f5B" customClass="AddStarViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hDk-z0-d2b"/>
                         <viewControllerLayoutGuide type="bottom" id="LKi-oD-2wX"/>
@@ -528,7 +528,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="个人亮点" id="7EQ-vy-IPF">
                         <barButtonItem key="leftBarButtonItem" title="取消" id="PoE-9T-N3p"/>
-                        <barButtonItem key="rightBarButtonItem" title="保存" id="JxB-42-unF"/>
+                        <barButtonItem key="rightBarButtonItem" title="保存" id="JxB-42-unF">
+                            <connections>
+                                <action selector="saveAction:" destination="JKW-f1-f5B" id="pPX-pg-ipS"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rn4-2h-Ivz" userLabel="First Responder" sceneMemberID="firstResponder"/>

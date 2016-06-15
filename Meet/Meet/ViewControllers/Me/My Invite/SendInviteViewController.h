@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^RefreshInviteBlock)();
+
+
 @interface SendInviteViewController : UIViewController
 
-
+@property (strong, nonatomic) RefreshInviteBlock block;
 
 @end

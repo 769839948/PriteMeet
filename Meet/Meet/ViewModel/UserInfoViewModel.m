@@ -10,8 +10,20 @@
 #import "UserInfo.h"
 #import "WXUserInfo.h"
 #import "ProfileKeyAndValue.h"
+#import "NetWorkObject.h"
+#import "UserExtenModel.h"
 
 @implementation UserInfoViewModel
+
+- (NSArray *)imageArray
+{
+    return @[@"me_newmeet",@"me_ attestation",@"me_mymeet",@"me_wantmeet",@"me_addfriends"];
+}
+- (NSArray *)titleArray
+{
+    return @[@"最新邀约",@"身份认证",@"我的约见",@"想见的人",@"邀请朋友"];
+}
+
 
 - (void)updateUserInfo:(UserInfo *)userInfo
         withStateArray:(NSDictionary *)dic
@@ -231,6 +243,126 @@
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failBlock(@{@"error":@"error"});
-    }];}
+    }];
+}
+- (void)addStar:(NSString *)description
+        success:(Success)successBlock
+           fail:(Fail)failBlock
+  loadingString:(LoadingView)loading
+{
+    NSDictionary *parameters = @{@"description":description};
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestAddStar,[WXUserInfo shareInstance].openid];
+    
+    [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([[responseObject objectForKey:@"success"] boolValue]) {
+            NSLog(@"%@",responseObject);
+            successBlock(responseObject);
+        }else{
+            failBlock(@{@"error":@"error"});
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failBlock(@{@"error":@"error"});
+    }];
+}
+
+- (void)getMoreExtInfo:(NSString *)openId
+        success:(Success)successBlock
+           fail:(Fail)failBlock
+  loadingString:(LoadingView)loading
+{
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestExtINfo,[WXUserInfo shareInstance].openid];
+//    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@o4pNpvxA5YQDVsgjmiQ07ChzMtms",RequestExtINfo];
+    
+    [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([[responseObject objectForKey:@"success"] boolValue]) {
+            successBlock([responseObject objectForKey:@"user_info"]);
+        }else{
+            failBlock(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failBlock(@{@"":@""});
+    }];
+}
+
+
+- (void)uploadInvite:(NSString *)description
+           themeArray:(NSArray *)themeArray
+             success:(Success)successBlock
+                fail:(Fail)failBlock
+       loadingString:(LoadingView)loading
+{
+
+    NSString *them = @"";
+    for (NSString *themeString in themeArray) {
+        them = [them stringByAppendingString:[NSString stringWithFormat:@"%@,",[[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitation"]objectForKey:themeString]]];
+    }
+    NSString *subLastString = [them substringToIndex:them.length - 1];
+    NSDictionary *parameters = @{ @"description":description, @"theme":subLastString};
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestInviteInfo,[WXUserInfo shareInstance].openid];
+    
+    [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([[responseObject objectForKey:@"success"] boolValue]) {
+            NSLog(@"%@",responseObject);
+            successBlock(responseObject);
+        }else{
+            failBlock(@{@"error":@"error"});
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failBlock(@{@"error":@"error"});
+    }];
+}
+
+- (void)getInvite:(Success)successBlock
+             fail:(Fail)failBlock
+    loadingString:(LoadingView)loading
+{
+    
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestInviteInfo,[WXUserInfo shareInstance].openid];
+    
+    [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([[responseObject objectForKey:@"success"] boolValue]) {
+            successBlock([responseObject objectForKey:@"results"]);
+        }else{
+            failBlock(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failBlock(@{@"":@""});
+    }];
+}
+
++ (void)saveCacheImage:(NSString *)url
+               success:(Success)successBlock
+           returnImage:(returnImage)block
+                  fail:(Fail)failBlock
+         loadingString:(LoadingView)loading
+{
+    NSArray *imageNameArray = [url componentsSeparatedByString:@"?"];
+    NSArray *imageName = [imageNameArray[0] componentsSeparatedByString:@"/"];
+    [NetWorkObject downloadTask:url progress:^(NSProgress *downloadProgress) {
+        
+    } destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+        return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
+    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        NSLog(@"File downloaded to: %@", filePath.path);
+        UIImage *image = [UIImage imageWithContentsOfFile:filePath.path];
+        if (image != nil) {
+            if ([UserExtenModel saveCacheImage:image withName:imageName[3]]) {
+                successBlock(@{@"success":@"1"});
+                block(image);
+            }else{
+                failBlock(@{@"fail":@"1"});
+            }
+        }
+    }];
+}
 
 @end

@@ -8,6 +8,9 @@
 
 #import "SendInviteViewController.h"
 #import "UITextView+Placeholder.h"
+#import "UserInfoViewModel.h"
+#import "UserInviteModel.h"
+#import "UserInfo.h"
 
 @interface SendInviteViewController () <UIScrollViewDelegate>{
     
@@ -24,6 +27,7 @@
     NSInteger _largeLength;
 }
 
+@property (strong, nonatomic) UserInfoViewModel *viewModel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentScrollViewConstraintH;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topScrollViewConstraintW;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *selectItemViewConstraintH;
@@ -34,17 +38,46 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _viewModel = [[UserInfoViewModel alloc] init];
     self.navigationItem.title = @"我的邀约";
-//    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
-//    [UITools navigationRightBarButtonForController:self action:@selector(doneAction:) normalTitle:@"完成" selectedTitle:nil];
     self.hidesBottomBarWhenPushed = YES;
-    _arraySelectItem = [NSMutableArray array];
-    [self loadButtonItemsWihtArray:@[@"吃饭",@"喝茶",@"喝咖啡",@"看电影",@"运动",@"周边游",@"公益活动",@"其它活动",@"这个名字很长很长很长"]];
+    if ([UserInviteModel isEmptyDescription]) {
+        _arraySelectItem = [NSMutableArray array];
+    }else{
+        _arraySelectItem = [NSMutableArray arrayWithArray:[UserInviteModel themArray:0]];
+        _explainTextView.text = [UserInviteModel descriptionString:0];
+    }
+    
+    [self loadButtonItemsWihtArray:@[@"吃饭、聚餐",@"喝咖啡",@"运动、健身",@"周边游、旅行",@"K歌",@"逛街", @"看电影",@"演唱会、话剧、展览等演出",@"其他"]];
     
     _explainTextView.placeholder = @"一段走心的活动说明，更有利于打动对方报名参加哦；\n 同时您也可以说说希望什么样的人参与您的活动。";
     _explainTextView.layer.cornerRadius = 3;
     _explainTextView.layer.borderWidth = 2;
     _explainTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    [self setUpNavigationItem];
+    
+}
+
+- (void)setUpNavigationItem
+{
+    if (![UserInfo sharedInstance].isFirstLogin) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(postInvite:)];
+        self.navigationItem.rightBarButtonItem.tag = 2;
+    }
+}
+
+- (void)postInvite:(UIBarButtonItem *)sender
+{
+    [_viewModel uploadInvite:_explainTextView.text themeArray:_arraySelectItem success:^(NSDictionary *object) {
+        [UserInviteModel synchronizeWithArray:_arraySelectItem description:_explainTextView.text];
+        if (self.block) {
+            self.block();
+        }
+    } fail:^(NSDictionary *object) {
+        
+    } loadingString:^(NSString *str) {
+        
+    }];
 }
 
 - (void)updateViewConstraints {

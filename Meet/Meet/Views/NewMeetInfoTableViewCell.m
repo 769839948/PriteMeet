@@ -53,7 +53,7 @@
     //    [_interestView setCollectViewData:@[@"旅行顾问",@"创意总监",@"谈判专家",@"顾问"]];
     [self.contentView addSubview:_interestView];
     
-    _meetLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 200)];
+    _meetLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, ScreenWidth - 20, 200)];
     _meetLabel.textColor = [UIColor colorWithHexString:AboutUsLabelColor];
     _meetLabel.numberOfLines = 0;
     _meetLabel.font = AboutUsLabelFont;
@@ -71,7 +71,7 @@
         instresTitleString = [instresTitleString stringByAppendingString:instrestTitle];
         instresTitleString = [instresTitleString stringByAppendingString:@"   "];
     }
-    float instrestHeight = [instresTitleString heightWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:21.0f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
+    float instrestHeight = [instresTitleString heightWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:23.0f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
     //    float height = [flowLayout collectionViewContentSize].height;
     //    NSLog(@"---------%f",height);
     
@@ -101,6 +101,14 @@
     [self updateConstraintsIfNeeded];
 }
 
+
+- (void)isHaveShadowColor:(BOOL)isShadowColor
+{
+    if (!isShadowColor) {
+//        [self setWhiteView:NO isBottom:NO];
+        self.showdowView.hidden = YES;
+    }
+}
 
 - (void)updateConstraints
 {

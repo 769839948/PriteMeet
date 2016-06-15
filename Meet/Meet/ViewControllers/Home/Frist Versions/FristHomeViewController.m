@@ -12,12 +12,10 @@
 #import "WeChatResgisterViewController.h"
 #import "NSString+StringSize.h"
 #import "UIViewController+ScrollingNavbar.h"
-#import "Meet-Swift.h"
 #import "MJRefresh.h"
 #import "ProfileKeyAndValue.h"
-#import "MeViewController.h"
 #import "ThemeTools.h"
-
+#import "Meet-Swift.h"
 
 @interface FristHomeViewController ()<UIGestureRecognizerDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -33,6 +31,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpTableView];
+    [self presentViewController:[[BaseNavigaitonController alloc] initWithRootViewController:[[MeViewController alloc] init]] animated:YES completion:^{
+        
+    }];
     [self setUpNavigationBar];
     [self setUpRefreshView];
     
@@ -100,10 +101,9 @@
 
 - (void)rightItemPess:(UIBarButtonItem *)sender
 {
-    UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    
-    MeViewController *meViewController = [meStoryBoard instantiateViewControllerWithIdentifier:@"MeViewController"];
-    [self.navigationController pushViewController:meViewController animated:YES];
+    [self presentViewController:[[BaseNavigaitonController alloc] initWithRootViewController:[[MeViewController alloc] init]] animated:YES completion:^{
+        
+    }];
 }
 
 - (UIView *)titleView
@@ -270,13 +270,20 @@
     if (translation.y < 0)
     {
         _bottomView.hidden = YES;
+//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+//        UIView *status = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
+//        status.backgroundColor = [UIColor blackColor];
+
     }else if(translation.y > 0){
+//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+//        UIView *status = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
+//        status.backgroundColor = [UIColor whiteColor];
+
         _bottomView.hidden = NO;
     }else{
         
     }
 }
-
     
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

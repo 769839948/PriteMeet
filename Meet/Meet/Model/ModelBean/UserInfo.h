@@ -9,7 +9,18 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class Edu_Expirence,Work_Expirence;
+@class Edu_Expirence,Work_Expirence,Completeness;
+
+@interface Completeness : NSObject
+
+@property (nonatomic, assign) NSInteger completeness;
+
+@property (nonatomic, copy) NSString *msg;
+
+@property (nonatomic, assign) NSInteger next_page;
+
+@end
+
 
 @interface UserInfo : NSObject
 
@@ -28,7 +39,11 @@
 
 @property (nonatomic, copy) NSString *country;
 
+@property (nonatomic, copy) NSString *job_label;
+
 @property (nonatomic, copy) NSString *wechat_union_id;
+
+@property (nonatomic, copy) NSString *personal_label;
 
 @property (nonatomic, assign) NSInteger affection;
 
@@ -37,6 +52,8 @@
 @property (nonatomic, assign) NSInteger smoke;
 
 @property (nonatomic, strong) NSArray<Work_Expirence *> *work_expirence;
+
+@property (nonatomic, strong) Completeness *completeness;
 
 @property (nonatomic, assign) NSInteger constellation;
 
@@ -48,7 +65,7 @@
 
 @property (nonatomic, assign) NSInteger drink;
 
-@property (nonatomic, assign) long long id;
+@property (nonatomic, assign) NSInteger id;
 
 @property (nonatomic, assign) NSInteger gender;
 

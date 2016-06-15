@@ -7,8 +7,14 @@
 //
 
 #import "BaseRequestViewModel.h"
+#import "UserInfo.h"
+
+typedef void (^returnImage)(UIImage *image);
 
 @interface UserInfoViewModel : BaseRequestViewModel
+
+- (NSArray *)imageArray;
+- (NSArray *)titleArray;
 
 - (void)updateUserInfo:(UserInfo *)model
         withStateArray:(NSDictionary *)dic
@@ -58,4 +64,30 @@
             success:(Success)successBlock
                fail:(Fail)failBlock
       loadingString:(LoadingView)loading;
+
+- (void)addStar:(NSString *)description
+            success:(Success)successBlock
+               fail:(Fail)failBlock
+      loadingString:(LoadingView)loading;
+
+- (void)getMoreExtInfo:(NSString *)openId
+           success:(Success)successBlock
+              fail:(Fail)failBlock
+     loadingString:(LoadingView)loading;
+
+- (void)getInvite:(Success)successBlock
+             fail:(Fail)failBlock
+    loadingString:(LoadingView)loading;
+
+- (void)uploadInvite:(NSString *)description
+          themeArray:(NSArray *)themeArray
+             success:(Success)successBlock
+                fail:(Fail)failBlock
+       loadingString:(LoadingView)loading;
+
++ (void)saveCacheImage:(NSString *)url
+               success:(Success)successBlock returnImage:(returnImage)block
+                  fail:(Fail)failBlock
+         loadingString:(LoadingView)loading;
+
 @end

@@ -10,10 +10,12 @@
 #import "UITextView+Placeholder.h"
 #import "IQKeyboardManager.h"
 #import "AutomaticBulletAndNumberLists.h"
+#import "UserInfoViewModel.h"
 
 @interface AddStarViewController ()<UIGestureRecognizerDelegate,UITextViewDelegate>
 
 @property (strong, nonatomic) UITextView *textView;
+@property (strong, nonatomic) UserInfoViewModel *viewModel;
 
 @end
 
@@ -22,12 +24,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _viewModel = [[UserInfoViewModel alloc] init];
     self.navigationItem.title = @"描述个人亮点";
     _textView = [[UITextView alloc] initWithFrame:CGRectMake(3, 0, self.view.bounds.size.width - 6, self.view.bounds.size.height)];
     _textView.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
     _textView.placeholder = @"添更多亮点，更有利于别人搜索到你";
     _textView.delegate = self;
-    
+    _textView.text = @"1 地方不开门地方不开门\n2 好纠结快快快\n3 呵呵几节课\n4 刚好回家";
+    if (IOS_7LAST) {
+        self.navigationController.navigationBar.translucent = NO;
+    }
     [self.view addSubview:_textView];
     [self.textView becomeFirstResponder];
 }
@@ -50,10 +56,18 @@
 }
 
 
-- (void)saveAction:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
+- (IBAction)saveAction:(id)sender {
+    __weak typeof(self) weakSelf = self;
+    [_viewModel addStar:_textView.text success:^(NSDictionary *object) {
+        [weakSelf dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+    } fail:^(NSDictionary *object) {
+        
+    } loadingString:^(NSString *str) {
         
     }];
+    
 }
 
 #pragma mark -  UIGestureRecognizerDelegate

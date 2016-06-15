@@ -7,7 +7,7 @@
 //
 
 #import "WXLoginViewController.h"
-
+#import "AppData.h"
 #import "MyProfileViewController.h"
 #import "BaseUserInfoViewController.h"
 #import "WXApi.h"

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AFNetWorking.h"
+#import <AFNetworking/AFNetworking.h>
 
 @interface NetWorkObject : NSObject
 

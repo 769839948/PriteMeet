@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NetWorkObject.h"
-#import "AFNetWorking.h"
+#import <AFNetworking/AFNetworking.h>
 
 typedef void (^LoadingView)(NSString *str);
 typedef void (^Success)(NSDictionary *object);

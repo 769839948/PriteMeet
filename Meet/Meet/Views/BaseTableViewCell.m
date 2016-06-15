@@ -64,9 +64,9 @@
         _whitView = [[UIView alloc] initWithFrame:CGRectMake(10, 0, self.contentView.bounds.size.width - 20, 59)];
         _whitView.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:_whitView];
-        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, self.contentView.bounds.size.width - 20, 59) byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 0)];
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, ScreenWidth - 20, 59) byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 0)];
         CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-        maskLayer.frame = CGRectMake(0, 0, self.contentView.bounds.size.width - 20, 99);
+        maskLayer.frame = CGRectMake(0, 0, ScreenWidth - 20, 99);
         maskLayer.path = maskPath.CGPath;
         _whitView.layer.mask = maskLayer;
         __weak typeof(self) weakSelf = self;
