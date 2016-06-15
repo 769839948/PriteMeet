@@ -61,7 +61,6 @@ class MeViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
-        self.addObserver(self, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.New, context: nil)
         self.view.addSubview(tableView)
         let meInfoNib = UINib(nibName: "MeInfoTableViewCell", bundle: nil) //nibName指的是我们创建的Cell文件名
         self.tableView.registerNib(meInfoNib, forCellReuseIdentifier: "MeInfoTableViewCell")
