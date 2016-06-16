@@ -110,7 +110,9 @@ static UserExtenModel *userExten = nil;
 {
     
     [UserExtenModel shareInstance].auth_info  = [dic objectForKey:@"auth_info"];
-    [UserExtenModel shareInstance].cover_photo  = dic[@"cover_photo"];
+    NSArray *avatar = [dic[@"cover_photo"] componentsSeparatedByString:@"?"];
+    NSString *newString = [avatar[0] stringByAppendingString:@"?imageView2/1/w/1125/h/861"];
+    [UserExtenModel shareInstance].cover_photo  = newString;
     [UserExtenModel shareInstance].descriptions  = dic[@"descriptions"];
     NSMutableArray *details = [NSMutableArray array];
     NSArray *detailArray = dic[@"detail"];
@@ -118,6 +120,8 @@ static UserExtenModel *userExten = nil;
         Detail *detail = [[Detail alloc] init];
         detail.content = [[detailArray objectAtIndex:i] objectForKey:@"content"];
         detail.id = [[detailArray objectAtIndex:i] objectForKey:@"id"];
+//        NSArray *avatar = [[detailArray objectAtIndex:i] objectForKey:@"photo" componentsSeparatedByString:@"?"];
+//        NSString *newString = [avatar[0] stringByAppendingString:@"?imageView2/1/w/375/h/271"];
         detail.photo = [[detailArray objectAtIndex:i] objectForKey:@"photo"];
         detail.title = [[detailArray objectAtIndex:i] objectForKey:@"title"];
         [details addObject:detail];

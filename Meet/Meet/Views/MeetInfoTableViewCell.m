@@ -40,15 +40,15 @@
     _nameLabel = [[UILabel alloc] init];
     _nameLabel.numberOfLines = 0;
     _nameLabel.textAlignment = NSTextAlignmentCenter;
-    _nameLabel.font = HomeViewNameFont;
-    _nameLabel.textColor = HomeViewNameColor;
+    _nameLabel.font = HomeViewDetailNameFont;
+    _nameLabel.textColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
     [self.contentView addSubview:_nameLabel];
     
     _positionLabel = [[UILabel alloc] init];
     _positionLabel.numberOfLines = 0;
     _positionLabel.textAlignment = NSTextAlignmentCenter;
-    _positionLabel.font = HomeViewPositionFont;
-    _positionLabel.textColor = HomeViewPositionColor;
+    _positionLabel.font = HomeViewDetailPositionFont;
+    _positionLabel.textColor = [UIColor colorWithHexString:HomeDetailViewPositionColor];
     [self.contentView addSubview:_positionLabel];
     
     _meetNumber = [[UILabel alloc] init];
@@ -63,7 +63,6 @@
     _interestView = [[InterestCollectView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
     [_interestView setEdgX:10];
     flowLayout.delegate = _interestView;
-    //    [_interestView setCollectViewData:@[@"旅行顾问",@"创意总监",@"谈判专家",@"顾问"]];
     [self.contentView addSubview:_interestView];
     [self updateConstraints];
 }
@@ -71,30 +70,61 @@
 - (void)configCell:(NSString *)name position:(NSString *)position meetNumber:(NSString *)meetNumber interestCollectArray:(NSArray *)interstArray
 {
     _nameLabel.text = name;
-    _positionLabel.text = position;
-    _meetNumber.text = meetNumber;
-    [_interestView setCollectViewData:interstArray];
-    NSString *instresTitleString = @"  ";
-    for (NSString *instrestTitle in interstArray) {
-        instresTitleString = [instresTitleString stringByAppendingString:instrestTitle];
-        instresTitleString = [instresTitleString stringByAppendingString:@"   "];
-    }
-    float instrestHeight = [instresTitleString heightWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:21.0f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
-    //    float height = [flowLayout collectionViewContentSize].height;
-    //    NSLog(@"---------%f",height);
-    
-    float positionHeight = [position heightWithFont:HomeViewPositionFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
     __weak typeof(self) weakSelf = self;
-    if (positionHeight > 32){
+    if ([position isEqualToString:@""]) {
         [_positionLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(11);
+            make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(1);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
-            make.height.offset(positionHeight);
+            make.bottom.mas_equalTo(weakSelf.meetNumber.mas_top).offset(-8);
+            make.height.mas_offset(0.1);
         }];
         [self updateConstraints];
+    }else{
+        _positionLabel.text = position;
+        float positionHeight = [position heightWithFont:HomeViewDetailPositionFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
+        if (positionHeight > 32){
+            [_positionLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(1);
+                make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
+                make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
+                make.bottom.mas_equalTo(weakSelf.meetNumber.mas_top).offset(-8);
+                make.height.mas_offset(positionHeight);
+            }];
+            [self updateConstraints];
+        }
     }
-    if (instrestHeight > 30) {
+    if ([meetNumber isEqualToString:@""]) {
+        [_meetNumber mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.positionLabel.mas_bottom).offset(8);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
+            make.bottom.mas_equalTo(weakSelf.interestView.mas_top).offset(-16);
+            make.height.mas_offset(0.1);
+        }];
+        [self updateConstraints];
+    }else{
+        _meetNumber.text = meetNumber;
+    }
+    
+    if (interstArray.count < 1) {
+        [_interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
+            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32);
+            make.height.mas_offset(1);
+        }];
+        _interestView.backgroundColor = [UIColor redColor];
+        [self updateConstraints];
+    }else{
+        [_interestView setCollectViewData:interstArray];
+        NSString *instresTitleString = @"  ";
+        for (NSString *instrestTitle in interstArray) {
+            instresTitleString = [instresTitleString stringByAppendingString:instrestTitle];
+            instresTitleString = [instresTitleString stringByAppendingString:@"   "];
+        }
+        float instrestHeight = [instresTitleString heightWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:21.0f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
         [_interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
@@ -103,8 +133,11 @@
             make.height.offset(instrestHeight);
         }];
         [self updateConstraints];
+
+//        if (instrestHeight > 30) {
+//            
+//        }
     }
-    
     [self updateConstraintsIfNeeded];
 }
 
@@ -116,18 +149,21 @@
             make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(21);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
-            make.height.offset(30);
+            make.bottom.mas_equalTo(weakSelf.positionLabel.mas_top).offset(1);
+            make.height.offset(40);
         }];
         [_positionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(11);
+            make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(1);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(10);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
+            make.bottom.mas_equalTo(weakSelf.meetNumber.mas_top).offset(-8);
             make.height.offset(30);
         }];
         [_meetNumber mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.positionLabel.mas_bottom).offset(8);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
+            make.bottom.mas_equalTo(weakSelf.interestView.mas_top).offset(-16);
             make.height.offset(17);
         }];
         [_interestView mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -15,6 +15,7 @@ class MeViewController: UIViewController {
     var imagesArray = NSMutableArray()
     var headImage:UIImage!
     var statusBar:UIView!
+    var frame:CGRect!
     
     var userInfoModel = UserInfoViewModel()
     var meInfoTableViewCell = "MeInfoTableViewCell"
@@ -25,7 +26,7 @@ class MeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadInviteInfo()
-
+        
         self.setUpTableView()
         self.loadHeadImageView()
         self.loadExtenInfo()
@@ -61,6 +62,14 @@ class MeViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
+        let headerView = NSBundle.mainBundle().loadNibNamed("MePhotoView", owner: nil, options: nil).first as? MePhotoView
+//        
+//        headerView?.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: 100)
+//        headerView?.center = self.view.center
+//        
+//        let transparentView = TransparentView.dropHeaderViewWithFrame(headerView!.frame, contentView: headerView, stretchView: headerView)
+//        transparentView.frame = headerView!.frame;
+//        self.tableView.tableHeaderView = headerView
         self.view.addSubview(tableView)
         let meInfoNib = UINib(nibName: "MeInfoTableViewCell", bundle: nil) //nibName指的是我们创建的Cell文件名
         self.tableView.registerNib(meInfoNib, forCellReuseIdentifier: "MeInfoTableViewCell")
@@ -133,8 +142,6 @@ class MeViewController: UIViewController {
             UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
             self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
             self.setLeftBarItem()
-//            UIView *status = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
-//            status.backgroundColor = [UIColor blackColor];
             let appearance = UINavigationBar.appearance()
             appearance.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Chalkduster", size: 21)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         }else{
@@ -153,7 +160,7 @@ class MeViewController: UIViewController {
     func setLeftBarItem(){
         self.setNavigationItemAplah(1, imageName: ["me_dismiss"], type: 1)
         
-        if UserInfo.sharedInstance().completeness != nil {
+        if UserInfo.sharedInstance().job_label == "" {
             self.setNavigationItemAplah(1, imageName: ["me_settings"], type: 2)
         }else{
             self.setNavigationItemAplah(1, imageName: ["me_settings","me_edit"], type: 3)
@@ -169,7 +176,7 @@ class MeViewController: UIViewController {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MeViewController.rightPress(_:)))
         }else{
             let image = UIImage(named: imageName[0] as! String)?.imageByApplyingAlpha(imageAplah)
-            let image1 = UIImage(named: imageName[0] as! String)?.imageByApplyingAlpha(imageAplah)
+            let image1 = UIImage(named: imageName[1] as! String)?.imageByApplyingAlpha(imageAplah)
             let settingItem = UIBarButtonItem(image: image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MeViewController.rightPress(_:)))
             
             let editItem = UIBarButtonItem(image:image1?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MeViewController.editPress(_:)))
@@ -186,7 +193,7 @@ class MeViewController: UIViewController {
     }
     
     func editPress(sender:UIBarButtonItem){
-        
+        self.pushProfileViewControllr()
     }
     
     func rightPress(sender:UIBarButtonItem){
@@ -219,8 +226,6 @@ class MeViewController: UIViewController {
                 if ((imageData?.writeToFile(self.imageSavePath(), atomically: false)) != nil) {
                     do{
                         self.reloadUerImage(saveImagePath)
-                    }catch{
-                        print("")
                     }
                     
                 } else {
@@ -246,7 +251,7 @@ class MeViewController: UIViewController {
     
     func loadHeadImageView(){
         headImage = nil;
-        if (!UserInfo.isLoggedIn()) {
+        if (!UserInfo.isLoggedIn() || UserExtenModel.shareInstance().cover_photo == nil) {
             return ;
         }
         let stringArray = UserExtenModel.shareInstance().cover_photo.componentsSeparatedByString("?")
@@ -426,19 +431,35 @@ extension MeViewController : UITableViewDelegate{
         }
     }
     
+//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 100;
+//    }
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if UserInfo.isLoggedIn() {
             let y = scrollView.contentOffset.y
+            let index = NSIndexPath.init(forRow: 0, inSection: 0)
+            let cell = self.tableView.cellForRowAtIndexPath(index) as? MePhotoTableViewCell
             if(y <= 0){
+                if cell != nil {
+//                    cell?.avatarImageView.backgroundColor = UIColor.blueColor()
+//                    cell!.avatarImageView.frame = CGRectMake(0, y, ScreenWidth, frame.size.height - y);
+//                    cell!.avatarImageView.frame = CGRectMake(0, y, ScreenWidth, ScreenWidth*272/375 - y);
+                }
                 //往上滑动，透明度为0
                 self.setLeftBarItem()
                 self.navigationController?.navigationBar.setBackgroundImage(UIImage.createImageWithColor(UIColor.init(red: 242.0/255.0, green: 241.0/255.0, blue: 238.0/255.0, alpha: 0)), forBarPosition: .Any, barMetrics: .Default)
             }else{
                 self.setNavigationItemAplah(y/124, imageName: ["me_dismissBlack"], type: 1)
-                if UserInfo.sharedInstance().completeness != nil {
+                if UserInfo.sharedInstance().personal_label == "" {
                     self.setNavigationItemAplah(y/124, imageName: ["me_settingsBlack"], type: 2)
                 }else{
                     self.setNavigationItemAplah(y/124, imageName: ["me_settingsBlack","me_editBlack"], type: 3)
+                }
+                
+                if cell != nil {
+//                    cell?.avatarImageView.backgroundColor = UIColor.blueColor()
+//                    cell!.avatarImageView.frame = CGRectMake(0, 0, ScreenWidth, ScreenWidth*272/375);
                 }
                 
                 self.navigationController?.navigationBar.setBackgroundImage(UIImage.createImageWithColor(UIColor.init(red: 242.0/255.0, green: 241.0/255.0, blue: 238.0/255.0, alpha: y/124)), forBarPosition: .Any, barMetrics: .Default)
@@ -467,6 +488,15 @@ extension MeViewController : UITableViewDataSource {
         }
     }
     
+    
+//    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = NSBundle.mainBundle().loadNibNamed("MePhotoView", owner: nil, options: nil).first as? MePhotoView
+//        //
+//        headerView?.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: 100)
+//        headerView?.center = self.view.center
+//        return headerView
+//    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if UserInfo.isLoggedIn() {
@@ -474,7 +504,9 @@ extension MeViewController : UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier(mePhotoTableViewCell, forIndexPath: indexPath) as! MePhotoTableViewCell
                 cell.avatarImageView.backgroundColor = UIColor.redColor()
                 cell.avatarImageView.image = headImage
-                cell.cofigLoginCell(UserInfo.sharedInstance().real_name, infoCom: "",compass: UserInfo.sharedInstance().completeness)
+                cell.cofigLoginCell(UserInfo.sharedInstance().real_name, infoCom: UserInfo.sharedInstance().job_label,compass: UserInfo.sharedInstance().completeness)
+                frame = cell.avatarImageView.frame;
+
                 cell.block = { (tag) in
                     self.pushViewController(tag)
                 }
@@ -520,13 +552,27 @@ extension MeViewController : UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
                 cell.configCell((userInfoModel.imageArray() as NSArray) .objectAtIndex(indexPath.row - 3) as! String, infoString: (userInfoModel.titleArray() as NSArray).objectAtIndex(indexPath.row - 3) as! String, infoDetail: "")
                 if indexPath.row == 4 {
-                    cell.infoDetailLabel.text = "尚未通过实名、照片认证       "
-                    cell.setinfoButtonBackGroudColor(lineLabelBackgroundColor)
+                    var string = "尚未通过身份、职业、电话认证       "
+                    let auto_info = UserExtenModel.shareInstance().auth_info
+                    if auto_info != "" && auto_info != nil {
+                        let autoArray = auto_info.componentsSeparatedByString(",")
+                        let dic = (ProfileKeyAndValue.shareInstance().appDic as NSDictionary).objectForKey("auth_info") as! NSDictionary
+                        for autoInfo in autoArray {
+                            let autoName = dic.objectForKey(autoInfo) as! String
+                            let stringArray = string.componentsSeparatedByString(autoName) as NSArray
+                            let firstChar = (stringArray[1] as! NSString).substringToIndex(1) 
+                            if firstChar == "、" {
+                                string = string.stringByReplacingOccurrencesOfString("\(autoName)、" , withString: "")
+                            }else{
+                                string = string.stringByReplacingOccurrencesOfString("\(autoName)" , withString: "")
+                            }
+                            
+                        }
+                        cell.infoDetailLabel.text = string
+                        cell.setinfoButtonBackGroudColor(lineLabelBackgroundColor)
+                    }
+                
                 }
-                //            else if indexPath.row == 7{
-                //                cell.infoDetailLabel.text = "2个邀请名额      "
-                //                cell.setinfoButtonBackGroudColor(MeInvateFriendsColor)
-                //            }
                 return cell
             }
         }else{

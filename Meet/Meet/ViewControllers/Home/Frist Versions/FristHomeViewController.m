@@ -12,10 +12,14 @@
 #import "WeChatResgisterViewController.h"
 #import "NSString+StringSize.h"
 #import "UIViewController+ScrollingNavbar.h"
+#import "UITableView+FDTemplateLayoutCell.h"
 #import "MJRefresh.h"
 #import "ProfileKeyAndValue.h"
 #import "ThemeTools.h"
 #import "Meet-Swift.h"
+#import "HomeViewModel.h"
+#import "MJExtension.h"
+#import "HomeModel.h"
 
 @interface FristHomeViewController ()<UIGestureRecognizerDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -24,6 +28,12 @@
 @property (nonatomic, strong) UIView *bottomView;
 @property (nonatomic, strong) UILabel *numberMeet;
 
+@property (nonatomic, assign) NSInteger page;
+
+@property (nonatomic, strong) HomeViewModel *viewModel;
+@property (nonatomic, copy) NSMutableArray *homeModelArray;
+@property (nonatomic, copy) NSMutableDictionary *offscreenCells;
+
 @end
 
 @implementation FristHomeViewController
@@ -31,11 +41,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpTableView];
-    [self presentViewController:[[BaseNavigaitonController alloc] initWithRootViewController:[[MeViewController alloc] init]] animated:YES completion:^{
-        
-    }];
+    _page = 0;
+    _viewModel = [[HomeViewModel alloc] init];
+    _homeModelArray = [NSMutableArray array];
     [self setUpNavigationBar];
     [self setUpRefreshView];
+    [self setUpHomeData];
     
 }
 
@@ -46,6 +57,25 @@
     });
 }
 
+
+- (void)setUpHomeData
+{
+    _page ++;
+    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
+    __weak typeof(self) weakSelf = self;
+    [_viewModel getHomeList:pageString successBlock:^(NSDictionary *object) {
+        [weakSelf.homeModelArray addObjectsFromArray:[HomeModel  mj_objectArrayWithKeyValuesArray:object]];
+        [weakSelf.tableView reloadData];
+        [weakSelf.tableView.mj_footer endRefreshing];
+    } failBlock:^(NSDictionary *object) {
+        if (_page > 0) {
+            _page --;
+        }
+        [weakSelf.tableView.mj_footer endRefreshing];
+    } loadingView:^(NSString *str) {
+        
+    }];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -125,9 +155,8 @@
 
 - (void)setUpRefreshView
 {
-//    _tableView.mj_header = [MJRefreshHeader headerWithRefreshingBlock:^{
-//        <#code#>
-//    }]
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(setUpHomeData)];
+
 }
 
 - (UIButton *)myMeetBt:(CGRect)frame
@@ -162,8 +191,16 @@
     [self followScrollView:_tableView];
     _tableView.backgroundColor = [UIColor colorWithHexString:TableViewBackGroundColor];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [_tableView registerClass:[ManListCell class] forCellReuseIdentifier:@"MainTableViewCell"];
     [self.view addSubview:_tableView];
 }
+
+- (void)configureCell:(ManListCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    HomeModel *model = _homeModelArray[indexPath.section];
+    [cell configCell:model];
+}
+
 #pragma mark - NavigationBarButtonClick
 - (IBAction)leftItemClick:(UIBarButtonItem *)sender
 {
@@ -180,39 +217,45 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat height;
-    NSArray *array = @[];
-    //    NSArray *array = @[@"培养功夫",@"体态训练",@"金牌得主",@"私教",@"杨氏太极第六代"];
-    float instrestHeight = 0;
-    if (array.count == 0) {
-        instrestHeight = 0.0;
-    }else{
-        NSString *instresTitleString = @"  ";
-        for (NSString *instrestTitle in array) {
-            instresTitleString = [instresTitleString stringByAppendingString:instrestTitle];
-            instresTitleString = [instresTitleString stringByAppendingString:@"  "];
-        }
-        instrestHeight = [instresTitleString heightWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:24.0f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
-    }
-
-    
-    
-    float titleHeight = [@"叶泳湘 杨氏太极第六代女传人 国际武术金牌" heightWithFont:[UIFont fontWithName:@"PingFangSC-Regular" size:22.55f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
-    //    NSString *reuseIdentifier = cellIndef;
-    //    MainTableViewCell *cell = [self.offscreenCells objectForKey:reuseIdentifier];
-    //    if (!cell) {
-    //        cell = [[MainTableViewCell alloc] init];
-    //        [self.offscreenCells setObject:cell forKey:reuseIdentifier];
-    //        [cell configCell:@"陈涛 美匠科技联合创始人这是一条测试数据来看看会不会换行" array:@[@"旅行顾问",@"创意总监",@"谈判专家",@"顾问"] string:@"62人想见   和你相隔 820M"];
-    //        [cell setNeedsUpdateConstraints];
-    //        [cell updateConstraintsIfNeeded];
-    ////        cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds));
-    ////        [cell setNeedsLayout];
-    ////        [cell layoutIfNeeded];
-    //        height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-    //    }
-    height = instrestHeight + titleHeight + 320 - 30 - 27 - 200 + ([[UIScreen mainScreen] bounds].size.width - 20)*200/355;
-    return height;
+//    CGFloat height;
+//    //    NSArray *array = @[@"培养功夫",@"体态训练",@"金牌得主",@"私教",@"杨氏太极第六代"];
+//    float instrestHeight = 0;
+//    HomeModel *model = [_homeModelArray objectAtIndex:indexPath.section];
+//    if ([model.personal_label isEqualToString:@""]) {
+//        instrestHeight = 0;
+//    }else{
+//        NSArray *array = [model.personal_label componentsSeparatedByString:@","];
+//        
+//        if (array.count == 0) {
+//            instrestHeight = 0;
+//        }else{
+//            NSString *instresTitleString = @"  ";
+//            for (NSString *instrestTitle in array) {
+//                instresTitleString = [instresTitleString stringByAppendingString:instrestTitle];
+//                instresTitleString = [instresTitleString stringByAppendingString:@"  "];
+//            }
+//            instrestHeight = [instresTitleString heightWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:24.0f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
+//        }
+//    }
+//    float titleHeight = [[NSString stringWithFormat:@"%@ %@",model.real_name,model.job_label] heightWithFont:[UIFont fontWithName:@"PingFangSC-Regular" size:22.55f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
+//    //    NSString *reuseIdentifier = cellIndef;
+//    //    MainTableViewCell *cell = [self.offscreenCells objectForKey:reuseIdentifier];
+//    //    if (!cell) {
+//    //        cell = [[MainTableViewCell alloc] init];
+//    //        [self.offscreenCells setObject:cell forKey:reuseIdentifier];
+//    //        [cell configCell:@"陈涛 美匠科技联合创始人这是一条测试数据来看看会不会换行" array:@[@"旅行顾问",@"创意总监",@"谈判专家",@"顾问"] string:@"62人想见   和你相隔 820M"];
+//    //        [cell setNeedsUpdateConstraints];
+//    //        [cell updateConstraintsIfNeeded];
+//    ////        cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds));
+//    ////        [cell setNeedsLayout];
+//    ////        [cell layoutIfNeeded];
+//    //        height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+//    //    }
+//    height = instrestHeight + titleHeight + 320 - 30 - 27 - 200 + ([[UIScreen mainScreen] bounds].size.width - 20)*200/355;
+//    return height;
+    return [tableView fd_heightForCellWithIdentifier:@"MainTableViewCell" cacheByIndexPath:indexPath configuration:^(ManListCell *cell) {
+        [self configureCell:cell atIndexPath:indexPath];
+    }];
     //    return 360;
 }
 
@@ -233,7 +276,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 10;
+    return _homeModelArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -244,9 +287,10 @@
     if (cell == nil) {
         cell = [[ManListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndef];
     }
-    NSArray *array = @[];
+//    NSArray *array = @[];
     //    NSArray *array = @[@"培养功夫",@"体态训练",@"金牌得主",@"私教",@"杨氏太极第六代"];
-    [cell configCell:@"叶泳湘 杨氏太极第六代女传人 国际武术金牌" array:array string:@"92人想见   和你相隔 820m "];
+    [self configureCell:cell atIndexPath:indexPath];
+//    [cell configCell:@"叶泳湘 杨氏太极第六代女传人 国际武术金牌" array:array string:@"92人想见   和你相隔 820m "];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -255,12 +299,9 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MeetDetailViewController *meetDetailView = [[MeetDetailViewController alloc] init];
     [meetDetailView showNavbar];
+    HomeModel *model = [_homeModelArray objectAtIndex:indexPath.section];
+    meetDetailView.user_id = [NSString stringWithFormat:@"%ld",(long)model.uid];
     [self.navigationController pushViewController:meetDetailView animated:YES];
-//    if ([AppData shareInstance].isLogin) {
-//        
-//    } else {
-//        
-//    }
 }
 
 

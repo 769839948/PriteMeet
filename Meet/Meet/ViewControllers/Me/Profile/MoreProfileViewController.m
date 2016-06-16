@@ -52,10 +52,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (_editType == 0) {
-        [self customNavigationBar];
-    }
-
     self.navigationItem.title = @"更多个人介绍";
     self.view.backgroundColor = [UIColor whiteColor];
 //    self.hidesBottomBarWhenPushed = YES;
@@ -171,17 +167,6 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-#pragma mark - customView
--(void)customNavigationBar {
-    UIButton *cancelBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cancelBut setFrame:CGRectMake(0, 0, 40, 40)];
-    [cancelBut setTitle:@"取消" forState:UIControlStateNormal];
-    [cancelBut addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:cancelBut];
-    self.navigationItem.leftBarButtonItem = leftItem;
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 }
 
 

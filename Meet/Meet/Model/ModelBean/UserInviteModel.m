@@ -120,7 +120,7 @@ static UserInviteModel *userInvite = nil;
     NSMutableArray *themsArray = [NSMutableArray array];
     for (NSString *itemString in itemArray) {
         Theme *themes = [[Theme alloc] init];
-        themes.theme = [[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitede"] objectForKey:itemString];
+        themes.theme = [[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitation"] objectForKey:itemString];
         themes.price = 50;
         [themsArray addObject:themes];
     }
@@ -153,9 +153,14 @@ static UserInviteModel *userInvite = nil;
 {
     NSMutableArray *themArray = [NSMutableArray array];
     Results *result = [[UserInviteModel shareInstance].results objectAtIndex:index];
+
     for (Theme *theme in result.theme) {
         if (![theme.theme isEqualToString:@""]) {
-            [themArray addObject:[[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitede"] objectForKey:theme.theme]];
+            NSLog(@"%@",theme.theme);
+            NSString *themeString = [[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitation"] objectForKey:theme.theme];
+            if (themeString != nil) {
+                [themArray addObject:themeString];
+            }
         }
     }
     return [themArray copy];

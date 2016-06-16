@@ -28,4 +28,8 @@
 #define  RequestExtINfo              @"api/user/ext_info/"
 #define  RequestInviteInfo           @"api/engagement/list/"
 
+#define  RequestGetHomeList          @"api/user/user_list"
+
+#define  RequestGetOtherInfo         @"api/user/user_info"
+
 #endif /* RequestUrl_h */

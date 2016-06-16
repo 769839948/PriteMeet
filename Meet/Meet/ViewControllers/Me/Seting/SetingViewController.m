@@ -73,7 +73,7 @@
     NSString *const defaultIdentifier = @"defaultIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:defaultIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:defaultIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:defaultIdentifier];
     }
     cell.textLabel.textAlignment = NSTextAlignmentLeft;
 
@@ -90,16 +90,15 @@
     }
     
     if (indexPath.row == 1) {
-        UILabel *cacheLable = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth/2, 16, ScreenWidth/2 - 20, 16)];
-        cacheLable.font = SettingViewLabelFont;
-        cacheLable.textAlignment = NSTextAlignmentRight;
+        cell.detailTextLabel.font = SettingViewLabelFont;
+        cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
+        cell.detailTextLabel.textColor = [UIColor colorWithHexString:TableViewTextColor];
         if ([[self cacheSize] integerValue] < 1) {
-            cacheLable.text = @"";
+            cell.detailTextLabel.text = @"";
         }else{
-            cacheLable.text = [self cacheSize];
+            cell.detailTextLabel.text = [self cacheSize];
         }
-        cacheLable.textColor = [UIColor colorWithHexString:TableViewTextColor];
-        [cell.contentView addSubview:cacheLable];
+//       cacheLable.text = [self cacheSize];
     }
     
     if (indexPath.row == 1 || indexPath.row == 5) {

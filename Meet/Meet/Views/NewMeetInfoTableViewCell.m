@@ -49,6 +49,7 @@
     EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] init];
     
     _interestView = [[InterestCollectView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+//    _interestView.backgroundColor = [UIColor grayColor];
     flowLayout.delegate = _interestView;
     //    [_interestView setCollectViewData:@[@"旅行顾问",@"创意总监",@"谈判专家",@"顾问"]];
     [self.contentView addSubview:_interestView];
@@ -87,16 +88,15 @@
         }];
         [self updateConstraints];
     }
-    if (instrestHeight > 27) {
-        [_interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(20);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.meetLabel.mas_top).offset(-14);
-            make.height.offset(instrestHeight);
-        }];
-        [self updateConstraints];
-    }
+    
+    [_interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(20);
+        make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+        make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
+        make.bottom.mas_equalTo(weakSelf.meetLabel.mas_top).offset(-14);
+        make.height.offset(instrestHeight);
+    }];
+    [self updateConstraints];
     
     [self updateConstraintsIfNeeded];
 }

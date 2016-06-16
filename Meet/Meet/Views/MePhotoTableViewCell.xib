@@ -106,11 +106,11 @@
                             <constraint firstAttribute="bottom" secondItem="5oa-oQ-tw7" secondAttribute="bottom" id="Clc-lN-1L3"/>
                             <constraint firstAttribute="trailing" secondItem="5oa-oQ-tw7" secondAttribute="trailing" id="I1m-7G-ucB"/>
                             <constraint firstItem="dds-nI-IPo" firstAttribute="leading" secondItem="Kte-W0-vYa" secondAttribute="leading" id="KLb-Ip-37J"/>
+                            <constraint firstAttribute="bottom" secondItem="OFW-0v-aNk" secondAttribute="bottom" constant="24.5" id="OHJ-5I-ZTu"/>
                             <constraint firstItem="OFW-0v-aNk" firstAttribute="centerX" secondItem="Kte-W0-vYa" secondAttribute="centerX" id="Ojb-BR-7H6"/>
                             <constraint firstItem="dds-nI-IPo" firstAttribute="top" secondItem="Kte-W0-vYa" secondAttribute="top" id="Vjl-JS-Mdp"/>
                             <constraint firstItem="xlf-JC-8Uf" firstAttribute="centerX" secondItem="Kte-W0-vYa" secondAttribute="centerX" id="ayK-fL-IGB"/>
                             <constraint firstAttribute="trailing" secondItem="dds-nI-IPo" secondAttribute="trailing" id="cE9-YF-iBB"/>
-                            <constraint firstItem="OFW-0v-aNk" firstAttribute="top" secondItem="Kte-W0-vYa" secondAttribute="top" constant="219" id="cVA-7A-Iym"/>
                             <constraint firstAttribute="bottom" secondItem="dds-nI-IPo" secondAttribute="bottom" id="drA-v2-lPg"/>
                             <constraint firstItem="wcF-hf-C98" firstAttribute="centerX" secondItem="Kte-W0-vYa" secondAttribute="centerX" id="jhY-6s-ip1"/>
                             <constraint firstAttribute="bottom" secondItem="xlf-JC-8Uf" secondAttribute="bottom" constant="57.5" id="uxx-am-drN"/>
@@ -138,7 +138,7 @@
                 <outlet property="logoutView" destination="Ufv-X7-Wfh" id="YX7-wT-GZJ"/>
                 <outlet property="nameLabel" destination="xlf-JC-8Uf" id="n2F-yR-Xun"/>
             </connections>
-            <point key="canvasLocation" x="236.5" y="348"/>
+            <point key="canvasLocation" x="292.5" y="161"/>
         </tableViewCell>
     </objects>
 </document>

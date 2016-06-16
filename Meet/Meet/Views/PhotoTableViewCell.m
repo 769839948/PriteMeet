@@ -24,33 +24,40 @@
     if (self) {
         self.whitView.hidden = YES;
         self.showdowView.hidden = YES;
+        if (_loop == nil) {
+            _loop = [HYBLoopScrollView loopScrollViewWithFrame:CGRectMake(10, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355) imageUrls:nil timeInterval:0 didSelect:^(NSInteger atIndex) {
+                
+            } didScroll:^(NSInteger toIndex) {
+                
+            }];
+            
+            _loop.backgroundColor = [UIColor whiteColor];
+            _loop.shouldAutoClipImageToViewSize = NO;
+            _loop.placeholder = [UIImage imageNamed:@"default.png"];
+            
+            _loop.alignment = kPageControlAlignCenter;
+            _loop.layer.cornerRadius = 5.0;
+            [self.contentView addSubview:_loop];
+        }
         
     }
     return self;
 }
 
-- (void)configCell
+- (void)configCell:(NSArray *)imageArray
 {
-    NSArray *images = @[@"http://s0.pimg.cn/group5/M00/5B/6D/wKgBfVaQf0KAMa2vAARnyn5qdf8958.jpg?imageMogr2/strip/thumbnail/1200%3E/quality/95",
-                        @"http://7xrs9h.com1.z0.glb.clouddn.com/wp-content/uploads/2016/03/QQ20160322-0@2x.png",
-                        @"http://7xrs9h.com1.z0.glb.clouddn.com/wp-content/uploads/2016/03/QQ20160322-5@2x-e1458635879420.png"
-                        ];
+//    NSArray *images = @[@"http://s0.pimg.cn/group5/M00/5B/6D/wKgBfVaQf0KAMa2vAARnyn5qdf8958.jpg?imageMogr2/strip/thumbnail/1200%3E/quality/95",
+//                        @"http://7xrs9h.com1.z0.glb.clouddn.com/wp-content/uploads/2016/03/QQ20160322-0@2x.png",
+//                        @"http://7xrs9h.com1.z0.glb.clouddn.com/wp-content/uploads/2016/03/QQ20160322-5@2x-e1458635879420.png"
+//                        ];
     
     // 状态栏开始的。
-   
-    _loop = [HYBLoopScrollView loopScrollViewWithFrame:CGRectMake(10, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355) imageUrls:images timeInterval:3 didSelect:^(NSInteger atIndex) {
+    if (_loop.imageUrls != nil) {
         
-    } didScroll:^(NSInteger toIndex) {
-        
-    }];
+    }else{
+        _loop.imageUrls = imageArray;
+    }
     
-    _loop.backgroundColor = [UIColor whiteColor];
-    _loop.shouldAutoClipImageToViewSize = NO;
-    _loop.placeholder = [UIImage imageNamed:@"default.png"];
-    
-    _loop.alignment = kPageControlAlignCenter;
-    _loop.layer.cornerRadius = 5.0;
-    [self.contentView addSubview:_loop];
 }
 
 - (void)updateConstraints

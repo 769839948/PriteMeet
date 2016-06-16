@@ -802,12 +802,17 @@ typedef NS_ENUM(NSUInteger, RowType) {
         } else if(section == 2) {
             UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, ScreenWidth - 30, 49)];
             textField.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
-            if (_arrayWorkExper.count >= 1) {
+            if (![[UserInfo sharedInstance].job_label isEqualToString:@""]) {
+                textField.text = [UserInfo sharedInstance].job_label;
+            }else if (_arrayWorkExper.count >= 1) {
                 NSArray *workArray = [_arrayWorkExper[0] componentsSeparatedByString:@"-"];
                 textField.text = [NSString stringWithFormat:@"%@%@",workArray[0],workArray[1]];
+                [UserInfo sharedInstance].job_label = textField.text;
             }else{
                 textField.placeholder = @"请填写职业标签";
             }
+            textField.tag = 10000;
+            textField.delegate = self;
             while ([cell.contentView.subviews lastObject] != nil)
             {
                 [(UIView*)[cell.contentView.subviews lastObject] removeFromSuperview];
@@ -1043,6 +1048,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
         cellTextField = (CellTextField *)textField;
         [self mappingTextFieldDictionary:cellTextField];
     }
+    if (textField.tag == 10000) {
+        [UserInfo sharedInstance].job_label = textField.text;
+    }
     return YES;
 }
 
@@ -1092,8 +1100,8 @@ typedef NS_ENUM(NSUInteger, RowType) {
                         [self updateWorkUserFile:[_arrayWorkExper copy] withId:[_workeExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
                         [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-                        NSIndexSet *job_label=[[NSIndexSet alloc] initWithIndex:2];
-                        [self.tableView reloadSections:job_label withRowAnimation:UITableViewRowAnimationAutomatic];
+                        NSIndexPath *jobIndexPath = [NSIndexPath indexPathForRow:0 inSection:2];
+                        [self.tableView reloadRowsAtIndexPaths:@[jobIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     } fail:^(NSDictionary *object) {
                         
                     } loadingString:^(NSString *str) {
@@ -1119,8 +1127,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
                         [self updateWorkUserFile:[_arrayWorkExper copy] withId:[_workeExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
                         [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-                        NSIndexSet *job_label=[[NSIndexSet alloc] initWithIndex:2];
-                        [self.tableView reloadSections:job_label withRowAnimation:UITableViewRowAnimationAutomatic];
                     } fail:^(NSDictionary *object) {
                         
                     } loadingString:^(NSString *str) {
@@ -1147,8 +1153,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
                         [self updateWorkUserFile:[_arrayWorkExper copy] withId:[_workeExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
                         [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-                        NSIndexSet *job_label=[[NSIndexSet alloc] initWithIndex:2];
-                        [self.tableView reloadSections:job_label withRowAnimation:UITableViewRowAnimationAutomatic];
                     } fail:^(NSDictionary *object) {
                         
                     } loadingString:^(NSString *str) {

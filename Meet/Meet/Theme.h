@@ -19,8 +19,20 @@
 
 #define HomeViewNameColor [UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0]
 #define HomeViewPositionColor [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0]
-#define HomeViewNameFont [UIFont fontWithName:@"PingFangSC-Regular" size:22.55f]
-#define HomeViewPositionFont [UIFont fontWithName:@"PingFangSC-Light" size:22.55f]
+
+#define HomeViewNameFont               [UIFont fontWithName:@"PingFangSC-Regular" size:22.0f]
+#define HomeViewPositionFont           [UIFont fontWithName:@"PingFangSC-Light" size:22.0f]
+#define HomeViewWomenColor       @"FF4F4F"
+#define HomeViewManColor         @"009FE8"
+#define HomeViewAgeFont          [UIFont fontWithName:@"PingFangSC-Semibold" size:10.0]
+
+#define HomeDetailViewNameColor        @"202020"
+#define HomeDetailViewPositionColor    @"999999"
+#define HomeDetailViewMeetNumberColor  @"C9C9C9"
+#define HomeViewDetailNameFont         [UIFont fontWithName:@"PingFangSC-Regular" size:28.0f]
+#define HomeViewDetailPositionFont     [UIFont fontWithName:@"PingFangSC-Light" size:22.0f]
+#define HomeViewDetailMeetNumberFont   [UIFont fontWithName:@"PingFangSC-Light" size:12.0f]
+
 #define MeetSectionTitleNameFont [UIFont fontWithName:@"PingFangSC-Regular" size:14.0f]
 #define MeetSectionTitleNameColot [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0]
 
@@ -28,6 +40,8 @@
 #define MeetDetailLineColor [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1.0]
 #define lineLabelBackgroundColor @"E7E7E7"
 #define MeInvateFriendsColor     @"FC5154"
+
+
 
 #define AboutUsLabelFont [UIFont fontWithName:@"PingFangTC-Light" size:14.0]
 #define AboutUsLabelColor @"4D4D4D"
