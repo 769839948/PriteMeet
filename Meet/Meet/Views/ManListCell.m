@@ -82,8 +82,8 @@
     
     
     _meetNumber = [[UILabel alloc] init];
-    _meetNumber.font = [UIFont systemFontOfSize:12.0f];
-    _meetNumber.textColor = [UIColor lightGrayColor];
+    _meetNumber.font = HomeMeetNumberFont;
+    _meetNumber.textColor = [UIColor colorWithHexString:HomeMeetNumberColor];
     [_personalView addSubview:_meetNumber];
     
     _ageNumber = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -118,7 +118,8 @@
     if (model.cover_photo != nil || model.cover_photo != NULL) {
         NSArray *coverArray = [model.cover_photo componentsSeparatedByString:@"?"];
         NSString *urlString = [coverArray[0] stringByAppendingString:@"?imageView2/1/w/1065/h/600"];
-        [_photoImage sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:[UIImage imageNamed:@"Pic"] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [_photoImage setIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        [_photoImage sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:PlaceholderImage options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
 
         }];
     }else{
@@ -133,6 +134,7 @@
         _ageNumber.backgroundColor = [UIColor colorWithHexString:HomeViewWomenColor];
     }
     [_ageNumber setTitle:[NSString stringWithFormat:@"%ld",(long)model.age] forState:UIControlStateNormal];
+    
     if ([model.job_label isEqualToString:@" "]) {
         _nameLabel.text = [model.real_name stringByAppendingString:[NSString stringWithFormat:@" 他还没填写职业标签%@", model.job_label]];
 
@@ -140,6 +142,15 @@
         _nameLabel.text = [model.real_name stringByAppendingString:[NSString stringWithFormat:@" %@", model.job_label]];
 
     }
+    
+    float titleHeight = [_nameLabel.text heightWithFont:HomeViewNameFont constrainedToWidth:ScreenWidth - 20];
+    if (titleHeight > 30){
+        [_nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_offset(titleHeight);
+        }];
+        [self updateConstraints];
+    }
+    
     _meetNumber.text = @"886人想见   和你相隔 820M ";
     if ([_meetNumber.text isEqualToString:@""]) {
         [_meetNumber mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -269,13 +280,7 @@
 ////                [self updateConstraints];
 ////            }
 ////        }
-//        float titleHeight = [model.real_name heightWithFont:HomeViewNameFont constrainedToWidth:ScreenWidth - 20];
-//        if (titleHeight > 30){
-//            [_nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-//                make.height.mas_offset(titleHeight);
-//            }];
-//            [self updateConstraints];
-//        }
+//
         [ManListCell homeNameLabelColor:_nameLabel];
 //    }
 //    [self updateConstraintsIfNeeded];

@@ -31,9 +31,9 @@
                 
             }];
             
-            _loop.backgroundColor = [UIColor whiteColor];
+            _loop.backgroundColor = [UIColor colorWithHexString:@"e7e7e7"];
             _loop.shouldAutoClipImageToViewSize = NO;
-            _loop.placeholder = [UIImage imageNamed:@"default.png"];
+            _loop.placeholder = PlaceholderImage;
             
             _loop.alignment = kPageControlAlignCenter;
             _loop.layer.cornerRadius = 5.0;
@@ -46,11 +46,6 @@
 
 - (void)configCell:(NSArray *)imageArray
 {
-//    NSArray *images = @[@"http://s0.pimg.cn/group5/M00/5B/6D/wKgBfVaQf0KAMa2vAARnyn5qdf8958.jpg?imageMogr2/strip/thumbnail/1200%3E/quality/95",
-//                        @"http://7xrs9h.com1.z0.glb.clouddn.com/wp-content/uploads/2016/03/QQ20160322-0@2x.png",
-//                        @"http://7xrs9h.com1.z0.glb.clouddn.com/wp-content/uploads/2016/03/QQ20160322-5@2x-e1458635879420.png"
-//                        ];
-    
     // 状态栏开始的。
     if (_loop.imageUrls != nil) {
         

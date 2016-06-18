@@ -13,15 +13,19 @@
 #import "WXUserInfo.h"
 #import "LoginViewModel.h"
 #import "WXLoginViewController.h"
+#import "ThemeTools.h"
+#import "UIImage+PureColor.h"
 
 //#import <Fabric/Fabric.h>
 //#import <Crashlytics/Crashlytics.h>
 
-@interface WeChatResgisterViewController ()<UIGestureRecognizerDelegate>
+@interface WeChatResgisterViewController ()<UIGestureRecognizerDelegate,UITextFieldDelegate>
 {
     __weak IBOutlet UITextField *checkField;
 }
 
+@property (weak, nonatomic) IBOutlet UIButton *getCode;
+@property (weak, nonatomic) IBOutlet UIButton *nextStep;
 @property (nonatomic, strong) LoginViewModel *viewModel;
 
 @end
@@ -36,16 +40,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _viewModel = [[LoginViewModel alloc] init];
-    checkField.text = @"lJeNj60";
-    // Do any additional setup after loading the view.
+    
+    _nextStep.enabled = NO;
     if (IOS_7LAST) {
         self.navigationController.interactivePopGestureRecognizer.delegate = self;
     }
-//    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
-
+    
+    [self setUpTextField];
 }
 
+- (void)setUpTextField
+{
+    checkField.delegate = self;
+    UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"F6F6F6"] size:CGSizeMake(20, 56)]];
+    checkField.leftView = img;
+    checkField.leftViewMode = UITextFieldViewModeAlways;
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 49)] forBarMetrics:UIBarMetricsCompactPrompt];
+    //    [ThemeTools navigationBarTintColor:[UIColor blackColor] titleColor:[UIColor blackColor]];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -66,7 +83,7 @@
 
 - (IBAction)checkCodeButtonAction:(id)sender {
     #warning check code and into WeChat Longin
-    [self performSegueWithIdentifier:@"pushToWXLogin" sender:self];
+//    [self performSegueWithIdentifier:@"pushToWXLogin" sender:self];
     if ([self isEmpty]) {
         [EMAlertView showAlertWithTitle:nil message:@"请输入邀请码" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             
@@ -97,21 +114,11 @@
 
 - (IBAction)useWeChatLogin:(id)sender {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(oldUerLoginState:) name:@"OldUserLoginWihtWechat" object:nil];
-//    if (![WXAccessModel shareInstance].isLostAccess_token) {
-//        [SHARE_APPDELEGATE wechatLoginByRequestForUserInfo];
-//        return ;
-//    }
-//    if (![WXAccessModel shareInstance].isLostRefresh_token) {
-//        [SHARE_APPDELEGATE weChatRefreshAccess_Token];
-//        return ;
-//    }
         [self sendAuthRequest];
 }
 
 #pragma mark - NSNotificationCenter
 - (void)oldUerLoginState:(NSNotification *)notification {
-    ////可按提示添加内容
-//    return ;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"OldUserLoginWihtWechat" object:nil];
      NSNumber *state = [notification object];
@@ -130,23 +137,14 @@
             } loadingString:^(NSString *str) {
                 
             }];
-            /////重新获取到 [UserInfo shareInstance]主要是为了得到idKye
             
         } Fail:^(NSDictionary *object) {
-//            [self performSelectorOnMainThread:@selector(hideHud) withObject:nil waitUntilDone:YES];
             [EMAlertView showAlertWithTitle:@"账号不存在" message:@"Meet暂未开放注册，请获得邀请码后再重新登录" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
                 
             } cancelButtonTitle:@"朕知道了" otherButtonTitles:nil];
         } showLoding:^(NSString *str) {
 
         }];
-//        NSString *unionid = [WXUserInfo shareInstance].unionid;
-//        ////判断是不是真的是老用户，此微信号是否真的注册过！！
-//        if (unionid) {/////是老用户，退出登陆页面 isLogin YES
-//#warning  是老用户 从网获取用户信息 并保存本地 退出登陆页面
-//            
-//            
-        
     } else {
         [[UITools shareInstance] showMessageToView:self.view message:@"请求出错" autoHide:YES];
     }
@@ -166,6 +164,25 @@
         [[UITools shareInstance] showMessageToView:self.view message:@"请安装WeChart" autoHide:YES];
         NSLog(@"未安装WeChart");
     };
+}
+
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField.text.length == 0 || (range.location == 0 && [string isEqualToString:@""])) {
+        if (![string isEqualToString:@""]) {
+            [_nextStep setBackgroundColor:[UIColor blackColor]];
+            _nextStep.enabled = YES;
+        }else{
+            [_nextStep setBackgroundColor:[UIColor clearColor]];
+            _nextStep.enabled = NO;
+        }
+    }else if (textField.text.length > 0 || string.length > 0) {
+        [_nextStep setBackgroundColor:[UIColor blackColor]];
+        _nextStep.enabled = YES;
+    }
+    return YES;
 }
 
 #pragma mark - UIGestureRecognizerDelegate

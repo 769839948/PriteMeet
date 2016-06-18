@@ -604,6 +604,13 @@
 			name = Me;
 			sourceTree = "<group>";
 		};
+		1F457B4E1D15327500C1D8EC /* FirstVersion */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = FirstVersion;
+			sourceTree = "<group>";
+		};
 		1F4E43651CFC56AE00730DEA /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -934,6 +941,7 @@
 		DA36267B1CD1A98E00A8AE39 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1F457B4E1D15327500C1D8EC /* FirstVersion */,
 				1F3DC32D1D0D06FD0075B7BA /* Me */,
 				DA018F2B1CD39D570051D2D7 /* ManListCell.h */,
 				DA018F2C1CD39D570051D2D7 /* ManListCell.m */,
@@ -1710,7 +1718,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Meet/Meet.pch";
 				INFOPLIST_FILE = Meet/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1741,7 +1749,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Meet/Meet.pch";
 				INFOPLIST_FILE = Meet/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

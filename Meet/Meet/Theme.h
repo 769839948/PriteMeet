@@ -21,10 +21,12 @@
 #define HomeViewPositionColor [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0]
 
 #define HomeViewNameFont               [UIFont fontWithName:@"PingFangSC-Regular" size:22.0f]
-#define HomeViewPositionFont           [UIFont fontWithName:@"PingFangSC-Light" size:22.0f]
+#define HomeViewPositionFont           [UIFont fontWithName:@"PingFangSC-Thin" size:22.0f]
 #define HomeViewWomenColor       @"FF4F4F"
 #define HomeViewManColor         @"009FE8"
 #define HomeViewAgeFont          [UIFont fontWithName:@"PingFangSC-Semibold" size:10.0]
+#define HomeMeetNumberFont           [UIFont fontWithName:@"Helvetica-Light" size:12]
+#define HomeMeetNumberColor      @"C9C9C9"
 
 #define HomeDetailViewNameColor        @"202020"
 #define HomeDetailViewPositionColor    @"999999"
@@ -36,6 +38,7 @@
 #define HomeViewDetailMeetNumberFont   [UIFont fontWithName:@"PingFangSC-Light" size:12.0f]
 #define HomeViewDetailAboutBtnFont     [UIFont fontWithName:@"PingFangSC-Regular" size:10.0f]
 
+#define PlaceholderImage                [UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeZero]
 
 #define MeetSectionTitleNameFont [UIFont fontWithName:@"PingFangSC-Regular" size:14.0f]
 #define MeetSectionTitleNameColot [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0]

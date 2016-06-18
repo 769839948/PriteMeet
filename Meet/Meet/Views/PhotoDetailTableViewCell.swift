@@ -38,7 +38,7 @@ class PhotoDetailTableViewCell: UITableViewCell {
             for index in 0...imageArray.count - 1 {
                 let photoImage = UIImageView()
                 photoImage.frame = CGRectMake(20 + width, 26, 59, 59)
-                photoImage.sd_setImageWithURL(NSURL.init(string: imageArray.objectAtIndex(index) as! String), placeholderImage: nil, options: SDWebImageOptions.RetryFailed, completed: { (image, error, type, url) in
+                photoImage.sd_setImageWithURL(NSURL.init(string: imageArray.objectAtIndex(index) as! String), placeholderImage: UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSizeZero), options: SDWebImageOptions.RetryFailed, completed: { (image, error, type, url) in
                     
                 })
                 print("\(index) times 5 is \(width)")

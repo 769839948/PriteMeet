@@ -32,6 +32,7 @@ class MePhotoTableViewCell: UITableViewCell {
     let editImage = UIImage(named: "me_buttonedit")
     override func awakeFromNib() {
         super.awakeFromNib()
+        avatarImageView.image = UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSizeZero)
         completeInfo.layer.cornerRadius = 15.0
         completeInfo.layer.masksToBounds = true
         

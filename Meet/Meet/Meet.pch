@@ -26,7 +26,7 @@
 #import "UIViewController+HUD.h"
 #import "NSObject+PerformSelector.h"
 #import "UINavigationController+FDFullscreenPopGesture.h"
-
+#import "UIImage+PureColor.h"
 
 #endif
 
