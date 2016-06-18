@@ -71,6 +71,7 @@
         if (_page > 0) {
             _page --;
         }
+        [weakSelf setUpHomeData];
         [weakSelf.tableView.mj_footer endRefreshing];
     } loadingView:^(NSString *str) {
         
@@ -195,10 +196,15 @@
     [self.view addSubview:_tableView];
 }
 
+- (NSArray *)indexArray
+{
+    return _homeModelArray;
+}
+
 - (void)configureCell:(ManListCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    HomeModel *model = _homeModelArray[indexPath.section];
-    [cell configCell:model];
+    HomeModel *model = self.indexArray[indexPath.section];
+    [cell configCell:model interstArray:[model.personal_label componentsSeparatedByString:@","]];
 }
 
 #pragma mark - NavigationBarButtonClick
@@ -253,10 +259,15 @@
 //    //    }
 //    height = instrestHeight + titleHeight + 320 - 30 - 27 - 200 + ([[UIScreen mainScreen] bounds].size.width - 20)*200/355;
 //    return height;
-    return [tableView fd_heightForCellWithIdentifier:@"MainTableViewCell" cacheByIndexPath:indexPath configuration:^(ManListCell *cell) {
+    HomeModel *homeModel = _homeModelArray[indexPath.section];
+    
+    return [tableView fd_heightForCellWithIdentifier:@"MainTableViewCell" cacheByKey:[NSString stringWithFormat:@"%ld",(long)homeModel.uid] configuration:^(ManListCell *cell) {
         [self configureCell:cell atIndexPath:indexPath];
     }];
-    //    return 360;
+//    return [tableView fd_heightForCellWithIdentifier:@"MainTableViewCell" cacheByIndexPath:indexPath configuration:^(ManListCell *cell) {
+//        [self configureCell:cell atIndexPath:indexPath];
+//    }];
+//        return 360;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -282,15 +293,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIndef = @"MainTableViewCell";
-    ManListCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndef];
-    
-    if (cell == nil) {
-        cell = [[ManListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndef];
-    }
-//    NSArray *array = @[];
-    //    NSArray *array = @[@"培养功夫",@"体态训练",@"金牌得主",@"私教",@"杨氏太极第六代"];
+    ManListCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndef forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
-//    [cell configCell:@"叶泳湘 杨氏太极第六代女传人 国际武术金牌" array:array string:@"92人想见   和你相隔 820m "];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

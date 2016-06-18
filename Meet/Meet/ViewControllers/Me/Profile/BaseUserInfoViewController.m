@@ -22,6 +22,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
 }
 
@@ -36,12 +40,9 @@
     [self.viewModel updateUserInfo:[UserInfo sharedInstance] withStateArray:[self.stateArray copy] success:^(NSDictionary *object) {
         [[UITools shareInstance] showMessageToView:self.view message:@"保存成功" autoHide:YES];
         UIImage *image = self.dicValues[self.titleContentArray[0]];
-        NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
-        NSString *saveImagePath = [self imageSaveParth];
-        if ([imageData writeToFile:saveImagePath atomically:NO]) {
-            //        NSLog(@"保存 成功");
+        if ([UserInfo saveCacheImage:image withName:@"headImage.jpg"]) {
+            NSLog(@"保存成功");
         }
-        [weakSelf reloadUerImage:saveImagePath];
         UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
         SetInvitationViewController *invitationView = [meStoryBoard instantiateViewControllerWithIdentifier:@"SetInvitationViewController"];
         [weakSelf.navigationController pushViewController:invitationView animated:YES];

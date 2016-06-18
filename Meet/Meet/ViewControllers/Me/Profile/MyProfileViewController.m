@@ -134,8 +134,8 @@ typedef NS_ENUM(NSUInteger, RowType) {
 - (void)setNavigationBarItem
 {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveAction:)];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:[UIColor whiteColor]] forBarMetrics:UIBarMetricsDefault];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:[UIColor whiteColor]] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)leftItemClick:(UIBarButtonItem *)sender
@@ -211,51 +211,10 @@ typedef NS_ENUM(NSUInteger, RowType) {
             }];
             [_dicCityPick setObject:temp forKey:stateName];
         }];
-        [weakSelf mappingCacheData];
         [weakSelf mappingContentDicValue];
-
         NSLog(@"");
     });
 
-}
-
-- (void)mappingCacheData {
-    
-//    NSNumber *sexNum = [UserInfo shareInstance].sex;
-//    if (sexNum && ![sexNum isKindOfClass:[NSNull class]]) {
-//        _dicPickSelectValues[_titleContentArray[RowSex]] = [NSNumber numberWithInt:sexNum.intValue - 1];
-//    }
-//    
-//    NSString *height = [NSString stringWithFormat:@"%@",[UserInfo shareInstance].height];
-//    if (![height isKindOfClass:[NSNull class]] && height != nil && height.length >2) {
-//        NSInteger heightRow = [_arrayHeightPick indexOfObject:height];
-//        [_dicPickSelectValues setObject:[NSNumber numberWithInteger:heightRow] forKey:_titleContentArray[RowHeight]];
-//    }
-//    
-//    [self locationRowMappingForRow:RowWorkLocation];
-//    [self locationRowMappingForRow:RowHome];
-//    
-//    NSString *income = [NSString stringWithFormat:@"%@",[UserInfo shareInstance].income];
-////    NSString *income = ;
-//    if (![income isKindOfClass:[NSNull class]] && income != nil && income.length >2) {
-//        NSInteger incomRow = [_arrayIncomePick indexOfObject:income];
-//        [_dicPickSelectValues setObject:[NSNumber numberWithInteger:incomRow] forKey:_titleContentArray[RowIncome]];
-//    }
-//   
-//    
-//    NSString *state = [UserInfo shareInstance].state;
-//    if (![state isKindOfClass:[NSNull class]] && state != nil && state.length >2) {
-//        NSInteger stateRow = [_arrayStatesPick indexOfObject:state];
-//        [_dicPickSelectValues setObject:[NSNumber numberWithInteger:stateRow] forKey:_titleContentArray[RowState]];
-//    }
-// 
-//    NSString *constellation = [NSString stringWithFormat:@"%@",[UserInfo shareInstance].constellation];
-//
-////    NSString *constellation = [UserInfo shareInstance].constellation;
-//    if (![constellation isKindOfClass:[NSNull class]] && constellation != nil && constellation.length >2) {
-//        NSInteger constellationRow = [_arrayConstellationPick indexOfObject:constellation];
-//        [_dicPickSelectValues setObject:[NSNumber numberWithInteger:constellationRow] forKey:_titleContentArray[RowConstellation]];
-//    }
 }
 
 - (void)locationRowMappingForRow:(NSInteger)row {
@@ -327,9 +286,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
 }
 
 - (void)mappingContentDicValue{
-    
-    UIImage *image = [UIImage imageWithContentsOfFile:[self imageSaveParth]];
-    _dicValues[_titleContentArray[RowHeadImage]] = image;
+    _dicValues[_titleContentArray[RowHeadImage]] = [UserInfo imageForName:@"headImage.jpg"];
     _dicValues[_titleContentArray[RowName]] = [UserInfo sharedInstance].real_name;
     if ([[NSString stringWithFormat:@"%ld",(long)[UserInfo sharedInstance].gender] isEqualToString:@"1"]) {
         _dicValues[_titleContentArray[RowSex]] = @"男";
@@ -489,12 +446,10 @@ typedef NS_ENUM(NSUInteger, RowType) {
     [_viewModel updateUserInfo:[UserInfo sharedInstance] withStateArray:[self.stateArray copy] success:^(NSDictionary *object) {
         [[UITools shareInstance] showMessageToView:self.view message:@"保存成功" autoHide:YES];
         UIImage *image = _dicValues[_titleContentArray[0]];
-        NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
-        NSString *saveImagePath = [weakSelf imageSaveParth];
-        if ([imageData writeToFile:saveImagePath atomically:NO]) {
-            //        NSLog(@"保存 成功");
+        if ([UserInfo saveCacheImage:image withName:@"headerImage.jpg"]) {
+            _dicValues[_titleContentArray[0]] = image;
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         }
-        [weakSelf reloadUerImage:saveImagePath];
         if (weakSelf.fromeMeView) {
             weakSelf.block(YES, NO);
         }else{
@@ -502,29 +457,26 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 
             }];
         }
-//
         [UserInfo synchronize];
     } fail:^(NSDictionary *object) {
         [[UITools shareInstance] showMessageToView:self.view message:@"保存失败" autoHide:YES];
     } loadingString:^(NSString *str) {
     }];
-    /////保存到服务器返回后再保存到本地
 }
 
 
-- (NSString *)imageSaveParth {
-    NSString *saveFilePath = [AppData getCachesDirectoryUserInfoDocumetPathDocument:@"headimg"];
-    NSString *saveImagePath = [saveFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"0.JPG"]];
-    return saveImagePath;
-}
-
-- (void)reloadUerImage:(NSString *)imagePath {
-    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
-    if (image) {
-        _dicValues[_titleContentArray[0]] = image;
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    }
-}
+//- (NSString *)imageSaveParth {
+//    NSString *saveFilePath = [AppData getCachesDirectoryUserInfoDocumetPathDocument:@"headimg"];
+//    NSString *saveImagePath = [saveFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"0.JPG"]];
+//    return saveImagePath;
+//}
+//
+//- (void)reloadUerImage:(NSString *)imagePath {
+//    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+//    if (image) {
+//       
+//    }
+//}
 
 
 - (IBAction)tapGestureRecognizer:(UITapGestureRecognizer *)sender {

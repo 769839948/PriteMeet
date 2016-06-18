@@ -66,7 +66,7 @@
 
 - (IBAction)checkCodeButtonAction:(id)sender {
     #warning check code and into WeChat Longin
-//    [self performSegueWithIdentifier:@"pushToWXLogin" sender:self];
+    [self performSegueWithIdentifier:@"pushToWXLogin" sender:self];
     if ([self isEmpty]) {
         [EMAlertView showAlertWithTitle:nil message:@"请输入邀请码" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             

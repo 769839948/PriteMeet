@@ -12,6 +12,7 @@
 #import "ProfileKeyAndValue.h"
 #import "NetWorkObject.h"
 #import "UserExtenModel.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation UserInfoViewModel
 
@@ -340,30 +341,29 @@
 }
 
 + (void)saveCacheImage:(NSString *)url
-               success:(Success)successBlock
-           returnImage:(returnImage)block
+               completionBlock:(void (^)(BOOL succeeded, UIImage *image))completionBlock
                   fail:(Fail)failBlock
          loadingString:(LoadingView)loading
 {
     NSArray *imageNameArray = [url componentsSeparatedByString:@"?"];
     NSArray *imageName = [imageNameArray[0] componentsSeparatedByString:@"/"];
-    [NetWorkObject downloadTask:url progress:^(NSProgress *downloadProgress) {
-        
-    } destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-        NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-        return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
-    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-        NSLog(@"File downloaded to: %@", filePath.path);
-        UIImage *image = [UIImage imageWithContentsOfFile:filePath.path];
-        if (image != nil) {
-            if ([UserExtenModel saveCacheImage:image withName:imageName[3]]) {
-                successBlock(@{@"success":@"1"});
-                block(image);
-            }else{
-                failBlock(@{@"fail":@"1"});
-            }
-        }
-    }];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               if ( !error )
+                               {
+                                   UIImage *image = [[UIImage alloc] initWithData:data];
+                                   if ([UserExtenModel saveCacheImage:image withName:imageName[3]]) {
+                                       completionBlock(YES,image);
+                                   }else{
+                                       failBlock(@{@"fail":@"1"});
+                                   }
+                               } else{
+                                   completionBlock(NO,nil);
+                               }
+                           }];
+    
 }
 
 @end

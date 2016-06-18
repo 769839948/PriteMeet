@@ -8,9 +8,16 @@
 
 #import "BaseTableViewCell.h"
 
+typedef void (^tableCellHeight)(CGFloat height);
+
 @interface NewMeetInfoTableViewCell : BaseTableViewCell
+
+
+@property (nonatomic,strong) tableCellHeight block;
 
 - (void)configCell:(NSString *)meetstring array:(NSArray *)array;
 - (void)isHaveShadowColor:(BOOL)isShadowColor;
+
+- (CGFloat)getCellHeight:(NSString *)meetstring array:(NSArray *)array;
 
 @end

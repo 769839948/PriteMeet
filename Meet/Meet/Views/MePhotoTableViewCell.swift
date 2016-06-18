@@ -71,6 +71,8 @@ class MePhotoTableViewCell: UITableViewCell {
         }
     }
     
+    
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

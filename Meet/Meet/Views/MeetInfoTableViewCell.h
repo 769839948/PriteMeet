@@ -13,6 +13,4 @@
 
 - (void)configCell:(NSString *)name position:(NSString *)position meetNumber:(NSString *)meetNumber interestCollectArray:(NSArray *)interstArray;
 
-- (void)configCell:(HomeDetailModel *)model;
-
 @end

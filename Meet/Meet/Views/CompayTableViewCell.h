@@ -10,4 +10,6 @@
 
 @interface CompayTableViewCell : BaseTableViewCell
 
+- (void)configCell:(NSString *)auto_info;
+
 @end

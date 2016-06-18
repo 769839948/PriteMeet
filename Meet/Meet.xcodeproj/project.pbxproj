@@ -23,6 +23,9 @@
 		1F293D8A1D12D13F0063A9DA /* UITableView+FDKeyedHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D841D12D13F0063A9DA /* UITableView+FDKeyedHeightCache.m */; };
 		1F293D8B1D12D13F0063A9DA /* UITableView+FDTemplateLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D861D12D13F0063A9DA /* UITableView+FDTemplateLayoutCell.m */; };
 		1F293D8C1D12D13F0063A9DA /* UITableView+FDTemplateLayoutCellDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D881D12D13F0063A9DA /* UITableView+FDTemplateLayoutCellDebug.m */; };
+		1F293D901D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D8F1D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m */; };
+		1F293D941D13CB290063A9DA /* AboutDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D931D13CB290063A9DA /* AboutDetailViewController.swift */; };
+		1F293D9D1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D9C1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.m */; };
 		1F3DC32A1D0D06ED0075B7BA /* MeInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3DC3271D0D06ED0075B7BA /* MeInfoTableViewCell.swift */; };
 		1F3DC32B1D0D06ED0075B7BA /* MeInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F3DC3281D0D06ED0075B7BA /* MeInfoTableViewCell.xib */; };
 		1F3DC32C1D0D06ED0075B7BA /* BaseNavigaitonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3DC3291D0D06ED0075B7BA /* BaseNavigaitonController.swift */; };
@@ -215,6 +218,11 @@
 		1F293D861D12D13F0063A9DA /* UITableView+FDTemplateLayoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDTemplateLayoutCell.m"; sourceTree = "<group>"; };
 		1F293D871D12D13F0063A9DA /* UITableView+FDTemplateLayoutCellDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDTemplateLayoutCellDebug.h"; sourceTree = "<group>"; };
 		1F293D881D12D13F0063A9DA /* UITableView+FDTemplateLayoutCellDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDTemplateLayoutCellDebug.m"; sourceTree = "<group>"; };
+		1F293D8E1D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+ARDynamicCacheHeightLayoutCell.h"; sourceTree = "<group>"; };
+		1F293D8F1D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+ARDynamicCacheHeightLayoutCell.m"; sourceTree = "<group>"; };
+		1F293D931D13CB290063A9DA /* AboutDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutDetailViewController.swift; sourceTree = "<group>"; };
+		1F293D9B1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+FDFullscreenPopGesture.h"; sourceTree = "<group>"; };
+		1F293D9C1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
 		1F3DC3271D0D06ED0075B7BA /* MeInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeInfoTableViewCell.swift; path = ../ViewControllers/MeInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1F3DC3281D0D06ED0075B7BA /* MeInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MeInfoTableViewCell.xib; path = ../ViewControllers/MeInfoTableViewCell.xib; sourceTree = "<group>"; };
 		1F3DC3291D0D06ED0075B7BA /* BaseNavigaitonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigaitonController.swift; sourceTree = "<group>"; };
@@ -572,6 +580,15 @@
 			path = "UITableView-FDTempleateLayoutCell";
 			sourceTree = "<group>";
 		};
+		1F293D8D1D12F48F0063A9DA /* UICollectionView+ARDynamicHeightLayoutCell */ = {
+			isa = PBXGroup;
+			children = (
+				1F293D8E1D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.h */,
+				1F293D8F1D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m */,
+			);
+			path = "UICollectionView+ARDynamicHeightLayoutCell";
+			sourceTree = "<group>";
+		};
 		1F3DC32D1D0D06FD0075B7BA /* Me */ = {
 			isa = PBXGroup;
 			children = (
@@ -624,6 +641,8 @@
 				1F79BAD71D080B7B00814DED /* NSFileManager+Utils.m */,
 				1F79BAD91D080B9100814DED /* NSFileManager+Cache.h */,
 				1F79BADA1D080B9100814DED /* NSFileManager+Cache.m */,
+				1F293D9B1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.h */,
+				1F293D9C1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -641,6 +660,7 @@
 			isa = PBXGroup;
 			children = (
 				1F68501F1CFFD3D2007F3C07 /* MeetDetailViewController.swift */,
+				1F293D931D13CB290063A9DA /* AboutDetailViewController.swift */,
 			);
 			name = MeetDetailView;
 			sourceTree = "<group>";
@@ -648,6 +668,7 @@
 		1F6850171CFFD30E007F3C07 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1F293D8D1D12F48F0063A9DA /* UICollectionView+ARDynamicHeightLayoutCell */,
 				1F293D801D12D1300063A9DA /* UITableView-FDTempleateLayoutCell */,
 				1F293D6F1D11A4AD0063A9DA /* TransparentView */,
 				1F79BB101D0AB98E00814DED /* AutomaticBulletAndNumberLists.h */,
@@ -1418,6 +1439,7 @@
 				DA6B1C551CEC4DAC0020021D /* EatViewController.m in Sources */,
 				DA1A67EF1CEFD81D00F9CC9D /* WXLoginViewController.m in Sources */,
 				1FCAFFDB1D01983B00BF53A1 /* UserInfoViewModel.m in Sources */,
+				1F293D901D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m in Sources */,
 				DA6CEF131CDAF42300EEABFF /* AddInformationViewController.m in Sources */,
 				DA4A88FB1CDB5CB700649983 /* UITextView+Placeholder.m in Sources */,
 				1F293D661D113C210063A9DA /* QiniuNetWorking.m in Sources */,
@@ -1464,6 +1486,7 @@
 				DA6CEF021CDA402C00EEABFF /* TextViewCell.m in Sources */,
 				1F293D7C1D1266860063A9DA /* HomeDetailModel.swift in Sources */,
 				DAF5C89D1CE6191000DA7901 /* MHFacebookImageViewer.m in Sources */,
+				1F293D9D1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */,
 				DA3626591CD1A75C00A8AE39 /* main.m in Sources */,
 				1F68502F1CFFD46B007F3C07 /* AboutUsInfoTableViewCell.m in Sources */,
@@ -1533,6 +1556,7 @@
 				DA6B1C5A1CEC4DAC0020021D /* ShowViewController.m in Sources */,
 				1F79BAE31D09248B00814DED /* ZHPickView.m in Sources */,
 				1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */,
+				1F293D941D13CB290063A9DA /* AboutDetailViewController.swift in Sources */,
 				DAF5C8CD1CE6F79900DA7901 /* PhotosGridViewController.m in Sources */,
 				1F6850981D000642007F3C07 /* HYBLoopScrollView.m in Sources */,
 				1FC2C1491CFD3332001D6D10 /* NSDate+Category.m in Sources */,

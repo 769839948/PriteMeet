@@ -44,26 +44,40 @@
     
     float orginX = ([[UIScreen mainScreen] bounds].size.width - 20 - imageWidth * 3)/6;
     _nameAut = [[UIImageView alloc] init];
-    _nameAut.image = [UIImage imageNamed:@"meetdetail_namaaut"];
+    _nameAut.image = [UIImage imageNamed:@"home_name"];
     _nameAut.frame = CGRectMake(orginX, 26, imageWidth, imageHeight);
     //    _learnMore.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:_nameAut];
     
     _comapyAut = [[UIImageView alloc] init];
-    _comapyAut.image = [UIImage imageNamed:@"meetdetail_companyaut"];
+    _comapyAut.image = [UIImage imageNamed:@"home_job"];
     _comapyAut.frame = CGRectMake(orginX * 3 + imageWidth, 26, imageWidth, imageHeight);
     //    _learnMore.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:_comapyAut];
     
     _photoAut = [[UIImageView alloc] init];
     //    _learnMore.backgroundColor = [UIColor redColor];
-    _photoAut.image = [UIImage imageNamed:@"meetdetail_photoaut"];
+    _photoAut.image = [UIImage imageNamed:@"home_photo"];
     _photoAut.frame = CGRectMake(orginX * 5 + imageWidth * 2, 26, imageWidth, imageHeight);
     [self.contentView addSubview:_photoAut];
     
     
 }
 
+
+- (void)configCell:(NSString *)auto_info
+{
+    NSArray *auto_infoArray = [auto_info componentsSeparatedByString:@","];
+    for (NSString *autoInfo in auto_infoArray) {
+        if ([autoInfo isEqualToString:@"1"]) {
+            _nameAut.image = [UIImage imageNamed:@"home_nameBlack"];
+        }else if ([autoInfo isEqualToString:@"2"]){
+            _comapyAut.image = [UIImage imageNamed:@"home_jobBlack"];
+        }else if ([autoInfo isEqualToString:@"3"]){
+            _photoAut.image = [UIImage imageNamed:@"home_photoBlack"];
+        }
+    }
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

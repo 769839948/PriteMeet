@@ -1,3 +1,4 @@
+
 //
 //  InterestCollectView.m
 //  Demo
@@ -9,6 +10,15 @@
 #import "InterestCollectView.h"
 #import "NSString+StringSize.h"
 #import "InterestCollectViewCell.h"
+#import "UICollectionView+ARDynamicCacheHeightLayoutCell.h"
+
+
+@interface InterestCollectView()
+
+@property (nonatomic, assign) BOOL isMeetBlock;
+@property (nonatomic, assign) BOOL isNewMeetBlock;
+
+@end
 
 @implementation InterestCollectView
 
@@ -23,6 +33,8 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
         self.backgroundColor = [UIColor whiteColor];
         [self registerClass:[InterestCollectViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
         self.scrollEnabled = NO;
+        _isNewMeetBlock = YES;
+        _isMeetBlock = YES;
         self.delegate = self;
         self.dataSource = self;
     }
@@ -32,12 +44,22 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
 - (void)setCollectViewData:(NSArray *)array;
 {
     _edgX = 0;
-    if (_interstArray.count == 0) {
+    if (![_interstArray isEqualToArray:array]) {
         _interstArray = [array mutableCopy];
         [self reloadData];
     }
-    float height = [self.collectionViewLayout collectionViewContentSize].height;
-    NSLog(@"---------%f",height);
+    
+}
+
+- (CGFloat)interesHeight
+{
+    return [self.collectionViewLayout collectionViewContentSize].height;
+
+}
+
+- (void)filleCell:(InterestCollectViewCell *)cell withText:(NSString *)text
+{
+    cell.titleLabel.text = text;
 }
 
 - (void)setEdgX:(CGFloat)edgX
@@ -52,7 +74,6 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    //    return 10;
     return _interstArray.count;
 }
 
@@ -60,21 +81,29 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     InterestCollectViewCell *cell = [self dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    if (cell == nil) {
-        NSLog(@"---");
-    }
     cell.backgroundColor = [UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0];
+    cell.titleLabel.frame = CGRectMake(0, 0, [self cellWidth:_interstArray[indexPath.row]], 27);
     cell.layer.cornerRadius = 2.0f;
-    cell.titleLabel.text = [_interstArray objectAtIndex:indexPath.row];
+    [cell filleCellWithFeed:[_interstArray objectAtIndex:indexPath.row]];
+    CGFloat height = [self.collectionViewLayout collectionViewContentSize].height;
+    
+    if (self.meetInfoBlock && _isMeetBlock) {
+        _isMeetBlock = NO;
+        self.meetInfoBlock(height);
+    }
+    if (self.block && _isNewMeetBlock) {
+        _isNewMeetBlock = NO;
+        self.block(height);
+    }
+    
     return cell;
 }
-
-
 
 // Uncomment this method to specify if the specified item should be highlighted during tracking
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
+
 // Uncomment this method to specify if the specified item should be selected
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
@@ -85,6 +114,12 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
 //定义每个UICollectionView 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+//    return [collectionView ar_sizeForCellWithIdentifier:reuseIdentifier
+//                                                     indexPath:indexPath
+//                                                 configuration:^(InterestCollectViewCell * cell) {
+//                                                     [self filleCell:cell withText:[_interstArray objectAtIndex:indexPath.row]];
+//                                                     [cell filleCellWithFeed:[_interstArray objectAtIndex:indexPath.row]];
+//                                                 }];
     return CGSizeMake([self cellWidth:[_interstArray objectAtIndex:indexPath.row]], 27);
 }
 //定义每个UICollectionView 的 margin

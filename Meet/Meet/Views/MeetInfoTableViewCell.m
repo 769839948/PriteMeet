@@ -24,6 +24,7 @@
 @end
 
 @implementation MeetInfoTableViewCell
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -107,36 +108,31 @@
         _meetNumber.text = meetNumber;
     }
     
-    if (interstArray.count < 1) {
+    if ([interstArray[0] isEqualToString:@""]) {
         [_interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
+            make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(0);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32);
-            make.height.mas_offset(1);
+            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-0);
+            make.height.mas_offset(0.001);
         }];
-        _interestView.backgroundColor = [UIColor redColor];
+//        _interestView.backgroundColor = [UIColor redColor];
         [self updateConstraints];
     }else{
+//        NSArray *interss = @[@"还是得很舒服",@"的方式的还是",@"哈哈哈",@"事实上",@"哈哈哈",@"QQ群",];
         [_interestView setCollectViewData:interstArray];
-        NSString *instresTitleString = @"  ";
-        for (NSString *instrestTitle in interstArray) {
-            instresTitleString = [instresTitleString stringByAppendingString:instrestTitle];
-            instresTitleString = [instresTitleString stringByAppendingString:@"   "];
-        }
-        float instrestHeight = [instresTitleString heightWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:21.0f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
-        [_interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32);
-            make.height.offset(instrestHeight);
-        }];
-        [self updateConstraints];
+         _interestView.meetInfoBlock = ^(CGFloat height ){
+            [weakSelf.interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
+                make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+                make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
+                make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32);
+                make.height.offset(height + 2);
+            }];
+            [weakSelf updateConstraints];
+            [weakSelf updateConstraintsIfNeeded];
 
-//        if (instrestHeight > 30) {
-//            
-//        }
+        };
     }
     [self updateConstraintsIfNeeded];
 }

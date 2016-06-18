@@ -42,8 +42,6 @@ typedef void(^needReloadProfileCellBlock)(BOOL updateImaeg,BOOL updateInfo);
 
 - (void)mappingUserInfoWithDicValues;
 
-- (void)reloadUerImage:(NSString *)imagePath;
-
 - (void)sexItemModify;
 
 - (NSString *)imageSaveParth;

@@ -13,4 +13,6 @@
 @property (nonatomic,retain) UIImageView *imageView; // 显示图片
 @property (nonatomic,retain) UILabel *titleLabel; // 显示文字
 
+- (void)filleCellWithFeed:(NSString *)text;
+
 @end

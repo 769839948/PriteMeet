@@ -22,6 +22,9 @@ class MeViewController: UIViewController {
     var mePhotoTableViewCell = "MePhotoTableViewCell"
     var photoDetailTableViewCell = "PhotoDetailTableViewCell"
     let newMeetInfoTableViewCell = "NewMeetInfoTableViewCell"
+    
+    var meetCellHeight:CGFloat = 159
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +54,7 @@ class MeViewController: UIViewController {
     override func viewDidDisappear(animated: Bool) {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage.createImageWithColor(UIColor.whiteColor()), forBarPosition: .Any, barMetrics: .Default)
         UINavigationBar.appearance().shadowImage = UIImage()
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
         self.navigationController?.navigationBar.tintColor = UIColor.blackColor()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.blackColor(),NSFontAttributeName:UIFont.systemFontOfSize(18.0)]
@@ -62,8 +65,8 @@ class MeViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
-        let headerView = NSBundle.mainBundle().loadNibNamed("MePhotoView", owner: nil, options: nil).first as? MePhotoView
-//        
+//        let headerView = NSBundle.mainBundle().loadNibNamed("MePhotoView", owner: nil, options: nil).first as? MePhotoView
+//
 //        headerView?.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: 100)
 //        headerView?.center = self.view.center
 //        
@@ -90,10 +93,10 @@ class MeViewController: UIViewController {
     func loadExtenInfo(){
         userInfoModel.getMoreExtInfo("", success: { (dic) in
             UserExtenModel.synchronizeWithDic(dic)
-            UserInfoViewModel.saveCacheImage(UserExtenModel.shareInstance().cover_photo, success: { (dic) in
-                self.loadHeadImageView()
-                },returnImage: { (image) in
-                    
+            UserInfoViewModel.saveCacheImage(UserExtenModel.shareInstance().cover_photo, completionBlock: { (isSuccess, image) in
+                if isSuccess {
+                    self.loadHeadImageView()
+                }
                 }, fail: { (dic) in
                     
                 }, loadingString: { (msg) in
@@ -121,25 +124,26 @@ class MeViewController: UIViewController {
     
     func loadMorePic(urls:NSArray){
         self.imagesArray.removeAllObjects()
-        for string in urls {
-            UserInfoViewModel.saveCacheImage(string as! String, success: { (dic) in
-                }, returnImage: { (image) in
-                    self.imagesArray.addObject(image)
-                }, fail: { (dic) in
-                    
-                }, loadingString: { (msg) in
-                    
-            })
-        }
-        self.tableView.reloadData()
-        
+        let indexPath = NSIndexPath.init(forRow: 1, inSection: 0)
+//        for string in urls {
+//            UserInfoViewModel.saveCacheImage(string as! String, completionBlock: { (isSuccess, image) in
+//                if isSuccess {
+//                    self.imagesArray.addObject(image)
+//                    self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+//                }
+//                }, fail: { (dic) in
+//                    
+//                }, loadingString: { (msg) in
+//                    
+//            })
+//        }
     }
     
     func setNavigationBar(){
         if UserInfo.isLoggedIn() {
             self.navigationController?.navigationBar.setBackgroundImage(UIImage.createImageWithColor(UIColor.clearColor()), forBarPosition: .Any, barMetrics: .Default)
             UINavigationBar.appearance().shadowImage = UIImage()
-            UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+            UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
             self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
             self.setLeftBarItem()
             let appearance = UINavigationBar.appearance()
@@ -262,16 +266,6 @@ class MeViewController: UIViewController {
         self.tableView.reloadData()
     }
     
-    
-
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if keyPath == "contentOffset" {
-            print("dddddd")
-        }
-    
-    }
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -363,6 +357,21 @@ class MeViewController: UIViewController {
         }
         return array.copy() as! NSArray
     }
+    
+    func configNewMeetCell(cell:NewMeetInfoTableViewCell, indxPath:NSIndexPath)
+    {
+        cell.fd_enforceFrameLayout = false;
+        cell.configCell(self.descriptionString(), array: self.instrestArray() as [AnyObject])
+    }
+    
+    func presentViewLoginViewController(){
+        let meStoryBoard = UIStoryboard(name: "Login", bundle: NSBundle.mainBundle())
+        let resgisterVc = meStoryBoard.instantiateViewControllerWithIdentifier("weChatResgisterNavigation")
+        self.presentViewController(resgisterVc, animated: true, completion: {
+            
+        });
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -380,12 +389,7 @@ extension MeViewController : UITableViewDelegate{
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath,animated:true)
         if (!UserInfo.isLoggedIn()) {
-            let meStoryBoard = UIStoryboard(name: "Login", bundle: NSBundle.mainBundle())
-            let resgisterVc = meStoryBoard.instantiateViewControllerWithIdentifier("weChatResgisterNavigation")
-            self.presentViewController(resgisterVc, animated: true, completion: { 
-                
-            });
-            
+            self.presentViewLoginViewController()
             return ;
         }
         if (indexPath.row == 0) {
@@ -414,7 +418,7 @@ extension MeViewController : UITableViewDelegate{
             case 2:
                 return 50
             case 3:
-                return self.inviteHeight()
+                return meetCellHeight
 //                return meetHeight("欢迎来到隐舍 THESECRET。这里没有酒单， 放眼望去，你看到的是与弗里达相关的一切，迷人而神秘的夜色。走进这扇门，你将开始一段奇遇。在这里，我将根据你的喜好、心情，调制专属于你的鸡尾酒，为你带来最奇妙的美好体验。", instrestArray: ["周边旅行","谈天说地","聊天","创业咨询","品酒","定制理财"])
             default:
                 return 50
@@ -514,14 +518,14 @@ extension MeViewController : UITableViewDataSource {
                 return cell
             }else if indexPath.row == 1 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(photoDetailTableViewCell, forIndexPath: indexPath) as! PhotoDetailTableViewCell
-                if self.imagesArray.count == 0 {
-                    let imageArray = NSMutableArray()
-                    for _ in 0...4 {
-                        imageArray.addObject(UIImage(named: "me_testImage@3x")!)
-                    }
-                }else{
-                    cell.configCell(self.imagesArray)
-                }
+//                if self.imagesArray.count == 0 {
+//                    let imageArray = NSMutableArray()
+//                    for _ in 0...4 {
+//                        imageArray.addObject(UIImage(named: "me_testImage@3x")!)
+//                    }
+//                }else{
+                    cell.configCell(UserExtenModel.allImageUrl())
+//                }
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
                 return cell
             }else if indexPath.row == 2 {
@@ -537,7 +541,12 @@ extension MeViewController : UITableViewDataSource {
             }else if indexPath.row == 3 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(newMeetInfoTableViewCell, forIndexPath: indexPath) as! NewMeetInfoTableViewCell
                 cell.configCell(self.descriptionString(), array: self.instrestArray() as [AnyObject])
-//                cell.configCell("欢迎来到隐舍 THESECRET。这里没有酒单， 放眼望去，你看到的是与弗里达相关的一切，迷人而神秘的夜色。走进这扇门，你将开始一段奇遇。在这里，我将根据你的喜好、心情，调制专属于你的鸡尾酒，为你带来最奇妙的美好体验。", array: ["周边旅行","谈天说地","聊天","创业咨询","品酒","定制理财"])
+                cell.block = { (height) in
+                    self.meetCellHeight = height + 80
+                    let index = NSIndexPath.init(forRow: 2, inSection: 0)
+                    self.tableView.reloadRowsAtIndexPaths([index], withRowAnimation: UITableViewRowAnimation.Automatic)
+                }
+//                self.configNewMeetCell(cell, indxPath: indexPath)
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.isHaveShadowColor(false)
                 return cell
@@ -579,10 +588,12 @@ extension MeViewController : UITableViewDataSource {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(mePhotoTableViewCell, forIndexPath: indexPath) as! MePhotoTableViewCell
                 cell.configlogoutView()
+                cell.logoutBtn.addTarget(self, action: (#selector(MeViewController.presentViewLoginViewController)), forControlEvents: UIControlEvents.TouchUpInside)
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 return cell
             }else if indexPath.row == 1 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(photoDetailTableViewCell, forIndexPath: indexPath) as! PhotoDetailTableViewCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.configLogoutView()
                 cell.accessoryType = UITableViewCellAccessoryType.None
                 return cell

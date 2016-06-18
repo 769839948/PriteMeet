@@ -29,9 +29,13 @@
 #define HomeDetailViewNameColor        @"202020"
 #define HomeDetailViewPositionColor    @"999999"
 #define HomeDetailViewMeetNumberColor  @"C9C9C9"
+#define HomeViewDetailAboutBtnColor    @"FFFFFF"
+
 #define HomeViewDetailNameFont         [UIFont fontWithName:@"PingFangSC-Regular" size:28.0f]
 #define HomeViewDetailPositionFont     [UIFont fontWithName:@"PingFangSC-Light" size:22.0f]
 #define HomeViewDetailMeetNumberFont   [UIFont fontWithName:@"PingFangSC-Light" size:12.0f]
+#define HomeViewDetailAboutBtnFont     [UIFont fontWithName:@"PingFangSC-Regular" size:10.0f]
+
 
 #define MeetSectionTitleNameFont [UIFont fontWithName:@"PingFangSC-Regular" size:14.0f]
 #define MeetSectionTitleNameColot [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0]

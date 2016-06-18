@@ -216,35 +216,38 @@ static UserInfo *userInfo=nil;
 
 + (BOOL)saveCacheImage:(UIImage *)image withName:(NSString *)name
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path = paths[0];
-    [path stringByAppendingPathComponent:@"/uploadImage"];
-    NSFileManager *fm = [NSFileManager defaultManager];
-    
-    if (![fm fileExistsAtPath:path])
-    {
-        NSError *error = nil;
-        [fm createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
-    }
-    [path stringByAppendingFormat:@"/%@",name];
+    NSString *saveFilePath = [AppData getCachesDirectoryUserInfoDocumetPathDocument:@"uploadImage/headerImage/"];
+    NSString *saveImagePath = [saveFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",name]];
+    [UserInfo saveSmallImage:image withName:name];
     NSData *imageData = UIImagePNGRepresentation(image);
-    return [imageData writeToFile:path atomically:YES];
-    
+    return [imageData writeToFile:saveImagePath atomically:NO];
 }
 
 + (UIImage *)imageForName:(NSString *)name
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path = paths[0];
-    NSFileManager *fm = [NSFileManager defaultManager];
-    [path stringByAppendingFormat:@"/uploadImage/%@",name];
-    if (![fm isReadableFileAtPath:path])
-    {
-        return nil;
-    }
-    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    NSString *saveFilePath = [AppData getCachesDirectoryUserInfoDocumetPathDocument:@"uploadImage/headerImage/"];
+    NSString *saveImagePath = [saveFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",name]];
+    NSData *data = [[NSData alloc] initWithContentsOfFile:saveImagePath];
     return [[UIImage alloc] initWithData:data];
 }
+
++ (void)saveSmallImage:(UIImage *)smallImage withName:(NSString *)name
+{
+    
+    NSString *saveFilePath = [AppData getCachesDirectoryUserInfoDocumetPathDocument:@"uploadImage/headerImageSmall/"];
+    NSString *saveImagePath = [saveFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",name]];
+    NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.5);
+    [imageData writeToFile:saveImagePath atomically:NO];
+}
+
++ (UIImage *)smallImageName:(NSString *)name
+{
+    NSString *saveFilePath = [AppData getCachesDirectoryUserInfoDocumetPathDocument:@"uploadImage/headerImageSmall/"];
+    NSString *saveImagePath = [saveFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",name]];
+    NSData *data = [[NSData alloc] initWithContentsOfFile:saveImagePath];
+    return [[UIImage alloc] initWithData:data];
+}
+
 /*
 + (BOOL)saveBaseData:(id)data WithName:(NSString *)name
 {

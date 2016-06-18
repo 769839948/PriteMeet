@@ -95,9 +95,9 @@
 
 + (BOOL)logout;
 
-+ (BOOL)saveCacheImage:(UIImage *)image withName:(NSString *)name;
-
 + (UIImage *)imageForName:(NSString *)name;
+
++ (BOOL)saveCacheImage:(UIImage *)image withName:(NSString *)name;
 
 //+ (BOOL)saveBaseData:(id)data WithName:(NSString *)name;
 //

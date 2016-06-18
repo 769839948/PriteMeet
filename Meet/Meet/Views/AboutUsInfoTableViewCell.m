@@ -64,13 +64,20 @@
         _lineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
         [self.contentView addSubview:_lineLabel];
     }
+    _aboutAll = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_aboutAll setTitle:@"查看全部" forState:UIControlStateNormal];
+    _aboutAll.layer.cornerRadius = 14.0;
+    _aboutAll.titleLabel.font = HomeViewDetailAboutBtnFont;
+    [_aboutAll setTitleColor:[UIColor colorWithHexString:HomeViewDetailAboutBtnColor] forState:UIControlStateNormal];
+    _aboutAll.backgroundColor = [UIColor blackColor];
+    [self.contentView addSubview:_aboutAll];
     
 }
 
-- (void)configCell:(NSArray *)stringArray
+- (void)configCell:(NSArray *)stringArray withGender:(NSInteger)gender
 {
+    float maxHeight = 10.0;
     if (_isFirstLoad && stringArray != _stringArray) {
-        float maxHeight = 10.0;
         for (NSInteger i = 0; i < stringArray.count; i ++) {
             CustomLabel *customLabel = [CustomLabel setUpLabel:CGRectMake(19, (maxHeight) + 10, ScreenWidth - 38, 0) text:[stringArray objectAtIndex:i]];
             
@@ -80,7 +87,10 @@
         _stringArray = [stringArray mutableCopy];
         _isFirstLoad = NO;
     }
-    
+    if (CGRectGetMaxY(_aboutAll.frame) < maxHeight) {
+        _aboutAll.frame = CGRectMake((ScreenWidth - 72) / 2, maxHeight + 23, 72, 27);
+        [_aboutAll addTarget:self action:@selector(aboutDetailPress) forControlEvents:UIControlEventTouchUpInside];
+    }
 }
 
 - (void)updateConstraints
@@ -90,6 +100,14 @@
     }
     
     [super updateConstraints];
+}
+
+- (void)aboutDetailPress
+{
+    NSLog(@"ButtonPress");
+    if (self.block) {
+        self.block();
+    }
 }
 
 - (void)awakeFromNib {
