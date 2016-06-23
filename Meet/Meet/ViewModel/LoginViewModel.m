@@ -26,6 +26,7 @@
 #import "LoginViewModel.h"
 #import "AFNetWorking.h"
 #import "WXUserInfo.h"
+#import "UserInfo.h"
 
 @implementation LoginViewModel
 
@@ -38,7 +39,7 @@
     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (![[responseObject objectForKey:@"success"] boolValue]) {
-            NSDictionary *parameters = @{@"openid":WXUserInfo.openid,@"nickname":WXUserInfo.nickname,@"sex":WXUserInfo.sex,@"head_img_url":@"",@"province":WXUserInfo.province,@"city":WXUserInfo.city,@"country":WXUserInfo.country,@"union_id":WXUserInfo.unionid,@"code":code};
+            NSDictionary *parameters = @{@"openid":WXUserInfo.openid,@"nickname":WXUserInfo.nickname,@"gender":[NSString stringWithFormat:@"%@",WXUserInfo.sex],@"head_img_url":@"",@"province":WXUserInfo.province,@"city":WXUserInfo.city,@"country":WXUserInfo.country,@"union_id":WXUserInfo.unionid,@"code":code};
             NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestCreateUser];
             
             [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -46,6 +47,7 @@
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 if ([[responseObject objectForKey:@"success"] boolValue]) {
 //                    WXUserInfo.openid = responseObject[@"user_id"];
+                    [UserInfo synchronizeWithWXUserInfo:WXUserInfo];
                     successBlock(responseObject);
                 }else{
                     failBlock(@{@"error":@"上传失败"});
@@ -123,7 +125,11 @@
     [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            successBlock(responseObject);
+        if ([[responseObject objectForKey:@"success"] boolValue]) {
+            successBlock(responseObject[@"data"]);
+        }else{
+            failBlock(@{@"state":@"fail"});
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failBlock(@{@"error":@"获取信息失败"});
     }];

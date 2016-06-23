@@ -30,7 +30,6 @@ class MeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadInviteInfo()
-        
         self.setUpTableView()
         self.loadExtenInfo()
         self.setNavigationBar()
@@ -43,12 +42,38 @@ class MeViewController: UIViewController {
         let status = UIApplication.sharedApplication().valueForKey("statusBar") as! UIView
         status.backgroundColor = UIColor.clearColor()
 
-
-        if (UserInfo.sharedInstance().isFirstLogin && UserInfo.isLoggedIn()) {
-            UserInfo.sharedInstance().isFirstLogin = false
+        if UserInfo.isLoggedIn() {
+            self.lastModifield()
             self.loadExtenInfo()
             self.loadInviteInfo()
+        }
+        if (UserInfo.sharedInstance().isFirstLogin && UserInfo.isLoggedIn()) {
+            UserInfo.sharedInstance().isFirstLogin = false
+            self.loadInviteInfo()
             UserInfo.synchronize()
+        }
+    }
+    
+    func lastModifield(){
+        userInfoModel.lastModifield({ (updateTime) in
+            if NSUserDefaults.standardUserDefaults().objectForKey("lastModifield") != nil{
+                let tempTime = NSUserDefaults.standardUserDefaults().objectForKey("lastModifield")
+                if (tempTime as! String) != (updateTime as String){
+                    self.userInfoModel.getUserInfo(WXUserInfo.shareInstance().openid, success: { (dic) in
+                        UserInfo.synchronizeWithDic(dic)
+                        self.tableView.reloadData()
+                        NSUserDefaults.standardUserDefaults().setObject(updateTime, forKey: "lastModifield")
+                        }, fail: { (dic) in
+                            
+                        }, loadingString: { (msg) in
+                            
+                    })
+                }
+            }else{
+                NSUserDefaults.standardUserDefaults().setObject(updateTime, forKey: "lastModifield")
+            }
+        }) { (error) in
+                
         }
     }
     

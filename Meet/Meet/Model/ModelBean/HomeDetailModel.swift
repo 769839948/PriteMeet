@@ -47,7 +47,7 @@ class Engagement: NSObject {
     
     var is_active: Bool = false
     
-    var engagement_desc: String?
+    var introduction_other: String?
     
     var theme: [Theme]?
     
@@ -92,4 +92,6 @@ class HomeDetailModel: NSObject {
     var cover_photo: Cover_photo?
     
     var personal_label: String?
+    
+    var distance: String?
 }

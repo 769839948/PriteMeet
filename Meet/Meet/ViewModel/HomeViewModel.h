@@ -17,4 +17,6 @@
 
 - (void)getOtherUserInfo:(NSString *)userId successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock;
 
+- (void)senderLocation:(double)latitude  longitude:(double)longitude;
+
 @end

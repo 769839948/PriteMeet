@@ -112,7 +112,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     _picker.backgroundColor = [UIColor whiteColor];
     
     _viewModel = [[UserInfoViewModel alloc] init];
-  
+    [self loadLastUpdate];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -155,6 +155,33 @@ typedef NS_ENUM(NSUInteger, RowType) {
         [_eduExperId addObject:[NSString stringWithFormat:@"%ld",(long)edu_info.eid]];
     }
     return workArray;
+}
+
+- (void)loadLastUpdate
+{
+    __weak typeof(self) weakSelf = self;
+    [_viewModel lastModifield:^(NSString *time) {
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"lastModifield"] != nil) {
+            NSString *lastTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastModifield"];
+            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"lastModifield"] == nil) {
+                [[NSUserDefaults standardUserDefaults] setObject:time forKey:@"lastModifield"];
+            }else if (![lastTime isEqualToString:time]){
+                [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
+                    [UserInfo synchronizeWithDic:object];
+                    [weakSelf loadPickViewData];
+                    [weakSelf.tableView reloadData];
+                    [[NSUserDefaults standardUserDefaults] setObject:time forKey:@"lastModifield"];
+                } fail:^(NSDictionary *object) {
+                } loadingString:^(NSString *str) {
+                    
+                }];
+            }
+        }else{
+            [[NSUserDefaults standardUserDefaults] setObject:time forKey:@"lastModifield"];
+        }
+    } failBlock:^(NSDictionary *object) {
+        
+    }];
 }
 
 - (void)loadPickViewData {
@@ -428,7 +455,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
 
 - (void)saveAction:(id)sender {
     if (_selectRow == 2 && !_chooseView.hidden) {////Sex Item alert
-        [self sexItemModify];
         return ;
     }
     __weak typeof(self) weakSelf = self;
@@ -463,7 +489,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
 
 - (IBAction)tapGestureRecognizer:(UITapGestureRecognizer *)sender {
     if (_selectRow == 2) {////Sex Item
-        [self sexItemModify];
         return ;
     }
     [self mappingPickContentInDic];

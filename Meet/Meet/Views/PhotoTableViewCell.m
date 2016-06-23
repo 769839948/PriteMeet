@@ -25,15 +25,15 @@
         self.whitView.hidden = YES;
         self.showdowView.hidden = YES;
         if (_loop == nil) {
-            _loop = [HYBLoopScrollView loopScrollViewWithFrame:CGRectMake(10, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355) imageUrls:nil timeInterval:0 didSelect:^(NSInteger atIndex) {
+            _loop = [HYBLoopScrollView loopScrollViewWithFrame:CGRectMake(0, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355) imageUrls:nil timeInterval:0 didSelect:^(NSInteger atIndex) {
                 
             } didScroll:^(NSInteger toIndex) {
                 
             }];
             
-            _loop.backgroundColor = [UIColor colorWithHexString:@"e7e7e7"];
+//            _loop.backgroundColor = [UIColor colorWithHexString:@"e7e7e7"];
             _loop.shouldAutoClipImageToViewSize = NO;
-            _loop.placeholder = PlaceholderImage;
+            _loop.placeholder = [UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(ScreenWidth - 20, (ScreenWidth - 20)*236/355)];
             
             _loop.alignment = kPageControlAlignCenter;
             _loop.layer.cornerRadius = 5.0;

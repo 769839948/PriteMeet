@@ -20,8 +20,11 @@
 #import "HomeViewModel.h"
 #import "MJExtension.h"
 #import "HomeModel.h"
+#import "UserInfo.h"
+#import <AMapLocationKit/AMapLocationKit.h>
+#import <AMapLocationKit/AMapLocationManager.h>
 
-@interface FristHomeViewController ()<UIGestureRecognizerDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface FristHomeViewController ()<UIGestureRecognizerDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource,AMapLocationManagerDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -36,6 +39,8 @@
 @property (nonatomic, copy) NSMutableArray *homeModelArray;
 @property (nonatomic, copy) NSMutableDictionary *offscreenCells;
 
+@property (nonatomic, strong) AMapLocationManager *locationManager;
+
 @end
 
 @implementation FristHomeViewController
@@ -49,8 +54,42 @@
     [self setUpNavigationBar];
     [self setUpRefreshView];
     [self setUpHomeData];
+    [self setUpLocationManager];
     
     
+}
+
+- (void)setUpLocationManager
+{
+    self.locationManager = [[AMapLocationManager alloc] init];
+    // 带逆地理信息的一次定位（返回坐标和地址信息）
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    //   定位超时时间，最低2s，此处设置为3s
+    self.locationManager.locationTimeout =3;
+    //   逆地理请求超时时间，最低2s，此处设置为3s
+    self.locationManager.reGeocodeTimeout = 3;
+    self.locationManager.delegate = self;
+    __weak typeof(self) weakSelf = self;
+    [self.locationManager requestLocationWithReGeocode:NO completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+        if (error)
+        {
+            NSLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+            
+            if (error.code == 1)
+            {
+                return;
+            }
+        }
+        if ([UserInfo isLoggedIn]) {
+            [weakSelf.viewModel senderLocation:location.coordinate.latitude longitude:location.coordinate.longitude];
+        }
+//        NSLog(@"location:%@", location);
+        
+        if (regeocode)
+        {
+            NSLog(@"reGeocode:%@", regeocode);
+        }
+    }];
 }
 
 - (void)loadNewData {
@@ -159,7 +198,7 @@
     [_bottomView addSubview:[self myMeetBt:CGRectMake(0, 0, 54, 54)]];
     [_bottomView addSubview:[self myMeetNumber:CGRectMake(_bottomView.frame.size.width - 18, 0, 18, 18)]];
     
-    POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
+//    POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
     
     
     [[UIApplication sharedApplication].keyWindow addSubview:_bottomView];
@@ -324,14 +363,33 @@
     
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - AMapLocationDelegate
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)amapLocationManager:(AMapLocationManager *)manager didFailWithError:(NSError *)error
+{
+    
 }
-*/
+
+/**
+ *  开始监控region回调函数
+ *
+ *  @param manager 定位 AMapLocationManager 类。
+ *  @param region 开始监控的region。
+ */
+- (void)amapLocationManager:(AMapLocationManager *)manager didStartMonitoringForRegion:(AMapLocationRegion *)region
+{
+    
+}
+/**
+ *  进入region回调函数
+ *
+ *  @param manager 定位 AMapLocationManager 类。
+ *  @param region 进入的region。
+ */
+- (void)amapLocationManager:(AMapLocationManager *)manager didEnterRegion:(AMapLocationRegion *)region
+{
+    
+}
+
 
 @end

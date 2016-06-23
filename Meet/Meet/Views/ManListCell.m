@@ -121,8 +121,8 @@
     __weak typeof(self) weakSelf = self;
     if (model.cover_photo != nil || model.cover_photo != NULL) {
         Cover_photo *coverPhoto = [Cover_photo mj_objectWithKeyValues:model.cover_photo];
-        [_photoImage setIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        [_photoImage sd_setImageWithURL:[NSURL URLWithString:coverPhoto.photo] placeholderImage:PlaceholderImage options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        [_photoImage setIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        [_photoImage sd_setImageWithURL:[NSURL URLWithString:coverPhoto.photo] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
 
         }];
     }else{
@@ -152,7 +152,7 @@
         }];
         [self updateConstraints];
     }
-    _meetNumber.text = @"886人想见   和你相隔 820.5km ";
+    _meetNumber.text = [NSString stringWithFormat:@"886人想见   和你相隔  %@",model.distance];
     if ([_meetNumber.text isEqualToString:@""]) {
         [_meetNumber mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(8);

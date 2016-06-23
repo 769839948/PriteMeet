@@ -18,6 +18,7 @@ target "Meet" do
 #    pod 'UMengSocialCOM', '~> 5.2.1'
     pod 'Qiniu', :git => 'https://github.com/qiniu/objc-sdk.git', :branch => 'AFNetworking-3.x'
     pod 'MJExtension'
+    pod 'AMapLocation' #定位SDK
 
 
 end

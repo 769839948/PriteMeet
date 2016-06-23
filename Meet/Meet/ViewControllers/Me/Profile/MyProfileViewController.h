@@ -46,8 +46,4 @@ typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 
 - (void)mappingUserInfoWithDicValues;
 
-- (void)sexItemModify;
-
-- (NSString *)imageSaveParth;
-
 @end

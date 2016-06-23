@@ -20,7 +20,11 @@
 #define  RequestCheckInvitationCode  @"/api/code/check/"
 #define  RequestGetUserInfo          @"/api/user/base_info/"
 #define  RequestUploadUserPhoto      @"/api/user_avatar/"
-#define  RequestUploadPhotoToken      @"/api/upload_token/"
+#define  RequestUploadPhotoToken     @"/api/upload_token/"
+
+#define  RequestSenderLocation     @"/api/push_geo_location"
+
+#define  RequestLastUpdate           @"/api/user_updated_at/"
 
 #define  RequestAddWorkExp           @"/api/user/work_info"
 #define  RequestAddEduExp            @"/api/user/edu_info"

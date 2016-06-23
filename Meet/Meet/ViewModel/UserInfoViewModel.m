@@ -185,16 +185,15 @@
       loadingString:(LoadingView)loading
 {
     loading(@"获取个人信息中");
-    NSDictionary *parameters = @{@"openId":openId};
-    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestGetUserInfo];
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestGetUserInfo,openId];
 
-    [self.manager GET:url parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
+    [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject);
+            successBlock(responseObject[@"data"]);
         }else{
-            failBlock(responseObject);
+            failBlock(@{@"state":@"fail"});
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failBlock(@{@"":@""});
@@ -373,6 +372,25 @@
                                    completionBlock(NO,nil);
                                }
                            }];
+    
+}
+
+
+- (void)lastModifield:(void (^)(NSString *time))lastBlock failBlock:(Fail)failBock
+{
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestLastUpdate,[WXUserInfo shareInstance].openid];
+    
+    [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([[responseObject objectForKey:@"success"] boolValue]) {
+            lastBlock(responseObject[@"updated_at"]);
+        }else{
+            failBock(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failBock(@{@"":@""});
+    }];
     
 }
 

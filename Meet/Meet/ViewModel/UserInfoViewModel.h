@@ -85,6 +85,9 @@ typedef void (^returnImage)(UIImage *image);
                 fail:(Fail)failBlock
        loadingString:(LoadingView)loading;
 
+
+- (void)lastModifield:(void (^)(NSString *time))lastBlock failBlock:(Fail)failBock;
+
 + (void)saveCacheImage:(NSString *)url
        completionBlock:(void (^)(BOOL succeeded, UIImage *image))completionBlock
                   fail:(Fail)failBlock

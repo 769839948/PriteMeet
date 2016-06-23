@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewModel.h"
+#import "WXUserInfo.h"
 
 @implementation HomeViewModel
 
@@ -22,7 +23,7 @@
 
 - (void)getHomeList:(NSString *)page successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock
 {
-    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@",RequestGetHomeList,page];
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@",RequestGetHomeList,page,[WXUserInfo shareInstance].openid];
     
     [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -39,7 +40,7 @@
 
 - (void)getOtherUserInfo:(NSString *)userId successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock
 {
-    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@",RequestGetOtherInfo,userId];
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@?cur_user=%@",RequestGetOtherInfo,userId,[WXUserInfo shareInstance].openid];
     
     [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -51,6 +52,20 @@
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failBlock(@{@"":@""});
+    }];
+}
+
+
+- (void)senderLocation:(double)latitude  longitude:(double)longitude
+{
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:RequestSenderLocation];
+    NSDictionary *parmeters = @{@"uid":[WXUserInfo shareInstance].openid, @"latitude":[NSString stringWithFormat:@"%f",latitude],@"longitude":[NSString stringWithFormat:@"%f",longitude]};
+    [self.manager POST:url parameters:parmeters progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"%@",responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
     }];
 }
 

@@ -65,7 +65,7 @@
         [self.contentView addSubview:_lineLabel];
     }
     _aboutAll = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_aboutAll setTitle:@"查看全部" forState:UIControlStateNormal];
+    [_aboutAll setTitle:@"更多介绍" forState:UIControlStateNormal];
     _aboutAll.layer.cornerRadius = 14.0;
     _aboutAll.titleLabel.font = HomeViewDetailAboutBtnFont;
     [_aboutAll setTitleColor:[UIColor colorWithHexString:HomeViewDetailAboutBtnColor] forState:UIControlStateNormal];

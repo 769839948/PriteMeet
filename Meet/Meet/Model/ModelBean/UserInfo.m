@@ -249,6 +249,12 @@ static UserInfo *userInfo=nil;
     return [UserInfo synchronize];
 }
 
++ (BOOL)synchronizeWithWXUserInfo:(WXUserInfo *)wxuserInfo
+{
+    [UserInfo sharedInstance].gender = [wxuserInfo.sex integerValue];
+    return [UserInfo synchronize];
+}
+
 + (BOOL)saveCacheImage:(UIImage *)image withName:(NSString *)name
 {
     NSString *saveFilePath = [AppData getCachesDirectoryUserInfoDocumetPathDocument:@"uploadImage/headerImage/"];

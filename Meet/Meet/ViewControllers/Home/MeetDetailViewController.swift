@@ -55,11 +55,15 @@ class MeetDetailViewController: UIViewController {
         self.view.backgroundColor = UIColor.init(hexString: "F2F2F2")
         super.viewDidLoad()
         self.setUpNavigationBar()
-        self.setUpBottomView()
         self.getHomeDetailModel()
         // Do any additional setup after loading the view.
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
+    }
+    
     func setUpTableView() {
         self.tableView = UITableView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height - 64 - 49), style: .Grouped)
         self.tableView.backgroundColor = UIColor.init(colorLiteralRed: 251.0/255.0, green: 251.0/255.0, blue: 251.0/255.0, alpha: 1.0)
@@ -82,6 +86,10 @@ class MeetDetailViewController: UIViewController {
     func setUpBottomView(){
         self.bottomView = UIView(frame: CGRectMake(0,UIScreen.mainScreen().bounds.size.height - 49 - 64, ScreenWidth, 49))
         self.setPersonType(self.personType)
+        let singerTap = UITapGestureRecognizer(target: self, action: #selector(MeetDetailViewController.meetImmediately))
+        singerTap.numberOfTouchesRequired = 1
+        singerTap.numberOfTapsRequired = 1
+        self.bottomView.addGestureRecognizer(singerTap)
         let label = UILabel(frame: self.bottomView.bounds)
         label.text = "立即约见"
         label.textAlignment = NSTextAlignment.Center
@@ -89,6 +97,18 @@ class MeetDetailViewController: UIViewController {
         label.font = UIFont.init(name: "PingFangSC-Semibold", size: 15)
         self.bottomView.addSubview(label)
         self.view.addSubview(self.bottomView)
+    }
+    
+    func meetImmediately(){
+        if !UserInfo.isLoggedIn(){
+            let meStoryBoard = UIStoryboard(name: "Login", bundle: NSBundle.mainBundle())
+            let resgisterVc = meStoryBoard.instantiateViewControllerWithIdentifier("weChatResgisterNavigation")
+            self.presentViewController(resgisterVc, animated: true, completion: {
+                
+            });
+        }else{
+            self.navigationController?.pushViewController(MeetWebViewController(), animated: true)
+        }
     }
     
     func setUpNavigationBar(){
@@ -138,6 +158,7 @@ class MeetDetailViewController: UIViewController {
     func getHomeDetailModel(){
         viewModel.getOtherUserInfo(user_id, successBlock: { (dic) in
             self.otherUserModel = HomeDetailModel.mj_objectWithKeyValues(dic)
+            self.setUpBottomView()
             if self.otherUserModel.gender == 1 {
                self.personType = .Man
                self.setPersonType(self.personType)
@@ -154,20 +175,24 @@ class MeetDetailViewController: UIViewController {
     
     lazy var imageArray:NSArray = {
         let tempArray = NSMutableArray()
-        if self.otherUserModel.user_info != nil {
+        if self.otherUserModel.cover_photo!.photo != nil {
             tempArray.addObject(self.otherUserModel.cover_photo!.photo)
+
+        }
+        if self.otherUserModel.user_info!.detail != nil {
             let details = self.otherUserModel.user_info!.detail
             let dtailArray = Detail.mj_objectArrayWithKeyValuesArray(details)
             for detailModel in dtailArray {
                 print("\(detailModel as! Detail)")
-                let photos = (detailModel as! Detail)
-//                for model in (detailModel as! Detail).photos! {
-//                    print("")
-//                    print("\(model)")
-//                    if model.photo != "" {
-//                        tempArray.addObject(model.photo!)
-//                    }
-//                }
+                let photos = (detailModel as! Detail).photos
+                let photosModel = Photos.mj_objectArrayWithKeyValuesArray(photos)
+                for model in photosModel {
+                    print("")
+                    print("\(model)")
+                    if model.photo != "" {
+                        tempArray.addObject(model.photo!)
+                    }
+                }
             }
         }
         return tempArray
@@ -185,7 +210,7 @@ class MeetDetailViewController: UIViewController {
         var tempArray = NSMutableArray()
         if self.otherUserModel.user_info!.detail != nil {
             let descriptions = self.otherUserModel.user_info!.highlight
-            let array = descriptions!.componentsSeparatedByString("\r\n")
+            let array = descriptions!.componentsSeparatedByString("\n")
             tempArray.addObjectsFromArray(array)
         }
         print("我就运行一次")
@@ -259,17 +284,16 @@ class MeetDetailViewController: UIViewController {
     {
         cell.fd_enforceFrameLayout = false;
         // Enable to use "-sizeThatFits:"
-        cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "上海 浦东新区   和你相隔28200m", interestCollectArray: self.personalArray as [AnyObject])
+        cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)    和你相隔 \(self.otherUserModel.distance! as String)", interestCollectArray: self.personalArray as [AnyObject])
     }
     
     func configNewMeetCell(cell:NewMeetInfoTableViewCell, indxPath:NSIndexPath)
     {
         cell.fd_enforceFrameLayout = false;
         // Enable to use "-sizeThatFits:"
-        cell.configCell(self.otherUserModel.engagement?.engagement_desc, array: self.inviteArray as [AnyObject])
-        let height = cell.getCellHeight(self.otherUserModel.engagement?.engagement_desc, array: self.inviteArray as [AnyObject])
-        print("=================\(height)")
-        if self.otherUserModel.engagement != nil {
+        cell.configCell(self.otherUserModel.engagement?.introduction_other, array: self.inviteArray as [AnyObject])
+//        let height = cell.getCellHeight(self.otherUserModel.engagement?.introduction_other, array: self.inviteArray as [AnyObject])
+         if self.otherUserModel.engagement != nil {
             
         }
     }

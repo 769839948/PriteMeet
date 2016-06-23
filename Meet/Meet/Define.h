@@ -37,4 +37,7 @@
 
 #define loginStateChange  @"loginStateChange"
 
+
+#define GAODEMapKey       @"a2001b013b8cd42ddb1982b3ba2f574a"
+
 #endif /* Define_h */
