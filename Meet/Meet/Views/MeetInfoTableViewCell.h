@@ -7,6 +7,7 @@
 //
 
 #import "BaseTableViewCell.h"
+@class HomeDetailModel;
 
 @interface MeetInfoTableViewCell : BaseTableViewCell
 

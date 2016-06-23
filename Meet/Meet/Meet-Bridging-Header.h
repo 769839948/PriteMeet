@@ -33,7 +33,11 @@
 #import "AddStarViewController.h"
 #import "UIImage+Alpha.h"
 #import "UserInviteModel.h"
-
+#import "ProfileKeyAndValue.h"
+#import "UINavigationBar+Transparent.h"
+#import "TransparentView.h"
+#import "UITableView+FDTemplateLayoutCell.h"
+#import "WeChatResgisterViewController.h"
 
 
 

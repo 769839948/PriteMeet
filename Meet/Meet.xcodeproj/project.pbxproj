@@ -9,6 +9,23 @@
 /* Begin PBXBuildFile section */
 		1F1FB4851D0FD78E00794881 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1FB4841D0FD78E00794881 /* UIImage+Alpha.m */; };
 		1F1FB4881D0FFBAE00794881 /* UserInviteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1FB4871D0FFBAE00794881 /* UserInviteModel.m */; };
+		1F293D661D113C210063A9DA /* QiniuNetWorking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D651D113C210063A9DA /* QiniuNetWorking.m */; };
+		1F293D691D1166490063A9DA /* HomeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D681D1166490063A9DA /* HomeViewModel.m */; };
+		1F293D6C1D1175090063A9DA /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D6B1D1175090063A9DA /* HomeModel.m */; };
+		1F293D6E1D119F740063A9DA /* MePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D6D1D119F740063A9DA /* MePhotoView.swift */; };
+		1F293D761D11A4B90063A9DA /* UINavigationBar+Transparent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D711D11A4B90063A9DA /* UINavigationBar+Transparent.m */; };
+		1F293D771D11A4B90063A9DA /* TransparentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D731D11A4B90063A9DA /* TransparentView.m */; };
+		1F293D781D11A4B90063A9DA /* UIView+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D751D11A4B90063A9DA /* UIView+Size.m */; };
+		1F293D7A1D11AB460063A9DA /* MePhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F293D791D11AB460063A9DA /* MePhotoView.xib */; };
+		1F293D7C1D1266860063A9DA /* HomeDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D7B1D1266850063A9DA /* HomeDetailModel.swift */; };
+		1F293D7F1D12CBB10063A9DA /* String+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D7E1D12CBB10063A9DA /* String+Size.swift */; };
+		1F293D891D12D13F0063A9DA /* UITableView+FDIndexPathHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D821D12D13F0063A9DA /* UITableView+FDIndexPathHeightCache.m */; };
+		1F293D8A1D12D13F0063A9DA /* UITableView+FDKeyedHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D841D12D13F0063A9DA /* UITableView+FDKeyedHeightCache.m */; };
+		1F293D8B1D12D13F0063A9DA /* UITableView+FDTemplateLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D861D12D13F0063A9DA /* UITableView+FDTemplateLayoutCell.m */; };
+		1F293D8C1D12D13F0063A9DA /* UITableView+FDTemplateLayoutCellDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D881D12D13F0063A9DA /* UITableView+FDTemplateLayoutCellDebug.m */; };
+		1F293D901D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D8F1D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m */; };
+		1F293D941D13CB290063A9DA /* AboutDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D931D13CB290063A9DA /* AboutDetailViewController.swift */; };
+		1F293D9D1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D9C1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.m */; };
 		1F3DC32A1D0D06ED0075B7BA /* MeInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3DC3271D0D06ED0075B7BA /* MeInfoTableViewCell.swift */; };
 		1F3DC32B1D0D06ED0075B7BA /* MeInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F3DC3281D0D06ED0075B7BA /* MeInfoTableViewCell.xib */; };
 		1F3DC32C1D0D06ED0075B7BA /* BaseNavigaitonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3DC3291D0D06ED0075B7BA /* BaseNavigaitonController.swift */; };
@@ -17,6 +34,7 @@
 		1F3DC3331D0D0B890075B7BA /* MePhotoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F3DC3311D0D0B890075B7BA /* MePhotoTableViewCell.xib */; };
 		1F3DC3381D0D0F5A0075B7BA /* PhotoDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3DC3361D0D0F5A0075B7BA /* PhotoDetailTableViewCell.swift */; };
 		1F3DC3391D0D0F5A0075B7BA /* PhotoDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F3DC3371D0D0F5A0075B7BA /* PhotoDetailTableViewCell.xib */; };
+		1F457B541D179C4A00C1D8EC /* CenterlabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F457B531D179C4A00C1D8EC /* CenterlabelView.swift */; };
 		1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E43671CFC56EA00730DEA /* UIViewController+HUD.m */; };
 		1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E436F1CFC57F900730DEA /* ThemeTools.m */; };
 		1F55157E1CFEEFE5005B82FA /* InterestCollectViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F55157D1CFEEFE5005B82FA /* InterestCollectViewCell.m */; };
@@ -32,7 +50,6 @@
 		1F68502F1CFFD46B007F3C07 /* AboutUsInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F68502E1CFFD46B007F3C07 /* AboutUsInfoTableViewCell.m */; };
 		1F6850321CFFD4B3007F3C07 /* WantMeetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6850311CFFD4B3007F3C07 /* WantMeetTableViewCell.m */; };
 		1F6850361CFFD77A007F3C07 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6850351CFFD77A007F3C07 /* BaseTableViewCell.m */; };
-		1F68503A1CFFDD05007F3C07 /* HomeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6850391CFFDD05007F3C07 /* HomeViewModel.m */; };
 		1F68503D1CFFE4F2007F3C07 /* NewMeetInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F68503C1CFFE4F2007F3C07 /* NewMeetInfoTableViewCell.m */; };
 		1F6850401CFFFB02007F3C07 /* AllInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F68503F1CFFFB02007F3C07 /* AllInfoTableViewCell.m */; };
 		1F6850971D000642007F3C07 /* HYBLoadImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6850901D000642007F3C07 /* HYBLoadImageView.m */; };
@@ -67,8 +84,6 @@
 		1FCAFFD81D0181AA00BF53A1 /* EMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFD71D0181AA00BF53A1 /* EMAlertView.m */; };
 		1FCAFFDB1D01983B00BF53A1 /* UserInfoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFDA1D01983B00BF53A1 /* UserInfoViewModel.m */; };
 		1FDA53A61D003DC800C170BC /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA53A51D003DC800C170BC /* UIColor+Hex.m */; };
-		1FFB5F301D0527F700021F77 /* UserEduModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F2F1D0527F700021F77 /* UserEduModel.m */; };
-		1FFB5F331D05287A00021F77 /* UserWorks.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F321D05287A00021F77 /* UserWorks.m */; };
 		1FFB5F351D054BD900021F77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FFB5F341D054BD900021F77 /* Assets.xcassets */; };
 		1FFB5F381D05650400021F77 /* BaseUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F371D05650400021F77 /* BaseUserInfoViewController.m */; };
 		1FFB5F3B1D056D9600021F77 /* MoreInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F3A1D056D9600021F77 /* MoreInfoViewController.m */; };
@@ -178,6 +193,35 @@
 		1F1FB4841D0FD78E00794881 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
 		1F1FB4861D0FFBAE00794881 /* UserInviteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInviteModel.h; sourceTree = "<group>"; };
 		1F1FB4871D0FFBAE00794881 /* UserInviteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInviteModel.m; sourceTree = "<group>"; };
+		1F293D641D113C210063A9DA /* QiniuNetWorking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiniuNetWorking.h; sourceTree = "<group>"; };
+		1F293D651D113C210063A9DA /* QiniuNetWorking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiniuNetWorking.m; sourceTree = "<group>"; };
+		1F293D671D1166490063A9DA /* HomeViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewModel.h; sourceTree = "<group>"; };
+		1F293D681D1166490063A9DA /* HomeViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewModel.m; sourceTree = "<group>"; };
+		1F293D6A1D1175090063A9DA /* HomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeModel.h; sourceTree = "<group>"; };
+		1F293D6B1D1175090063A9DA /* HomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeModel.m; sourceTree = "<group>"; };
+		1F293D6D1D119F740063A9DA /* MePhotoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MePhotoView.swift; sourceTree = "<group>"; };
+		1F293D701D11A4B90063A9DA /* UINavigationBar+Transparent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Transparent.h"; sourceTree = "<group>"; };
+		1F293D711D11A4B90063A9DA /* UINavigationBar+Transparent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Transparent.m"; sourceTree = "<group>"; };
+		1F293D721D11A4B90063A9DA /* TransparentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentView.h; sourceTree = "<group>"; };
+		1F293D731D11A4B90063A9DA /* TransparentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentView.m; sourceTree = "<group>"; };
+		1F293D741D11A4B90063A9DA /* UIView+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Size.h"; sourceTree = "<group>"; };
+		1F293D751D11A4B90063A9DA /* UIView+Size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Size.m"; sourceTree = "<group>"; };
+		1F293D791D11AB460063A9DA /* MePhotoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MePhotoView.xib; sourceTree = "<group>"; };
+		1F293D7B1D1266850063A9DA /* HomeDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDetailModel.swift; sourceTree = "<group>"; };
+		1F293D7E1D12CBB10063A9DA /* String+Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Size.swift"; sourceTree = "<group>"; };
+		1F293D811D12D13F0063A9DA /* UITableView+FDIndexPathHeightCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDIndexPathHeightCache.h"; sourceTree = "<group>"; };
+		1F293D821D12D13F0063A9DA /* UITableView+FDIndexPathHeightCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDIndexPathHeightCache.m"; sourceTree = "<group>"; };
+		1F293D831D12D13F0063A9DA /* UITableView+FDKeyedHeightCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDKeyedHeightCache.h"; sourceTree = "<group>"; };
+		1F293D841D12D13F0063A9DA /* UITableView+FDKeyedHeightCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDKeyedHeightCache.m"; sourceTree = "<group>"; };
+		1F293D851D12D13F0063A9DA /* UITableView+FDTemplateLayoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDTemplateLayoutCell.h"; sourceTree = "<group>"; };
+		1F293D861D12D13F0063A9DA /* UITableView+FDTemplateLayoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDTemplateLayoutCell.m"; sourceTree = "<group>"; };
+		1F293D871D12D13F0063A9DA /* UITableView+FDTemplateLayoutCellDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDTemplateLayoutCellDebug.h"; sourceTree = "<group>"; };
+		1F293D881D12D13F0063A9DA /* UITableView+FDTemplateLayoutCellDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDTemplateLayoutCellDebug.m"; sourceTree = "<group>"; };
+		1F293D8E1D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+ARDynamicCacheHeightLayoutCell.h"; sourceTree = "<group>"; };
+		1F293D8F1D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+ARDynamicCacheHeightLayoutCell.m"; sourceTree = "<group>"; };
+		1F293D931D13CB290063A9DA /* AboutDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutDetailViewController.swift; sourceTree = "<group>"; };
+		1F293D9B1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+FDFullscreenPopGesture.h"; sourceTree = "<group>"; };
+		1F293D9C1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
 		1F3DC3271D0D06ED0075B7BA /* MeInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeInfoTableViewCell.swift; path = ../ViewControllers/MeInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1F3DC3281D0D06ED0075B7BA /* MeInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MeInfoTableViewCell.xib; path = ../ViewControllers/MeInfoTableViewCell.xib; sourceTree = "<group>"; };
 		1F3DC3291D0D06ED0075B7BA /* BaseNavigaitonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigaitonController.swift; sourceTree = "<group>"; };
@@ -186,6 +230,7 @@
 		1F3DC3311D0D0B890075B7BA /* MePhotoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MePhotoTableViewCell.xib; sourceTree = "<group>"; };
 		1F3DC3361D0D0F5A0075B7BA /* PhotoDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailTableViewCell.swift; sourceTree = "<group>"; };
 		1F3DC3371D0D0F5A0075B7BA /* PhotoDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoDetailTableViewCell.xib; sourceTree = "<group>"; };
+		1F457B531D179C4A00C1D8EC /* CenterlabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterlabelView.swift; sourceTree = "<group>"; };
 		1F4E43611CFC43F200730DEA /* Meet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Meet-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F4E43641CFC470F00730DEA /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
 		1F4E43661CFC56EA00730DEA /* UIViewController+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HUD.h"; sourceTree = "<group>"; };
@@ -216,8 +261,6 @@
 		1F6850311CFFD4B3007F3C07 /* WantMeetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WantMeetTableViewCell.m; sourceTree = "<group>"; };
 		1F6850341CFFD77A007F3C07 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
 		1F6850351CFFD77A007F3C07 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
-		1F6850381CFFDD05007F3C07 /* HomeViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewModel.h; sourceTree = "<group>"; };
-		1F6850391CFFDD05007F3C07 /* HomeViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewModel.m; sourceTree = "<group>"; };
 		1F68503B1CFFE4F2007F3C07 /* NewMeetInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMeetInfoTableViewCell.h; sourceTree = "<group>"; };
 		1F68503C1CFFE4F2007F3C07 /* NewMeetInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMeetInfoTableViewCell.m; sourceTree = "<group>"; };
 		1F68503E1CFFFB02007F3C07 /* AllInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllInfoTableViewCell.h; sourceTree = "<group>"; };
@@ -282,10 +325,6 @@
 		1FCAFFDA1D01983B00BF53A1 /* UserInfoViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewModel.m; sourceTree = "<group>"; };
 		1FDA53A41D003DC800C170BC /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		1FDA53A51D003DC800C170BC /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
-		1FFB5F2E1D0527F700021F77 /* UserEduModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEduModel.h; sourceTree = "<group>"; };
-		1FFB5F2F1D0527F700021F77 /* UserEduModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEduModel.m; sourceTree = "<group>"; };
-		1FFB5F311D05287A00021F77 /* UserWorks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserWorks.h; sourceTree = "<group>"; };
-		1FFB5F321D05287A00021F77 /* UserWorks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserWorks.m; sourceTree = "<group>"; };
 		1FFB5F341D054BD900021F77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1FFB5F361D05650400021F77 /* BaseUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseUserInfoViewController.h; sourceTree = "<group>"; };
 		1FFB5F371D05650400021F77 /* BaseUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseUserInfoViewController.m; sourceTree = "<group>"; };
@@ -501,6 +540,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F293D6F1D11A4AD0063A9DA /* TransparentView */ = {
+			isa = PBXGroup;
+			children = (
+				1F293D701D11A4B90063A9DA /* UINavigationBar+Transparent.h */,
+				1F293D711D11A4B90063A9DA /* UINavigationBar+Transparent.m */,
+				1F293D721D11A4B90063A9DA /* TransparentView.h */,
+				1F293D731D11A4B90063A9DA /* TransparentView.m */,
+				1F293D741D11A4B90063A9DA /* UIView+Size.h */,
+				1F293D751D11A4B90063A9DA /* UIView+Size.m */,
+			);
+			path = TransparentView;
+			sourceTree = "<group>";
+		};
+		1F293D7D1D12CB7F0063A9DA /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				1F293D7E1D12CBB10063A9DA /* String+Size.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
+		1F293D801D12D1300063A9DA /* UITableView-FDTempleateLayoutCell */ = {
+			isa = PBXGroup;
+			children = (
+				1F293D811D12D13F0063A9DA /* UITableView+FDIndexPathHeightCache.h */,
+				1F293D821D12D13F0063A9DA /* UITableView+FDIndexPathHeightCache.m */,
+				1F293D831D12D13F0063A9DA /* UITableView+FDKeyedHeightCache.h */,
+				1F293D841D12D13F0063A9DA /* UITableView+FDKeyedHeightCache.m */,
+				1F293D851D12D13F0063A9DA /* UITableView+FDTemplateLayoutCell.h */,
+				1F293D861D12D13F0063A9DA /* UITableView+FDTemplateLayoutCell.m */,
+				1F293D871D12D13F0063A9DA /* UITableView+FDTemplateLayoutCellDebug.h */,
+				1F293D881D12D13F0063A9DA /* UITableView+FDTemplateLayoutCellDebug.m */,
+			);
+			path = "UITableView-FDTempleateLayoutCell";
+			sourceTree = "<group>";
+		};
+		1F293D8D1D12F48F0063A9DA /* UICollectionView+ARDynamicHeightLayoutCell */ = {
+			isa = PBXGroup;
+			children = (
+				1F293D8E1D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.h */,
+				1F293D8F1D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m */,
+			);
+			path = "UICollectionView+ARDynamicHeightLayoutCell";
+			sourceTree = "<group>";
+		};
 		1F3DC32D1D0D06FD0075B7BA /* Me */ = {
 			isa = PBXGroup;
 			children = (
@@ -510,8 +594,17 @@
 				1F3DC3311D0D0B890075B7BA /* MePhotoTableViewCell.xib */,
 				1F3DC3361D0D0F5A0075B7BA /* PhotoDetailTableViewCell.swift */,
 				1F3DC3371D0D0F5A0075B7BA /* PhotoDetailTableViewCell.xib */,
+				1F293D6D1D119F740063A9DA /* MePhotoView.swift */,
+				1F293D791D11AB460063A9DA /* MePhotoView.xib */,
 			);
 			name = Me;
+			sourceTree = "<group>";
+		};
+		1F457B4E1D15327500C1D8EC /* FirstVersion */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = FirstVersion;
 			sourceTree = "<group>";
 		};
 		1F4E43651CFC56AE00730DEA /* Category */ = {
@@ -551,6 +644,8 @@
 				1F79BAD71D080B7B00814DED /* NSFileManager+Utils.m */,
 				1F79BAD91D080B9100814DED /* NSFileManager+Cache.h */,
 				1F79BADA1D080B9100814DED /* NSFileManager+Cache.m */,
+				1F293D9B1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.h */,
+				1F293D9C1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -568,6 +663,7 @@
 			isa = PBXGroup;
 			children = (
 				1F68501F1CFFD3D2007F3C07 /* MeetDetailViewController.swift */,
+				1F293D931D13CB290063A9DA /* AboutDetailViewController.swift */,
 			);
 			name = MeetDetailView;
 			sourceTree = "<group>";
@@ -575,6 +671,9 @@
 		1F6850171CFFD30E007F3C07 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1F293D8D1D12F48F0063A9DA /* UICollectionView+ARDynamicHeightLayoutCell */,
+				1F293D801D12D1300063A9DA /* UITableView-FDTempleateLayoutCell */,
+				1F293D6F1D11A4AD0063A9DA /* TransparentView */,
 				1F79BB101D0AB98E00814DED /* AutomaticBulletAndNumberLists.h */,
 				1F79BB111D0AB98E00814DED /* AutomaticBulletAndNumberLists.m */,
 				1F79BAE01D09248500814DED /* ZHPickView */,
@@ -603,6 +702,7 @@
 				1F6850221CFFD41E007F3C07 /* PhotoTableViewCell.m */,
 				1F6850241CFFD431007F3C07 /* MeetInfoTableViewCell.h */,
 				1F6850251CFFD431007F3C07 /* MeetInfoTableViewCell.m */,
+				1F457B531D179C4A00C1D8EC /* CenterlabelView.swift */,
 				1F6850271CFFD443007F3C07 /* CompayTableViewCell.h */,
 				1F6850281CFFD443007F3C07 /* CompayTableViewCell.m */,
 				1F68502A1CFFD458007F3C07 /* SectionInfoTableViewCell.h */,
@@ -619,15 +719,6 @@
 				1F6850351CFFD77A007F3C07 /* BaseTableViewCell.m */,
 			);
 			name = MeetDetail;
-			sourceTree = "<group>";
-		};
-		1F6850371CFFDCEE007F3C07 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				1F6850381CFFDD05007F3C07 /* HomeViewModel.h */,
-				1F6850391CFFDD05007F3C07 /* HomeViewModel.m */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		1F68508E1D000642007F3C07 /* HYBLoopScrollView */ = {
@@ -660,10 +751,14 @@
 				1F3DC32E1D0D07A60075B7BA /* MeViewModel.swift */,
 				1FCAFFCE1D01515D00BF53A1 /* BaseRequestViewModel.h */,
 				1FCAFFCF1D01515D00BF53A1 /* BaseRequestViewModel.m */,
+				1F293D671D1166490063A9DA /* HomeViewModel.h */,
+				1F293D681D1166490063A9DA /* HomeViewModel.m */,
 				1FCAFFD11D01517A00BF53A1 /* LoginViewModel.h */,
 				1FCAFFD21D01517A00BF53A1 /* LoginViewModel.m */,
 				1FCAFFD91D01983B00BF53A1 /* UserInfoViewModel.h */,
 				1FCAFFDA1D01983B00BF53A1 /* UserInfoViewModel.m */,
+				1F293D641D113C210063A9DA /* QiniuNetWorking.h */,
+				1F293D651D113C210063A9DA /* QiniuNetWorking.m */,
 			);
 			name = ViewModel;
 			path = Meet/ViewModel;
@@ -709,7 +804,6 @@
 		DA018EDC1CD1D2CD0051D2D7 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				1F6850371CFFDCEE007F3C07 /* ViewModel */,
 				1F6850131CFFD29F007F3C07 /* MeetDetailView */,
 				DA6B1C361CEC4DAC0020021D /* Frist Versions */,
 				DA6B1C391CEC4DAC0020021D /* Second version */,
@@ -791,6 +885,7 @@
 		DA3626701CD1A98E00A8AE39 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				1F293D7D1D12CB7F0063A9DA /* Extentions */,
 				1F6850171CFFD30E007F3C07 /* Utils */,
 				1F5515851CFEF8A5005B82FA /* Other */,
 				1F4E43651CFC56AE00730DEA /* Category */,
@@ -843,6 +938,7 @@
 		DA36267B1CD1A98E00A8AE39 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1F457B4E1D15327500C1D8EC /* FirstVersion */,
 				1F3DC32D1D0D06FD0075B7BA /* Me */,
 				DA018F2B1CD39D570051D2D7 /* ManListCell.h */,
 				DA018F2C1CD39D570051D2D7 /* ManListCell.m */,
@@ -1065,10 +1161,6 @@
 				1F79BAD11D071CF700814DED /* UserInfo.m */,
 				DAF5C8161CE0D0ED00DA7901 /* BaseModel.h */,
 				DAF5C8171CE0D0ED00DA7901 /* BaseModel.m */,
-				1FFB5F2E1D0527F700021F77 /* UserEduModel.h */,
-				1FFB5F2F1D0527F700021F77 /* UserEduModel.m */,
-				1FFB5F311D05287A00021F77 /* UserWorks.h */,
-				1FFB5F321D05287A00021F77 /* UserWorks.m */,
 				DAF5C81A1CE0D0ED00DA7901 /* WXAccessModel.h */,
 				DAF5C81B1CE0D0ED00DA7901 /* WXAccessModel.m */,
 				DAF5C81C1CE0D0ED00DA7901 /* WXUserInfo.h */,
@@ -1077,6 +1169,9 @@
 				1F9E93141D0D7ACE003ED7AF /* UserExtenModel.m */,
 				1F1FB4861D0FFBAE00794881 /* UserInviteModel.h */,
 				1F1FB4871D0FFBAE00794881 /* UserInviteModel.m */,
+				1F293D6A1D1175090063A9DA /* HomeModel.h */,
+				1F293D6B1D1175090063A9DA /* HomeModel.m */,
+				1F293D7B1D1266850063A9DA /* HomeDetailModel.swift */,
 			);
 			path = ModelBean;
 			sourceTree = "<group>";
@@ -1228,7 +1323,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DA36264F1CD1A75C00A8AE39 /* Build configuration list for PBXProject "			" */;
+			buildConfigurationList = DA36264F1CD1A75C00A8AE39 /* Build configuration list for PBXProject "Meet" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1258,6 +1353,7 @@
 				DA6CEEEA1CD97E9A00EEABFF /* Me.storyboard in Resources */,
 				DA1A67EC1CEF107C00F9CC9D /* area.plist in Resources */,
 				DA3626671CD1A75C00A8AE39 /* LaunchScreen.storyboard in Resources */,
+				1F293D7A1D11AB460063A9DA /* MePhotoView.xib in Resources */,
 				1FFB5F351D054BD900021F77 /* Assets.xcassets in Resources */,
 				DABF8AF41CEAC0DC00CA2A1D /* Seting.storyboard in Resources */,
 				1F3DC3331D0D0B890075B7BA /* MePhotoTableViewCell.xib in Resources */,
@@ -1344,8 +1440,10 @@
 				DA6B1C551CEC4DAC0020021D /* EatViewController.m in Sources */,
 				DA1A67EF1CEFD81D00F9CC9D /* WXLoginViewController.m in Sources */,
 				1FCAFFDB1D01983B00BF53A1 /* UserInfoViewModel.m in Sources */,
+				1F293D901D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m in Sources */,
 				DA6CEF131CDAF42300EEABFF /* AddInformationViewController.m in Sources */,
 				DA4A88FB1CDB5CB700649983 /* UITextView+Placeholder.m in Sources */,
+				1F293D661D113C210063A9DA /* QiniuNetWorking.m in Sources */,
 				1FC2C1451CFD3311001D6D10 /* NSString+Utils.m in Sources */,
 				DA018F2E1CD39D570051D2D7 /* ManListCell.m in Sources */,
 				DA4A89081CDC9A3200649983 /* GetCodeViewController.m in Sources */,
@@ -1353,6 +1451,7 @@
 				DABF8AE91CE9B76000CA2A1D /* WillMeetViewColler.m in Sources */,
 				DA6CEEFA1CD9FA7200EEABFF /* LabelAndTextFieldCell.m in Sources */,
 				DA4A88F61CDB1DD900649983 /* AddStarViewController.m in Sources */,
+				1F293D6C1D1175090063A9DA /* HomeModel.m in Sources */,
 				DA018F451CD4B9AA0051D2D7 /* PhotoGridCell.m in Sources */,
 				1FFB5F3B1D056D9600021F77 /* MoreInfoViewController.m in Sources */,
 				DA018F591CD78E9C0051D2D7 /* ImageAndTitleView.m in Sources */,
@@ -1370,8 +1469,8 @@
 				DAF5C8201CE0D0ED00DA7901 /* WXAccessModel.m in Sources */,
 				1F5515841CFEF859005B82FA /* EqualSpaceFlowLayout.m in Sources */,
 				1F3DC3321D0D0B890075B7BA /* MePhotoTableViewCell.swift in Sources */,
+				1F293D7F1D12CBB10063A9DA /* String+Size.swift in Sources */,
 				DAF5C8BC1CE6D6AD00DA7901 /* NSObject+RMArchivable.m in Sources */,
-				1F68503A1CFFDD05007F3C07 /* HomeViewModel.m in Sources */,
 				1FFB5F3E1D069A8800021F77 /* ProfileKeyAndValue.m in Sources */,
 				DAF5C8541CE5A5C100DA7901 /* UIView+frameAdjust.m in Sources */,
 				DAF5C8841CE5B95000DA7901 /* CoreTextLinkData.m in Sources */,
@@ -1386,7 +1485,9 @@
 				DA6B1C541CEC4DAC0020021D /* CoffeeViewController.m in Sources */,
 				1F6850291CFFD443007F3C07 /* CompayTableViewCell.m in Sources */,
 				DA6CEF021CDA402C00EEABFF /* TextViewCell.m in Sources */,
+				1F293D7C1D1266860063A9DA /* HomeDetailModel.swift in Sources */,
 				DAF5C89D1CE6191000DA7901 /* MHFacebookImageViewer.m in Sources */,
+				1F293D9D1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */,
 				DA3626591CD1A75C00A8AE39 /* main.m in Sources */,
 				1F68502F1CFFD46B007F3C07 /* AboutUsInfoTableViewCell.m in Sources */,
@@ -1397,7 +1498,6 @@
 				1F68503D1CFFE4F2007F3C07 /* NewMeetInfoTableViewCell.m in Sources */,
 				DA6B1C581CEC4DAC0020021D /* HomeMoreViewController.m in Sources */,
 				DAF5C7F91CDF479C00DA7901 /* NetWorkObject.m in Sources */,
-				1FFB5F301D0527F700021F77 /* UserEduModel.m in Sources */,
 				1F6850201CFFD3D2007F3C07 /* MeetDetailViewController.swift in Sources */,
 				1F6E8BE51D0276C00044CD40 /* NSObject+PerformSelector.m in Sources */,
 				DABF8AEC1CE9B7BD00CA2A1D /* WillAllowViewColler.m in Sources */,
@@ -1408,8 +1508,10 @@
 				DABF8AEF1CE9B83300CA2A1D /* AllMeetViewController.m in Sources */,
 				DA6B1C591CEC4DAC0020021D /* MoveViewController.m in Sources */,
 				1FCAFFD81D0181AA00BF53A1 /* EMAlertView.m in Sources */,
+				1F293D761D11A4B90063A9DA /* UINavigationBar+Transparent.m in Sources */,
 				1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */,
 				1F3DC3381D0D0F5A0075B7BA /* PhotoDetailTableViewCell.swift in Sources */,
+				1F293D781D11A4B90063A9DA /* UIView+Size.m in Sources */,
 				1FC2C14F1CFD362B001D6D10 /* UIViewController+hideExcessLine.m in Sources */,
 				DAF5C8BF1CE6D6AD00DA7901 /* RMMapper.m in Sources */,
 				1F79BB121D0AB98E00814DED /* AutomaticBulletAndNumberLists.m in Sources */,
@@ -1426,6 +1528,7 @@
 				1FC4C08B1D0D590E00E4BB33 /* MeViewController.swift in Sources */,
 				DAF5C8821CE5B95000DA7901 /* CoreTextData.m in Sources */,
 				1F6850361CFFD77A007F3C07 /* BaseTableViewCell.m in Sources */,
+				1F457B541D179C4A00C1D8EC /* CenterlabelView.swift in Sources */,
 				1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */,
 				1FCAFFD01D01515D00BF53A1 /* BaseRequestViewModel.m in Sources */,
 				1F79BADF1D090AEE00814DED /* SetInvitationViewController.swift in Sources */,
@@ -1441,9 +1544,12 @@
 				1F9E93171D0D8B4D003ED7AF /* SwiftDefine.swift in Sources */,
 				1F68502C1CFFD458007F3C07 /* SectionInfoTableViewCell.m in Sources */,
 				1F6850321CFFD4B3007F3C07 /* WantMeetTableViewCell.m in Sources */,
+				1F293D8C1D12D13F0063A9DA /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
+				1F293D891D12D13F0063A9DA /* UITableView+FDIndexPathHeightCache.m in Sources */,
 				1FCAA98A1CFF200900C84ED2 /* UIViewController+ScrollingNavbar.m in Sources */,
 				1F79BAD81D080B7B00814DED /* NSFileManager+Utils.m in Sources */,
 				DA6CEEF21CD9EF9D00EEABFF /* CellButton.m in Sources */,
+				1F293D771D11A4B90063A9DA /* TransparentView.m in Sources */,
 				1F79BAD21D071CF700814DED /* UserInfo.m in Sources */,
 				DA6B1C521CEC4DAC0020021D /* FristHomeViewController.m in Sources */,
 				DAF5C8C91CE6F3EB00DA7901 /* MyPhotosViewController.m in Sources */,
@@ -1451,18 +1557,22 @@
 				DA6B1C5A1CEC4DAC0020021D /* ShowViewController.m in Sources */,
 				1F79BAE31D09248B00814DED /* ZHPickView.m in Sources */,
 				1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */,
+				1F293D941D13CB290063A9DA /* AboutDetailViewController.swift in Sources */,
 				DAF5C8CD1CE6F79900DA7901 /* PhotosGridViewController.m in Sources */,
 				1F6850981D000642007F3C07 /* HYBLoopScrollView.m in Sources */,
 				1FC2C1491CFD3332001D6D10 /* NSDate+Category.m in Sources */,
 				1FC2C14C1CFD3583001D6D10 /* NSDateFormatter+Category.m in Sources */,
 				DABF8AF81CEAC29A00CA2A1D /* SetingViewController.m in Sources */,
 				DAF5C8831CE5B95000DA7901 /* CoreTextImageData.m in Sources */,
-				1FFB5F331D05287A00021F77 /* UserWorks.m in Sources */,
+				1F293D8B1D12D13F0063A9DA /* UITableView+FDTemplateLayoutCell.m in Sources */,
+				1F293D8A1D12D13F0063A9DA /* UITableView+FDKeyedHeightCache.m in Sources */,
 				1FCAFFD31D01517A00BF53A1 /* LoginViewModel.m in Sources */,
 				DAF5C8871CE5B95000DA7901 /* CTFrameParserConfig.m in Sources */,
+				1F293D6E1D119F740063A9DA /* MePhotoView.swift in Sources */,
 				1F9E931D1D0E4993003ED7AF /* UIImage+PureColor.m in Sources */,
 				DAF5C8911CE5C0EE00DA7901 /* MyDisplayViewController.m in Sources */,
 				DA6CEF0F1CDAF33300EEABFF /* MoreProfileViewController.m in Sources */,
+				1F293D691D1166490063A9DA /* HomeViewModel.m in Sources */,
 				DA4A89051CDC473700649983 /* LoginMainViewController.m in Sources */,
 				DAF5C8D11CE6F87A00DA7901 /* SendInviteViewController.m in Sources */,
 				DA018F481CD4BAC60051D2D7 /* PhotoTableCell.m in Sources */,
@@ -1600,7 +1710,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Meet/Meet.pch";
 				INFOPLIST_FILE = Meet/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1631,7 +1741,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Meet/Meet.pch";
 				INFOPLIST_FILE = Meet/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1653,7 +1763,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DA36264F1CD1A75C00A8AE39 /* Build configuration list for PBXProject "			" */ = {
+		DA36264F1CD1A75C00A8AE39 /* Build configuration list for PBXProject "Meet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA3626691CD1A75C00A8AE39 /* Debug */,

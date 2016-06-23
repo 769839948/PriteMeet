@@ -27,10 +27,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    [UITools customNavigationLeftBarButtonForController:self action:@selector(backAction:)];
-    [UITools navigationRightBarButtonForController:self action:@selector(cancelAction:) normalTitle:@"取消" selectedTitle:nil];
     _viewModel = [[LoginViewModel alloc] init];
     _isNewUser = YES;
 }
@@ -41,7 +37,7 @@
 }
 
 #pragma mark - Action
-- (void)backAction:(id)sender {
+- (IBAction)backAction:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -84,7 +80,7 @@
                 [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
                     [UserInfo synchronizeWithDic:object];
                     [self dismissViewControllerAnimated:YES completion:^{
-                        [AppData shareInstance].isLogin = YES;
+                        [UserInfo sharedInstance].isFirstLogin = YES;
                         
                     }];
                 } fail:^(NSDictionary *object) {

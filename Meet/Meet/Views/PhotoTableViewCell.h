@@ -11,6 +11,6 @@
 @interface PhotoTableViewCell : BaseTableViewCell
 
 
-- (void)configCell;
+- (void)configCell:(NSArray *)imageArray;
 
 @end

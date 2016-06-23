@@ -86,7 +86,7 @@ typedef void (^returnImage)(UIImage *image);
        loadingString:(LoadingView)loading;
 
 + (void)saveCacheImage:(NSString *)url
-               success:(Success)successBlock returnImage:(returnImage)block
+       completionBlock:(void (^)(BOOL succeeded, UIImage *image))completionBlock
                   fail:(Fail)failBlock
          loadingString:(LoadingView)loading;
 

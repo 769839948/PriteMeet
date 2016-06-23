@@ -7,7 +7,8 @@
 //
 
 #import "UserExtenModel.h"
-
+#import "MJExtension.h"
+@class Photos;
 //文件地址名称
 #define kEncodedObjectPath_UserExten ([[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"UserExtenModel"])
 
@@ -58,7 +59,7 @@ static UserExtenModel *userExten = nil;
     }
     [UserExtenModel shareInstance].auth_info  = nil;
     [UserExtenModel shareInstance].cover_photo  = nil;
-    [UserExtenModel shareInstance].descriptions  = nil;
+    [UserExtenModel shareInstance].highlight  = nil;
     [UserExtenModel shareInstance].detail  = nil;
     
     return result;
@@ -80,8 +81,9 @@ static UserExtenModel *userExten = nil;
     if (self) {
         self.auth_info = [aDecoder decodeObjectForKey:@"auth_info"];
         self.cover_photo = [aDecoder decodeObjectForKey:@"cover_photo"];
-        self.descriptions = [aDecoder decodeObjectForKey:@"descriptions"];
+        self.highlight = [aDecoder decodeObjectForKey:@"highlight"];
         self.detail = [aDecoder decodeObjectForKey:@"detail"];
+        self.completeness = [aDecoder decodeObjectForKey:@"completeness"];
     }
     return self;
 }
@@ -90,8 +92,9 @@ static UserExtenModel *userExten = nil;
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.auth_info forKey:@"auth_info"];
     [aCoder encodeObject:self.cover_photo forKey:@"cover_photo"];
-    [aCoder encodeObject:self.descriptions forKey:@"descriptions"];
+    [aCoder encodeObject:self.highlight forKey:@"highlight"];
     [aCoder encodeObject:self.detail forKey:@"detail"];
+    [aCoder encodeObject:self.completeness forKey:@"completeness"];
 }
 
 
@@ -101,7 +104,10 @@ static UserExtenModel *userExten = nil;
     NSMutableArray *urls = [NSMutableArray array];
     for (int i = 0; i < details.count; i ++) {
         Detail *detail = [details objectAtIndex:i];
-        [urls addObjectsFromArray:detail.photo];
+        for (int j = 0; j < detail.photo.count; j ++) {
+            NSDictionary *dic = (NSDictionary *)[detail.photo objectAtIndex:j];
+            [urls addObject:dic[@"photo"]];
+        }
     }
     return urls;
 }
@@ -110,21 +116,25 @@ static UserExtenModel *userExten = nil;
 {
     
     [UserExtenModel shareInstance].auth_info  = [dic objectForKey:@"auth_info"];
-    [UserExtenModel shareInstance].cover_photo  = dic[@"cover_photo"];
-    [UserExtenModel shareInstance].descriptions  = dic[@"descriptions"];
+    Cover_photo *coverPhoto = dic[@"cover_photo"];
+    [UserExtenModel shareInstance].cover_photo  = coverPhoto;
+    [UserExtenModel shareInstance].highlight  = dic[@"highlight"];
     NSMutableArray *details = [NSMutableArray array];
     NSArray *detailArray = dic[@"detail"];
+    Completeness *completeness = [[Completeness alloc] init];
+    completeness.completeness = [[dic[@"completeness"] objectForKey:@"completeness"] integerValue];
+    completeness.next_page = [[dic[@"completeness"] objectForKey:@"next_page"] integerValue];
+    completeness.msg = [dic[@"completeness"] objectForKey:@"msg"];
+    [UserExtenModel shareInstance].completeness = completeness;
     for (int i = 0 ; i < detailArray.count; i ++) {
         Detail *detail = [[Detail alloc] init];
         detail.content = [[detailArray objectAtIndex:i] objectForKey:@"content"];
         detail.id = [[detailArray objectAtIndex:i] objectForKey:@"id"];
-        detail.photo = [[detailArray objectAtIndex:i] objectForKey:@"photo"];
+        detail.photo = [[detailArray objectAtIndex:i] objectForKey:@"photos"];
         detail.title = [[detailArray objectAtIndex:i] objectForKey:@"title"];
         [details addObject:detail];
     }
     [UserExtenModel shareInstance].detail  = [details copy];
-    UserExtenModel *userExt = [UserExtenModel shareInstance];
-    NSLog(@"%@",userExt.auth_info);
     return [UserExtenModel synchronize];
 }
 

@@ -101,6 +101,20 @@ static UITools *tools = nil;
     return hud;
 }
 
++ (MBProgressHUD *)showMessageToView:(UIView *)view message:(NSString *)message autoHide:(BOOL)autoHide
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = message;
+    hud.margin = 10.f;
+    hud.removeFromSuperViewOnHide = YES;
+    if (autoHide) {
+        [hud hide:YES afterDelay:1.0f];
+    }
+    return hud;
+}
+
 - (MBProgressHUD *)showLoadingViewAddToView:(UIView *)view message:(NSString *)message autoHide:(BOOL)autoHide {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;

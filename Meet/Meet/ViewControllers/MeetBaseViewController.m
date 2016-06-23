@@ -27,6 +27,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+    self.navigationController.fd_fullscreenPopGestureRecognizer.enabled = YES;
 
 }
 

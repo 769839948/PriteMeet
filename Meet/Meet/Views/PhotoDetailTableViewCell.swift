@@ -8,12 +8,14 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
+
 class PhotoDetailTableViewCell: UITableViewCell {
 
     var logoutView:UIView! = nil
     override func awakeFromNib() {
         super.awakeFromNib()
-        logoutView = UIView(frame: self.contentView.bounds)
+        logoutView = UIView(frame: CGRectMake(0,0,ScreenWidth,self.bounds.height))
         logoutView.backgroundColor = UIColor.whiteColor()
         self.contentView.addSubview(logoutView)
 //        self.setUpView()
@@ -29,16 +31,19 @@ class PhotoDetailTableViewCell: UITableViewCell {
         logoutView.hidden = false
         var width:CGFloat = 0
         self.logoutView.backgroundColor = UIColor.init(hexString: "FBFBFB")
+        let photoImage = UIImageView()
+        photoImage.frame = CGRectMake(20 + width, 26, 59, 59)
+        photoImage.backgroundColor = UIColor.blueColor()
         if imageArray.count > 0 {
             for index in 0...imageArray.count - 1 {
                 let photoImage = UIImageView()
                 photoImage.frame = CGRectMake(20 + width, 26, 59, 59)
-                photoImage.image = imageArray.objectAtIndex(index) as? UIImage
-                
-
-                self.logoutView.addSubview(photoImage)
-                width = CGFloat(index) * 62
+                photoImage.sd_setImageWithURL(NSURL.init(string: imageArray.objectAtIndex(index) as! String), placeholderImage: UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSizeZero), options: SDWebImageOptions.RetryFailed, completed: { (image, error, type, url) in
+                    
+                })
                 print("\(index) times 5 is \(width)")
+                self.logoutView.addSubview(photoImage)
+                width = width + 62
             }
         }
     }

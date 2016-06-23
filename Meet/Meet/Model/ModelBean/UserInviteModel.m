@@ -28,7 +28,6 @@ static UserInviteModel *userInvite = nil;
     dispatch_once(&onceToken, ^{
         
         if ([UserInviteModel isHaveInviteInfo]) {
-            userInvite = [[UserInviteModel alloc] init];
             userInvite = [NSKeyedUnarchiver unarchiveObjectWithFile:kEncodedObjectPath_UserInvite];
             
         }else{
@@ -86,28 +85,21 @@ static UserInviteModel *userInvite = nil;
     [aCoder encodeObject:self.results forKey:@"results"];
 }
 
-+ (BOOL)synchronizeWithDic:(NSArray *)dicArray
++ (BOOL)synchronizeWithDic:(NSDictionary *)dicArray
 {
     NSMutableArray *userInviiteArray = [NSMutableArray array];
-    for (NSDictionary *results in dicArray) {
-        Results *result = [[Results alloc] init];
-        result.created = results[@"created"];
-        result.is_active = [results[@"is_active"] boolValue];
-        result.descriptions = results[@"description"];
-        result.user_id = [results[@"user_id"] integerValue];
-        NSMutableArray *themeArray = [NSMutableArray array];
-        NSArray *themes = results[@"theme"];
-        for (NSDictionary *themeDic in themes) {
-            Theme *theme = [[Theme alloc] init];
-            theme.id = [themeDic[@"id"] integerValue];
-            theme.price = [themeDic[@"price"] integerValue];
-            theme.theme = themeDic[@"theme"];
-            [themeArray addObject:theme];
-        }
-        result.theme = themeArray;
-        [userInviiteArray addObject:result];
+    Results *result = [[Results alloc] init];
+    result.introduction = dicArray[@"introduction"];
+    result.is_fake = [dicArray[@"is_fake"] boolValue];
+     NSMutableArray *themeArray = [NSMutableArray array];
+    for (NSDictionary *results in dicArray[@"theme"]) {
+        Theme *theme = [[Theme alloc] init];
+        theme.price = [results[@"price"] integerValue];
+        theme.theme = results[@"theme"];
+        [themeArray addObject:theme];
     }
-    
+    result.theme = themeArray;
+    [userInviiteArray addObject:result];
     [UserInviteModel shareInstance].results = [userInviiteArray copy];
 
     return [UserInviteModel synchronize];
@@ -120,30 +112,39 @@ static UserInviteModel *userInvite = nil;
     NSMutableArray *themsArray = [NSMutableArray array];
     for (NSString *itemString in itemArray) {
         Theme *themes = [[Theme alloc] init];
-        themes.theme = [[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitede"] objectForKey:itemString];
+        themes.theme = [[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitation"] objectForKey:itemString];
         themes.price = 50;
         [themsArray addObject:themes];
     }
     result.theme = [themsArray copy];
-    result.is_active = YES;
-    result.descriptions = description;
+    result.introduction = description;
     return [UserInviteModel synchronize];
 }
 
 + (BOOL)isEmptyDescription
 {
     BOOL ret = NO;
+    
     if ([UserInviteModel shareInstance].results.count == 0) {
         ret = YES;
     }
     return ret;
 }
 
++ (BOOL)isFake
+{
+    if (![UserInviteModel isEmptyDescription] && [UserInviteModel shareInstance] != nil) {
+        return [UserInviteModel shareInstance].results[0].is_fake;
+    }else{
+        return YES;
+    }
+}
+
 + (NSString *)descriptionString:(NSInteger)index
 {
     Results *result = [[UserInviteModel shareInstance].results objectAtIndex:index];
-    if (result.descriptions != nil) {
-        return result.descriptions;
+    if (result.introduction != nil) {
+        return result.introduction;
     }else{
         return @"";
     }
@@ -153,9 +154,14 @@ static UserInviteModel *userInvite = nil;
 {
     NSMutableArray *themArray = [NSMutableArray array];
     Results *result = [[UserInviteModel shareInstance].results objectAtIndex:index];
+
     for (Theme *theme in result.theme) {
         if (![theme.theme isEqualToString:@""]) {
-            [themArray addObject:[[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitede"] objectForKey:theme.theme]];
+            NSLog(@"%@",theme.theme);
+            NSString *themeString = [[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitation"] objectForKey:theme.theme];
+            if (themeString != nil) {
+                [themArray addObject:themeString];
+            }
         }
     }
     return [themArray copy];

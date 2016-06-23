@@ -73,7 +73,7 @@
     NSString *const defaultIdentifier = @"defaultIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:defaultIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:defaultIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:defaultIdentifier];
     }
     cell.textLabel.textAlignment = NSTextAlignmentLeft;
 
@@ -90,16 +90,15 @@
     }
     
     if (indexPath.row == 1) {
-        UILabel *cacheLable = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth/2, 16, ScreenWidth/2 - 20, 16)];
-        cacheLable.font = SettingViewLabelFont;
-        cacheLable.textAlignment = NSTextAlignmentRight;
+        cell.detailTextLabel.font = SettingViewLabelFont;
+        cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
+        cell.detailTextLabel.textColor = [UIColor colorWithHexString:TableViewTextColor];
         if ([[self cacheSize] integerValue] < 1) {
-            cacheLable.text = @"";
+            cell.detailTextLabel.text = @"";
         }else{
-            cacheLable.text = [self cacheSize];
+            cell.detailTextLabel.text = [self cacheSize];
         }
-        cacheLable.textColor = [UIColor colorWithHexString:TableViewTextColor];
-        [cell.contentView addSubview:cacheLable];
+//       cacheLable.text = [self cacheSize];
     }
     
     if (indexPath.row == 1 || indexPath.row == 5) {
@@ -115,7 +114,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0) {
-        
+        [[UITools shareInstance] showMessageToView:self.view message:@"敬请期待" autoHide:YES];
     }else if (indexPath.row == 1){
 //        __weak typeof(self) weakSelf = self;
         [EMAlertView showAlertWithTitle:nil message:@"确定清除缓存？" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
@@ -157,6 +156,7 @@
         [EMAlertView showAlertWithTitle:nil message:@"确定退出登录？" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             if (buttonIndex == 1) {
                 [UserInfo logout];
+                [NSFileManager clearCache:[NSFileManager jk_cachesPath]];
                 [AppData shareInstance].isLogin = NO;
                 if (weakSelf.logoutBlock) {
                     weakSelf.logoutBlock();

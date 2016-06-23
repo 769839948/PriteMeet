@@ -7,14 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeModel.h"
 
 @interface ManListCell : UITableViewCell
 
-- (void)configCell:(NSString *)title array:(NSArray *)array string:(NSString *)string;
 
 @property (assign, nonatomic) NSInteger index;
 
 
 + (void)homeNameLabelColor:(UILabel *)nameLable;
+
+//- (void)configCell:(NSString *)title array:(NSArray *)array string:(NSString *)string;
+
+- (void)configCell:(HomeModel *)model interstArray:(NSArray *)interstArray;
 
 @end

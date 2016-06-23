@@ -21,6 +21,28 @@
 
 @end
 
+@interface Edu_Expirence : NSObject
+
+@property (nonatomic, assign) NSInteger eid;
+
+@property (nonatomic, strong) NSString *graduated;
+
+@property (nonatomic, strong) NSString *major;
+
+@property (nonatomic, strong) NSString *education;
+
+
+@end
+
+@interface Work_Expirence : NSObject
+
+@property (nonatomic, assign) NSInteger wid;
+
+@property (nonatomic, strong) NSString *profession;
+
+@property (nonatomic, strong) NSString *company_name;
+
+@end
 
 @interface UserInfo : NSObject
 
@@ -95,9 +117,9 @@
 
 + (BOOL)logout;
 
-+ (BOOL)saveCacheImage:(UIImage *)image withName:(NSString *)name;
-
 + (UIImage *)imageForName:(NSString *)name;
+
++ (BOOL)saveCacheImage:(UIImage *)image withName:(NSString *)name;
 
 //+ (BOOL)saveBaseData:(id)data WithName:(NSString *)name;
 //

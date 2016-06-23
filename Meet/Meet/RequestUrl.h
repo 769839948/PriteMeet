@@ -13,19 +13,24 @@
  *  后台请求数据URL存放处
  */
 //微信登陆后发送微信信息给后台服务器
-#define  RequestBaseUrl              @"http://senzapps.cc/"
-#define  RequestCreateUser           @"api/account/user/signin"
-#define  RequestCheckUser            @"api/account/user/check"
-#define  RequestUpdateUser           @"api/user/base_info/"
-#define  RequestCheckInvitationCode  @"api/invitation/check"
-#define  RequestGetUserInfo          @"api/user/base_info/"
-#define  RequestUploadUserPhoto      @"api/user/avatar/"
+#define  RequestBaseUrl              @"http://django.senzapps.cc"   //http://django.senzapps.cc/
+#define  RequestCreateUser           @"/api/user/signup/"
+#define  RequestCheckUser            @"/api/user/check/"
+#define  RequestUpdateUser           @"/api/user/base_info/"
+#define  RequestCheckInvitationCode  @"/api/code/check/"
+#define  RequestGetUserInfo          @"/api/user/base_info/"
+#define  RequestUploadUserPhoto      @"/api/user_avatar/"
+#define  RequestUploadPhotoToken      @"/api/upload_token/"
 
-#define  RequestAddWorkExp           @"api/user/work_info"
-#define  RequestAddEduExp            @"api/user/edu_info"
+#define  RequestAddWorkExp           @"/api/user/work_info"
+#define  RequestAddEduExp            @"/api/user/edu_info"
 
-#define  RequestAddStar              @"api/user/description/"
-#define  RequestExtINfo              @"api/user/ext_info/"
-#define  RequestInviteInfo           @"api/engagement/list/"
+#define  RequestAddStar              @"/api/user/description/"
+#define  RequestExtINfo              @"/api/user/ext_info/"
+#define  RequestInviteInfo           @"/api/user_engagement_activity/"
+
+#define  RequestGetHomeList          @"/api/user/list"
+
+#define  RequestGetOtherInfo         @"/api/user/info"
 
 #endif /* RequestUrl_h */

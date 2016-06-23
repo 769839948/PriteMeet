@@ -36,6 +36,13 @@
     return _titleLabel;
 }
 
+
+- (void)filleCellWithFeed:(NSString *)text
+{
+    self.titleLabel.text = text;
+}
+
+
 - (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
 {
     if (!self.isHeightCaculated) {
