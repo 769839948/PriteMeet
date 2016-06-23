@@ -94,4 +94,6 @@ class HomeDetailModel: NSObject {
     var personal_label: String?
     
     var distance: String?
+    
+    var more_introduction: String?
 }

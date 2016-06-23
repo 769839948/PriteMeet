@@ -107,7 +107,9 @@ class MeetDetailViewController: UIViewController {
                 
             });
         }else{
-            self.navigationController?.pushViewController(MeetWebViewController(), animated: true)
+            let meetView = MeetWebViewController()
+            meetView.url = "https://jinshuju.net/f/yzVBmI"
+            self.navigationController?.pushViewController(meetView, animated: true)
         }
     }
     
@@ -298,14 +300,16 @@ class MeetDetailViewController: UIViewController {
         }
     }
 
-    func aboutUsDetailBtPress(){
-        print("ddddddd")
-    }
 }
 
 extension MeetDetailViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if indexPath.section == 1 && indexPath.row == 1 && self.otherUserModel.user_info!.highlight != ""  {
+            let meetWebView = MeetWebViewController()
+            meetWebView.url = self.otherUserModel.more_introduction!
+            self.navigationController?.pushViewController(meetWebView, animated: true)
+        }
     }
 }
 
@@ -513,12 +517,14 @@ extension MeetDetailViewController : UITableViewDataSource {
                     if cell == nil{
                         cell = AllInfoTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: identifier)
                     }
+                    cell?.selectionStyle = UITableViewCellSelectionStyle.None
                     return cell!
                 }
             case 1:
                 switch indexPath.row {
                 case 0:
                     let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
                     cell.configCell("meetdetail_newmeet", titleString: "\(personTypeString)的邀约")
                     return cell
                 default:
@@ -538,6 +544,7 @@ extension MeetDetailViewController : UITableViewDataSource {
                 switch indexPath.row {
                 case 0:
                     let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
                     cell.configCell("meetdetail_wantmeet", titleString: "更多想见的人")
                     return cell
                 default:
@@ -583,12 +590,11 @@ extension MeetDetailViewController : UITableViewDataSource {
                 default:
                     let cell = tableView.dequeueReusableCellWithIdentifier(aboutUsInfoTableViewCell, forIndexPath: indexPath) as! AboutUsInfoTableViewCell
                     cell.configCell(self.dataArray as [AnyObject], withGender: self.otherUserModel.gender)
-                    cell.aboutAll.addTarget(self, action: #selector(MeetDetailViewController.aboutUsDetailBtPress), forControlEvents: UIControlEvents.TouchUpInside)
+    
                     cell.block = { _ in
                         self.navigationController?.pushViewController(AboutDetailViewController(), animated: true)
                     }
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
-                    cell.userInteractionEnabled = false
                     return cell
                 }
                 

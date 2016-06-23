@@ -10,10 +10,37 @@ import UIKit
 
 class AboutDetailViewController: UIViewController {
 
+    var webView:UIWebView! = nil
+    var url: String! = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.setUpWebView(url)
+        self.setUpNavigationBar()
         // Do any additional setup after loading the view.
+    }
+    
+    func setUpWebView(url: String){
+        webView = UIWebView()
+        let url = NSURL.init(string: url)
+        let request = NSURLRequest.init(URL: url!)
+        webView.loadRequest(request)
+        self.view.addSubview(webView)
+        
+        webView.snp_makeConstraints { (make) in
+            make.top.equalTo(self.view.snp_top).offset(0)
+            make.left.equalTo(self.view.snp_left).offset(0)
+            make.right.equalTo(self.view.snp_right).offset(0)
+            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+        }
+    }
+    
+    func setUpNavigationBar(){
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_back"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MeetWebViewController.leftItemClick(_:)))
+        self.navigaitonItemColor(UIColor.init(hexString: "202020"))
+    }
+    
+    func leftItemClick(sender:UIBarButtonItem){
+        self.navigationController?.popViewControllerAnimated(true)
     }
 
     override func didReceiveMemoryWarning() {

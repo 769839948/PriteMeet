@@ -11,17 +11,17 @@ import UIKit
 class MeetWebViewController: UIViewController {
 
     var webView:UIWebView! = nil
-    
+    var url: String! = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setUpWebView()
+        self.setUpWebView(url)
         self.setUpNavigationBar()
         // Do any additional setup after loading the view.
     }
     
-    func setUpWebView(){
+    func setUpWebView(url: String){
         webView = UIWebView()
-        let url = NSURL.init(string: "https://jinshuju.net/f/yzVBmI")
+        let url = NSURL.init(string: url)
         let request = NSURLRequest.init(URL: url!)
         webView.loadRequest(request)
         self.view.addSubview(webView)

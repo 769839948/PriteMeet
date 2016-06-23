@@ -19,6 +19,6 @@ target "Meet" do
     pod 'Qiniu', :git => 'https://github.com/qiniu/objc-sdk.git', :branch => 'AFNetworking-3.x'
     pod 'MJExtension'
     pod 'AMapLocation' #定位SDK
-
+    pod 'SDCycleScrollView','~> 1.64'
 
 end

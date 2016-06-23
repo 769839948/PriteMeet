@@ -7,12 +7,13 @@
 //
 
 #import "PhotoTableViewCell.h"
-#import "HYBLoopScrollView.h"
+//#import "HYBLoopScrollView.h"
+#import "SDCycleScrollView.h"
 #import "Masonry.h"
 
-@interface PhotoTableViewCell ()
+@interface PhotoTableViewCell ()<SDCycleScrollViewDelegate>
 
-@property (nonatomic, strong) HYBLoopScrollView *loop;
+@property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
 
 @end
 
@@ -24,21 +25,6 @@
     if (self) {
         self.whitView.hidden = YES;
         self.showdowView.hidden = YES;
-        if (_loop == nil) {
-            _loop = [HYBLoopScrollView loopScrollViewWithFrame:CGRectMake(0, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355) imageUrls:nil timeInterval:0 didSelect:^(NSInteger atIndex) {
-                
-            } didScroll:^(NSInteger toIndex) {
-                
-            }];
-            
-//            _loop.backgroundColor = [UIColor colorWithHexString:@"e7e7e7"];
-            _loop.shouldAutoClipImageToViewSize = NO;
-            _loop.placeholder = [UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(ScreenWidth - 20, (ScreenWidth - 20)*236/355)];
-            
-            _loop.alignment = kPageControlAlignCenter;
-            _loop.layer.cornerRadius = 5.0;
-            [self.contentView addSubview:_loop];
-        }
         
     }
     return self;
@@ -46,29 +32,19 @@
 
 - (void)configCell:(NSArray *)imageArray
 {
-    // 状态栏开始的。
-    if (_loop.imageUrls != nil) {
-        
-    }else{
-        _loop.imageUrls = imageArray;
-    }
-    
-}
+    if (_cycleScrollView == nil) {
+        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(10, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355) delegate:self placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(ScreenWidth - 20, (ScreenWidth - 20)*236/355)]];
+        _cycleScrollView.layer.cornerRadius = 5.0;
+        _cycleScrollView.delegate = self;
+        _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
+        [self.contentView addSubview:_cycleScrollView];
+        //         --- 轮播时间间隔，默认1.0秒，可自定义
+        _cycleScrollView.autoScroll = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            _cycleScrollView.imageURLStringsGroup = imageArray;
+        });
 
-- (void)updateConstraints
-{
-    if (!self.didSetupConstraints) {
-        __weak typeof(self) weakSelf = self;
-        [_loop mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(0);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
-            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(0);
-        }];
-        self.didSetupConstraints = YES;
     }
-    
-    [super updateConstraints];
 }
 
 - (void)awakeFromNib {

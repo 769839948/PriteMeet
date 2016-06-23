@@ -28,9 +28,6 @@
             make.bottom.equalTo(weakSelf.contentView.mas_bottom).offset(0);
         }];
         
-        
-        
-        
     }
     return self;
 }
