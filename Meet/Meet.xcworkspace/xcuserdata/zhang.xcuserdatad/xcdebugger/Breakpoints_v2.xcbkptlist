@@ -4,14 +4,6 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.SwiftErrorBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
@@ -27,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Meet/ViewControllers/Me/My Invite/SendInviteViewController.m"
-            timestampString = "487670650.717317"
+            filePath = "Meet/ViewControllers/Me/Profile/BaseUserInfoViewController.m"
+            timestampString = "488180678.690202"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "-postInvite:"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "-chectBaseInfo"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -43,13 +35,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Meet/ViewControllers/Me/My Invite/SendInviteViewController.m"
-            timestampString = "487670651.575097"
+            filePath = "Meet/ViewControllers/Me/Profile/BaseUserInfoViewController.m"
+            timestampString = "488180678.690202"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "-postInvite:"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "-chectBaseInfo"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -59,77 +51,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Meet/Model/ModelBean/UserInviteModel.m"
-            timestampString = "487671302.158935"
+            filePath = "Meet/ViewControllers/Me/Profile/BaseUserInfoViewController.m"
+            timestampString = "488180678.690202"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
-            landmarkName = "+synchronizeWithArray:description:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meet/Views/AboutUsInfoTableViewCell.m"
-            timestampString = "487837858.964367"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "-aboutDetailPress"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meet/Model/ModelBean/UserInfo.m"
-            timestampString = "487839945.772244"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
-            landmarkName = "+synchronizeWithDic:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meet/Views/InterestCollectView.m"
-            timestampString = "487856793.023419"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "-collectionView:layout:insetForSectionAtIndex:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meet/ViewControllers/Me/Login/WXLoginViewController.m"
-            timestampString = "487938908.129018"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
-            landmarkName = "-loginState:"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "-chectBaseInfo"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -140,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Meet/ViewControllers/Me/Profile/BaseUserInfoViewController.m"
-            timestampString = "487852544.447517"
+            timestampString = "488180663.446122"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
             landmarkName = "-nextStep:"
             landmarkType = "5">
          </BreakpointContent>
@@ -155,139 +83,43 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Meet/ViewControllers/Me/Login/WeChatResgisterViewController.m"
-            timestampString = "487937815.596333"
+            filePath = "Meet/ViewModel/UserInfoViewModel.m"
+            timestampString = "488262686.210965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
-            landmarkName = "-oldUerLoginState:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meet/ViewControllers/Me/Login/WeChatResgisterViewController.m"
-            timestampString = "487937818.182855"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "-oldUerLoginState:"
+            startingLineNumber = "319"
+            endingLineNumber = "319"
+            landmarkName = "-uploadInvite:themeArray:success:fail:loadingString:"
             landmarkType = "5">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__50-[WeChatResgisterViewController oldUerLoginState:]_block_invoke"
+                  symbolName = "-[UserInfoViewModel uploadInvite:themeArray:success:fail:loadingString:]"
                   moduleName = "Meet"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/PrivateMeet/Meet/Meet/ViewControllers/Me/Login/WeChatResgisterViewController.m"
-                  timestampString = "487940101.389609"
+                  urlString = "file:///Users/zhang/Desktop/PrivateMeet/Meet/Meet/ViewModel/UserInfoViewModel.m"
+                  timestampString = "488339742.621623"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "129"
-                  endingLineNumber = "129"
-                  offsetFromSymbolStart = "68">
+                  startingLineNumber = "319"
+                  endingLineNumber = "319"
+                  offsetFromSymbolStart = "1200">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__50-[WeChatResgisterViewController oldUerLoginState:]_block_invoke_2"
+                  symbolName = "__72-[UserInfoViewModel uploadInvite:themeArray:success:fail:loadingString:]_block_invoke"
                   moduleName = "Meet"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/PrivateMeet/Meet/Meet/ViewControllers/Me/Login/WeChatResgisterViewController.m"
-                  timestampString = "487940101.389892"
+                  urlString = "file:///Users/zhang/Desktop/PrivateMeet/Meet/Meet/ViewModel/UserInfoViewModel.m"
+                  timestampString = "488339742.62175"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "131"
-                  endingLineNumber = "131"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meet/ViewModel/LoginViewModel.m"
-            timestampString = "487937844.861507"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
-            landmarkName = "-getUserInfo:success:fail:loadingString:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meet/ViewModel/LoginViewModel.m"
-            timestampString = "487937845.777187"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "-getUserInfo:success:fail:loadingString:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meet/ViewModel/LoginViewModel.m"
-            timestampString = "487937868.42309"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "-getUserInfo:success:fail:loadingString:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[LoginViewModel getUserInfo:success:fail:loadingString:]"
-                  moduleName = "Meet"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/PrivateMeet/Meet/Meet/ViewModel/LoginViewModel.m"
-                  timestampString = "487940101.392694"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "121"
-                  endingLineNumber = "121"
-                  offsetFromSymbolStart = "252">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__57-[LoginViewModel getUserInfo:success:fail:loadingString:]_block_invoke"
-                  moduleName = "Meet"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/PrivateMeet/Meet/Meet/ViewModel/LoginViewModel.m"
-                  timestampString = "487940101.392944"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "123"
-                  endingLineNumber = "123"
+                  startingLineNumber = "321"
+                  endingLineNumber = "321"
                   offsetFromSymbolStart = "56">
                </Location>
             </Locations>
@@ -299,60 +131,44 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Meet/ViewControllers/Me/Login/WXLoginViewController.m"
-            timestampString = "487939365.841466"
+            filePath = "Meet/ViewModel/UserInfoViewModel.m"
+            timestampString = "488274129.443123"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "-loginState:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meet/ViewControllers/Me/Login/WXLoginViewController.m"
-            timestampString = "487939369.829028"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "-loginState:"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "-getUserInfo:success:fail:loadingString:"
             landmarkType = "5">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__36-[WXLoginViewController loginState:]_block_invoke"
+                  symbolName = "-[UserInfoViewModel getUserInfo:success:fail:loadingString:]"
                   moduleName = "Meet"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/PrivateMeet/Meet/Meet/ViewControllers/Me/Login/WXLoginViewController.m"
-                  timestampString = "487940101.395278"
+                  urlString = "file:///Users/zhang/Desktop/PrivateMeet/Meet/Meet/ViewModel/UserInfoViewModel.m"
+                  timestampString = "488339742.622677"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "67"
-                  endingLineNumber = "67"
-                  offsetFromSymbolStart = "68">
+                  startingLineNumber = "191"
+                  endingLineNumber = "191"
+                  offsetFromSymbolStart = "352">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__36-[WXLoginViewController loginState:]_block_invoke_2"
+                  symbolName = "__60-[UserInfoViewModel getUserInfo:success:fail:loadingString:]_block_invoke"
                   moduleName = "Meet"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/PrivateMeet/Meet/Meet/ViewControllers/Me/Login/WXLoginViewController.m"
-                  timestampString = "487940101.395394"
+                  urlString = "file:///Users/zhang/Desktop/PrivateMeet/Meet/Meet/ViewModel/UserInfoViewModel.m"
+                  timestampString = "488339742.622798"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "69"
-                  endingLineNumber = "69"
-                  offsetFromSymbolStart = "64">
+                  startingLineNumber = "193"
+                  endingLineNumber = "193"
+                  offsetFromSymbolStart = "56">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -360,97 +176,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Meet/ViewControllers/Me/Login/WXLoginViewController.m"
-            timestampString = "487939371.7938"
+            filePath = "Meet/ViewControllers/Me/MeViewController.swift"
+            timestampString = "488292082.473039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "-loginState:"
+            startingLineNumber = "368"
+            endingLineNumber = "368"
+            landmarkName = "scrollViewDidScroll(_:)"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__36-[WXLoginViewController loginState:]_block_invoke.73"
-                  moduleName = "Meet"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/PrivateMeet/Meet/Meet/ViewControllers/Me/Login/WXLoginViewController.m"
-                  timestampString = "487940101.39648"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "80"
-                  endingLineNumber = "80"
-                  offsetFromSymbolStart = "184">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__36-[WXLoginViewController loginState:]_block_invoke_2.82"
-                  moduleName = "Meet"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/PrivateMeet/Meet/Meet/ViewControllers/Me/Login/WXLoginViewController.m"
-                  timestampString = "487940101.396683"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "80"
-                  endingLineNumber = "80"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Meet/ViewControllers/Me/Login/WXLoginViewController.m"
-            timestampString = "487939377.554516"
+            filePath = "Meet/ViewControllers/Me/MeViewController.swift"
+            timestampString = "488292082.473039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "-loginState:"
+            startingLineNumber = "366"
+            endingLineNumber = "366"
+            landmarkName = "scrollViewDidScroll(_:)"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[WXLoginViewController loginState:]"
-                  moduleName = "Meet"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/PrivateMeet/Meet/Meet/ViewControllers/Me/Login/WXLoginViewController.m"
-                  timestampString = "487940101.397947"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "66"
-                  endingLineNumber = "66"
-                  offsetFromSymbolStart = "252">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__36-[WXLoginViewController loginState:]_block_invoke"
-                  moduleName = "Meet"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/PrivateMeet/Meet/Meet/ViewControllers/Me/Login/WXLoginViewController.m"
-                  timestampString = "487940101.39813"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "66"
-                  endingLineNumber = "66"
-                  offsetFromSymbolStart = "16">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

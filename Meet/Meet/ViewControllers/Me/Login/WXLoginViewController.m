@@ -80,7 +80,7 @@
                 [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
                     [UserInfo synchronizeWithDic:object];
                     [self dismissViewControllerAnimated:YES completion:^{
-                        [AppData shareInstance].isLogin = YES;
+                        [UserInfo sharedInstance].isFirstLogin = YES;
                         
                     }];
                 } fail:^(NSDictionary *object) {

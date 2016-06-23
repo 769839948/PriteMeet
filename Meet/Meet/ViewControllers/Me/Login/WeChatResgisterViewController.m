@@ -52,8 +52,8 @@
 - (void)setUpTextField
 {
     checkField.delegate = self;
-    UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"F6F6F6"] size:CGSizeMake(20, 56)]];
-    checkField.leftView = img;
+    UIImageView *leftImg = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"F6F6F6"] size:CGSizeMake(20, 56)]];
+    checkField.leftView = leftImg;
     checkField.leftViewMode = UITextFieldViewModeAlways;
 }
 
@@ -83,7 +83,7 @@
 
 - (IBAction)checkCodeButtonAction:(id)sender {
     #warning check code and into WeChat Longin
-//    [self performSegueWithIdentifier:@"pushToWXLogin" sender:self];
+    [self performSegueWithIdentifier:@"pushToWXLogin" sender:self];
     if ([self isEmpty]) {
         [EMAlertView showAlertWithTitle:nil message:@"请输入邀请码" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             
@@ -130,8 +130,10 @@
                 /////获取到 [UserInfo shareInstance]的idKye 以后保存需要
                 [UserInfo synchronizeWithDic:object];
                 [weakSelf dismissViewControllerAnimated:YES completion:^{
-                    [AppData shareInstance].isLogin = YES;
-                    
+                    [UserInfo sharedInstance].isFirstLogin = YES;
+                    if (weakSelf.reloadMeViewBlock) {
+                        weakSelf.reloadMeViewBlock(YES);
+                    }
                 }];
             } fail:^(NSDictionary *object) {
             } loadingString:^(NSString *str) {

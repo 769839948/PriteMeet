@@ -18,6 +18,14 @@
 
 @end
 
+@implementation Work_Expirence
+
+@end
+
+@implementation Edu_Expirence
+
+@end
+
 @implementation UserInfo
 
 static UserInfo *userInfo=nil;
@@ -161,6 +169,7 @@ static UserInfo *userInfo=nil;
     [aCoder encodeObject:self.social_id forKey:@"social_id"];
     [aCoder encodeInteger:self.drink forKey:@"drink"];
     [aCoder encodeInteger:self.age forKey:@"age"];
+    [aCoder encodeInteger:self.gender forKey:@"gender"];
     [aCoder encodeInteger:self.height forKey:@"height"];
     [aCoder encodeInteger:self.income forKey:@"income"];
     [aCoder encodeObject:self.avatar forKey:@"avatar"];
@@ -187,7 +196,6 @@ static UserInfo *userInfo=nil;
     [UserInfo sharedInstance].affection  = [dic[@"affection"] integerValue];
     [UserInfo sharedInstance].weixin_num  = dic[@"weixin_num"];
     [UserInfo sharedInstance].smoke  = [dic[@"smoke"] integerValue];
-    [UserInfo sharedInstance].work_expirence  = dic[@"work_expirence"];
     [UserInfo sharedInstance].constellation  = [dic[@"constellation"] integerValue];
     [UserInfo sharedInstance].id_card  = dic[@"id_card"];
     [UserInfo sharedInstance].industry  = [dic[@"industry"] integerValue];
@@ -198,7 +206,6 @@ static UserInfo *userInfo=nil;
     [UserInfo sharedInstance].avatar  = dic[@"avatar"];
     [UserInfo sharedInstance].age  = [dic[@"age"] integerValue];
     [UserInfo sharedInstance].income  = [dic[@"income"] integerValue];
-    [UserInfo sharedInstance].edu_expirence  = dic[@"edu_expirence"];
     [UserInfo sharedInstance].created  = dic[@"created"];
     [UserInfo sharedInstance].hometown  = dic[@"hometown"];
     [UserInfo sharedInstance].job_label = dic[@"job_label"];
@@ -210,6 +217,34 @@ static UserInfo *userInfo=nil;
     completeness.next_page = [[dic[@"completeness"] objectForKey:@"next_page"] integerValue];
     completeness.msg = [dic[@"completeness"] objectForKey:@"msg"];
     [UserInfo sharedInstance].completeness = completeness;
+
+    NSArray *work_experiences = dic[@"work_experience"];
+    NSMutableArray *work_infos = [NSMutableArray array];
+    for (int i = 0; i < work_experiences.count; i ++) {
+        NSDictionary *workDic = [work_experiences objectAtIndex:i];
+        Work_Expirence *expi = [[Work_Expirence alloc] init];
+        expi.wid = [[workDic objectForKey:@"wid"] integerValue];
+        expi.profession = [workDic objectForKey:@"profession"];
+        expi.company_name = [workDic objectForKey:@"company_name"];
+        [work_infos addObject:expi];
+
+    }
+    
+    NSArray *edu_experience = dic[@"edu_experience"];
+    NSMutableArray *edu_infos = [NSMutableArray array];
+    for (int i = 0; i < edu_experience.count; i ++) {
+        NSDictionary *eduDic = [edu_experience objectAtIndex:i];
+        Edu_Expirence *edupi = [[Edu_Expirence alloc] init];
+        edupi.eid = [[eduDic objectForKey:@"eid"] integerValue];
+        edupi.graduated = [eduDic objectForKey:@"graduated"];
+        edupi.major = [eduDic objectForKey:@"major"];
+        edupi.education = [eduDic objectForKey:@"education"];
+        [edu_infos addObject:edupi];
+        
+    }
+    
+    [UserInfo sharedInstance].edu_expirence = [edu_infos copy];
+    [UserInfo sharedInstance].work_expirence = [work_infos copy];
     
     return [UserInfo synchronize];
 }
@@ -248,75 +283,6 @@ static UserInfo *userInfo=nil;
     return [[UIImage alloc] initWithData:data];
 }
 
-/*
-+ (BOOL)saveBaseData:(id)data WithName:(NSString *)name
-{
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSArray *paths    = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path    = paths.lastObject;
-    NSString *temPath = [path stringByAppendingPathComponent:@"baseData"];
-    
-    if (![fm fileExistsAtPath:temPath])
-    {
-        NSError *error = nil;
-        [fm createDirectoryAtPath:temPath withIntermediateDirectories:YES attributes:nil error:&error];
-    }
-    NSString *filePath = [temPath stringByAppendingFormat:@"/%@.plist",name];
-    return [NSKeyedArchiver archiveRootObject:data toFile:filePath];
-}
-
-+ (id)getBaseDataWithName:(NSString *)name
-{
-    NSFileManager *fm  = [NSFileManager defaultManager];
-    NSArray *paths     = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path     = paths[0];
-    NSString *filePath = [path stringByAppendingFormat:@"/baseData/%@.plist",name];
-    //    LSLog(@"read_path = %@",filePath);
-    if (![fm isReadableFileAtPath:filePath])
-    {
-        return nil;
-    }
-    id dat = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
-    return dat;
-}
-
-+ (void)saveChatWithMessageArray:(NSMutableArray *)message withKey:(NSString *)key
-{
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSArray *paths    = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path    = paths.lastObject;
-    NSString *temPath = [path stringByAppendingPathComponent:@"ChatData"];
-    
-    if (![fm fileExistsAtPath:temPath])
-    {
-        NSError *error = nil;
-        [fm createDirectoryAtPath:temPath withIntermediateDirectories:YES attributes:nil error:&error];
-    }
-    NSString *filePath = [temPath stringByAppendingFormat:@"/%@.plist",key];
-    [NSKeyedArchiver archiveRootObject:message toFile:filePath];
-}
-
-+ (id)getChatMessageWithKey:(NSString *)key
-{
-    
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSArray *paths    = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path    = paths.lastObject;
-    NSString *temPath = [path stringByAppendingPathComponent:@"ChatData"];
-    if (![fm fileExistsAtPath:temPath])
-    {
-        return nil;
-    }
-    NSString *filePath = [temPath stringByAppendingFormat:@"/%@.plist",key];
-    NSData *dat        = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
-    return dat;
-}
-
-*/
-//
-//+ (NSDictionary *)objectClassInArray{
-//    return @{@"edu_expirence" : [Edu_Expirence class], @"work_expirence" : [Work_Expirence class]};
-//}
 @end
 
 

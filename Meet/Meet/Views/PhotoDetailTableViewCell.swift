@@ -43,7 +43,7 @@ class PhotoDetailTableViewCell: UITableViewCell {
                 })
                 print("\(index) times 5 is \(width)")
                 self.logoutView.addSubview(photoImage)
-                width = CGFloat(index) * 62
+                width = width + 62
             }
         }
     }

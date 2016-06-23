@@ -155,15 +155,19 @@ class MeetDetailViewController: UIViewController {
     lazy var imageArray:NSArray = {
         let tempArray = NSMutableArray()
         if self.otherUserModel.user_info != nil {
-            tempArray.addObject(self.otherUserModel.user_info!.cover_photo!)
+            tempArray.addObject(self.otherUserModel.cover_photo!.photo)
             let details = self.otherUserModel.user_info!.detail
             let dtailArray = Detail.mj_objectArrayWithKeyValuesArray(details)
             for detailModel in dtailArray {
-                for urlString in detailModel.photo! {
-                    if urlString != "" {
-                        tempArray.addObject(urlString)
-                    }
-                }
+                print("\(detailModel as! Detail)")
+                let photos = (detailModel as! Detail)
+//                for model in (detailModel as! Detail).photos! {
+//                    print("")
+//                    print("\(model)")
+//                    if model.photo != "" {
+//                        tempArray.addObject(model.photo!)
+//                    }
+//                }
             }
         }
         return tempArray
@@ -296,7 +300,12 @@ extension MeetDetailViewController : UITableViewDataSource {
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 4
+        if self.otherUserModel.user_info!.highlight == "" {
+            return 2
+        }else{
+            return 3
+
+        }
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -308,105 +317,156 @@ extension MeetDetailViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            switch indexPath.row {
+        if self.otherUserModel.user_info?.highlight == "" {
+            switch indexPath.section {
             case 0:
-                return (UIScreen.mainScreen().bounds.size.width - 20)*236/355
+                switch indexPath.row {
+                case 0:
+                    return (UIScreen.mainScreen().bounds.size.width - 20)*236/355
+                case 1:
+                    return 195
+                case 2:
+                    
+                    return 77
+                default:
+                    return 49
+                }
             case 1:
-                return 195
+                switch indexPath.row {
+                case 0:
+                    return 49
+                default:
+                    
+                    return 223
+                }
+            default:
+                switch indexPath.row {
+                case 0:
+                    return 49
+                default:
+                    return 123
+                }
+            }
+        }else {
+            switch indexPath.section {
+            case 0:
+                switch indexPath.row {
+                case 0:
+                    return (UIScreen.mainScreen().bounds.size.width - 20)*236/355
+                case 1:
+                    return 195
+                case 2:
+                    
+                    return 77
+                default:
+                    return 49
+                }
+            case 1:
+                switch indexPath.row {
+                case 0:
+                    return 49
+                default:
+                    return 210;
+                }
             case 2:
-                
-                return 77
+                switch indexPath.row {
+                case 0:
+                    return 49
+                default:
+                    
+                    return 223
+                }
             default:
-                return 49
-            }
-        case 1:
-            switch indexPath.row {
-            case 0:
-                return 49
-            default:
-                return 210;
-//                return self.aboutUsHeight(["毕业于中央戏剧学院表演系，是一名制片人，也是隐舍 THESECRET 的掌门人。","最不像表演系的表演系学生，这点从入学开始就逐渐暴露，同学和老师评价我是表演系里最会导演的，导演系里最会制片的，制片专业里长得最好看。","喜欢戏剧，喜欢电影，喜欢旅行，做过制片人，地产，投资，酒吧。"]) + 30 + 20
-            }
-        case 2:
-            switch indexPath.row {
-            case 0:
-                return 49
-            default:
-                
-                return 223
-            }
-        default:
-            switch indexPath.row {
-            case 0:
-                return 49
-            default:
-                return 123
+                switch indexPath.row {
+                case 0:
+                    return 49
+                default:
+                    return 123
+                }
             }
         }
+        
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            switch indexPath.row {
+        if self.otherUserModel.user_info?.highlight == "" {
+            switch indexPath.section {
             case 0:
-                return (UIScreen.mainScreen().bounds.size.width - 20)*236/355
+                switch indexPath.row {
+                case 0:
+                    return (UIScreen.mainScreen().bounds.size.width - 20)*236/355
+                case 1:
+                    return tableView.fd_heightForCellWithIdentifier(meetInfoTableViewCell, configuration: { (cell) in
+                        self.configCell(cell as! MeetInfoTableViewCell, indxPath: indexPath)
+                    })
+                case 2:
+                    return 104
+                    
+                default:
+                    return 49
+                }
             case 1:
-                return tableView.fd_heightForCellWithIdentifier(meetInfoTableViewCell, configuration: { (cell) in
-                    self.configCell(cell as! MeetInfoTableViewCell, indxPath: indexPath)
-                })
-//                if self.otherUserModel.real_name == nil {
-//                    return 195;
-//                }else{
-//                    return 195
-//                    //return self.meetInfoCellHeight(self.otherUserModel) + 20
-//                }
-//                
-            case 2:
-                return 104
+                switch indexPath.row {
+                case 0:
+                    return 49
+                default:
+                    return meetCellHeight
+                }
+            default:
+                switch indexPath.row {
+                case 0:
+                    return 49
+                default:
+                    return 123
+                }
+            }
+        }else{
+            switch indexPath.section {
+            case 0:
+                switch indexPath.row {
+                case 0:
+                    return (UIScreen.mainScreen().bounds.size.width - 20)*236/355
+                case 1:
+                    return tableView.fd_heightForCellWithIdentifier(meetInfoTableViewCell, configuration: { (cell) in
+                        self.configCell(cell as! MeetInfoTableViewCell, indxPath: indexPath)
+                    })
+                case 2:
+                    return 104
+                    
+                default:
+                    return 49
+                }
+            case 1:
+                switch indexPath.row {
+                case 0:
+                    return 49
+                default:
+                    return self.aboutUsHeight(self.dataArray) + 30 + 50
+                }
                 
+            case 2:
+                switch indexPath.row {
+                case 0:
+                    return 49
+                default:
+                    return meetCellHeight
+                }
             default:
-                return 49
-            }
-        case 1:
-            switch indexPath.row {
-            case 0:
-                return 49
-            default:
-                return self.aboutUsHeight(self.dataArray) + 30 + 50
-            }
-            
-        case 2:
-            switch indexPath.row {
-            case 0:
-                return 49
-            default:
-                return meetCellHeight
-//                if self.engagement.engagement_desc != nil {
-//                    return tableView.fd_heightForCellWithIdentifier(newMeetInfoTableViewCell, configuration: { (cell) in
-//                        self.configNewMeetCell(cell as! NewMeetInfoTableViewCell, indxPath: indexPath)
-//                    })
-////                    return meetHeight((self.otherUserModel.engagement?.engagement_desc)!, instrestArray: self.personalArray)
-//                }else{
-//                    return meetHeight("", instrestArray: self.personalArray)
-//                }
-            }
-        default:
-            switch indexPath.row {
-            case 0:
-                return 49
-            default:
-                return 123
+                switch indexPath.row {
+                case 0:
+                    return 49
+                default:
+                    return 123
+                }
             }
         }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
-            switch indexPath.row {
+        if self.otherUserModel.user_info?.highlight == "" {
+            switch indexPath.section {
+            case 0:
+                switch indexPath.row {
                 case 0:
                     let cell = tableView.dequeueReusableCellWithIdentifier(photoTableViewCell, forIndexPath: indexPath) as! PhotoTableViewCell
                     cell.configCell(self.images as [AnyObject])
@@ -431,55 +491,116 @@ extension MeetDetailViewController : UITableViewDataSource {
                     }
                     return cell!
                 }
-        case 1:
-            switch indexPath.row {
+            case 1:
+                switch indexPath.row {
+                case 0:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
+                    cell.configCell("meetdetail_newmeet", titleString: "\(personTypeString)的邀约")
+                    return cell
+                default:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(newMeetInfoTableViewCell, forIndexPath: indexPath) as! NewMeetInfoTableViewCell
+                    cell.block = { (height) in
+                        self.meetCellHeight = height + 80
+                        let index = NSIndexPath.init(forRow: 1, inSection: 1)
+                        
+                        self.tableView.reloadRowsAtIndexPaths([index], withRowAnimation: UITableViewRowAnimation.Automatic)
+                    }
+                    self.configNewMeetCell(cell, indxPath: indexPath)
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell.userInteractionEnabled = false
+                    return cell
+                }
+            default:
+                switch indexPath.row {
+                case 0:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
+                    cell.configCell("meetdetail_wantmeet", titleString: "更多想见的人")
+                    return cell
+                default:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(wantMeetTableViewCell, forIndexPath: indexPath) as! WantMeetTableViewCell
+                    cell.textLabel?.text = "更多想见的人"
+                    return cell
+                }
+            }
+        }else{
+            switch indexPath.section {
             case 0:
-                let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
+                switch indexPath.row {
+                case 0:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(photoTableViewCell, forIndexPath: indexPath) as! PhotoTableViewCell
+                    cell.configCell(self.images as [AnyObject])
+                    return cell
+                case 1:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(meetInfoTableViewCell, forIndexPath: indexPath) as! MeetInfoTableViewCell
+                    self.configCell(cell, indxPath: indexPath)
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell.userInteractionEnabled = false
+                    return cell
+                case 2:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(compayTableViewCell, forIndexPath: indexPath) as! CompayTableViewCell
+                    cell.configCell(self.otherUserModel.user_info?.auth_info)
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell.userInteractionEnabled = false
+                    return cell
+                default:
+                    let identifier = "MoreTableViewCell"
+                    var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
+                    if cell == nil{
+                        cell = AllInfoTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: identifier)
+                    }
+                    return cell!
+                }
+            case 1:
+                switch indexPath.row {
+                case 0:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
                     cell.configCell("meetdetail_aboutus", titleString: "关于\(personTypeString)")
-                return cell
-            default:
-                let cell = tableView.dequeueReusableCellWithIdentifier(aboutUsInfoTableViewCell, forIndexPath: indexPath) as! AboutUsInfoTableViewCell
-                cell.configCell(self.dataArray as [AnyObject], withGender: self.otherUserModel.gender)
-                cell.aboutAll.addTarget(self, action: #selector(MeetDetailViewController.aboutUsDetailBtPress), forControlEvents: UIControlEvents.TouchUpInside)
-                cell.block = { _ in
-                    self.navigationController?.pushViewController(AboutDetailViewController(), animated: true)
+                    return cell
+                default:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(aboutUsInfoTableViewCell, forIndexPath: indexPath) as! AboutUsInfoTableViewCell
+                    cell.configCell(self.dataArray as [AnyObject], withGender: self.otherUserModel.gender)
+                    cell.aboutAll.addTarget(self, action: #selector(MeetDetailViewController.aboutUsDetailBtPress), forControlEvents: UIControlEvents.TouchUpInside)
+                    cell.block = { _ in
+                        self.navigationController?.pushViewController(AboutDetailViewController(), animated: true)
+                    }
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell.userInteractionEnabled = false
+                    return cell
                 }
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
-                cell.userInteractionEnabled = false
-                return cell
-            }
-            
-        case 2:
-            switch indexPath.row {
-            case 0:
-                let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
-                cell.configCell("meetdetail_newmeet", titleString: "\(personTypeString)的邀约")
-                return cell
-            default:
-                let cell = tableView.dequeueReusableCellWithIdentifier(newMeetInfoTableViewCell, forIndexPath: indexPath) as! NewMeetInfoTableViewCell
-                cell.block = { (height) in
-                    self.meetCellHeight = height + 80
-                    let index = NSIndexPath.init(forRow: 1, inSection: 2)
                 
-                    self.tableView.reloadRowsAtIndexPaths([index], withRowAnimation: UITableViewRowAnimation.Automatic)
+            case 2:
+                switch indexPath.row {
+                case 0:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
+                    cell.configCell("meetdetail_newmeet", titleString: "\(personTypeString)的邀约")
+                    return cell
+                default:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(newMeetInfoTableViewCell, forIndexPath: indexPath) as! NewMeetInfoTableViewCell
+                    cell.block = { (height) in
+                        self.meetCellHeight = height + 80
+                        let index = NSIndexPath.init(forRow: 1, inSection: 2)
+                        
+                        self.tableView.reloadRowsAtIndexPaths([index], withRowAnimation: UITableViewRowAnimation.Automatic)
+                    }
+                    self.configNewMeetCell(cell, indxPath: indexPath)
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell.userInteractionEnabled = false
+                    return cell
                 }
-                self.configNewMeetCell(cell, indxPath: indexPath)
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
-                cell.userInteractionEnabled = false
-                return cell
-            }
-        default:
-            switch indexPath.row {
-            case 0:
-                let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
-                cell.configCell("meetdetail_wantmeet", titleString: "更多想见的人")
-                return cell
             default:
-                let cell = tableView.dequeueReusableCellWithIdentifier(wantMeetTableViewCell, forIndexPath: indexPath) as! WantMeetTableViewCell
-                cell.textLabel?.text = "更多想见的人"
-                return cell
+                switch indexPath.row {
+                case 0:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
+                    cell.configCell("meetdetail_wantmeet", titleString: "更多想见的人")
+                    return cell
+                default:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(wantMeetTableViewCell, forIndexPath: indexPath) as! WantMeetTableViewCell
+                    cell.textLabel?.text = "更多想见的人"
+                    return cell
+                }
             }
         }
+        
         
     }
 }

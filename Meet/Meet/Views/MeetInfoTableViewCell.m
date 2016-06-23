@@ -11,6 +11,7 @@
 #import "Masonry.h"
 #import "NSString+StringSize.h"
 #import "EqualSpaceFlowLayout.h"
+#import "Meet-Swift.h"
 
 @interface MeetInfoTableViewCell ()
 
@@ -19,6 +20,8 @@
 @property (nonatomic, strong) UILabel *meetNumber;
 
 @property (nonatomic, strong) InterestCollectView *interestView;
+
+@property (nonatomic, strong) CenterlabelView *centerLabelView;
 
 
 @end
@@ -58,13 +61,15 @@
     _meetNumber.textColor = [UIColor lightGrayColor];
     [self.contentView addSubview:_meetNumber];
     
-    //确定是水平滚动，还是垂直滚动
-    EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] init];
-    
-    _interestView = [[InterestCollectView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
-    [_interestView setEdgX:10];
-    flowLayout.delegate = _interestView;
-    [self.contentView addSubview:_interestView];
+    _centerLabelView = [[CenterlabelView alloc] init];
+    [self.contentView addSubview:_centerLabelView];
+//    //确定是水平滚动，还是垂直滚动
+//    EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] init];
+//    
+//    _interestView = [[InterestCollectView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+//    [_interestView setEdgX:10];
+//    flowLayout.delegate = _interestView;
+//    [self.contentView addSubview:_interestView];
     [self updateConstraints];
 }
 
@@ -109,7 +114,7 @@
     }
     
     if ([interstArray[0] isEqualToString:@""]) {
-        [_interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [_centerLabelView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(0);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
@@ -119,20 +124,16 @@
 //        _interestView.backgroundColor = [UIColor redColor];
         [self updateConstraints];
     }else{
-//        NSArray *interss = @[@"还是得很舒服",@"的方式的还是",@"哈哈哈",@"事实上",@"哈哈哈",@"QQ群",];
-        [_interestView setCollectViewData:interstArray];
-         _interestView.meetInfoBlock = ^(CGFloat height ){
-            [weakSelf.interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
-                make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-                make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-                make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32);
-                make.height.offset(height + 2);
-            }];
-            [weakSelf updateConstraints];
-            [weakSelf updateConstraintsIfNeeded];
-
-        };
+        CGFloat height = [_centerLabelView setUpCustomLabelArray:interstArray];
+        [_centerLabelView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
+            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32);
+            make.height.offset(height);
+        }];
+        [weakSelf updateConstraints];
+        [weakSelf updateConstraintsIfNeeded];
     }
     [self updateConstraintsIfNeeded];
 }
@@ -159,10 +160,10 @@
             make.top.mas_equalTo(weakSelf.positionLabel.mas_bottom).offset(8);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
-            make.bottom.mas_equalTo(weakSelf.interestView.mas_top).offset(-16);
+            make.bottom.mas_equalTo(weakSelf.centerLabelView.mas_top).offset(-16);
             make.height.offset(17);
         }];
-        [_interestView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_centerLabelView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);

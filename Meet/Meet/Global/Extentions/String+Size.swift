@@ -13,7 +13,7 @@ extension String{
     
     //MARK:获得string内容高度
     
-    func stringHeightWith(font:UIFont,width:CGFloat)->CGFloat{
+    func stringHeight(font:UIFont,width:CGFloat)->CGFloat{
                 
         let size = CGSizeMake(width,CGFloat.max)
         

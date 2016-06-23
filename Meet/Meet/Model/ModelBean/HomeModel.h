@@ -8,11 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+@class Cover_photo;
+@interface Cover_photo : NSObject
+
+@property (nonatomic, copy) NSString *photo;
+
+@property (nonatomic, assign) long long id;
+
+@end
+
+
 @interface HomeModel : NSObject
 
 @property (nonatomic, assign) NSInteger gender;
 
-@property (nonatomic, copy) NSString *cover_photo;
+@property (nonatomic, copy) Cover_photo *cover_photo;
 
 @property (nonatomic, copy) NSString *job_label;
 

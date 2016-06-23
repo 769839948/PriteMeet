@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^needReloadMeView)(BOOL isFisrtLogin);
+
 @interface WeChatResgisterViewController : UIViewController
 
+@property (nonatomic, strong) needReloadMeView reloadMeViewBlock;
 @property (nonatomic, strong) NSString *string;
 
 @end

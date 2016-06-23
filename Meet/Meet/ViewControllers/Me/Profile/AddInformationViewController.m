@@ -12,6 +12,7 @@
 #import "LabelTableViewCell.h"
 #import "IQUIView+IQKeyboardToolbar.h"
 #import "ZHPickView.h"
+#import "UITools.h"
 
 @interface AddInformationViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIActionSheetDelegate,ZHPickViewDelegate> {
     NSMutableDictionary *_dicValues;
@@ -23,6 +24,13 @@
 @property (nonatomic, copy) NSMutableArray *cachTitleArray;
 @property (nonatomic, copy) NSArray *pickArray;
 
+@property (nonatomic, copy) NSArray *alertViewMsg;
+
+@property (nonatomic, copy) NSString *leftIetmColor;
+
+@property (nonatomic, copy) NSString *companyName;
+@property (nonatomic, copy) NSString *positionName;
+
 @end
 
 @implementation AddInformationViewController
@@ -31,11 +39,19 @@
     [super viewDidLoad];
     _dicValues = [NSMutableDictionary dictionary];
     _cachTitleArray = [NSMutableArray array];
+    self.navigationItem.title = _navTitle;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"setting_savebt"] style:UIBarButtonItemStylePlain target:self action:@selector(saveAction:)];
     NSString *str;
     if (_viewType == ViewTypeEdit) {
+        _leftIetmColor = @"202020";
         str = @"编辑";
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor blackColor];
     } else if (_viewType == ViewTypeAdd) {
          str = @"添加";
+        _companyName = @"";
+        _positionName = @"";
+        _leftIetmColor = @"E7E7E7";
+
     }
     if (_indexPath.section == 1 ) {////work
         _navTitle = [str stringByAppendingString:@"工作经历"];
@@ -44,7 +60,8 @@
         while (_cachTitleArray.count < 2) {
             [_cachTitleArray addObject:@""];
         }
-        _arrayTitles = @[@"公司",@"职位"];
+        _alertViewMsg = @[@"请填写公司信息",@"请填写职位信息"];
+        _arrayTitles = @[@"公司简称",@"职位名称"];
     } else if (_indexPath.section == 3) {
         _navTitle = [str stringByAppendingString:@"教育背景"];
         NSArray  *array = [_cachTitles componentsSeparatedByString:@"-"];
@@ -55,10 +72,8 @@
         _arrayTitles = @[@"学校",@"专业",@"学历"];
         _pickArray = @[@"专科", @"本科", @"硕士", @"博士", @"博士后", @"MBA", @"其他"];
     }
-    self.navigationItem.title = _navTitle;
-
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"setting_savebt"] style:UIBarButtonItemStylePlain target:self action:@selector(saveAction:)];
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithHexString:@"202020"];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithHexString:_leftIetmColor];
+    //[UIColor colorWithHexString:@"202020"];
 }
 
 
@@ -93,19 +108,29 @@
 
 
 - (void)saveAction:(id)sender {
-    
-    if (self.block) {
-        NSString *str = @"";
-        for (NSInteger i = 0; i < _cachTitleArray.count ; i ++) {
-            NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
-            LabelAndTextFieldCell *cell = (LabelAndTextFieldCell *)[self.tableView cellForRowAtIndexPath:path];
-            str = [str stringByAppendingString:cell.textField.text];
-            if (i < _cachTitleArray.count - 1) {
-                str = [str stringByAppendingString:@"-"];
+   
+    if (_indexPath.section == 1) {
+        if ([_leftIetmColor isEqualToString:@"E7E7E7"]) {
+            if ([_companyName isEqualToString:@""] || _companyName == nil) {
+                [[UITools shareInstance] showMessageToView:self.view message:_alertViewMsg[0] autoHide:YES];
+            }else{
+                [[UITools shareInstance] showMessageToView:self.view message:_alertViewMsg[1] autoHide:YES];
+            }
+        }else{
+            if (self.block) {
+                NSString *str = @"";
+                for (NSInteger i = 0; i < _cachTitleArray.count ; i ++) {
+                    NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
+                    LabelAndTextFieldCell *cell = (LabelAndTextFieldCell *)[self.tableView cellForRowAtIndexPath:path];
+                    str = [str stringByAppendingString:cell.textField.text];
+                    if (i < _cachTitleArray.count - 1) {
+                        str = [str stringByAppendingString:@"-"];
+                    }
+                }
+                self.block(self.indexPath,str,self.viewType);
+                [self.navigationController popViewControllerAnimated:YES];
             }
         }
-        self.block(self.indexPath,str,self.viewType);
-        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -145,6 +170,7 @@
         }else{
             cell.label.text = @"删除教育经历";
         }
+        cell.tag = indexPath.row;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     } else {
@@ -162,7 +188,7 @@
         cell.textField.indexPath = indexPath;
         cell.textField.placeholder = _arrayTitles[indexPath.row];
         cell.textField.delegate = self;
-        cell.tag = indexPath.row;
+        cell.textField.tag = indexPath.row;
         if (_indexPath.section == 3 && indexPath.row == 2) {
             cell.textField.enabled = NO;
         }
@@ -197,6 +223,7 @@
         } cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
     }
     if (_indexPath.section == 3 && indexPath.row == 2) {
+        [self.view endEditing:YES];
         [self pickerViewShow];
     }
     
@@ -223,7 +250,52 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self.view endEditing:YES];
+    NSInteger tag = textField.tag;
+    [textField resignFirstResponder];
+    if (tag < _arrayTitles.count) {
+        UITextField *textField = (UITextField *)[self.view viewWithTag:tag ++];
+        [textField becomeFirstResponder];
+    }else{
+        [self.view endEditing:YES];
+    }
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    NSLog(@"TextField %ld",(long)textField.tag);
+    if (![string isEqualToString:@""]) {
+        if (textField.tag == 0) {
+            _companyName = [textField.text stringByAppendingString:string];
+        }else if (textField.tag == 1){
+            _positionName = [textField.text stringByAppendingString:string];
+        }
+    }else{
+        if (textField.tag == 0) {
+            if (textField.text.length == 0 || (range.location == 0 && [string isEqualToString:@""])) {
+                if (![string isEqualToString:@""]) {
+                    _companyName = textField.text;
+                }else{
+                    _companyName = @"";
+                }
+            }
+        }else if (textField.tag == 1){
+            if (textField.text.length == 0 || (range.location == 0 && [string isEqualToString:@""])) {
+                if (![string isEqualToString:@""]) {
+                    _positionName = textField.text;
+                }else{
+                    _positionName = @"";
+                }
+            }
+        }
+    }
+    if (![_companyName isEqualToString:@""] && ![_positionName isEqualToString:@""]) {
+        _leftIetmColor = @"020202";
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithHexString:_leftIetmColor];
+    }else{
+        _leftIetmColor = @"E7E7E7";
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithHexString:_leftIetmColor];
+    }
     return YES;
 }
 

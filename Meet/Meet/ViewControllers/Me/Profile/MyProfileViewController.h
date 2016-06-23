@@ -10,10 +10,12 @@
 #define  FRIST_LOGIN_NOTIFICATION_Key  @"modifiUserInfoNotification"
 
 typedef void(^needReloadProfileCellBlock)(BOOL updateImaeg,BOOL updateInfo);
+typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 
 #import <UIKit/UIKit.h>
 #import "UserInfoViewModel.h"
 #import "MeetBaseViewController.h"
+#import "EMAlertView.h"
 
 @interface MyProfileViewController : MeetBaseViewController
 {
@@ -22,7 +24,9 @@ typedef void(^needReloadProfileCellBlock)(BOOL updateImaeg,BOOL updateInfo);
 
 @property (nonatomic, weak) IBOutlet UIView *chooseView;
 
-@property (copy, nonatomic) needReloadProfileCellBlock block;
+@property (strong, nonatomic) needReloadProfileCellBlock block;
+
+@property (strong, nonatomic) needReloadMeViewBlock reloadMeViewBlock;
 
 @property (assign, nonatomic)     NSInteger selectRow;////仅限Section0里
 

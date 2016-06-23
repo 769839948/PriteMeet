@@ -11,6 +11,7 @@
 #import "Masonry.h"
 #import "NSString+StringSize.h"
 #import "EqualSpaceFlowLayout.h"
+#import "MJExtension.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface ManListCell ()<EqualSpaceFlowLayoutDelegate>
@@ -25,6 +26,8 @@
 @property (nonatomic, strong) UIImageView *photoImage;
 @property (nonatomic, strong) InterestCollectView *interestView;
 
+@property (nonatomic, assign) CGFloat dicHeight;
+
 @property (nonatomic, strong) UILabel *bottomLine;
 
 @property (nonatomic, assign) BOOL didSetupConstraints;
@@ -38,6 +41,7 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         [self setUpView];
+        _dicHeight = 27;
     }
     return self;
 }
@@ -116,14 +120,13 @@
 {
     __weak typeof(self) weakSelf = self;
     if (model.cover_photo != nil || model.cover_photo != NULL) {
-        NSArray *coverArray = [model.cover_photo componentsSeparatedByString:@"?"];
-        NSString *urlString = [coverArray[0] stringByAppendingString:@"?imageView2/1/w/1065/h/600"];
+        Cover_photo *coverPhoto = [Cover_photo mj_objectWithKeyValues:model.cover_photo];
         [_photoImage setIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        [_photoImage sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:PlaceholderImage options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [_photoImage sd_setImageWithURL:[NSURL URLWithString:coverPhoto.photo] placeholderImage:PlaceholderImage options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
 
         }];
     }else{
-        _photoImage.image = [UIImage imageNamed:@"Pic"];
+        _photoImage.backgroundColor = [UIColor colorWithHexString:@"e7e7e7"];
     }
 
     if (model.gender == 1) {
@@ -133,7 +136,7 @@
         [_ageNumber setImage:[UIImage imageNamed:@"home_women"] forState:UIControlStateNormal];
         _ageNumber.backgroundColor = [UIColor colorWithHexString:HomeViewWomenColor];
     }
-    [_ageNumber setTitle:[NSString stringWithFormat:@"%ld",(long)model.age] forState:UIControlStateNormal];
+    [_ageNumber setTitle:[NSString stringWithFormat:@" %ld",(long)model.age] forState:UIControlStateNormal];
     
     if ([model.job_label isEqualToString:@" "]) {
         _nameLabel.text = [model.real_name stringByAppendingString:[NSString stringWithFormat:@" 他还没填写职业标签%@", model.job_label]];
@@ -142,7 +145,6 @@
         _nameLabel.text = [model.real_name stringByAppendingString:[NSString stringWithFormat:@" %@", model.job_label]];
 
     }
-    
     float titleHeight = [_nameLabel.text heightWithFont:HomeViewNameFont constrainedToWidth:ScreenWidth - 20];
     if (titleHeight > 30){
         [_nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -150,8 +152,7 @@
         }];
         [self updateConstraints];
     }
-    
-    _meetNumber.text = @"886人想见   和你相隔 820M ";
+    _meetNumber.text = @"886人想见   和你相隔 820.5km ";
     if ([_meetNumber.text isEqualToString:@""]) {
         [_meetNumber mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(8);
@@ -164,7 +165,6 @@
     }else{
         _meetNumber.text = _meetNumber.text;
     }
-//    NSArray *interstArray = [model.personal_label componentsSeparatedByString:@","];
     if ([interstArray[0] isEqualToString:@""]) {
         [_interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(0);
@@ -173,117 +173,40 @@
             make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-0);
             make.height.mas_offset(0.001);
         }];
-        //        _interestView.backgroundColor = [UIColor redColor];
         [self updateConstraints];
     }else{
-        //        NSArray *interss = @[@"还是得很舒服",@"的方式的还是",@"哈哈哈",@"事实上",@"哈哈哈",@"QQ群",];
         [_interestView setCollectViewData:interstArray];
         [weakSelf.interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32);
+            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32).priorityHigh(self.meetNumber.mas_bottom);
             make.height.offset(27);
         }];
-        [weakSelf updateConstraints];
-        [weakSelf updateConstraintsIfNeeded];
-        _interestView.meetInfoBlock = ^(CGFloat height ){
-            NSLog(@"=====================%f",height);
+        
+        if ([_interestView contentSize].height == 0) {
+            NSLog(@"=============[_interestView contentSize].height=======%f",[_interestView contentSize].height);
             
-        };
+            [_interestView setCollectViewData:interstArray];
+            _interestView.meetInfoBlock = ^(CGFloat height ){
+                NSLog(@"=====================%f",height);
+                _dicHeight = height;
+                [weakSelf.interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
+                    make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+                    make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
+                    make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32);
+                    make.height.offset(height);
+                }];
+                [weakSelf updateConstraints];
+                [weakSelf updateConstraintsIfNeeded];
+            };
+        }
+        
+        
     }
     [self updateConstraintsIfNeeded];
-//    if (model.cover_photo != nil || model.cover_photo != NULL) {
-//        NSArray *coverArray = [model.cover_photo componentsSeparatedByString:@"?"];
-//        NSString *urlString = [coverArray[0] stringByAppendingString:@"?imageView2/1/w/1065/h/600"];
-//        [_photoImage sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:[UIImage imageNamed:@"Pic"] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//            
-//        }];
-//    }else{
-//        _photoImage.image = [UIImage imageNamed:@"Pic"];
-//    }
-//    
-//    if (model.gender == 1) {
-//        _ageNumber.backgroundColor = [UIColor colorWithHexString:HomeViewManColor];
-//        [_ageNumber setImage:[UIImage imageNamed:@"home_man"] forState:UIControlStateNormal];
-//    }else{
-//        [_ageNumber setImage:[UIImage imageNamed:@"home_women"] forState:UIControlStateNormal];
-//        _ageNumber.backgroundColor = [UIColor colorWithHexString:HomeViewWomenColor];
-//    }
-//    [_ageNumber setTitle:[NSString stringWithFormat:@"%ld",(long)model.age] forState:UIControlStateNormal];
-//    if ([model.job_label isEqualToString:@" "]) {
-//        _nameLabel.text = [model.real_name stringByAppendingString:[NSString stringWithFormat:@" 他还没填写职业标签%@", model.job_label]];
-//
-//    }else{
-//        _nameLabel.text = [model.real_name stringByAppendingString:[NSString stringWithFormat:@" %@", model.job_label]];
-//
-//    }
-//    _meetNumber.text = @"886人想见   和你相隔 820M ";
-//    if ([model.personal_label isEqualToString:@""]) {
-//        __weak typeof(self) weakSelf = self;
-//        [_interestView mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.height.mas_offset(0.01);
-//            make.bottom.mas_equalTo(weakSelf.personalView.mas_bottom).offset(-1);
-//        }];
-//    }else{
-//        _interestView.hidden = NO;
-//        __weak typeof(self) weakSelf = self;
-//        NSArray *interstArray = [model.personal_label componentsSeparatedByString:@","];
-//        if ([interstArray[0] isEqualToString:@""]) {
-//            [_interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(0);
-//                make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-//                make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-//                make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-0);
-//                make.height.mas_offset(0.001);
-//            }];
-//            //        _interestView.backgroundColor = [UIColor redColor];
-//            [self updateConstraints];
-//        }else{
-//            //        NSArray *interss = @[@"还是得很舒服",@"的方式的还是",@"哈哈哈",@"事实上",@"哈哈哈",@"QQ群",];
-//            [_interestView setCollectViewData:interstArray];
-//            _interestView.meetInfoBlock = ^(CGFloat height ){
-//                [weakSelf.interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                    make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
-//                    make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-//                    make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-//                    make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32);
-//                    make.height.offset(height + 2);
-//                }];
-//                [weakSelf updateConstraints];
-//                [weakSelf updateConstraintsIfNeeded];
-//                
-//            };
-//        }
-//
-////        float instrestHeight = 0;
-////        if (array.count == 0) {
-////            __weak typeof(self) weakSelf = self;
-////            [_interestView mas_updateConstraints:^(MASConstraintMaker *make) {
-////                make.height.mas_offset(0.01);
-////                make.bottom.mas_equalTo(weakSelf.personalView.mas_bottom).offset(-1);
-////            }];
-////        }else{
-////            [_interestView setCollectViewData:array];
-////            NSString *instresTitleString = @"  ";
-////            for (NSString *instrestTitle in array) {
-////                instresTitleString = [instresTitleString stringByAppendingString:instrestTitle];
-////                instresTitleString = [instresTitleString stringByAppendingString:@"  "];
-////            }
-////            instrestHeight = [instresTitleString heightWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:24.0f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
-////            __weak typeof(self) weakSelf = self;
-////            if (instrestHeight > 27) {
-////                [_interestView mas_updateConstraints:^(MASConstraintMaker *make) {
-////                    make.height.mas_offset(instrestHeight);
-////                    make.bottom.mas_equalTo(weakSelf.mas_bottom).offset(-17);
-////                }];
-////                [self updateConstraints];
-////            }
-////        }
-//
-        [ManListCell homeNameLabelColor:_nameLabel];
-//    }
-//    [self updateConstraintsIfNeeded];
+    [ManListCell homeNameLabelColor:_nameLabel];
 
 }
 

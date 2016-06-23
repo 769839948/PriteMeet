@@ -11,23 +11,15 @@
 @class Results,Theme;
 @interface Results : NSObject
 
-@property (nonatomic, copy) NSString *created;
+@property (nonatomic, copy) NSString *introduction;
 
-@property (nonatomic, assign) NSInteger id;
-
-@property (nonatomic, assign) BOOL is_active;
-
-@property (nonatomic, copy) NSString *descriptions;
+@property (nonatomic, assign) BOOL is_fake;
 
 @property (nonatomic, strong) NSArray<Theme *> *theme;
-
-@property (nonatomic, assign) NSInteger user_id;
 
 @end
 
 @interface Theme : NSObject
-
-@property (nonatomic, assign) NSInteger id;
 
 @property (nonatomic, assign) NSInteger price;
 
@@ -45,6 +37,8 @@
 + (BOOL)removeInvite;
 
 + (BOOL)isEmptyDescription;
+
++ (BOOL)isFake;
 
 + (NSString *)descriptionString:(NSInteger)index;
 

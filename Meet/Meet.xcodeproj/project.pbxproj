@@ -34,6 +34,7 @@
 		1F3DC3331D0D0B890075B7BA /* MePhotoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F3DC3311D0D0B890075B7BA /* MePhotoTableViewCell.xib */; };
 		1F3DC3381D0D0F5A0075B7BA /* PhotoDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3DC3361D0D0F5A0075B7BA /* PhotoDetailTableViewCell.swift */; };
 		1F3DC3391D0D0F5A0075B7BA /* PhotoDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F3DC3371D0D0F5A0075B7BA /* PhotoDetailTableViewCell.xib */; };
+		1F457B541D179C4A00C1D8EC /* CenterlabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F457B531D179C4A00C1D8EC /* CenterlabelView.swift */; };
 		1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E43671CFC56EA00730DEA /* UIViewController+HUD.m */; };
 		1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E436F1CFC57F900730DEA /* ThemeTools.m */; };
 		1F55157E1CFEEFE5005B82FA /* InterestCollectViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F55157D1CFEEFE5005B82FA /* InterestCollectViewCell.m */; };
@@ -83,8 +84,6 @@
 		1FCAFFD81D0181AA00BF53A1 /* EMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFD71D0181AA00BF53A1 /* EMAlertView.m */; };
 		1FCAFFDB1D01983B00BF53A1 /* UserInfoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFDA1D01983B00BF53A1 /* UserInfoViewModel.m */; };
 		1FDA53A61D003DC800C170BC /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA53A51D003DC800C170BC /* UIColor+Hex.m */; };
-		1FFB5F301D0527F700021F77 /* UserEduModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F2F1D0527F700021F77 /* UserEduModel.m */; };
-		1FFB5F331D05287A00021F77 /* UserWorks.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F321D05287A00021F77 /* UserWorks.m */; };
 		1FFB5F351D054BD900021F77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FFB5F341D054BD900021F77 /* Assets.xcassets */; };
 		1FFB5F381D05650400021F77 /* BaseUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F371D05650400021F77 /* BaseUserInfoViewController.m */; };
 		1FFB5F3B1D056D9600021F77 /* MoreInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F3A1D056D9600021F77 /* MoreInfoViewController.m */; };
@@ -231,6 +230,7 @@
 		1F3DC3311D0D0B890075B7BA /* MePhotoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MePhotoTableViewCell.xib; sourceTree = "<group>"; };
 		1F3DC3361D0D0F5A0075B7BA /* PhotoDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailTableViewCell.swift; sourceTree = "<group>"; };
 		1F3DC3371D0D0F5A0075B7BA /* PhotoDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoDetailTableViewCell.xib; sourceTree = "<group>"; };
+		1F457B531D179C4A00C1D8EC /* CenterlabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterlabelView.swift; sourceTree = "<group>"; };
 		1F4E43611CFC43F200730DEA /* Meet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Meet-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F4E43641CFC470F00730DEA /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
 		1F4E43661CFC56EA00730DEA /* UIViewController+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HUD.h"; sourceTree = "<group>"; };
@@ -325,10 +325,6 @@
 		1FCAFFDA1D01983B00BF53A1 /* UserInfoViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewModel.m; sourceTree = "<group>"; };
 		1FDA53A41D003DC800C170BC /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		1FDA53A51D003DC800C170BC /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
-		1FFB5F2E1D0527F700021F77 /* UserEduModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEduModel.h; sourceTree = "<group>"; };
-		1FFB5F2F1D0527F700021F77 /* UserEduModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEduModel.m; sourceTree = "<group>"; };
-		1FFB5F311D05287A00021F77 /* UserWorks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserWorks.h; sourceTree = "<group>"; };
-		1FFB5F321D05287A00021F77 /* UserWorks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserWorks.m; sourceTree = "<group>"; };
 		1FFB5F341D054BD900021F77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1FFB5F361D05650400021F77 /* BaseUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseUserInfoViewController.h; sourceTree = "<group>"; };
 		1FFB5F371D05650400021F77 /* BaseUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseUserInfoViewController.m; sourceTree = "<group>"; };
@@ -706,6 +702,7 @@
 				1F6850221CFFD41E007F3C07 /* PhotoTableViewCell.m */,
 				1F6850241CFFD431007F3C07 /* MeetInfoTableViewCell.h */,
 				1F6850251CFFD431007F3C07 /* MeetInfoTableViewCell.m */,
+				1F457B531D179C4A00C1D8EC /* CenterlabelView.swift */,
 				1F6850271CFFD443007F3C07 /* CompayTableViewCell.h */,
 				1F6850281CFFD443007F3C07 /* CompayTableViewCell.m */,
 				1F68502A1CFFD458007F3C07 /* SectionInfoTableViewCell.h */,
@@ -1164,10 +1161,6 @@
 				1F79BAD11D071CF700814DED /* UserInfo.m */,
 				DAF5C8161CE0D0ED00DA7901 /* BaseModel.h */,
 				DAF5C8171CE0D0ED00DA7901 /* BaseModel.m */,
-				1FFB5F2E1D0527F700021F77 /* UserEduModel.h */,
-				1FFB5F2F1D0527F700021F77 /* UserEduModel.m */,
-				1FFB5F311D05287A00021F77 /* UserWorks.h */,
-				1FFB5F321D05287A00021F77 /* UserWorks.m */,
 				DAF5C81A1CE0D0ED00DA7901 /* WXAccessModel.h */,
 				DAF5C81B1CE0D0ED00DA7901 /* WXAccessModel.m */,
 				DAF5C81C1CE0D0ED00DA7901 /* WXUserInfo.h */,
@@ -1505,7 +1498,6 @@
 				1F68503D1CFFE4F2007F3C07 /* NewMeetInfoTableViewCell.m in Sources */,
 				DA6B1C581CEC4DAC0020021D /* HomeMoreViewController.m in Sources */,
 				DAF5C7F91CDF479C00DA7901 /* NetWorkObject.m in Sources */,
-				1FFB5F301D0527F700021F77 /* UserEduModel.m in Sources */,
 				1F6850201CFFD3D2007F3C07 /* MeetDetailViewController.swift in Sources */,
 				1F6E8BE51D0276C00044CD40 /* NSObject+PerformSelector.m in Sources */,
 				DABF8AEC1CE9B7BD00CA2A1D /* WillAllowViewColler.m in Sources */,
@@ -1536,6 +1528,7 @@
 				1FC4C08B1D0D590E00E4BB33 /* MeViewController.swift in Sources */,
 				DAF5C8821CE5B95000DA7901 /* CoreTextData.m in Sources */,
 				1F6850361CFFD77A007F3C07 /* BaseTableViewCell.m in Sources */,
+				1F457B541D179C4A00C1D8EC /* CenterlabelView.swift in Sources */,
 				1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */,
 				1FCAFFD01D01515D00BF53A1 /* BaseRequestViewModel.m in Sources */,
 				1F79BADF1D090AEE00814DED /* SetInvitationViewController.swift in Sources */,
@@ -1572,7 +1565,6 @@
 				DABF8AF81CEAC29A00CA2A1D /* SetingViewController.m in Sources */,
 				DAF5C8831CE5B95000DA7901 /* CoreTextImageData.m in Sources */,
 				1F293D8B1D12D13F0063A9DA /* UITableView+FDTemplateLayoutCell.m in Sources */,
-				1FFB5F331D05287A00021F77 /* UserWorks.m in Sources */,
 				1F293D8A1D12D13F0063A9DA /* UITableView+FDKeyedHeightCache.m in Sources */,
 				1FCAFFD31D01517A00BF53A1 /* LoginViewModel.m in Sources */,
 				DAF5C8871CE5B95000DA7901 /* CTFrameParserConfig.m in Sources */,

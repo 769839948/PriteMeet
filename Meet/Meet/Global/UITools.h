@@ -27,6 +27,7 @@
 
 //- (void)showMessageToView:(UIView *)view message:(NSString *)message;
 - (MBProgressHUD *)showMessageToView:(UIView *)view message:(NSString *)message autoHide:(BOOL)autoHide;
++ (MBProgressHUD *)showMessageToView:(UIView *)view message:(NSString *)message autoHide:(BOOL)autoHide;
 - (MBProgressHUD *)showMessageToView:(UIView *)view message:(NSString *)message autoHideTime:(NSTimeInterval )interval ;
 - (MBProgressHUD *)showLoadingViewAddToView:(UIView *)view autoHide:(BOOL)autoHide;
 - (MBProgressHUD *)showLoadingViewAddToView:(UIView *)view message:(NSString *)message autoHide:(BOOL)autoHide;

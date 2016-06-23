@@ -10,7 +10,6 @@ import UIKit
 
 class User_Info: NSObject {
     
-    var cover_photo: String?
     
     var detail: [Detail]?
     
@@ -22,6 +21,12 @@ class User_Info: NSObject {
     
 }
 
+class Photos: NSObject {
+    
+    var photo: String?
+    var id: Int = 0
+}
+
 class Detail: NSObject {
     
     var id: Int = 0
@@ -30,7 +35,7 @@ class Detail: NSObject {
     
     var title: String?
     
-    var photo: [String]?
+    var photos: [Photos]?
     
 }
 
@@ -83,6 +88,8 @@ class HomeDetailModel: NSObject {
     var user_info: User_Info?
     
     var longtitude: String?
+    
+    var cover_photo: Cover_photo?
     
     var personal_label: String?
 }

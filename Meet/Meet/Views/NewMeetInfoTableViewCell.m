@@ -52,6 +52,7 @@
     EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] init];
     
     _interestView = [[InterestCollectView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+    _interestView.userInteractionEnabled = NO;
 //    _interestView.backgroundColor = [UIColor grayColor];
     flowLayout.delegate = _interestView;
     [self.contentView addSubview:_interestView];

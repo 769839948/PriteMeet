@@ -13,6 +13,7 @@
 #import "NetWorkObject.h"
 #import "UserExtenModel.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "QiniuSDK.h"
 
 @implementation UserInfoViewModel
 
@@ -22,7 +23,7 @@
 }
 - (NSArray *)titleArray
 {
-    return @[@"最新邀约",@"身份认证",@"我的约见",@"想见的人",@"邀请朋友"];
+    return @[@"我的邀约",@"身份认证",@"我的约见",@"想见的人",@"邀请朋友"];
 }
 
 
@@ -33,12 +34,10 @@
                     loadingString:(LoadingView)loading
 {
 //    loading(@"更新个人资料");
-    NSDictionary *parameters = @{ @"real_name": userInfo.real_name, @"gender":[NSString stringWithFormat:@"%ld",(long)userInfo.gender],@"mobile_num": userInfo.mobile_num,@"avatar": userInfo.avatar, @"birthday": userInfo.birthday, @"weixin_num": userInfo.weixin_num,@"country": userInfo.country,@"location":userInfo.location,@"hometown":userInfo.hometown,@"affection":[NSString stringWithFormat:@"%ld",(long)userInfo.affection],@"height":[NSString stringWithFormat:@"%ld",(long)userInfo.height],@"income":[NSString stringWithFormat:@"%ld",(long)userInfo.income],@"constellation":[NSString stringWithFormat:@"%ld",(long)userInfo.constellation],@"industry":[NSString stringWithFormat:@"%ld",(long)userInfo.industry],@"job_label":userInfo.job_label};
+    NSDictionary *parameters = @{ @"real_name": userInfo.real_name, @"gender":[NSString stringWithFormat:@"%ld",(long)userInfo.gender],@"mobile_num": userInfo.mobile_num, @"birthday": userInfo.birthday, @"weixin_num": userInfo.weixin_num,@"country": userInfo.country,@"location":userInfo.location,@"hometown":userInfo.hometown,@"affection":[NSString stringWithFormat:@"%ld",(long)userInfo.affection],@"height":[NSString stringWithFormat:@"%ld",(long)userInfo.height],@"income":[NSString stringWithFormat:@"%ld",(long)userInfo.income],@"constellation":[NSString stringWithFormat:@"%ld",(long)userInfo.constellation],@"industry":[NSString stringWithFormat:@"%ld",(long)userInfo.industry],@"job_label":userInfo.job_label};
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUpdateUser,[WXUserInfo shareInstance].openid];
 
-    [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.manager PUT:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
             NSLog(@"%@",responseObject);
             successBlock(responseObject);
@@ -47,6 +46,7 @@
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failBlock(@{@"error":@"error"});
+
     }];
 }
 
@@ -206,21 +206,31 @@
                fail:(Fail)failBlock
       loadingString:(LoadingView)loading
 {
-    loading(@"用户信息保存中");
-    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUploadUserPhoto,openId];
-
-//    NSString *url = [RequestUploadUserPhoto stringByAppendingString:openId];
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
-    
-    [self.manager POST:url parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        [formData appendPartWithFileData:imageData name:@"avatar" fileName:@"123456.jpg" mimeType:@"image/png"];
-    } progress:^(NSProgress * _Nonnull uploadProgress) {
+    NSString *urlToken = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestUploadPhotoToken];
+    [self.manager GET:urlToken parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        successBlock(responseObject);
+        QNUploadManager *upManager = [[QNUploadManager alloc] init];
+        NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+        NSString *timeNow = [self getTimeNow];
+        [upManager putData:imageData key:timeNow token:responseObject[@"token"]
+                  complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+            NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUploadUserPhoto,openId];
+            NSDictionary *parameters = @{@"key":resp[@"key"],@"hash":resp[@"hash"],@"width":resp[@"image"][@"width"],@"height":resp[@"image"][@"height"]};
+            [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
+                successBlock(@{@"success":@"1",@"avatar":[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",timeNow]});
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                failBlock(@{@"error":@"上传服务器出错"});
+            }];
+
+        } option:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failBlock(@{@"error":@"上传失败"});
+        failBlock(@{@"error":@"上传七牛出错"});
     }];
+    
 
 }
 
@@ -280,7 +290,7 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock([responseObject objectForKey:@"user_info"]);
+            successBlock([responseObject objectForKey:@"data"]);
         }else{
             failBlock(responseObject);
         }
@@ -299,11 +309,11 @@
 
     NSString *them = @"";
     for (NSString *themeString in themeArray) {
-        NSDictionary *invitationDic = [[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitation"];
+//        NSDictionary *invitationDic = [[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitation"];
         them = [them stringByAppendingString:[NSString stringWithFormat:@"%@,",[[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitation"]objectForKey:themeString]]];
     }
     NSString *subLastString = [them substringToIndex:them.length - 1];
-    NSDictionary *parameters = @{ @"description":description, @"theme":subLastString};
+    NSDictionary *parameters = @{ @"introduction":description, @"theme":subLastString};
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestInviteInfo,[WXUserInfo shareInstance].openid];
     
     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -331,7 +341,7 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock([responseObject objectForKey:@"results"]);
+            successBlock([responseObject objectForKey:@"data"]);
         }else{
             failBlock(responseObject);
         }
@@ -364,6 +374,20 @@
                                }
                            }];
     
+}
+
+
+- (NSString *)getTimeNow
+{
+    NSString* date;
+    
+    NSDateFormatter * formatter = [[NSDateFormatter alloc ] init];
+    //[formatter setDateFormat:@"YYYY.MM.dd.hh.mm.ss"];
+    [formatter setDateFormat:@"YYYYMMddhhmmssSSS"];
+    date = [formatter stringFromDate:[NSDate date]];
+    NSString *timeNow = [[NSString alloc] initWithFormat:@"%@", date];
+    NSLog(@"%@", timeNow);
+    return timeNow;
 }
 
 @end

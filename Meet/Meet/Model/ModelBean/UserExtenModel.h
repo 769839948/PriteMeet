@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class Detail;
+@class Detail,Cover_photo,Photos;
 
 @interface Detail : NSObject
 
@@ -18,7 +18,7 @@
 
 @property (nonatomic, copy) NSString *title;
 
-@property (nonatomic, strong) NSArray<NSString *> *photo;
+@property (nonatomic, strong) NSArray<Photos *> *photo;
 
 @end
 
@@ -26,15 +26,17 @@
 @interface UserExtenModel : NSObject
 
 
-@property (nonatomic, copy) NSString *cover_photo;
+@property (nonatomic, strong) Cover_photo *cover_photo;
 
 @property (nonatomic, strong) NSArray<Detail *> *detail;
 
 @property (nonatomic, assign) long long user_id;
 
-@property (nonatomic, copy) NSString *descriptions;
+@property (nonatomic, copy) NSString *highlight;
 
 @property (nonatomic, copy) NSString *auth_info;
+
+@property (nonatomic, strong) Completeness *completeness;
 
 
 + (instancetype)shareInstance;

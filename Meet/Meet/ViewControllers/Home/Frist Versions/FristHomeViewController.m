@@ -28,6 +28,8 @@
 @property (nonatomic, strong) UIView *bottomView;
 @property (nonatomic, strong) UILabel *numberMeet;
 
+@property (nonatomic, strong) UIView *statusView;
+
 @property (nonatomic, assign) NSInteger page;
 
 @property (nonatomic, strong) HomeViewModel *viewModel;
@@ -47,6 +49,7 @@
     [self setUpNavigationBar];
     [self setUpRefreshView];
     [self setUpHomeData];
+    
     
 }
 
@@ -83,6 +86,7 @@
     [super viewWillAppear:animated];
 
     [self setUpBottonView];
+    [self setStatusView];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     [self.navigationController.navigationBar setBarTintColor:NavigationBarTintColorCustome];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
@@ -92,6 +96,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self.bottomView removeFromSuperview];
+    [self.statusView removeFromSuperview];
     [super viewWillDisappear:animated];
     [self showNavBarAnimated:YES];
 }
@@ -128,6 +133,8 @@
     [icon_User setFrame:CGRectMake(0, 0, 40, 40)];
     [icon_User addTarget:self action:@selector(rightItemPess:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:icon_User];
+    
+    [self setStatusView];
 }
 
 - (void)rightItemPess:(UIBarButtonItem *)sender
@@ -151,7 +158,18 @@
     _bottomView = [[UIView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width - 84, [[UIScreen mainScreen] bounds].size.height - 74, 56, 54)];
     [_bottomView addSubview:[self myMeetBt:CGRectMake(0, 0, 54, 54)]];
     [_bottomView addSubview:[self myMeetNumber:CGRectMake(_bottomView.frame.size.width - 18, 0, 18, 18)]];
+    
+    POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
+    
+    
     [[UIApplication sharedApplication].keyWindow addSubview:_bottomView];
+}
+
+- (void)setStatusView
+{
+    _statusView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 20)];
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window addSubview:_statusView];
 }
 
 - (void)setUpRefreshView
@@ -223,51 +241,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    CGFloat height;
-//    //    NSArray *array = @[@"培养功夫",@"体态训练",@"金牌得主",@"私教",@"杨氏太极第六代"];
-//    float instrestHeight = 0;
-//    HomeModel *model = [_homeModelArray objectAtIndex:indexPath.section];
-//    if ([model.personal_label isEqualToString:@""]) {
-//        instrestHeight = 0;
-//    }else{
-//        NSArray *array = [model.personal_label componentsSeparatedByString:@","];
-//        
-//        if (array.count == 0) {
-//            instrestHeight = 0;
-//        }else{
-//            NSString *instresTitleString = @"  ";
-//            for (NSString *instrestTitle in array) {
-//                instresTitleString = [instresTitleString stringByAppendingString:instrestTitle];
-//                instresTitleString = [instresTitleString stringByAppendingString:@"  "];
-//            }
-//            instrestHeight = [instresTitleString heightWithFont:[UIFont fontWithName:@"PingFangSC-Light" size:24.0f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
-//        }
-//    }
-//    float titleHeight = [[NSString stringWithFormat:@"%@ %@",model.real_name,model.job_label] heightWithFont:[UIFont fontWithName:@"PingFangSC-Regular" size:22.55f] constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
-//    //    NSString *reuseIdentifier = cellIndef;
-//    //    MainTableViewCell *cell = [self.offscreenCells objectForKey:reuseIdentifier];
-//    //    if (!cell) {
-//    //        cell = [[MainTableViewCell alloc] init];
-//    //        [self.offscreenCells setObject:cell forKey:reuseIdentifier];
-//    //        [cell configCell:@"陈涛 美匠科技联合创始人这是一条测试数据来看看会不会换行" array:@[@"旅行顾问",@"创意总监",@"谈判专家",@"顾问"] string:@"62人想见   和你相隔 820M"];
-//    //        [cell setNeedsUpdateConstraints];
-//    //        [cell updateConstraintsIfNeeded];
-//    ////        cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds));
-//    ////        [cell setNeedsLayout];
-//    ////        [cell layoutIfNeeded];
-//    //        height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-//    //    }
-//    height = instrestHeight + titleHeight + 320 - 30 - 27 - 200 + ([[UIScreen mainScreen] bounds].size.width - 20)*200/355;
-//    return height;
+
     HomeModel *homeModel = _homeModelArray[indexPath.section];
     
     return [tableView fd_heightForCellWithIdentifier:@"MainTableViewCell" cacheByKey:[NSString stringWithFormat:@"%ld",(long)homeModel.uid] configuration:^(ManListCell *cell) {
         [self configureCell:cell atIndexPath:indexPath];
     }];
-//    return [tableView fd_heightForCellWithIdentifier:@"MainTableViewCell" cacheByIndexPath:indexPath configuration:^(ManListCell *cell) {
-//        [self configureCell:cell atIndexPath:indexPath];
-//    }];
-//        return 360;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -312,24 +291,28 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
+    
     if (translation.y < 0)
     {
         _bottomView.hidden = YES;
-//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-//        UIView *status = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
-//        status.backgroundColor = [UIColor blackColor];
-
+        _statusView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     }else if(translation.y > 0){
-//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-//        UIView *status = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
-//        status.backgroundColor = [UIColor whiteColor];
-
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        _statusView.backgroundColor = [UIColor whiteColor];
         _bottomView.hidden = NO;
-    }else{
-        
+    }
+    
+    if (scrollView.contentOffset.y <= 0){
+        self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     }
 }
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
+{
     
+}
+
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {

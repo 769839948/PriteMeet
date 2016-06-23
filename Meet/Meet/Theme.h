@@ -62,7 +62,9 @@
 #define IQKeyboardManagerplaceholderFont [UIFont fontWithName:@"PingFangSC-Regular" size:14.0]
 #define IQKeyboardManagerFont [UIFont fontWithName:@"PingFangSC-Light" size:14.0]
 
+#define EMAlertViewCancelTitle  @"取消"
 
+#define EMAlertViewConfirmTitle  @"朕知道了"
 //IQKeyboardManager Color
 ////Tint color
 //[[self appearance] setTintColor:[UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0]];

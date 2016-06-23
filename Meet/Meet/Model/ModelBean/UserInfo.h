@@ -21,6 +21,28 @@
 
 @end
 
+@interface Edu_Expirence : NSObject
+
+@property (nonatomic, assign) NSInteger eid;
+
+@property (nonatomic, strong) NSString *graduated;
+
+@property (nonatomic, strong) NSString *major;
+
+@property (nonatomic, strong) NSString *education;
+
+
+@end
+
+@interface Work_Expirence : NSObject
+
+@property (nonatomic, assign) NSInteger wid;
+
+@property (nonatomic, strong) NSString *profession;
+
+@property (nonatomic, strong) NSString *company_name;
+
+@end
 
 @interface UserInfo : NSObject
 

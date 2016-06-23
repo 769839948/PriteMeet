@@ -37,6 +37,7 @@
 #import "UINavigationBar+Transparent.h"
 #import "TransparentView.h"
 #import "UITableView+FDTemplateLayoutCell.h"
+#import "WeChatResgisterViewController.h"
 
 
 

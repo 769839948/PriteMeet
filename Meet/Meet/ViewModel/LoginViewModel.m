@@ -25,6 +25,7 @@
 
 #import "LoginViewModel.h"
 #import "AFNetWorking.h"
+#import "WXUserInfo.h"
 
 @implementation LoginViewModel
 
@@ -37,13 +38,14 @@
     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (![[responseObject objectForKey:@"success"] boolValue]) {
-            NSDictionary *parameters = @{@"openid":WXUserInfo.openid,@"nickname":WXUserInfo.nickname,@"sex":WXUserInfo.sex,@"head_img_url":WXUserInfo.headimgurl,@"province":WXUserInfo.province,@"city":WXUserInfo.city,@"country":WXUserInfo.country,@"union_id":WXUserInfo.unionid,@"code":code};
+            NSDictionary *parameters = @{@"openid":WXUserInfo.openid,@"nickname":WXUserInfo.nickname,@"sex":WXUserInfo.sex,@"head_img_url":@"",@"province":WXUserInfo.province,@"city":WXUserInfo.city,@"country":WXUserInfo.country,@"union_id":WXUserInfo.unionid,@"code":code};
             NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestCreateUser];
-
+            
             [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
                 
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 if ([[responseObject objectForKey:@"success"] boolValue]) {
+//                    WXUserInfo.openid = responseObject[@"user_id"];
                     successBlock(responseObject);
                 }else{
                     failBlock(@{@"error":@"上传失败"});

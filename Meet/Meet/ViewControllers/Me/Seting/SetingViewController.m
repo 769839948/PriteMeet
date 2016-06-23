@@ -114,7 +114,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0) {
-        
+        [[UITools shareInstance] showMessageToView:self.view message:@"敬请期待" autoHide:YES];
     }else if (indexPath.row == 1){
 //        __weak typeof(self) weakSelf = self;
         [EMAlertView showAlertWithTitle:nil message:@"确定清除缓存？" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
@@ -156,6 +156,7 @@
         [EMAlertView showAlertWithTitle:nil message:@"确定退出登录？" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             if (buttonIndex == 1) {
                 [UserInfo logout];
+                [NSFileManager clearCache:[NSFileManager jk_cachesPath]];
                 [AppData shareInstance].isLogin = NO;
                 if (weakSelf.logoutBlock) {
                     weakSelf.logoutBlock();

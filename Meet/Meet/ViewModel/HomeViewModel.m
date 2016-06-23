@@ -28,7 +28,7 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock([responseObject objectForKey:@"data"]);
+            successBlock([responseObject objectForKey:@"results"]);
         }else{
             failBlock(responseObject);
         }
@@ -39,7 +39,7 @@
 
 - (void)getOtherUserInfo:(NSString *)userId successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock
 {
-    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@?user_id=%@",RequestGetOtherInfo,userId];
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@",RequestGetOtherInfo,userId];
     
     [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         

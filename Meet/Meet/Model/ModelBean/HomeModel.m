@@ -8,6 +8,10 @@
 
 #import "HomeModel.h"
 
+@implementation Cover_photo
+
+@end
+
 @implementation HomeModel : NSObject
 
 @end
