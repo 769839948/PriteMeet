@@ -161,7 +161,9 @@
                 if (weakSelf.logoutBlock) {
                     weakSelf.logoutBlock();
                 }
-                [weakSelf.navigationController popViewControllerAnimated:YES];
+                [weakSelf dismissViewControllerAnimated:YES completion:^{
+                    
+                }];
             }
         } cancelButtonTitle:@"取消" otherButtonTitles:@"退出",nil];
 

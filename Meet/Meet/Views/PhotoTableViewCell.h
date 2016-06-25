@@ -10,7 +10,6 @@
 
 @interface PhotoTableViewCell : BaseTableViewCell
 
-
-- (void)configCell:(NSArray *)imageArray;
+- (void)configCell:(NSArray *)imageArray gender:(NSInteger)gender age:(NSInteger)age;
 
 @end

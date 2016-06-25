@@ -329,15 +329,10 @@ extension MeViewController : UITableViewDelegate{
             self.navigationController!.pushViewController(senderInviteVC, animated:true)
         }else if(indexPath.row == 4){
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! MeInfoTableViewCell
-            let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-            hud.mode = MBProgressHUDMode.Text
-            hud.margin = 10.0
-            hud.removeFromSuperViewOnHide = true
-            hud.hide(true, afterDelay: 1.0)
             if cell.infoDetailLabel.text == "" {
-                hud.labelText = "您已通过所有认证了哦"
+                UITools.shareInstance().showMessageToView(self.view, message: "您已通过所有认证了哦", autoHide: true)
             }else{
-                hud.labelText = "客服Meet君会尽快联系您认证的哦，还请耐心等待。"
+                UITools.shareInstance().showMessageToView(self.view, message: "客服Meet君会尽快联系您认证的哦，还请耐心等待。", autoHide: true)
             }
         }
     }
@@ -352,7 +347,9 @@ extension MeViewController : UITableViewDelegate{
             case 2:
                 return 50
             case 3:
-                return meetCellHeight
+                return tableView.fd_heightForCellWithIdentifier(newMeetInfoTableViewCell, configuration: { (cell) in
+                    self.configNewMeetCell((cell as! NewMeetInfoTableViewCell), indxPath: indexPath)
+                })
             default:
                 return 50
             }
@@ -450,6 +447,9 @@ extension MeViewController : UITableViewDataSource {
             }else if indexPath.row == 1 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(photoDetailTableViewCell, forIndexPath: indexPath) as! PhotoDetailTableViewCell
                     cell.configCell(UserExtenModel.allImageUrl())
+                cell.closure = { () in
+                    UITools.shareInstance().showMessageToView(self.view, message: "^_^ 敬请期待，暂时请联系客服帮忙添加哦", autoHide: true)
+                }
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 return cell
@@ -466,12 +466,7 @@ extension MeViewController : UITableViewDataSource {
                 return cell
             }else if indexPath.row == 3 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(newMeetInfoTableViewCell, forIndexPath: indexPath) as! NewMeetInfoTableViewCell
-                cell.configCell(self.descriptionString(), array: self.instrestArray() as [AnyObject])
-                cell.block = { (height) in
-                    self.meetCellHeight = height + 80
-                    let index = NSIndexPath.init(forRow: 2, inSection: 0)
-                    self.tableView.reloadRowsAtIndexPaths([index], withRowAnimation: UITableViewRowAnimation.Automatic)
-                }
+                self.configNewMeetCell(cell, indxPath: indexPath)
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.isHaveShadowColor(false)
                 return cell

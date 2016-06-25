@@ -67,6 +67,7 @@
             [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
                 /////获取到 [UserInfo shareInstance]的idKye 以后保存需要
                 [UserInfo synchronizeWithDic:object];
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isNewUser"];
                 UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
                 BaseUserInfoViewController *baseUserInfo = [meStoryBoard instantiateViewControllerWithIdentifier:@"BaseInfoViewController"];
                 [weakSelf.navigationController pushViewController:baseUserInfo animated:YES];

@@ -79,10 +79,12 @@
     float maxHeight = 10.0;
     if (_isFirstLoad && stringArray != _stringArray) {
         for (NSInteger i = 0; i < stringArray.count; i ++) {
-            CustomLabel *customLabel = [CustomLabel setUpLabel:CGRectMake(19, (maxHeight) + 10, ScreenWidth - 38, 0) text:[stringArray objectAtIndex:i]];
+            if (![[stringArray objectAtIndex:i] isEqualToString:@""]) {
+                CustomLabel *customLabel = [CustomLabel setUpLabel:CGRectMake(19, (maxHeight) + 10, ScreenWidth - 38, 0) text:[stringArray objectAtIndex:i]];
+                [self.contentView addSubview:customLabel];
+                maxHeight = CGRectGetMaxY(customLabel.frame);
+            }
             
-            [self.contentView addSubview:customLabel];
-            maxHeight = CGRectGetMaxY(customLabel.frame);
         }
         _stringArray = [stringArray mutableCopy];
         _isFirstLoad = NO;

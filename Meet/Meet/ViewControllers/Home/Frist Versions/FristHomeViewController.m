@@ -21,6 +21,7 @@
 #import "MJExtension.h"
 #import "HomeModel.h"
 #import "UserInfo.h"
+#import "UITools.h"
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <AMapLocationKit/AMapLocationManager.h>
 
@@ -56,6 +57,7 @@
     [self setUpHomeData];
     [self setUpLocationManager];
     
+    NSString *ipAddress = [[UITools shareInstance] getIPAddress:NO];
     
 }
 
@@ -124,7 +126,7 @@
 {
     [super viewWillAppear:animated];
 
-    [self setUpBottonView];
+//    [self setUpBottonView];
     [self setStatusView];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     [self.navigationController.navigationBar setBarTintColor:NavigationBarTintColorCustome];

@@ -20,7 +20,10 @@
 #import "UserInfoViewModel.h"
 #import "IQUIView+IQKeyboardToolbar.h"
 #import "WXUserInfo.h"
+#import "Meet-Swift.h"
+#import "Masonry.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/UIButton+WebCache.h>
 
 typedef NS_ENUM(NSUInteger, SectonContentType) {
     SectionProfile,
@@ -47,7 +50,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     RowConstellation,
 };
 
-@interface MyProfileViewController () <UITableViewDelegate,UITableViewDataSource,UIPickerViewDataSource, UIPickerViewDelegate,UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UISheetViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate> {
+@interface MyProfileViewController () <UIPickerViewDataSource, UIPickerViewDelegate,UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UISheetViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate> {
     
     __weak IBOutlet UIView *_bottomPickerView;
     __weak IBOutlet UIDatePicker *_datePicker;
@@ -84,7 +87,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
 
 @property (weak, nonatomic) IBOutlet UILabel *pickerTitle;
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewConstraint;
 @property (strong, nonatomic) NSMutableArray *photos;
 
@@ -96,9 +98,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"个人信息";
-    _titleContentArray = @[@"头像",@"真实姓名",@"性别",@"生日",@"身高",@"工作生活城市",@"手机号",@"微信号",@"行业",@"年收入",@"情感状态",@"家乡",@"星座"];
+    _titleContentArray = @[@"头像",@"真实姓名",@"性别",@"生日",@"身高",@"工作生活城市",@"手机号码",@"微信号",@"行业",@"年收入",@"情感状态",@"家乡",@"星座"];
     _dicValues = [NSMutableDictionary dictionary];
-    
+
     
     _arrayWorkExper = [NSMutableArray arrayWithArray:[self workExpArray]];
     _arrayOccupationLable = [NSMutableArray arrayWithArray:@[@"产品总监, 产品经理 "]];
@@ -113,12 +115,20 @@ typedef NS_ENUM(NSUInteger, RowType) {
     
     _viewModel = [[UserInfoViewModel alloc] init];
     [self loadLastUpdate];
+    [self setUpTableView];
+    [self setNavigationBarItem];
+}
+
+- (void)setUpTableView
+{
+    [self.tableView registerNib:ProfileTableViewCell.self forCellReuseIdentifier:@"ProfilePhotoCell"];
+    self.tableView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self setNavigationBarItem];
+//    [self setNavigationBarItem];
 }
 /**
  *  设置导航栏标题
@@ -228,7 +238,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
             [_dicCityPick setObject:temp forKey:stateName];
         }];
         [weakSelf mappingContentDicValue];
-        NSLog(@"");
     });
 
 }
@@ -282,7 +291,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
     
     NSInteger m = mStr.intValue;
     NSInteger d = dStr.intValue;
-//    @["摩羯座",@"水平座",@"双鱼座",@"白羊座",@"金牛座",@"双子座",@"巨蟹座",@"狮子座",@"处女座",@"天秤座",@"天蝎座",@"射手座",@"摩羯座"];
     NSString *astroString = @"bb00112233445566778899aabb";
     NSString *astroFormat = @"102123444543";
     NSString *result;
@@ -635,6 +643,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
             [pickerView reloadComponent:1];
             return ;
         } else {
+            
         }
     }  else
         self.pickerSelectRow = row;
@@ -684,7 +693,11 @@ typedef NS_ENUM(NSUInteger, RowType) {
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            return 82;
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isNewUser"]) {
+                return 260;
+            }else{
+                return 82;
+            }
         } else
             return 49;
     } else if (indexPath.section == 4 || indexPath.section == 5) {
@@ -698,20 +711,44 @@ typedef NS_ENUM(NSUInteger, RowType) {
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     if (section == 0 && row == 0) {
-        NSString *const cellIdentifier = @"profileImageCell";
-        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-        UIImageView *imageView = (UIImageView *)[cell viewWithTag:2];
-        imageView.layer.cornerRadius = imageView.bounds.size.width/2;
-        imageView.layer.masksToBounds = YES;
-        imageView.image  = [UserInfo imageForName:@"headImage.jpg"];
-        if ([UserInfo imageForName:@"headImage.jpg"] == nil) {
-            [imageView sd_setImageWithURL:[NSURL URLWithString:[UserInfo sharedInstance].avatar] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                _dicValues[_titleContentArray[0]] = image;
-                imageView.image = image;
-                [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
-            }];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isNewUser"]) {
+            static  NSString  *CellIdentiferId = @"ProfileTableViewCell";
+            ProfileTableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentiferId];
+            if (cell == nil) {
+                NSArray *nibs = [[NSBundle mainBundle]loadNibNamed:@"ProfileTableViewCell" owner:nil options:nil];
+                cell = [nibs lastObject];
+                
+            }
+            if ([UserInfo imageForName:@"headImage.jpg"] != nil) {
+                [cell.profilePhoto setImage:[UserInfo imageForName:@"headImage.jpg"] forState:UIControlStateNormal];
+            }else if ([UserInfo sharedInstance].avatar != nil && ![[UserInfo sharedInstance].avatar isEqualToString:@""]) {
+                [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:[UserInfo sharedInstance].avatar] forState:UIControlStateNormal completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    _dicValues[_titleContentArray[0]] = image;
+                    [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
+
+                }];
+            
+            }else{
+                [cell.profilePhoto setImage:[UIImage imageNamed:@"me_profile_photo"] forState:UIControlStateNormal];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }else{
+            NSString *const cellIdentifier = @"profileImageCell";
+            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+            UIImageView *imageView = (UIImageView *)[cell viewWithTag:2];
+            imageView.layer.cornerRadius = imageView.bounds.size.width/2;
+            imageView.layer.masksToBounds = YES;
+            imageView.image  = [UserInfo imageForName:@"headImage.jpg"];
+            if ([UserInfo imageForName:@"headImage.jpg"] == nil) {
+                [imageView sd_setImageWithURL:[NSURL URLWithString:[UserInfo sharedInstance].avatar] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    _dicValues[_titleContentArray[0]] = image;
+                    imageView.image = image;
+                    [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
+                }];
+            }
+            return cell;
         }
-        return cell;
     } else if(section == 0) {
         if (row == RowName || row == RowPhoneNumber || row == RowWX_Id) {
             NSString *cellIdentifier = @"profileTextFieldCell";
@@ -723,7 +760,11 @@ typedef NS_ENUM(NSUInteger, RowType) {
             cell.tag = row;
             cell.titelLabel.text = _titleContentArray[row];
             if (row == RowName) {
-                cell.textField.placeholder = @"中文名";
+                cell.textField.placeholder = @"真实姓名";
+            }else if (RowPhoneNumber){
+                cell.textField.placeholder = @"接受约见后对方可见";
+            }else if (RowWX_Id){
+                cell.textField.placeholder = @"接受约见后对方可见";
             }else{
                 cell.textField.placeholder = _titleContentArray[row];
             }
@@ -734,7 +775,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 cell.textField.text = _dicValues[_titleContentArray[row]];
 
             }
-            cell.textField.textColor = [UIColor redColor];
             //IQKeyboardItem
 //            [cell.textField addLeftRightOnKeyboardWithTarget:self leftButtonTitle:@"放弃" rightButtonTitle:@"确定" leftButtonAction:@selector(editDone:) rightButtonAction:@selector(editDone:) shouldShowPlaceholder:YES];
             return  cell;
@@ -742,9 +782,25 @@ typedef NS_ENUM(NSUInteger, RowType) {
             NSString *cellIdentifier = @"profileLabelCell";
             cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
             UILabel *titlLabel = (UILabel *)[cell viewWithTag:1];
+            titlLabel.font = MeViewProfileLabelFont;
+            titlLabel.textColor = [UIColor colorWithHexString:MeViewProfileLabelColor];
             titlLabel.text = _titleContentArray[row];
+            [titlLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(cell.contentView.mas_left).offset(20);
+            }];
             UILabel *contentLabel = (UILabel *)[cell viewWithTag:2];
             contentLabel.text = _dicValues[_titleContentArray[row]];
+            contentLabel.font = MeViewProfileLabelFont;
+            contentLabel.textColor = [UIColor colorWithHexString:MeViewProfileLabelColor];
+            UILabel *lineLabel = [[UILabel alloc] init];
+            lineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
+            [cell.contentView addSubview:lineLabel];
+            [lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(cell.contentView.mas_left).offset(20);
+                make.right.equalTo(cell.contentView.mas_right).offset(10);
+                make.bottom.equalTo(cell.contentView.mas_bottom).offset(0);
+                make.height.offset(0.5);
+            }];
             return  cell;
         }
     } else if (section == 1 || section == 2 || section == 3) {
@@ -814,9 +870,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
 #pragma mark - tableView Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    if (indexPath.section == 0 && indexPath.row == 2 && [UserInfo sharedInstance].modifySex) {////Sex Item
-//        return ;
-//    }
+
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
     if (section == 0) {
@@ -861,6 +915,12 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 [self setPickView:RowHeight inRowAtValue:26 inTableViewRow:row];
                 [_picker selectRow:_pickerSelectRow inComponent:0 animated:NO];
                 [_picker selectRow:1 inComponent:0 animated:NO];
+            }else if (row == RowHeight){
+                NSInteger value = [_dicPickSelectValues[_titleContentArray[_selectRow]] intValue];
+                _pickerSelectRow = value;
+                
+                [self setPickView:RowHeight inRowAtValue:26 inTableViewRow:row];
+                [_picker selectRow:14 inComponent:0 animated:NO];
             }else{
                 NSInteger value = [_dicPickSelectValues[_titleContentArray[_selectRow]] intValue];
                 _pickerSelectRow = value;
@@ -915,9 +975,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
             [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
             imagePicker.mediaTypes = mediaTypes;
             imagePicker.allowsEditing = YES;
-            imagePicker.navigationBar.tintColor = [UIColor whiteColor];
+            imagePicker.navigationBar.tintColor = [UIColor blackColor];
             imagePicker.navigationBar.barTintColor = self.navigationController.navigationBar.barTintColor;
-           [imagePicker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+           [imagePicker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
             [self presentViewController:imagePicker animated:YES completion:nil];
             break;
         }

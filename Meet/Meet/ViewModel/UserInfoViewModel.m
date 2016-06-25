@@ -80,7 +80,7 @@
     //    loading(@"更新个人资料");
     NSArray *array = [workString componentsSeparatedByString:@"-"];
     NSDictionary *parameters = @{ @"graduated": array[0], @"major":array[1],@"education":[[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"education"] objectForKey:array[2]],@"user_id":[WXUserInfo shareInstance].openid};
-    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestAddEduExp];
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/",RequestAddEduExp];
     
     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         

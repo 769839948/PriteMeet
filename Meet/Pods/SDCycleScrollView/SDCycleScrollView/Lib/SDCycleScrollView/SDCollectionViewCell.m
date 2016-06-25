@@ -42,6 +42,12 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 20, frame.size.height) byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 0)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 20, frame.size.height);
+        maskLayer.path = maskPath.CGPath;
+        self.layer.mask = maskLayer;
         [self setupImageView];
         [self setupTitleLabel];
     }
@@ -71,6 +77,8 @@
 {
     UIImageView *imageView = [[UIImageView alloc] init];
     _imageView = imageView;
+//    _imageView.layer.cornerRadius = 5.0;
+//    _imageView.layer.masksToBounds = YES;
     [self.contentView addSubview:imageView];
 }
 

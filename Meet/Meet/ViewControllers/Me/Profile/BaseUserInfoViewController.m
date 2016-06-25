@@ -13,6 +13,7 @@
 #import "WXUserInfo.h"
 #import "Meet-Swift.h"
 
+
 @interface BaseUserInfoViewController ()
 
 
@@ -22,11 +23,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isNewUser"];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.title = @"";
+    self.tableView.backgroundColor = [UIColor whiteColor];
+    [self setNavigationItemBar];
+}
+
+- (void)setNavigationItemBar
+{
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 64)]
+                                                 forBarPosition:UIBarPositionAny
+                                                     barMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"me_profile_save"] style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 64)]
+                       forBarPosition:UIBarPositionAny
+                           barMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
 - (void)nextStep:(UIBarButtonItem *)sender
@@ -38,7 +57,6 @@
     __weak typeof(self) weakSelf = self;
     [self mappingUserInfoWithDicValues];
     
-    UserInfo *uer = [UserInfo sharedInstance];
     if ([self chectBaseInfo]) {
         [self.viewModel updateUserInfo:[UserInfo sharedInstance] withStateArray:[self.stateArray copy] success:^(NSDictionary *object) {
             [[UITools shareInstance] showMessageToView:self.view message:@"保存成功" autoHide:YES];
@@ -46,6 +64,7 @@
             if ([UserInfo saveCacheImage:image withName:@"headImage.jpg"]) {
                 NSLog(@"保存成功");
             }
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isNewUser"];
             UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
             SetInvitationViewController *invitationView = [meStoryBoard instantiateViewControllerWithIdentifier:@"SetInvitationViewController"];
             [weakSelf.navigationController pushViewController:invitationView animated:YES];
@@ -86,6 +105,15 @@
     return ret;
 }
 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return  0.000001;
+    }else{
+        return 10;
+    }
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;

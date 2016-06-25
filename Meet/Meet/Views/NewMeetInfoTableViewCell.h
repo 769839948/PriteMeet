@@ -19,6 +19,4 @@ typedef void (^tableCellHeight)(CGFloat height);
 - (void)configCell:(NSString *)meetstring array:(NSArray *)array;
 - (void)isHaveShadowColor:(BOOL)isShadowColor;
 
-- (CGFloat)getCellHeight:(NSString *)meetstring array:(NSArray *)array;
-
 @end

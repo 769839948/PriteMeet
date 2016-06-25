@@ -32,7 +32,7 @@
 - (void)setUpView
 {
     _allInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 49)];
-    _allInfoLabel.text = @"查看全部档案";
+    _allInfoLabel.text = @"查看全部资料";
     _allInfoLabel.font = [UIFont fontWithName:@"PingFangTC-Light" size:14.0];
     _allInfoLabel.textColor = [UIColor colorWithHexString:allInfoLabelColor];
     _allInfoLabel.textAlignment = NSTextAlignmentCenter;

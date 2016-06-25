@@ -44,11 +44,11 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
 - (void)setCollectViewData:(NSArray *)array;
 {
     _edgX = 0;
-    if (![_interstArray isEqualToArray:array]) {
-        _interstArray = [array mutableCopy];
-        [self reloadData];
-    }
-    
+    _interstArray = [array mutableCopy];
+    [self reloadData];
+//    if (![_interstArray isEqualToArray:array]) {
+//       
+//    }
 }
 
 - (CGFloat)interesHeight

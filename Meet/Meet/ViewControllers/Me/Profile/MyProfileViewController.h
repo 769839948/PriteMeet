@@ -17,10 +17,13 @@ typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 #import "MeetBaseViewController.h"
 #import "EMAlertView.h"
 
-@interface MyProfileViewController : MeetBaseViewController
+@interface MyProfileViewController : MeetBaseViewController<UITableViewDelegate,UITableViewDataSource>
 {
 
 }
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 
 @property (nonatomic, weak) IBOutlet UIView *chooseView;
 
@@ -31,7 +34,6 @@ typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 @property (assign, nonatomic)     NSInteger selectRow;////仅限Section0里
 
 @property (assign, nonatomic)    NSInteger pickerSelectRow;
-
 
 @property (strong, nonatomic) UserInfoViewModel *viewModel;
 
