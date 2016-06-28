@@ -15,4 +15,7 @@ typedef void (^RefreshInviteBlock)();
 
 @property (strong, nonatomic) RefreshInviteBlock block;
 
+@property (assign, nonatomic) BOOL isNewLogin;
+
+
 @end

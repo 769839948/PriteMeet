@@ -49,7 +49,11 @@ class MePhotoTableViewCell: UITableViewCell {
     }
 
     func cofigLoginCell(name:String, infoCom:String, compass:Completeness){
-        nameLabel.text = name
+        if name == "" {
+            nameLabel.text = "无名氏"
+        }else{
+            nameLabel.text = name
+        }
         logoutView.hidden = true
         self.loginView.hidden = false
         if infoCom == "" {

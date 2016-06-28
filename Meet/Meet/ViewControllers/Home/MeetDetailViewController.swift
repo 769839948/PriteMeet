@@ -297,9 +297,9 @@ class MeetDetailViewController: UIViewController {
 extension MeetDetailViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        if indexPath.section == 1 && indexPath.row == 1 && self.otherUserModel.user_info!.highlight != ""  {
-            let meetWebView = MeetWebViewController()
-            meetWebView.url = self.otherUserModel.more_introduction!
+        if indexPath.section == 1 && indexPath.row == 1 && self.otherUserModel.user_info!.highlight != ""  && self.otherUserModel.web_url != ""{
+            let meetWebView = AboutDetailViewController()
+            meetWebView.url = "\(RequestBaseUrl)\(self.otherUserModel.web_url)"
             self.navigationController?.pushViewController(meetWebView, animated: true)
         }
     }
@@ -581,11 +581,7 @@ extension MeetDetailViewController : UITableViewDataSource {
                     return cell
                 default:
                     let cell = tableView.dequeueReusableCellWithIdentifier(aboutUsInfoTableViewCell, forIndexPath: indexPath) as! AboutUsInfoTableViewCell
-                    cell.configCell(self.dataArray as [AnyObject], withGender: self.otherUserModel.gender)
-    
-                    cell.block = { _ in
-                        self.navigationController?.pushViewController(AboutDetailViewController(), animated: true)
-                    }
+                    cell.configCell(self.dataArray as [AnyObject], withUrl: self.otherUserModel.web_url)
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
                     return cell
                 }

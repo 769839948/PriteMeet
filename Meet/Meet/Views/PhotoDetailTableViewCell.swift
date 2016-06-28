@@ -62,6 +62,10 @@ class PhotoDetailTableViewCell: UITableViewCell {
                     })
                     self.logoutView.addSubview(photoImage)
                     width = width + 62
+                    let singerTap = UITapGestureRecognizer(target: self, action: #selector(PhotoDetailTableViewCell.singerTap))
+                    singerTap.numberOfTapsRequired = 1
+                    singerTap.numberOfTouchesRequired = 1
+                    photoImage.addGestureRecognizer(singerTap)
                 }
             }else{
                 for index in 0...imageArray.count - 1 {
@@ -75,6 +79,10 @@ class PhotoDetailTableViewCell: UITableViewCell {
                     })
                     self.logoutView.addSubview(photoImage)
                     width = width + 62
+                    let singerTap = UITapGestureRecognizer(target: self, action: #selector(PhotoDetailTableViewCell.singerTap))
+                    singerTap.numberOfTapsRequired = 1
+                    singerTap.numberOfTouchesRequired = 1
+                    photoImage.addGestureRecognizer(singerTap)
                 }
                 self.addImageView.frame = CGRectMake(width + 20, 26, 59, 59)
             }

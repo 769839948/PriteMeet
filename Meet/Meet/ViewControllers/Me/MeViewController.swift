@@ -319,7 +319,8 @@ extension MeViewController : UITableViewDelegate{
         if (indexPath.row == 0) {
             self.pushProfileViewControllr()
         } else if (indexPath.row == 1) {
-            self.presentMoreProfileViewController()
+            UITools.shareInstance().showMessageToView(self.view, message: "^_^ 敬请期待，暂时请联系客服帮忙添加哦", autoHide: true)
+//            self.presentMoreProfileViewController()
         } else  if (indexPath.row == 3 || indexPath.row == 2) {
             let meStoryBoard = UIStoryboard(name: "Me", bundle: NSBundle.mainBundle())
             let senderInviteVC = meStoryBoard.instantiateViewControllerWithIdentifier("SendInviteViewController") as!  SendInviteViewController

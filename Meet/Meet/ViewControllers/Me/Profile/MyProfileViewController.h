@@ -44,8 +44,14 @@ typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 
 @property (copy, nonatomic) NSMutableDictionary *stateArray;
 
+@property (assign, nonatomic) BOOL isBaseView;
+
 @property (assign, nonatomic) BOOL fromeMeView;
 
 - (void)mappingUserInfoWithDicValues;
+
+- (BOOL)chectBaseInfo;
+
+- (void)leftItemClick:(UIBarButtonItem *)sender;
 
 @end

@@ -340,31 +340,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="login_image1" translatesAutoresizingMaskIntoConstraints="NO" id="Guh-Qs-CW1">
-                                <rect key="frame" x="-158" y="209" width="84" height="327"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="login_image3" translatesAutoresizingMaskIntoConstraints="NO" id="5Ef-6c-qIk">
-                                <rect key="frame" x="216" y="14.5" width="235" height="192.5"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_image3" translatesAutoresizingMaskIntoConstraints="NO" id="5Ef-6c-qIk">
+                                <rect key="frame" x="212" y="14" width="243" height="199"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="5Ef-6c-qIk" secondAttribute="height" multiplier="235:192" id="hjv-dd-SGA"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="login_image2" translatesAutoresizingMaskIntoConstraints="NO" id="TOo-6L-nr5">
-                                <rect key="frame" x="193" y="414.5" width="208.5" height="268.5"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_image2" translatesAutoresizingMaskIntoConstraints="NO" id="TOo-6L-nr5">
+                                <rect key="frame" x="189" y="404" width="216.5" height="279"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="TOo-6L-nr5" secondAttribute="height" multiplier="52:67" id="Pgc-Ka-7h2"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qgs-CF-Umf">
-                                <rect key="frame" x="116" y="581.5" width="143" height="0.5"/>
+                                <rect key="frame" x="116" y="581" width="143" height="0.5"/>
                                 <color key="backgroundColor" red="0.094117647058823528" green="0.090249331343055128" blue="0.093700202008148367" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="0yT-F6-QZ3"/>
                                     <constraint firstAttribute="width" constant="143" id="WXd-kZ-WBc"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入邀请码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wCN-BF-YbP">
-                                <rect key="frame" x="45" y="234" width="285" height="56"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_image1" translatesAutoresizingMaskIntoConstraints="NO" id="Guh-Qs-CW1">
+                                <rect key="frame" x="-4" y="207" width="90" height="178"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="7NQ-2t-6lD"/>
+                                    <constraint firstAttribute="width" secondItem="Guh-Qs-CW1" secondAttribute="height" multiplier="45:89" id="Pj4-Rs-Dmf"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入邀请码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wCN-BF-YbP">
+                                <rect key="frame" x="41" y="234" width="293" height="56"/>
                                 <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.094117647058823528" green="0.090206627489131053" blue="0.092925599006781698" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -413,8 +417,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b0X-lV-D7N">
-                                <rect key="frame" x="274" y="234" width="56" height="56"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b0X-lV-D7N">
+                                <rect key="frame" x="278" y="234" width="56" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="Rtn-Ks-e1r"/>
                                     <constraint firstAttribute="width" constant="56" id="aNy-Nt-vMU"/>
@@ -431,24 +435,26 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Qgs-CF-Umf" firstAttribute="centerX" secondItem="FVJ-g1-Cbi" secondAttribute="centerX" id="32j-Q7-rQO"/>
-                            <constraint firstItem="5Ef-6c-qIk" firstAttribute="top" secondItem="5lX-Eg-OgE" secondAttribute="bottom" constant="-49.5" id="3Tj-hN-Rmh"/>
                             <constraint firstItem="n1q-iR-EMx" firstAttribute="centerX" secondItem="FVJ-g1-Cbi" secondAttribute="centerX" id="4Md-CQ-QDK"/>
                             <constraint firstItem="wCN-BF-YbP" firstAttribute="top" secondItem="n1q-iR-EMx" secondAttribute="bottom" constant="80" id="5nn-Cl-RMU"/>
-                            <constraint firstItem="L6k-mT-buj" firstAttribute="top" secondItem="oOq-fM-kOr" secondAttribute="bottom" constant="89" id="6Jg-4A-DE7"/>
                             <constraint firstItem="wCN-BF-YbP" firstAttribute="leading" secondItem="FVJ-g1-Cbi" secondAttribute="leadingMargin" constant="25" id="9Aw-w6-xbv"/>
+                            <constraint firstItem="L6k-mT-buj" firstAttribute="top" secondItem="TOo-6L-nr5" secondAttribute="bottom" constant="-16" id="C1X-jH-Qrv"/>
                             <constraint firstItem="b0X-lV-D7N" firstAttribute="leading" secondItem="wCN-BF-YbP" secondAttribute="trailing" constant="-56" id="Dwp-ak-whg"/>
-                            <constraint firstItem="L6k-mT-buj" firstAttribute="top" secondItem="cxU-iR-NVJ" secondAttribute="bottom" constant="179" id="ELK-qH-Rzj"/>
-                            <constraint firstItem="wCN-BF-YbP" firstAttribute="top" secondItem="5lX-Eg-OgE" secondAttribute="bottom" constant="170" id="Gp6-3B-w8h"/>
+                            <constraint firstItem="L6k-mT-buj" firstAttribute="top" secondItem="Qgs-CF-Umf" secondAttribute="bottom" constant="85" id="I9E-rM-kFL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="TOo-6L-nr5" secondAttribute="trailing" constant="-46.5" id="P60-Jw-y3S"/>
                             <constraint firstItem="wCN-BF-YbP" firstAttribute="centerX" secondItem="FVJ-g1-Cbi" secondAttribute="centerX" id="Q35-kA-pCx"/>
                             <constraint firstItem="5Ef-6c-qIk" firstAttribute="leading" secondItem="FVJ-g1-Cbi" secondAttribute="leadingMargin" constant="196" id="YXw-AP-Zp7"/>
-                            <constraint firstItem="L6k-mT-buj" firstAttribute="top" secondItem="Qgs-CF-Umf" secondAttribute="bottom" constant="85" id="cLB-kV-iy7"/>
+                            <constraint firstItem="wCN-BF-YbP" firstAttribute="top" secondItem="5lX-Eg-OgE" secondAttribute="bottom" constant="170" id="ZHf-iS-9j4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5Ef-6c-qIk" secondAttribute="trailing" constant="-96" id="f6b-fY-rmX"/>
+                            <constraint firstItem="Guh-Qs-CW1" firstAttribute="leading" secondItem="FVJ-g1-Cbi" secondAttribute="leadingMargin" constant="-20" id="g7C-VF-EVM"/>
                             <constraint firstItem="b0X-lV-D7N" firstAttribute="top" secondItem="wCN-BF-YbP" secondAttribute="bottom" constant="-56" id="hOj-v8-8AW"/>
-                            <constraint firstItem="L6k-mT-buj" firstAttribute="top" secondItem="TOo-6L-nr5" secondAttribute="bottom" constant="-16" id="jOe-8e-bzN"/>
+                            <constraint firstItem="L6k-mT-buj" firstAttribute="top" secondItem="cxU-iR-NVJ" secondAttribute="bottom" constant="179" id="hzA-EL-DSh"/>
+                            <constraint firstItem="5Ef-6c-qIk" firstAttribute="top" secondItem="5lX-Eg-OgE" secondAttribute="bottom" constant="-49.5" id="kl8-cm-n45"/>
+                            <constraint firstItem="L6k-mT-buj" firstAttribute="top" secondItem="oOq-fM-kOr" secondAttribute="bottom" constant="89" id="lQ9-8N-sB2"/>
                             <constraint firstItem="TOo-6L-nr5" firstAttribute="leading" secondItem="FVJ-g1-Cbi" secondAttribute="leadingMargin" constant="173" id="s7R-NQ-bD2"/>
                             <constraint firstItem="cxU-iR-NVJ" firstAttribute="centerX" secondItem="FVJ-g1-Cbi" secondAttribute="centerX" id="syw-7Y-ie2"/>
                             <constraint firstItem="oOq-fM-kOr" firstAttribute="centerX" secondItem="FVJ-g1-Cbi" secondAttribute="centerX" id="ySg-ym-8R6"/>
+                            <constraint firstItem="Guh-Qs-CW1" firstAttribute="top" secondItem="5lX-Eg-OgE" secondAttribute="bottom" constant="143" id="zlK-3y-e0W"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="F6d-Mm-QYL" appends="YES" id="vGa-az-OKz"/>
@@ -476,7 +482,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1874" y="1206"/>
+            <point key="canvasLocation" x="1873.5" y="1205.5"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="abU-S0-sr2">
@@ -490,17 +496,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="login_image1" translatesAutoresizingMaskIntoConstraints="NO" id="aAz-vk-QWG">
-                                <rect key="frame" x="230" y="206" width="84" height="330"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_image5" translatesAutoresizingMaskIntoConstraints="NO" id="aAz-vk-QWG">
+                                <rect key="frame" x="234" y="303" width="145" height="219"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="330" id="RLa-5w-Q0d"/>
+                                    <constraint firstAttribute="width" secondItem="aAz-vk-QWG" secondAttribute="height" multiplier="145:219" id="FqT-bi-FjF"/>
+                                    <constraint firstAttribute="height" constant="219" id="FvB-CV-NwC"/>
+                                    <constraint firstAttribute="width" constant="145" id="geG-t4-Cdz"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="login_image3" translatesAutoresizingMaskIntoConstraints="NO" id="PpA-bH-GKz">
-                                <rect key="frame" x="-16" y="14.5" width="235" height="192.5"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_image4" translatesAutoresizingMaskIntoConstraints="NO" id="PpA-bH-GKz">
+                                <rect key="frame" x="-20" y="14" width="243" height="197"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="login_image2" translatesAutoresizingMaskIntoConstraints="NO" id="cP8-gC-qBW">
-                                <rect key="frame" x="-39" y="414.5" width="208.5" height="268.5"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_image2" translatesAutoresizingMaskIntoConstraints="NO" id="cP8-gC-qBW">
+                                <rect key="frame" x="-43" y="414" width="217" height="269"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="268.5" id="Oq6-BY-bRR"/>
                                 </constraints>
@@ -575,13 +583,12 @@
                             <constraint firstItem="PpA-bH-GKz" firstAttribute="top" secondItem="4pP-sE-VRp" secondAttribute="bottom" constant="-49.5" id="7JY-UL-yt7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cP8-gC-qBW" secondAttribute="trailing" constant="185.5" id="7Qw-Q2-jUd"/>
                             <constraint firstItem="zhz-85-371" firstAttribute="centerX" secondItem="tac-e4-hOR" secondAttribute="centerX" id="8fh-Au-fue"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="aAz-vk-QWG" secondAttribute="trailing" constant="41" id="Hdb-ZB-I3b"/>
-                            <constraint firstItem="1sD-xg-aPT" firstAttribute="top" secondItem="aAz-vk-QWG" secondAttribute="bottom" constant="131" id="I9m-aX-qEB"/>
+                            <constraint firstItem="aAz-vk-QWG" firstAttribute="leading" secondItem="cP8-gC-qBW" secondAttribute="trailing" constant="60" id="HjW-mL-BWe"/>
+                            <constraint firstItem="1sD-xg-aPT" firstAttribute="top" secondItem="aAz-vk-QWG" secondAttribute="bottom" constant="145" id="I9m-aX-qEB"/>
                             <constraint firstItem="4yo-Lw-dTi" firstAttribute="centerX" secondItem="tac-e4-hOR" secondAttribute="centerX" id="WLJ-aH-GUl"/>
                             <constraint firstItem="1sD-xg-aPT" firstAttribute="top" secondItem="Zm5-Gs-TEd" secondAttribute="bottom" constant="180" id="Zb8-zQ-VIM"/>
                             <constraint firstItem="Zm5-Gs-TEd" firstAttribute="centerX" secondItem="tac-e4-hOR" secondAttribute="centerX" id="ei5-Ra-jrZ"/>
                             <constraint firstItem="cP8-gC-qBW" firstAttribute="leading" secondItem="tac-e4-hOR" secondAttribute="leadingMargin" constant="-59" id="h1E-vt-z5c"/>
-                            <constraint firstItem="aAz-vk-QWG" firstAttribute="leading" secondItem="tac-e4-hOR" secondAttribute="leadingMargin" constant="210" id="oC7-ST-her"/>
                             <constraint firstItem="PpA-bH-GKz" firstAttribute="leading" secondItem="tac-e4-hOR" secondAttribute="leadingMargin" constant="-36" id="pFj-Oq-Vs5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PpA-bH-GKz" secondAttribute="trailing" constant="136" id="xgd-dT-FeX"/>
                         </constraints>
@@ -623,6 +630,8 @@
         <image name="login_image1" width="102" height="184"/>
         <image name="login_image2" width="182" height="231"/>
         <image name="login_image3" width="161" height="197"/>
+        <image name="login_image4" width="221" height="197"/>
+        <image name="login_image5" width="136" height="228"/>
         <image name="login_next" width="16" height="16"/>
         <image name="login_wechat" width="21" height="17"/>
         <image name="me_dismiss" width="14" height="14"/>

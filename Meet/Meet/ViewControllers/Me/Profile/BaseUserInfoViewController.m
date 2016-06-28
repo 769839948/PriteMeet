@@ -12,7 +12,9 @@
 #import "UserInfoViewModel.h"
 #import "WXUserInfo.h"
 #import "Meet-Swift.h"
-
+#import "SendInviteViewController.h"
+#import "UIImage+Alpha.h"
+#import "NSString+StringType.h"
 
 @interface BaseUserInfoViewController ()
 
@@ -26,34 +28,53 @@
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isNewUser"];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.title = @"";
+    self.isBaseView = YES;
     self.tableView.backgroundColor = [UIColor whiteColor];
     [self setNavigationItemBar];
+    [self setUpView];
 }
 
 - (void)setNavigationItemBar
 {
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 64)]
-                                                 forBarPosition:UIBarPositionAny
-                                                     barMetrics:UIBarMetricsDefault];
+    
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"me_profile_save"] style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
     
+    
+    
+}
+
+
+- (void)leftItemClick:(UIBarButtonItem *)sender
+{
+    [EMAlertView showAlertWithTitle:@"注意" message:@"资料未填写，确定退出编辑吗？" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+        if (buttonIndex == 1) {
+            [self dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        }
+    } cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+}
+
+- (void)setUpView
+{
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_image1"]];
+    imageView.frame = CGRectMake(-10, 170, 70, 110);
+    [self.tableView addSubview:imageView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 64)]
-                       forBarPosition:UIBarPositionAny
-                           barMetrics:UIBarMetricsDefault];
+    UIImage *alphaImage = [UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(ScreenWidth, 64)];
+    [alphaImage imageByApplyingAlpha:0.5];
+    [self.navigationController.navigationBar setBackgroundImage:alphaImage
+                                                 forBarPosition:UIBarPositionAny
+                                                     barMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
 - (void)nextStep:(UIBarButtonItem *)sender
 {
-//    if (self.selectRow == 2 && !self.chooseView.hidden) {////Sex Item alert
-//        [self sexItemModify];
-//        return ;
-//    }
     __weak typeof(self) weakSelf = self;
     [self mappingUserInfoWithDicValues];
     
@@ -65,9 +86,23 @@
                 NSLog(@"保存成功");
             }
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isNewUser"];
-            UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
-            SetInvitationViewController *invitationView = [meStoryBoard instantiateViewControllerWithIdentifier:@"SetInvitationViewController"];
-            [weakSelf.navigationController pushViewController:invitationView animated:YES];
+            [EMAlertView showAlertWithTitle:@"设置您的邀约" message:@"邀约设置后，有助于他人了解您的约见说明，从而更精准的吸引志趣相投的朋友。" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+                switch (buttonIndex) {
+                    case 0:
+                        [weakSelf dismissViewControllerAnimated:YES completion:^{
+                        }];
+                        break;
+                    default:
+                    {
+                        UIStoryboard  *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
+                        SendInviteViewController *senderInviteVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"SendInviteViewController"];
+                        senderInviteVC.isNewLogin = YES;
+                        [self.navigationController pushViewController:senderInviteVC animated:YES];
+                    }
+                        break;
+                }
+            } cancelButtonTitle:@"逛逛再说" otherButtonTitles:@"设置邀约",nil];
+
         } fail:^(NSDictionary *object) {
             [[UITools shareInstance] showMessageToView:self.view message:@"保存失败" autoHide:YES];
         } loadingString:^(NSString *str) {
@@ -75,35 +110,7 @@
     }
 }
 
-- (Boolean)chectBaseInfo
-{
-    BOOL ret = NO;
-    NSLog(@"%@",[UserInfo sharedInstance].real_name);
-    if ([[UserInfo sharedInstance].avatar isEqualToString:@""]) {
-        [EMAlertView showAlertWithTitle:nil message:@"头像为必填内容哦" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
-            
-        } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
-    }else if([[UserInfo sharedInstance].real_name isEqualToString:@""]){
-        [EMAlertView showAlertWithTitle:nil message:@"真实姓名为必填内容哦" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
-            
-        } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
-    }else if([[UserInfo sharedInstance].birthday isEqualToString:@""]){
-        [EMAlertView showAlertWithTitle:nil message:@"生日为必填内容哦" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
-            
-        } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
-    }else if([[UserInfo sharedInstance].country isEqualToString:@"0,0"]){
-        [EMAlertView showAlertWithTitle:nil message:@"工作生活城市为必填内容哦" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
-            
-        } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
-    }else if([[UserInfo sharedInstance].mobile_num isEqualToString:@""]){
-        [EMAlertView showAlertWithTitle:nil message:@"手机号为必填内容哦" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
-            
-        } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
-    }else{
-        ret = YES;
-    }
-    return ret;
-}
+
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -127,6 +134,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 
 @end

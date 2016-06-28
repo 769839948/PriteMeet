@@ -39,8 +39,7 @@
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "WeChatResgisterViewController.h"
 #import "WXUserInfo.h"
-
-
+#import "RequestUrl.h"
 
 
 

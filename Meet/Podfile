@@ -20,5 +20,6 @@ target "Meet" do
     pod 'MJExtension'
     pod 'AMapLocation' #定位SDK
     pod 'SDCycleScrollView','~> 1.64'
+    pod 'NJKWebViewProgress'
 
 end

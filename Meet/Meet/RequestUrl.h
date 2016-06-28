@@ -13,7 +13,7 @@
  *  后台请求数据URL存放处
  */
 //微信登陆后发送微信信息给后台服务器
-#define  RequestBaseUrl              @"http://django.senzapps.cc"   //http://django.senzapps.cc/
+#define  RequestBaseUrl              @"http://momeet.cn"   //http://django.senzapps.cc/
 #define  RequestCreateUser           @"/api/user/signup/"
 #define  RequestCheckUser            @"/api/user/check/"
 #define  RequestUpdateUser           @"/api/user/base_info/"
@@ -22,7 +22,7 @@
 #define  RequestUploadUserPhoto      @"/api/user_avatar/"
 #define  RequestUploadPhotoToken     @"/api/upload_token/"
 
-#define  RequestSenderLocation     @"/api/push_geo_location"
+#define  RequestSenderLocation       @"/api/push_geo_location"
 
 #define  RequestLastUpdate           @"/api/user_updated_at/"
 

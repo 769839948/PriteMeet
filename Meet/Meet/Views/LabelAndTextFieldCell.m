@@ -12,7 +12,6 @@
 
 @interface LabelAndTextFieldCell()
 
-@property (nonatomic, strong) UILabel *lineLabel;
 @property (nonatomic, assign) BOOL didSetupConstraints;
 
 @end

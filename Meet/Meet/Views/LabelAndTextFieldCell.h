@@ -12,6 +12,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *titelLabel;
 @property (weak, nonatomic) IBOutlet CellTextField *textField;
 
+@property (nonatomic, strong) UILabel *lineLabel;
+
 @property (strong, nonatomic) NSIndexPath *indexPath;
 
 @end

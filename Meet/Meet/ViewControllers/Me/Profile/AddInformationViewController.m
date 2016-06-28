@@ -12,6 +12,7 @@
 #import "LabelTableViewCell.h"
 #import "IQUIView+IQKeyboardToolbar.h"
 #import "ZHPickView.h"
+#import "Masonry.h"
 #import "UITools.h"
 
 @interface AddInformationViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIActionSheetDelegate,ZHPickViewDelegate> {
@@ -210,7 +211,7 @@
         cell.tag = indexPath.row;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
-    } else {
+    }else {
         NSString *cellIdentifier = @"profileTextFieldCell";
         LabelAndTextFieldCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (!cell) {
@@ -229,19 +230,21 @@
         cell.textField.tag = indexPath.row;
         if (_indexPath.section == 3 && indexPath.row == 2) {
             cell.textField.enabled = NO;
+            cell.textField.text = @"未选择";
+            [cell.textField mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(cell.contentView.mas_right).offset(0);
+            }];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            [cell updateConstraintsIfNeeded];
+            [cell.lineLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(cell.contentView.mas_right).offset(10);
+            }];
         }
         cell.textField.userInteractionEnabled = YES;
         if (indexPath.row == 0 &&  _viewType == ViewTypeAdd) {
             [cell.textField becomeFirstResponder];
         }
         cell.textField.returnKeyType = UIReturnKeyNext;
-
-//        if (indexPath.row == _placeholderTitle.count) {
-//            cell.textField.returnKeyType = UIReturnKeyDone;
-//        }else{
-//        }
-        //IQKeyboardItem
-//        [cell.textField addLeftRightOnKeyboardWithTarget:self leftButtonTitle:@"放弃" rightButtonTitle:@"确定" leftButtonAction:@selector(editDone:) rightButtonAction:@selector(editDone:) shouldShowPlaceholder:YES];
         return cell;
     }
 }

@@ -63,16 +63,51 @@
     if (![UserInfo sharedInstance].isFirstLogin) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(postInvite:)];
         self.navigationItem.rightBarButtonItem.tag = 2;
+        
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftItemPress:)];
+    }else{
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(postInviteAndDisMiss:)];
+        self.navigationItem.rightBarButtonItem.tag = 2;
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_back"] style:UIBarButtonItemStylePlain target:self action:@selector(dismmissButtonoPress:)];
+
     }
 }
 
 - (void)postInvite:(UIBarButtonItem *)sender
 {
+    __weak typeof(self) weakSelf = self;
     [_viewModel uploadInvite:_explainTextView.text themeArray:_arraySelectItem success:^(NSDictionary *object) {
         [UserInviteModel synchronizeWithArray:_arraySelectItem description:_explainTextView.text];
-        if (self.block) {
-            self.block();
+        if (weakSelf.block) {
+            weakSelf.block();
         }
+        if (_isNewLogin) {
+            [weakSelf dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        }else{
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }
+        
+    } fail:^(NSDictionary *object) {
+        
+    } loadingString:^(NSString *str) {
+        
+    }];
+}
+
+- (void)postInviteAndDisMiss:(UIBarButtonItem *)sender
+{
+    __weak typeof(self) weakSelf = self;
+    [_viewModel uploadInvite:_explainTextView.text themeArray:_arraySelectItem success:^(NSDictionary *object) {
+        [UserInviteModel synchronizeWithArray:_arraySelectItem description:_explainTextView.text];
+        if (weakSelf.block) {
+            weakSelf.block();
+        }
+        [weakSelf dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+        
     } fail:^(NSDictionary *object) {
         
     } loadingString:^(NSString *str) {
@@ -84,6 +119,19 @@
     [super updateViewConstraints];
 //    CGFloat itemViewW = _selectItemView.width;
      NSLog(@"itemView height,%f",_selectItemView.height);
+}
+
+
+- (void)leftItemPress:(UIBarButtonItem *)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)dismmissButtonoPress:(UIBarButtonItem *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 #pragma mark - Items

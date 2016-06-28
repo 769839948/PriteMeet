@@ -96,4 +96,6 @@ class HomeDetailModel: NSObject {
     var distance: String = ""
     
     var more_introduction: String?
+    
+    var web_url : String = ""
 }

@@ -155,6 +155,7 @@
 -(void)setSelectRow:(NSInteger)row inComponent:(NSInteger)componet animate:(BOOL)animated
 {
     [_pickerView selectRow:row inComponent:componet animated:animated];
+    _resultString = self.plistArray[row];
 }
 
 -(void)setUpDatePickerWithdatePickerMode:(UIDatePickerMode)datePickerMode{

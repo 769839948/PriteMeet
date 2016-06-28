@@ -125,8 +125,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-//    [self setUpBottonView];
     [self setStatusView];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     [self.navigationController.navigationBar setBarTintColor:NavigationBarTintColorCustome];
@@ -332,7 +330,11 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
-    
+    if (scrollView.contentOffset.y <= 0){
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:TableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    }else{
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    }
     if (translation.y < 0)
     {
         _bottomView.hidden = YES;
@@ -345,13 +347,8 @@
     }
     
     if (scrollView.contentOffset.y <= 0){
-        self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+        
     }
-}
-
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
-{
-    
 }
 
 #pragma mark - UIActionSheetDelegate

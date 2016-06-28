@@ -74,7 +74,7 @@
     
 }
 
-- (void)configCell:(NSArray *)stringArray withGender:(NSInteger)gender
+- (void)configCell:(NSArray *)stringArray withUrl:(NSString *)web_url
 {
     float maxHeight = 10.0;
     if (_isFirstLoad && stringArray != _stringArray) {
@@ -89,9 +89,12 @@
         _stringArray = [stringArray mutableCopy];
         _isFirstLoad = NO;
     }
-    if (CGRectGetMaxY(_aboutAll.frame) < maxHeight) {
-        _aboutAll.frame = CGRectMake((ScreenWidth - 72) / 2, maxHeight + 23, 72, 27);
-        [_aboutAll addTarget:self action:@selector(aboutDetailPress) forControlEvents:UIControlEventTouchUpInside];
+    if (![web_url isEqualToString:@""]) {
+        if (CGRectGetMaxY(_aboutAll.frame) < maxHeight) {
+            _aboutAll.frame = CGRectMake((ScreenWidth - 72) / 2, maxHeight + 23, 72, 27);
+        }
+    }else{
+        _aboutAll.hidden = YES;
     }
 }
 
@@ -104,13 +107,6 @@
     [super updateConstraints];
 }
 
-- (void)aboutDetailPress
-{
-    NSLog(@"ButtonPress");
-    if (self.block) {
-        self.block();
-    }
-}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

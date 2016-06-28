@@ -44,7 +44,8 @@
 #define MeetSectionTitleNameColot [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0]
 
 #define MeViewProfileLabelFont          [UIFont fontWithName:@"PingFangSC-Light" size:14.0f]
-#define MeViewProfileLabelColor         @"202020"
+#define MeViewProfileTitleLabelColor         @"202020"
+#define MeViewProfileContentLabelColor         @"7F7F7F"
 
 
 #define MeetDetailLineColor [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1.0]

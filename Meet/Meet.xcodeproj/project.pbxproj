@@ -68,6 +68,7 @@
 		1FBF3FC41D1BEB22005DB46F /* MeetWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF3FC31D1BEB22005DB46F /* MeetWebViewController.swift */; };
 		1FBF408C1D1E5BF8005DB46F /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF408A1D1E5BF8005DB46F /* ProfileTableViewCell.swift */; };
 		1FBF408D1D1E5BF8005DB46F /* ProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBF408B1D1E5BF8005DB46F /* ProfileTableViewCell.xib */; };
+		1FBF40BD1D221267005DB46F /* NSString+StringType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF40BC1D221267005DB46F /* NSString+StringType.m */; };
 		1FC2C1451CFD3311001D6D10 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C1421CFD3311001D6D10 /* NSString+Utils.m */; };
 		1FC2C1491CFD3332001D6D10 /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C1481CFD3332001D6D10 /* NSDate+Category.m */; };
 		1FC2C14C1CFD3583001D6D10 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C14B1CFD3583001D6D10 /* NSDateFormatter+Category.m */; };
@@ -288,6 +289,8 @@
 		1FBF3FC31D1BEB22005DB46F /* MeetWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetWebViewController.swift; sourceTree = "<group>"; };
 		1FBF408A1D1E5BF8005DB46F /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		1FBF408B1D1E5BF8005DB46F /* ProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileTableViewCell.xib; sourceTree = "<group>"; };
+		1FBF40BB1D221267005DB46F /* NSString+StringType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringType.h"; sourceTree = "<group>"; };
+		1FBF40BC1D221267005DB46F /* NSString+StringType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StringType.m"; sourceTree = "<group>"; };
 		1FC2C1411CFD3311001D6D10 /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
 		1FC2C1421CFD3311001D6D10 /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
 		1FC2C1471CFD3332001D6D10 /* NSDate+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Category.h"; sourceTree = "<group>"; };
@@ -633,6 +636,8 @@
 				1F79BADA1D080B9100814DED /* NSFileManager+Cache.m */,
 				1F293D9B1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.h */,
 				1F293D9C1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.m */,
+				1FBF40BB1D221267005DB46F /* NSString+StringType.h */,
+				1FBF40BC1D221267005DB46F /* NSString+StringType.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1404,6 +1409,7 @@
 				1FCAFFDB1D01983B00BF53A1 /* UserInfoViewModel.m in Sources */,
 				1F293D901D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m in Sources */,
 				DA6CEF131CDAF42300EEABFF /* AddInformationViewController.m in Sources */,
+				1FBF40BD1D221267005DB46F /* NSString+StringType.m in Sources */,
 				DA4A88FB1CDB5CB700649983 /* UITextView+Placeholder.m in Sources */,
 				1F293D661D113C210063A9DA /* QiniuNetWorking.m in Sources */,
 				1FC2C1451CFD3311001D6D10 /* NSString+Utils.m in Sources */,
