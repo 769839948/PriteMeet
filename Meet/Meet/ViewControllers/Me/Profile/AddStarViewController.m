@@ -11,11 +11,39 @@
 #import "IQKeyboardManager.h"
 #import "AutomaticBulletAndNumberLists.h"
 #import "UserInfoViewModel.h"
+#import "UserExtenModel.h"
+#import "UIViewController+DismissKeyboard.h"
+
+@interface CustomTextView : UITextView
+
++ (instancetype)setUpTextView:(CGRect)frame text:(NSString *)text tag:(NSInteger)tag;
+
+@end
+
+@implementation CustomTextView
+
++ (instancetype)setUpTextView:(CGRect)frame text:(NSString *)text tag:(NSInteger)tag
+{
+    CustomTextView *textView = [[CustomTextView alloc] initWithFrame:frame];
+    textView.text = [NSString stringWithFormat:@"●%@",text];
+    [textView.text stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    textView.layer.borderColor = [[UIColor redColor] CGColor];
+    textView.layer.borderWidth = 0.5;
+    [textView setTag:tag];
+    textView.font = [UIFont systemFontOfSize:20.0];
+    [textView becomeFirstResponder];
+    frame.size.height = textView.contentSize.height;
+    textView.frame = frame;
+    return textView;
+}
+@end
 
 @interface AddStarViewController ()<UIGestureRecognizerDelegate,UITextViewDelegate>
 
 @property (strong, nonatomic) UITextView *textView;
 @property (strong, nonatomic) UserInfoViewModel *viewModel;
+@property (copy, nonatomic) NSMutableArray *stringArray;
+@property (nonatomic, assign) CGFloat height;
 
 @end
 
@@ -26,16 +54,31 @@
     // Do any additional setup after loading the view.
     _viewModel = [[UserInfoViewModel alloc] init];
     self.navigationItem.title = @"描述个人亮点";
-    _textView = [[UITextView alloc] initWithFrame:CGRectMake(3, 0, self.view.bounds.size.width - 6, self.view.bounds.size.height)];
-    _textView.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
-    _textView.placeholder = @"添更多亮点，更有利于别人搜索到你";
-    _textView.delegate = self;
-    _textView.text = @"1 地方不开门地方不开门\n2 好纠结快快快\n3 呵呵几节课\n4 刚好回家";
+    NSString *str = [UserExtenModel shareInstance].highlight;
+    if (![str isEqualToString:@""]) {
+        _stringArray = [NSMutableArray arrayWithArray:[[[UserExtenModel shareInstance].highlight componentsSeparatedByString:@"\n"] copy]];
+    }else{
+        _stringArray = [[NSMutableArray alloc] init];
+        [_stringArray addObject:@""];
+    }
     if (IOS_7LAST) {
         self.navigationController.navigationBar.translucent = NO;
     }
+    [self setUpTextView];
+    [self setupForDismissKeyboard];
     [self.view addSubview:_textView];
     [self.textView becomeFirstResponder];
+}
+
+- (void)setUpTextView
+{
+    CGFloat height = 10;
+    for (NSInteger i = 0; i < _stringArray.count; i ++) {
+        CustomTextView *textView = [CustomTextView setUpTextView:CGRectMake(3, height, [[UIScreen mainScreen] bounds].size.width - 6, 0) text:_stringArray[i] tag:i + 1];
+        textView.delegate = self;
+        height = CGRectGetMaxY(textView.frame) + 10;
+        [self.view addSubview:textView];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,8 +100,20 @@
 
 
 - (IBAction)saveAction:(id)sender {
+    NSString *string = @"";
+    for (NSInteger i = 0; i < _stringArray.count; i ++) {
+        CustomTextView *textView = (CustomTextView *)[self.view viewWithTag:i + 1];
+        if (textView.text.length > 1) {
+            NSString *tempString = [textView.text substringFromIndex:1];
+            string = [string stringByAppendingString:tempString];
+            if (i != _stringArray.count - 1) {
+                string = [string stringByAppendingString:@"\n"];
+            }
+        }
+    }
     __weak typeof(self) weakSelf = self;
-    [_viewModel addStar:_textView.text success:^(NSDictionary *object) {
+    [_viewModel addStar:string success:^(NSDictionary *object) {
+        [UserExtenModel shareInstance].highlight = string;
         [weakSelf dismissViewControllerAnimated:YES completion:^{
             
         }];
@@ -81,200 +136,89 @@
     return YES;
 }
 
-
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    // Add "1" when the user starts typing into the text field
-    if (range.location == 0 && textView.text.length == 0) {
-        
-        // If the user simply presses enter, ignore the newline
-        // entry, but add "1" to the start of the line.
-        if ([text isEqualToString:@"\n"]) {
-            [textView setText:@"1 "];
-            NSRange cursor = NSMakeRange(range.location + 3, 0);
-            textView.selectedRange = cursor;
-            return NO;
-        }
-        
-        // In all other scenarios, append the replacement text.
-        else {
-            [textView setText:[NSString stringWithFormat:@"1 %@", text]];
-        }
+    if(textView.tag == 1 && textView.text.length >= 1 && ![[textView.text substringToIndex:1] isEqualToString:@"●"]){
+        ;
+        textView.text  = [NSString stringWithFormat:@"●%@",textView.text];
     }
+    CGRect frame = textView.frame;
+    frame.size.height = textView.contentSize.height;
+    if (textView.contentSize.height != textView.frame.size.height) {
+        CustomTextView *custonmeText = (CustomTextView *)[self.view viewWithTag:textView.tag];
+        [self updateFrame:custonmeText];
+    }
+    textView.frame = frame;
     
-    // goBackOneLine is a Boolean to indicate whether the cursor
-    // should go back 1 line; set to YES in the case that the
-    // user has deleted the number at the start of the line
-    bool goBackOneLine = NO;
-    
-    // Get a string representation of the current line number
-    // in order to calculate cursor placement based on the
-    // character count of the number
-    NSString *stringPrecedingReplacement = [textView.text substringToIndex:range.location];
-    NSString *currentLine = [NSString stringWithFormat:@"%lu", [stringPrecedingReplacement componentsSeparatedByString:@"\n"].count + 1];
-    
-    // If the replacement string either contains a new line
-    // character or is a backspace, proceed with the following
-    // block...
-    if ([text rangeOfString:@"\n"].location != NSNotFound || range.length == 1) {
-        
-        // Combine the new text with the old
-        NSString *combinedText = [textView.text stringByReplacingCharactersInRange:range withString:text];
-        
-        // Seperate the combinedText into lines
-        NSMutableArray *lines = [[combinedText componentsSeparatedByString:@"\n"] mutableCopy];
-        
-        // To handle the backspace condition
-        if (range.length == 1) {
-            
-            // If the user deletes the number at the beginning of the line,
-            // also delete the newline character proceeding it
-            // Check to see if the user's deleting a number and
-            // if so, keep moving backwards digit by digit to see if the
-            // string's preceeded by a newline too.
-            if ([textView.text characterAtIndex:range.location] >= '0' && [textView.text characterAtIndex:range.location] <= '9') {
-                
-                NSUInteger index = 1;
-                char c = [textView.text characterAtIndex:range.location];
-                while (c >= '0' && c <= '9') {
-                    
-                    c = [textView.text characterAtIndex:range.location - index];
-                    
-                    // If a newline is found directly preceding
-                    // the number, delete the number and move back
-                    // to the preceding line.
-                    if (c == '\n') {
-                        combinedText = [textView.text stringByReplacingCharactersInRange:NSMakeRange(range.location - index, range.length + index) withString:text];
-                        
-                        lines = [[combinedText componentsSeparatedByString:@"\n"] mutableCopy];
-                        
-                        // Set this variable so the cursor knows to back
-                        // up one line
-                        goBackOneLine = YES;
-                        
-                        break;
-                    }
-                    index ++;
-                }
-            }
-            
-            // If the user attempts to delete the number 1
-            // on the first line...
-            if (range.location == 1) {
-                
-                NSString *firstRow = [lines objectAtIndex:0];
-                
-                // If there's text left in the current row, don't
-                // remove the number 1
-                if (firstRow.length > 3) {
-                    return  NO;
-                }
-                
-                // Else if there's no text left in text view other than
-                // the 1, don't let the user delete it
-                else if (lines.count == 1) {
-                    return NO;
-                }
-                
-                // Else if there's no text in the first row, but there's text
-                // in the next, move the next row up
-                else if (lines.count > 1) {
-                    [lines removeObjectAtIndex:0];
-                }
-            }
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        NSInteger tag = textView.tag + 1;
+        if ((CustomTextView *)[self.view viewWithTag:tag]) {
+            CustomTextView *custonmeText = (CustomTextView *)[self.view viewWithTag:tag];
+            [custonmeText becomeFirstResponder];
+        }else{
+            CustomTextView *cutomeText = [CustomTextView setUpTextView:CGRectMake(3, CGRectGetMaxY(textView.frame) + 10, [[UIScreen mainScreen] bounds].size.width - 6, 0) text:@"" tag:tag];
+            cutomeText.delegate = self;
+            [_stringArray addObject:@"tag"];
+            [self.view addSubview:cutomeText];
         }
-        
-        // Using a loop, remove the numbers at the start of the lines
-        // and store the new strings in the linesWithoutLeadingNumbers array
-        NSMutableArray *linesWithoutLeadingNumbers = [[NSMutableArray alloc] init];
-        
-        // Go through each line
-        for (NSString *string in lines) {
-            
-            // Use the following string to make updates
-            NSString *stringWithoutLeadingNumbers = [string copy];
-            
-            // Go through each character
-            for (int i = 0; i < (int)string.length ; i++) {
-                
-                char c = [string characterAtIndex:i];
-                
-                // If the character's a number, remove it
-                if (c >= '0' && c <= '9') {
-                    stringWithoutLeadingNumbers = [stringWithoutLeadingNumbers stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@""];
-                } else {
-                    // And break from the for loop since the number
-                    // and subsequent space have been removed
-                    break;
-                }
-            }
-            
-            // Remove the white space before and after the string to
-            // clean it up a bit
-            stringWithoutLeadingNumbers = [stringWithoutLeadingNumbers stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            
-            [linesWithoutLeadingNumbers addObject:stringWithoutLeadingNumbers];
-        }
-        
-        // Using a loop, add the numbers to the start of the lines
-        NSMutableArray *linesWithUpdatedNumbers = [[NSMutableArray alloc] init];
-        
-        for (int i = 0 ; i < linesWithoutLeadingNumbers.count ; i ++) {
-            NSString *updatedString = [linesWithoutLeadingNumbers objectAtIndex:i];
-            NSString *lineNumberString = [NSString stringWithFormat:@"%d ", i + 1];
-            updatedString = [lineNumberString stringByAppendingString:updatedString];
-            [linesWithUpdatedNumbers addObject:updatedString];
-        }
-        
-        // Then combine the array back into a string by re-adding the
-        // new lines
-        NSString *combinedString = @"";
-        
-        for (int i = 0 ; i < linesWithUpdatedNumbers.count ; i ++) {
-            combinedString = [combinedString stringByAppendingString:[linesWithUpdatedNumbers objectAtIndex:i]];
-            if (i < linesWithUpdatedNumbers.count - 1) {
-                combinedString = [combinedString stringByAppendingString:@"\n"];
-            }
-        }
-        
-        // Set the cursor appropriately.
-        NSRange cursor;
-        if ([text isEqualToString:@"\n"]) {
-            cursor = NSMakeRange(range.location + currentLine.length + 2, 0);
-        } else if (goBackOneLine) {
-            cursor = NSMakeRange(range.location - 1, 0);
-        } else {
-            cursor = NSMakeRange(range.location, 0);
-        }
-        
-        textView.selectedRange = cursor;
-        
-        // And update the text view
-        [textView setText:combinedString];
-        
         return NO;
+        
+    }else if([text isEqualToString:@""]){
+        if(textView.text.length == 1 && (long)textView.tag > 1){
+            NSLog(@"%ld",(long)textView.tag);
+            if ((long)textView.tag != _stringArray.count) {
+                [self updataTag:(CustomTextView *)[self.view viewWithTag:textView.tag]];
+            }
+            [_stringArray removeLastObject];
+            [textView removeFromSuperview];
+            NSInteger tag = (long)textView.tag - 1;
+            CustomTextView *tempText = (CustomTextView *)[self.view viewWithTag:tag];
+            [tempText becomeFirstResponder];
+            return NO;
+        }else if((long)textView.tag == 1 && textView.text.length == 1){
+            if ((long)textView.tag != _stringArray.count) {
+                [self updataTag:(CustomTextView *)[self.view viewWithTag:textView.tag]];
+            }
+            if (_stringArray.count != 1) {
+                [_stringArray removeLastObject];
+                [textView removeFromSuperview];
+            }
+            textView.text = @"●";
+        }
+    }
+    return  YES;
+}
+
+
+- (void)updateFrame:(CustomTextView *)textView
+{
+    CGFloat orignY = textView.contentSize.height + textView.frame.origin.y;
+    for (NSInteger i = textView.tag + 1; i <= _stringArray.count + 1; i ++) {
+        CustomTextView *custonmeText = (CustomTextView *)[self.view viewWithTag:i];
+        CGRect frame = custonmeText.frame;
+        frame.origin.y = orignY + 10;
+        custonmeText.frame = frame;
+        orignY = frame.origin.y + custonmeText.contentSize.height;
+    }
+}
+
+- (void)updataTag:(CustomTextView *)textView
+{
+    NSInteger tempTag = textView.tag;
+    textView.tag = 100000;
+    NSLog(@"%ld",(long)textView.tag);
+    for (NSInteger i = tempTag + 1; i <= _stringArray.count + 1; i ++) {
+        CustomTextView *custonmeText = (CustomTextView *)[self.view viewWithTag:i];
+        [custonmeText setTag:i - 1];
     }
     
-    return YES;
+    CustomTextView *custonmeText = (CustomTextView *)[self.view viewWithTag:tempTag];
+    CGRect frame = custonmeText.frame;
+    frame.origin.y = frame.origin.y - 50;
+    custonmeText.frame = frame;
+    [self updateFrame:custonmeText];
 }
 
-//- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-//{
-//    if ([text isEqualToString:@"\n"]) {
-//        // When the user hits 'return,' perform auto list continuation for bulleted and numbered lists:
-//        return [AutomaticBulletAndNumberLists autoContinueListsForTextView:textView editingAtRange:range];
-//    }
-//    return YES;
-//}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

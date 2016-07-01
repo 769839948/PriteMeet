@@ -26,6 +26,15 @@
     return @[@"我的邀约",@"身份认证",@"我的约见",@"想见的人",@"邀请朋友"];
 }
 
+- (NSArray *)sectionTitle
+{
+    return @[@"更多介绍",@"工作经历",@"教育背景"];
+}
+
+- (NSArray *)sectionButtonTitle
+{
+    return @[@"",@"添加工作经历",@"添加教育背景"];
+}
 
 - (void)updateUserInfo:(UserInfo *)userInfo
         withStateArray:(NSDictionary *)dic
@@ -260,8 +269,8 @@
            fail:(Fail)failBlock
   loadingString:(LoadingView)loading
 {
-    NSDictionary *parameters = @{@"description":description};
-    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestAddStar,[WXUserInfo shareInstance].openid];
+    NSDictionary *parameters = @{@"highlight":description};
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestExtINfo,[WXUserInfo shareInstance].openid];
     
     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         

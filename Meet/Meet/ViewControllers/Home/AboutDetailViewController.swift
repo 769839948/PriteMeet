@@ -79,6 +79,7 @@ extension AboutDetailViewController : UIWebViewDelegate {
     
     
     func webViewDidFinishLoad(webView: UIWebView) {
+        webView.stringByEvaluatingJavaScriptFromString("document.getElementsByTagName('body')[0].style.webkitTextFillColor= '202020'")
         let title = webView.stringByEvaluatingJavaScriptFromString("document.title");
         self.navigationItem.title = title
     }

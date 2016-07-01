@@ -84,9 +84,13 @@ typedef NS_ENUM(NSUInteger, RowType) {
     UIAlertView *_sexAlertView;
     BOOL _isNotSelectHeight;
     
+    NSArray *_moreInfoArray;
+    
     NSIndexPath *selectIndexPath;
     
     CGFloat insterHeight;
+    
+    BOOL _isSectionOne;
 }
 
 
@@ -104,7 +108,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
     [super viewDidLoad];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isNewUser"];
     self.navigationItem.title = @"个人信息";
-    _titleContentArray = @[@"头像",@"真实姓名",@"性别",@"生日",@"身高",@"工作生活城市",@"手机号码",@"微信号",@"行业",@"年收入",@"情感状态",@"家乡",@"星座"];
+    _titleContentArray = @[@"头像",@"真实姓名",@"性别",@"生日",@"身高",@"工作生活城市",@"手机号码",@"微信号"];
+    _moreInfoArray = @[@"行业",@"年收入",@"情感状态",@"家乡",@"星座"];
+    
     _dicValues = [NSMutableDictionary dictionary];
 
     
@@ -127,8 +133,11 @@ typedef NS_ENUM(NSUInteger, RowType) {
 
 - (void)setUpTableView
 {
-    [self.tableView registerNib:ProfileTableViewCell.self forCellReuseIdentifier:@"ProfilePhotoCell"];
-    self.tableView.backgroundColor = [UIColor whiteColor];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ProfilePhotoCell" bundle:nil] forCellReuseIdentifier:@"ProfilePhotoCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ProfileSectionTitleTableViewCell" bundle:nil] forCellReuseIdentifier:@"ProfileSectionTitleTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"WorkeAndEduTableViewCell" bundle:nil] forCellReuseIdentifier:@"WorkeAndEduTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"AddJobLabelTableViewCell" bundle:nil] forCellReuseIdentifier:@"AddJobLabelTableViewCell"];
+    self.tableView.backgroundColor = [UIColor colorWithHexString:MeViewProfileBackGroundColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -141,7 +150,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
  */
 - (void)setNavigationBarItem
 {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveAction:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"me_profile_save"] style:UIBarButtonItemStylePlain target:self action:@selector(saveAction:)];
 }
 
 - (void)leftItemClick:(UIBarButtonItem *)sender
@@ -348,23 +357,23 @@ typedef NS_ENUM(NSUInteger, RowType) {
              _dicValues[_titleContentArray[RowWorkLocation]] = [NSString stringWithFormat:@"%@ %@",[self valueKey:locationArray[0]],[self valueKey:locationArray[1]]];
         }
     }
-    _dicValues[_titleContentArray[RowIncome]] = [self valueKey:[UserInfo sharedInstance].income colume:@"income"];
-    _dicValues[_titleContentArray[RowState]] = [self valueKey:[UserInfo sharedInstance].affection colume:@"affection"];
+    _dicValues[_moreInfoArray[RowIncome - _titleContentArray.count]] = [self valueKey:[UserInfo sharedInstance].income colume:@"income"];
+    _dicValues[_moreInfoArray[RowState - _titleContentArray.count]] = [self valueKey:[UserInfo sharedInstance].affection colume:@"affection"];
     NSArray *homeArray = [[UserInfo sharedInstance].hometown componentsSeparatedByString:@","];
     if ([homeArray[0] isEqualToString:@"(null)"] || [homeArray[0] isEqualToString:@"0"]) {
-        _dicValues[_titleContentArray[RowHome]] = @"未选择";
+        _dicValues[_moreInfoArray[RowHome - _titleContentArray.count]] = @"未选择";
     }else{
-        _dicValues[_titleContentArray[RowHome]] = [NSString stringWithFormat:@"%@ %@",[self valueKey:homeArray[0]],[self valueKey:homeArray[1]]];
+        _dicValues[_moreInfoArray[RowHome - _titleContentArray.count]] = [NSString stringWithFormat:@"%@ %@",[self valueKey:homeArray[0]],[self valueKey:homeArray[1]]];
     }
     
     NSString *industry = [NSString stringWithFormat:@"%ld",(long)[UserInfo sharedInstance].industry];
     if ([industry isEqualToString:@"(null)"] || [industry isEqualToString:@"0"]) {
-        _dicValues[_titleContentArray[RoWIndustry]] = @"未选择";
+        _dicValues[_moreInfoArray[RoWIndustry - _titleContentArray.count]] = @"未选择";
     }else{
-        _dicValues[_titleContentArray[RoWIndustry]] = [self valueKey:[UserInfo sharedInstance].industry colume:@"industry"];
+        _dicValues[_moreInfoArray[RoWIndustry - _titleContentArray.count]] = [self valueKey:[UserInfo sharedInstance].industry colume:@"industry"];
     }
     
-    _dicValues[_titleContentArray[RowConstellation]] = [self valueKey:[UserInfo sharedInstance].constellation colume:@"constellation"];
+    _dicValues[_moreInfoArray[RowConstellation - _titleContentArray.count]] = [self valueKey:[UserInfo sharedInstance].constellation colume:@"constellation"];
 }
 
 - (NSString *)valueKey:(NSString *)value
@@ -404,7 +413,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     }else{
         location = [NSString stringWithFormat:@"%@,%@",[self.stateArray objectForKey:workcity[0]],[self.stateArray objectForKey:workcity[1]]];
     }
-    NSArray *home = [_dicValues[_titleContentArray[RowHome]] componentsSeparatedByString:@" "];
+    NSArray *home = [_dicValues[_moreInfoArray[RowHome - _titleContentArray.count]] componentsSeparatedByString:@" "];
     NSString *hometown = @"";
     if ([home[0] isEqualToString:@"未选择"]) {
         hometown = [NSString stringWithFormat:@"0,0"];
@@ -412,13 +421,13 @@ typedef NS_ENUM(NSUInteger, RowType) {
         hometown = [NSString stringWithFormat:@"%@,%@",[self.stateArray objectForKey:home[0]],[self.stateArray objectForKey:home[1]]];
     }
     
-    NSString *affection = [[locationDic objectForKey:@"affection"] objectForKey:_dicValues[_titleContentArray[RowState]]];
+    NSString *affection = [[locationDic objectForKey:@"affection"] objectForKey:_dicValues[_moreInfoArray[RowState - _titleContentArray.count]]];
     NSString *rowHeight = _dicValues[_titleContentArray[RowHeight]];
     NSString *height = [rowHeight substringToIndex:rowHeight.length - 2];
-    NSString *income = [[locationDic objectForKey:@"income"] objectForKey:_dicValues[_titleContentArray[RowIncome]]];
-    NSString *constellation = [[locationDic objectForKey:@"constellation"] objectForKey:_dicValues[_titleContentArray[RowConstellation]]];
+    NSString *income = [[locationDic objectForKey:@"income"] objectForKey:_dicValues[_moreInfoArray[RowIncome - _titleContentArray.count]]];
+    NSString *constellation = [[locationDic objectForKey:@"constellation"] objectForKey:_dicValues[_moreInfoArray[RowConstellation - _titleContentArray.count]]];
     
-     NSString *industry = [[locationDic objectForKey:@"industry"] objectForKey:_dicValues[_titleContentArray[RoWIndustry]]];
+     NSString *industry = [[locationDic objectForKey:@"industry"] objectForKey:_dicValues[_moreInfoArray[RoWIndustry - _titleContentArray.count]]];
     
     [UserInfo sharedInstance].real_name = _dicValues[_titleContentArray[RowName]];
     [UserInfo sharedInstance].birthday = _dicValues[_titleContentArray[RowBirthday]];
@@ -455,20 +464,27 @@ typedef NS_ENUM(NSUInteger, RowType) {
 
 #pragma mark - data
 - (NSArray *)setPickerViewContentArray:(NSInteger)row {
-    if (row == RowSex) {
-        return _arraySexPick;
-    } else if (row == RowHeight) {
-        return _arrayHeightPick;
-    } else if (row == RowWorkLocation || row == RowHome) {
-        return _arrayWorkLocationPick;
-    }else if (row == RoWIndustry) {
-        return _arrayIndustryPick;
-    } else if (row == RowIncome) {
-        return _arrayIncomePick;
-    } else if (row == RowState) {
-        return _arrayLovedPick;
-    } else if (row == RowConstellation) {
-        return _arrayConstellationPick;
+    if (!_isSectionOne) {
+        if (row == RowSex) {
+            return _arraySexPick;
+        }else if (row == RowHeight) {
+            return _arrayHeightPick;
+        }else if (row == RowWorkLocation) {
+            return _arrayWorkLocationPick;
+        }
+    }else{
+        row = row + _titleContentArray.count;
+        if (row == RoWIndustry) {
+            return _arrayIndustryPick;
+        } else if (row == RowIncome) {
+            return _arrayIncomePick;
+        } else if (row == RowState) {
+            return _arrayLovedPick;
+        } else if (row == RowConstellation) {
+            return _arrayConstellationPick;
+        }else if (row == RowHome){
+            return _arrayWorkLocationPick;
+        }
     }
     return nil;
 }
@@ -525,58 +541,94 @@ typedef NS_ENUM(NSUInteger, RowType) {
 
 - (IBAction)cancelAction:(id)sender {
     [self showChooseViewAnimation:NO];
-    [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
+//    [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
 }
 
 - (IBAction)tureButtonAction:(id)sender {
     [self mappingPickContentInDic];
     [self showChooseViewAnimation:NO];
     [self.tableView reloadRowsAtIndexPaths:@[selectIndexPath] withRowAnimation:UITableViewRowAnimationNone];
-    if (selectIndexPath.row == 5) {
-        LabelAndTextFieldCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:6  inSection:0]];
-        [cell.textField becomeFirstResponder];
-    }else if (selectIndexPath.row < _titleContentArray.count - 1) {
-        [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:selectIndexPath.row + 1 inSection:selectIndexPath.section]];
+    
+    if (_isBaseView) {
+        if (selectIndexPath.row == 5) {
+            LabelAndTextFieldCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:6  inSection:0]];
+            [cell.textField becomeFirstResponder];
+        }else if (selectIndexPath.row < _titleContentArray.count - 1) {
+            [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:selectIndexPath.row + 1 inSection:selectIndexPath.section]];
+        }
+
     }
-//    if (_isBaseView) {
-//        
-//
-//    }
 }
 
 - (void)mappingPickContentInDic {
-    NSString *key = _titleContentArray[_selectRow];
-    if (_datePicker.hidden) { /////
-        if (_selectRow == RowWorkLocation || _selectRow == RowHome) {
-            NSInteger fristComponentRow = [_picker selectedRowInComponent:0];
-            NSInteger secondComponentRow = [_picker selectedRowInComponent:1];
-            NSString *fristValue = _arrayStatesPick[fristComponentRow];
-            NSString *secondValue = [self pickViewComponent2Content:fristComponentRow][secondComponentRow];
-            [_dicPickLocationValue setObject:@[[NSNumber numberWithInteger:fristComponentRow],[NSNumber numberWithInteger:secondComponentRow]] forKey:_titleContentArray[_selectRow]];
-            NSString *locationStr = FORMAT(@"%@ %@",fristValue,secondValue);
-            _dicValues[key] = locationStr;
-        } else {
-            if (self.pickerSelectRow < 0) {
+    if (!_isSectionOne) {
+        NSString *key = _titleContentArray[_selectRow];
+        if (_datePicker.hidden) { /////
+            if (_selectRow == RowWorkLocation) {
+                NSInteger fristComponentRow = [_picker selectedRowInComponent:0];
+                NSInteger secondComponentRow = [_picker selectedRowInComponent:1];
+                NSString *fristValue = _arrayStatesPick[fristComponentRow];
+                NSString *secondValue = [self pickViewComponent2Content:fristComponentRow][secondComponentRow];
+                [_dicPickLocationValue setObject:@[[NSNumber numberWithInteger:fristComponentRow],[NSNumber numberWithInteger:secondComponentRow]] forKey:_titleContentArray[_selectRow]];
+                NSString *locationStr = FORMAT(@"%@ %@",fristValue,secondValue);
+                _dicValues[key] = locationStr;
+            } else {
+                if (self.pickerSelectRow < 0) {
+                    
+                }else{
+                    
+                    NSString *result = [self setPickerViewContentArray:self.selectRow][_pickerSelectRow];
+                    _dicValues[key] = result;
+                    [_dicPickSelectValues setObject:[NSNumber numberWithInt:_pickerSelectRow] forKey:key];
+                }
                 
-            }else{
-                
-                NSString *result = [self setPickerViewContentArray:self.selectRow][_pickerSelectRow];
-                _dicValues[key] = result;
-                [_dicPickSelectValues setObject:[NSNumber numberWithInt:_pickerSelectRow] forKey:key];
             }
-           
+        } else {////_datePicker
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            NSDate *date = _datePicker.date;
+            [dateFormat setDateFormat:@"yyyy-MM-dd"];
+            NSString *strDate = [dateFormat stringFromDate:date];
+            _dicValues[key] = strDate;
+            NSString *constellatinString = _arrayConstellationPick[[self getAstroWithDateString:strDate]];
+            [_dicPickSelectValues setObject:[NSNumber numberWithInteger:[self getAstroWithDateString:strDate]] forKey:_moreInfoArray[RowConstellation - _titleContentArray.count]];
+            _dicValues[_moreInfoArray[RowConstellation - _titleContentArray.count]] = constellatinString;
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:RowBirthday inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         }
-    } else {////_datePicker
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        NSDate *date = _datePicker.date;
-        [dateFormat setDateFormat:@"yyyy-MM-dd"];
-        NSString *strDate = [dateFormat stringFromDate:date];
-        _dicValues[key] = strDate;
-        NSString *constellatinString = _arrayConstellationPick[[self getAstroWithDateString:strDate]];
-        [_dicPickSelectValues setObject:[NSNumber numberWithInteger:[self getAstroWithDateString:strDate]] forKey:_titleContentArray[RowConstellation]];
-        _dicValues[_titleContentArray[RowConstellation]] = constellatinString;
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:RowBirthday inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    }else{
+        NSString *key = _moreInfoArray[_selectRow];
+        if (_datePicker.hidden) { /////
+            if (_selectRow == RowHome - _titleContentArray.count) {
+                NSInteger fristComponentRow = [_picker selectedRowInComponent:0];
+                NSInteger secondComponentRow = [_picker selectedRowInComponent:1];
+                NSString *fristValue = _arrayStatesPick[fristComponentRow];
+                NSString *secondValue = [self pickViewComponent2Content:fristComponentRow][secondComponentRow];
+                [_dicPickLocationValue setObject:@[[NSNumber numberWithInteger:fristComponentRow],[NSNumber numberWithInteger:secondComponentRow]] forKey:_moreInfoArray[_selectRow]];
+                NSString *locationStr = FORMAT(@"%@ %@",fristValue,secondValue);
+                _dicValues[key] = locationStr;
+            } else {
+                if (self.pickerSelectRow < 0) {
+                    
+                }else{
+                    
+                    NSString *result = [self setPickerViewContentArray:self.selectRow][_pickerSelectRow];
+                    _dicValues[key] = result;
+                    [_dicPickSelectValues setObject:[NSNumber numberWithInt:_pickerSelectRow] forKey:key];
+                }
+                
+            }
+        } else {////_datePicker
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            NSDate *date = _datePicker.date;
+            [dateFormat setDateFormat:@"yyyy-MM-dd"];
+            NSString *strDate = [dateFormat stringFromDate:date];
+            _dicValues[key] = strDate;
+            NSString *constellatinString = _arrayConstellationPick[[self getAstroWithDateString:strDate]];
+            [_dicPickSelectValues setObject:[NSNumber numberWithInteger:[self getAstroWithDateString:strDate]] forKey:_moreInfoArray[RowConstellation - _titleContentArray.count]];
+            _dicValues[_moreInfoArray[RowConstellation - _titleContentArray.count]] = constellatinString;
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:RowBirthday inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        }
     }
+    
 }
 
 - (void)hiddenDatePicker:(BOOL)hidden {
@@ -630,50 +682,95 @@ typedef NS_ENUM(NSUInteger, RowType) {
 
 #pragma mark - UIPickerViewDataSource
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    if (_selectRow == RowWorkLocation || _selectRow == RowHome) {
-        return 2;
-    } else
-        return 1;
+    if (!_isSectionOne) {
+        if (_selectRow == RowWorkLocation) {
+            return 2;
+        } else
+            return 1;
+    }else{
+        if (_selectRow == RowHome - _titleContentArray.count) {
+            return 2;
+        } else
+            return 1;
+    }
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    if (_selectRow == RowWorkLocation || _selectRow == RowHome) {
-        if (component == 0) {
-            return  _arrayStatesPick.count;
-        } else {
-            NSArray *citiesArray = [self pickViewComponent2Content:_tempComponet0Row];
-            return citiesArray.count;
-        }
-    } else
-        return [self setPickerViewContentArray:_selectRow].count;
+    if (!_isSectionOne) {
+        if (_selectRow == RowWorkLocation) {
+            if (component == 0) {
+                return  _arrayStatesPick.count;
+            } else {
+                NSArray *citiesArray = [self pickViewComponent2Content:_tempComponet0Row];
+                return citiesArray.count;
+            }
+        } else
+            return [self setPickerViewContentArray:_selectRow].count;
+
+    }else{
+        if (_selectRow == RowHome - _titleContentArray.count) {
+            if (component == 0) {
+                return  _arrayStatesPick.count;
+            } else {
+                NSArray *citiesArray = [self pickViewComponent2Content:_tempComponet0Row];
+                return citiesArray.count;
+            }
+        } else
+            return [self setPickerViewContentArray:_selectRow].count;
+
+    }
 }
 
 #pragma mark - UIPickerViewDelegate
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    if (_selectRow == RowWorkLocation || _selectRow == RowHome) {
-        if (component == 0) {
-            return  _arrayStatesPick[row];
-        } else {
-            NSArray *citiesArray = [self pickViewComponent2Content:_tempComponet0Row];
-            return citiesArray[row];
-        }
-    } else
-        return (NSString *)[self setPickerViewContentArray:_selectRow][row];
-    
-    
+    if (!_isSectionOne) {
+        if (_selectRow == RowWorkLocation) {
+            if (component == 0) {
+                return  _arrayStatesPick[row];
+            } else {
+                NSArray *citiesArray = [self pickViewComponent2Content:_tempComponet0Row];
+                return citiesArray[row];
+            }
+        } else
+            return (NSString *)[self setPickerViewContentArray:_selectRow][row];
+    }else{
+        if (_selectRow == RowHome - _titleContentArray.count) {
+            if (component == 0) {
+                return  _arrayStatesPick[row];
+            } else {
+                NSArray *citiesArray = [self pickViewComponent2Content:_tempComponet0Row];
+                return citiesArray[row];
+            }
+        } else
+            return (NSString *)[self setPickerViewContentArray:_selectRow][row];
+    }
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    if (_selectRow == RowWorkLocation || _selectRow == RowHome) {
-        if (component == 0) {
-            _tempComponet0Row = row;
-            [pickerView reloadComponent:1];
-            return ;
-        } else {
-            
-        }
-    }  else
-        self.pickerSelectRow = row;
+    if (!_isSectionOne) {
+        if (_selectRow == RowWorkLocation || _selectRow == RowHome) {
+            if (component == 0) {
+                _tempComponet0Row = row;
+                [pickerView reloadComponent:1];
+                return ;
+            } else {
+                
+            }
+        }  else
+            self.pickerSelectRow = row;
+    }else{
+        if ( _selectRow == RowHome - _titleContentArray.count) {
+            if (component == 0) {
+                _tempComponet0Row = row;
+                [pickerView reloadComponent:1];
+                return ;
+            } else {
+                
+            }
+        }  else
+            self.pickerSelectRow = row;
+    }
+    
 }
 
 - (NSArray *)pickViewComponent2Content:(NSInteger)component0Row {
@@ -684,37 +781,24 @@ typedef NS_ENUM(NSUInteger, RowType) {
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 6;
+    return 4;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
-        return  @"工作经历";
-    } if (section == 2) {
-        return  @"职业标签";
-    } if (section == 3) {
-        return  @"教育背景";
-    } if (section == 4) {
-        return  @"您的个人亮点";
-    } if (section == 5) {
-        return  @"更多个人介绍";
-    }
     return @"";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return _titleContentArray.count;
-    } else if( section == 1) {
-        return _arrayWorkExper.count + 1;
-    } else if (section == 2) {
-        return  _arrayOccupationLable.count;
-    } else if (section == 3) {
+    }else if (section == 1){
+        return _moreInfoArray.count + 1;
+    }else if( section == 2) {
+        return _arrayWorkExper.count + 2;
+    }else if (section == 3) {
         return  _arrayEducateExper.count+ 1;
-    }else if (section == 4 || section == 5) {
-        return  1;
     }
-        return 0;
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -723,14 +807,42 @@ typedef NS_ENUM(NSUInteger, RowType) {
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isNewUser"]) {
                 return 260;
             }else{
-                return 82;
+                return 180;
             }
         } else
-            return 49;
-    } else if (indexPath.section == 4 || indexPath.section == 5) {
-        return 90;
+            return 50;
+    }else if (indexPath.section == 1){
+        if (indexPath.row == 0) {
+            return 65;
+        }else{
+            return 50;
+        }
+    }else if (indexPath.section == 2){
+        if (indexPath.row == 0) {
+            return 65;
+        }else if (indexPath.row == _arrayWorkExper.count + 1){
+            return 50;
+        }else{
+            return 112;
+        }
+    }else if (indexPath.section == 3){
+        if (indexPath.row == 0) {
+            return 65;
+        }else{
+            return 112;
+        }
     }
-        return 49;
+    return 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.0000001;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 20;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -761,8 +873,10 @@ typedef NS_ENUM(NSUInteger, RowType) {
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }else{
+            
             NSString *const cellIdentifier = @"profileImageCell";
             cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+            cell.accessoryType = UITableViewCellAccessoryNone;
             UIImageView *imageView = (UIImageView *)[cell viewWithTag:2];
             imageView.layer.cornerRadius = imageView.bounds.size.width/2;
             imageView.layer.masksToBounds = YES;
@@ -792,6 +906,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 cell.textField.placeholder = @"接受约见后对方可见";
             }else if (RowWX_Id){
                 cell.textField.placeholder = @"接受约见后对方可见";
+                cell.lineLabel.hidden = YES;
             }else{
                 cell.textField.placeholder = _titleContentArray[row];
             }
@@ -800,11 +915,11 @@ typedef NS_ENUM(NSUInteger, RowType) {
                  cell.textField.text = [NSString stringWithFormat:@"%@",_dicValues[_titleContentArray[row]]];
             }else{
                 cell.textField.text = _dicValues[_titleContentArray[row]];
-
             }
             cell.textField.tag = indexPath.row;
-            //IQKeyboardItem
-//            [cell.textField addLeftRightOnKeyboardWithTarget:self leftButtonTitle:@"放弃" rightButtonTitle:@"确定" leftButtonAction:@selector(editDone:) rightButtonAction:@selector(editDone:) shouldShowPlaceholder:YES];
+            if (indexPath.row == _titleContentArray.count - 1) {
+                cell.lineLabel.hidden = YES;
+            }
             return  cell;
         } else {
             NSString *cellIdentifier = @"profileLabelCell";
@@ -820,6 +935,44 @@ typedef NS_ENUM(NSUInteger, RowType) {
             contentLabel.text = _dicValues[_titleContentArray[row]];
             contentLabel.font = MeViewProfileLabelFont;
             contentLabel.textColor = [UIColor colorWithHexString:MeViewProfileContentLabelColor];
+            if (row != _titleContentArray.count - 1) {
+                UILabel *lineLabel = [[UILabel alloc] init];
+                lineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
+                [cell.contentView addSubview:lineLabel];
+                [lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(cell.contentView.mas_left).offset(20);
+                    make.right.equalTo(cell.contentView.mas_right).offset(10);
+                    make.bottom.equalTo(cell.contentView.mas_bottom).offset(0);
+                    make.height.offset(0.5);
+                }];
+            }
+            return  cell;
+        }
+    } else if (row == 0){
+        static  NSString  *CellIdentiferId = @"ProfileSectionTitleTableViewCell";
+        ProfileSectionTitleTableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentiferId];
+        if (cell == nil) {
+            NSArray *nibs = [[NSBundle mainBundle]loadNibNamed:@"ProfileSectionTitleTableViewCell" owner:nil options:nil];
+            cell = [nibs lastObject];
+            
+        }
+        [cell setData:_viewModel.sectionTitle[indexPath.section -1] buttonTitle:_viewModel.sectionButtonTitle[indexPath.section - 1]];
+        return  cell;
+    }else if (section == 1){
+        NSString *cellIdentifier = @"profileLabelCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+        UILabel *titlLabel = (UILabel *)[cell viewWithTag:1];
+        titlLabel.font = MeViewProfileLabelFont;
+        titlLabel.textColor = [UIColor colorWithHexString:MeViewProfileTitleLabelColor];
+        titlLabel.text = _moreInfoArray[row - 1];
+        [titlLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(cell.contentView.mas_left).offset(20);
+        }];
+        UILabel *contentLabel = (UILabel *)[cell viewWithTag:2];
+        contentLabel.text = _dicValues[_moreInfoArray[row -1]];
+        contentLabel.font = MeViewProfileLabelFont;
+        contentLabel.textColor = [UIColor colorWithHexString:MeViewProfileContentLabelColor];
+        if (row != _moreInfoArray.count - 1) {
             UILabel *lineLabel = [[UILabel alloc] init];
             lineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
             [cell.contentView addSubview:lineLabel];
@@ -829,64 +982,88 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 make.bottom.equalTo(cell.contentView.mas_bottom).offset(0);
                 make.height.offset(0.5);
             }];
+        }
+        return  cell;
+    }else if (section == 2) {
+        if (indexPath.row == _arrayWorkExper.count + 1) {
+            static  NSString  *CellIdentiferId = @"AddJobLabelTableViewCell";
+            AddJobLabelTableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentiferId];
+            if (cell == nil) {
+                NSArray *nibs = [[NSBundle mainBundle]loadNibNamed:@"AddJobLabelTableViewCell" owner:nil options:nil];
+                cell = [nibs lastObject];
+                
+            }
+            return  cell;
+
+        }else{
+            static  NSString  *CellIdentiferId = @"WorkeAndEduTableViewCell";
+            WorkeAndEduTableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentiferId];
+            if (cell == nil) {
+                NSArray *nibs = [[NSBundle mainBundle]loadNibNamed:@"WorkeAndEduTableViewCell" owner:nil options:nil];
+                cell = [nibs lastObject];
+                
+            }
+            if (_arrayWorkExper.count > 0) {
+                [cell setWorkerData:_arrayWorkExper[indexPath.row - 1]];
+            }
             return  cell;
         }
-    } else if (section == 1 || section == 2 || section == 3) {
-        NSString * const labelCell =@"defaultCell";
-        cell = [tableView dequeueReusableCellWithIdentifier:labelCell];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:labelCell];
-            cell.textLabel.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+    }else {
+        static  NSString  *CellIdentiferId = @"WorkeAndEduTableViewCell";
+        WorkeAndEduTableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentiferId];
+        if (cell == nil) {
+            NSArray *nibs = [[NSBundle mainBundle]loadNibNamed:@"WorkeAndEduTableViewCell" owner:nil options:nil];
+            cell = [nibs lastObject];
+            
         }
-        if (section == 1) {
-            if (row < _arrayWorkExper.count) {
-                cell.textLabel.text = _arrayWorkExper[row];
-                cell.imageView.image = nil;
-            } else {
-                cell.imageView.image = [UIImage imageNamed:@"imageAdd"];
-                cell.textLabel.text =  @"添加工作经历";
-            }
-        } else if(section == 2) {
-            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, ScreenWidth - 30, 49)];
-            textField.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
-            if (![[UserInfo sharedInstance].job_label isEqualToString:@""]) {
-                textField.text = [UserInfo sharedInstance].job_label;
-            }else if (_arrayWorkExper.count >= 1) {
-                NSArray *workArray = [_arrayWorkExper[0] componentsSeparatedByString:@"-"];
-                textField.text = [NSString stringWithFormat:@"%@%@",workArray[0],workArray[1]];
-                [UserInfo sharedInstance].job_label = textField.text;
-            }else{
-                textField.placeholder = @"请填写职业标签";
-            }
-            textField.tag = 10000;
-            textField.delegate = self;
-            while ([cell.contentView.subviews lastObject] != nil)
-            {
-                [(UIView*)[cell.contentView.subviews lastObject] removeFromSuperview];
-            }
-            [cell.contentView addSubview:textField];
-        } else if (section == 3) {
-            if (row < _arrayEducateExper.count) {
-                cell.textLabel.text = _arrayEducateExper[row];
-                cell.imageView.image = nil;
-            } else {
-                cell.imageView.image = [UIImage imageNamed:@"imageAdd"];
-                cell.textLabel.text =  @"添加教育背景";
-            }
+        if (_arrayEducateExper.count > 0) {
+            [cell setEduData:_arrayEducateExper[indexPath.row - 1]];
         }
-//        NSLog(@"defaultCell section: %d",section);
-        return cell;
-    } else if (section == 4 || section == 5) {
-        NSString *cellIdentifier = @"textViewCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        if (_arrayEducateExper.count == indexPath.row) {
+            cell.lineLabel.hidden = YES;
         }
-        cell.textLabel.numberOfLines = 0;
-        cell.textLabel.text = @"";
-        return cell;
+        return  cell;
     }
-    return  cell;
+//        if (section == 1) {
+//            if (row < _arrayWorkExper.count) {
+//                cell.textLabel.text = _arrayWorkExper[row];
+//                cell.imageView.image = nil;
+//            } else {
+//                cell.imageView.image = [UIImage imageNamed:@"imageAdd"];
+//                cell.textLabel.text =  @"添加工作经历";
+//            }
+//        } else if(section == 2) {
+//            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, ScreenWidth - 30, 49)];
+//            textField.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+//            if (![[UserInfo sharedInstance].job_label isEqualToString:@""]) {
+//                textField.text = [UserInfo sharedInstance].job_label;
+//            }else if (_arrayWorkExper.count >= 1) {
+//                NSArray *workArray = [_arrayWorkExper[0] componentsSeparatedByString:@"-"];
+//                textField.text = [NSString stringWithFormat:@"%@%@",workArray[0],workArray[1]];
+//                [UserInfo sharedInstance].job_label = textField.text;
+//            }else{
+//                textField.placeholder = @"请填写职业标签";
+//            }
+//            textField.tag = 10000;
+//            textField.delegate = self;
+//            while ([cell.contentView.subviews lastObject] != nil)
+//            {
+//                [(UIView*)[cell.contentView.subviews lastObject] removeFromSuperview];
+//            }
+//            [cell.contentView addSubview:textField];
+//        } else if (section == 3) {
+//            if (row < _arrayEducateExper.count) {
+//                cell.textLabel.text = _arrayEducateExper[row];
+//                cell.imageView.image = nil;
+//            } else {
+//                cell.imageView.image = [UIImage imageNamed:@"imageAdd"];
+//                cell.textLabel.text =  @"添加教育背景";
+//            }
+//        }
+////        NSLog(@"defaultCell section: %d",section);
+//        return cell;
+//    }
+//    return  cell;
 }
 
 - (void)editDone:(UIBarButtonItem *)sender
@@ -899,9 +1076,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CGRect rectInTableView = [tableView rectForRowAtIndexPath:indexPath];
-    CGRect rectInSuperview = [tableView convertRect:rectInTableView toView:[tableView superview]];
     float height = [[UIScreen mainScreen] bounds].size.height - rectInTableView.origin.y;
-    NSLog(@"%f",rectInSuperview.origin.y);
     if (iPhone6Plus){
         if (height > 330) {
         }else{
@@ -925,6 +1100,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     
     if (section == 0) {
          _selectRow = row;
+        _isSectionOne= NO;
         if (_pickerTitle == nil) {
             _pickerTitle = (UILabel *)[_bottomPickerView.subviews objectAtIndex:4];
         }
@@ -944,44 +1120,17 @@ typedef NS_ENUM(NSUInteger, RowType) {
             }
             [self hiddenDatePicker:NO];
             [self showChooseViewAnimation:YES];
-        } else if (row == RowSex || row == RowHeight || row == RowWorkLocation || row == RowIncome || row == RowState || row == RowHome || row == RowConstellation|| row == RoWIndustry) {////_pickView
+        } else if (row == RowSex || row == RowHeight || row == RowWorkLocation) {////_pickView
             [self.view endEditing:YES];
             [self hiddenDatePicker:YES];
             [self showChooseViewAnimation:YES];
-            if (row == RowWorkLocation || row == RowHome) {
+            if (row == RowWorkLocation) {
                 NSArray *valueArry = _dicPickLocationValue[_titleContentArray[_selectRow]];
                 _tempComponet0Row = [valueArry.firstObject intValue];
                 
                 [_picker selectRow:[valueArry.firstObject intValue] inComponent:0 animated:NO];
                 [_picker selectRow:[valueArry.lastObject intValue] inComponent:1 animated:NO];
              
-            }else if (row == RowIncome){
-                NSInteger value = [_dicPickSelectValues[_titleContentArray[_selectRow]] intValue];
-                _pickerSelectRow = value;
-                if (value == 0) {
-                    _pickerSelectRow = 2;
-                }
-                [self setPickView:RowHeight inRowAtValue:26 inTableViewRow:row];
-                [_picker selectRow:_pickerSelectRow inComponent:0 animated:NO];
-            }else if (row == RowState){
-                NSInteger value = [_dicPickSelectValues[_titleContentArray[_selectRow]] intValue];
-                _pickerSelectRow = value;
-                if (value == 0) {
-                    _pickerSelectRow = 1;
-                }
-                [self setPickView:RowHeight inRowAtValue:26 inTableViewRow:row];
-                [_picker selectRow:_pickerSelectRow inComponent:0 animated:NO];
-            }else  if (row == RoWIndustry){
-                NSInteger value = [_dicPickSelectValues[_titleContentArray[_selectRow]] intValue];
-                _pickerSelectRow = value;
-                if (value == 0) {
-                    _pickerSelectRow = 1;
-                }
-                [self setPickView:RowHeight inRowAtValue:26 inTableViewRow:row];
-                [_picker selectRow:_pickerSelectRow inComponent:0 animated:NO];
-//                [self setPickView:RowHeight inRowAtValue:26 inTableViewRow:row];
-//                [_picker selectRow:_pickerSelectRow inComponent:0 animated:NO];
-//                [_picker selectRow:1 inComponent:0 animated:NO];
             }else if (row == RowHeight){
                 NSInteger value = [_dicPickSelectValues[_titleContentArray[_selectRow]] intValue];
                 _pickerSelectRow = value;
@@ -998,15 +1147,56 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 [_picker selectRow:_pickerSelectRow inComponent:0 animated:NO];
             }
         }
-    }else if(section == 1 || section == 3 ) {
+    }else if (section == 1){
+        _selectRow = row - 1;
+        _isSectionOne= YES;
+        _pickerTitle.text = _moreInfoArray[row - 1];
+        if (row != 0) {
+            [self.view endEditing:YES];
+            [self hiddenDatePicker:YES];
+            [self showChooseViewAnimation:YES];
+            NSLog(@"%d,%d",row,RoWIndustry - _titleContentArray.count);
+            if (row == RowHome - _titleContentArray.count + 1) {
+                NSArray *valueArry = _dicPickLocationValue[_moreInfoArray[_selectRow]];
+                _tempComponet0Row = [valueArry.firstObject intValue];
+                
+                [_picker selectRow:[valueArry.firstObject intValue] inComponent:0 animated:NO];
+                [_picker selectRow:[valueArry.lastObject intValue] inComponent:1 animated:NO];
+                
+            }else if (row == RowIncome - _titleContentArray.count + 1){
+                NSInteger value = [_dicPickSelectValues[_moreInfoArray[_selectRow]] intValue];
+                _pickerSelectRow = value;
+                if (value == 0) {
+                    _pickerSelectRow = 2;
+                }
+                [self setPickView:RowHeight inRowAtValue:26 inTableViewRow:row];
+                [_picker selectRow:_pickerSelectRow inComponent:0 animated:NO];
+            }else if (row == RowState - _titleContentArray.count + 1){
+                NSInteger value = [_dicPickSelectValues[_moreInfoArray[_selectRow]] intValue];
+                _pickerSelectRow = value;
+                if (value == 0) {
+                    _pickerSelectRow = 1;
+                }
+                [self setPickView:RowHeight inRowAtValue:26 inTableViewRow:row];
+                [_picker selectRow:_pickerSelectRow inComponent:0 animated:NO];
+            }else  if (row == RoWIndustry - _titleContentArray.count){
+                NSInteger value = [_dicPickSelectValues[_moreInfoArray[_selectRow]] intValue];
+                _pickerSelectRow = value;
+                if (value == 0) {
+                    _pickerSelectRow = 1;
+                }
+                [self setPickView:RowHeight inRowAtValue:26 inTableViewRow:row];
+                [_picker selectRow:_pickerSelectRow inComponent:0 animated:NO];
+            }else{
+                NSInteger value = [_dicPickSelectValues[_moreInfoArray[_selectRow]] intValue];
+                _pickerSelectRow = value;
+                
+                [self setPickView:RowHeight inRowAtValue:26 inTableViewRow:row];
+                [_picker selectRow:_pickerSelectRow inComponent:0 animated:NO];
+            }
+        }
+    }else if(section == 2 || section == 3 ) {
         [self performSegueWithIdentifier:@"pushToAddInformationVC" sender:indexPath];
-    }else if (section == 2){
-        
-    }else if(section == 5){
-        [self performSegueWithIdentifier:@"ModalToMoreProfile" sender:indexPath];
-    }else if(section == 4){
-        [self performSegueWithIdentifier:@"ModalToAddStar" sender:indexPath];
-
     }
 }
 
@@ -1131,7 +1321,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
             [self.view endEditing:YES];
 //            [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:textField.tag + 1 inSection:0]];
         }else if (textField.tag == 7){
-            if (![NSString isWeixinNum:textField.text]) {
+            if (![NSString isWeixinNum:textField.text] && ![textField.text isEqualToString:@""]) {
                 [EMAlertView showAlertWithTitle:nil message:@"请输入正确的微信号" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
                     
                 } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
@@ -1284,24 +1474,34 @@ typedef NS_ENUM(NSUInteger, RowType) {
         if ([sender isKindOfClass:[NSIndexPath class]]) {
             addInfom.indexPath = (NSIndexPath *)sender;
         }
-        if (addInfom.indexPath.section == 1 || addInfom.indexPath.section == 3) {
-            if (addInfom.indexPath.row == _arrayWorkExper.count && addInfom.indexPath.section == 1){
+        if (addInfom.indexPath.section == 2 || addInfom.indexPath.section == 3) {
+            if (addInfom.indexPath.row == 0 && addInfom.indexPath.section == 2){
                 addInfom.viewType = ViewTypeAdd;
                 
-            }else if (addInfom.indexPath.row == _arrayEducateExper.count && addInfom.indexPath.section == 3){
+            }else if (addInfom.indexPath.row == 0 && addInfom.indexPath.section == 3){
                 addInfom.viewType = ViewTypeAdd;
             }else{
-                addInfom.viewType = ViewTypeEdit;
-                if (addInfom.indexPath.section == 1) {
-                    addInfom.cachTitles = [_arrayWorkExper objectAtIndex:addInfom.indexPath.row];
-                }else{
-                    addInfom.cachTitles = [_arrayEducateExper objectAtIndex:addInfom.indexPath.row];
+                if (addInfom.indexPath.row == _arrayWorkExper.count && addInfom.indexPath.section == 2) {
                     
+                }else{
+                    addInfom.viewType = ViewTypeEdit;
+                    if (addInfom.indexPath.section == 1) {
+                        addInfom.cachTitles = [_arrayWorkExper objectAtIndex:addInfom.indexPath.row - 1];
+                    }else{
+                        addInfom.cachTitles = [_arrayEducateExper objectAtIndex:addInfom.indexPath.row -1 ];
+                        
+                    }
                 }
+                
             }
         }
         
     }else if ([segue.identifier isEqualToString:@"ModalToMoreProfile"]) {
+        
+    }else if ([segue.identifier isEqualToString:@"ModalToAddStar"]) {
+//        AddStarViewController *addStar = (AddStarViewController *)[segue destinationViewController];
+        
+//        addStar.higitLight = @"dddd";
     }
 }
 

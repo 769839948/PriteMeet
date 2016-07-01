@@ -29,7 +29,6 @@
 #define  RequestAddWorkExp           @"/api/user/work_info"
 #define  RequestAddEduExp            @"/api/user/edu_info"
 
-#define  RequestAddStar              @"/api/user/description/"
 #define  RequestExtINfo              @"/api/user/ext_info/"
 #define  RequestInviteInfo           @"/api/user_engagement_activity/"
 

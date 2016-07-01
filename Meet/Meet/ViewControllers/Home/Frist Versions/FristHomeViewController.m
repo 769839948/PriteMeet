@@ -42,6 +42,9 @@
 
 @property (nonatomic, strong) AMapLocationManager *locationManager;
 
+@property (nonatomic, assign) double logtitude;
+@property (nonatomic, assign) double latitude;
+
 @end
 
 @implementation FristHomeViewController
@@ -54,10 +57,7 @@
     _homeModelArray = [NSMutableArray array];
     [self setUpNavigationBar];
     [self setUpRefreshView];
-    [self setUpHomeData];
     [self setUpLocationManager];
-    
-    NSString *ipAddress = [[UITools shareInstance] getIPAddress:NO];
     
 }
 
@@ -82,11 +82,12 @@
                 return;
             }
         }
+        _latitude = location.coordinate.latitude;
+        _logtitude = location.coordinate.longitude;
+        [weakSelf setUpHomeData];
         if ([UserInfo isLoggedIn]) {
             [weakSelf.viewModel senderLocation:location.coordinate.latitude longitude:location.coordinate.longitude];
         }
-//        NSLog(@"location:%@", location);
-        
         if (regeocode)
         {
             NSLog(@"reGeocode:%@", regeocode);
@@ -104,10 +105,11 @@
 
 - (void)setUpHomeData
 {
+   
     _page ++;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
     __weak typeof(self) weakSelf = self;
-    [_viewModel getHomeList:pageString successBlock:^(NSDictionary *object) {
+    [_viewModel getHomeList:pageString latitude:_latitude longitude:_logtitude successBlock:^(NSDictionary *object) {
         [weakSelf.homeModelArray addObjectsFromArray:[HomeModel  mj_objectArrayWithKeyValuesArray:object]];
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.mj_footer endRefreshing];
@@ -118,7 +120,6 @@
         [weakSelf setUpHomeData];
         [weakSelf.tableView.mj_footer endRefreshing];
     } loadingView:^(NSString *str) {
-        
     }];
 }
 
@@ -388,6 +389,28 @@
 - (void)amapLocationManager:(AMapLocationManager *)manager didEnterRegion:(AMapLocationRegion *)region
 {
     
+}
+
+- (void)amapLocationManager:(AMapLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    __weak typeof(self) weakSelf = self;
+    if (status == kCLAuthorizationStatusNotDetermined){
+        [_viewModel senderIpAddress:^(NSDictionary *object) {
+            _logtitude = [object[@"lon"] doubleValue];
+            _latitude = [object[@"lat"] doubleValue];
+            [weakSelf setUpHomeData];
+        } fail:^(NSDictionary *object) {
+            
+        }];
+    }else if(status == kCLAuthorizationStatusDenied){
+        [_viewModel senderIpAddress:^(NSDictionary *object) {
+            _logtitude = [object[@"lon"] doubleValue];
+            _latitude = [object[@"lat"] doubleValue];
+            [weakSelf setUpHomeData];
+        } fail:^(NSDictionary *object) {
+            
+        }];
+    }
 }
 
 

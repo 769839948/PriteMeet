@@ -48,6 +48,8 @@ typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 
 @property (assign, nonatomic) BOOL fromeMeView;
 
+@property (copy, nonatomic) NSString *hightLight;
+
 - (void)mappingUserInfoWithDicValues;
 
 - (BOOL)chectBaseInfo;

@@ -246,6 +246,7 @@ class MeViewController: UIViewController {
         
         let myProfileVC = meStoryBoard.instantiateViewControllerWithIdentifier("MyProfileViewController") as!  MyProfileViewController
         myProfileVC.fromeMeView = true
+        myProfileVC.hightLight = UserExtenModel.shareInstance().highlight
         myProfileVC.reloadMeViewBlock = {(uodataInfo:Bool) in
             self.setLeftBarItem()
             self.tableView.reloadData()

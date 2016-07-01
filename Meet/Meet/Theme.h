@@ -47,6 +47,7 @@
 #define MeViewProfileTitleLabelColor         @"202020"
 #define MeViewProfileContentLabelColor         @"7F7F7F"
 
+#define MeViewProfileBackGroundColor         @"f2f2f2"
 
 #define MeetDetailLineColor [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1.0]
 #define lineLabelBackgroundColor @"E7E7E7"
@@ -54,10 +55,10 @@
 
 
 
-#define AboutUsLabelFont [UIFont fontWithName:@"PingFangTC-Light" size:14.0]
+#define AboutUsLabelFont [UIFont fontWithName:@"PingFangSC-Light" size:14.0]
 #define AboutUsLabelColor @"4D4D4D"
 
-#define SettingViewLabelFont [UIFont fontWithName:@"PingFangTC-Light" size:14.0]
+#define SettingViewLabelFont [UIFont fontWithName:@"PingFangSC-Light" size:14.0]
 
 
 #define TableViewTextColor @"202020"

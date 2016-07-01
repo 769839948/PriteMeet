@@ -20,6 +20,7 @@
 - (UIView*)scrollableView {	return objc_getAssociatedObject(self, @selector(scrollableView)); }
 
 - (void)setOverlay:(UIView*)overlay { objc_setAssociatedObject(self, @selector(overlay), overlay, OBJC_ASSOCIATION_RETAIN); }
+
 - (UIView*)overlay { return objc_getAssociatedObject(self, @selector(overlay)); }
 
 - (void)setCollapsed:(BOOL)collapsed { objc_setAssociatedObject(self, @selector(collapsed), [NSNumber numberWithBool:collapsed], OBJC_ASSOCIATION_RETAIN); }
@@ -29,12 +30,15 @@
 - (BOOL)expanded {	return [objc_getAssociatedObject(self, @selector(expanded)) boolValue]; }
 
 - (void)setLastContentOffset:(float)lastContentOffset { objc_setAssociatedObject(self, @selector(lastContentOffset), [NSNumber numberWithFloat:lastContentOffset], OBJC_ASSOCIATION_RETAIN); }
+
 - (float)lastContentOffset { return [objc_getAssociatedObject(self, @selector(lastContentOffset)) floatValue]; }
 
 - (void)setMaxDelay:(float)maxDelay { objc_setAssociatedObject(self, @selector(maxDelay), [NSNumber numberWithFloat:maxDelay], OBJC_ASSOCIATION_RETAIN); }
+
 - (float)maxDelay { return [objc_getAssociatedObject(self, @selector(maxDelay)) floatValue]; }
 
 - (void)setDelayDistance:(float)delayDistance { objc_setAssociatedObject(self, @selector(delayDistance), [NSNumber numberWithFloat:delayDistance], OBJC_ASSOCIATION_RETAIN); }
+
 - (float)delayDistance { return [objc_getAssociatedObject(self, @selector(delayDistance)) floatValue]; }
 
 
@@ -211,7 +215,6 @@
 - (void)scrollWithDelta:(CGFloat)delta
 {
 	CGRect frame = self.navigationController.navigationBar.frame;
-	
 	if (delta > 0) {
 		if (self.collapsed) {
 			return;
@@ -341,7 +344,7 @@
 - (void)updateSizingWithDelta:(CGFloat)delta
 {
 	[self updateNavbarAlpha:delta];
-
+    [self updateNavbarItemSize:delta];
 	// At this point the navigation bar is already been placed in the right position, it'll be the reference point for the other views'sizing
 	CGRect frameNav = self.navigationController.navigationBar.frame;
 	
@@ -377,6 +380,62 @@
     self.navigationItem.rightBarButtonItem.customView.alpha = alpha;
 	self.navigationItem.titleView.alpha = alpha;
 	self.navigationController.navigationBar.tintColor = [self.navigationController.navigationBar.tintColor colorWithAlphaComponent:alpha];
+    
+    [self updateNavbarItemSize:alpha];
+    NSLog(@"alpha %f",alpha);
+
+}
+
+
+- (void)updateNavbarItemSize:(CGFloat)alpha
+{
+    UIBarButtonItem *leftItem = self.navigationItem.leftBarButtonItem;
+    leftItem.customView.backgroundColor = [UIColor redColor];
+    leftItem.customView.frame = CGRectMake(16, 2, 20, 20);
+    self.navigationItem.leftBarButtonItem.customView.frame = CGRectMake(16, 2, 20, 20);
+//    = leftItem;
+//    CGRect leftItemFrame = self.navigationItem.leftBarButtonItem.customView.frame;
+//    //        CGPoint center = self.navigationController.navigationItem.leftBarButtonItem.customView.center;
+//    leftItemFrame.size.width = 40 * alpha;
+//    leftItemFrame.size.height = 40 * alpha;
+//    leftItemFrame.origin.x = 16;
+//    leftItemFrame.origin.y = 10;
+    CGRect titleFrame = self.navigationController.navigationItem.titleView.frame;
+    titleFrame.size.width = 20;
+    titleFrame.size.height = 20;
+
+//    titleFrame.origin.x = 16;
+//    titleFrame.origin.y = 10;
+    self.navigationController.navigationItem.titleView.frame = titleFrame;
+//    float alpha = 0.5;
+//    if (delta > 0) {
+////        leftItemFrame.size.width = 20;
+////        leftItemFrame.size.height = 20;
+//        
+//        
+//        //        self.navigationItem.leftBarButtonItem.customView.center = center;
+//        
+//        CGRect rigthFrame = self.navigationItem.rightBarButtonItem.customView.frame;
+//        rigthFrame.size.width = rigthFrame.size.width * alpha;
+//        rigthFrame.size.height = rigthFrame.size.height * alpha;
+//        self.navigationItem.rightBarButtonItem.customView.frame = rigthFrame;
+//    }else if(delta < 0 ){
+////        NSLog(@"%f",delta);
+////        CGRect frame = self.scrollableView.superview.frame;
+////        
+////        NSLog(@"%f",(frame.origin.y + self.deltaLimit) / frame.size.height);
+////        CGRect leftItemFrame = self.navigationItem.leftBarButtonItem.customView.frame;
+////
+////        leftItemFrame.size.width = leftItemFrame.size.width * alpha;
+////        leftItemFrame.size.height = leftItemFrame.size.height * alpha;
+////        self.navigationItem.leftBarButtonItem.customView.frame = leftItemFrame;
+////        
+////        
+////        CGRect rigthFrame = self.navigationItem.rightBarButtonItem.customView.frame;
+////        rigthFrame.size.width = rigthFrame.size.width * alpha;
+////        rigthFrame.size.height = rigthFrame.size.height * alpha;
+////        self.navigationItem.rightBarButtonItem.customView.frame = rigthFrame;
+//    }
 }
 
 @end

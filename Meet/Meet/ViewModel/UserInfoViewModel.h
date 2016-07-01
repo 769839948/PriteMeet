@@ -16,6 +16,9 @@ typedef void (^returnImage)(UIImage *image);
 - (NSArray *)imageArray;
 - (NSArray *)titleArray;
 
+- (NSArray *)sectionTitle;
+- (NSArray *)sectionButtonTitle;
+
 - (void)updateUserInfo:(UserInfo *)model
         withStateArray:(NSDictionary *)dic
                success:(Success)successBlock

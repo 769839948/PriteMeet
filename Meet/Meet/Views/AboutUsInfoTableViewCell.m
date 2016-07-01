@@ -67,6 +67,7 @@
     _aboutAll = [UIButton buttonWithType:UIButtonTypeCustom];
     [_aboutAll setTitle:@"更多介绍" forState:UIControlStateNormal];
     _aboutAll.layer.cornerRadius = 14.0;
+    _aboutAll.userInteractionEnabled = NO;
     _aboutAll.titleLabel.font = HomeViewDetailAboutBtnFont;
     [_aboutAll setTitleColor:[UIColor colorWithHexString:HomeViewDetailAboutBtnColor] forState:UIControlStateNormal];
     _aboutAll.backgroundColor = [UIColor blackColor];
