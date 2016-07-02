@@ -14,6 +14,7 @@ class WorkeAndEduTableViewCell: UITableViewCell {
     @IBOutlet weak var titleName: UILabel!
     @IBOutlet weak var position: UILabel!
     @IBOutlet weak var lineLabel: UILabel!
+    @IBOutlet weak var eidtImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -29,7 +30,7 @@ class WorkeAndEduTableViewCell: UITableViewCell {
     func setEduData(workeString:String){
         imageDetail.image = UIImage.init(named: "me_profile_edu")
         let workArray = workeString.componentsSeparatedByString("-")
-        titleName.text = "\(workArray[0]) \(workArray[1])"
+        titleName.text = "\(workArray[0]) \(workArray[2])"
         position.text = workArray[1]
     }
     

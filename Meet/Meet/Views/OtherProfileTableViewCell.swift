@@ -1,18 +1,23 @@
 //
-//  AddJobLabelTableViewCell.swift
+//  OtherProfileTableViewCell.swift
 //  Meet
 //
-//  Created by Zhang on 6/30/16.
+//  Created by Zhang on 7/1/16.
 //  Copyright © 2016 Meet. All rights reserved.
 //
 
 import UIKit
 
-class AddJobLabelTableViewCell: UITableViewCell {
+class OtherProfileTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var titleLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    func setData(title:String) {
+        titleLabel.text = title
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -20,5 +25,5 @@ class AddJobLabelTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

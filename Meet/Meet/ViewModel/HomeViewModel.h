@@ -13,9 +13,16 @@
 @property (nonatomic, copy) NSArray *meetDetailImageArray;
 @property (nonatomic, copy) NSArray *meetDetailtitleArray;
 
+
+- (NSArray *)baseInfoTitle;
+
 - (void)getHomeList:(NSString *)page latitude:(double)latitude  longitude:(double)longitude successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock;
 
+- (void)getHomeFilterList:(NSString *)page filter:(NSString *)filterName successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock;
+
 - (void)getOtherUserInfo:(NSString *)userId successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock;
+
+- (void)getOtherUserInfoProfile:(NSString *)userId successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock;
 
 - (void)senderLocation:(double)latitude  longitude:(double)longitude;
 

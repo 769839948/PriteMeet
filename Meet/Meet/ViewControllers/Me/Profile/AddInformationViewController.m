@@ -62,7 +62,7 @@
         _leftIetmColor = @"E7E7E7";
 
     }
-    if (_indexPath.section == 1 ) {////work
+    if (_indexPath.section == 2 ) {////work
         _navTitle = [str stringByAppendingString:@"工作经历"];
          NSArray  *array = [_cachTitles componentsSeparatedByString:@"-"];
         [_cachTitleArray addObjectsFromArray:array];
@@ -123,7 +123,7 @@
 
 - (void)saveAction:(id)sender {
    
-    if (_indexPath.section == 1) {
+    if (_indexPath.section == 2) {
         if ([_leftIetmColor isEqualToString:@"E7E7E7"]) {
             if ([_companyName isEqualToString:@""] || _companyName == nil) {
                 [[UITools shareInstance] showMessageToView:self.view message:_alertViewMsg[0] autoHide:YES];
@@ -203,7 +203,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == _arrayTitles.count) {
         LabelTableViewCell *cell = (LabelTableViewCell *)[[NSBundle mainBundle] loadNibNamed:@"LabelTableViewCell" owner:self options:nil][0];
-        if (_indexPath.section == 1 ) {
+        if (_indexPath.section == 2 ) {
             cell.label.text = @"删除工作经历";
         }else{
             cell.label.text = @"删除教育背景";
@@ -230,7 +230,16 @@
         cell.textField.tag = indexPath.row;
         if (_indexPath.section == 3 && indexPath.row == 2) {
             cell.textField.enabled = NO;
-            cell.textField.text = @"未选择";
+            if (_viewType == ViewTypeEdit) {
+                cell.textField.text = _cachTitleArray[indexPath.row];
+            }else{
+                cell.textField.text = @"未选择";
+            }
+            if ([cell.textField.text isEqualToString:@"未选择"]) {
+                cell.textField.textColor = [UIColor colorWithHexString:MeViewProfileContentLabelColorLight];
+            }else{
+                cell.textField.textColor = [UIColor colorWithHexString:MeViewProfileContentLabelColor];
+            }
             [cell.textField mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(cell.contentView.mas_right).offset(0);
             }];
@@ -245,6 +254,8 @@
             [cell.textField becomeFirstResponder];
         }
         cell.textField.returnKeyType = UIReturnKeyNext;
+        [cell.textField setValue:[UIColor colorWithHexString:MeViewProfileContentLabelColorLight] forKeyPath:@"_placeholderLabel.textColor"];
+
         return cell;
     }
 }
@@ -254,7 +265,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (_viewType == ViewTypeEdit && indexPath.row == _cachTitleArray.count ) {
         NSString *message = @"";
-        if (_indexPath.section == 1){
+        if (_indexPath.section == 2){
             message = @"确定删除此段工作经历？";
         }else{
             message = @"确定删除此教育背景吗？";
@@ -320,7 +331,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if (self.indexPath.section == 1) {
+    if (self.indexPath.section == 2) {
         if (![string isEqualToString:@""]) {
             if (textField.tag == 0) {
                 _companyName = [textField.text stringByAppendingString:string];
@@ -426,6 +437,7 @@
     [_pickerView remove];
     LabelAndTextFieldCell *cellTextField = (LabelAndTextFieldCell *)[self.view viewWithTag:2];
     cellTextField.textField.text = resultString;
+    cellTextField.textField.textColor = [UIColor colorWithHexString:MeViewProfileContentLabelColor];
     _educational = resultString;
     [self showNavigationBarItemColor];
     

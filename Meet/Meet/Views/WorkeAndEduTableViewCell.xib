@@ -39,6 +39,7 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="15" id="5HC-QZ-OYi"/>
                             <constraint firstAttribute="height" constant="15" id="Yt0-6u-heG"/>
+                            <constraint firstAttribute="height" constant="15" id="tfj-jC-08K"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -91,6 +92,7 @@
                 </variation>
             </tableViewCellContentView>
             <connections>
+                <outlet property="eidtImage" destination="TSS-B0-bsS" id="Tac-6M-QYW"/>
                 <outlet property="imageDetail" destination="81O-WI-apQ" id="ViD-OI-gha"/>
                 <outlet property="lineLabel" destination="gzb-Nw-NKa" id="QLj-13-9P7"/>
                 <outlet property="position" destination="1ef-no-gsJ" id="vBw-Xq-9yF"/>

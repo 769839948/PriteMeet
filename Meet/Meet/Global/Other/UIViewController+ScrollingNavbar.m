@@ -389,53 +389,53 @@
 
 - (void)updateNavbarItemSize:(CGFloat)alpha
 {
-    UIBarButtonItem *leftItem = self.navigationItem.leftBarButtonItem;
-    leftItem.customView.backgroundColor = [UIColor redColor];
-    leftItem.customView.frame = CGRectMake(16, 2, 20, 20);
-    self.navigationItem.leftBarButtonItem.customView.frame = CGRectMake(16, 2, 20, 20);
-//    = leftItem;
-//    CGRect leftItemFrame = self.navigationItem.leftBarButtonItem.customView.frame;
-//    //        CGPoint center = self.navigationController.navigationItem.leftBarButtonItem.customView.center;
-//    leftItemFrame.size.width = 40 * alpha;
-//    leftItemFrame.size.height = 40 * alpha;
-//    leftItemFrame.origin.x = 16;
-//    leftItemFrame.origin.y = 10;
-    CGRect titleFrame = self.navigationController.navigationItem.titleView.frame;
-    titleFrame.size.width = 20;
-    titleFrame.size.height = 20;
-
-//    titleFrame.origin.x = 16;
-//    titleFrame.origin.y = 10;
-    self.navigationController.navigationItem.titleView.frame = titleFrame;
-//    float alpha = 0.5;
-//    if (delta > 0) {
-////        leftItemFrame.size.width = 20;
-////        leftItemFrame.size.height = 20;
-//        
-//        
-//        //        self.navigationItem.leftBarButtonItem.customView.center = center;
-//        
-//        CGRect rigthFrame = self.navigationItem.rightBarButtonItem.customView.frame;
-//        rigthFrame.size.width = rigthFrame.size.width * alpha;
-//        rigthFrame.size.height = rigthFrame.size.height * alpha;
-//        self.navigationItem.rightBarButtonItem.customView.frame = rigthFrame;
-//    }else if(delta < 0 ){
-////        NSLog(@"%f",delta);
-////        CGRect frame = self.scrollableView.superview.frame;
+//    UIBarButtonItem *leftItem = self.navigationItem.leftBarButtonItem;
+//    leftItem.customView.backgroundColor = [UIColor redColor];
+//    leftItem.customView.frame = CGRectMake(16, 2, 20, 20);
+//    self.navigationItem.leftBarButtonItem.customView.frame = CGRectMake(16, 2, 20, 20);
+////    = leftItem;
+////    CGRect leftItemFrame = self.navigationItem.leftBarButtonItem.customView.frame;
+////    //        CGPoint center = self.navigationController.navigationItem.leftBarButtonItem.customView.center;
+////    leftItemFrame.size.width = 40 * alpha;
+////    leftItemFrame.size.height = 40 * alpha;
+////    leftItemFrame.origin.x = 16;
+////    leftItemFrame.origin.y = 10;
+//    CGRect titleFrame = self.navigationController.navigationItem.titleView.frame;
+//    titleFrame.size.width = 20;
+//    titleFrame.size.height = 20;
+//
+////    titleFrame.origin.x = 16;
+////    titleFrame.origin.y = 10;
+//    self.navigationController.navigationItem.titleView.frame = titleFrame;
+////    float alpha = 0.5;
+////    if (delta > 0) {
+//////        leftItemFrame.size.width = 20;
+//////        leftItemFrame.size.height = 20;
 ////        
-////        NSLog(@"%f",(frame.origin.y + self.deltaLimit) / frame.size.height);
-////        CGRect leftItemFrame = self.navigationItem.leftBarButtonItem.customView.frame;
-////
-////        leftItemFrame.size.width = leftItemFrame.size.width * alpha;
-////        leftItemFrame.size.height = leftItemFrame.size.height * alpha;
-////        self.navigationItem.leftBarButtonItem.customView.frame = leftItemFrame;
 ////        
+////        //        self.navigationItem.leftBarButtonItem.customView.center = center;
 ////        
 ////        CGRect rigthFrame = self.navigationItem.rightBarButtonItem.customView.frame;
 ////        rigthFrame.size.width = rigthFrame.size.width * alpha;
 ////        rigthFrame.size.height = rigthFrame.size.height * alpha;
 ////        self.navigationItem.rightBarButtonItem.customView.frame = rigthFrame;
-//    }
+////    }else if(delta < 0 ){
+//////        NSLog(@"%f",delta);
+//////        CGRect frame = self.scrollableView.superview.frame;
+//////        
+//////        NSLog(@"%f",(frame.origin.y + self.deltaLimit) / frame.size.height);
+//////        CGRect leftItemFrame = self.navigationItem.leftBarButtonItem.customView.frame;
+//////
+//////        leftItemFrame.size.width = leftItemFrame.size.width * alpha;
+//////        leftItemFrame.size.height = leftItemFrame.size.height * alpha;
+//////        self.navigationItem.leftBarButtonItem.customView.frame = leftItemFrame;
+//////        
+//////        
+//////        CGRect rigthFrame = self.navigationItem.rightBarButtonItem.customView.frame;
+//////        rigthFrame.size.width = rigthFrame.size.width * alpha;
+//////        rigthFrame.size.height = rigthFrame.size.height * alpha;
+//////        self.navigationItem.rightBarButtonItem.customView.frame = rigthFrame;
+////    }
 }
 
 @end

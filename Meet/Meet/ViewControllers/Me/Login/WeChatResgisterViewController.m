@@ -34,13 +34,14 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 64)] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 0.5)]];
     
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     _viewModel = [[LoginViewModel alloc] init];
-    
     _nextStep.enabled = NO;
     if (IOS_7LAST) {
         self.navigationController.interactivePopGestureRecognizer.delegate = self;
@@ -59,8 +60,11 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 49)] forBarMetrics:UIBarMetricsCompactPrompt];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 64)] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 0.5)]];
+
     //    [ThemeTools navigationBarTintColor:[UIColor blackColor] titleColor:[UIColor blackColor]];
 }
 

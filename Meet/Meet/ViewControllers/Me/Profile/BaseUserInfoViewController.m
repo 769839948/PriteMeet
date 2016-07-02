@@ -36,12 +36,8 @@
 
 - (void)setNavigationItemBar
 {
-    
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"me_profile_save"] style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
-    
-    
-    
 }
 
 

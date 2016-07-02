@@ -25,6 +25,13 @@
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <AMapLocationKit/AMapLocationManager.h>
 
+typedef NS_ENUM(NSInteger, FillterName) {
+    NomalList,
+    LocationList,
+    ReconmondList,
+};
+
+
 @interface FristHomeViewController ()<UIGestureRecognizerDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource,AMapLocationManagerDelegate>
 
 
@@ -45,6 +52,8 @@
 @property (nonatomic, assign) double logtitude;
 @property (nonatomic, assign) double latitude;
 
+@property (nonatomic, assign) FillterName fillterName;
+
 @end
 
 @implementation FristHomeViewController
@@ -58,7 +67,7 @@
     [self setUpNavigationBar];
     [self setUpRefreshView];
     [self setUpLocationManager];
-    
+    _fillterName = NomalList;
 }
 
 - (void)setUpLocationManager
@@ -96,7 +105,6 @@
 }
 
 - (void)loadNewData {
-    NSLog(@"ChoicenessViewController refreshing");
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.tableView.mj_header endRefreshing];
     });
@@ -105,22 +113,46 @@
 
 - (void)setUpHomeData
 {
-   
-    _page ++;
-    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
-    __weak typeof(self) weakSelf = self;
-    [_viewModel getHomeList:pageString latitude:_latitude longitude:_logtitude successBlock:^(NSDictionary *object) {
-        [weakSelf.homeModelArray addObjectsFromArray:[HomeModel  mj_objectArrayWithKeyValuesArray:object]];
-        [weakSelf.tableView reloadData];
-        [weakSelf.tableView.mj_footer endRefreshing];
-    } failBlock:^(NSDictionary *object) {
-        if (_page > 0) {
-            _page --;
+    if (_fillterName == NomalList) {
+        _page ++;
+        NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
+        __weak typeof(self) weakSelf = self;
+        [_viewModel getHomeList:pageString latitude:_latitude longitude:_logtitude successBlock:^(NSDictionary *object) {
+            [weakSelf.homeModelArray addObjectsFromArray:[HomeModel  mj_objectArrayWithKeyValuesArray:object]];
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_footer endRefreshing];
+        } failBlock:^(NSDictionary *object) {
+            if (_page > 0) {
+                _page --;
+            }
+            [weakSelf setUpHomeData];
+            [weakSelf.tableView.mj_footer endRefreshing];
+        } loadingView:^(NSString *str) {
+        }];
+    }else{
+        _page ++;
+        NSString *filter =  @"";
+        if (_fillterName == LocationList) {
+            filter = @"location";
+        }else{
+            filter = @"recommend";
         }
-        [weakSelf setUpHomeData];
-        [weakSelf.tableView.mj_footer endRefreshing];
-    } loadingView:^(NSString *str) {
-    }];
+        NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
+        __weak typeof(self) weakSelf = self;
+        [_viewModel getHomeFilterList:pageString filter:filter successBlock:^(NSDictionary *object) {
+            [weakSelf.homeModelArray addObjectsFromArray:[HomeModel  mj_objectArrayWithKeyValuesArray:object]];
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_footer endRefreshing];
+        } failBlock:^(NSDictionary *object) {
+            if (_page > 0) {
+                _page --;
+            }
+            [weakSelf setUpHomeData];
+            [weakSelf.tableView.mj_footer endRefreshing];
+        } loadingView:^(NSString *str) {
+            
+        }];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -129,7 +161,8 @@
     [self setStatusView];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     [self.navigationController.navigationBar setBarTintColor:NavigationBarTintColorCustome];
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
+    [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 0.5)]];
+//    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
 
 }
 
@@ -173,7 +206,8 @@
     [icon_User setFrame:CGRectMake(0, 0, 40, 40)];
     [icon_User addTarget:self action:@selector(rightItemPess:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:icon_User];
-    
+    [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 0.5)]];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:TableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [self setStatusView];
 }
 
@@ -336,7 +370,7 @@
     }else{
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     }
-    if (translation.y < 0)
+    if (translation.y < -50)
     {
         _bottomView.hidden = YES;
         _statusView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
@@ -355,7 +389,21 @@
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    
+    switch (buttonIndex) {
+        case 0:
+            [_homeModelArray removeAllObjects];
+            _fillterName = ReconmondList;
+            _page = 0;
+            [self setUpHomeData];
+        
+            break;
+        default:
+            [_homeModelArray removeAllObjects];
+            _fillterName = LocationList;
+            _page = 0;
+            [self setUpHomeData];
+            break;
+    }
 }
 
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet

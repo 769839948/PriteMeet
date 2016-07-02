@@ -146,7 +146,7 @@
         _nameLabel.text = [model.real_name stringByAppendingString:[NSString stringWithFormat:@" %@", model.job_label]];
 
     }
-    float titleHeight = [_nameLabel.text heightWithFont:HomeViewNameFont constrainedToWidth:ScreenWidth - 20];
+    float titleHeight = [_nameLabel.text heightWithFont:HomeViewNameFont constrainedToWidth:ScreenWidth - 40];
     if (titleHeight > 30){
         [_nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_offset(titleHeight);

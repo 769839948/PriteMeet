@@ -23,13 +23,15 @@
     _lineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
     [self.contentView addSubview:_lineLabel];
     [self updateConstraints];
+//    _textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"用户名" attributes:@{NSForegroundColorAttributeName: [UIColor redColor]}];
+//    [_textField setValue:[UIColor colorWithHexString:MeViewProfileContentLabelColorLight] forKeyPath:@"_placeholderLabel.textColor"];
+
     // Initialization code
 }
 
 - (void)updateConstraints
 {
     if (!self.didSetupConstraints) {
-        
         __weak typeof(self) weakSelf = self;
         [_lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(weakSelf.contentView.mas_left).offset(20);

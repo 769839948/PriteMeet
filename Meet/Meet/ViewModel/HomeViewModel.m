@@ -21,7 +21,11 @@
     return @[@"关于我们的那些事",@"最新邀约",@"更多想见的人"];
 }
 
-//http://127.0.0.1:8080/api/user/list/?cur_user=1&longitude=116.376421&latitude=39.982417
+- (NSArray *)baseInfoTitle
+{
+    return @[@"真实姓名",@"性别",@"年龄",@"身高",@"工作生活在"];
+}
+
 - (void)getHomeList:(NSString *)page latitude:(double)latitude  longitude:(double)longitude successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock
 {
     NSString *url = @"";
@@ -29,6 +33,28 @@
         url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@&longitude=%@&latitude=%@",RequestGetHomeList,page,[WXUserInfo shareInstance].openid,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
     }else{
         url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&longitude=%@&latitude=%@",RequestGetHomeList,page,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
+    }
+    
+    [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([[responseObject objectForKey:@"success"] boolValue]) {
+            successBlock([responseObject objectForKey:@"results"]);
+        }else{
+            failBlock(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failBlock(@{@"":@""});
+    }];
+}
+
+- (void)getHomeFilterList:(NSString *)page filter:(NSString *)filterName successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock
+{
+    NSString *url = @"";
+    if ([UserInfo isLoggedIn]) {
+        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@&filter=%@",RequestGetFilterUserList,page,[WXUserInfo shareInstance].openid,filterName];
+    }else{
+        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&filter=%@",RequestGetFilterUserList,page,filterName];
     }
     
     [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -61,6 +87,24 @@
     }];
 }
 
+
+
+- (void)getOtherUserInfoProfile:(NSString *)userId successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock
+{
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestGetOtherInfoProfile,userId];
+    
+    [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([[responseObject objectForKey:@"success"] boolValue]) {
+            successBlock([responseObject objectForKey:@"data"]);
+        }else{
+            failBlock(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failBlock(@{@"":@""});
+    }];
+}
 
 - (void)senderLocation:(double)latitude longitude:(double)longitude
 {

@@ -24,6 +24,13 @@
 		1F293D901D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D8F1D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m */; };
 		1F293D941D13CB290063A9DA /* AboutDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D931D13CB290063A9DA /* AboutDetailViewController.swift */; };
 		1F293D9D1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D9C1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.m */; };
+		1F38683D1D260E2900569032 /* OtherProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F38683C1D260E2900569032 /* OtherProfileTableViewCell.swift */; };
+		1F38683F1D260E3A00569032 /* OtherProfileInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F38683E1D260E3A00569032 /* OtherProfileInfoTableViewCell.swift */; };
+		1F3868431D26141D00569032 /* OtherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3868421D26141D00569032 /* OtherViewController.swift */; };
+		1F3868461D2617FD00569032 /* UIViewController+NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3868451D2617FD00569032 /* UIViewController+NavigationBar.swift */; };
+		1F38684E1D266A7500569032 /* OhterProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F38684D1D266A7500569032 /* OhterProfileModel.swift */; };
+		1F3868731D275B7900569032 /* AddJobLabelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3868721D275B7900569032 /* AddJobLabelTableViewCell.m */; };
+		1F3868761D27749200569032 /* JobLableCollectViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3868751D27749200569032 /* JobLableCollectViewCell.m */; };
 		1F3DC32A1D0D06ED0075B7BA /* MeInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3DC3271D0D06ED0075B7BA /* MeInfoTableViewCell.swift */; };
 		1F3DC32B1D0D06ED0075B7BA /* MeInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F3DC3281D0D06ED0075B7BA /* MeInfoTableViewCell.xib */; };
 		1F3DC32C1D0D06ED0075B7BA /* BaseNavigaitonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3DC3291D0D06ED0075B7BA /* BaseNavigaitonController.swift */; };
@@ -68,8 +75,6 @@
 		1FBAE3231D25153900D7D039 /* ProfileSectionTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBAE3211D25153900D7D039 /* ProfileSectionTitleTableViewCell.xib */; };
 		1FBAE32A1D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBAE3281D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift */; };
 		1FBAE32B1D2526BD00D7D039 /* WorkeAndEduTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBAE3291D2526BD00D7D039 /* WorkeAndEduTableViewCell.xib */; };
-		1FBAE32E1D2534FE00D7D039 /* AddJobLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBAE32C1D2534FE00D7D039 /* AddJobLabelTableViewCell.swift */; };
-		1FBAE32F1D2534FE00D7D039 /* AddJobLabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBAE32D1D2534FE00D7D039 /* AddJobLabelTableViewCell.xib */; };
 		1FBF3FC21D1BD1AC005DB46F /* AppDelegate+AMapLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF3FC11D1BD1AC005DB46F /* AppDelegate+AMapLocation.m */; };
 		1FBF3FC41D1BEB22005DB46F /* MeetWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF3FC31D1BEB22005DB46F /* MeetWebViewController.swift */; };
 		1FBF408C1D1E5BF8005DB46F /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF408A1D1E5BF8005DB46F /* ProfileTableViewCell.swift */; };
@@ -224,6 +229,15 @@
 		1F293D931D13CB290063A9DA /* AboutDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutDetailViewController.swift; sourceTree = "<group>"; };
 		1F293D9B1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+FDFullscreenPopGesture.h"; sourceTree = "<group>"; };
 		1F293D9C1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
+		1F38683C1D260E2900569032 /* OtherProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherProfileTableViewCell.swift; sourceTree = "<group>"; };
+		1F38683E1D260E3A00569032 /* OtherProfileInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherProfileInfoTableViewCell.swift; sourceTree = "<group>"; };
+		1F3868421D26141D00569032 /* OtherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherViewController.swift; sourceTree = "<group>"; };
+		1F3868451D2617FD00569032 /* UIViewController+NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+NavigationBar.swift"; sourceTree = "<group>"; };
+		1F38684D1D266A7500569032 /* OhterProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OhterProfileModel.swift; sourceTree = "<group>"; };
+		1F3868711D275B7900569032 /* AddJobLabelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddJobLabelTableViewCell.h; sourceTree = "<group>"; };
+		1F3868721D275B7900569032 /* AddJobLabelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddJobLabelTableViewCell.m; sourceTree = "<group>"; };
+		1F3868741D27749200569032 /* JobLableCollectViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobLableCollectViewCell.h; sourceTree = "<group>"; };
+		1F3868751D27749200569032 /* JobLableCollectViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobLableCollectViewCell.m; sourceTree = "<group>"; };
 		1F3DC3271D0D06ED0075B7BA /* MeInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeInfoTableViewCell.swift; path = ../ViewControllers/MeInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1F3DC3281D0D06ED0075B7BA /* MeInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MeInfoTableViewCell.xib; path = ../ViewControllers/MeInfoTableViewCell.xib; sourceTree = "<group>"; };
 		1F3DC3291D0D06ED0075B7BA /* BaseNavigaitonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigaitonController.swift; sourceTree = "<group>"; };
@@ -295,8 +309,6 @@
 		1FBAE3211D25153900D7D039 /* ProfileSectionTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileSectionTitleTableViewCell.xib; sourceTree = "<group>"; };
 		1FBAE3281D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkeAndEduTableViewCell.swift; sourceTree = "<group>"; };
 		1FBAE3291D2526BD00D7D039 /* WorkeAndEduTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WorkeAndEduTableViewCell.xib; sourceTree = "<group>"; };
-		1FBAE32C1D2534FE00D7D039 /* AddJobLabelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddJobLabelTableViewCell.swift; sourceTree = "<group>"; };
-		1FBAE32D1D2534FE00D7D039 /* AddJobLabelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddJobLabelTableViewCell.xib; sourceTree = "<group>"; };
 		1FBF3FC01D1BD1AC005DB46F /* AppDelegate+AMapLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+AMapLocation.h"; sourceTree = "<group>"; };
 		1FBF3FC11D1BD1AC005DB46F /* AppDelegate+AMapLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+AMapLocation.m"; sourceTree = "<group>"; };
 		1FBF3FC31D1BEB22005DB46F /* MeetWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetWebViewController.swift; sourceTree = "<group>"; };
@@ -562,6 +574,7 @@
 			isa = PBXGroup;
 			children = (
 				1F293D7E1D12CBB10063A9DA /* String+Size.swift */,
+				1F3868451D2617FD00569032 /* UIViewController+NavigationBar.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -590,6 +603,15 @@
 			path = "UICollectionView+ARDynamicHeightLayoutCell";
 			sourceTree = "<group>";
 		};
+		1F38683B1D260DF800569032 /* MeDetail */ = {
+			isa = PBXGroup;
+			children = (
+				1F38683C1D260E2900569032 /* OtherProfileTableViewCell.swift */,
+				1F38683E1D260E3A00569032 /* OtherProfileInfoTableViewCell.swift */,
+			);
+			name = MeDetail;
+			sourceTree = "<group>";
+		};
 		1F3DC32D1D0D06FD0075B7BA /* Me */ = {
 			isa = PBXGroup;
 			children = (
@@ -605,8 +627,10 @@
 				1FBAE3211D25153900D7D039 /* ProfileSectionTitleTableViewCell.xib */,
 				1FBAE3281D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift */,
 				1FBAE3291D2526BD00D7D039 /* WorkeAndEduTableViewCell.xib */,
-				1FBAE32C1D2534FE00D7D039 /* AddJobLabelTableViewCell.swift */,
-				1FBAE32D1D2534FE00D7D039 /* AddJobLabelTableViewCell.xib */,
+				1F3868711D275B7900569032 /* AddJobLabelTableViewCell.h */,
+				1F3868721D275B7900569032 /* AddJobLabelTableViewCell.m */,
+				1F3868741D27749200569032 /* JobLableCollectViewCell.h */,
+				1F3868751D27749200569032 /* JobLableCollectViewCell.m */,
 			);
 			name = Me;
 			sourceTree = "<group>";
@@ -678,6 +702,7 @@
 			isa = PBXGroup;
 			children = (
 				1F68501F1CFFD3D2007F3C07 /* MeetDetailViewController.swift */,
+				1F3868421D26141D00569032 /* OtherViewController.swift */,
 				1F293D931D13CB290063A9DA /* AboutDetailViewController.swift */,
 				1FBF3FC31D1BEB22005DB46F /* MeetWebViewController.swift */,
 			);
@@ -928,6 +953,7 @@
 		DA36267B1CD1A98E00A8AE39 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1F38683B1D260DF800569032 /* MeDetail */,
 				1F457B4E1D15327500C1D8EC /* FirstVersion */,
 				1F3DC32D1D0D06FD0075B7BA /* Me */,
 				DA018F2B1CD39D570051D2D7 /* ManListCell.h */,
@@ -1162,6 +1188,7 @@
 				1F293D6A1D1175090063A9DA /* HomeModel.h */,
 				1F293D6B1D1175090063A9DA /* HomeModel.m */,
 				1F293D7B1D1266850063A9DA /* HomeDetailModel.swift */,
+				1F38684D1D266A7500569032 /* OhterProfileModel.swift */,
 			);
 			path = ModelBean;
 			sourceTree = "<group>";
@@ -1339,7 +1366,6 @@
 			files = (
 				1FBAE3231D25153900D7D039 /* ProfileSectionTitleTableViewCell.xib in Resources */,
 				DA4A89021CDC388B00649983 /* Login.storyboard in Resources */,
-				1FBAE32F1D2534FE00D7D039 /* AddJobLabelTableViewCell.xib in Resources */,
 				DA018F521CD4DAFB0051D2D7 /* Localizable.strings in Resources */,
 				DAF5C8C21CE6D6AD00DA7901 /* README.txt in Resources */,
 				1FBAE32B1D2526BD00D7D039 /* WorkeAndEduTableViewCell.xib in Resources */,
@@ -1464,7 +1490,6 @@
 				DAF5C8201CE0D0ED00DA7901 /* WXAccessModel.m in Sources */,
 				1F5515841CFEF859005B82FA /* EqualSpaceFlowLayout.m in Sources */,
 				1F3DC3321D0D0B890075B7BA /* MePhotoTableViewCell.swift in Sources */,
-				1FBAE32E1D2534FE00D7D039 /* AddJobLabelTableViewCell.swift in Sources */,
 				1F293D7F1D12CBB10063A9DA /* String+Size.swift in Sources */,
 				DAF5C8BC1CE6D6AD00DA7901 /* NSObject+RMArchivable.m in Sources */,
 				1FFB5F3E1D069A8800021F77 /* ProfileKeyAndValue.m in Sources */,
@@ -1486,10 +1511,12 @@
 				1F293D9D1D13D3900063A9DA /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				1FBAE32A1D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift in Sources */,
 				1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */,
+				1F3868731D275B7900569032 /* AddJobLabelTableViewCell.m in Sources */,
 				DA3626591CD1A75C00A8AE39 /* main.m in Sources */,
 				1F68502F1CFFD46B007F3C07 /* AboutUsInfoTableViewCell.m in Sources */,
 				DAF5C8211CE0D0ED00DA7901 /* WXUserInfo.m in Sources */,
 				DABF8AF21CE9D41100CA2A1D /* BaseMeetViewController.m in Sources */,
+				1F38683F1D260E3A00569032 /* OtherProfileInfoTableViewCell.swift in Sources */,
 				DAF5C8BE1CE6D6AD00DA7901 /* NSUserDefaults+RMSaveCustomObject.m in Sources */,
 				DAF5C81E1CE0D0ED00DA7901 /* BaseModel.m in Sources */,
 				1F68503D1CFFE4F2007F3C07 /* NewMeetInfoTableViewCell.m in Sources */,
@@ -1506,6 +1533,7 @@
 				DA6B1C591CEC4DAC0020021D /* MoveViewController.m in Sources */,
 				1FCAFFD81D0181AA00BF53A1 /* EMAlertView.m in Sources */,
 				1F293D761D11A4B90063A9DA /* UINavigationBar+Transparent.m in Sources */,
+				1F3868431D26141D00569032 /* OtherViewController.swift in Sources */,
 				1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */,
 				1F3DC3381D0D0F5A0075B7BA /* PhotoDetailTableViewCell.swift in Sources */,
 				1F293D781D11A4B90063A9DA /* UIView+Size.m in Sources */,
@@ -1515,6 +1543,7 @@
 				DABF8AE01CE7509400CA2A1D /* MyMeetsViewController.m in Sources */,
 				DA018EDB1CD1BCD90051D2D7 /* MainViewController.m in Sources */,
 				DA6CEEF61CD9EFA800EEABFF /* CellTextField.m in Sources */,
+				1F38683D1D260E2900569032 /* OtherProfileTableViewCell.swift in Sources */,
 				DA018F5E1CD79D4A0051D2D7 /* RemindImageCell.m in Sources */,
 				DA36267D1CD1A98E00A8AE39 /* UITools.m in Sources */,
 				DA6B1C531CEC4DAC0020021D /* ChoicenessViewController.m in Sources */,
@@ -1523,6 +1552,8 @@
 				1FC4C08B1D0D590E00E4BB33 /* MeViewController.swift in Sources */,
 				DAF5C8821CE5B95000DA7901 /* CoreTextData.m in Sources */,
 				1F6850361CFFD77A007F3C07 /* BaseTableViewCell.m in Sources */,
+				1F3868461D2617FD00569032 /* UIViewController+NavigationBar.swift in Sources */,
+				1F3868761D27749200569032 /* JobLableCollectViewCell.m in Sources */,
 				1F457B541D179C4A00C1D8EC /* CenterlabelView.swift in Sources */,
 				1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */,
 				1FBF3FC21D1BD1AC005DB46F /* AppDelegate+AMapLocation.m in Sources */,
@@ -1532,6 +1563,7 @@
 				DA4A890E1CDCA8D000649983 /* WeChatResgisterViewController.m in Sources */,
 				DA6B1C571CEC4DAC0020021D /* HomeMainViewController.m in Sources */,
 				1F3DC32F1D0D07A60075B7BA /* MeViewModel.swift in Sources */,
+				1F38684E1D266A7500569032 /* OhterProfileModel.swift in Sources */,
 				1F6850261CFFD431007F3C07 /* MeetInfoTableViewCell.m in Sources */,
 				1F1FB4851D0FD78E00794881 /* UIImage+Alpha.m in Sources */,
 				1F55157E1CFEEFE5005B82FA /* InterestCollectViewCell.m in Sources */,

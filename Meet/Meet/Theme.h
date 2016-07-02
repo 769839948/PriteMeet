@@ -45,7 +45,8 @@
 
 #define MeViewProfileLabelFont          [UIFont fontWithName:@"PingFangSC-Light" size:14.0f]
 #define MeViewProfileTitleLabelColor         @"202020"
-#define MeViewProfileContentLabelColor         @"7F7F7F"
+#define MeViewProfileContentLabelColor       @"7F7F7F"
+#define MeViewProfileContentLabelColorLight  @"E7E7E7"
 
 #define MeViewProfileBackGroundColor         @"f2f2f2"
 

@@ -297,7 +297,12 @@ class MeetDetailViewController: UIViewController {
 extension MeetDetailViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        if indexPath.section == 1 && indexPath.row == 1 && self.otherUserModel.user_info!.highlight != ""  && self.otherUserModel.web_url != ""{
+        if indexPath.section == 0 && indexPath.row == 3 {
+            let mainStory = UIStoryboard.init(name: "Main", bundle: NSBundle.mainBundle())
+            let otherInfo = mainStory.instantiateViewControllerWithIdentifier("OtherViewController") as! OtherViewController
+            otherInfo.uid = user_id
+            self.navigationController?.pushViewController(otherInfo, animated: true)
+        }else if indexPath.section == 1 && indexPath.row == 1 && self.otherUserModel.user_info!.highlight != ""  && self.otherUserModel.web_url != ""{
             let meetWebView = AboutDetailViewController()
             meetWebView.url = "\(RequestBaseUrl)\(self.otherUserModel.web_url)"
             self.navigationController?.pushViewController(meetWebView, animated: true)
@@ -507,16 +512,13 @@ extension MeetDetailViewController : UITableViewDataSource {
                     let cell = tableView.dequeueReusableCellWithIdentifier(compayTableViewCell, forIndexPath: indexPath) as! CompayTableViewCell
                     cell.configCell(self.otherUserModel.user_info?.auth_info)
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
-                    cell.userInteractionEnabled = false
+//                    cell.userInteractionEnabled = false
                     return cell
                 default:
                     let identifier = "MoreTableViewCell"
-                    var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
-                    if cell == nil{
-                        cell = AllInfoTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: identifier)
-                    }
-                    cell?.selectionStyle = UITableViewCellSelectionStyle.None
-                    return cell!
+                    let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! AllInfoTableViewCell
+                    cell.selectionStyle = UITableViewCellSelectionStyle.Blue
+                    return cell
                 }
             case 1:
                 switch indexPath.row {
@@ -571,6 +573,7 @@ extension MeetDetailViewController : UITableViewDataSource {
                     if cell == nil{
                         cell = AllInfoTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: identifier)
                     }
+                    cell?.selectionStyle = UITableViewCellSelectionStyle.None
                     return cell!
                 }
             case 1:
@@ -578,6 +581,7 @@ extension MeetDetailViewController : UITableViewDataSource {
                 case 0:
                     let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
                     cell.configCell("meetdetail_aboutus", titleString: "关于\(personTypeString)")
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
                     return cell
                 default:
                     let cell = tableView.dequeueReusableCellWithIdentifier(aboutUsInfoTableViewCell, forIndexPath: indexPath) as! AboutUsInfoTableViewCell

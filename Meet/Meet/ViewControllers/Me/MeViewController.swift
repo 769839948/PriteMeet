@@ -38,10 +38,7 @@ class MeViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.setNavigationBar()
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
-        let status = UIApplication.sharedApplication().valueForKey("statusBar") as! UIView
-        status.backgroundColor = UIColor.clearColor()
-
+        
         if UserInfo.isLoggedIn() {
             self.lastModifield()
             self.loadExtenInfo()
@@ -79,8 +76,8 @@ class MeViewController: UIViewController {
     
     override func viewDidDisappear(animated: Bool) {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage.createImageWithColor(UIColor.whiteColor()), forBarPosition: .Any, barMetrics: .Default)
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
-        
+        self.navigationController?.navigationBar.shadowImage = nil
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
         self.navigationController?.navigationBar.tintColor = UIColor.blackColor()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.blackColor(),NSFontAttributeName:UIFont.systemFontOfSize(18.0)]
@@ -132,15 +129,12 @@ class MeViewController: UIViewController {
     func setNavigationBar(){
         if UserInfo.isLoggedIn() {
             self.navigationController?.navigationBar.setBackgroundImage(UIImage.createImageWithColor(UIColor.clearColor()), forBarPosition: .Any, barMetrics: .Default)
-            UINavigationBar.appearance().shadowImage = UIImage()
-            UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
-            self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
+            UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+            self.navigationController?.navigationBar.shadowImage = UIImage.init()
             self.setLeftBarItem()
         }else{
             self.navigationController?.navigationBar.setBackgroundImage(UIImage.createImageWithColor(UIColor.whiteColor()), forBarPosition: .Any, barMetrics: .Default)
-            UINavigationBar.appearance().shadowImage = UIImage()
-            UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
-            self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
+            self.navigationController?.navigationBar.shadowImage = UIImage.init(color: UIColor.clearColor(), size: CGSizeMake(ScreenWidth, 0.5))
             self.navigationController?.navigationBar.tintColor = UIColor.blackColor()
             self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.blackColor(),NSFontAttributeName:UIFont.systemFontOfSize(18.0)]
             self.setNavigationItemAplah(1, imageName: ["me_dismissBlack"], type: 1)
@@ -243,7 +237,6 @@ class MeViewController: UIViewController {
     
     func pushProfileViewControllr() {
         let meStoryBoard = UIStoryboard(name: "Me", bundle: NSBundle.mainBundle())
-        
         let myProfileVC = meStoryBoard.instantiateViewControllerWithIdentifier("MyProfileViewController") as!  MyProfileViewController
         myProfileVC.fromeMeView = true
         myProfileVC.hightLight = UserExtenModel.shareInstance().highlight

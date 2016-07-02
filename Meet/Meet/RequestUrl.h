@@ -36,4 +36,8 @@
 
 #define  RequestGetOtherInfo         @"/api/user/info"
 
+#define  RequestGetOtherInfoProfile  @"/api/user/base_info_variant/"
+
+#define  RequestGetFilterUserList    @"/api/user/list_filter/"
+
 #endif /* RequestUrl_h */

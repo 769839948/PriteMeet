@@ -38,20 +38,10 @@
                                                         <constraint firstAttribute="height" constant="89" id="plT-he-ZNr"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="me_profile_photo_edit" translatesAutoresizingMaskIntoConstraints="NO" id="qob-IV-dWX">
-                                                    <rect key="frame" x="178" y="85" width="19" height="19"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="19" id="IkW-Uu-JPp"/>
-                                                        <constraint firstAttribute="width" constant="19" id="ez9-wd-4fS"/>
-                                                        <constraint firstAttribute="width" secondItem="qob-IV-dWX" secondAttribute="height" multiplier="1:1" id="s66-Cw-Kxs"/>
-                                                    </constraints>
-                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="kwo-nd-yB9" firstAttribute="centerX" secondItem="Nty-tG-wK7" secondAttribute="centerX" id="3li-23-g3i"/>
-                                                <constraint firstItem="qob-IV-dWX" firstAttribute="top" secondItem="kwo-nd-yB9" secondAttribute="bottom" constant="-54" id="nvD-uF-Teo"/>
                                                 <constraint firstItem="kwo-nd-yB9" firstAttribute="top" secondItem="Nty-tG-wK7" secondAttribute="topMargin" constant="42" id="qrD-la-UjC"/>
-                                                <constraint firstItem="qob-IV-dWX" firstAttribute="leading" secondItem="kwo-nd-yB9" secondAttribute="trailing" constant="-54" id="zYc-aT-16D"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1061,7 +1051,6 @@
     </scenes>
     <resources>
         <image name="RadarKeyboard_HL" width="80" height="80"/>
-        <image name="me_profile_photo_edit" width="19" height="19"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="BJJ-Pu-ROw"/>
