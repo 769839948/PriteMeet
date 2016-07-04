@@ -43,7 +43,7 @@
 
 - (void)leftItemClick:(UIBarButtonItem *)sender
 {
-    [EMAlertView showAlertWithTitle:@"注意" message:@"资料未填写，确定退出编辑吗？" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+    [EMAlertView showAlertWithTitle:@"注意" message:@"资料未完善，确定退出编辑吗？" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
         if (buttonIndex == 1) {
             [self dismissViewControllerAnimated:YES completion:^{
                 

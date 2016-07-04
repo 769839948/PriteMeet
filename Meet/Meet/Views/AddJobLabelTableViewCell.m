@@ -55,7 +55,7 @@
     };
     [self.contentView addSubview:_jobLabel];
     
-    UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 13, 13)];
+    UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 23, 13)];
     UIImageView *leftImage = [[UIImageView alloc] initWithFrame:leftView.frame];
     leftImage.image = [UIImage imageNamed:@"me_profile_addjoblabel"];
     [leftView addSubview:leftImage];
@@ -179,9 +179,7 @@
         [_interestArray addObject:textField.text];
     }
     textField.text = @"";
-    if (self.block) {
-        self.block(_interestArray);
-    }
+    
     [self reloadData];
     return  YES;
 }
@@ -193,6 +191,9 @@
             [_interestArray removeObjectAtIndex:_selectItemRow];
             [self reloadData];
             _isSelectItem = NO;
+            if (self.block) {
+                self.block(_interestArray);
+            }
         }else{
             [_jobLabel collectionView:_jobLabel didSelectItemAtIndexPath:[NSIndexPath indexPathForRow:_interestArray.count - 1 inSection:0]];
         }

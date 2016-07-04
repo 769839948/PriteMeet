@@ -24,8 +24,8 @@ class Base_Info: NSObject {
 
     var gender: Int = 0
 
-    var height: Int = 0
-
+    var job_label: String = ""
+    
     var weixin_num: String = ""
 
     var location: String = ""
@@ -42,6 +42,8 @@ class Base_Info: NSObject {
 class More_Info: NSObject {
 
     var industry: Int = 0
+    
+    var height: Int = 0
 
     var affection: Int = 0
 

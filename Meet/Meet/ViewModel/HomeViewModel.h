@@ -15,10 +15,11 @@
 
 
 - (NSArray *)baseInfoTitle;
+- (NSArray *)sectionTitle;
 
 - (void)getHomeList:(NSString *)page latitude:(double)latitude  longitude:(double)longitude successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock;
 
-- (void)getHomeFilterList:(NSString *)page filter:(NSString *)filterName successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock;
+- (void)getHomeFilterList:(NSString *)page latitude:(double)latitude  longitude:(double)longitude filter:(NSString *)filterName successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock;
 
 - (void)getOtherUserInfo:(NSString *)userId successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock;
 

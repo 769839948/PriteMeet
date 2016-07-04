@@ -20,7 +20,6 @@ class OtherViewController: UIViewController {
     var tableViewData:NSMutableArray = NSMutableArray()
     var viewModel:HomeViewModel!
     
-    var baseInfoTitle = ["真实姓名","性别","年龄","身高","工作生活在"]
     var moreInfoTitle = NSMutableArray()
     
     var sectionTitle = NSMutableArray()
@@ -62,8 +61,8 @@ class OtherViewController: UIViewController {
                 self.baseInfo.addObject("女")
             }
             self.baseInfo.addObject(String.init(format: "%d", (self.otherProfileModel.base_info?.age)!))
-            self.baseInfo.addObject(String.init(format: "%dcm", (self.otherProfileModel.base_info?.height)!))
             self.baseInfo.addObject((self.otherProfileModel.base_info?.location)!)
+            self.baseInfo.addObject((self.otherProfileModel.base_info?.job_label)!)
             self.tableViewData.addObject(self.baseInfo)
             self.setMoreData()
             self.setWorkeData()
@@ -91,6 +90,11 @@ class OtherViewController: UIViewController {
             let income = String.init(format: "%d", (moreinfo?.income)!)
             moreInfo.addObject(dic.objectForKey(income)!)
             moreInfoTitle.addObject("年收入")
+        }
+        if moreinfo?.height != nil {
+            let height = String.init(format: "%d", (moreinfo?.height)!)
+            moreInfo.addObject("\(height)cm")
+            moreInfoTitle.addObject("身高")
         }
         
         if moreinfo?.affection != nil {
@@ -127,8 +131,8 @@ class OtherViewController: UIViewController {
         }
         if workInfo.count > 0 {
             sectionTitle.addObject("工作经历")
+            self.tableViewData.addObject(workInfo)
         }
-        self.tableViewData.addObject(workInfo)
     }
     
     func setEduData(){
@@ -142,9 +146,8 @@ class OtherViewController: UIViewController {
         }
         if eduInfo.count > 0 {
             sectionTitle.addObject("教育背景")
+            self.tableViewData.addObject(eduInfo)
         }
-        self.tableViewData.addObject(eduInfo)
-        
     }
     
     func setUpTableView(){

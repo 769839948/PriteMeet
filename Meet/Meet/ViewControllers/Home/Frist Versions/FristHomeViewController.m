@@ -60,6 +60,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _fillterName = ReconmondList;
     [self setUpTableView];
     _page = 0;
     _viewModel = [[HomeViewModel alloc] init];
@@ -67,7 +68,6 @@ typedef NS_ENUM(NSInteger, FillterName) {
     [self setUpNavigationBar];
     [self setUpRefreshView];
     [self setUpLocationManager];
-    _fillterName = NomalList;
 }
 
 - (void)setUpLocationManager
@@ -139,7 +139,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
         }
         NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
         __weak typeof(self) weakSelf = self;
-        [_viewModel getHomeFilterList:pageString filter:filter successBlock:^(NSDictionary *object) {
+        [_viewModel getHomeFilterList:pageString latitude:_latitude longitude:_logtitude filter:filter successBlock:^(NSDictionary *object) {
             [weakSelf.homeModelArray addObjectsFromArray:[HomeModel  mj_objectArrayWithKeyValuesArray:object]];
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_footer endRefreshing];
@@ -213,8 +213,9 @@ typedef NS_ENUM(NSInteger, FillterName) {
 
 - (void)rightItemPess:(UIBarButtonItem *)sender
 {
+//    UIAlertView *aletView = [[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"" otherButtonTitles:@""];
     [self presentViewController:[[BaseNavigaitonController alloc] initWithRootViewController:[[MeViewController alloc] init]] animated:YES completion:^{
-        
+
     }];
 }
 
@@ -232,9 +233,6 @@ typedef NS_ENUM(NSInteger, FillterName) {
     _bottomView = [[UIView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width - 84, [[UIScreen mainScreen] bounds].size.height - 74, 56, 54)];
     [_bottomView addSubview:[self myMeetBt:CGRectMake(0, 0, 54, 54)]];
     [_bottomView addSubview:[self myMeetNumber:CGRectMake(_bottomView.frame.size.width - 18, 0, 18, 18)]];
-    
-//    POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
-    
     
     [[UIApplication sharedApplication].keyWindow addSubview:_bottomView];
 }

@@ -61,7 +61,13 @@
     return NO;
     
 }
-
+/**
+ *  检测时候是身份证号码
+ *
+ *  @param IDNumber
+ *
+ *  @return
+ */
 + (BOOL)isCorrect:(NSString *)IDNumber
 {
     NSMutableArray *IDArray = [NSMutableArray array];
@@ -93,12 +99,41 @@
         return NO;
     }
 }
-
+/**
+ *  检测时候是邮箱
+ *
+ *  @param email
+ *
+ *  @return
+ */
 + (BOOL) validateEmail:(NSString *)email
 {
     NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+//.[A-Za-z]{2,4}";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailTest evaluateWithObject:email];
+}
+/**
+ *  检测是否包含特殊字符
+ *
+ *  @param string
+ *
+ *  @return
+ */
++ (BOOL)isHaveSpecialCharacters:(NSString *)string
+{
+    BOOL ret = NO;
+    NSString *jap = @",";
+    NSArray *temArray = @[@",",@"-",@"，",@"、"];
+    for (NSInteger i = 0; i < temArray.count; i ++){
+        NSRange foundObj=[string rangeOfString:temArray[i] options:NSCaseInsensitiveSearch];
+        if(foundObj.length>0) {
+            ret = YES;
+            break;
+        }
+    }
+    return ret;
+
+    
 }
 
 @end

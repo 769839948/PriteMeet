@@ -23,7 +23,12 @@
 
 - (NSArray *)baseInfoTitle
 {
-    return @[@"真实姓名",@"性别",@"年龄",@"身高",@"工作生活在"];
+    return @[@"真实姓名",@"性别",@"年龄",@"工作城市",@"职位"];
+}
+
+- (NSArray *)sectionTitle
+{
+    return @[@"",@"",@""];
 }
 
 - (void)getHomeList:(NSString *)page latitude:(double)latitude  longitude:(double)longitude successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock
@@ -48,13 +53,13 @@
     }];
 }
 
-- (void)getHomeFilterList:(NSString *)page filter:(NSString *)filterName successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock
+- (void)getHomeFilterList:(NSString *)page latitude:(double)latitude  longitude:(double)longitude filter:(NSString *)filterName successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock
 {
     NSString *url = @"";
     if ([UserInfo isLoggedIn]) {
-        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@&filter=%@",RequestGetFilterUserList,page,[WXUserInfo shareInstance].openid,filterName];
+        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@&filter=%@&longitude=%@&latitude=%@",RequestGetFilterUserList,page,[WXUserInfo shareInstance].openid,filterName,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
     }else{
-        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&filter=%@",RequestGetFilterUserList,page,filterName];
+        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&filter=%@&longitude=%@&latitude=%@",RequestGetFilterUserList,page,filterName,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
     }
     
     [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {

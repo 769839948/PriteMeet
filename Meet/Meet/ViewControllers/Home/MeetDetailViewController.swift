@@ -284,7 +284,11 @@ class MeetDetailViewController: UIViewController {
 
     func configCell(cell:MeetInfoTableViewCell, indxPath:NSIndexPath)
     {
-        cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)    和你相隔 \(self.otherUserModel.distance as String)", interestCollectArray: self.personalArray as [AnyObject])
+        if self.otherUserModel.distance == "" {
+            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)    和你相隔 0cm", interestCollectArray: self.personalArray as [AnyObject])
+        }else{
+            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)    和你相隔 \(self.otherUserModel.distance as String)", interestCollectArray: self.personalArray as [AnyObject])
+        }
     }
     
     func configNewMeetCell(cell:NewMeetInfoTableViewCell, indxPath:NSIndexPath)
@@ -516,9 +520,12 @@ extension MeetDetailViewController : UITableViewDataSource {
                     return cell
                 default:
                     let identifier = "MoreTableViewCell"
-                    let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! AllInfoTableViewCell
-                    cell.selectionStyle = UITableViewCellSelectionStyle.Blue
-                    return cell
+                    var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
+                    if cell == nil{
+                        cell = AllInfoTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: identifier)
+                    }
+                    cell?.selectionStyle = UITableViewCellSelectionStyle.None
+                    return cell!
                 }
             case 1:
                 switch indexPath.row {

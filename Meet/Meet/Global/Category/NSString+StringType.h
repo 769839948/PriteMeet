@@ -59,4 +59,13 @@
  */
 + (BOOL) validateEmail:(NSString *)email;
 
+/**
+ *  检测是否包含特殊字符
+ *
+ *  @param string
+ *
+ *  @return
+ */
++ (BOOL)isHaveSpecialCharacters:(NSString *)string;
+
 @end

@@ -65,7 +65,7 @@
         [self.contentView addSubview:_lineLabel];
     }
     _aboutAll = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_aboutAll setTitle:@"更多介绍" forState:UIControlStateNormal];
+    [_aboutAll setTitle:@"详细资料" forState:UIControlStateNormal];
     _aboutAll.layer.cornerRadius = 14.0;
     _aboutAll.userInteractionEnabled = NO;
     _aboutAll.titleLabel.font = HomeViewDetailAboutBtnFont;

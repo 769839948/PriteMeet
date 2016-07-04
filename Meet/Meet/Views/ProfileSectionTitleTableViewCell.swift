@@ -22,6 +22,7 @@ class ProfileSectionTitleTableViewCell: UITableViewCell {
         if buttonTitle == "" {
             infoBtn.hidden = true
         }else{
+            infoBtn.hidden = false
             infoBtn .setTitle(buttonTitle, forState: UIControlState.Normal)
             
         }
