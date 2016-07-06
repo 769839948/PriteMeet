@@ -9,6 +9,7 @@
 #import "AboutViewController.h"
 #import "MeetBaseViewController.h"
 #import "UserProtocolViewController.h"
+#import "Meet-Swift.h"
 
 @interface AboutViewController () {
     

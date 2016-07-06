@@ -22,6 +22,8 @@
 
 @property (nonatomic, strong) UILabel *lineLabel;
 
+@property (nonatomic, strong) EqualSpaceFlowLayout *flowLayout;
+
 @property (nonatomic, assign) BOOL isBlock;
 
 @end
@@ -49,15 +51,13 @@
     
     
     //确定是水平滚动，还是垂直滚动
-    EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] init];
-    
-    _interestView = [[InterestCollectView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+    _flowLayout = [[EqualSpaceFlowLayout alloc] init];
+    _interestView = [[InterestCollectView alloc] initWithFrame:CGRectZero collectionViewLayout:_flowLayout];
     _interestView.userInteractionEnabled = NO;
-//    _interestView.backgroundColor = [UIColor grayColor];
-    flowLayout.delegate = _interestView;
+    _flowLayout.delegate = _interestView;
     [self.contentView addSubview:_interestView];
     
-    _meetLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, ScreenWidth - 20, 200)];
+    _meetLabel = [[UILabel alloc] init];
     _meetLabel.textColor = [UIColor colorWithHexString:AboutUsLabelColor];
     _meetLabel.numberOfLines = 0;
     _meetLabel.font = AboutUsLabelFont;
@@ -70,49 +70,26 @@
 {
     _meetLabel.text = meetstring;
     [_interestView setCollectViewData:array];
-    
+//    _meetLabel.backgroundColor = [UIColor grayColor];
     float titleHeight = [meetstring heightWithFont:AboutUsLabelFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 40];
     __weak typeof(self) weakSelf = self;
-    if (titleHeight > 30){
-        
-    }
+//    _interestView.backgroundColor = [UIColor redColor];
+    [weakSelf.interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(20);
+        make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+        make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
+        make.bottom.mas_equalTo(weakSelf.meetLabel.mas_top).offset(-20);
+        make.height.offset([weakSelf cellHeight:array]);
+    }];
     
-    _interestView.block = ^(CGFloat height){
-        weakSelf.height = height;
-        [weakSelf.interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(20);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.height.offset(height + 2);
-        }];
-        
-        [weakSelf.meetLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(40 + height);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-30);
-            make.height.mas_offset(titleHeight);
-        }];
+    [weakSelf.meetLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(weakSelf.interestView.mas_bottom).offset(20);
+        make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+        make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
+        make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-30);
+        make.height.offset(titleHeight);
+    }];
 
-        if (weakSelf.block && _isBlock) {
-            _isBlock = NO;
-            weakSelf.block(height + titleHeight);
-        }
-        [weakSelf updateConstraints];
-        [weakSelf updateConstraintsIfNeeded];
-        
-    };
-    
-}
-
-
-- (CGFloat)getCellHeight:(NSString *)meetstring array:(NSArray *)array
-{
-    [_interestView setCollectViewData:array];
-    
-    CGFloat titleHeight = [meetstring heightWithFont:AboutUsLabelFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 40];
-    CGFloat interesHeight = [_interestView interesHeight];
-    return titleHeight + interesHeight;
 }
 
 - (void)isHaveShadowColor:(BOOL)isShadowColor
@@ -131,11 +108,11 @@
             make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(20);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.meetLabel.mas_top).offset(-14);
-            make.height.offset(27);
+            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-44);
+//            make.height.offset(27);
         }];
         [_meetLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.interestView.mas_bottom).offset(14);
+            make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(44);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
             make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-30);
@@ -145,6 +122,30 @@
     }
     [super updateConstraints];
 }
+
+
+- (CGFloat)cellHeight:(NSArray *)interArray
+{
+    CGFloat yOffset = 28;
+    CGFloat allSizeWidth = 0;
+    for (NSInteger idx = 0; idx < interArray.count; idx++) {
+        CGSize itemSize = CGSizeMake([self cellWidth:[interArray objectAtIndex:idx]], 28);
+        allSizeWidth = allSizeWidth + itemSize.width + 10;
+        if (allSizeWidth > ScreenWidth - 40) {
+            yOffset = yOffset + 35;
+            allSizeWidth = itemSize.width + 10;
+        }
+    }
+    return yOffset;
+}
+
+- (CGFloat)cellWidth:(NSString *)itemString
+{
+    CGFloat cellWidth;
+    cellWidth = [itemString widthWithFont:[UIFont systemFontOfSize:13.0] constrainedToHeight:18];
+    return cellWidth + 18;
+}
+
 
 - (void)layoutSubviews
 {

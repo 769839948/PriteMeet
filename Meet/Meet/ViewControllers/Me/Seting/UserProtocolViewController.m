@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
      self.navigationItem.title = @"使用协议";
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]]];
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://momeet.cn/web/agreement/"]]];
 }
 
 - (void)didReceiveMemoryWarning {

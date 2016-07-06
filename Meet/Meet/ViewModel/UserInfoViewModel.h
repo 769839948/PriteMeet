@@ -16,6 +16,9 @@ typedef void (^returnImage)(UIImage *image);
 - (NSArray *)imageArray;
 - (NSArray *)titleArray;
 
+- (NSArray *)sectionTitle;
+- (NSArray *)sectionButtonTitle;
+
 - (void)updateUserInfo:(UserInfo *)model
         withStateArray:(NSDictionary *)dic
                success:(Success)successBlock
@@ -81,9 +84,17 @@ typedef void (^returnImage)(UIImage *image);
 
 - (void)uploadInvite:(NSString *)description
           themeArray:(NSArray *)themeArray
+            isActive:(BOOL)isActive
              success:(Success)successBlock
                 fail:(Fail)failBlock
        loadingString:(LoadingView)loading;
+
+- (void)getAllInviteAllItems:(Success)successBlock
+                        fail:(Fail)failBlock
+               loadingString:(LoadingView)loading;
+
+
+- (void)lastModifield:(void (^)(NSString *time))lastBlock failBlock:(Fail)failBock;
 
 + (void)saveCacheImage:(NSString *)url
        completionBlock:(void (^)(BOOL succeeded, UIImage *image))completionBlock

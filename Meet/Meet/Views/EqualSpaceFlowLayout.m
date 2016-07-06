@@ -59,6 +59,9 @@
         layoutAttributes.frame = CGRectMake(xOffset, yOffset, itemSize.width, itemSize.height);
         [_itemAttributes addObject:layoutAttributes];
     }
+    if (self.block) {
+        self.block(yOffset + 27);
+    }
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath

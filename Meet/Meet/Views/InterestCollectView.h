@@ -12,10 +12,15 @@
 typedef void (^ReturnColloctHeight)(CGFloat height);
 typedef void (^ReturnMeetInfoHeight)(CGFloat height);
 
+static NSString * const reuseIdentifier = @"InterstCollectViewCell";
+
+
 @interface InterestCollectView : UICollectionView<UICollectionViewDataSource,UICollectionViewDelegate,EqualSpaceFlowLayoutDelegate>
 
 
 @property (nonatomic, copy) NSMutableArray *interstArray;
+
+@property (nonatomic, copy) NSMutableArray *selectItems;
 
 @property (nonatomic, strong) ReturnColloctHeight block;
 @property (nonatomic, strong) ReturnMeetInfoHeight meetInfoBlock;
@@ -25,6 +30,13 @@ typedef void (^ReturnMeetInfoHeight)(CGFloat height);
 - (void)setCollectViewData:(NSArray *)array;
 
 
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+
 - (CGFloat)interesHeight;
+
+-(CGFloat)cellWidth:(NSString *)itemString;
+
+- (void)setCollectViewData:(NSArray *)array andSelectArray:(NSArray *)selectArray;
 
 @end

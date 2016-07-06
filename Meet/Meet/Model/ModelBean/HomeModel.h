@@ -38,6 +38,8 @@
 
 @property (nonatomic, copy) NSString *longtitude;
 
+@property (nonatomic, copy) NSString *distance;
+
 @property (nonatomic, copy) NSString *personal_label;
 
 @end

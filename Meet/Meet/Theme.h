@@ -43,17 +43,24 @@
 #define MeetSectionTitleNameFont [UIFont fontWithName:@"PingFangSC-Regular" size:14.0f]
 #define MeetSectionTitleNameColot [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0]
 
+#define MeViewProfileLabelFont          [UIFont fontWithName:@"PingFangSC-Light" size:14.0f]
+#define MeViewProfileTitleLabelColor         @"202020"
+#define MeViewProfileContentLabelColor       @"7F7F7F"
+#define MeViewProfileContentLabelColorLight  @"E7E7E7"
+
+#define MeViewProfileBackGroundColor         @"f2f2f2"
 
 #define MeetDetailLineColor [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1.0]
 #define lineLabelBackgroundColor @"E7E7E7"
 #define MeInvateFriendsColor     @"FC5154"
 
+#define MeProfileCollectViewItemSelect     @"202020"
+#define MeProfileCollectViewItemUnSelect   @"F6F6F6"
 
-
-#define AboutUsLabelFont [UIFont fontWithName:@"PingFangTC-Light" size:14.0]
+#define AboutUsLabelFont [UIFont fontWithName:@"PingFangSC-Light" size:14.0]
 #define AboutUsLabelColor @"4D4D4D"
 
-#define SettingViewLabelFont [UIFont fontWithName:@"PingFangTC-Light" size:14.0]
+#define SettingViewLabelFont [UIFont fontWithName:@"PingFangSC-Light" size:14.0]
 
 
 #define TableViewTextColor @"202020"

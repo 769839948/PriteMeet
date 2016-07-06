@@ -144,12 +144,18 @@
     
     UIPickerView *pickView=[[UIPickerView alloc] init];
     pickView.backgroundColor=[UIColor lightGrayColor];
-    _pickerView=pickView;
+    _pickerView = pickView;
     pickView.delegate=self;
     pickView.dataSource=self;
     pickView.frame=CGRectMake(0, ZHToobarHeight, ScreenWidth, pickView.frame.size.height);
     _pickeviewHeight=pickView.frame.size.height;
     [self addSubview:pickView];
+}
+
+-(void)setSelectRow:(NSInteger)row inComponent:(NSInteger)componet animate:(BOOL)animated
+{
+    [_pickerView selectRow:row inComponent:componet animated:animated];
+    _resultString = self.plistArray[row];
 }
 
 -(void)setUpDatePickerWithdatePickerMode:(UIDatePickerMode)datePickerMode{

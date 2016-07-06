@@ -26,6 +26,15 @@
     return @[@"我的邀约",@"身份认证",@"我的约见",@"想见的人",@"邀请朋友"];
 }
 
+- (NSArray *)sectionTitle
+{
+    return @[@"详细资料",@"工作经历",@"教育背景"];
+}
+
+- (NSArray *)sectionButtonTitle
+{
+    return @[@"",@"添加工作经历",@"添加教育背景"];
+}
 
 - (void)updateUserInfo:(UserInfo *)userInfo
         withStateArray:(NSDictionary *)dic
@@ -39,7 +48,6 @@
 
     [self.manager PUT:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            NSLog(@"%@",responseObject);
             successBlock(responseObject);
         }else{
             failBlock(@{@"error":@"error"});
@@ -62,7 +70,6 @@
     
     [self.manager PUT:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            NSLog(@"%@",responseObject);
             successBlock(responseObject);
         }else{
             failBlock(@{@"error":@"error"});
@@ -80,13 +87,12 @@
     //    loading(@"更新个人资料");
     NSArray *array = [workString componentsSeparatedByString:@"-"];
     NSDictionary *parameters = @{ @"graduated": array[0], @"major":array[1],@"education":[[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"education"] objectForKey:array[2]],@"user_id":[WXUserInfo shareInstance].openid};
-    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestAddEduExp];
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/",RequestAddEduExp];
     
     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            NSLog(@"%@",responseObject);
             successBlock(responseObject);
         }else{
             failBlock(@{@"error":@"error"});
@@ -107,7 +113,6 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@",RequestAddWorkExp,workId];
     [self.manager PUT:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            NSLog(@"%@",responseObject);
             successBlock(responseObject);
         }else{
             failBlock(@{@"error":@"error"});
@@ -125,7 +130,6 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@",RequestAddWorkExp,workId];
     [self.manager DELETE:url parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            NSLog(@"%@",responseObject);
             successBlock(responseObject);
         }else{
             failBlock(@{@"error":@"error"});
@@ -144,7 +148,6 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@",RequestAddEduExp,eduId];
     [self.manager DELETE:url parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            NSLog(@"%@",responseObject);
             successBlock(responseObject);
         }else{
             failBlock(@{@"error":@"error"});
@@ -185,16 +188,15 @@
       loadingString:(LoadingView)loading
 {
     loading(@"获取个人信息中");
-    NSDictionary *parameters = @{@"openId":openId};
-    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestGetUserInfo];
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestGetUserInfo,openId];
 
-    [self.manager GET:url parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
+    [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject);
+            successBlock(responseObject[@"data"]);
         }else{
-            failBlock(responseObject);
+            failBlock(@{@"state":@"fail"});
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failBlock(@{@"":@""});
@@ -261,8 +263,8 @@
            fail:(Fail)failBlock
   loadingString:(LoadingView)loading
 {
-    NSDictionary *parameters = @{@"description":description};
-    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestAddStar,[WXUserInfo shareInstance].openid];
+    NSDictionary *parameters = @{@"highlight":description};
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestExtINfo,[WXUserInfo shareInstance].openid];
     
     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
@@ -301,7 +303,8 @@
 
 
 - (void)uploadInvite:(NSString *)description
-           themeArray:(NSArray *)themeArray
+          themeArray:(NSArray *)themeArray
+            isActive:(BOOL)isActive
              success:(Success)successBlock
                 fail:(Fail)failBlock
        loadingString:(LoadingView)loading
@@ -312,8 +315,16 @@
 //        NSDictionary *invitationDic = [[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitation"];
         them = [them stringByAppendingString:[NSString stringWithFormat:@"%@,",[[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitation"]objectForKey:themeString]]];
     }
-    NSString *subLastString = [them substringToIndex:them.length - 1];
-    NSDictionary *parameters = @{ @"introduction":description, @"theme":subLastString};
+    NSString *subLastString = @"";
+    if (them.length > 1){
+        subLastString = [them substringToIndex:them.length - 1];
+    }
+    NSDictionary *parameters;
+    if (isActive) {
+        parameters = @{ @"introduction":description, @"theme":subLastString,@"is_active":@YES};
+    }else{
+        parameters = @{ @"introduction":description, @"theme":subLastString,@"is_active":@NO};
+    }
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestInviteInfo,[WXUserInfo shareInstance].openid];
     
     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -376,6 +387,43 @@
     
 }
 
+
+- (void)lastModifield:(void (^)(NSString *time))lastBlock failBlock:(Fail)failBock
+{
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestLastUpdate,[WXUserInfo shareInstance].openid];
+    
+    [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([[responseObject objectForKey:@"success"] boolValue]) {
+            lastBlock(responseObject[@"updated_at"]);
+        }else{
+            failBock(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failBock(@{@"":@""});
+    }];
+    
+}
+
+- (void)getAllInviteAllItems:(Success)successBlock
+                        fail:(Fail)failBlock
+                            loadingString:(LoadingView)loading
+{
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestGetInviteItems];
+    
+    [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([[responseObject objectForKey:@"success"] boolValue]) {
+            successBlock(responseObject[@"data"]);
+        }else{
+            failBlock(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failBlock(@{@"":@""});
+    }];
+}
 
 - (NSString *)getTimeNow
 {

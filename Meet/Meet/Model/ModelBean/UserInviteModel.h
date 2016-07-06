@@ -15,6 +15,8 @@
 
 @property (nonatomic, assign) BOOL is_fake;
 
+@property (nonatomic, assign) BOOL is_active;
+
 @property (nonatomic, strong) NSArray<Theme *> *theme;
 
 @end

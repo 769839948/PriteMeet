@@ -17,8 +17,6 @@
 
 + (void)homeNameLabelColor:(UILabel *)nameLable;
 
-//- (void)configCell:(NSString *)title array:(NSArray *)array string:(NSString *)string;
-
 - (void)configCell:(HomeModel *)model interstArray:(NSArray *)interstArray;
 
 @end

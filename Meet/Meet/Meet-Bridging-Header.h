@@ -19,7 +19,6 @@
 #import "UITools.h"
 #import "UserInfoViewModel.h"
 #import "MyProfileViewController.h"
-#import "SendInviteViewController.h"
 #import "SetingViewController.h"
 #import "NetWorkObject.h"
 #import "Define.h"
@@ -38,10 +37,12 @@
 #import "TransparentView.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "WeChatResgisterViewController.h"
-
-
-
-
+#import "WXUserInfo.h"
+#import "RequestUrl.h"
+#import "SetInviteCollectView.h"
+#import "EqualSpaceFlowLayout.h"
+#import "UITextView+Placeholder.h"
+#import "UIViewController+DismissKeyboard.h"
 
 
 

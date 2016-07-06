@@ -19,8 +19,6 @@
 @property (nonatomic, strong) UILabel *positionLabel;
 @property (nonatomic, strong) UILabel *meetNumber;
 
-@property (nonatomic, strong) InterestCollectView *interestView;
-
 @property (nonatomic, strong) CenterlabelView *centerLabelView;
 
 
@@ -105,7 +103,7 @@
             make.top.mas_equalTo(weakSelf.positionLabel.mas_bottom).offset(8);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
-            make.bottom.mas_equalTo(weakSelf.interestView.mas_top).offset(-16);
+            make.bottom.mas_equalTo(weakSelf.centerLabelView.mas_top).offset(-16);
             make.height.mas_offset(0.1);
         }];
         [self updateConstraints];

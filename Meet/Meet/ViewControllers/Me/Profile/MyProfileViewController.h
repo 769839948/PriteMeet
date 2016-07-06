@@ -17,10 +17,13 @@ typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 #import "MeetBaseViewController.h"
 #import "EMAlertView.h"
 
-@interface MyProfileViewController : MeetBaseViewController
+@interface MyProfileViewController : MeetBaseViewController<UITableViewDelegate,UITableViewDataSource>
 {
 
 }
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 
 @property (nonatomic, weak) IBOutlet UIView *chooseView;
 
@@ -32,7 +35,6 @@ typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 
 @property (assign, nonatomic)    NSInteger pickerSelectRow;
 
-
 @property (strong, nonatomic) UserInfoViewModel *viewModel;
 
 @property (copy, nonatomic) NSString *headImageUrl;
@@ -42,12 +44,16 @@ typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 
 @property (copy, nonatomic) NSMutableDictionary *stateArray;
 
+@property (assign, nonatomic) BOOL isBaseView;
+
 @property (assign, nonatomic) BOOL fromeMeView;
+
+@property (copy, nonatomic) NSString *hightLight;
 
 - (void)mappingUserInfoWithDicValues;
 
-- (void)sexItemModify;
+- (BOOL)chectBaseInfo;
 
-- (NSString *)imageSaveParth;
+- (void)leftItemClick:(UIBarButtonItem *)sender;
 
 @end

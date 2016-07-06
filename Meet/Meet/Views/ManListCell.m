@@ -26,6 +26,9 @@
 @property (nonatomic, strong) UIImageView *photoImage;
 @property (nonatomic, strong) InterestCollectView *interestView;
 
+
+@property (nonatomic, strong) EqualSpaceFlowLayout *flowLayout;
+
 @property (nonatomic, assign) CGFloat dicHeight;
 
 @property (nonatomic, strong) UILabel *bottomLine;
@@ -95,10 +98,10 @@
     _ageNumber.titleLabel.font = HomeViewAgeFont;
     [_personalView addSubview:_ageNumber];
     
-    EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] init];
+    _flowLayout = [[EqualSpaceFlowLayout alloc] init];
     if (_interestView == nil) {
-        _interestView = [[InterestCollectView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
-        flowLayout.delegate = _interestView;
+        _interestView = [[InterestCollectView alloc] initWithFrame:CGRectZero collectionViewLayout:_flowLayout];
+        _flowLayout.delegate = _interestView;
         [_personalView addSubview:_interestView];
     }
     [self updateConstraints];
@@ -109,7 +112,6 @@
     NSString* date;
     
     NSDateFormatter * formatter = [[NSDateFormatter alloc ] init];
-    //[formatter setDateFormat:@"YYYY.MM.dd.hh.mm.ss"];
     [formatter setDateFormat:@"YYYY-MM-dd hh:mm:ss:SSS"];
     date = [formatter stringFromDate:[NSDate date]];
     NSString *timeNow = [[NSString alloc] initWithFormat:@"%@", date];
@@ -121,8 +123,7 @@
     __weak typeof(self) weakSelf = self;
     if (model.cover_photo != nil || model.cover_photo != NULL) {
         Cover_photo *coverPhoto = [Cover_photo mj_objectWithKeyValues:model.cover_photo];
-        [_photoImage setIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        [_photoImage sd_setImageWithURL:[NSURL URLWithString:coverPhoto.photo] placeholderImage:PlaceholderImage options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [_photoImage sd_setImageWithURL:[NSURL URLWithString:coverPhoto.photo] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
 
         }];
     }else{
@@ -145,14 +146,20 @@
         _nameLabel.text = [model.real_name stringByAppendingString:[NSString stringWithFormat:@" %@", model.job_label]];
 
     }
-    float titleHeight = [_nameLabel.text heightWithFont:HomeViewNameFont constrainedToWidth:ScreenWidth - 20];
+    float titleHeight = [_nameLabel.text heightWithFont:HomeViewNameFont constrainedToWidth:ScreenWidth - 40];
     if (titleHeight > 30){
         [_nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_offset(titleHeight);
         }];
         [self updateConstraints];
     }
-    _meetNumber.text = @"886人想见   和你相隔 820.5km ";
+    if (model.distance == nil) {
+        _meetNumber.text = [NSString stringWithFormat:@"和你相隔  0m"];
+
+    }else{
+        _meetNumber.text = [NSString stringWithFormat:@"和你相隔  %@",model.distance];
+
+    }
     if ([_meetNumber.text isEqualToString:@""]) {
         [_meetNumber mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(8);
@@ -180,32 +187,16 @@
             make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32).priorityHigh(self.meetNumber.mas_bottom);
-            make.height.offset(27);
+            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32);
+            make.height.offset([self cellHeight:interstArray]);
         }];
-        
-        if ([_interestView contentSize].height == 0) {
-            NSLog(@"=============[_interestView contentSize].height=======%f",[_interestView contentSize].height);
+        [weakSelf updateConstraints];
+        [weakSelf updateConstraintsIfNeeded];
+        _flowLayout.block = ^(CGFloat height){
             
-            [_interestView setCollectViewData:interstArray];
-            _interestView.meetInfoBlock = ^(CGFloat height ){
-                NSLog(@"=====================%f",height);
-                _dicHeight = height;
-                [weakSelf.interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
-                    make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-                    make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-                    make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32);
-                    make.height.offset(height);
-                }];
-                [weakSelf updateConstraints];
-                [weakSelf updateConstraintsIfNeeded];
-            };
-        }
-        
-        
+            
+        };
     }
-    [self updateConstraintsIfNeeded];
     [ManListCell homeNameLabelColor:_nameLabel];
 
 }
@@ -222,6 +213,27 @@
     nameLable.attributedText = str;
 }
 
+- (CGFloat)cellHeight:(NSArray *)interArray
+{
+    CGFloat yOffset = 28;
+    CGFloat allSizeWidth = 0;
+    for (NSInteger idx = 0; idx < interArray.count; idx++) {
+        CGSize itemSize = CGSizeMake([self cellWidth:[interArray objectAtIndex:idx]], 28);
+        allSizeWidth = allSizeWidth + itemSize.width + 10;
+        if (allSizeWidth > ScreenWidth - 40) {
+            yOffset = yOffset + 35;
+            allSizeWidth = itemSize.width + 10;
+        }
+    }
+    return yOffset;
+}
+
+- (CGFloat)cellWidth:(NSString *)itemString
+{
+    CGFloat cellWidth;
+    cellWidth = [itemString widthWithFont:[UIFont systemFontOfSize:13.0] constrainedToHeight:18];
+    return cellWidth + 18;
+}
 
 - (void)updateConstraints
 {

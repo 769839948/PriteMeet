@@ -65,8 +65,9 @@
         [self.contentView addSubview:_lineLabel];
     }
     _aboutAll = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_aboutAll setTitle:@"查看全部" forState:UIControlStateNormal];
+    [_aboutAll setTitle:@"更多介绍" forState:UIControlStateNormal];
     _aboutAll.layer.cornerRadius = 14.0;
+    _aboutAll.userInteractionEnabled = NO;
     _aboutAll.titleLabel.font = HomeViewDetailAboutBtnFont;
     [_aboutAll setTitleColor:[UIColor colorWithHexString:HomeViewDetailAboutBtnColor] forState:UIControlStateNormal];
     _aboutAll.backgroundColor = [UIColor blackColor];
@@ -74,22 +75,27 @@
     
 }
 
-- (void)configCell:(NSArray *)stringArray withGender:(NSInteger)gender
+- (void)configCell:(NSArray *)stringArray withUrl:(NSString *)web_url
 {
     float maxHeight = 10.0;
     if (_isFirstLoad && stringArray != _stringArray) {
         for (NSInteger i = 0; i < stringArray.count; i ++) {
-            CustomLabel *customLabel = [CustomLabel setUpLabel:CGRectMake(19, (maxHeight) + 10, ScreenWidth - 38, 0) text:[stringArray objectAtIndex:i]];
+            if (![[stringArray objectAtIndex:i] isEqualToString:@""]) {
+                CustomLabel *customLabel = [CustomLabel setUpLabel:CGRectMake(19, (maxHeight) + 10, ScreenWidth - 38, 0) text:[stringArray objectAtIndex:i]];
+                [self.contentView addSubview:customLabel];
+                maxHeight = CGRectGetMaxY(customLabel.frame);
+            }
             
-            [self.contentView addSubview:customLabel];
-            maxHeight = CGRectGetMaxY(customLabel.frame);
         }
         _stringArray = [stringArray mutableCopy];
         _isFirstLoad = NO;
     }
-    if (CGRectGetMaxY(_aboutAll.frame) < maxHeight) {
-        _aboutAll.frame = CGRectMake((ScreenWidth - 72) / 2, maxHeight + 23, 72, 27);
-        [_aboutAll addTarget:self action:@selector(aboutDetailPress) forControlEvents:UIControlEventTouchUpInside];
+    if (![web_url isEqualToString:@""]) {
+        if (CGRectGetMaxY(_aboutAll.frame) < maxHeight) {
+            _aboutAll.frame = CGRectMake((ScreenWidth - 72) / 2, maxHeight + 23, 72, 27);
+        }
+    }else{
+        _aboutAll.hidden = YES;
     }
 }
 
@@ -102,13 +108,6 @@
     [super updateConstraints];
 }
 
-- (void)aboutDetailPress
-{
-    NSLog(@"ButtonPress");
-    if (self.block) {
-        self.block();
-    }
-}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

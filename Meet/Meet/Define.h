@@ -22,6 +22,8 @@
 #define IOS_8LAST ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)?1:0
 #define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
+#define iPhone6Plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242,2208), [[UIScreen mainScreen] currentMode].size) : NO)
+
 #define NAVIGATION_BAR_COLOR   [UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0.8]
 
 #define WX_access_tokenURL_str          @"https://api.weixin.qq.com/sns/oauth2/access_token"
@@ -36,5 +38,8 @@
 
 
 #define loginStateChange  @"loginStateChange"
+
+
+#define GAODEMapKey       @"a2001b013b8cd42ddb1982b3ba2f574a"
 
 #endif /* Define_h */

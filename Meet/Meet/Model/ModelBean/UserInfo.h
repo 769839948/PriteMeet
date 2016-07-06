@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "WXUserInfo.h"
 
 @class Edu_Expirence,Work_Expirence,Completeness;
 
@@ -116,6 +117,8 @@
 + (BOOL)isLoggedIn;
 
 + (BOOL)logout;
+
++ (BOOL)synchronizeWithWXUserInfo:(WXUserInfo *)wxuserInfo;
 
 + (UIImage *)imageForName:(NSString *)name;
 

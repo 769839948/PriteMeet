@@ -20,8 +20,19 @@
 #import "HomeViewModel.h"
 #import "MJExtension.h"
 #import "HomeModel.h"
+#import "UserInfo.h"
+#import "UITools.h"
+#import <AMapLocationKit/AMapLocationKit.h>
+#import <AMapLocationKit/AMapLocationManager.h>
 
-@interface FristHomeViewController ()<UIGestureRecognizerDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource>
+typedef NS_ENUM(NSInteger, FillterName) {
+    NomalList,
+    LocationList,
+    ReconmondList,
+};
+
+
+@interface FristHomeViewController ()<UIGestureRecognizerDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource,AMapLocationManagerDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -36,25 +47,64 @@
 @property (nonatomic, copy) NSMutableArray *homeModelArray;
 @property (nonatomic, copy) NSMutableDictionary *offscreenCells;
 
+@property (nonatomic, strong) AMapLocationManager *locationManager;
+
+@property (nonatomic, assign) double logtitude;
+@property (nonatomic, assign) double latitude;
+
+@property (nonatomic, assign) FillterName fillterName;
+
 @end
 
 @implementation FristHomeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _fillterName = ReconmondList;
     [self setUpTableView];
     _page = 0;
     _viewModel = [[HomeViewModel alloc] init];
     _homeModelArray = [NSMutableArray array];
     [self setUpNavigationBar];
     [self setUpRefreshView];
-    [self setUpHomeData];
-    
-    
+    [self setUpLocationManager];
+}
+
+- (void)setUpLocationManager
+{
+    self.locationManager = [[AMapLocationManager alloc] init];
+    // 带逆地理信息的一次定位（返回坐标和地址信息）
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    //   定位超时时间，最低2s，此处设置为3s
+    self.locationManager.locationTimeout =3;
+    //   逆地理请求超时时间，最低2s，此处设置为3s
+    self.locationManager.reGeocodeTimeout = 3;
+    self.locationManager.delegate = self;
+    __weak typeof(self) weakSelf = self;
+    [self.locationManager requestLocationWithReGeocode:NO completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+        if (error)
+        {
+            NSLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+            
+            if (error.code == 1)
+            {
+                return;
+            }
+        }
+        _latitude = location.coordinate.latitude;
+        _logtitude = location.coordinate.longitude;
+        [weakSelf setUpHomeData];
+        if ([UserInfo isLoggedIn]) {
+            [weakSelf.viewModel senderLocation:location.coordinate.latitude longitude:location.coordinate.longitude];
+        }
+        if (regeocode)
+        {
+            NSLog(@"reGeocode:%@", regeocode);
+        }
+    }];
 }
 
 - (void)loadNewData {
-    NSLog(@"ChoicenessViewController refreshing");
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.tableView.mj_header endRefreshing];
     });
@@ -63,33 +113,56 @@
 
 - (void)setUpHomeData
 {
-    _page ++;
-    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
-    __weak typeof(self) weakSelf = self;
-    [_viewModel getHomeList:pageString successBlock:^(NSDictionary *object) {
-        [weakSelf.homeModelArray addObjectsFromArray:[HomeModel  mj_objectArrayWithKeyValuesArray:object]];
-        [weakSelf.tableView reloadData];
-        [weakSelf.tableView.mj_footer endRefreshing];
-    } failBlock:^(NSDictionary *object) {
-        if (_page > 0) {
-            _page --;
+    if (_fillterName == NomalList) {
+        _page ++;
+        NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
+        __weak typeof(self) weakSelf = self;
+        [_viewModel getHomeList:pageString latitude:_latitude longitude:_logtitude successBlock:^(NSDictionary *object) {
+            [weakSelf.homeModelArray addObjectsFromArray:[HomeModel  mj_objectArrayWithKeyValuesArray:object]];
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_footer endRefreshing];
+        } failBlock:^(NSDictionary *object) {
+            if (_page > 0) {
+                _page --;
+            }
+            [weakSelf setUpHomeData];
+            [weakSelf.tableView.mj_footer endRefreshing];
+        } loadingView:^(NSString *str) {
+        }];
+    }else{
+        _page ++;
+        NSString *filter =  @"";
+        if (_fillterName == LocationList) {
+            filter = @"location";
+        }else{
+            filter = @"recommend";
         }
-        [weakSelf setUpHomeData];
-        [weakSelf.tableView.mj_footer endRefreshing];
-    } loadingView:^(NSString *str) {
-        
-    }];
+        NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
+        __weak typeof(self) weakSelf = self;
+        [_viewModel getHomeFilterList:pageString latitude:_latitude longitude:_logtitude filter:filter successBlock:^(NSDictionary *object) {
+            [weakSelf.homeModelArray addObjectsFromArray:[HomeModel  mj_objectArrayWithKeyValuesArray:object]];
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_footer endRefreshing];
+        } failBlock:^(NSDictionary *object) {
+            if (_page > 0) {
+                _page --;
+            }
+            [weakSelf setUpHomeData];
+            [weakSelf.tableView.mj_footer endRefreshing];
+        } loadingView:^(NSString *str) {
+            
+        }];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-    [self setUpBottonView];
     [self setStatusView];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     [self.navigationController.navigationBar setBarTintColor:NavigationBarTintColorCustome];
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
+    [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 0.5)]];
+//    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
 
 }
 
@@ -133,14 +206,16 @@
     [icon_User setFrame:CGRectMake(0, 0, 40, 40)];
     [icon_User addTarget:self action:@selector(rightItemPess:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:icon_User];
-    
+    [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 0.5)]];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:TableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [self setStatusView];
 }
 
 - (void)rightItemPess:(UIBarButtonItem *)sender
 {
+//    UIAlertView *aletView = [[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"" otherButtonTitles:@""];
     [self presentViewController:[[BaseNavigaitonController alloc] initWithRootViewController:[[MeViewController alloc] init]] animated:YES completion:^{
-        
+
     }];
 }
 
@@ -158,9 +233,6 @@
     _bottomView = [[UIView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width - 84, [[UIScreen mainScreen] bounds].size.height - 74, 56, 54)];
     [_bottomView addSubview:[self myMeetBt:CGRectMake(0, 0, 54, 54)]];
     [_bottomView addSubview:[self myMeetNumber:CGRectMake(_bottomView.frame.size.width - 18, 0, 18, 18)]];
-    
-    POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
-    
     
     [[UIApplication sharedApplication].keyWindow addSubview:_bottomView];
 }
@@ -291,8 +363,12 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
-    
-    if (translation.y < 0)
+    if (scrollView.contentOffset.y <= 0){
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:TableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    }else{
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    }
+    if (translation.y < -50)
     {
         _bottomView.hidden = YES;
         _statusView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
@@ -304,19 +380,28 @@
     }
     
     if (scrollView.contentOffset.y <= 0){
-        self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+        
     }
-}
-
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
-{
-    
 }
 
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    
+    switch (buttonIndex) {
+        case 0:
+            [_homeModelArray removeAllObjects];
+            _fillterName = ReconmondList;
+            _page = 0;
+            [self setUpHomeData];
+        
+            break;
+        default:
+            [_homeModelArray removeAllObjects];
+            _fillterName = LocationList;
+            _page = 0;
+            [self setUpHomeData];
+            break;
+    }
 }
 
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet
@@ -324,14 +409,55 @@
     
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - AMapLocationDelegate
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)amapLocationManager:(AMapLocationManager *)manager didFailWithError:(NSError *)error
+{
+    
 }
-*/
+
+/**
+ *  开始监控region回调函数
+ *
+ *  @param manager 定位 AMapLocationManager 类。
+ *  @param region 开始监控的region。
+ */
+- (void)amapLocationManager:(AMapLocationManager *)manager didStartMonitoringForRegion:(AMapLocationRegion *)region
+{
+    
+}
+/**
+ *  进入region回调函数
+ *
+ *  @param manager 定位 AMapLocationManager 类。
+ *  @param region 进入的region。
+ */
+- (void)amapLocationManager:(AMapLocationManager *)manager didEnterRegion:(AMapLocationRegion *)region
+{
+    
+}
+
+- (void)amapLocationManager:(AMapLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    __weak typeof(self) weakSelf = self;
+    if (status == kCLAuthorizationStatusNotDetermined){
+        [_viewModel senderIpAddress:^(NSDictionary *object) {
+            _logtitude = [object[@"lon"] doubleValue];
+            _latitude = [object[@"lat"] doubleValue];
+            [weakSelf setUpHomeData];
+        } fail:^(NSDictionary *object) {
+            
+        }];
+    }else if(status == kCLAuthorizationStatusDenied){
+        [_viewModel senderIpAddress:^(NSDictionary *object) {
+            _logtitude = [object[@"lon"] doubleValue];
+            _latitude = [object[@"lat"] doubleValue];
+            [weakSelf setUpHomeData];
+        } fail:^(NSDictionary *object) {
+            
+        }];
+    }
+}
+
 
 @end

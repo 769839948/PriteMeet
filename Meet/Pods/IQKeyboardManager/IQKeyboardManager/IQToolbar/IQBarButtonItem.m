@@ -22,7 +22,6 @@
 // THE SOFTWARE.
 
 #import "IQBarButtonItem.h"
-#import "IQToolbar.h"
 #import "IQKeyboardManagerConstantsInternal.h"
 
 @implementation IQBarButtonItem
@@ -30,13 +29,11 @@
 +(void)load
 {
     //Tint color
-    [[self appearance] setTintColor:[UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0]];
+    [[self appearance] setTintColor:nil];
 
     //Title
-//    [[self appearance] setTitleFont:[UIFont fontWithName:@"PingFangSC-Light" size:14.0]];
-    
     [[self appearance] setTitlePositionAdjustment:UIOffsetZero forBarMetrics:UIBarMetricsDefault];
-    [[self appearance] setTitleTextAttributes:@{UITextAttributeFont:[UIFont fontWithName:@"PingFangSC-Light" size:14.0]} forState:UIControlStateNormal];
+    [[self appearance] setTitleTextAttributes:nil forState:UIControlStateNormal];
     [[self appearance] setTitleTextAttributes:nil forState:UIControlStateHighlighted];
     [[self appearance] setTitleTextAttributes:nil forState:UIControlStateDisabled];
     [[self appearance] setTitleTextAttributes:nil forState:UIControlStateSelected];
