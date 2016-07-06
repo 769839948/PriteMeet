@@ -28,7 +28,7 @@
 
 - (NSArray *)sectionTitle
 {
-    return @[@"更多介绍",@"工作经历",@"教育背景"];
+    return @[@"详细资料",@"工作经历",@"教育背景"];
 }
 
 - (NSArray *)sectionButtonTitle
@@ -48,7 +48,6 @@
 
     [self.manager PUT:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            NSLog(@"%@",responseObject);
             successBlock(responseObject);
         }else{
             failBlock(@{@"error":@"error"});
@@ -71,7 +70,6 @@
     
     [self.manager PUT:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            NSLog(@"%@",responseObject);
             successBlock(responseObject);
         }else{
             failBlock(@{@"error":@"error"});
@@ -95,7 +93,6 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            NSLog(@"%@",responseObject);
             successBlock(responseObject);
         }else{
             failBlock(@{@"error":@"error"});
@@ -116,7 +113,6 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@",RequestAddWorkExp,workId];
     [self.manager PUT:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            NSLog(@"%@",responseObject);
             successBlock(responseObject);
         }else{
             failBlock(@{@"error":@"error"});
@@ -134,7 +130,6 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@",RequestAddWorkExp,workId];
     [self.manager DELETE:url parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            NSLog(@"%@",responseObject);
             successBlock(responseObject);
         }else{
             failBlock(@{@"error":@"error"});
@@ -153,7 +148,6 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@",RequestAddEduExp,eduId];
     [self.manager DELETE:url parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            NSLog(@"%@",responseObject);
             successBlock(responseObject);
         }else{
             failBlock(@{@"error":@"error"});
@@ -403,6 +397,24 @@
     
 }
 
+- (void)getAllInviteAllItems:(Success)successBlock
+                        fail:(Fail)failBlock
+                            loadingString:(LoadingView)loading
+{
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestGetInviteItems];
+    
+    [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([[responseObject objectForKey:@"success"] boolValue]) {
+            successBlock(responseObject[@"data"]);
+        }else{
+            failBlock(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failBlock(@{@"":@""});
+    }];
+}
 
 - (NSString *)getTimeNow
 {

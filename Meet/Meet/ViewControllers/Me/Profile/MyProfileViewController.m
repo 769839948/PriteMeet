@@ -462,7 +462,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     NSString *affection = [[locationDic objectForKey:@"affection"] objectForKey:_dicValues[_moreInfoArray[RowState - _titleContentArray.count]]];
     NSString *rowHeight = _dicValues[_moreInfoArray[RowHeight - _titleContentArray.count]];
     ;
-    NSString *height = [[locationDic objectForKey:@"height"] objectForKey:[rowHeight substringToIndex:rowHeight.length - 2]];
+    NSString *height = [[locationDic objectForKey:@"height"] objectForKey:[rowHeight substringToIndex:rowHeight.length]];
     NSString *income = [[locationDic objectForKey:@"income"] objectForKey:_dicValues[_moreInfoArray[RowIncome - _titleContentArray.count]]];
     NSString *constellation = [[locationDic objectForKey:@"constellation"] objectForKey:_dicValues[_moreInfoArray[RowConstellation - _titleContentArray.count]]];
     
@@ -1361,6 +1361,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 [EMAlertView showAlertWithTitle:nil message:@"多个职业身份请用空格分隔" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
                     
                 } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
+            }else{
+                LabelAndTextFieldCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:RowPhoneNumber  inSection:0]];
+                [cell.textField becomeFirstResponder];
             }
         }else if (textField.tag == RowPhoneNumber) {
             if (![NSString isPureInt:textField.text]) {
@@ -1368,7 +1371,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                     
                 } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
             }else{
-                LabelAndTextFieldCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:7  inSection:0]];
+                LabelAndTextFieldCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:RowWX_Id  inSection:0]];
                 [cell.textField becomeFirstResponder];
             }
         }else if (textField.tag == 1){
@@ -1433,9 +1436,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
 }
 
 - (void)mappingTextFieldDictionary:(CellTextField *)textfield {
-    if (textfield.text == nil || [textfield.text isEqualToString:@""]) {
-        return ;
-    }
+//    if (textfield.text == nil || [textfield.text isEqualToString:@""]) {
+//        return ;
+//    }
     NSIndexPath *indexPath = textfield.indexPath;
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;

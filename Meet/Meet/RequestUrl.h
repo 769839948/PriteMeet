@@ -40,4 +40,8 @@
 
 #define  RequestGetFilterUserList    @"/api/user/list_filter/"
 
+#define  RequestGetInviteItems       @"/api/user_engagement_theme/"
+
+//http://momeet.cn/api/dict_map/
+
 #endif /* RequestUrl_h */

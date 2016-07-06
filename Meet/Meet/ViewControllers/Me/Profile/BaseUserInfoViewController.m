@@ -12,7 +12,6 @@
 #import "UserInfoViewModel.h"
 #import "WXUserInfo.h"
 #import "Meet-Swift.h"
-#import "SendInviteViewController.h"
 #import "UIImage+Alpha.h"
 #import "NSString+StringType.h"
 
@@ -91,8 +90,8 @@
                     default:
                     {
                         UIStoryboard  *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
-                        SendInviteViewController *senderInviteVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"SendInviteViewController"];
-                        senderInviteVC.isNewLogin = YES;
+                        SenderInviteViewController *senderInviteVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"SenderInviteViewController"];
+//                        senderInviteVC.isNewLogin = YES;
                         [self.navigationController pushViewController:senderInviteVC animated:YES];
                     }
                         break;

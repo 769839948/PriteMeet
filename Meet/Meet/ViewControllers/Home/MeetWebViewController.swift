@@ -27,16 +27,20 @@ class MeetWebViewController: UIViewController {
         webView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor);
         let url = NSURL.init(string: url)
         let request = NSURLRequest.init(URL: url!)
-        progressProxy = NJKWebViewProgress()
-        webView.delegate = progressProxy
-        progressProxy.webViewProxyDelegate = self
-        progressProxy.progressDelegate = self
+//        progressProxy = NJKWebViewProgress()
+        webView.delegate = self
+//        progressProxy.webViewProxyDelegate = self
+//        progressProxy.progressDelegate = self
         //
-        let  progressBarHeight:CGFloat = 2
-        let  navigationBarBounds:CGRect = self.navigationController!.navigationBar.bounds;
-        let barFrame:CGRect = CGRectMake(0, 64, navigationBarBounds.size.width, progressBarHeight);
-        progressView = NJKWebViewProgressView(frame:barFrame);
-        progressView.autoresizingMask = [.FlexibleWidth,.FlexibleTopMargin]
+//        let  progressBarHeight:CGFloat = 2
+//        let  navigationBarBounds:CGRect = self.navigationController!.navigationBar.bounds;
+//        let barFrame:CGRect = CGRectMake(0, 64, navigationBarBounds.size.width, progressBarHeight);
+//        progressView = NJKWebViewProgressView(frame:barFrame);
+//        progressView.autoresizingMask = [.FlexibleWidth,.FlexibleTopMargin]
+        
+        
+        
+        
         webView.loadRequest(request)
         
 
@@ -44,7 +48,7 @@ class MeetWebViewController: UIViewController {
         self.view.addSubview(webView)
         
         webView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(2)
+            make.top.equalTo(self.view.snp_top).offset(0)
             make.left.equalTo(self.view.snp_left).offset(0)
             make.right.equalTo(self.view.snp_right).offset(0)
             make.bottom.equalTo(self.view.snp_bottom).offset(0)
@@ -83,9 +87,9 @@ extension MeetWebViewController : UIWebViewDelegate
     
 }
 
-extension MeetWebViewController : NJKWebViewProgressDelegate {
-    
-    func webViewProgress(webViewProgress: NJKWebViewProgress!, updateProgress progress: Float) {
-        progressView.setProgress(progress, animated: true)
-    }
-}
+//extension MeetWebViewController : NJKWebViewProgressDelegate {
+//    
+////    func webViewProgress(webViewProgress: NJKWebViewProgress!, updateProgress progress: Float) {
+////        progressView.setProgress(progress, animated: true)
+////    }
+//}

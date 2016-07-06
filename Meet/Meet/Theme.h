@@ -54,7 +54,8 @@
 #define lineLabelBackgroundColor @"E7E7E7"
 #define MeInvateFriendsColor     @"FC5154"
 
-
+#define MeProfileCollectViewItemSelect     @"202020"
+#define MeProfileCollectViewItemUnSelect   @"F6F6F6"
 
 #define AboutUsLabelFont [UIFont fontWithName:@"PingFangSC-Light" size:14.0]
 #define AboutUsLabelColor @"4D4D4D"

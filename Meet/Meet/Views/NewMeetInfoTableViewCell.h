@@ -9,7 +9,6 @@
 #import "BaseTableViewCell.h"
 
 typedef void (^tableCellHeight)(CGFloat height);
-//typedef void (^<#name#>)(arguments);
 
 @interface NewMeetInfoTableViewCell : BaseTableViewCell
 

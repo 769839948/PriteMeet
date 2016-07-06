@@ -26,13 +26,10 @@ static UserInviteModel *userInvite = nil;
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        
         if ([UserInviteModel isHaveInviteInfo]) {
             userInvite = [NSKeyedUnarchiver unarchiveObjectWithFile:kEncodedObjectPath_UserInvite];
-            
         }else{
             userInvite = [[UserInviteModel alloc] init];
-            
         }
     });
     return userInvite;

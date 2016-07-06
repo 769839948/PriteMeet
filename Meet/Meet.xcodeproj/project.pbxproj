@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F1FB4851D0FD78E00794881 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1FB4841D0FD78E00794881 /* UIImage+Alpha.m */; };
 		1F1FB4881D0FFBAE00794881 /* UserInviteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1FB4871D0FFBAE00794881 /* UserInviteModel.m */; };
+		1F2059261D2BBD6F001FF99C /* SetInviteCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2059251D2BBD6F001FF99C /* SetInviteCollectView.m */; };
 		1F293D661D113C210063A9DA /* QiniuNetWorking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D651D113C210063A9DA /* QiniuNetWorking.m */; };
 		1F293D691D1166490063A9DA /* HomeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D681D1166490063A9DA /* HomeViewModel.m */; };
 		1F293D6C1D1175090063A9DA /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D6B1D1175090063A9DA /* HomeModel.m */; };
@@ -92,6 +93,11 @@
 		1FCAFFD81D0181AA00BF53A1 /* EMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFD71D0181AA00BF53A1 /* EMAlertView.m */; };
 		1FCAFFDB1D01983B00BF53A1 /* UserInfoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFDA1D01983B00BF53A1 /* UserInfoViewModel.m */; };
 		1FDA53A61D003DC800C170BC /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA53A51D003DC800C170BC /* UIColor+Hex.m */; };
+		1FF3C50B1D2B842400BE89A9 /* SenderInviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3C50A1D2B842400BE89A9 /* SenderInviteViewController.swift */; };
+		1FF3C50E1D2B8A0E00BE89A9 /* InviteTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3C50D1D2B8A0E00BE89A9 /* InviteTitleTableViewCell.swift */; };
+		1FF3C5101D2B8A3300BE89A9 /* InviteItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3C50F1D2B8A3300BE89A9 /* InviteItemsTableViewCell.swift */; };
+		1FF3C5121D2B8A5000BE89A9 /* InviteDetailInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3C5111D2B8A5000BE89A9 /* InviteDetailInfoTableViewCell.swift */; };
+		1FF3C5141D2B8A6C00BE89A9 /* InviteDetailTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3C5131D2B8A6C00BE89A9 /* InviteDetailTitleTableViewCell.swift */; };
 		1FF921301D23D21900AE0429 /* UIViewController+DismissKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF9212F1D23D21900AE0429 /* UIViewController+DismissKeyboard.m */; };
 		1FFB5F351D054BD900021F77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FFB5F341D054BD900021F77 /* Assets.xcassets */; };
 		1FFB5F381D05650400021F77 /* BaseUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F371D05650400021F77 /* BaseUserInfoViewController.m */; };
@@ -191,7 +197,6 @@
 		DAF5C8C21CE6D6AD00DA7901 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = DAF5C8B41CE6D6AD00DA7901 /* README.txt */; };
 		DAF5C8C91CE6F3EB00DA7901 /* MyPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5C8C81CE6F3EB00DA7901 /* MyPhotosViewController.m */; };
 		DAF5C8CD1CE6F79900DA7901 /* PhotosGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5C8CC1CE6F79900DA7901 /* PhotosGridViewController.m */; };
-		DAF5C8D11CE6F87A00DA7901 /* SendInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5C8D01CE6F87A00DA7901 /* SendInviteViewController.m */; };
 		F0E56C1B70EA36CD2F1FDC2D /* Pods_Meet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01422377568E95CDDD430F0B /* Pods_Meet.framework */; };
 /* End PBXBuildFile section */
 
@@ -202,6 +207,8 @@
 		1F1FB4841D0FD78E00794881 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
 		1F1FB4861D0FFBAE00794881 /* UserInviteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInviteModel.h; sourceTree = "<group>"; };
 		1F1FB4871D0FFBAE00794881 /* UserInviteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInviteModel.m; sourceTree = "<group>"; };
+		1F2059241D2BBD6F001FF99C /* SetInviteCollectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetInviteCollectView.h; sourceTree = "<group>"; };
+		1F2059251D2BBD6F001FF99C /* SetInviteCollectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetInviteCollectView.m; sourceTree = "<group>"; };
 		1F293D641D113C210063A9DA /* QiniuNetWorking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiniuNetWorking.h; sourceTree = "<group>"; };
 		1F293D651D113C210063A9DA /* QiniuNetWorking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiniuNetWorking.m; sourceTree = "<group>"; };
 		1F293D671D1166490063A9DA /* HomeViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewModel.h; sourceTree = "<group>"; };
@@ -340,6 +347,11 @@
 		1FCAFFDA1D01983B00BF53A1 /* UserInfoViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewModel.m; sourceTree = "<group>"; };
 		1FDA53A41D003DC800C170BC /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		1FDA53A51D003DC800C170BC /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		1FF3C50A1D2B842400BE89A9 /* SenderInviteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SenderInviteViewController.swift; sourceTree = "<group>"; };
+		1FF3C50D1D2B8A0E00BE89A9 /* InviteTitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteTitleTableViewCell.swift; sourceTree = "<group>"; };
+		1FF3C50F1D2B8A3300BE89A9 /* InviteItemsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteItemsTableViewCell.swift; sourceTree = "<group>"; };
+		1FF3C5111D2B8A5000BE89A9 /* InviteDetailInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteDetailInfoTableViewCell.swift; sourceTree = "<group>"; };
+		1FF3C5131D2B8A6C00BE89A9 /* InviteDetailTitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteDetailTitleTableViewCell.swift; sourceTree = "<group>"; };
 		1FF9212E1D23D21900AE0429 /* UIViewController+DismissKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+DismissKeyboard.h"; sourceTree = "<group>"; };
 		1FF9212F1D23D21900AE0429 /* UIViewController+DismissKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+DismissKeyboard.m"; sourceTree = "<group>"; };
 		1FFB5F341D054BD900021F77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -527,8 +539,6 @@
 		DAF5C8C81CE6F3EB00DA7901 /* MyPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPhotosViewController.m; sourceTree = "<group>"; };
 		DAF5C8CB1CE6F79900DA7901 /* PhotosGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosGridViewController.h; sourceTree = "<group>"; };
 		DAF5C8CC1CE6F79900DA7901 /* PhotosGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosGridViewController.m; sourceTree = "<group>"; };
-		DAF5C8CF1CE6F87A00DA7901 /* SendInviteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendInviteViewController.h; sourceTree = "<group>"; };
-		DAF5C8D01CE6F87A00DA7901 /* SendInviteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendInviteViewController.m; sourceTree = "<group>"; };
 		E6D34CBD6F1B1ABC5F814AD4 /* Pods-Meet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Meet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Meet/Pods-Meet.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -786,6 +796,19 @@
 			path = EMAlertView;
 			sourceTree = "<group>";
 		};
+		1FF3C50C1D2B89DE00BE89A9 /* InviteView */ = {
+			isa = PBXGroup;
+			children = (
+				1FF3C50D1D2B8A0E00BE89A9 /* InviteTitleTableViewCell.swift */,
+				1FF3C50F1D2B8A3300BE89A9 /* InviteItemsTableViewCell.swift */,
+				1FF3C5111D2B8A5000BE89A9 /* InviteDetailInfoTableViewCell.swift */,
+				1FF3C5131D2B8A6C00BE89A9 /* InviteDetailTitleTableViewCell.swift */,
+				1F2059241D2BBD6F001FF99C /* SetInviteCollectView.h */,
+				1F2059251D2BBD6F001FF99C /* SetInviteCollectView.m */,
+			);
+			name = InviteView;
+			sourceTree = "<group>";
+		};
 		5AF50953ADC31DBA8A53F5F5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -953,6 +976,7 @@
 		DA36267B1CD1A98E00A8AE39 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1FF3C50C1D2B89DE00BE89A9 /* InviteView */,
 				1F38683B1D260DF800569032 /* MeDetail */,
 				1F457B4E1D15327500C1D8EC /* FirstVersion */,
 				1F3DC32D1D0D06FD0075B7BA /* Me */,
@@ -1295,8 +1319,7 @@
 		DAF5C8CE1CE6F81C00DA7901 /* My Invite */ = {
 			isa = PBXGroup;
 			children = (
-				DAF5C8CF1CE6F87A00DA7901 /* SendInviteViewController.h */,
-				DAF5C8D01CE6F87A00DA7901 /* SendInviteViewController.m */,
+				1FF3C50A1D2B842400BE89A9 /* SenderInviteViewController.swift */,
 			);
 			path = "My Invite";
 			sourceTree = "<group>";
@@ -1457,7 +1480,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA6B1C551CEC4DAC0020021D /* EatViewController.m in Sources */,
+				1FF3C5101D2B8A3300BE89A9 /* InviteItemsTableViewCell.swift in Sources */,
 				DA1A67EF1CEFD81D00F9CC9D /* WXLoginViewController.m in Sources */,
+				1FF3C5121D2B8A5000BE89A9 /* InviteDetailInfoTableViewCell.swift in Sources */,
 				1FCAFFDB1D01983B00BF53A1 /* UserInfoViewModel.m in Sources */,
 				1F293D901D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m in Sources */,
 				DA6CEF131CDAF42300EEABFF /* AddInformationViewController.m in Sources */,
@@ -1476,6 +1501,7 @@
 				DA018F451CD4B9AA0051D2D7 /* PhotoGridCell.m in Sources */,
 				1FFB5F3B1D056D9600021F77 /* MoreInfoViewController.m in Sources */,
 				DA018F591CD78E9C0051D2D7 /* ImageAndTitleView.m in Sources */,
+				1FF3C50B1D2B842400BE89A9 /* SenderInviteViewController.swift in Sources */,
 				DA36267C1CD1A98E00A8AE39 /* AppData.m in Sources */,
 				DA4A88FE1CDB5D7A00649983 /* CellTextView.m in Sources */,
 				1F3DC32C1D0D06ED0075B7BA /* BaseNavigaitonController.swift in Sources */,
@@ -1522,6 +1548,7 @@
 				1F68503D1CFFE4F2007F3C07 /* NewMeetInfoTableViewCell.m in Sources */,
 				DA6B1C581CEC4DAC0020021D /* HomeMoreViewController.m in Sources */,
 				DAF5C7F91CDF479C00DA7901 /* NetWorkObject.m in Sources */,
+				1F2059261D2BBD6F001FF99C /* SetInviteCollectView.m in Sources */,
 				1F6850201CFFD3D2007F3C07 /* MeetDetailViewController.swift in Sources */,
 				1F6E8BE51D0276C00044CD40 /* NSObject+PerformSelector.m in Sources */,
 				DABF8AEC1CE9B7BD00CA2A1D /* WillAllowViewColler.m in Sources */,
@@ -1588,8 +1615,10 @@
 				1F79BAE31D09248B00814DED /* ZHPickView.m in Sources */,
 				1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */,
 				1F293D941D13CB290063A9DA /* AboutDetailViewController.swift in Sources */,
+				1FF3C50E1D2B8A0E00BE89A9 /* InviteTitleTableViewCell.swift in Sources */,
 				DAF5C8CD1CE6F79900DA7901 /* PhotosGridViewController.m in Sources */,
 				1FC2C1491CFD3332001D6D10 /* NSDate+Category.m in Sources */,
+				1FF3C5141D2B8A6C00BE89A9 /* InviteDetailTitleTableViewCell.swift in Sources */,
 				1FC2C14C1CFD3583001D6D10 /* NSDateFormatter+Category.m in Sources */,
 				DABF8AF81CEAC29A00CA2A1D /* SetingViewController.m in Sources */,
 				DAF5C8831CE5B95000DA7901 /* CoreTextImageData.m in Sources */,
@@ -1602,7 +1631,6 @@
 				DA6CEF0F1CDAF33300EEABFF /* MoreProfileViewController.m in Sources */,
 				1F293D691D1166490063A9DA /* HomeViewModel.m in Sources */,
 				DA4A89051CDC473700649983 /* LoginMainViewController.m in Sources */,
-				DAF5C8D11CE6F87A00DA7901 /* SendInviteViewController.m in Sources */,
 				DA018F481CD4BAC60051D2D7 /* PhotoTableCell.m in Sources */,
 				1F6850401CFFFB02007F3C07 /* AllInfoTableViewCell.m in Sources */,
 				DAF5C8BD1CE6D6AD00DA7901 /* NSObject+RMCopyable.m in Sources */,

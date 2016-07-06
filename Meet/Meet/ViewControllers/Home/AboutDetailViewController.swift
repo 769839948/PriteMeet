@@ -19,6 +19,7 @@ class AboutDetailViewController: UIViewController {
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor);
         super.viewDidLoad()
+        
         self.setUpWebView(url)
         self.setUpNavigationBar()
         // Do any additional setup after loading the view.
@@ -31,17 +32,17 @@ class AboutDetailViewController: UIViewController {
         let url = NSURL.init(string: url)
         let request = NSURLRequest.init(URL: url!)
         webView.loadRequest(request)
-        progressProxy = NJKWebViewProgress()
+//        progressProxy = NJKWebViewProgress()
         webView.delegate = self
-        progressProxy.webViewProxyDelegate = self
-        progressProxy.progressDelegate = self
+//        progressProxy.webViewProxyDelegate = self
+//        progressProxy.progressDelegate = self
 //
 //        
-        let  progressBarHeight:CGFloat = 2
-        let  navigationBarBounds:CGRect = self.navigationController!.navigationBar.bounds;
-        let barFrame:CGRect = CGRectMake(0, navigationBarBounds.size.height - progressBarHeight, navigationBarBounds.size.width, progressBarHeight);
-        progressView = NJKWebViewProgressView(frame:barFrame);
-        progressView.autoresizingMask = [.FlexibleWidth,.FlexibleTopMargin]
+//        let  progressBarHeight:CGFloat = 2
+//        let  navigationBarBounds:CGRect = self.navigationController!.navigationBar.bounds;
+//        let barFrame:CGRect = CGRectMake(0, navigationBarBounds.size.height - progressBarHeight, navigationBarBounds.size.width, progressBarHeight);
+//        progressView = NJKWebViewProgressView(frame:barFrame);
+//        progressView.autoresizingMask = [.FlexibleWidth,.FlexibleTopMargin]
         
         self.view.addSubview(webView)
         
@@ -85,8 +86,8 @@ extension AboutDetailViewController : UIWebViewDelegate {
     }
 }
 
-extension AboutDetailViewController : NJKWebViewProgressDelegate {
-    func webViewProgress(webViewProgress: NJKWebViewProgress!, updateProgress progress: Float) {
-        progressView.setProgress(progress, animated: true)
-    }
-}
+//extension AboutDetailViewController : NJKWebViewProgressDelegate {
+//    func webViewProgress(webViewProgress: NJKWebViewProgress!, updateProgress progress: Float) {
+//        progressView.setProgress(progress, animated: true)
+//    }
+//}

@@ -92,8 +92,9 @@ class OtherViewController: UIViewController {
             moreInfoTitle.addObject("年收入")
         }
         if moreinfo?.height != nil {
+            let dic = dicKey.objectForKey("height") as! NSDictionary
             let height = String.init(format: "%d", (moreinfo?.height)!)
-            moreInfo.addObject("\(height)cm")
+            moreInfo.addObject("\(dic.objectForKey(height)!)")
             moreInfoTitle.addObject("身高")
         }
         

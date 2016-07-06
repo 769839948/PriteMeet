@@ -56,7 +56,7 @@ class MePhotoTableViewCell: UITableViewCell {
         }
         logoutView.hidden = true
         self.loginView.hidden = false
-        if infoCom == "" {
+        if compass.next_page != 4 {
             completeInfoView.hidden = false
             infoCompleLabel.hidden = true
             let compassString = "\(compass.completeness)% \(compass.msg)"

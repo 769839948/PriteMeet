@@ -88,6 +88,10 @@ typedef void (^returnImage)(UIImage *image);
                 fail:(Fail)failBlock
        loadingString:(LoadingView)loading;
 
+- (void)getAllInviteAllItems:(Success)successBlock
+                        fail:(Fail)failBlock
+               loadingString:(LoadingView)loading;
+
 
 - (void)lastModifield:(void (^)(NSString *time))lastBlock failBlock:(Fail)failBock;
 

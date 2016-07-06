@@ -317,10 +317,10 @@ extension MeViewController : UITableViewDelegate{
 //            self.presentMoreProfileViewController()
         } else  if (indexPath.row == 3 || indexPath.row == 2) {
             let meStoryBoard = UIStoryboard(name: "Me", bundle: NSBundle.mainBundle())
-            let senderInviteVC = meStoryBoard.instantiateViewControllerWithIdentifier("SendInviteViewController") as!  SendInviteViewController
-            senderInviteVC.block = { () in
-                self.tableView.reloadData()
-            }
+            let senderInviteVC = meStoryBoard.instantiateViewControllerWithIdentifier("SenderInviteViewController") as!  SenderInviteViewController
+//            senderInviteVC.block = { () in
+//                self.tableView.reloadData()
+//            }
             self.navigationController!.pushViewController(senderInviteVC, animated:true)
         }else if(indexPath.row == 4){
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! MeInfoTableViewCell
