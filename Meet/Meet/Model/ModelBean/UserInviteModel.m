@@ -88,6 +88,7 @@ static UserInviteModel *userInvite = nil;
     Results *result = [[Results alloc] init];
     result.introduction = dicArray[@"introduction_main"];
     result.is_fake = [dicArray[@"is_fake"] boolValue];
+    result.is_active = [dicArray[@"is_active"] boolValue];
      NSMutableArray *themeArray = [NSMutableArray array];
     for (NSDictionary *results in dicArray[@"theme"]) {
         Theme *theme = [[Theme alloc] init];

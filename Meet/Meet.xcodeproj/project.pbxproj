@@ -62,7 +62,6 @@
 		1F79BAD51D080A0500814DED /* NSFileManager+Paths.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BAD41D080A0500814DED /* NSFileManager+Paths.m */; };
 		1F79BAD81D080B7B00814DED /* NSFileManager+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BAD71D080B7B00814DED /* NSFileManager+Utils.m */; };
 		1F79BADB1D080B9100814DED /* NSFileManager+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BADA1D080B9100814DED /* NSFileManager+Cache.m */; };
-		1F79BADF1D090AEE00814DED /* SetInvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BADE1D090AEE00814DED /* SetInvitationViewController.swift */; };
 		1F79BAE31D09248B00814DED /* ZHPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BAE21D09248B00814DED /* ZHPickView.m */; };
 		1F79BB121D0AB98E00814DED /* AutomaticBulletAndNumberLists.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BB111D0AB98E00814DED /* AutomaticBulletAndNumberLists.m */; };
 		1F9E93151D0D7ACE003ED7AF /* UserExtenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9E93141D0D7ACE003ED7AF /* UserExtenModel.m */; };
@@ -86,6 +85,7 @@
 		1FC2C14C1CFD3583001D6D10 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C14B1CFD3583001D6D10 /* NSDateFormatter+Category.m */; };
 		1FC2C14F1CFD362B001D6D10 /* UIViewController+hideExcessLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C14E1CFD362B001D6D10 /* UIViewController+hideExcessLine.m */; };
 		1FC4C08B1D0D590E00E4BB33 /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4C08A1D0D590E00E4BB33 /* MeViewController.swift */; };
+		1FC69D6C1D2CDF1900BF0B95 /* GuidanceText.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC69D6B1D2CDF1900BF0B95 /* GuidanceText.m */; };
 		1FCAA98A1CFF200900C84ED2 /* UIViewController+ScrollingNavbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAA9891CFF200900C84ED2 /* UIViewController+ScrollingNavbar.m */; };
 		1FCAFFCC1D012B6900BF53A1 /* UIViewController+NavigationItemColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFCB1D012B6900BF53A1 /* UIViewController+NavigationItemColor.m */; };
 		1FCAFFD01D01515D00BF53A1 /* BaseRequestViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFCF1D01515D00BF53A1 /* BaseRequestViewModel.m */; };
@@ -295,7 +295,6 @@
 		1F79BAD71D080B7B00814DED /* NSFileManager+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Utils.m"; sourceTree = "<group>"; };
 		1F79BAD91D080B9100814DED /* NSFileManager+Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+Cache.h"; sourceTree = "<group>"; };
 		1F79BADA1D080B9100814DED /* NSFileManager+Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Cache.m"; sourceTree = "<group>"; };
-		1F79BADE1D090AEE00814DED /* SetInvitationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetInvitationViewController.swift; sourceTree = "<group>"; };
 		1F79BAE11D09248B00814DED /* ZHPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPickView.h; sourceTree = "<group>"; };
 		1F79BAE21D09248B00814DED /* ZHPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPickView.m; sourceTree = "<group>"; };
 		1F79BB101D0AB98E00814DED /* AutomaticBulletAndNumberLists.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutomaticBulletAndNumberLists.h; sourceTree = "<group>"; };
@@ -332,6 +331,8 @@
 		1FC2C14D1CFD362B001D6D10 /* UIViewController+hideExcessLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+hideExcessLine.h"; sourceTree = "<group>"; };
 		1FC2C14E1CFD362B001D6D10 /* UIViewController+hideExcessLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+hideExcessLine.m"; sourceTree = "<group>"; };
 		1FC4C08A1D0D590E00E4BB33 /* MeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
+		1FC69D6A1D2CDF1900BF0B95 /* GuidanceText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuidanceText.h; sourceTree = "<group>"; };
+		1FC69D6B1D2CDF1900BF0B95 /* GuidanceText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuidanceText.m; sourceTree = "<group>"; };
 		1FCAA9881CFF200900C84ED2 /* UIViewController+ScrollingNavbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+ScrollingNavbar.h"; path = "../Other/UIViewController+ScrollingNavbar.h"; sourceTree = "<group>"; };
 		1FCAA9891CFF200900C84ED2 /* UIViewController+ScrollingNavbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+ScrollingNavbar.m"; path = "../Other/UIViewController+ScrollingNavbar.m"; sourceTree = "<group>"; };
 		1FCAFFCA1D012B6900BF53A1 /* UIViewController+NavigationItemColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NavigationItemColor.h"; sourceTree = "<group>"; };
@@ -1136,7 +1137,6 @@
 				DAF5C8C81CE6F3EB00DA7901 /* MyPhotosViewController.m */,
 				1FFB5F361D05650400021F77 /* BaseUserInfoViewController.h */,
 				1FFB5F371D05650400021F77 /* BaseUserInfoViewController.m */,
-				1F79BADE1D090AEE00814DED /* SetInvitationViewController.swift */,
 				1FFB5F391D056D9600021F77 /* MoreInfoViewController.h */,
 				1FFB5F3A1D056D9600021F77 /* MoreInfoViewController.m */,
 			);
@@ -1213,6 +1213,8 @@
 				1F293D6B1D1175090063A9DA /* HomeModel.m */,
 				1F293D7B1D1266850063A9DA /* HomeDetailModel.swift */,
 				1F38684D1D266A7500569032 /* OhterProfileModel.swift */,
+				1FC69D6A1D2CDF1900BF0B95 /* GuidanceText.h */,
+				1FC69D6B1D2CDF1900BF0B95 /* GuidanceText.m */,
 			);
 			path = ModelBean;
 			sourceTree = "<group>";
@@ -1585,7 +1587,6 @@
 				1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */,
 				1FBF3FC21D1BD1AC005DB46F /* AppDelegate+AMapLocation.m in Sources */,
 				1FCAFFD01D01515D00BF53A1 /* BaseRequestViewModel.m in Sources */,
-				1F79BADF1D090AEE00814DED /* SetInvitationViewController.swift in Sources */,
 				1F79BAD51D080A0500814DED /* NSFileManager+Paths.m in Sources */,
 				DA4A890E1CDCA8D000649983 /* WeChatResgisterViewController.m in Sources */,
 				DA6B1C571CEC4DAC0020021D /* HomeMainViewController.m in Sources */,
@@ -1606,6 +1607,7 @@
 				1F79BAD81D080B7B00814DED /* NSFileManager+Utils.m in Sources */,
 				DA6CEEF21CD9EF9D00EEABFF /* CellButton.m in Sources */,
 				1F293D771D11A4B90063A9DA /* TransparentView.m in Sources */,
+				1FC69D6C1D2CDF1900BF0B95 /* GuidanceText.m in Sources */,
 				1F79BAD21D071CF700814DED /* UserInfo.m in Sources */,
 				1FBF408C1D1E5BF8005DB46F /* ProfileTableViewCell.swift in Sources */,
 				DA6B1C521CEC4DAC0020021D /* FristHomeViewController.m in Sources */,

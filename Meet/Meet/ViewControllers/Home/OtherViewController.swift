@@ -82,39 +82,54 @@ class OtherViewController: UIViewController {
         if moreinfo?.industry != nil {
             let dic = dicKey.objectForKey("industry") as! NSDictionary
             let industry = String.init(format: "%d", (moreinfo?.industry)!)
-            moreInfo.addObject(dic.objectForKey(industry)!)
-            moreInfoTitle.addObject("行业")
+            if industry != "0" {
+                moreInfo.addObject(dic.objectForKey(industry)!)
+                moreInfoTitle.addObject("行业")
+            }
+            
         }
         if moreinfo?.income != nil {
             let dic = dicKey.objectForKey("income") as! NSDictionary
             let income = String.init(format: "%d", (moreinfo?.income)!)
-            moreInfo.addObject(dic.objectForKey(income)!)
-            moreInfoTitle.addObject("年收入")
+            if income != "0" {
+                moreInfo.addObject(dic.objectForKey(income)!)
+                moreInfoTitle.addObject("年收入")
+            }
         }
         if moreinfo?.height != nil {
             let dic = dicKey.objectForKey("height") as! NSDictionary
             let height = String.init(format: "%d", (moreinfo?.height)!)
-            moreInfo.addObject("\(dic.objectForKey(height)!)")
-            moreInfoTitle.addObject("身高")
+            if height != "0" {
+                moreInfo.addObject("\(dic.objectForKey(height)!)")
+                moreInfoTitle.addObject("身高")
+            }
+            
         }
         
         if moreinfo?.affection != nil {
             let dic = dicKey.objectForKey("affection") as! NSDictionary
             let affection = String.init(format: "%d", (moreinfo?.affection)!)
-            moreInfo.addObject(dic.objectForKey(affection)!)
-            moreInfoTitle.addObject("情感状态")
+            if affection != "0" {
+                moreInfo.addObject(dic.objectForKey(affection)!)
+                moreInfoTitle.addObject("情感状态")
+            }
         }
         
         if moreinfo?.hometown != nil {
-            moreInfo.addObject((moreinfo?.hometown)!)
-            moreInfoTitle.addObject("家乡")
+            let home = moreinfo?.hometown.stringByReplacingOccurrencesOfString(" ", withString: "")
+            if home != "请选择" {
+                moreInfo.addObject((moreinfo?.hometown)!)
+                moreInfoTitle.addObject("家乡")
+            }
         }
         
         if moreinfo?.constellation != nil {
             let dic = dicKey.objectForKey("constellation") as! NSDictionary
             let constellation = String.init(format: "%d", (moreinfo?.constellation)!)
-            moreInfo.addObject(dic.objectForKey(constellation)!)
-            moreInfoTitle.addObject("星座")
+            if constellation != "0" {
+                moreInfo.addObject(dic.objectForKey(constellation)!)
+                moreInfoTitle.addObject("星座")
+            }
         }
         if moreInfo.count > 0 {
             sectionTitle.addObject("更多信息")

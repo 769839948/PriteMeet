@@ -231,9 +231,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="bcY-62-ecf">
-                                <rect key="frame" x="-4" y="64" width="383" height="559"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="bcY-62-ecf">
+                                <rect key="frame" x="-4" y="20" width="383" height="603"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InviteTitleTableViewCell" rowHeight="77" id="Hdh-3W-wHh" customClass="InviteTitleTableViewCell" customModule="Meet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="113.5" width="383" height="77"/>
@@ -333,7 +334,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="bcY-62-ecf" secondAttribute="trailing" constant="-20" id="7z1-ZJ-AV2"/>
                             <constraint firstItem="r95-fP-MzH" firstAttribute="top" secondItem="bcY-62-ecf" secondAttribute="bottom" id="ePo-1p-l5x"/>
                             <constraint firstItem="bcY-62-ecf" firstAttribute="leading" secondItem="uaF-08-uL2" secondAttribute="leadingMargin" constant="-20" id="jVx-UR-TQf"/>
-                            <constraint firstItem="bcY-62-ecf" firstAttribute="top" secondItem="PbQ-IX-W5Y" secondAttribute="bottom" id="uet-AE-w3L"/>
+                            <constraint firstItem="bcY-62-ecf" firstAttribute="top" secondItem="PbQ-IX-W5Y" secondAttribute="bottom" constant="-44" id="uet-AE-w3L"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="Nxx-yd-rXF" appends="YES" id="6xP-Nx-isf"/>

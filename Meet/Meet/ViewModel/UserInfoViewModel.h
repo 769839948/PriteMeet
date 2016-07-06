@@ -84,6 +84,7 @@ typedef void (^returnImage)(UIImage *image);
 
 - (void)uploadInvite:(NSString *)description
           themeArray:(NSArray *)themeArray
+            isActive:(BOOL)isActive
              success:(Success)successBlock
                 fail:(Fail)failBlock
        loadingString:(LoadingView)loading;

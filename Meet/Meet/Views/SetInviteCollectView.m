@@ -38,10 +38,12 @@
     if (!cell.isSelect) {
         cell.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
         cell.titleLabel.textColor = [UIColor whiteColor];
+        [self.selectItems replaceObjectAtIndex:indexPath.row withObject:@"true"];
         cell.isSelect = YES;
     }else{
         cell.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemUnSelect];
         cell.titleLabel.textColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
+        [self.selectItems replaceObjectAtIndex:indexPath.row withObject:@"false"];
         cell.isSelect = NO;
     }
 }

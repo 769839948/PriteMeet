@@ -594,8 +594,8 @@ typedef NS_ENUM(NSUInteger, RowType) {
     [self.tableView reloadRowsAtIndexPaths:@[selectIndexPath] withRowAnimation:UITableViewRowAnimationNone];
     
     if (_isBaseView) {
-        if (selectIndexPath.row == 5) {
-            LabelAndTextFieldCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:6  inSection:0]];
+        if (selectIndexPath.row == RowWorkLocation) {
+            LabelAndTextFieldCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:RowJobLabel  inSection:0]];
             [cell.textField becomeFirstResponder];
         }else if (selectIndexPath.row < _titleContentArray.count - 1) {
             [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:selectIndexPath.row + 1 inSection:selectIndexPath.section]];
@@ -1159,7 +1159,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 _sheetView.delegate = self;
             }
             [_sheetView show];
-        } else if (row == RowBirthday) {/////date picker
+        } else if (row == RowBirthday) {//date picker
             [self.view endEditing:YES];
             NSString *brithDay =  _dicValues[_titleContentArray[RowBirthday]];
             if (brithDay.length > 8) {

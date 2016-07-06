@@ -91,7 +91,7 @@
                     {
                         UIStoryboard  *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
                         SenderInviteViewController *senderInviteVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"SenderInviteViewController"];
-//                        senderInviteVC.isNewLogin = YES;
+                        senderInviteVC.isNewLogin = YES;
                         [self.navigationController pushViewController:senderInviteVC animated:YES];
                     }
                         break;

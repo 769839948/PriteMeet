@@ -23,7 +23,7 @@
 
 - (NSArray *)baseInfoTitle
 {
-    return @[@"真实姓名",@"性别",@"年龄",@"工作城市",@"职位"];
+    return @[@"真实姓名",@"性别",@"年龄",@"工作城市",@"职业"];
 }
 
 - (NSArray *)sectionTitle

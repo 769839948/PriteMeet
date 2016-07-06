@@ -40,15 +40,13 @@ class InviteItemsTableViewCell: UITableViewCell {
     }
 
     func setData(array:NSArray, selectItems:NSArray){
-        if self.interestView == nil {
-            self.setUpView()
-        }
+        self.setUpView()
         let selectItemsArray = NSMutableArray()
         for idx in 0...array.count - 1{
-            var ret = false
+            var ret = "false"
             for str in selectItems{
                 if array[idx] as! String == str as! String {
-                    ret = true
+                    ret = "true"
                     break
                 }
             }

@@ -303,7 +303,8 @@
 
 
 - (void)uploadInvite:(NSString *)description
-           themeArray:(NSArray *)themeArray
+          themeArray:(NSArray *)themeArray
+            isActive:(BOOL)isActive
              success:(Success)successBlock
                 fail:(Fail)failBlock
        loadingString:(LoadingView)loading
@@ -314,8 +315,16 @@
 //        NSDictionary *invitationDic = [[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitation"];
         them = [them stringByAppendingString:[NSString stringWithFormat:@"%@,",[[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitation"]objectForKey:themeString]]];
     }
-    NSString *subLastString = [them substringToIndex:them.length - 1];
-    NSDictionary *parameters = @{ @"introduction":description, @"theme":subLastString};
+    NSString *subLastString = @"";
+    if (them.length > 1){
+        subLastString = [them substringToIndex:them.length - 1];
+    }
+    NSDictionary *parameters;
+    if (isActive) {
+        parameters = @{ @"introduction":description, @"theme":subLastString,@"is_active":@YES};
+    }else{
+        parameters = @{ @"introduction":description, @"theme":subLastString,@"is_active":@NO};
+    }
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestInviteInfo,[WXUserInfo shareInstance].openid];
     
     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
