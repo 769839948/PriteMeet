@@ -39,7 +39,6 @@
 		1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E436F1CFC57F900730DEA /* ThemeTools.m */; };
 		1F55157E1CFEEFE5005B82FA /* InterestCollectViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F55157D1CFEEFE5005B82FA /* InterestCollectViewCell.m */; };
 		1F5515841CFEF859005B82FA /* EqualSpaceFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5515831CFEF859005B82FA /* EqualSpaceFlowLayout.m */; };
-		1F5515871CFF07A1005B82FA /* Pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F5515861CFF07A1005B82FA /* Pic.png */; };
 		1F68501D1CFFD31A007F3C07 /* NSTimer+YYFounction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F68501A1CFFD31A007F3C07 /* NSTimer+YYFounction.m */; };
 		1F68501E1CFFD31A007F3C07 /* YYCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F68501C1CFFD31A007F3C07 /* YYCycleScrollView.m */; };
 		1F6850201CFFD3D2007F3C07 /* MeetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F68501F1CFFD3D2007F3C07 /* MeetDetailViewController.swift */; };
@@ -69,7 +68,6 @@
 		1F9E93171D0D8B4D003ED7AF /* SwiftDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9E93161D0D8B4D003ED7AF /* SwiftDefine.swift */; };
 		1F9E931A1D0E486D003ED7AF /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9E93191D0E486D003ED7AF /* UIImage+ImageEffects.m */; };
 		1F9E931D1D0E4993003ED7AF /* UIImage+PureColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9E931C1D0E4993003ED7AF /* UIImage+PureColor.m */; };
-		1F9E931F1D0E5FE5003ED7AF /* me_testImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F9E931E1D0E5FE5003ED7AF /* me_testImage@3x.png */; };
 		1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */; };
 		1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5931CFDF931002345C1 /* NSString+StringSize.m */; };
 		1FC2C1451CFD3311001D6D10 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C1421CFD3311001D6D10 /* NSString+Utils.m */; };
@@ -241,7 +239,6 @@
 		1F55157D1CFEEFE5005B82FA /* InterestCollectViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestCollectViewCell.m; sourceTree = "<group>"; };
 		1F5515821CFEF859005B82FA /* EqualSpaceFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EqualSpaceFlowLayout.h; path = ../../Views/EqualSpaceFlowLayout.h; sourceTree = "<group>"; };
 		1F5515831CFEF859005B82FA /* EqualSpaceFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EqualSpaceFlowLayout.m; path = ../../Views/EqualSpaceFlowLayout.m; sourceTree = "<group>"; };
-		1F5515861CFF07A1005B82FA /* Pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Pic.png; path = Meet/Views/Pic.png; sourceTree = "<group>"; };
 		1F6850191CFFD31A007F3C07 /* NSTimer+YYFounction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+YYFounction.h"; sourceTree = "<group>"; };
 		1F68501A1CFFD31A007F3C07 /* NSTimer+YYFounction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+YYFounction.m"; sourceTree = "<group>"; };
 		1F68501B1CFFD31A007F3C07 /* YYCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCycleScrollView.h; sourceTree = "<group>"; };
@@ -296,7 +293,6 @@
 		1F9E93191D0E486D003ED7AF /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		1F9E931B1D0E4993003ED7AF /* UIImage+PureColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+PureColor.h"; sourceTree = "<group>"; };
 		1F9E931C1D0E4993003ED7AF /* UIImage+PureColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PureColor.m"; sourceTree = "<group>"; };
-		1F9E931E1D0E5FE5003ED7AF /* me_testImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "me_testImage@3x.png"; sourceTree = "<group>"; };
 		1FA4E58F1CFDF91F002345C1 /* InterestCollectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestCollectView.h; sourceTree = "<group>"; };
 		1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestCollectView.m; sourceTree = "<group>"; };
 		1FA4E5921CFDF931002345C1 /* NSString+StringSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSize.h"; sourceTree = "<group>"; };
@@ -826,8 +822,6 @@
 		DA36264B1CD1A75C00A8AE39 = {
 			isa = PBXGroup;
 			children = (
-				1F5515861CFF07A1005B82FA /* Pic.png */,
-				1F9E931E1D0E5FE5003ED7AF /* me_testImage@3x.png */,
 				DA36267A1CD1A98E00A8AE39 /* ViewControllers */,
 				DA36267B1CD1A98E00A8AE39 /* Views */,
 				1FCAFFCD1D01510100BF53A1 /* ViewModel */,
@@ -1363,9 +1357,7 @@
 				1F3DC32B1D0D06ED0075B7BA /* MeInfoTableViewCell.xib in Resources */,
 				DAF5C8BB1CE6D6AD00DA7901 /* README.txt in Resources */,
 				1F3DC3391D0D0F5A0075B7BA /* PhotoDetailTableViewCell.xib in Resources */,
-				1F9E931F1D0E5FE5003ED7AF /* me_testImage@3x.png in Resources */,
 				DA3626621CD1A75C00A8AE39 /* Main.storyboard in Resources */,
-				1F5515871CFF07A1005B82FA /* Pic.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
