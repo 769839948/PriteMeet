@@ -430,6 +430,13 @@
                                     <action selector="checkCodeButtonAction:" destination="DsA-Qk-f5l" eventType="touchUpInside" id="CKo-Gx-8AC"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vwt-2i-gqQ">
+                                <rect key="frame" x="164" y="355" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="loginWeibo:" destination="DsA-Qk-f5l" eventType="touchUpInside" id="RTD-Uc-V9Q"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>

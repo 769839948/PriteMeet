@@ -37,6 +37,10 @@
 #define GETUser_info_FromWX_URLStr [WX_userInfo_URL_str stringByAppendingFormat:@"?access_token=%@&openid=%@",[WXAccessModel shareInstance].access_token,[WXAccessModel shareInstance].openid]
 
 
+#define WeiboApiKey       @"3220687526"
+#define WeiboApiScon      @"974c901f0d3cf9e27b2a7dfca56f08c7"
+#define kRedirectURI      @""
+
 #define loginStateChange  @"loginStateChange"
 
 
