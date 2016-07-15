@@ -7,6 +7,7 @@
 //
 
 #import "MeetBaseViewController.h"
+#import "Meet-Swift.h"
 
 @interface MeetBaseViewController ()
 
@@ -16,17 +17,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick:)];
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithHexString:@"202020"];
-    
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor colorWithHexString:@"202020"];
-//    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackTranslucent];
+    [self setNavigationItemBack];
+    [self.navigationController.navigationItem.leftBarButtonItem setTintColor:[UIColor blackColor]];
+    [self.navigationController.navigationItem.rightBarButtonItem setTintColor:[UIColor blackColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     self.navigationController.fd_fullscreenPopGestureRecognizer.enabled = YES;
 
 }

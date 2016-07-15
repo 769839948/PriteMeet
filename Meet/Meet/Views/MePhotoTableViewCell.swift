@@ -28,15 +28,15 @@ class MePhotoTableViewCell: UITableViewCell {
     @IBOutlet weak var placImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var infoCompleLabel: UILabel!
-    @IBOutlet weak var completeInfo: UIButton!
+    @IBOutlet weak var completeInfoView: UIView!
+    @IBOutlet weak var completeInfoLabel: UILabel!
     var block:completeInfoBt!
     let editImage = UIImage(named: "me_buttonedit")
     override func awakeFromNib() {
         super.awakeFromNib()
         avatarImageView.image = UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSizeZero)
-        completeInfo.layer.cornerRadius = 15.0
-        completeInfo.layer.masksToBounds = true
-        
+        completeInfoView.layer.cornerRadius = 14.0
+        completeInfoView.layer.masksToBounds = true
         // Initialization code
     }
     
@@ -45,36 +45,39 @@ class MePhotoTableViewCell: UITableViewCell {
         loginView.hidden = true
         logoutView.backgroundColor = UIColor.whiteColor()
         logoutView.hidden = false
+        
     }
 
     func cofigLoginCell(name:String, infoCom:String, compass:Completeness){
-        nameLabel.text = name
+        if name == "" {
+            nameLabel.text = "无名氏"
+        }else{
+            nameLabel.text = name
+        }
         logoutView.hidden = true
         self.loginView.hidden = false
-        if infoCom == "" {
+        if compass.next_page != 4 {
+            completeInfoView.hidden = false
             infoCompleLabel.hidden = true
-            self.completeInfo.hidden = false
-            let compassString = "   \(compass.completeness)% \(compass.msg)     "
-            let width = labelSize(compassString, attributes: [:])
-            print("width=======\(width.width)")
-            self.completeInfo.setTitle(compassString, forState: UIControlState.Normal)
-            self.completeInfo.setImage(editImage?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), forState: UIControlState.Normal)
-            self.completeInfo.tag = compass.next_page
-            self.completeInfo.titleEdgeInsets = UIEdgeInsetsMake(0, -(editImage?.size.width)!, 0, (editImage?.size.width)!)
-            self.completeInfo.imageEdgeInsets = UIEdgeInsetsMake(0, (self.completeInfo.titleLabel?.bounds.size.width)! - 10, 0, -(self.completeInfo.titleLabel?.bounds.size.width)! + 10)
-            self.completeInfo.addTarget(self, action: #selector(MePhotoTableViewCell.completeInfoPress(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            let compassString = "\(compass.completeness)% \(compass.msg)"
+            completeInfoLabel.text = compassString;
+            completeInfoView.tag = compass.next_page
+            let singerTap = UITapGestureRecognizer(target: self, action: #selector(MePhotoTableViewCell.singerTapPress(_:)))
+            singerTap.numberOfTouchesRequired = 1
+            singerTap.numberOfTapsRequired = 1
+            completeInfoView.addGestureRecognizer(singerTap)
             
         }else{
+            completeInfoView.hidden = true
             infoCompleLabel.text = infoCom;
             self.infoCompleLabel.hidden = false
-            self.completeInfo.hidden = true
         }
         //        ManListCell.homeNameLabelColor(nameLabel)
     }
     
-    func completeInfoPress(sender:UIButton){
+    func singerTapPress(tap:UITapGestureRecognizer) {
         if (self.block != nil) {
-            block(tag: sender.tag)
+            block(tag: tap.view!.tag)
         }
     }
     

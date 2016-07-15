@@ -13,19 +13,24 @@
  *  后台请求数据URL存放处
  */
 //微信登陆后发送微信信息给后台服务器
-#define  RequestBaseUrl              @"http://django.senzapps.cc"   //http://django.senzapps.cc/
+#define  RequestBaseUrl              @"http://test.momeet.cn"   //http://django.senzapps.cc/
 #define  RequestCreateUser           @"/api/user/signup/"
 #define  RequestCheckUser            @"/api/user/check/"
+#define  RequestCheckCodeBindUser    @"/api/code/is_bound_user/"
 #define  RequestUpdateUser           @"/api/user/base_info/"
 #define  RequestCheckInvitationCode  @"/api/code/check/"
 #define  RequestGetUserInfo          @"/api/user/base_info/"
+#define  RequestApplyCode            @"/api/client_get_code/"
 #define  RequestUploadUserPhoto      @"/api/user_avatar/"
-#define  RequestUploadPhotoToken      @"/api/upload_token/"
+#define  RequestUploadPhotoToken     @"/api/upload_token/"
+
+#define  RequestSenderLocation       @"/api/push_geo_location"
+
+#define  RequestLastUpdate           @"/api/user_updated_at/"
 
 #define  RequestAddWorkExp           @"/api/user/work_info"
 #define  RequestAddEduExp            @"/api/user/edu_info"
 
-#define  RequestAddStar              @"/api/user/description/"
 #define  RequestExtINfo              @"/api/user/ext_info/"
 #define  RequestInviteInfo           @"/api/user_engagement_activity/"
 
@@ -33,4 +38,23 @@
 
 #define  RequestGetOtherInfo         @"/api/user/info"
 
+#define  RequestGetOtherInfoProfile  @"/api/user/base_info_variant/"
+
+#define  RequestGetFilterUserList    @"/api/user/list_filter/"
+
+#define  RequestGetInviteItems       @"/api/user_engagement_theme/"
+
+#define  RequestGetService           @"/api/customer_service/"
+
+#define  RequestGetDicMap            @"/api/dict_map/"
+
+
+#define  RequestApplyAppointment     @"/api/apply_for_appointment/"
+
+#define  RequestPayUrl               @"/api/payUrl/"
+
+#define  RequestUserAppoitment       @"/api/check_appointment_order/"
+
+//http://momeet.cn/api/dict_map/
+//http://momeet.cn/api/document_map/
 #endif /* RequestUrl_h */

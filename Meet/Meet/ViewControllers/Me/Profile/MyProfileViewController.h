@@ -17,10 +17,13 @@ typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 #import "MeetBaseViewController.h"
 #import "EMAlertView.h"
 
-@interface MyProfileViewController : MeetBaseViewController
+@interface MyProfileViewController : MeetBaseViewController<UITableViewDelegate,UITableViewDataSource>
 {
 
 }
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 
 @property (nonatomic, weak) IBOutlet UIView *chooseView;
 
@@ -32,7 +35,6 @@ typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 
 @property (assign, nonatomic)    NSInteger pickerSelectRow;
 
-
 @property (strong, nonatomic) UserInfoViewModel *viewModel;
 
 @property (copy, nonatomic) NSString *headImageUrl;
@@ -42,12 +44,30 @@ typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 
 @property (copy, nonatomic) NSMutableDictionary *stateArray;
 
+@property (assign, nonatomic) BOOL isBaseView;
+
 @property (assign, nonatomic) BOOL fromeMeView;
+
+@property (copy, nonatomic) NSString *hightLight;
+
+@property (nonatomic, assign) BOOL isApplyCode;
+
+@property (nonatomic, copy) NSMutableArray *arrayWorkExper;///工作经历
+
+@property (nonatomic, copy) NSMutableArray *arrayOccupationLable;///职业标签
+
+@property (nonatomic, copy) NSMutableArray *arrayEducateExper;///教育背景
 
 - (void)mappingUserInfoWithDicValues;
 
-- (void)sexItemModify;
+- (BOOL)chectBaseInfo;
 
-- (NSString *)imageSaveParth;
+- (void)leftItemClick:(UIBarButtonItem *)sender;
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+
+- (void)updateEduUserFile:(NSArray *)eduArray withEduId:(NSArray *)eduId;
+
+- (void)updateWorkUserFile:(NSArray *)workArray withId:(NSArray *)workId;
 
 @end

@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "braceletLiked@2x.png",
+      "filename" : "like.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "braceletLiked@2x~ipad.png",
+      "filename" : "like@2x.png",
       "scale" : "2x"
     },
     {

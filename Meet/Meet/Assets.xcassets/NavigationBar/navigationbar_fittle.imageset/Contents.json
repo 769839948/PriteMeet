@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "navigationbar_fittle.png"
     },
     {
       "idiom" : "universal",
-      "filename" : "navigationbar_fittle@3x.png",
+      "filename" : "navigationbar_fittle@2x.png",
       "scale" : "2x"
     },
     {

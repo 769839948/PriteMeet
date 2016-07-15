@@ -8,11 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+
+typedef void (^ReturnContenSizeHeight)(CGFloat height);
+
 @protocol  EqualSpaceFlowLayoutDelegate<UICollectionViewDelegateFlowLayout>
 
 @end
 
 @interface EqualSpaceFlowLayout : UICollectionViewFlowLayout
+
+@property (nonatomic, strong) ReturnContenSizeHeight block;
 
 @property (nonatomic,weak) id<EqualSpaceFlowLayoutDelegate> delegate;
 

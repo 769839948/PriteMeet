@@ -13,13 +13,11 @@
 #import "AllInfoTableViewCell.h"
 #import "HomeViewModel.h"
 #import "NSString+StringSize.h"
-#import "UIViewController+ScrollingNavbar.h"
 #import "UIViewController+NavigationItemColor.h"
 #import "UIColor+Hex.h"
 #import "UITools.h"
 #import "UserInfoViewModel.h"
 #import "MyProfileViewController.h"
-#import "SendInviteViewController.h"
 #import "SetingViewController.h"
 #import "NetWorkObject.h"
 #import "Define.h"
@@ -38,10 +36,13 @@
 #import "TransparentView.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "WeChatResgisterViewController.h"
-
-
-
-
-
-
-
+#import "WXUserInfo.h"
+#import "RequestUrl.h"
+#import "SetInviteCollectView.h"
+#import "EqualSpaceFlowLayout.h"
+#import "UITextView+Placeholder.h"
+#import "UIViewController+DismissKeyboard.h"
+#import "UINavigationBar+Awesome.h"
+#import <AlipaySDK/AlipaySDK.h>
+#import "OrderViewModel.h"
+#import "WXApi.h"

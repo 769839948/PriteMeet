@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) NSString *code;
 
+@property (nonatomic, assign) BOOL isBindUser;
+
 @end

@@ -10,6 +10,6 @@
 
 @interface AddStarViewController : MeetBaseViewController
 
-
+@property (nonatomic, copy) NSString *higitLight;
 
 @end

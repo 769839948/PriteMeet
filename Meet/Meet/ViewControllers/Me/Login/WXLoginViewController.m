@@ -11,7 +11,7 @@
 #import "MyProfileViewController.h"
 #import "BaseUserInfoViewController.h"
 #import "WXApi.h"
-
+#import "UserProtocolViewController.h"
 #import "WXApiObject.h"
 #import "UserInfo.h"
 #import "LoginViewModel.h"
@@ -29,11 +29,18 @@
     [super viewDidLoad];
     _viewModel = [[LoginViewModel alloc] init];
     _isNewUser = YES;
+//    [self navigationItemCleanColorWithNotLine];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self navigationItemCleanColorWithNotLine];
 }
 
 #pragma mark - Action
@@ -57,8 +64,19 @@
     }
 }
 
+- (IBAction)userProtocol:(id)sender
+{
+    UIStoryboard *settingStory = [UIStoryboard storyboardWithName:@"Seting" bundle:nil];
+    UserProtocolViewController *userProtocol = [settingStory instantiateViewControllerWithIdentifier:@"UserProtocolViewController"];
+    [userProtocol setUpNavigationBar];
+    [self.navigationController pushViewController:userProtocol animated:YES];
+}
+
 #pragma mark - notification
 - (void)loginState:(NSNotification *)notification {
+//    UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
+//    BaseUserInfoViewController *baseUserInfo = [meStoryBoard instantiateViewControllerWithIdentifier:@"BaseInfoViewController"];
+//    [self.navigationController pushViewController:baseUserInfo animated:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NewUserLoginWihtWechat" object:nil];
     NSNumber *state = [notification object];
     if (state.intValue) {
@@ -67,6 +85,7 @@
             [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
                 /////获取到 [UserInfo shareInstance]的idKye 以后保存需要
                 [UserInfo synchronizeWithDic:object];
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isNewUser"];
                 UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
                 BaseUserInfoViewController *baseUserInfo = [meStoryBoard instantiateViewControllerWithIdentifier:@"BaseInfoViewController"];
                 [weakSelf.navigationController pushViewController:baseUserInfo animated:YES];
@@ -86,8 +105,8 @@
                 } fail:^(NSDictionary *object) {
                 } loadingString:^(NSString *str) {
                     
-                }];/////获取到 [UserInfo shareInstance]的idKye 以后保存需要
-                
+                }];
+                /////获取到 [UserInfo shareInstance]的idKye 以后保存需要
                 //这里是在调试中
             }
         } showLoding:^(NSString *str) {

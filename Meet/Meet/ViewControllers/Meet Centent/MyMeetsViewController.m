@@ -87,45 +87,45 @@
 }
 
 - (void)loadContentViewSubViewWithSelectType:(NSInteger)selectType {
-    switch (selectType) {
-        case 0:
-        {
-            BOOL hasTheVC = NO;
-            for (BaseMeetViewController *meetVC in _arraySubViewControllers) {
-                if ([meetVC isKindOfClass:[AllMeetViewController class]]) {
-                    hasTheVC = YES;
-                    return ;
-                }
-            }
-            NSString *subClassName = @"AllMeetViewController";
-            if (!hasTheVC) {
-                [self getSubControllerWithControllerClassName:subClassName atLocation:selectType];
-            }
-        }
-            break;
-        case 1:
-        {
-         ////already has WillAllowViewColler
-        }
-            break;
-        case 2:
-        {
-            BOOL hasTheVC = NO;
-            for (BaseMeetViewController *meetVC in _arraySubViewControllers) {
-                if ([meetVC isKindOfClass:[WillMeetViewColler class]]) {
-                    hasTheVC = YES;
-                    return ;
-                }
-            }
-            NSString *subClassName = @"WillMeetViewColler";
-            if (!hasTheVC) {
-                [self getSubControllerWithControllerClassName:subClassName atLocation:selectType];
-            }
-        }
-            break;
-        default:
-            break;
-    }
+//    switch (selectType) {
+//        case 0:
+//        {
+////            BOOL hasTheVC = NO;
+////            for (BaseMeetViewController *meetVC in _arraySubViewControllers) {
+////                if ([meetVC isKindOfClass:[AllMeetViewController class]]) {
+////                    hasTheVC = YES;
+////                    return ;
+////                }
+////            }
+////            NSString *subClassName = @"AllMeetViewController";
+////            if (!hasTheVC) {
+////                [self getSubControllerWithControllerClassName:subClassName atLocation:selectType];
+////            }
+//        }
+//            break;
+//        case 1:
+//        {
+//         ////already has WillAllowViewColler
+//        }
+//            break;
+//        case 2:
+//        {
+//            BOOL hasTheVC = NO;
+//            for (BaseMeetViewController *meetVC in _arraySubViewControllers) {
+//                if ([meetVC isKindOfClass:[WillMeetViewColler class]]) {
+//                    hasTheVC = YES;
+//                    return ;
+//                }
+//            }
+//            NSString *subClassName = @"WillMeetViewColler";
+//            if (!hasTheVC) {
+//                [self getSubControllerWithControllerClassName:subClassName atLocation:selectType];
+//            }
+//        }
+//            break;
+//        default:
+//            break;
+//    }
 }
 
 - (BaseMeetViewController *)getSubControllerWithControllerClassName:(NSString *)className atLocation:(NSInteger)location{

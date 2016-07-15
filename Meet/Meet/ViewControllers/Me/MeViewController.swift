@@ -29,36 +29,69 @@ class MeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.loadInviteInfo()
-        
         self.setUpTableView()
         self.loadExtenInfo()
-        self.setNavigationBar()
+        self.addLineNavigationBottom()
+        
+        
+        
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        for view in (UIApplication.sharedApplication().keyWindow?.subviews)! {
+            print(view)
+            view.backgroundColor = UIColor.clearColor()
+        }
+        let window = UIApplication.sharedApplication().keyWindow
+        let status = window?.viewWithTag(1000)
+        if status != nil {
+            status?.backgroundColor = UIColor.clearColor()
+        }
+
         self.setNavigationBar()
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
-        let status = UIApplication.sharedApplication().valueForKey("statusBar") as! UIView
-        status.backgroundColor = UIColor.clearColor()
-
-
+        if UserInfo.isLoggedIn() {
+            self.lastModifield()
+            self.loadExtenInfo()
+            self.loadInviteInfo()
+        
+        }
         if (UserInfo.sharedInstance().isFirstLogin && UserInfo.isLoggedIn()) {
             UserInfo.sharedInstance().isFirstLogin = false
-            self.loadExtenInfo()
             self.loadInviteInfo()
             UserInfo.synchronize()
         }
     }
     
+    func lastModifield(){
+        userInfoModel.lastModifield({ (updateTime) in
+            if NSUserDefaults.standardUserDefaults().objectForKey("lastModifield") != nil{
+                let tempTime = NSUserDefaults.standardUserDefaults().objectForKey("lastModifield")
+                if (tempTime as! String) != (updateTime as String){
+                    self.userInfoModel.getUserInfo(WXUserInfo.shareInstance().openid, success: { (dic) in
+                        UserInfo.synchronizeWithDic(dic)
+                        self.tableView.reloadData()
+                        NSUserDefaults.standardUserDefaults().setObject(updateTime, forKey: "lastModifield")
+                        }, fail: { (dic) in
+                            
+                        }, loadingString: { (msg) in
+                            
+                    })
+                }
+            }else{
+                NSUserDefaults.standardUserDefaults().setObject(updateTime, forKey: "lastModifield")
+            }
+        }) { (error) in
+                
+        }
+    }
+    
     override func viewDidDisappear(animated: Bool) {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage.createImageWithColor(UIColor.whiteColor()), forBarPosition: .Any, barMetrics: .Default)
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
-        
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
-        self.navigationController?.navigationBar.tintColor = UIColor.blackColor()
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.blackColor(),NSFontAttributeName:UIFont.systemFontOfSize(18.0)]
+        if UserInfo.isLoggedIn() {
+            self.navigationItemWithLineAndWihteColor()
+        }
+
     }
     
     func setUpTableView(){
@@ -106,18 +139,13 @@ class MeViewController: UIViewController {
     
     func setNavigationBar(){
         if UserInfo.isLoggedIn() {
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage.createImageWithColor(UIColor.clearColor()), forBarPosition: .Any, barMetrics: .Default)
-            UINavigationBar.appearance().shadowImage = UIImage()
             UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
-            self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
+            self.navigationItemCleanColorWithNotLine()
             self.setLeftBarItem()
         }else{
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage.createImageWithColor(UIColor.whiteColor()), forBarPosition: .Any, barMetrics: .Default)
-            UINavigationBar.appearance().shadowImage = UIImage()
-            UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
+            UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
             self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
-            self.navigationController?.navigationBar.tintColor = UIColor.blackColor()
-            self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.blackColor(),NSFontAttributeName:UIFont.systemFontOfSize(18.0)]
+            self.navigationItemWhiteColorAndNotLine()
             self.setNavigationItemAplah(1, imageName: ["me_dismissBlack"], type: 1)
             self.setNavigationItemAplah(1, imageName: ["me_settingsBlack"], type: 2)
             
@@ -127,7 +155,7 @@ class MeViewController: UIViewController {
     func setLeftBarItem(){
         self.setNavigationItemAplah(1, imageName: ["me_dismiss"], type: 1)
         
-        if UserInfo.sharedInstance().job_label == ""{
+        if UserInfo.sharedInstance().completeness.next_page != 4 {
             self.setNavigationItemAplah(1, imageName: ["me_settings"], type: 2)
         }else{
             self.setNavigationItemAplah(1, imageName: ["me_settings","me_edit"], type: 3)
@@ -156,7 +184,8 @@ class MeViewController: UIViewController {
     
     func cancelPress(sender:UIBarButtonItem){
         self.dismissViewControllerAnimated(true) { 
-            
+//            print("dismiss")
+//            self.navigationController?.navigationBar .setBackgroundImage(UIImage.init(color: UIColor.redColor(), size: CGSizeMake(ScreenWidth, 64)), forBarPosition: UIBarPosition.Any, barMetrics: UIBarMetrics.Default)
         }
     }
     
@@ -170,6 +199,9 @@ class MeViewController: UIViewController {
         settingVC.logoutBlock = {()
             self.setNavigationBar()
             self.tableView.reloadData()
+        }
+        if UserInfo.isLoggedIn() {
+           settingVC.setUpNavigationBar()
         }
         self.navigationController!.pushViewController(settingVC, animated:true)
     }
@@ -218,9 +250,9 @@ class MeViewController: UIViewController {
     
     func pushProfileViewControllr() {
         let meStoryBoard = UIStoryboard(name: "Me", bundle: NSBundle.mainBundle())
-        
         let myProfileVC = meStoryBoard.instantiateViewControllerWithIdentifier("MyProfileViewController") as!  MyProfileViewController
         myProfileVC.fromeMeView = true
+        myProfileVC.hightLight = UserExtenModel.shareInstance().highlight
         myProfileVC.reloadMeViewBlock = {(uodataInfo:Bool) in
             self.setLeftBarItem()
             self.tableView.reloadData()
@@ -281,7 +313,6 @@ class MeViewController: UIViewController {
             
         });
     }
-
 }
 
 extension MeViewController : UITableViewDelegate{
@@ -294,25 +325,21 @@ extension MeViewController : UITableViewDelegate{
         if (indexPath.row == 0) {
             self.pushProfileViewControllr()
         } else if (indexPath.row == 1) {
-            self.presentMoreProfileViewController()
+            UITools.shareInstance().showMessageToView(self.view, message: "^_^ 敬请期待，暂时请联系客服帮忙添加哦", autoHide: true)
+//            self.presentMoreProfileViewController()
         } else  if (indexPath.row == 3 || indexPath.row == 2) {
             let meStoryBoard = UIStoryboard(name: "Me", bundle: NSBundle.mainBundle())
-            let senderInviteVC = meStoryBoard.instantiateViewControllerWithIdentifier("SendInviteViewController") as!  SendInviteViewController
-            senderInviteVC.block = { () in
-                self.tableView.reloadData()
-            }
+            let senderInviteVC = meStoryBoard.instantiateViewControllerWithIdentifier("SenderInviteViewController") as!  SenderInviteViewController
+//            senderInviteVC.block = { () in
+//                self.tableView.reloadData()
+//            }
             self.navigationController!.pushViewController(senderInviteVC, animated:true)
         }else if(indexPath.row == 4){
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! MeInfoTableViewCell
-            let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-            hud.mode = MBProgressHUDMode.Text
-            hud.margin = 10.0
-            hud.removeFromSuperViewOnHide = true
-            hud.hide(true, afterDelay: 1.0)
             if cell.infoDetailLabel.text == "" {
-                hud.labelText = "您已通过所有认证了哦"
+                UITools.shareInstance().showMessageToView(self.view, message: "您已通过所有认证了哦", autoHide: true)
             }else{
-                hud.labelText = "客服Meet君会尽快联系您认证的哦，还请耐心等待。"
+                UITools.shareInstance().showMessageToView(self.view, message: "客服Meet君会尽快联系您认证的哦，还请耐心等待。", autoHide: true)
             }
         }
     }
@@ -327,7 +354,9 @@ extension MeViewController : UITableViewDelegate{
             case 2:
                 return 50
             case 3:
-                return meetCellHeight
+                return tableView.fd_heightForCellWithIdentifier(newMeetInfoTableViewCell, configuration: { (cell) in
+                    self.configNewMeetCell((cell as! NewMeetInfoTableViewCell), indxPath: indexPath)
+                })
             default:
                 return 50
             }
@@ -362,7 +391,7 @@ extension MeViewController : UITableViewDelegate{
                 self.setLeftBarItem()
             }else{
                 self.setNavigationItemAplah(y/124, imageName: ["me_dismissBlack"], type: 1)
-                if UserInfo.sharedInstance().job_label == "" {
+                if UserInfo.sharedInstance().completeness.next_page != 4  {
                     self.setNavigationItemAplah(y/124, imageName: ["me_settingsBlack"], type: 2)
                 }else{
                     self.setNavigationItemAplah(y/124, imageName: ["me_settingsBlack","me_editBlack"], type: 3)
@@ -425,12 +454,15 @@ extension MeViewController : UITableViewDataSource {
             }else if indexPath.row == 1 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(photoDetailTableViewCell, forIndexPath: indexPath) as! PhotoDetailTableViewCell
                     cell.configCell(UserExtenModel.allImageUrl())
+                cell.closure = { () in
+                    UITools.shareInstance().showMessageToView(self.view, message: "^_^ 敬请期待，暂时请联系客服帮忙添加哦", autoHide: true)
+                }
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 return cell
             }else if indexPath.row == 2 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
-                if UserInviteModel.isFake(){
+                if !UserInviteModel.shareInstance().results[0].is_active || UserInviteModel.isFake(){
                     cell.configCell("me_newmeet", infoString: "我的邀约", infoDetail: "未开启     ")
                 }else{
                     cell.configCell("me_newmeet", infoString: "我的邀约", infoDetail: "")
@@ -441,12 +473,7 @@ extension MeViewController : UITableViewDataSource {
                 return cell
             }else if indexPath.row == 3 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(newMeetInfoTableViewCell, forIndexPath: indexPath) as! NewMeetInfoTableViewCell
-                cell.configCell(self.descriptionString(), array: self.instrestArray() as [AnyObject])
-                cell.block = { (height) in
-                    self.meetCellHeight = height + 80
-                    let index = NSIndexPath.init(forRow: 2, inSection: 0)
-                    self.tableView.reloadRowsAtIndexPaths([index], withRowAnimation: UITableViewRowAnimation.Automatic)
-                }
+                self.configNewMeetCell(cell, indxPath: indexPath)
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.isHaveShadowColor(false)
                 return cell

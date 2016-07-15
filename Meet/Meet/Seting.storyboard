@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Seting View Controller-->
@@ -18,9 +17,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MZO-bD-o6g">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MZO-bD-o6g">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="defaultIdentifier" id="QIq-5z-AcC">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QIq-5z-AcC" id="fu7-bO-7hE">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="Vaa-uk-D5J" id="TTv-sj-Y2L"/>
                                     <outlet property="delegate" destination="Vaa-uk-D5J" id="akU-n6-MYi"/>
@@ -59,10 +68,8 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="wb9-cm-sq5">
                                 <rect key="frame" x="120" y="100" width="80" height="80"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="URH-9s-8a6"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="Yra-az-mYc"/>
-                                    <constraint firstAttribute="height" constant="80" id="mrH-tE-6qJ"/>
-                                    <constraint firstAttribute="width" constant="80" id="pTi-8Y-3kf"/>
+                                    <constraint firstAttribute="width" constant="80" id="536-6u-0au"/>
+                                    <constraint firstAttribute="height" constant="80" id="Ytk-ea-SZ3"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -74,8 +81,8 @@
                                 <rect key="frame" x="124" y="431" width="72" height="26"/>
                                 <color key="backgroundColor" red="0.094117647058823528" green="0.094117647058823528" blue="0.094117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="26" id="m8a-fU-cOH"/>
-                                    <constraint firstAttribute="width" constant="72" id="s6L-mX-0of"/>
+                                    <constraint firstAttribute="width" constant="72" id="D4p-CI-n9b"/>
+                                    <constraint firstAttribute="height" constant="26" id="VZT-JN-4ct"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="10"/>
                                 <state key="normal" title="使用协议">
@@ -90,33 +97,28 @@
                                     <action selector="useProtocolAction:" destination="jBC-aJ-gmZ" eventType="touchUpInside" id="cQ4-qV-7PW"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PRK-hA-xeP">
-                                <rect key="frame" x="43" y="253" width="240" height="128"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PRK-hA-xeP">
+                                <rect key="frame" x="28" y="253" width="264" height="110"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">－
-create &amp; director - rancan
-development - markman &amp; looder
-design - senstank
-marketing - mokoo &amp; bobe</string>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="110" id="2yF-4A-DLn"/>
+                                    <constraint firstAttribute="width" constant="264" id="H3W-Dq-mGh"/>
+                                </constraints>
+                                <string key="text">founder &amp; pm - rancan
+development - zhiyi &amp; dequan
+design - da363
+marketing - jiajia</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MEET 0.8.2 BETA" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKR-ER-Oc0">
-                                <rect key="frame" x="101" y="197" width="118" height="26"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="26" id="nZq-xH-lqP"/>
-                                    <constraint firstAttribute="width" constant="118" id="y8P-rh-eM5"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MEET 0.0.1 BETA" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKR-ER-Oc0">
+                                <rect key="frame" x="106" y="197" width="108.5" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COPYRIGHTS © 2016 MEET. ALL RIGHTS RESERVED." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oH8-FQ-BYS">
-                                <rect key="frame" x="0.0" y="522" width="320" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="chG-sg-IKy"/>
-                                    <constraint firstAttribute="width" constant="320" id="dv9-0s-eVx"/>
-                                </constraints>
+                                <rect key="frame" x="32" y="531" width="256.5" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -124,20 +126,16 @@ marketing - mokoo &amp; bobe</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="PRK-hA-xeP" firstAttribute="top" secondItem="fKR-ER-Oc0" secondAttribute="bottom" constant="30" id="1lJ-tj-IrO"/>
-                            <constraint firstItem="YV8-T6-uw9" firstAttribute="centerX" secondItem="3gW-VK-M5b" secondAttribute="centerX" id="636-fK-x9i"/>
-                            <constraint firstItem="fKR-ER-Oc0" firstAttribute="top" secondItem="wb9-cm-sq5" secondAttribute="bottom" constant="17" id="7wd-8T-vWJ"/>
-                            <constraint firstAttribute="trailing" secondItem="oH8-FQ-BYS" secondAttribute="trailing" id="BKg-WV-gPY"/>
-                            <constraint firstItem="wb9-cm-sq5" firstAttribute="top" secondItem="hwa-vl-Rj2" secondAttribute="bottom" constant="80" id="DUB-gm-gQp"/>
-                            <constraint firstItem="wb9-cm-sq5" firstAttribute="centerX" secondItem="3gW-VK-M5b" secondAttribute="centerX" id="HYZ-13-y3h"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="PRK-hA-xeP" secondAttribute="trailing" constant="17" id="L3X-bp-p4L"/>
-                            <constraint firstItem="Xz9-hV-flG" firstAttribute="top" secondItem="oH8-FQ-BYS" secondAttribute="bottom" constant="25" id="OVd-mW-hUi"/>
-                            <constraint firstItem="fKR-ER-Oc0" firstAttribute="leading" secondItem="wb9-cm-sq5" secondAttribute="leading" constant="-19" id="RPx-vz-7xZ"/>
-                            <constraint firstItem="oH8-FQ-BYS" firstAttribute="leading" secondItem="3gW-VK-M5b" secondAttribute="leading" id="kQm-sb-BIY"/>
-                            <constraint firstItem="YV8-T6-uw9" firstAttribute="top" secondItem="PRK-hA-xeP" secondAttribute="bottom" constant="50" id="mKW-go-w5g"/>
-                            <constraint firstItem="wb9-cm-sq5" firstAttribute="top" secondItem="hwa-vl-Rj2" secondAttribute="bottom" constant="80" id="nVx-XN-0ey"/>
-                            <constraint firstItem="PRK-hA-xeP" firstAttribute="leading" secondItem="3gW-VK-M5b" secondAttribute="leadingMargin" constant="23" id="wYX-PH-5iF"/>
-                            <constraint firstItem="Xz9-hV-flG" firstAttribute="top" secondItem="YV8-T6-uw9" secondAttribute="bottom" constant="111" id="zaj-iN-9aL"/>
+                            <constraint firstItem="Xz9-hV-flG" firstAttribute="top" secondItem="oH8-FQ-BYS" secondAttribute="bottom" constant="25" id="0b3-cU-Dwv"/>
+                            <constraint firstItem="oH8-FQ-BYS" firstAttribute="centerX" secondItem="3gW-VK-M5b" secondAttribute="centerX" id="4Uh-Vu-yHO"/>
+                            <constraint firstItem="wb9-cm-sq5" firstAttribute="centerX" secondItem="3gW-VK-M5b" secondAttribute="centerX" id="4uX-Ph-Y7e"/>
+                            <constraint firstItem="PRK-hA-xeP" firstAttribute="centerX" secondItem="3gW-VK-M5b" secondAttribute="centerX" id="6T5-vQ-6kZ"/>
+                            <constraint firstItem="wb9-cm-sq5" firstAttribute="top" secondItem="hwa-vl-Rj2" secondAttribute="bottom" constant="80" id="EG0-kO-70N"/>
+                            <constraint firstItem="Xz9-hV-flG" firstAttribute="top" secondItem="YV8-T6-uw9" secondAttribute="bottom" constant="111" id="LxB-Es-Ily"/>
+                            <constraint firstItem="PRK-hA-xeP" firstAttribute="top" secondItem="hwa-vl-Rj2" secondAttribute="bottom" constant="233" id="N8d-FN-iOx"/>
+                            <constraint firstItem="fKR-ER-Oc0" firstAttribute="top" secondItem="hwa-vl-Rj2" secondAttribute="bottom" constant="177" id="S0H-en-a3w"/>
+                            <constraint firstItem="fKR-ER-Oc0" firstAttribute="centerX" secondItem="3gW-VK-M5b" secondAttribute="centerX" id="SVo-Ef-ZUi"/>
+                            <constraint firstItem="YV8-T6-uw9" firstAttribute="centerX" secondItem="3gW-VK-M5b" secondAttribute="centerX" id="dFd-T8-JSf"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="33o-I7-wxx"/>
@@ -154,7 +152,7 @@ marketing - mokoo &amp; bobe</string>
         <!--User Protocol View Controller-->
         <scene sceneID="A1D-WR-1Dp">
             <objects>
-                <viewController id="hJe-ua-qjW" customClass="UserProtocolViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserProtocolViewController" id="hJe-ua-qjW" customClass="UserProtocolViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ivn-Ux-Rvd"/>
                         <viewControllerLayoutGuide type="bottom" id="23f-9H-sen"/>
@@ -163,7 +161,7 @@ marketing - mokoo &amp; bobe</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="98C-Hn-M0S">
+                            <webView autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="98C-Hn-M0S">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
@@ -173,10 +171,10 @@ marketing - mokoo &amp; bobe</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="23f-9H-sen" firstAttribute="top" secondItem="98C-Hn-M0S" secondAttribute="bottom" id="BVR-Fv-mj9"/>
                             <constraint firstItem="98C-Hn-M0S" firstAttribute="leading" secondItem="ula-kX-Lxi" secondAttribute="leading" id="VUh-NR-uaX"/>
                             <constraint firstItem="98C-Hn-M0S" firstAttribute="top" secondItem="ula-kX-Lxi" secondAttribute="top" id="X3U-ua-UYD"/>
                             <constraint firstAttribute="trailing" secondItem="98C-Hn-M0S" secondAttribute="trailing" id="eKi-bZ-pHK"/>
+                            <constraint firstItem="23f-9H-sen" firstAttribute="top" secondItem="98C-Hn-M0S" secondAttribute="bottom" id="h2g-6g-TQe"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="zoh-I3-F1G"/>

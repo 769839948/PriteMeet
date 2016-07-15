@@ -22,14 +22,12 @@
 
 @implementation InterestCollectView
 
-
-static NSString * const reuseIdentifier = @"InterstCollectViewCell";
-
 - (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout
 {
     self = [super initWithFrame:frame collectionViewLayout:layout];
     if (self) {
         _interstArray = [[NSMutableArray alloc] init];
+        _selectItems = [[NSMutableArray alloc] init];
         self.backgroundColor = [UIColor whiteColor];
         [self registerClass:[InterestCollectViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
         self.scrollEnabled = NO;
@@ -44,11 +42,16 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
 - (void)setCollectViewData:(NSArray *)array;
 {
     _edgX = 0;
-    if (![_interstArray isEqualToArray:array]) {
-        _interstArray = [array mutableCopy];
-        [self reloadData];
-    }
-    
+    _interstArray = [array mutableCopy];
+    [self reloadData];
+}
+
+- (void)setCollectViewData:(NSArray *)array andSelectArray:(NSArray *)selectArray
+{
+    _edgX = 0;
+    _interstArray = [array mutableCopy];
+    _selectItems = [selectArray mutableCopy];
+    [self reloadData];
 }
 
 - (CGFloat)interesHeight
@@ -114,12 +117,6 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
 //定义每个UICollectionView 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    return [collectionView ar_sizeForCellWithIdentifier:reuseIdentifier
-//                                                     indexPath:indexPath
-//                                                 configuration:^(InterestCollectViewCell * cell) {
-//                                                     [self filleCell:cell withText:[_interstArray objectAtIndex:indexPath.row]];
-//                                                     [cell filleCellWithFeed:[_interstArray objectAtIndex:indexPath.row]];
-//                                                 }];
     return CGSizeMake([self cellWidth:[_interstArray objectAtIndex:indexPath.row]], 27);
 }
 //定义每个UICollectionView 的 margin
@@ -136,6 +133,11 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
     }else{
         return _edgX;
     }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
 }
 
 //每个item之间的间距

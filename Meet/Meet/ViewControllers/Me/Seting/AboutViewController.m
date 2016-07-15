@@ -9,6 +9,7 @@
 #import "AboutViewController.h"
 #import "MeetBaseViewController.h"
 #import "UserProtocolViewController.h"
+#import "Meet-Swift.h"
 
 @interface AboutViewController () {
     
@@ -26,7 +27,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"关于Meet";
-//    _logoImageView.layer.cornerRadius = 5;
     _logoImageView.layer.masksToBounds = YES;
     self.hidesBottomBarWhenPushed = YES;
     [self setUpNavigationBarItem];
@@ -34,13 +34,22 @@
 
 - (void)setUpNavigationBarItem
 {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"联系客服" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarPress:)];
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithHexString:AboutUsLabelColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
+
+    UIBarButtonItem *rightBtItem = [[UIBarButtonItem alloc] initWithTitle:@"联系客服" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarPress:)];
+    [rightBtItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:HomeDetailViewNameColor],NSFontAttributeName:NavigationBarRightItemFont} forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItem = rightBtItem;
 }
 
 - (void)rightBarPress:(UIBarButtonItem *)sender
 {
-    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"18513008226"];
+    NSString *tempPhone = @"";
+    if ([self.phone isEqualToString:@""]) {
+        tempPhone = @"18513008226";
+    }else{
+        tempPhone = _phone;
+    }
+    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",tempPhone];
     UIWebView * callWebview = [[UIWebView alloc] init];
     [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
     [self.view addSubview:callWebview];

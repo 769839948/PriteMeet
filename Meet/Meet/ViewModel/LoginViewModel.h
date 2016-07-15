@@ -32,4 +32,12 @@
                fail:(Fail)failBlock
       loadingString:(LoadingView)loading;
 
+
+- (void)applyCode:(UserInfo *)userInfo
+        workArray:(NSArray *)workExps
+         eduArray:(NSArray *)eduExps
+          Success:(Success)successBlock
+             Fail:(Fail)failBlock
+       showLoding:(LoadingView)loading;
+
 @end

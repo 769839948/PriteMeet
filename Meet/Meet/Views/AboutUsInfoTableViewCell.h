@@ -8,15 +8,10 @@
 
 #import "BaseTableViewCell.h"
 
-typedef void (^AboutUsButtonPress)();
-
 @interface AboutUsInfoTableViewCell : BaseTableViewCell
-
-@property (nonatomic, strong) AboutUsButtonPress block;
 
 @property (nonatomic, strong) UIButton *aboutAll;
 
-
-- (void)configCell:(NSArray *)stringArray withGender:(NSInteger)gender;
+- (void)configCell:(NSArray *)stringArray withUrl:(NSString *)web_url;
 
 @end

@@ -14,4 +14,6 @@ typedef void (^Logout)();
 
 @property (nonatomic, strong) Logout logoutBlock;
 
+- (void)setUpNavigationBar;
+
 @end

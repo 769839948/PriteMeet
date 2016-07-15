@@ -26,13 +26,10 @@ static UserInviteModel *userInvite = nil;
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        
         if ([UserInviteModel isHaveInviteInfo]) {
             userInvite = [NSKeyedUnarchiver unarchiveObjectWithFile:kEncodedObjectPath_UserInvite];
-            
         }else{
             userInvite = [[UserInviteModel alloc] init];
-            
         }
     });
     return userInvite;
@@ -89,8 +86,9 @@ static UserInviteModel *userInvite = nil;
 {
     NSMutableArray *userInviiteArray = [NSMutableArray array];
     Results *result = [[Results alloc] init];
-    result.introduction = dicArray[@"introduction"];
+    result.introduction = dicArray[@"introduction_main"];
     result.is_fake = [dicArray[@"is_fake"] boolValue];
+    result.is_active = [dicArray[@"is_active"] boolValue];
      NSMutableArray *themeArray = [NSMutableArray array];
     for (NSDictionary *results in dicArray[@"theme"]) {
         Theme *theme = [[Theme alloc] init];
@@ -157,7 +155,6 @@ static UserInviteModel *userInvite = nil;
 
     for (Theme *theme in result.theme) {
         if (![theme.theme isEqualToString:@""]) {
-            NSLog(@"%@",theme.theme);
             NSString *themeString = [[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitation"] objectForKey:theme.theme];
             if (themeString != nil) {
                 [themArray addObject:themeString];

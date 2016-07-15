@@ -79,6 +79,13 @@
  *  设置toobar的背景颜色
  */
 -(void)setToolbarTintColor:(UIColor *)color;
+
+/**
+ *  默认选中那一行那个轮子
+ *
+ */
+-(void)setSelectRow:(NSInteger)row inComponent:(NSInteger)componet animate:(BOOL)animated;
+
 @end
 
 // 版权属于原作者

@@ -37,4 +37,7 @@
 + (CGFloat)widthOfString:(NSString *)string withFont:(UIFont *)font;
 + (UIImage*)imageWithImageSimple:(UIImage*)image scaledToSize:(CGSize)newSize;
 
+- (NSDictionary *)getIPAddresses;
+- (NSString *)getIPAddress:(BOOL)preferIPv4;
+
 @end

@@ -15,7 +15,7 @@
 #import "WXLoginViewController.h"
 #import "ThemeTools.h"
 #import "UIImage+PureColor.h"
-
+#import "ApplyCodeViewController.h"
 //#import <Fabric/Fabric.h>
 //#import <Crashlytics/Crashlytics.h>
 
@@ -40,13 +40,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _viewModel = [[LoginViewModel alloc] init];
-    
     _nextStep.enabled = NO;
     if (IOS_7LAST) {
         self.navigationController.interactivePopGestureRecognizer.delegate = self;
     }
-    
     [self setUpTextField];
+    [self addLineNavigationBottom];
+    [self.navigationItem.leftBarButtonItem setTintColor:[UIColor colorWithHexString:HomeDetailViewNameColor]];
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor colorWithHexString:HomeDetailViewNameColor]];
+
 }
 
 - (void)setUpTextField
@@ -59,9 +61,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 49)] forBarMetrics:UIBarMetricsCompactPrompt];
-    //    [ThemeTools navigationBarTintColor:[UIColor blackColor] titleColor:[UIColor blackColor]];
+    [super viewWillAppear:animated];
+    [self navigationItemCleanColorWithNotLine];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -83,7 +84,7 @@
 
 - (IBAction)checkCodeButtonAction:(id)sender {
     #warning check code and into WeChat Longin
-    [self performSegueWithIdentifier:@"pushToWXLogin" sender:self];
+//    [self performSegueWithIdentifier:@"pushToWXLogin" sender:self];
     if ([self isEmpty]) {
         [EMAlertView showAlertWithTitle:nil message:@"请输入邀请码" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             
@@ -100,7 +101,7 @@
         } showLoding:^(NSString *str) {
         }];
     }
-    
+//
     
 }
 
@@ -109,6 +110,14 @@
     if ([segue.identifier isEqualToString:@"pushToWXLogin"]) {
         WXLoginViewController *wxLoginView = segue.destinationViewController; //获取目的试图控制器对象，跟原来一样，在.m文件中要引入头文件
         wxLoginView.code = checkField.text;
+    }
+    
+    if ([segue.identifier isEqualToString:@"pushApplyController"]) {
+        ApplyCodeViewController *applyCode = segue.destinationViewController; //获取目的试图控制器对象，跟原来一样，在.m文件中要引入头文件
+        __weak typeof(self) weakSelf = self;
+        applyCode.block = ^(){
+            [[UITools shareInstance] showMessageToView:weakSelf.view message:@"申请成功，请耐心等待审核结果^_^" autoHide:YES];
+        };
     }
 }
 
@@ -119,7 +128,6 @@
 
 #pragma mark - NSNotificationCenter
 - (void)oldUerLoginState:(NSNotification *)notification {
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"OldUserLoginWihtWechat" object:nil];
      NSNumber *state = [notification object];
     if (state) {
@@ -127,7 +135,7 @@
         [_viewModel oldUserLogin:[WXUserInfo shareInstance] Success:^(NSDictionary *object) {
             
             [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
-                /////获取到 [UserInfo shareInstance]的idKye 以后保存需要
+                //获取到 [UserInfo shareInstance]的idKye 以后保存需要
                 [UserInfo synchronizeWithDic:object];
                 [weakSelf dismissViewControllerAnimated:YES completion:^{
                     [UserInfo sharedInstance].isFirstLogin = YES;
@@ -151,8 +159,6 @@
         [[UITools shareInstance] showMessageToView:self.view message:@"请求出错" autoHide:YES];
     }
 }
-
-
 
 #pragma mark - sender to WeChat
 -(void)sendAuthRequest {

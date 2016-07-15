@@ -19,8 +19,6 @@
 @property (nonatomic, strong) UILabel *positionLabel;
 @property (nonatomic, strong) UILabel *meetNumber;
 
-@property (nonatomic, strong) InterestCollectView *interestView;
-
 @property (nonatomic, strong) CenterlabelView *centerLabelView;
 
 
@@ -57,8 +55,8 @@
     
     _meetNumber = [[UILabel alloc] init];
     _meetNumber.textAlignment = NSTextAlignmentCenter;
-    _meetNumber.font = [UIFont systemFontOfSize:12.0f];
-    _meetNumber.textColor = [UIColor lightGrayColor];
+    _meetNumber.font = HomeViewDetailMeetNumberFont;
+    _meetNumber.textColor = [UIColor colorWithHexString:HomeDetailViewMeetNumberColor];
     [self.contentView addSubview:_meetNumber];
     
     _centerLabelView = [[CenterlabelView alloc] init];
@@ -80,20 +78,20 @@
     if ([position isEqualToString:@""]) {
         [_positionLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(1);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
             make.bottom.mas_equalTo(weakSelf.meetNumber.mas_top).offset(-8);
             make.height.mas_offset(0.1);
         }];
         [self updateConstraints];
     }else{
         _positionLabel.text = position;
-        float positionHeight = [position heightWithFont:HomeViewDetailPositionFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 20];
+        float positionHeight = [position heightWithFont:HomeViewDetailPositionFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 40];
         if (positionHeight > 32){
             [_positionLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(1);
-                make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
-                make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
+                make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+                make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
                 make.bottom.mas_equalTo(weakSelf.meetNumber.mas_top).offset(-8);
                 make.height.mas_offset(positionHeight);
             }];
@@ -103,9 +101,9 @@
     if ([meetNumber isEqualToString:@""]) {
         [_meetNumber mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.positionLabel.mas_bottom).offset(8);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
-            make.bottom.mas_equalTo(weakSelf.interestView.mas_top).offset(-16);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
+            make.bottom.mas_equalTo(weakSelf.centerLabelView.mas_top).offset(-16);
             make.height.mas_offset(0.1);
         }];
         [self updateConstraints];
