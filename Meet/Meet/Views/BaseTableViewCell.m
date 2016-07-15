@@ -44,7 +44,7 @@
             make.top.equalTo(weakSelf.contentView.mas_top).offset(0);
             make.left.equalTo(weakSelf.contentView.mas_left).offset(10);
             make.right.equalTo(weakSelf.contentView.mas_right).offset(-10);
-            make.bottom.equalTo(weakSelf.showdowView.mas_bottom).offset(-6);
+            make.bottom.equalTo(weakSelf.showdowView.mas_bottom).offset(-3);
         }];
 
     }else if (isCornerRadius && !isBottom){
@@ -94,7 +94,7 @@
         make.top.equalTo(weakSelf.showdowView.mas_top).offset(0);
         make.left.equalTo(weakSelf.showdowView.mas_left).offset(0);
         make.right.equalTo(weakSelf.showdowView.mas_right).offset(0);
-        make.bottom.equalTo(weakSelf.showdowView.mas_bottom).offset(1);
+        make.bottom.equalTo(weakSelf.showdowView.mas_bottom).offset(3);
     }];
     
 }

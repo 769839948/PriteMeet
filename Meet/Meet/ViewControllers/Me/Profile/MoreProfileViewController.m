@@ -342,7 +342,7 @@
             cell.textView.text = @"修改中";
             return cell;
         }
-    } else if (indexPath.row == 1){
+    } else{
         NSString *cellIdentifier = @"addImageCell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
         UILabel *label = (UILabel *)[cell viewWithTag:1];
@@ -359,8 +359,8 @@
             imageView2.hidden = YES;
             imageView1.hidden = YES;
         }
+        return cell;
     }
-    return cell;
 }
 
 - (CGFloat)imageCellHeightForRowAtIndexPath:(NSIndexPath *)indexPath {

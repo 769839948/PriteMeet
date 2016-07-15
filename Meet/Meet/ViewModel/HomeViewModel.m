@@ -8,6 +8,7 @@
 
 #import "HomeViewModel.h"
 #import "WXUserInfo.h"
+#import "ProfileKeyAndValue.h"
 
 @implementation HomeViewModel
 
@@ -77,7 +78,14 @@
 
 - (void)getOtherUserInfo:(NSString *)userId successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock
 {
-    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@?cur_user=%@",RequestGetOtherInfo,userId,[WXUserInfo shareInstance].openid];
+    NSString *url = @"";
+    if ([UserInfo isLoggedIn]) {
+       url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@?cur_user=%@",RequestGetOtherInfo,userId,[WXUserInfo shareInstance].openid];
+    }else{
+        url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@",RequestGetOtherInfo,userId];
+
+    }
+    
     
     [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -106,6 +114,25 @@
         }else{
             failBlock(responseObject);
         }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failBlock(@{@"":@""});
+    }];
+}
+
+- (void)getDicMap:(Success)successBlock failBlock:(Fail)failBlock
+{
+   
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestGetDicMap];
+    
+    [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        successBlock(responseObject);
+//        if ([[responseObject objectForKey:@"success"] boolValue]) {
+//            successBlock([responseObject objectForKey:@"data"]);
+//        }else{
+//            failBlock(responseObject);
+//        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failBlock(@{@"":@""});
     }];

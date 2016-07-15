@@ -11,7 +11,6 @@
 #import "ManListCell.h"
 #import "WeChatResgisterViewController.h"
 #import "NSString+StringSize.h"
-#import "UIViewController+ScrollingNavbar.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "MJRefresh.h"
 #import "ProfileKeyAndValue.h"
@@ -22,6 +21,7 @@
 #import "HomeModel.h"
 #import "UserInfo.h"
 #import "UITools.h"
+#import "AMScrollingNavbar.h"
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <AMapLocationKit/AMapLocationManager.h>
 
@@ -32,7 +32,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
 };
 
 
-@interface FristHomeViewController ()<UIGestureRecognizerDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource,AMapLocationManagerDelegate>
+@interface FristHomeViewController ()<UIGestureRecognizerDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource,AMapLocationManagerDelegate,ScrollingNavigationControllerDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -65,9 +65,21 @@ typedef NS_ENUM(NSInteger, FillterName) {
     _page = 0;
     _viewModel = [[HomeViewModel alloc] init];
     _homeModelArray = [NSMutableArray array];
-    [self setUpNavigationBar];
+    [self getProfileKeyAndValues];
     [self setUpRefreshView];
     [self setUpLocationManager];
+    [self addLineNavigationBottom];
+    
+
+}
+
+- (void)getProfileKeyAndValues
+{
+    [_viewModel getDicMap:^(NSDictionary *object) {
+        [ProfileKeyAndValue shareInstance].appDic = object;
+    } failBlock:^(NSDictionary *object) {
+        
+    }];
 }
 
 - (void)setUpLocationManager
@@ -158,20 +170,22 @@ typedef NS_ENUM(NSInteger, FillterName) {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [(ScrollingNavigationController *)self.navigationController followScrollView:self.tableView delay:50.0f];
+    [self navigationItemWhiteColorAndNotLine];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:HomeTableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [self setStatusView];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
-    [self.navigationController.navigationBar setBarTintColor:NavigationBarTintColorCustome];
-    [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 0.5)]];
-//    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
-
+    [self setUpBottonView];
+    [self setUpNavigationBar];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [self.bottomView removeFromSuperview];
-    [self.statusView removeFromSuperview];
+
     [super viewWillDisappear:animated];
-    [self showNavBarAnimated:YES];
+    [self.bottomView removeFromSuperview];
+    [_statusView setBackgroundColor:[UIColor clearColor]];
+    [(ScrollingNavigationController *)self.navigationController showNavbarWithAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -187,33 +201,20 @@ typedef NS_ENUM(NSInteger, FillterName) {
     return YES;
 }
 
+
+
 - (void)setUpNavigationBar
 {
     self.navigationItem.titleView = [self titleView];
-    self.navigationItem.title = @"Meet";
-    UIButton *fillteBt = [UIButton buttonWithType:UIButtonTypeCustom];
-    [fillteBt setImage:[UIImage imageNamed:@"navigationbar_fittle"] forState:UIControlStateNormal];
-    [fillteBt setFrame:CGRectMake(0, 0, 40, 40)];
-    [fillteBt addTarget:self action:@selector(leftItemClick:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftBarItem = [[UIBarButtonItem alloc] initWithCustomView:fillteBt];
-    self.navigationItem.leftBarButtonItem = leftBarItem;
-    if (IOS_7LAST) {
-        self.navigationController.navigationBar.translucent = NO;
-    }
-    
-    UIButton *icon_User = [UIButton buttonWithType:UIButtonTypeCustom];
-    [icon_User setImage:[UIImage imageNamed:@"Icon_User"] forState:UIControlStateNormal];
-    [icon_User setFrame:CGRectMake(0, 0, 40, 40)];
-    [icon_User addTarget:self action:@selector(rightItemPess:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:icon_User];
-    [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 0.5)]];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:TableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [self setStatusView];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigationbar_fittle"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"Icon_User"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightItemPess:)];
+    ScrollingNavigationController *navigation = (ScrollingNavigationController *)self.navigationController;
+    navigation.scrollingNavbarDelegate = self;
 }
 
 - (void)rightItemPess:(UIBarButtonItem *)sender
 {
-//    UIAlertView *aletView = [[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"" otherButtonTitles:@""];
+    [self.statusView setBackgroundColor:[UIColor clearColor]];
     [self presentViewController:[[BaseNavigaitonController alloc] initWithRootViewController:[[MeViewController alloc] init]] animated:YES completion:^{
 
     }];
@@ -221,7 +222,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
 
 - (UIView *)titleView
 {
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 70, 25)];
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(2, -1, 78, 25)];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:titleView.frame];
     imageView.image = [UIImage imageNamed:@"navigationbar_title"];
     [titleView addSubview:imageView];
@@ -237,11 +238,22 @@ typedef NS_ENUM(NSInteger, FillterName) {
     [[UIApplication sharedApplication].keyWindow addSubview:_bottomView];
 }
 
+- (void)orderPress:(UIButton *)sender
+{
+    UIStoryboard *orderStory = [UIStoryboard storyboardWithName:@"Order" bundle:[NSBundle mainBundle]];
+    OrderViewController *orderVC = [orderStory instantiateViewControllerWithIdentifier:@"OrderViewController"];
+    [self.navigationController pushViewController:orderVC animated:YES];
+//    PayViewController *controller = [[PayViewController alloc] init];
+//    [self.navigationController pushViewController:controller animated:YES];
+}
+
 - (void)setStatusView
 {
-    _statusView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 20)];
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    [window addSubview:_statusView];
+    //修改信号栏（状态栏）的颜色
+    _statusView = [[UIView alloc] initWithFrame:[UIApplication sharedApplication].statusBarFrame];
+    _statusView.tag = 1000;
+    _statusView.backgroundColor = [UIColor redColor];
+//    [[[UIApplication sharedApplication].delegate window] addSubview:_statusView];
 }
 
 - (void)setUpRefreshView
@@ -255,10 +267,9 @@ typedef NS_ENUM(NSInteger, FillterName) {
     UIButton *meetBt = [UIButton buttonWithType:UIButtonTypeCustom];
     meetBt.frame = frame;
     meetBt.layer.cornerRadius = frame.size.width/2;
-//    [meetBt setBackgroundImage:[UIImage imageNamed:@"meet_order"] forState:UIControlStateNormal];
     [meetBt setImage:[UIImage imageNamed:@"meet_order"] forState:UIControlStateNormal];
     meetBt.layer.backgroundColor = [[UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0] CGColor];
-    
+    [meetBt addTarget:self action:@selector(orderPress:) forControlEvents:UIControlEventTouchUpInside];
     return meetBt;
 }
 
@@ -279,8 +290,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
 {
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    [self followScrollView:_tableView];
-    _tableView.backgroundColor = [UIColor colorWithHexString:TableViewBackGroundColor];
+    _tableView.backgroundColor = [UIColor colorWithHexString:HomeTableViewBackGroundColor];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableView registerClass:[ManListCell class] forCellReuseIdentifier:@"MainTableViewCell"];
     [self.view addSubview:_tableView];
@@ -353,7 +363,6 @@ typedef NS_ENUM(NSInteger, FillterName) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MeetDetailViewController *meetDetailView = [[MeetDetailViewController alloc] init];
-    [meetDetailView showNavbar];
     HomeModel *model = [_homeModelArray objectAtIndex:indexPath.section];
     meetDetailView.user_id = [NSString stringWithFormat:@"%ld",(long)model.uid];
     [self.navigationController pushViewController:meetDetailView animated:YES];
@@ -364,24 +373,21 @@ typedef NS_ENUM(NSInteger, FillterName) {
 {
     CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
     if (scrollView.contentOffset.y <= 0){
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:TableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:HomeTableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     }else{
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:HomeTableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     }
-    if (translation.y < -50)
+
+    if (translation.y < -54)
     {
-        _bottomView.hidden = YES;
-        _statusView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:HomeDetailViewNameColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+//        _statusView.backgroundColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
     }else if(translation.y > 0){
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-        _statusView.backgroundColor = [UIColor whiteColor];
-        _bottomView.hidden = NO;
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:HomeTableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+//        _statusView.backgroundColor = [UIColor colorWithHexString:HomeTableViewBackGroundColor];
+
     }
-    
-    if (scrollView.contentOffset.y <= 0){
-        
-    }
+
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -456,6 +462,22 @@ typedef NS_ENUM(NSInteger, FillterName) {
         } fail:^(NSDictionary *object) {
             
         }];
+    }
+}
+
+- (void)scrollingNavigationController:(ScrollingNavigationController * _Nonnull)controller didChangeState:(enum NavigationBarState)state
+{
+    if (state == NavigationBarStateExpanded) {
+        _statusView.backgroundColor = [UIColor colorWithHexString:HomeTableViewBackGroundColor];
+
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:HomeTableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    }else if (state == NavigationBarStateCollapsed){
+        _statusView.backgroundColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+
+    }else{
+//        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:HomeDetailViewNameColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionTop barMetrics:UIBarMetricsDefault];
     }
 }
 

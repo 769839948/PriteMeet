@@ -10,4 +10,6 @@
 
 @interface UserProtocolViewController : MeetBaseViewController
 
+- (void)setUpNavigationBar;
+
 @end

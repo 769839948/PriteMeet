@@ -9,6 +9,7 @@
 import UIKit
 import MJExtension
 import IQKeyboardManager
+import FDFullscreenPopGesture
 
 class SenderInviteViewController: UIViewController {
 
@@ -16,6 +17,7 @@ class SenderInviteViewController: UIViewController {
     internal var isNewLogin:Bool = false
     var viewModel:UserInfoViewModel!
     var allItems = NSMutableArray()
+    var plachString = ""
     var selectItems = NSMutableArray()
     var textView:UITextView!
     var cell:InviteItemsTableViewCell!
@@ -23,21 +25,32 @@ class SenderInviteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadNetData()
-        self.title = "管理邀约"
+        self.title = "设置邀约"
         self.setUpTableView()
         self.setNavigationItemBack()
         self.setNavigationBar()
         IQKeyboardManager.sharedManager().enable = false
         self.setupForDismissKeyboard()
-        
         // Do any additional setup after loading the view.
     }
+    
+//    override func viewDidAppear(animated: Bool) {
+//        self.navigationController?.fd_fullscreenPopGestureRecognizer.enabled = true
+//    }
 
     func loadNetData(){
         viewModel = UserInfoViewModel()
         viewModel.getAllInviteAllItems({ (dic) in
             self.allItems = ((dic as NSDictionary).objectForKey("all_themes")?.copy())! as! NSMutableArray
-            self.selectItems = NSMutableArray(array:UserInviteModel.themArray(0) as NSArray)
+            self.plachString = (dic as NSDictionary).objectForKey("default_document") as! String
+            if UserInviteModel.isFake() {
+                for _ in 0...self.allItems.count - 1 {
+                    self.selectItems.addObject("false")
+
+                }
+            }else{
+                self.selectItems = NSMutableArray(array:UserInviteModel.themArray(0) as NSArray)
+            }
             self.tableView.reloadData()
             }, fail: { (dic) in
                 
@@ -48,27 +61,41 @@ class SenderInviteViewController: UIViewController {
     
     func setNavigationBar(){
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "setting_savebt"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SenderInviteViewController.sendreInvite))
+        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
+        self.createNavigationBar()
+//        self.navigationItemWithLineAndWihteColor()
     }
     
     func sendreInvite(){
         let arrayItems = NSMutableArray()
         for idx in 0...cell.interestView.selectItems.count - 1 {
-            let ret = cell.interestView.selectItems[idx].boolValue
-            if ret == true {
+            let ret = cell.interestView.selectItems[idx]
+            if ret as! String == "true" {
                 arrayItems.addObject(allItems[idx])
             }
         }
-        viewModel.uploadInvite(textView.text, themeArray: arrayItems as [AnyObject], isActive: UserInviteModel.shareInstance().results[0].is_active,success: { (dic) in
+        
+        var ret:Bool = true
+        if !isNewLogin {
+            ret = UserInviteModel.shareInstance().results[0].is_active
+        }
+        viewModel.uploadInvite(textView.text, themeArray: arrayItems as [AnyObject], isActive: ret,success: { (dic) in
             if self.isNewLogin {
-                self.dismissViewControllerAnimated(true, completion: { 
+                self.dismissViewControllerAnimated(true, completion: {
                     
                 })
+            }else{
+                if !UserInviteModel.shareInstance().results[0].is_active {
+                    UserInviteModel.shareInstance().results[0].is_active = true
+                }
+                self.navigationController?.popViewControllerAnimated(true)
             }
             }, fail: { (dic) in
                 
-            }) { (msg) in
-                
+        }) { (msg) in
+            
         }
+        
     }
     
     func setUpTableView(){
@@ -93,6 +120,24 @@ class SenderInviteViewController: UIViewController {
             cell.setData(allItems.copy() as! NSArray, selectItems: selectItems.copy() as! NSArray)
         }
     }
+    
+    func setUpAlertContol(){
+        
+        let aletControl = UIAlertController.init(title: "确定关闭邀约？", message: "邀约关闭后，您将不会出现在首页了哦。", preferredStyle: UIAlertControllerStyle.Alert)
+        let cancleAction = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.Cancel, handler: { (canCel) in
+            (UserInviteModel.shareInstance().results[0]).is_active = true
+            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 2)], withRowAnimation: UITableViewRowAnimation.Automatic)
+        })
+        let doneAction = UIAlertAction.init(title: "关闭", style: UIAlertActionStyle.Default, handler: { (canCel) in
+            (UserInviteModel.shareInstance().results[0]).is_active = false
+            self.sendreInvite()
+        })
+        aletControl.addAction(cancleAction)
+        aletControl.addAction(doneAction)
+        self.presentViewController(aletControl, animated: true) { 
+            
+        }
+    }
 }
 
 extension SenderInviteViewController : UITableViewDelegate {
@@ -103,7 +148,11 @@ extension SenderInviteViewController : UITableViewDelegate {
     
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        if isNewLogin || UserInviteModel.shareInstance().results[0].is_fake {
+            return 2
+        }else{
+            return 3
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -143,7 +192,9 @@ extension SenderInviteViewController : UITableViewDelegate {
             return 77
         }
     }
-    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        self.view.endEditing(true)
+    }
 }
 
 extension SenderInviteViewController : UITableViewDataSource {
@@ -172,18 +223,24 @@ extension SenderInviteViewController : UITableViewDataSource {
                 let cellId = "TableViewCell"
                 let cell = tableView.dequeueReusableCellWithIdentifier(cellId)
                 textView = UITextView()
-                textView.placeholder = "真诚且走心的邀约说明，有利于打动对方主动约见哦，同时您也可以说说希望认识些什么类型的朋友"
-                let result = UserInviteModel.shareInstance().results[0]
-                if result.introduction != "" {
-                    textView.text = result.introduction
+                textView.placeholder = self.plachString
+                if isNewLogin || UserInviteModel.isFake() {
+                    
+                }else{
+                    let result = UserInviteModel.shareInstance().results[0]
+                    if result.introduction != "" {
+                        textView.text = result.introduction
+                    }
                 }
+                
                 textView.tintColor = UIColor.blackColor()
+                textView.delegate = self
                 textView.font = UIFont.init(name: "PingFangSC-Light", size: 14.0)
                 cell?.contentView.addSubview(textView)
                 textView.snp_makeConstraints(closure: { (make) in
-                    make.top.equalTo((cell?.contentView.snp_top)!).offset(14)
-                    make.left.equalTo((cell?.contentView.snp_left)!).offset(20)
-                    make.right.equalTo((cell?.contentView.snp_right)!).offset(-20)
+                    make.top.equalTo((cell?.contentView.snp_top)!).offset(0)
+                    make.left.equalTo((cell?.contentView.snp_left)!).offset(15)
+                    make.right.equalTo((cell?.contentView.snp_right)!).offset(-15)
                     make.bottom.equalTo((cell?.contentView.snp_bottom)!).offset(-20)
                 })
                 cell!.selectionStyle = UITableViewCellSelectionStyle.None
@@ -193,9 +250,21 @@ extension SenderInviteViewController : UITableViewDataSource {
             let cellId = "InviteTitleTableViewCell"
             let cell = tableView.dequeueReusableCellWithIdentifier(cellId) as! InviteTitleTableViewCell
             cell.setData("邀约已开启", isSwitch: (UserInviteModel.shareInstance().results[0] ).is_active,isShowSwitch:true )
+            cell.myCourse = { _ in
+                self.setUpAlertContol()
+            }
             cell.selectionStyle = UITableViewCellSelectionStyle.None
             return cell
         }
     }
 }
-
+extension SenderInviteViewController : UITextViewDelegate {
+    func textViewDidChange(textView: UITextView) {
+        if !isNewLogin {
+            if !UserInviteModel.shareInstance().results[0].is_active {
+                UserInviteModel.shareInstance().results[0].is_active = true
+                self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 2)], withRowAnimation: UITableViewRowAnimation.Automatic)
+            }
+        }
+    }
+}

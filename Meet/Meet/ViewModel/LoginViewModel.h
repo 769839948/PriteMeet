@@ -17,7 +17,7 @@
                                     Fail:(Fail)failBlock
                               showLoding:(LoadingView)loading;
 
-- (void)oldUserLogin:(WXUserInfo *)WXUserInfo
+- (void)oldUserLogin:(NSString *)uid
              Success:(Success)successBlock
                 Fail:(Fail)failBlock
           showLoding:(LoadingView)loading;
@@ -31,5 +31,13 @@
             success:(Success)successBlock
                fail:(Fail)failBlock
       loadingString:(LoadingView)loading;
+
+
+- (void)applyCode:(UserInfo *)userInfo
+        workArray:(NSArray *)workExps
+         eduArray:(NSArray *)eduExps
+          Success:(Success)successBlock
+             Fail:(Fail)failBlock
+       showLoding:(LoadingView)loading;
 
 @end

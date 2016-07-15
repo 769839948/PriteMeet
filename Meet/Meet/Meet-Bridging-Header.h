@@ -13,7 +13,6 @@
 #import "AllInfoTableViewCell.h"
 #import "HomeViewModel.h"
 #import "NSString+StringSize.h"
-#import "UIViewController+ScrollingNavbar.h"
 #import "UIViewController+NavigationItemColor.h"
 #import "UIColor+Hex.h"
 #import "UITools.h"
@@ -43,6 +42,7 @@
 #import "EqualSpaceFlowLayout.h"
 #import "UITextView+Placeholder.h"
 #import "UIViewController+DismissKeyboard.h"
-
-
-
+#import "UINavigationBar+Awesome.h"
+#import <AlipaySDK/AlipaySDK.h>
+#import "OrderViewModel.h"
+#import "WXApi.h"

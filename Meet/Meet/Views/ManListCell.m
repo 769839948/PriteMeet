@@ -251,7 +251,7 @@
             make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(0);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
-            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-5);
+            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-3);
         }];
         
         [_photoImage mas_makeConstraints:^(MASConstraintMaker *make) {

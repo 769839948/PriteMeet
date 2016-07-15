@@ -35,7 +35,7 @@
     NSInteger itemCount = [[self collectionView] numberOfItemsInSection:0];
     self.itemAttributes = [NSMutableArray arrayWithCapacity:itemCount];
     
-    CGFloat xOffset = self.sectionInset.left;
+    CGFloat xOffset = 0;
     CGFloat yOffset = self.sectionInset.top;
     CGFloat xNextOffset = self.sectionInset.left;
     for (NSInteger idx = 0; idx < itemCount; idx++) {

@@ -123,7 +123,7 @@ typedef NS_ENUM(NSUInteger, ARDynamicSizeCaculateType) {
   UICollectionViewCell *cell =
       [self templeCaculateCellWithIdentifier:identifier];
   configuration(cell);
-  CGSize size = CGSizeMake(fixedValue, fixedValue);
+  CGSize size = CGSizeZero;
   if (caculateType != ARDynamicSizeCaculateTypeSize) {
     NSLayoutAttribute attribute = caculateType == ARDynamicSizeCaculateTypeWidth
                                       ? NSLayoutAttributeWidth

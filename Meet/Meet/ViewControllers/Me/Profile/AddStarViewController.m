@@ -88,6 +88,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
 }
 
@@ -166,7 +167,6 @@
         
     }else if([text isEqualToString:@""]){
         if(textView.text.length == 1 && (long)textView.tag > 1){
-            NSLog(@"%ld",(long)textView.tag);
             if ((long)textView.tag != _stringArray.count) {
                 [self updataTag:(CustomTextView *)[self.view viewWithTag:textView.tag]];
             }
@@ -207,7 +207,6 @@
 {
     NSInteger tempTag = textView.tag;
     textView.tag = 100000;
-    NSLog(@"%ld",(long)textView.tag);
     for (NSInteger i = tempTag + 1; i <= _stringArray.count + 1; i ++) {
         CustomTextView *custonmeText = (CustomTextView *)[self.view viewWithTag:i];
         [custonmeText setTag:i - 1];

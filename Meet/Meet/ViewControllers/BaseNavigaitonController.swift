@@ -12,8 +12,7 @@ class BaseNavigaitonController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationBar.barStyle = UIBarStyle.BlackTranslucent
-        self.navigationBar.barTintColor = UIColor.whiteColor()
+        self.navigationBar.barTintColor = UIColor.blackColor()
         // Do any additional setup after loading the view.
     }
 

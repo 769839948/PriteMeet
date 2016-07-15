@@ -25,6 +25,8 @@
 
 - (void)getOtherUserInfoProfile:(NSString *)userId successBlock:(Success)successBlock failBlock:(Fail)failBlock loadingView:(LoadingView)loadViewBlock;
 
+- (void)getDicMap:(Success)successBlock failBlock:(Fail)failBlock;
+
 - (void)senderLocation:(double)latitude  longitude:(double)longitude;
 
 - (void)senderIpAddress:(Success)successblock fail:(Fail)failBlock;

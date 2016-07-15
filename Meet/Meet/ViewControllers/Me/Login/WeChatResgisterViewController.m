@@ -15,8 +15,10 @@
 #import "WXLoginViewController.h"
 #import "ThemeTools.h"
 #import "UIImage+PureColor.h"
-#import "WeiboSDK.h"
-
+#import "UMSocialSnsPlatformManager.h"
+#import "UMSocialAccountManager.h"
+#import "WeiboModel.h"
+#import "ApplyCodeViewController.h"
 //#import <Fabric/Fabric.h>
 //#import <Crashlytics/Crashlytics.h>
 
@@ -35,8 +37,6 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 64)] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 0.5)]];
     
 }
 
@@ -47,8 +47,11 @@
     if (IOS_7LAST) {
         self.navigationController.interactivePopGestureRecognizer.delegate = self;
     }
-    
     [self setUpTextField];
+    [self addLineNavigationBottom];
+    [self.navigationItem.leftBarButtonItem setTintColor:[UIColor colorWithHexString:HomeDetailViewNameColor]];
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor colorWithHexString:HomeDetailViewNameColor]];
+
 }
 
 - (void)setUpTextField
@@ -62,11 +65,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 64)] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 0.5)]];
-
-    //    [ThemeTools navigationBarTintColor:[UIColor blackColor] titleColor:[UIColor blackColor]];
+    [self navigationItemCleanColorWithNotLine];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,19 +88,57 @@
 
 - (IBAction)loginWeibo:(UIButton *)sender
 {
-    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
-    request.redirectURI = kRedirectURI;
-    request.scope = @"all";
-    request.userInfo = @{@"SSO_From": @"SendMessageToWeiboViewController",
-                         @"Other_Info_1": [NSNumber numberWithInt:123],
-                         @"Other_Info_2": @[@"obj1", @"obj2"],
-                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
-    [WeiboSDK sendRequest:request];
+    __weak typeof(self) weakSelf = self;
+    UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
+    
+    snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+        //获取微博用户名、uid、token等
+        if (response.responseCode == UMSResponseCodeSuccess) {
+            
+            UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
+            NSLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
+            [WeiboModel shareInstance].unionId = snsAccount.unionId;
+            [WeiboModel shareInstance].userName = snsAccount.userName;
+            [WeiboModel shareInstance].usid = snsAccount.usid;
+//            [WeiboModel shareInstance].accessToken = snsAccount.accessToken;
+            [WeiboModel shareInstance].iconURL = snsAccount.iconURL;
+
+            [weakSelf loginWithOldUser:snsAccount.usid];
+            
+        }});
+}
+
+- (void)loginWithOldUser:(NSString *)uid
+{
+    __weak typeof(self) weakSelf = self;
+    [_viewModel oldUserLogin:uid Success:^(NSDictionary *object) {
+        
+        [_viewModel getUserInfo:uid success:^(NSDictionary *object) {
+            //获取到 [UserInfo shareInstance]的idKye 以后保存需要
+            [UserInfo synchronizeWithDic:object];
+            [weakSelf dismissViewControllerAnimated:YES completion:^{
+                [UserInfo sharedInstance].isFirstLogin = YES;
+                if (weakSelf.reloadMeViewBlock) {
+                    weakSelf.reloadMeViewBlock(YES);
+                }
+            }];
+        } fail:^(NSDictionary *object) {
+        } loadingString:^(NSString *str) {
+            
+        }];
+        
+    } Fail:^(NSDictionary *object) {
+        [EMAlertView showAlertWithTitle:@"账号不存在" message:@"Meet暂未开放注册，请获得邀请码后再重新登录" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+            
+        } cancelButtonTitle:@"朕知道了" otherButtonTitles:nil];
+    } showLoding:^(NSString *str) {
+        
+    }];
 }
 
 - (IBAction)checkCodeButtonAction:(id)sender {
     #warning check code and into WeChat Longin
-    [self performSegueWithIdentifier:@"pushToWXLogin" sender:self];
+//    [self performSegueWithIdentifier:@"pushToWXLogin" sender:self];
     if ([self isEmpty]) {
         [EMAlertView showAlertWithTitle:nil message:@"请输入邀请码" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             
@@ -118,7 +155,7 @@
         } showLoding:^(NSString *str) {
         }];
     }
-    
+//
     
 }
 
@@ -127,6 +164,14 @@
     if ([segue.identifier isEqualToString:@"pushToWXLogin"]) {
         WXLoginViewController *wxLoginView = segue.destinationViewController; //获取目的试图控制器对象，跟原来一样，在.m文件中要引入头文件
         wxLoginView.code = checkField.text;
+    }
+    
+    if ([segue.identifier isEqualToString:@"pushApplyController"]) {
+        ApplyCodeViewController *applyCode = segue.destinationViewController; //获取目的试图控制器对象，跟原来一样，在.m文件中要引入头文件
+        __weak typeof(self) weakSelf = self;
+        applyCode.block = ^(){
+            [[UITools shareInstance] showMessageToView:weakSelf.view message:@"申请成功，请耐心等待审核结果^_^" autoHide:YES];
+        };
     }
 }
 
@@ -137,40 +182,14 @@
 
 #pragma mark - NSNotificationCenter
 - (void)oldUerLoginState:(NSNotification *)notification {
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"OldUserLoginWihtWechat" object:nil];
      NSNumber *state = [notification object];
     if (state) {
-        __weak typeof(self) weakSelf = self;
-        [_viewModel oldUserLogin:[WXUserInfo shareInstance] Success:^(NSDictionary *object) {
-            
-            [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
-                /////获取到 [UserInfo shareInstance]的idKye 以后保存需要
-                [UserInfo synchronizeWithDic:object];
-                [weakSelf dismissViewControllerAnimated:YES completion:^{
-                    [UserInfo sharedInstance].isFirstLogin = YES;
-                    if (weakSelf.reloadMeViewBlock) {
-                        weakSelf.reloadMeViewBlock(YES);
-                    }
-                }];
-            } fail:^(NSDictionary *object) {
-            } loadingString:^(NSString *str) {
-                
-            }];
-            
-        } Fail:^(NSDictionary *object) {
-            [EMAlertView showAlertWithTitle:@"账号不存在" message:@"Meet暂未开放注册，请获得邀请码后再重新登录" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
-                
-            } cancelButtonTitle:@"朕知道了" otherButtonTitles:nil];
-        } showLoding:^(NSString *str) {
-
-        }];
+        [self loginWithOldUser:[WXUserInfo shareInstance].openid];
     } else {
         [[UITools shareInstance] showMessageToView:self.view message:@"请求出错" autoHide:YES];
     }
 }
-
-
 
 #pragma mark - sender to WeChat
 -(void)sendAuthRequest {

@@ -155,7 +155,6 @@ static UserInviteModel *userInvite = nil;
 
     for (Theme *theme in result.theme) {
         if (![theme.theme isEqualToString:@""]) {
-            NSLog(@"%@",theme.theme);
             NSString *themeString = [[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"invitation"] objectForKey:theme.theme];
             if (themeString != nil) {
                 [themArray addObject:themeString];

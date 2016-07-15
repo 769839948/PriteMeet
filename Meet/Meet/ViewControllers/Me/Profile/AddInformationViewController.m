@@ -341,7 +341,7 @@
         }else{
             if (textField.tag == 0) {
                 if (textField.text.length == 0 || (range.location == 0 && [string isEqualToString:@""])) {
-                    if (![string isEqualToString:@""]) {
+                    if (![string isEqualToString:@""] || ![textField.text isEqualToString:@""]) {
                         _companyName = textField.text;
                     }else{
                         _companyName = @"";
@@ -349,7 +349,7 @@
                 }
             }else if (textField.tag == 1){
                 if (textField.text.length == 0 || (range.location == 0 && [string isEqualToString:@""])) {
-                    if (![string isEqualToString:@""]) {
+                    if (![string isEqualToString:@""] || ![textField.text isEqualToString:@""]) {
                         _positionName = textField.text;
                     }else{
                         _positionName = @"";
@@ -376,7 +376,7 @@
         }else{
             if (textField.tag == 0) {
                 if (textField.text.length == 0 || (range.location == 0 && [string isEqualToString:@""])) {
-                    if (![string isEqualToString:@""]) {
+                    if (![string isEqualToString:@""] || ![textField.text isEqualToString:@""]) {
                         _school = textField.text;
                     }else{
                         _school = @"";
@@ -384,7 +384,7 @@
                 }
             }else if (textField.tag == 1){
                 if (textField.text.length == 0 || (range.location == 0 && [string isEqualToString:@""])) {
-                    if (![string isEqualToString:@""]) {
+                    if (![string isEqualToString:@""] || ![textField.text isEqualToString:@""]) {
                         _major = textField.text;
                     }else{
                         _major = @"";
@@ -392,7 +392,7 @@
                 }
             }else if (textField.tag == 2){
                 if (textField.text.length == 0 || (range.location == 0 && [string isEqualToString:@""])) {
-                    if (![string isEqualToString:@""]) {
+                    if (![string isEqualToString:@""] || ![textField.text isEqualToString:@""]) {
                         _educational = textField.text;
                     }else{
                         _educational = @"";

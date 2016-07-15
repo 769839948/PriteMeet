@@ -8,10 +8,15 @@
 
 import UIKit
 
+typealias switchChangeValueCourse = () -> Void
+
 class InviteTitleTableViewCell: UITableViewCell {
 
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var switchControl: UISwitch!
+    var myCourse:switchChangeValueCourse!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -33,7 +38,9 @@ class InviteTitleTableViewCell: UITableViewCell {
         if switchCol.on {
             UserInviteModel.shareInstance().results[0].is_active = true
         }else{
-            UserInviteModel.shareInstance().results[0].is_active = false
+            if (self.myCourse != nil) {
+                self.myCourse()
+            }
 
         }
     }

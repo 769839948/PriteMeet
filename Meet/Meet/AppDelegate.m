@@ -15,21 +15,28 @@
 #import "MBProgressHUD.h"
 #import "AFNetWorking.h"
 #import "NetWorkObject.h"
+#import "UMSocial.h"
+#import "UMSocialSinaSSOHandler.h"
+#import "UMSocialWechatHandler.h"
 
+#import "FristHomeViewController.h"
 #import "UserInfo.h"
-#import "WeiboSDK.h"
 #import "WXAccessModel.h"
 #import "WXUserInfo.h"
 #import "NSUserDefaults+RMSaveCustomObject.h"
 #import "ThemeTools.h"
 #import "IQKeyboardManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import "Meet-Swift.h"
+#import <AlipaySDK/AlipaySDK.h>
 
-@interface AppDelegate ()<WXApiDelegate,NSURLConnectionDelegate,WeiboSDKDelegate> {
+@interface AppDelegate ()<WXApiDelegate,NSURLConnectionDelegate> {
     NSURLConnection *_connection;
     NSURLConnection *_connectionLoadUserInfo;
     
     MBProgressHUD *loadingHUD;
+    
+    SplashView *_splashView;
 }
 
 
@@ -41,14 +48,11 @@
 /////nothing just test
 ///what 's app
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [ThemeTools appTheme:AppThemeColorCustom];
     [Fabric with:@[[Crashlytics class]]];////////
-    // TODO: Move this to where you establish a user session
     [self logUser];
     [WXApi registerApp:@"wx49c4b6f590f83469"];
-//    [TalkingData sessionStarted:@"7244A450FDAFB46FFEF7C1B68FBA93D3" withChannelId:@"app store"];
     
 //    if ([[AppData shareInstance] initUserDataBaseToDocument]) {
 ////        NSLog(@" 数据库 规划成功");
@@ -59,25 +63,73 @@
 //    } else {
 //        NSLog(@"用户信息 数据库 创建失败");
 //    }
-    [WeiboSDK registerApp:WeiboApiKey];
+    [self setUpUMeng];
+    if ([UserInfo sharedInstance].wechat_union_id == nil) {
+        [UserInfo logout];
+    }
+    
     NSDictionary *access_TokenDic = [[NSUserDefaults standardUserDefaults] objectForKey:keyAccessModelSave];
     NSDictionary *weChatUserInfoDic = [[NSUserDefaults standardUserDefaults] objectForKey:keyWXUserInfo];
-//    NSDictionary *userInfoDic = [[NSUserDefaults standardUserDefaults] objectForKey:keyUserInfo];
-    
-//    if (![[userInfoDic objectForKey:@"userId"] isEqualToString:@"1234567890"]) {
-//        [AppData shareInstance].isLogin = YES;
-//    }
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     [self setIQkeyboardManager];
 
-    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    FristHomeViewController *controller = [mainStoryboard instantiateViewControllerWithIdentifier:@"FristHomeViewController"];
+    self.window.rootViewController = [[ScrollingNavigationController alloc] initWithRootViewController:controller];
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-value"
     [[WXAccessModel shareInstance] initWithDictionary:access_TokenDic];
     [[WXUserInfo shareInstance] initWithDictionary:weChatUserInfoDic];
 //    [[UserInfo shareInstance] initWithDictionary:userInfoDic];
     
+    [self.window makeKeyAndVisible];
+    [self addSplashView];
+
     return YES;
+}
+
+- (void)setUpUMeng
+{
+//    //设置友盟社会化组件appkey
+//    [UMSocialData setAppKey:UmengAppkey];
+//    
+//    //打开调试log的开关
+//    [UMSocialData openLog:YES];
+//    
+//    //如果你要支持不同的屏幕方向，需要这样设置，否则在iPhone只支持一个竖屏方向
+//    [UMSocialConfig setSupportedInterfaceOrientations:UIInterfaceOrientationMaskAll];
+//    
+//    //设置微信AppId，设置分享url，默认使用友盟的网址
+////    [UMSocialWechatHandler setWXAppId:@"wxdc1e388c3822c80b" appSecret:@"a393c1527aaccb95f3a4c88d6d1455f6" url:@"http://www.umeng.com/social"];
+//    
+//    // 打开新浪微博的SSO开关
+//    // 将在新浪微博注册的应用appkey、redirectURL替换下面参数，并在info.plist的URL Scheme中相应添加wb+appkey，如"wb3921700954"，详情请参考官方文档。
+//    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:WeiboApiKey
+//                                              secret:WeiboApiSecret
+//                                         RedirectURL:WeiboRedirectUrl];
+    [UMSocialData setAppKey:@"578357a6e0f55a86a4000ab7"];
+    //设置微信AppId，设置分享url，默认使用友盟的网址
+//    [UMSocialWechatHandler setWXAppId:@"wxc1f29ba6be0adb5e" appSecret:@"d4624c36b6795d1d99dcf0547af5443d" url:@"http://www.umeng.com/social"];
+    //设置微博
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:WeiboApiKey
+                                              secret:WeiboApiSecret
+                                         RedirectURL:WeiboRedirectUrl];
+}
+
+- (void)addSplashView
+{
+    _splashView = [[SplashView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+    [_splashView startAnimation];
+    [self.window addSubview:_splashView];
+
+    [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(removeSplashView) userInfo:nil repeats:NO];
+
+}
+
+- (void)removeSplashView
+{
+    [_splashView removeSplashView];
 }
 
 - (void) logUser {
@@ -98,6 +150,20 @@
     [IQKeyboardManager sharedManager].shouldToolbarUsesTextFieldTintColor = NO;
     [IQKeyboardManager sharedManager].placeholderFont = IQKeyboardManagerFont;
     
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    
+    if ([url.host isEqualToString:@"safepay"]) {
+        //跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+        }];
+    }
+    return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -122,16 +188,21 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
-    return [WeiboSDK handleOpenURL:url delegate:self];
-}
-
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
     return [WXApi handleOpenURL:url delegate:self];
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
+    
+    if([[url absoluteString] hasPrefix:@"wb"]) {
+        return [UMSocialSnsService handleOpenURL:url];
+    }
+    if ([url.host isEqualToString:@"safepay"]) {
+        //跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+        }];
+    }
     return [WXApi handleOpenURL:url delegate:self];
 }
 
@@ -186,14 +257,14 @@
     } success:^(NSURLSessionDataTask *task, NSDictionary *WXuserInfo) {
         [[WXUserInfo shareInstance] initWithDictionary:WXuserInfo];
         
-        [[UITools shareInstance] showMessageToView:self.window message:@"登录成功" autoHide:YES];
+//        [[UITools shareInstance] showMessageToView:self.window message:@"登录成功" autoHide:YES];
          NSLog(@"请求微信用户信息成功！");
         [[NSUserDefaults standardUserDefaults] setObject:WXuserInfo forKey:keyWXUserInfo];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NewUserLoginWihtWechat" object:[NSNumber numberWithInt:1]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"OldUserLoginWihtWechat" object:[NSNumber numberWithInt:1]];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-         [[UITools shareInstance] showMessageToView:self.window message:@"登录失败" autoHide:YES];
+//         [[UITools shareInstance] showMessageToView:self.window message:@"登录失败" autoHide:YES];
          NSLog(@"请求微信用户信息失败！");
          NSLog(@"error :%@",error.localizedFailureReason);
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NewUserLoginWihtWechat" object:[NSNumber numberWithInt:0]];
@@ -219,28 +290,5 @@
     }];
 }
 
-- (void)didReceiveWeiboRequest:(WBBaseRequest *)request
-{
-    
-}
-
-- (void)didReceiveWeiboResponse:(WBBaseResponse *)response
-{
-    if ([response isKindOfClass:WBAuthorizeResponse.class])
-    {
-        NSString *title = NSLocalizedString(@"认证结果", nil);
-        NSString *message = [NSString stringWithFormat:@"%@: %d\nresponse.userId: %@\nresponse.accessToken: %@\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode,[(WBAuthorizeResponse *)response userID], [(WBAuthorizeResponse *)response accessToken],  NSLocalizedString(@"响应UserInfo数据", nil), response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil), response.requestUserInfo];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                        message:message
-                                                       delegate:nil
-                                              cancelButtonTitle:NSLocalizedString(@"确定", nil)
-                                              otherButtonTitles:nil];
-        
-//        self.wbtoken = [(WBAuthorizeResponse *)response accessToken];
-//        self.wbCurrentUserID = [(WBAuthorizeResponse *)response userID];
-//        self.wbRefreshToken = [(WBAuthorizeResponse *)response refreshToken];
-        [alert show];
-    }
-}
 
 @end

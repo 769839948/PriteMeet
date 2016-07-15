@@ -29,14 +29,15 @@
     self.title = @"";
     self.isBaseView = YES;
     self.tableView.backgroundColor = [UIColor whiteColor];
-    [self setNavigationItemBar];
     [self setUpView];
+    [self setNavigationItemBar];
+
 }
 
 - (void)setNavigationItemBar
 {
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"me_profile_save"] style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor colorWithHexString:HomeDetailViewNameColor]];
 }
 
 
@@ -60,22 +61,27 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
     UIImage *alphaImage = [UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(ScreenWidth, 64)];
     [alphaImage imageByApplyingAlpha:0.5];
     [self.navigationController.navigationBar setBackgroundImage:alphaImage
                                                  forBarPosition:UIBarPositionAny
                                                      barMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 0.5)]];
 }
 
 - (void)nextStep:(UIBarButtonItem *)sender
 {
+//    UIStoryboard  *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
+//    SenderInviteViewController *senderInviteVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"SenderInviteViewController"];
+//    senderInviteVC.isNewLogin = YES;
+//    [self.navigationController pushViewController:senderInviteVC animated:YES];
     __weak typeof(self) weakSelf = self;
     [self mappingUserInfoWithDicValues];
     
     if ([self chectBaseInfo]) {
         [self.viewModel updateUserInfo:[UserInfo sharedInstance] withStateArray:[self.stateArray copy] success:^(NSDictionary *object) {
-            [[UITools shareInstance] showMessageToView:self.view message:@"保存成功" autoHide:YES];
+//            [[UITools shareInstance] showMessageToView:self.view message:@"保存成功" autoHide:YES];
             UIImage *image = self.dicValues[self.titleContentArray[0]];
             if ([UserInfo saveCacheImage:image withName:@"headImage.jpg"]) {
                 NSLog(@"保存成功");
@@ -96,7 +102,7 @@
                     }
                         break;
                 }
-            } cancelButtonTitle:@"逛逛再说" otherButtonTitles:@"设置邀约",nil];
+            } cancelButtonTitle:nil otherButtonTitles:@"逛逛再说",@"设置邀约",nil];
 
         } fail:^(NSDictionary *object) {
             [[UITools shareInstance] showMessageToView:self.view message:@"保存失败" autoHide:YES];

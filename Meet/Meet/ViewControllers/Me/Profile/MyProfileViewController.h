@@ -50,10 +50,24 @@ typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 
 @property (copy, nonatomic) NSString *hightLight;
 
+@property (nonatomic, assign) BOOL isApplyCode;
+
+@property (nonatomic, copy) NSMutableArray *arrayWorkExper;///工作经历
+
+@property (nonatomic, copy) NSMutableArray *arrayOccupationLable;///职业标签
+
+@property (nonatomic, copy) NSMutableArray *arrayEducateExper;///教育背景
+
 - (void)mappingUserInfoWithDicValues;
 
 - (BOOL)chectBaseInfo;
 
 - (void)leftItemClick:(UIBarButtonItem *)sender;
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+
+- (void)updateEduUserFile:(NSArray *)eduArray withEduId:(NSArray *)eduId;
+
+- (void)updateWorkUserFile:(NSArray *)workArray withId:(NSArray *)workId;
 
 @end

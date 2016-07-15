@@ -14,6 +14,9 @@
 #import "NSFileManager+Cache.h"
 #import "NSFileManager+Paths.h"
 #import "UIViewController+hideExcessLine.h"
+#import "ServiceViewModel.h"
+#import "AboutViewController.h"
+#import "Masonry.h"
 
 @interface SetingViewController ()<UITableViewDelegate,UITableViewDataSource,UISheetViewDelegate,MFMailComposeViewControllerDelegate> {
     NSArray *_contentArray;
@@ -22,6 +25,9 @@
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) ServiceViewModel *viewModel;
+@property (copy, nonatomic) NSString *appUrl;
+@property (copy, nonatomic) NSString *tellPhone;
 
 @end
 
@@ -29,17 +35,39 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [UITools customNavigationLeftBarButtonForController:self action:@selector(backButtonAction:)];
+    _appUrl = @"";
+    _tellPhone = @"";
     self.navigationItem.title = @"设置";
     self.tableView.backgroundColor = [UIColor whiteColor];
     _contentArray = @[@"新消息通知",@"清除缓存",@"关于我们",@"反馈吐槽",@"喜欢Meet? 去赏个好评",@"退出登录"];
-//    _contentDic = @{@0:@[@"清除缓存"],@1:@[@"关于Meet",@"意见反馈",@"给Meet好评"],@2:@[@"退出登录"]};
-    
+    [self getServiceData];
     _tableView.rowHeight = 49;
     [self hideExcessLine:_tableView];
+    [self navigationItemWithLineAndWihteColor];
+
 }
 
+- (void)setUpNavigationBar
+{
+    [self createNavigationBar];
+}
 
+- (void)getServiceData
+{
+    _viewModel = [[ServiceViewModel alloc] init];
+    [_viewModel requestService:^(NSDictionary *object) {
+        _appUrl = object[@"evaluate_address"];
+        _tellPhone = object[@"phone_num"];
+    } failBlock:^(NSDictionary *object) {
+        
+    }];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+//    [self navigationItemWithLineAndWihteColor];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -48,6 +76,10 @@
 
 - (void)backButtonAction:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setTranslucent:YES];
 }
 
 #pragma mark - UITableViewDataSource
@@ -92,14 +124,22 @@
     if (indexPath.row == 1) {
         cell.detailTextLabel.font = SettingViewLabelFont;
         cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
-        cell.detailTextLabel.textColor = [UIColor colorWithHexString:TableViewTextColor];
+        cell.detailTextLabel.textColor = [UIColor colorWithHexString:MeViewProfileContentLabelColor];
         if ([[self cacheSize] integerValue] < 1) {
             cell.detailTextLabel.text = @"";
         }else{
             cell.detailTextLabel.text = [self cacheSize];
         }
-//       cacheLable.text = [self cacheSize];
     }
+    
+    UILabel *cellLineLabel = [[UILabel alloc] init];
+    if (indexPath.row == 5) {
+        cellLineLabel.frame = CGRectMake(15, 89, ScreenWidth - 30, 0.5);
+    }else{
+        cellLineLabel.frame = CGRectMake(15, 49, ScreenWidth - 30, 0.5);
+    }
+    cellLineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
+    [cell.contentView addSubview:cellLineLabel];
     
     if (indexPath.row == 1 || indexPath.row == 5) {
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -116,7 +156,6 @@
     if (indexPath.row == 0) {
         [[UITools shareInstance] showMessageToView:self.view message:@"敬请期待" autoHide:YES];
     }else if (indexPath.row == 1){
-//        __weak typeof(self) weakSelf = self;
         [EMAlertView showAlertWithTitle:nil message:@"确定清除缓存？" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             if (buttonIndex == 1) {
                 [NSFileManager clearCache:[NSFileManager jk_cachesPath]];
@@ -136,19 +175,23 @@
         composeVC.mailComposeDelegate = self;
         // Configure the fields of the interface.、/////@"feedback@momeet.com"
         //Email
-        NSString *email = @"769839948@qq.com";
+        NSString *email = @"";
         if (email != nil && email.length > 1) {
             [composeVC setToRecipients:@[email]];
         } else
             [composeVC setToRecipients:@[@"feedback@momeet.com"]];
         [composeVC setSubject:@"意见反馈"];
-        [composeVC setMessageBody:@"test message " isHTML:NO];
         
         // Present the view controller modally.
         [self presentViewController:composeVC animated:YES completion:nil];
     }else if (indexPath.row == 4){
-        NSString *str = [NSString stringWithFormat:
-                         @"https://itunes.apple.com/cn/app/id444934666?mt=8"];
+        NSString *str = @"";
+        if ([_appUrl isEqualToString:@""]) {
+            str = [NSString stringWithFormat:
+                   @"https://itunes.apple.com/cn/app/id444934666?mt=8"];
+        }else{
+            str = _appUrl;
+        }
         
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
     }else{
@@ -244,6 +287,10 @@
 #pragma mark - Navigation
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"PushToAboutViewController"]) {
+        AboutViewController *aboutView = (AboutViewController *)[segue destinationViewController];
+        aboutView.phone = _tellPhone;
+    }
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }

@@ -41,7 +41,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="lTs-ar-iJu">
                                 <rect key="frame" x="-8" y="64" width="391" height="603"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OtherProfileTableViewCell" rowHeight="65" id="rNi-vT-7Uz" customClass="OtherProfileTableViewCell" customModule="Meet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="113.5" width="391" height="65"/>
@@ -92,7 +92,7 @@
                                                         <constraint firstAttribute="height" constant="0.5" id="wPv-2U-qqU"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -156,7 +156,7 @@
         <!--Main Navigation Controller-->
         <scene sceneID="reN-eO-R77">
             <objects>
-                <navigationController id="aek-99-7ih" userLabel="Main Navigation Controller" sceneMemberID="viewController">
+                <navigationController id="aek-99-7ih" userLabel="Main Navigation Controller" customClass="ScrollingNavigationController" customModule="AMScrollingNavbar" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="lM5-S0-t02">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -175,7 +175,7 @@
         <!--Meet-->
         <scene sceneID="smA-kx-vd5">
             <objects>
-                <viewController id="V0u-Ua-dmJ" customClass="FristHomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FristHomeViewController" id="V0u-Ua-dmJ" customClass="FristHomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7uh-Sv-YJM"/>
                         <viewControllerLayoutGuide type="bottom" id="23B-Sw-HnP"/>
@@ -706,10 +706,10 @@
         <image name="navigationbar_collect" width="18" height="18"/>
         <image name="navigationbar_fittle" width="20" height="20"/>
         <image name="navigationbar_upload" width="18" height="17"/>
-        <image name="tabbar_ discover_HL" width="23" height="23"/>
-        <image name="tabbar_discover" width="23" height="23"/>
-        <image name="tabbar_me" width="23" height="23"/>
-        <image name="tabbar_meHL" width="23" height="23"/>
+        <image name="tabbar_ discover_HL" width="22" height="22"/>
+        <image name="tabbar_discover" width="22" height="22"/>
+        <image name="tabbar_me" width="22" height="22"/>
+        <image name="tabbar_meHL" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="8yo-Ns-j0V"/>
