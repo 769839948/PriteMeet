@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="82" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="x4a-vB-Tx7">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="687"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                                 <prototypes>
@@ -184,7 +184,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Ebt-JT-AYZ" firstAttribute="top" secondItem="x4a-vB-Tx7" secondAttribute="bottom" id="17l-Yb-fXc"/>
+                            <constraint firstItem="Ebt-JT-AYZ" firstAttribute="top" secondItem="x4a-vB-Tx7" secondAttribute="bottom" constant="-64" id="17l-Yb-fXc"/>
                             <constraint firstItem="x4a-vB-Tx7" firstAttribute="leading" secondItem="Grz-LC-bvV" secondAttribute="leading" id="4yF-zA-Yzf"/>
                             <constraint firstItem="Ebt-JT-AYZ" firstAttribute="top" secondItem="z36-sb-2sL" secondAttribute="bottom" constant="-45" id="5zI-Pg-KFd"/>
                             <constraint firstItem="x4a-vB-Tx7" firstAttribute="top" secondItem="Grz-LC-bvV" secondAttribute="top" id="I9t-cv-Azb"/>
@@ -219,7 +219,7 @@
             </objects>
             <point key="canvasLocation" x="514.5" y="1089.5"/>
         </scene>
-        <!--Sender Invite View Controller-->
+        <!--设置邀约-->
         <scene sceneID="nGD-OV-RDV">
             <objects>
                 <viewController storyboardIdentifier="SenderInviteViewController" hidesBottomBarWhenPushed="YES" id="OYG-BN-vEi" customClass="SenderInviteViewController" customModule="Meet" customModuleProvider="target" sceneMemberID="viewController">
@@ -228,16 +228,16 @@
                         <viewControllerLayoutGuide type="bottom" id="r95-fP-MzH"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uaF-08-uL2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="bcY-62-ecf">
-                                <rect key="frame" x="-4" y="20" width="383" height="603"/>
+                                <rect key="frame" x="-4" y="-44" width="383" height="603"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InviteTitleTableViewCell" rowHeight="77" id="Hdh-3W-wHh" customClass="InviteTitleTableViewCell" customModule="Meet" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="113.5" width="383" height="77"/>
+                                        <rect key="frame" x="0.0" y="49.5" width="383" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hdh-3W-wHh" id="EzO-Ta-Gf1">
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="77"/>
@@ -267,7 +267,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InviteDetailTitleTableViewCell" rowHeight="60" id="cGx-Nu-jpD" customClass="InviteDetailTitleTableViewCell" customModule="Meet" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="190.5" width="383" height="60"/>
+                                        <rect key="frame" x="0.0" y="126.5" width="383" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cGx-Nu-jpD" id="Y7w-gG-629">
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="60"/>
@@ -290,7 +290,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InviteDetailInfoTableViewCell" rowHeight="226" id="j7g-dc-Hh8" customClass="InviteDetailInfoTableViewCell" customModule="Meet" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="250.5" width="383" height="226"/>
+                                        <rect key="frame" x="0.0" y="186.5" width="383" height="226"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="j7g-dc-Hh8" id="p6B-GI-sM2">
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="226"/>
@@ -331,22 +331,24 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="r95-fP-MzH" firstAttribute="top" secondItem="bcY-62-ecf" secondAttribute="bottom" id="2fH-JD-ZxN"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bcY-62-ecf" secondAttribute="trailing" constant="-20" id="7z1-ZJ-AV2"/>
-                            <constraint firstItem="r95-fP-MzH" firstAttribute="top" secondItem="bcY-62-ecf" secondAttribute="bottom" id="ePo-1p-l5x"/>
                             <constraint firstItem="bcY-62-ecf" firstAttribute="leading" secondItem="uaF-08-uL2" secondAttribute="leadingMargin" constant="-20" id="jVx-UR-TQf"/>
-                            <constraint firstItem="bcY-62-ecf" firstAttribute="top" secondItem="PbQ-IX-W5Y" secondAttribute="bottom" constant="-44" id="uet-AE-w3L"/>
+                            <constraint firstItem="bcY-62-ecf" firstAttribute="top" secondItem="PbQ-IX-W5Y" secondAttribute="bottom" constant="-44" id="rzZ-gy-A4c"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="Nxx-yd-rXF" appends="YES" id="6xP-Nx-isf"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" id="wgC-Mr-umu">
-                        <barButtonItem key="rightBarButtonItem" title="下一步" id="i51-pL-Dbb">
+                    <navigationItem key="navigationItem" title="设置邀约" id="wgC-Mr-umu">
+                        <barButtonItem key="rightBarButtonItem" image="setting_savebt" id="i51-pL-Dbb">
+                            <color key="tintColor" red="0.082652243589743546" green="0.082652243589743546" blue="0.082652243589743546" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="RTz-hN-2Hf" kind="push" id="BJJ-Pu-ROw"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="bcY-62-ecf" id="FWI-KH-NDb"/>
@@ -504,7 +506,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="76" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fdA-27-MZ6">
-                                <rect key="frame" x="-8" y="64" width="391" height="603"/>
+                                <rect key="frame" x="-12" y="0.0" width="399" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="nEP-bB-5wO" id="Qen-hy-viG"/>
@@ -515,9 +517,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Ckf-FA-Uzs" firstAttribute="top" secondItem="fdA-27-MZ6" secondAttribute="bottom" constant="-44" id="AVC-e7-Ut1"/>
-                            <constraint firstItem="fdA-27-MZ6" firstAttribute="leading" secondItem="ZGf-bP-0Yi" secondAttribute="leadingMargin" constant="-24" id="evB-NC-Sd5"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="fdA-27-MZ6" secondAttribute="trailing" constant="-24" id="vhf-EE-beC"/>
-                            <constraint firstItem="fdA-27-MZ6" firstAttribute="top" secondItem="IYd-7F-NBm" secondAttribute="bottom" id="zue-Px-H5L"/>
+                            <constraint firstItem="fdA-27-MZ6" firstAttribute="leading" secondItem="ZGf-bP-0Yi" secondAttribute="leadingMargin" constant="-28" id="evB-NC-Sd5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fdA-27-MZ6" secondAttribute="trailing" constant="-28" id="vhf-EE-beC"/>
+                            <constraint firstItem="fdA-27-MZ6" firstAttribute="top" secondItem="IYd-7F-NBm" secondAttribute="bottom" constant="-64" id="zue-Px-H5L"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="p03-sC-UKn"/>
@@ -527,7 +529,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EYY-Z3-rnj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="962" y="542"/>
+            <point key="canvasLocation" x="961.5" y="541.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0hi-0E-i7p">
@@ -967,7 +969,7 @@
                         <viewControllerLayoutGuide type="bottom" id="nVv-47-7eZ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4uD-Wf-X2I">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sGK-K0-qjx">
@@ -1018,8 +1020,9 @@
     </scenes>
     <resources>
         <image name="RadarKeyboard_HL" width="80" height="80"/>
+        <image name="setting_savebt" width="15" height="15"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="BJJ-Pu-ROw"/>
+        <segue reference="rBG-0G-zQf"/>
     </inferredMetricsTieBreakers>
 </document>

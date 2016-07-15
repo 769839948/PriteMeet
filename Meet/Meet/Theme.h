@@ -11,11 +11,14 @@
 
 #pragma mark - 软件的主题颜色
 #pragma mark - appThemeCustomColor
-#define NavigationBarTintColorCustome  [UIColor whiteColor]
-#define NavigationBarTitleColorCustome  [UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0]
+#define NavigationBarTintColorCustome  @"202020"
+#define NavigationBarTitleColorCustome  @"202020"
+
 #define OtherBlackFontColor [UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0]
 
-#define TableViewBackGroundColor @"#FBFBFB"
+#define TableViewBackGroundColor @"#F6F6F6"
+
+#define HomeTableViewBackGroundColor  @"#FBFBFB"
 
 #define HomeViewNameColor [UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0]
 #define HomeViewPositionColor [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0]
@@ -34,11 +37,14 @@
 #define HomeViewDetailAboutBtnColor    @"FFFFFF"
 
 #define HomeViewDetailNameFont         [UIFont fontWithName:@"PingFangSC-Regular" size:28.0f]
-#define HomeViewDetailPositionFont     [UIFont fontWithName:@"PingFangSC-Light" size:22.0f]
+#define HomeViewDetailPositionFont     [UIFont fontWithName:@"PingFangSC-Thin" size:22.0f]
 #define HomeViewDetailMeetNumberFont   [UIFont fontWithName:@"PingFangSC-Light" size:12.0f]
 #define HomeViewDetailAboutBtnFont     [UIFont fontWithName:@"PingFangSC-Regular" size:10.0f]
 
 #define PlaceholderImage                [UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeZero]
+
+#define NavigationBarTitleFont         [UIFont fontWithName:@"PingFangSC-Light" size:18.0f]
+#define NavigationBarRightItemFont     [UIFont fontWithName:@"PingFangSC-Light" size:16.0f]
 
 #define MeetSectionTitleNameFont [UIFont fontWithName:@"PingFangSC-Regular" size:14.0f]
 #define MeetSectionTitleNameColot [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0]

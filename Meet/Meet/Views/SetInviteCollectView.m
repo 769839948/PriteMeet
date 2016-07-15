@@ -8,7 +8,7 @@
 
 #import "SetInviteCollectView.h"
 #import "InterestCollectViewCell.h"
-
+#import "UserInviteModel.h"
 @implementation SetInviteCollectView
 
 
@@ -16,7 +16,12 @@
 {
     InterestCollectViewCell *cell = [self dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     NSLog(@"%@---",self.selectItems[indexPath.row]);
-    if ([self.selectItems[indexPath.row] boolValue]) {
+//    if ([UserInviteModel isFake]) {
+//        cell.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemUnSelect];
+//        cell.titleLabel.textColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
+//        cell.isSelect = NO;
+//    }else{
+    if ([self.selectItems[indexPath.row] isEqualToString:@"true"]) {
         cell.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
         cell.titleLabel.textColor = [UIColor whiteColor];
         cell.isSelect = YES;
@@ -25,8 +30,9 @@
         cell.titleLabel.textColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
         cell.isSelect = NO;
     }
+//    }
+    
     cell.titleLabel.frame = CGRectMake(0, 0, [self cellWidth:self.interstArray[indexPath.row]], 27);
-//    cell.titleLabel.textColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
     cell.layer.cornerRadius = 2.0f;
     [cell filleCellWithFeed:[self.interstArray objectAtIndex:indexPath.row]];
     return cell;

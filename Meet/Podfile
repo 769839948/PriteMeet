@@ -21,5 +21,8 @@ target "Meet" do
     pod 'AMapLocation' #定位SDK
     pod 'SDCycleScrollView','~> 1.64'
     pod 'NJKWebViewProgress'
+    pod 'FDFullscreenPopGesture', '1.1'
+    pod 'DZNEmptyDataSet'
+
 
 end

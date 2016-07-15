@@ -10,4 +10,6 @@
 #import "MeetBaseViewController.h"
 @interface AboutViewController :MeetBaseViewController
 
+@property (nonatomic, copy) NSString *phone;
+
 @end

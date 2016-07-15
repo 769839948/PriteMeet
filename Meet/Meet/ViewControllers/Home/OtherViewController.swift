@@ -40,12 +40,12 @@ class OtherViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.shadowImage = nil
+        self.navigationItemWithLineAndWihteColor()
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        self.navigationController?.navigationBar.shadowImage = UIImage.createImageWithColor(UIColor.whiteColor())
+        self.navigationItemWhiteColorAndNotLine()
     }
     
     func loadData(){

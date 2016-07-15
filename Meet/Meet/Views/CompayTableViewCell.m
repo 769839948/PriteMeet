@@ -42,23 +42,20 @@
     _lineLabel.backgroundColor = MeetDetailLineColor;
     [self.contentView addSubview:_lineLabel];
     
-    float orginX = ([[UIScreen mainScreen] bounds].size.width - 20 - imageWidth * 3)/6;
+    float orginX = ((ScreenWidth - 20) - imageWidth * 3)/6;
     _nameAut = [[UIImageView alloc] init];
     _nameAut.image = [UIImage imageNamed:@"home_name"];
-    _nameAut.frame = CGRectMake(orginX, 26, imageWidth, imageHeight);
-    //    _learnMore.backgroundColor = [UIColor redColor];
+    _nameAut.frame = CGRectMake(orginX + 10, 26, imageWidth, imageHeight);
     [self.contentView addSubview:_nameAut];
     
     _comapyAut = [[UIImageView alloc] init];
     _comapyAut.image = [UIImage imageNamed:@"home_job"];
-    _comapyAut.frame = CGRectMake(orginX * 3 + imageWidth, 26, imageWidth, imageHeight);
-    //    _learnMore.backgroundColor = [UIColor redColor];
+    _comapyAut.frame = CGRectMake(orginX * 3 + imageWidth  + 10, 26, imageWidth, imageHeight);
     [self.contentView addSubview:_comapyAut];
     
     _photoAut = [[UIImageView alloc] init];
-    //    _learnMore.backgroundColor = [UIColor redColor];
-    _photoAut.image = [UIImage imageNamed:@"home_photo"];
-    _photoAut.frame = CGRectMake(orginX * 5 + imageWidth * 2, 26, imageWidth, imageHeight);
+    _photoAut.image = [UIImage imageNamed:@"home_phone"];
+    _photoAut.frame = CGRectMake(orginX * 5 + imageWidth * 2  + 10, 26, imageWidth, imageHeight);
     [self.contentView addSubview:_photoAut];
     
     
@@ -74,7 +71,7 @@
         }else if ([autoInfo isEqualToString:@"2"]){
             _comapyAut.image = [UIImage imageNamed:@"home_jobBlack"];
         }else if ([autoInfo isEqualToString:@"3"]){
-            _photoAut.image = [UIImage imageNamed:@"home_photoBlack"];
+            _photoAut.image = [UIImage imageNamed:@"home_phoneBlack"];
         }
     }
 }

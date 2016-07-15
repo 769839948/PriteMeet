@@ -25,7 +25,7 @@ static ThemeTools *themetools = nil;
 + (void)appTheme:(AppThemeColor)theme {
     switch (theme) {
         case AppThemeColorCustom:
-            [ThemeTools navigationBarTintColor:NavigationBarTintColorCustome titleColor:NavigationBarTitleColorCustome];
+            [ThemeTools navigationBarTintColor:[UIColor colorWithHexString:NavigationBarTintColorCustome] titleColor:[UIColor colorWithHexString:NavigationBarTitleColorCustome]];
             break;
         case AppThemeColorBlue:
             break;
@@ -52,16 +52,9 @@ static ThemeTools *themetools = nil;
 }
 
 + (void)navigationBarTintColor:(UIColor *)navigationBarColor titleColor:(UIColor*)titleColor{
-//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
-//    [[UINavigationBar appearance] setBarTintColor:navigationBarColor];
-//    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackTranslucent];
-//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:titleColor,NSFontAttributeName:[UIFont systemFontOfSize:18]}];
-//    [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName:titleColor,NSFontAttributeName:[UIFont systemFontOfSize:18]};
-//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:titleColor}];
-//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName: }];
-    
+    [[UINavigationBar appearance] setBarTintColor:navigationBarColor];
+    [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName:titleColor,NSFontAttributeName:NavigationBarTitleFont};
 }
-
 
 
 @end

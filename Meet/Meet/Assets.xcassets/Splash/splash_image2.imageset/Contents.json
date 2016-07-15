@@ -1,0 +1,28 @@
+{
+  "images" : [
+    {
+      "idiom" : "universal",
+      "scale" : "1x",
+      "filename" : "home_photoBlack.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x",
+      "filename" : "home_photoBlack@2x.png"
+      "filename" : "splash_image2.png"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "splash_image2@2x.png",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

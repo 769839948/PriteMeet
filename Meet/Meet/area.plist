@@ -2902,21 +2902,6 @@
     </dict>
     <dict>
         <key>State</key>
-        <string>其他</string>
-        <key>StateId</key>
-        <string>100</string>
-        <key>Cities</key>
-        <array>
-            <dict>
-                <key>city</key>
-                <string>其他</string>
-                <key>cityId</key>
-                <string>10001</string>
-            </dict>
-        </array>
-    </dict>
-    <dict>
-        <key>State</key>
         <string>海外</string>
         <key>StateId</key>
         <string>400</string>

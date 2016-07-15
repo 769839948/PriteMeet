@@ -22,7 +22,6 @@ class CustomLabel: UILabel {
         self.backgroundColor = backColor
         self.textAlignment = NSTextAlignment.Center
         let itemSize = self.sizeThatFits(self.frame.size)
-        print("\(itemSize)")
         self.layer.cornerRadius = 2.0
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, itemSize.width + 20, 28)
         self.layer.masksToBounds = true

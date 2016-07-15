@@ -203,7 +203,13 @@ static UserInfo *userInfo=nil;
     [UserInfo sharedInstance].drink  = [dic[@"drink"] integerValue];
     [UserInfo sharedInstance].gender  = [dic[@"gender"] integerValue];
     [UserInfo sharedInstance].height  = [dic[@"height"] integerValue];
-    [UserInfo sharedInstance].avatar  = dic[@"avatar"];
+    if ([dic[@"avatar"] isEqualToString:@""]  && [[NSUserDefaults standardUserDefaults] objectForKey:@"avatePhoto"] != nil) {
+        [UserInfo sharedInstance].avatar = [[NSUserDefaults standardUserDefaults] objectForKey:@"avatePhoto"];
+
+    }else{
+        [UserInfo sharedInstance].avatar  = dic[@"avatar"];
+
+    }
     [UserInfo sharedInstance].age  = [dic[@"age"] integerValue];
     [UserInfo sharedInstance].income  = [dic[@"income"] integerValue];
     [UserInfo sharedInstance].created  = dic[@"created"];

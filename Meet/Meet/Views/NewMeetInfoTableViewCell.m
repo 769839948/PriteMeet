@@ -70,26 +70,34 @@
 {
     _meetLabel.text = meetstring;
     [_interestView setCollectViewData:array];
-//    _meetLabel.backgroundColor = [UIColor grayColor];
-    float titleHeight = [meetstring heightWithFont:AboutUsLabelFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 40];
-    __weak typeof(self) weakSelf = self;
-//    _interestView.backgroundColor = [UIColor redColor];
-    [weakSelf.interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(20);
-        make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-        make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-        make.bottom.mas_equalTo(weakSelf.meetLabel.mas_top).offset(-20);
-        make.height.offset([weakSelf cellHeight:array]);
-    }];
-    
-    [weakSelf.meetLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.interestView.mas_bottom).offset(20);
-        make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-        make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-        make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-30);
-        make.height.offset(titleHeight);
-    }];
-
+    if ([meetstring isEqualToString:@""]) {
+        __weak typeof(self) weakSelf = self;
+        [weakSelf.interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(20);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
+            make.bottom.mas_equalTo(weakSelf.contentView.mas_top).offset(-20);
+            make.height.offset([weakSelf cellHeight:array]);
+        }];
+    }else{
+        float titleHeight = [meetstring heightWithFont:AboutUsLabelFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 40];
+        __weak typeof(self) weakSelf = self;
+        [weakSelf.interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(20);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
+            make.bottom.mas_equalTo(weakSelf.meetLabel.mas_top).offset(-20);
+            make.height.offset([weakSelf cellHeight:array]);
+        }];
+        
+        [weakSelf.meetLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.interestView.mas_bottom).offset(20);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
+            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-30);
+            make.height.offset(titleHeight);
+        }];
+    }
 }
 
 - (void)isHaveShadowColor:(BOOL)isShadowColor

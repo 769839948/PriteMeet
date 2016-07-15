@@ -77,7 +77,6 @@ class MePhotoTableViewCell: UITableViewCell {
     
     func singerTapPress(tap:UITapGestureRecognizer) {
         if (self.block != nil) {
-            print(tap.view!.tag);
             block(tag: tap.view!.tag)
         }
     }

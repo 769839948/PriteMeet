@@ -10,7 +10,20 @@
 
 @interface UIViewController (NavigationItemColor)
 
+@property (nonatomic, strong) UILabel *navigationBarlineLabel;
+
+@property (nonatomic, strong) UIView *navigationBarView;
 
 - (void)navigaitonItemColor:(UIColor *)itemColor;
+
+- (void)navigationItemWithLineAndWihteColor;
+
+- (void)navigationItemCleanColorWithNotLine;
+
+- (void)navigationItemWhiteColorAndNotLine;
+
+- (void)createNavigationBar;
+
+- (void)addLineNavigationBottom;
 
 @end

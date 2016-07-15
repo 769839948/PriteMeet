@@ -16,6 +16,7 @@
 #import "AFNetWorking.h"
 #import "NetWorkObject.h"
 
+#import "FristHomeViewController.h"
 #import "UserInfo.h"
 #import "WeiboSDK.h"
 #import "WXAccessModel.h"
@@ -24,12 +25,16 @@
 #import "ThemeTools.h"
 #import "IQKeyboardManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import "Meet-Swift.h"
+#import <AlipaySDK/AlipaySDK.h>
 
 @interface AppDelegate ()<WXApiDelegate,NSURLConnectionDelegate,WeiboSDKDelegate> {
     NSURLConnection *_connection;
     NSURLConnection *_connectionLoadUserInfo;
     
     MBProgressHUD *loadingHUD;
+    
+    SplashView *_splashView;
 }
 
 
@@ -41,14 +46,11 @@
 /////nothing just test
 ///what 's app
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [ThemeTools appTheme:AppThemeColorCustom];
     [Fabric with:@[[Crashlytics class]]];////////
-    // TODO: Move this to where you establish a user session
     [self logUser];
     [WXApi registerApp:@"wx49c4b6f590f83469"];
-//    [TalkingData sessionStarted:@"7244A450FDAFB46FFEF7C1B68FBA93D3" withChannelId:@"app store"];
     
 //    if ([[AppData shareInstance] initUserDataBaseToDocument]) {
 ////        NSLog(@" 数据库 规划成功");
@@ -60,24 +62,46 @@
 //        NSLog(@"用户信息 数据库 创建失败");
 //    }
     [WeiboSDK registerApp:WeiboApiKey];
+    
+    if ([UserInfo sharedInstance].wechat_union_id == nil) {
+        [UserInfo logout];
+    }
+    
     NSDictionary *access_TokenDic = [[NSUserDefaults standardUserDefaults] objectForKey:keyAccessModelSave];
     NSDictionary *weChatUserInfoDic = [[NSUserDefaults standardUserDefaults] objectForKey:keyWXUserInfo];
-//    NSDictionary *userInfoDic = [[NSUserDefaults standardUserDefaults] objectForKey:keyUserInfo];
-    
-//    if (![[userInfoDic objectForKey:@"userId"] isEqualToString:@"1234567890"]) {
-//        [AppData shareInstance].isLogin = YES;
-//    }
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     [self setIQkeyboardManager];
 
-    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    FristHomeViewController *controller = [mainStoryboard instantiateViewControllerWithIdentifier:@"FristHomeViewController"];
+    self.window.rootViewController = [[ScrollingNavigationController alloc] initWithRootViewController:controller];
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-value"
     [[WXAccessModel shareInstance] initWithDictionary:access_TokenDic];
     [[WXUserInfo shareInstance] initWithDictionary:weChatUserInfoDic];
 //    [[UserInfo shareInstance] initWithDictionary:userInfoDic];
     
+    [self.window makeKeyAndVisible];
+    [self addSplashView];
+
     return YES;
+}
+
+
+- (void)addSplashView
+{
+    _splashView = [[SplashView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+    [_splashView startAnimation];
+    [self.window addSubview:_splashView];
+
+    [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(removeSplashView) userInfo:nil repeats:NO];
+
+}
+
+- (void)removeSplashView
+{
+    [_splashView removeSplashView];
 }
 
 - (void) logUser {
@@ -98,6 +122,20 @@
     [IQKeyboardManager sharedManager].shouldToolbarUsesTextFieldTintColor = NO;
     [IQKeyboardManager sharedManager].placeholderFont = IQKeyboardManagerFont;
     
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    
+    if ([url.host isEqualToString:@"safepay"]) {
+        //跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+        }];
+    }
+    return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -132,6 +170,12 @@
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
+    if ([url.host isEqualToString:@"safepay"]) {
+        //跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+        }];
+    }
     return [WXApi handleOpenURL:url delegate:self];
 }
 

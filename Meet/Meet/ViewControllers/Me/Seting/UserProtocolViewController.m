@@ -21,7 +21,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
      self.navigationItem.title = @"使用协议";
+    self.view.backgroundColor = [UIColor whiteColor];
+    _webView.backgroundColor = [UIColor colorWithHexString:TableViewBackGroundColor];
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://momeet.cn/web/agreement/"]]];
+    [self createNavigationBar];
+
+}
+
+- (void)setUpNavigationBar
+{
+    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -29,20 +29,32 @@ class MeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.loadInviteInfo()
         self.setUpTableView()
         self.loadExtenInfo()
-        self.setNavigationBar()
+        self.addLineNavigationBottom()
+        
+        
+        
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        for view in (UIApplication.sharedApplication().keyWindow?.subviews)! {
+            print(view)
+            view.backgroundColor = UIColor.clearColor()
+        }
+        let window = UIApplication.sharedApplication().keyWindow
+        let status = window?.viewWithTag(1000)
+        if status != nil {
+            status?.backgroundColor = UIColor.clearColor()
+        }
+
         self.setNavigationBar()
-        
         if UserInfo.isLoggedIn() {
             self.lastModifield()
             self.loadExtenInfo()
             self.loadInviteInfo()
+        
         }
         if (UserInfo.sharedInstance().isFirstLogin && UserInfo.isLoggedIn()) {
             UserInfo.sharedInstance().isFirstLogin = false
@@ -75,12 +87,11 @@ class MeViewController: UIViewController {
     }
     
     override func viewDidDisappear(animated: Bool) {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage.createImageWithColor(UIColor.whiteColor()), forBarPosition: .Any, barMetrics: .Default)
-        self.navigationController?.navigationBar.shadowImage = nil
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
-        self.navigationController?.navigationBar.tintColor = UIColor.blackColor()
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.blackColor(),NSFontAttributeName:UIFont.systemFontOfSize(18.0)]
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
+        if UserInfo.isLoggedIn() {
+            self.navigationItemWithLineAndWihteColor()
+        }
+
     }
     
     func setUpTableView(){
@@ -128,15 +139,13 @@ class MeViewController: UIViewController {
     
     func setNavigationBar(){
         if UserInfo.isLoggedIn() {
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage.createImageWithColor(UIColor.clearColor()), forBarPosition: .Any, barMetrics: .Default)
-            UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
-            self.navigationController?.navigationBar.shadowImage = UIImage.init()
+            UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
+            self.navigationItemCleanColorWithNotLine()
             self.setLeftBarItem()
         }else{
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage.createImageWithColor(UIColor.whiteColor()), forBarPosition: .Any, barMetrics: .Default)
-            self.navigationController?.navigationBar.shadowImage = UIImage.init(color: UIColor.clearColor(), size: CGSizeMake(ScreenWidth, 0.5))
-            self.navigationController?.navigationBar.tintColor = UIColor.blackColor()
-            self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.blackColor(),NSFontAttributeName:UIFont.systemFontOfSize(18.0)]
+            UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
+            self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
+            self.navigationItemWhiteColorAndNotLine()
             self.setNavigationItemAplah(1, imageName: ["me_dismissBlack"], type: 1)
             self.setNavigationItemAplah(1, imageName: ["me_settingsBlack"], type: 2)
             
@@ -146,7 +155,7 @@ class MeViewController: UIViewController {
     func setLeftBarItem(){
         self.setNavigationItemAplah(1, imageName: ["me_dismiss"], type: 1)
         
-        if UserInfo.sharedInstance().job_label == ""{
+        if UserInfo.sharedInstance().completeness.next_page != 4 {
             self.setNavigationItemAplah(1, imageName: ["me_settings"], type: 2)
         }else{
             self.setNavigationItemAplah(1, imageName: ["me_settings","me_edit"], type: 3)
@@ -175,7 +184,8 @@ class MeViewController: UIViewController {
     
     func cancelPress(sender:UIBarButtonItem){
         self.dismissViewControllerAnimated(true) { 
-            
+//            print("dismiss")
+//            self.navigationController?.navigationBar .setBackgroundImage(UIImage.init(color: UIColor.redColor(), size: CGSizeMake(ScreenWidth, 64)), forBarPosition: UIBarPosition.Any, barMetrics: UIBarMetrics.Default)
         }
     }
     
@@ -189,6 +199,9 @@ class MeViewController: UIViewController {
         settingVC.logoutBlock = {()
             self.setNavigationBar()
             self.tableView.reloadData()
+        }
+        if UserInfo.isLoggedIn() {
+           settingVC.setUpNavigationBar()
         }
         self.navigationController!.pushViewController(settingVC, animated:true)
     }
@@ -300,7 +313,6 @@ class MeViewController: UIViewController {
             
         });
     }
-
 }
 
 extension MeViewController : UITableViewDelegate{
@@ -379,7 +391,7 @@ extension MeViewController : UITableViewDelegate{
                 self.setLeftBarItem()
             }else{
                 self.setNavigationItemAplah(y/124, imageName: ["me_dismissBlack"], type: 1)
-                if UserInfo.sharedInstance().job_label == "" {
+                if UserInfo.sharedInstance().completeness.next_page != 4  {
                     self.setNavigationItemAplah(y/124, imageName: ["me_settingsBlack"], type: 2)
                 }else{
                     self.setNavigationItemAplah(y/124, imageName: ["me_settingsBlack","me_editBlack"], type: 3)
@@ -450,7 +462,7 @@ extension MeViewController : UITableViewDataSource {
                 return cell
             }else if indexPath.row == 2 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
-                if UserInviteModel.isFake(){
+                if !UserInviteModel.shareInstance().results[0].is_active || UserInviteModel.isFake(){
                     cell.configCell("me_newmeet", infoString: "我的邀约", infoDetail: "未开启     ")
                 }else{
                     cell.configCell("me_newmeet", infoString: "我的邀约", infoDetail: "")

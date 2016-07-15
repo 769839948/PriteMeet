@@ -49,19 +49,15 @@ class MeetDetailViewController: UIViewController {
     var images = NSMutableArray()
     
     override func viewDidLoad() {
-//        self.navigationController?.navigationBar.translucent = false;
-//        self.navigationController?.navigationBar.hidden = false;
-//        self.showNavBarAnimated(true)
-        self.view.backgroundColor = UIColor.init(hexString: "F2F2F2")
+        self.view.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
         super.viewDidLoad()
-        self.setUpNavigationBar()
         self.getHomeDetailModel()
         // Do any additional setup after loading the view.
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
+        self.setUpNavigationBar()
     }
     
     func setUpTableView() {
@@ -79,6 +75,7 @@ class MeetDetailViewController: UIViewController {
         self.tableView.registerClass(WantMeetTableViewCell.self, forCellReuseIdentifier: wantMeetTableViewCell)
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
         self.view.addSubview(self.tableView)
+        self.tableView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
         
         
     }
@@ -114,9 +111,9 @@ class MeetDetailViewController: UIViewController {
     }
     
     func setUpNavigationBar(){
-
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_back"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MeetDetailViewController.leftItemClick(_:)))
-        self.navigaitonItemColor(UIColor.init(hexString: "202020"))
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
+        self.setNavigationItemBack()
+        self.navigationItemWithLineAndWihteColor()
         /**
          第一个版本去除按钮
          
@@ -224,7 +221,6 @@ class MeetDetailViewController: UIViewController {
             let themes = self.otherUserModel.engagement!.theme!
             let themesArray = Theme.mj_objectArrayWithKeyValuesArray(themes)
             for theme in themesArray {
-                
                 tempArray.addObject(dic.objectForKey(theme.theme!)!)
             }
         }
@@ -285,7 +281,7 @@ class MeetDetailViewController: UIViewController {
     func configCell(cell:MeetInfoTableViewCell, indxPath:NSIndexPath)
     {
         if self.otherUserModel.distance == "" {
-            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)    和你相隔 0cm", interestCollectArray: self.personalArray as [AnyObject])
+            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)    和你相隔 5000+m", interestCollectArray: self.personalArray as [AnyObject])
         }else{
             cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)    和你相隔 \(self.otherUserModel.distance as String)", interestCollectArray: self.personalArray as [AnyObject])
         }
@@ -432,7 +428,7 @@ extension MeetDetailViewController : UITableViewDataSource {
                     return 104
                     
                 default:
-                    return 49
+                    return 53
                 }
             case 1:
                 switch indexPath.row {
@@ -533,6 +529,7 @@ extension MeetDetailViewController : UITableViewDataSource {
                     let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
                     cell.configCell("meetdetail_newmeet", titleString: "\(personTypeString)的邀约")
+                    cell.userInteractionEnabled = false
                     return cell
                 default:
                     let cell = tableView.dequeueReusableCellWithIdentifier(newMeetInfoTableViewCell, forIndexPath: indexPath) as! NewMeetInfoTableViewCell
@@ -588,6 +585,7 @@ extension MeetDetailViewController : UITableViewDataSource {
                 case 0:
                     let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
                     cell.configCell("meetdetail_aboutus", titleString: "关于\(personTypeString)")
+                    cell.userInteractionEnabled = false
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
                     return cell
                 default:
@@ -602,6 +600,7 @@ extension MeetDetailViewController : UITableViewDataSource {
                 case 0:
                     let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
                     cell.configCell("meetdetail_newmeet", titleString: "\(personTypeString)的邀约")
+                    cell.userInteractionEnabled = false
                     return cell
                 default:
                     let cell = tableView.dequeueReusableCellWithIdentifier(newMeetInfoTableViewCell, forIndexPath: indexPath) as! NewMeetInfoTableViewCell

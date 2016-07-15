@@ -18,4 +18,9 @@ extension UIViewController {
     func backBtnPress(sender:UIButton){
         self.navigationController?.popViewControllerAnimated(true)
     }
+    
+    func setNavigationItemTinteColor() {
+        self.navigationController?.navigationBar.tintColor = UIColor.blackColor()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.blackColor(),NSFontAttributeName:UIFont.systemFontOfSize(18.0)]
+    }
 }
