@@ -40,7 +40,6 @@ class MeViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         for view in (UIApplication.sharedApplication().keyWindow?.subviews)! {
-            print(view)
             view.backgroundColor = UIColor.clearColor()
         }
         let window = UIApplication.sharedApplication().keyWindow
@@ -59,7 +58,7 @@ class MeViewController: UIViewController {
         if (UserInfo.sharedInstance().isFirstLogin && UserInfo.isLoggedIn()) {
             UserInfo.sharedInstance().isFirstLogin = false
             self.loadInviteInfo()
-            UserInfo.synchronize()
+//            UserInfo.synchronize()
         }
     }
     
@@ -68,7 +67,7 @@ class MeViewController: UIViewController {
             if NSUserDefaults.standardUserDefaults().objectForKey("lastModifield") != nil{
                 let tempTime = NSUserDefaults.standardUserDefaults().objectForKey("lastModifield")
                 if (tempTime as! String) != (updateTime as String){
-                    self.userInfoModel.getUserInfo(WXUserInfo.shareInstance().openid, success: { (dic) in
+                    self.userInfoModel.getUserInfo(UserInfo.sharedInstance().uid, success: { (dic) in
                         UserInfo.synchronizeWithDic(dic)
                         self.tableView.reloadData()
                         NSUserDefaults.standardUserDefaults().setObject(updateTime, forKey: "lastModifield")
@@ -436,10 +435,14 @@ extension MeViewController : UITableViewDataSource {
                             UserExtenModel.saveCacheImage(image, withName: "cover_photo.jpg")
                         })
                     }else{
-                        cell.avatarImageView .sd_setImageWithURL(NSURL.init(string: UserInfo.sharedInstance().avatar), placeholderImage: nil, completed: { (image
-                            , error, type, url) in
-                            UserInfo.saveCacheImage(image, withName: "headImage.jpg")
-                        })
+                        if UserInfo.imageForName("headImage.jpg") != nil {
+                            cell.avatarImageView.image = UserInfo.imageForName("headImage.jpg");
+                        }else{
+                            cell.avatarImageView.sd_setImageWithURL(NSURL.init(string: UserInfo.sharedInstance().avatar), placeholderImage: nil, completed: { (image
+                                , error, type, url) in
+                                UserInfo.saveCacheImage(image, withName: "headImage.jpg")
+                            })
+                        }
                     }
                 }
               
@@ -462,7 +465,7 @@ extension MeViewController : UITableViewDataSource {
                 return cell
             }else if indexPath.row == 2 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
-                if !UserInviteModel.shareInstance().results[0].is_active || UserInviteModel.isFake(){
+                if !UserInviteModel.isEmptyDescription()&&(!UserInviteModel.shareInstance().results[0].is_active || UserInviteModel.isFake()){
                     cell.configCell("me_newmeet", infoString: "我的邀约", infoDetail: "未开启     ")
                 }else{
                     cell.configCell("me_newmeet", infoString: "我的邀约", infoDetail: "")

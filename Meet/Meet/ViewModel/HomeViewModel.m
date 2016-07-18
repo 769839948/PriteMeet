@@ -36,7 +36,7 @@
 {
     NSString *url = @"";
     if ([UserInfo isLoggedIn]) {
-        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@&longitude=%@&latitude=%@",RequestGetHomeList,page,[WXUserInfo shareInstance].openid,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
+        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@&longitude=%@&latitude=%@",RequestGetHomeList,page,[UserInfo sharedInstance].uid,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
     }else{
         url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&longitude=%@&latitude=%@",RequestGetHomeList,page,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
     }
@@ -58,7 +58,7 @@
 {
     NSString *url = @"";
     if ([UserInfo isLoggedIn]) {
-        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@&filter=%@&longitude=%@&latitude=%@",RequestGetFilterUserList,page,[WXUserInfo shareInstance].openid,filterName,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
+        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@&filter=%@&longitude=%@&latitude=%@",RequestGetFilterUserList,page,[UserInfo sharedInstance].uid,filterName,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
     }else{
         url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&filter=%@&longitude=%@&latitude=%@",RequestGetFilterUserList,page,filterName,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
     }
@@ -80,7 +80,7 @@
 {
     NSString *url = @"";
     if ([UserInfo isLoggedIn]) {
-       url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@?cur_user=%@",RequestGetOtherInfo,userId,[WXUserInfo shareInstance].openid];
+       url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@?cur_user=%@",RequestGetOtherInfo,userId,[UserInfo sharedInstance].uid];
     }else{
         url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@",RequestGetOtherInfo,userId];
 
@@ -142,7 +142,7 @@
 {
     
     NSString *url = [RequestBaseUrl stringByAppendingFormat:RequestSenderLocation];
-    NSDictionary *parmeters = @{@"uid":[WXUserInfo shareInstance].openid, @"latitude":[NSString stringWithFormat:@"%f",latitude],@"longitude":[NSString stringWithFormat:@"%f",longitude]};
+    NSDictionary *parmeters = @{@"uid":[UserInfo sharedInstance].uid, @"latitude":[NSString stringWithFormat:@"%f",latitude],@"longitude":[NSString stringWithFormat:@"%f",longitude]};
     [self.manager POST:url parameters:parmeters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

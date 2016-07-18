@@ -75,9 +75,16 @@
 #define IQKeyboardManagerplaceholderFont [UIFont fontWithName:@"PingFangSC-Regular" size:14.0]
 #define IQKeyboardManagerFont [UIFont fontWithName:@"PingFangSC-Light" size:14.0]
 
+#define ApplyCodeFont [UIFont systemFontOfSize:18.0]
+#define ApplyCodeNextBtnColorDis       @"E7E7E7"
+#define ApplyCodeNextBtnColorEn        @"202020"
+
 #define EMAlertViewCancelTitle  @"取消"
 
 #define EMAlertViewConfirmTitle  @"朕知道了"
+
+
+#define KeyBoardToobarTitleFont [UIFont fontWithName:@"PingFangSC-Light" size:14.0]
 //IQKeyboardManager Color
 ////Tint color
 //[[self appearance] setTintColor:[UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0]];

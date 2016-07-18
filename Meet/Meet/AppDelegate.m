@@ -64,6 +64,7 @@
 //        NSLog(@"用户信息 数据库 创建失败");
 //    }
     [self setUpUMeng];
+    
     if ([UserInfo sharedInstance].wechat_union_id == nil) {
         [UserInfo logout];
     }
@@ -255,8 +256,9 @@
     [NetWorkObject GET:GETUser_info_FromWX_URLStr parameters:nil progress:^(NSProgress *downloadProgress) {
         
     } success:^(NSURLSessionDataTask *task, NSDictionary *WXuserInfo) {
-        [[WXUserInfo shareInstance] initWithDictionary:WXuserInfo];
         
+        [[WXUserInfo shareInstance] initWithDictionary:WXuserInfo];
+        [WXUserInfo initWithDic:WXuserInfo];
 //        [[UITools shareInstance] showMessageToView:self.window message:@"登录成功" autoHide:YES];
          NSLog(@"请求微信用户信息成功！");
         [[NSUserDefaults standardUserDefaults] setObject:WXuserInfo forKey:keyWXUserInfo];

@@ -45,4 +45,12 @@
 #import "UINavigationBar+Awesome.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "OrderViewModel.h"
-#import "WXApi.h"
+//#import "WXApi.h"
+
+
+
+
+
+
+
+

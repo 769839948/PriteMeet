@@ -63,7 +63,8 @@ typedef void (^returnImage)(UIImage *image);
                   fail:(Fail)failBlock
          loadingString:(LoadingView)loading;
 
-- (void)uploadImage:(UIImage *)image openId:(NSString *)openId
+- (void)uploadImage:(UIImage *)image
+        isApplyCode:(BOOL)isApplyCode
             success:(Success)successBlock
                fail:(Fail)failBlock
       loadingString:(LoadingView)loading;

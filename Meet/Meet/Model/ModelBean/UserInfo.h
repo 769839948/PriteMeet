@@ -47,6 +47,7 @@
 
 @interface UserInfo : NSObject
 
+@property (nonatomic, copy) NSString *uid;
 
 @property (nonatomic, copy) NSString *real_name;
 

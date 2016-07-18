@@ -18,4 +18,6 @@
 @property (copy, nonatomic) NSArray *accessToken;
 @property (copy, nonatomic) NSString *iconURL;
 
++ (void)logout;
+
 @end

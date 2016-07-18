@@ -25,5 +25,10 @@
 @property (copy, nonatomic) NSString *province;
 @property (strong, nonatomic) NSNumber *sex;//////1为男  2为女
 
++ (void)initWithDic:(NSDictionary *)dic;
+
++ (BOOL)synchronize;
+
++ (void)logout;
 
 @end

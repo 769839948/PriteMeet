@@ -217,7 +217,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
             if ([[NSUserDefaults standardUserDefaults] objectForKey:@"lastModifield"] == nil) {
                 [[NSUserDefaults standardUserDefaults] setObject:time forKey:@"lastModifield"];
             }else if (![lastTime isEqualToString:time]){
-                [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
+                [_viewModel getUserInfo:[UserInfo sharedInstance].uid success:^(NSDictionary *object) {
                     [UserInfo synchronizeWithDic:object];
                     [weakSelf loadPickViewData];
                     [weakSelf.tableView reloadData];
@@ -931,15 +931,12 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 cell = [nibs lastObject];
                 
             }
-            if ([UserInfo imageForName:@"headImage.jpg"] != nil) {
-                [cell.profilePhoto setImage:[UserInfo imageForName:@"headImage.jpg"] forState:UIControlStateNormal];
-            }else if ([UserInfo sharedInstance].avatar != nil && ![[UserInfo sharedInstance].avatar isEqualToString:@""]) {
+            if ([UserInfo sharedInstance].avatar != nil && ![[UserInfo sharedInstance].avatar isEqualToString:@""]) {
                 [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:[UserInfo sharedInstance].avatar] forState:UIControlStateNormal completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     _dicValues[_titleContentArray[0]] = image;
                     [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
 
                 }];
-            
             }else{
                 [cell.profilePhoto setImage:[UIImage imageNamed:@"me_profile_photo"] forState:UIControlStateNormal];
             }
@@ -953,16 +950,21 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 cell = [nibs lastObject];
                 
             }
-            if ([UserInfo sharedInstance].avatar != nil){
-                [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:[UserInfo sharedInstance].avatar] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                    [NSURL URLWithString:[UserInfo sharedInstance].avatar];
-                }];
-                [[NSUserDefaults standardUserDefaults] setObject:[UserInfo sharedInstance].avatar forKey:@"avatePhoto"];
-//                [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:[UserInfo sharedInstance].avatar] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//                    [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
-//                }];
+            if (self.isApplyCode) {
+                if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] != nil) {
+                    [cell.profilePhoto sd_setImageWithURL:[[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    }];
+                }else{
+                    [cell.profilePhoto setImage:[UIImage imageNamed:@"me_profile_photo"]];
+                }
             }else{
-                [cell.profilePhoto setImage:[UIImage imageNamed:@"me_profile_photo"]];
+                if ([UserInfo sharedInstance].avatar != nil){
+                    [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:[UserInfo sharedInstance].avatar] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                        [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
+                    }];
+                }else{
+                    [cell.profilePhoto setImage:[UIImage imageNamed:@"me_profile_photo"]];
+                }
             }
             if ([UserInfo isLoggedIn]) {
                 [cell hidderapplyCodeLabel];
@@ -1348,19 +1350,22 @@ typedef NS_ENUM(NSUInteger, RowType) {
     }
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         ///头像上传后再保存到本地 刷新
-        [_viewModel uploadImage:[info valueForKey:UIImagePickerControllerEditedImage] openId:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
-            
+        [_viewModel uploadImage:[info valueForKey:UIImagePickerControllerEditedImage]  isApplyCode:self.isApplyCode success:^(NSDictionary *object) {
             if ([[object objectForKey:@"success"] boolValue]) {
-                [UserInfo sharedInstance].avatar = [object objectForKey:@"avatar"];
+                if (self.isApplyCode) {
+                    NSString *avatar = [[object objectForKey:@"avatar"] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/750/h/544"]];
+                    [[NSUserDefaults standardUserDefaults] setObject:avatar forKey:@"ApplyCodeAvatar"];
+                }else{
+                    NSString *avatar = [[object objectForKey:@"avatar"] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/750/h/544"]];
+                    [UserInfo sharedInstance].avatar = avatar;
+                }
                 [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
                 [UserInfo synchronize];
             }else{
                 [[UITools shareInstance] showMessageToView:self.view message:@"上传失败" autoHide:YES];
             }
-            
         } fail:^(NSDictionary *object) {
             [[UITools shareInstance] showMessageToView:self.view message:@"上传失败" autoHide:YES];
-            
         } loadingString:^(NSString *str) {
             
         }];

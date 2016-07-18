@@ -44,7 +44,7 @@
 {
 //    loading(@"更新个人资料");
     NSDictionary *parameters = @{@"avatar":userInfo.avatar,@"real_name": userInfo.real_name, @"gender":[NSString stringWithFormat:@"%ld",(long)userInfo.gender],@"mobile_num": userInfo.mobile_num, @"birthday": userInfo.birthday, @"weixin_num": userInfo.weixin_num,@"location":userInfo.location,@"hometown":userInfo.hometown,@"affection":[NSString stringWithFormat:@"%ld",(long)userInfo.affection],@"height":[NSString stringWithFormat:@"%ld",(long)userInfo.height],@"income":[NSString stringWithFormat:@"%ld",(long)userInfo.income],@"constellation":[NSString stringWithFormat:@"%ld",(long)userInfo.constellation],@"industry":[NSString stringWithFormat:@"%ld",(long)userInfo.industry],@"job_label":userInfo.job_label};
-    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUpdateUser,[WXUserInfo shareInstance].openid];
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUpdateUser,userInfo.uid];
 
     [self.manager PUT:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
@@ -65,7 +65,7 @@
        loadingString:(LoadingView)loading
 {
     NSArray *array = [eduString componentsSeparatedByString:@"-"];
-    NSDictionary *parameters = @{ @"graduated": array[0], @"major":array[1],@"education":[[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"education"] objectForKey:array[2]],@"user_id":[WXUserInfo shareInstance].openid};
+    NSDictionary *parameters = @{ @"graduated": array[0], @"major":array[1],@"education":[[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"education"] objectForKey:array[2]],@"user_id":[UserInfo sharedInstance].uid};
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@",RequestAddEduExp,eduId];
     
     [self.manager PUT:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -86,7 +86,7 @@
 {
     //    loading(@"更新个人资料");
     NSArray *array = [workString componentsSeparatedByString:@"-"];
-    NSDictionary *parameters = @{ @"graduated": array[0], @"major":array[1],@"education":[[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"education"] objectForKey:array[2]],@"user_id":[WXUserInfo shareInstance].openid};
+    NSDictionary *parameters = @{ @"graduated": array[0], @"major":array[1],@"education":[[[ProfileKeyAndValue shareInstance].appDic objectForKey:@"education"] objectForKey:array[2]],@"user_id":[UserInfo sharedInstance].uid};
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/",RequestAddEduExp];
     
     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -109,7 +109,7 @@
           loadingString:(LoadingView)loading
 {
     NSArray *array = [workString componentsSeparatedByString:@"-"];
-    NSDictionary *parameters = @{ @"company_name": array[0], @"profession":array[1],@"income":@0,@"user_id":[WXUserInfo shareInstance].openid};
+    NSDictionary *parameters = @{ @"company_name": array[0], @"profession":array[1],@"income":@0,@"user_id":[UserInfo sharedInstance].uid};
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@",RequestAddWorkExp,workId];
     [self.manager PUT:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
@@ -165,7 +165,7 @@
           loadingString:(LoadingView)loading
 {
     NSArray *array = [workString componentsSeparatedByString:@"-"];
-    NSDictionary *parameters = @{ @"company_name": array[0], @"profession":array[1],@"income":@0,@"user_id":[WXUserInfo shareInstance].openid};
+    NSDictionary *parameters = @{ @"company_name": array[0], @"profession":array[1],@"income":@0,@"user_id":[UserInfo sharedInstance].uid};
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestAddWorkExp];
     
     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -203,31 +203,35 @@
     }];
 }
 
-- (void)uploadImage:(UIImage *)image openId:(NSString *)openId
+- (void)uploadImage:(UIImage *)image
+        isApplyCode:(BOOL)isApplyCode
             success:(Success)successBlock
                fail:(Fail)failBlock
-      loadingString:(LoadingView)loading
+                loadingString:(LoadingView)loading
 {
     NSString *urlToken = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestUploadPhotoToken];
     [self.manager GET:urlToken parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         QNUploadManager *upManager = [[QNUploadManager alloc] init];
-        NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+        NSData *imageData = UIImageJPEGRepresentation(image, 1);
         NSString *timeNow = [self getTimeNow];
         [upManager putData:imageData key:timeNow token:responseObject[@"token"]
                   complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-            NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUploadUserPhoto,openId];
-            NSDictionary *parameters = @{@"key":resp[@"key"],@"hash":resp[@"hash"],@"width":resp[@"image"][@"width"],@"height":resp[@"image"][@"height"]};
-            [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
-                successBlock(@{@"success":@"1",@"avatar":[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",timeNow]});
-            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                failBlock(@{@"error":@"上传服务器出错"});
-            }];
-
+              if (!isApplyCode) {
+                  NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUploadUserPhoto,[UserInfo sharedInstance].uid];
+                  NSDictionary *parameters = @{@"key":resp[@"key"],@"hash":resp[@"hash"],@"width":resp[@"image"][@"width"],@"height":resp[@"image"][@"height"]};
+                  [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+                      
+                  } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                      [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
+                      successBlock(@{@"success":@"1",@"avatar":[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",timeNow]});
+                  } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                      failBlock(@{@"error":@"上传服务器出错"});
+                  }];
+              }else{
+                   successBlock(@{@"success":@"1",@"avatar":[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",timeNow]});
+              }
         } option:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failBlock(@{@"error":@"上传七牛出错"});
@@ -264,7 +268,7 @@
   loadingString:(LoadingView)loading
 {
     NSDictionary *parameters = @{@"highlight":description};
-    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestExtINfo,[WXUserInfo shareInstance].openid];
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestExtINfo,[UserInfo sharedInstance].uid];
     
     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
@@ -285,7 +289,7 @@
            fail:(Fail)failBlock
   loadingString:(LoadingView)loading
 {
-    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestExtINfo,[WXUserInfo shareInstance].openid];
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestExtINfo,[UserInfo sharedInstance].uid];
 //    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@o4pNpvxA5YQDVsgjmiQ07ChzMtms",RequestExtINfo];
     
     [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -325,7 +329,7 @@
     }else{
         parameters = @{ @"introduction":description, @"theme":subLastString,@"is_active":@NO};
     }
-    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestInviteInfo,[WXUserInfo shareInstance].openid];
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestInviteInfo,[UserInfo sharedInstance].uid];
     
     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
@@ -346,7 +350,7 @@
     loadingString:(LoadingView)loading
 {
     
-    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestInviteInfo,[WXUserInfo shareInstance].openid];
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestInviteInfo,[UserInfo sharedInstance].uid];
     
     [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -390,7 +394,7 @@
 
 - (void)lastModifield:(void (^)(NSString *time))lastBlock failBlock:(Fail)failBock
 {
-    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestLastUpdate,[WXUserInfo shareInstance].openid];
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestLastUpdate,[UserInfo sharedInstance].uid];
     
     [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         

@@ -18,14 +18,22 @@
 #import "UMSocialSnsPlatformManager.h"
 #import "UMSocialAccountManager.h"
 #import "WeiboModel.h"
+#import "WeiboSDK.h"
+#import "PSWView.h"
+#import "UIViewController+DismissKeyboard.h"
 #import "ApplyCodeViewController.h"
+#import "IQKeyboardManager.h"
 //#import <Fabric/Fabric.h>
 //#import <Crashlytics/Crashlytics.h>
 
-@interface WeChatResgisterViewController ()<UIGestureRecognizerDelegate,UITextFieldDelegate>
-{
-    __weak IBOutlet UITextField *checkField;
-}
+@interface WeChatResgisterViewController ()<UIGestureRecognizerDelegate,UITextFieldDelegate,DelegatePSW>
+
+@property(nonatomic,strong)PSWView *checkLabel;
+
+
+@property (nonatomic, copy) NSString *checkCode;
+
+@property (weak, nonatomic) IBOutlet UIView *checkCodeView;
 
 @property (weak, nonatomic) IBOutlet UIButton *getCode;
 @property (weak, nonatomic) IBOutlet UIButton *nextStep;
@@ -44,22 +52,16 @@
     [super viewDidLoad];
     _viewModel = [[LoginViewModel alloc] init];
     _nextStep.enabled = NO;
+    _checkCode = @"";
+    [IQKeyboardManager sharedManager].enable = NO;
     if (IOS_7LAST) {
         self.navigationController.interactivePopGestureRecognizer.delegate = self;
     }
-    [self setUpTextField];
     [self addLineNavigationBottom];
     [self.navigationItem.leftBarButtonItem setTintColor:[UIColor colorWithHexString:HomeDetailViewNameColor]];
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor colorWithHexString:HomeDetailViewNameColor]];
+    [self setUpCheckLabel];
 
-}
-
-- (void)setUpTextField
-{
-    checkField.delegate = self;
-    UIImageView *leftImg = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"F6F6F6"] size:CGSizeMake(20, 56)]];
-    checkField.leftView = leftImg;
-    checkField.leftViewMode = UITextFieldViewModeAlways;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -73,6 +75,28 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setUpCheckLabel
+{
+    /**
+     * label样式
+     */
+    self.checkLabel = [[PSWView alloc]initWithFrame:CGRectMake(0, 0, _checkCodeView.frame.size.width, _checkCodeView.frame.size.height) labelNum:4 showPSW:YES];
+    [_checkCodeView addSubview:self.checkLabel];
+    __weak typeof(self) weakSelf = self;
+    self.checkLabel.block = ^(NSInteger tag){
+        switch (tag) {
+            case 1:
+                [weakSelf loginWeibo];
+                break;
+                
+            default:
+                [weakSelf useWeChatLogin];
+                break;
+        }
+    };
+    [self.checkLabel labelTouch:nil];
+    self.checkLabel.delegate = self;
+}
 
 #pragma mark - Action
 - (IBAction)backAction:(id)sender {
@@ -82,11 +106,13 @@
 }
 
 - (IBAction)tapGestureRecognizer:(UITapGestureRecognizer *)sender {
-    [self.view endEditing:YES];
+    if (ScreenHeight < 667){
+        [self.view endEditing:YES];
+    }
 }
 
 
-- (IBAction)loginWeibo:(UIButton *)sender
+- (void)loginWeibo
 {
     __weak typeof(self) weakSelf = self;
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
@@ -96,14 +122,14 @@
         if (response.responseCode == UMSResponseCodeSuccess) {
             
             UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
-            NSLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
+
             [WeiboModel shareInstance].unionId = snsAccount.unionId;
             [WeiboModel shareInstance].userName = snsAccount.userName;
-            [WeiboModel shareInstance].usid = snsAccount.usid;
+            [WeiboModel shareInstance].usid = [NSString stringWithFormat:@"weibo_%@",snsAccount.usid];
 //            [WeiboModel shareInstance].accessToken = snsAccount.accessToken;
             [WeiboModel shareInstance].iconURL = snsAccount.iconURL;
-
-            [weakSelf loginWithOldUser:snsAccount.usid];
+            [WXUserInfo shareInstance].openid = [WeiboModel shareInstance].usid;
+            [weakSelf loginWithOldUser:[WeiboModel shareInstance].usid];
             
         }});
 }
@@ -115,6 +141,7 @@
         
         [_viewModel getUserInfo:uid success:^(NSDictionary *object) {
             //获取到 [UserInfo shareInstance]的idKye 以后保存需要
+            [UserInfo sharedInstance].uid = uid;
             [UserInfo synchronizeWithDic:object];
             [weakSelf dismissViewControllerAnimated:YES completion:^{
                 [UserInfo sharedInstance].isFirstLogin = YES;
@@ -145,7 +172,7 @@
         } cancelButtonTitle:@"朕知道了" otherButtonTitles:nil];
     }else{
         __weak typeof(self) weakSelf = self;
-        [_viewModel checkCode:checkField.text Success:^(NSDictionary *object) {
+        [_viewModel checkCode:_checkCode Success:^(NSDictionary *object) {
             [weakSelf performSegueWithIdentifier:@"pushToWXLogin" sender:self];
         } Fail:^(NSDictionary *object) {
             NSDictionary *msgDic = [object objectForKey:@"msg"];
@@ -163,7 +190,7 @@
 {
     if ([segue.identifier isEqualToString:@"pushToWXLogin"]) {
         WXLoginViewController *wxLoginView = segue.destinationViewController; //获取目的试图控制器对象，跟原来一样，在.m文件中要引入头文件
-        wxLoginView.code = checkField.text;
+        wxLoginView.code = _checkCode;
     }
     
     if ([segue.identifier isEqualToString:@"pushApplyController"]) {
@@ -175,16 +202,28 @@
     }
 }
 
-- (IBAction)useWeChatLogin:(id)sender {
+- (void)useWeChatLogin {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(oldUerLoginState:) name:@"OldUserLoginWihtWechat" object:nil];
         [self sendAuthRequest];
+}
+
+-(void)pwdNum:(NSString *)pwdNum{
+    _checkCode = pwdNum;
+    if (pwdNum.length == 4) {
+        _nextStep.enabled = YES;
+        _nextStep.backgroundColor = [UIColor colorWithHexString:ApplyCodeNextBtnColorEn];
+    }else{
+        _nextStep.enabled = NO;
+        _nextStep.backgroundColor = [UIColor colorWithHexString:ApplyCodeNextBtnColorDis];
+
+    }
 }
 
 #pragma mark - NSNotificationCenter
 - (void)oldUerLoginState:(NSNotification *)notification {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"OldUserLoginWihtWechat" object:nil];
      NSNumber *state = [notification object];
-    if (state) {
+    if (state && [WXUserInfo shareInstance].openid != nil) {
         [self loginWithOldUser:[WXUserInfo shareInstance].openid];
     } else {
         [[UITools shareInstance] showMessageToView:self.view message:@"请求出错" autoHide:YES];
@@ -200,28 +239,9 @@
     [AppData shareInstance].wxRandomState = req.state;
     //第三方向微信终端发送一个SendAuthReq消息结构
     if (![WXApi sendReq:req]) {
-        [[UITools shareInstance] showMessageToView:self.view message:@"请安装WeChart" autoHide:YES];
+        [[UITools shareInstance] showMessageToView:self.view message:@"请安装WeChat" autoHide:YES];
         NSLog(@"未安装WeChart");
     };
-}
-
-
-#pragma mark - UITextFieldDelegate
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    if (textField.text.length == 0 || (range.location == 0 && [string isEqualToString:@""])) {
-        if (![string isEqualToString:@""]) {
-            [_nextStep setBackgroundColor:[UIColor blackColor]];
-            _nextStep.enabled = YES;
-        }else{
-            [_nextStep setBackgroundColor:[UIColor clearColor]];
-            _nextStep.enabled = NO;
-        }
-    }else if (textField.text.length > 0 || string.length > 0) {
-        [_nextStep setBackgroundColor:[UIColor blackColor]];
-        _nextStep.enabled = YES;
-    }
-    return YES;
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -241,7 +261,7 @@
 {
     
     BOOL ret = NO;
-    if (checkField.text.length == 0) {
+    if (_checkCode.length == 0) {
     
         ret = YES;
     }

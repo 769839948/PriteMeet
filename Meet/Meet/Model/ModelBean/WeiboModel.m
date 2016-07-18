@@ -19,4 +19,11 @@
     return shareInstance;
 }
 
++ (void)logout
+{
+    [WeiboModel shareInstance].usid = nil;
+    [WeiboModel shareInstance].unionId = nil;
+    [WeiboModel shareInstance].userName = nil;
+}
+
 @end
