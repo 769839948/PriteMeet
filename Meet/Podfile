@@ -4,7 +4,7 @@ use_frameworks!
 target "Meet" do
     pod 'SDWebImage', '~>3.7'
     pod 'MBProgressHUD'
-    pod 'AFNetworking', '~> 3.0'
+    pod 'AFNetworking'
     pod 'FMDB'
     pod 'SQLCipher', '~> 3.3.1'
     pod 'MWPhotoBrowser', '~> 2.1.1'
@@ -15,7 +15,6 @@ target "Meet" do
     pod 'pop', '~> 1.0'
     pod 'SnapKit'
     pod 'IQKeyboardManager'
-#    pod 'UMengSocialCOM', '~> 5.2.1'
     pod 'Qiniu', :git => 'https://github.com/qiniu/objc-sdk.git', :branch => 'AFNetworking-3.x'
     pod 'MJExtension'
     pod 'AMapLocation' #定位SDK

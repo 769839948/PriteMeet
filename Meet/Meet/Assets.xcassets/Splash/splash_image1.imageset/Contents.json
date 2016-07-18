@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "splash_image1.png"
+      "filename" : "splash_image1.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
@@ -12,6 +12,7 @@
     },
     {
       "idiom" : "universal",
+      "filename" : "splash_image1@3x.png",
       "scale" : "3x"
     }
   ],

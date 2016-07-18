@@ -7,10 +7,11 @@
 //
 
 #import "BaseRequestViewModel.h"
+#import "ApplyMeetModel.h"
 
 @interface OrderViewModel : BaseRequestViewModel
 
-- (void)aliPayOrder:(Success)successBlock failBlock:(Fail)failBlock;
+- (void)applyMeetOrder:(ApplyMeetModel *)model successBlock:(Success)successBlock failBlock:(Fail)failBlock;
 
 - (void)getOrderList:(Success)successBlock failBlock:(Fail)failBlock;
 

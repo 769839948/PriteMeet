@@ -175,7 +175,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
     [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:HomeTableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [self setStatusView];
-    [self setUpBottonView];
+//    [self setUpBottonView];
     [self setUpNavigationBar];
 }
 

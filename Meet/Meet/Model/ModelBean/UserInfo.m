@@ -9,7 +9,7 @@
 #import "UserInfo.h"
 #import "UserExtenModel.h"
 #import "UserInviteModel.h"
-
+#import "WeiboModel.h"
 #import <UIKit/UIKit.h>
 //文件地址名称
 #define kEncodedObjectPath_User ([[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"UserInfo"])
@@ -66,6 +66,8 @@ static UserInfo *userInfo=nil;
     BOOL result = [fileManager removeItemAtPath:kEncodedObjectPath_User error:&error];
     [UserExtenModel remoUserExtenModel];
     [UserInviteModel removeInvite];
+    [WXUserInfo logout];
+    [WeiboModel logout];
     if (!result) {
         NSLog(@"注销失败！\%@",error);
     }else{
@@ -116,6 +118,7 @@ static UserInfo *userInfo=nil;
 {
     self = [self init];
     if (self) {
+        self.uid = [aDecoder decodeObjectForKey:@"uid"];
         self.real_name = [aDecoder decodeObjectForKey:@"real_name"];
         self.location = [aDecoder decodeObjectForKey:@"location"];
         self.birthday = [aDecoder decodeObjectForKey:@"birthday"];
@@ -151,6 +154,7 @@ static UserInfo *userInfo=nil;
 
 #pragma mark - NSCoding
 - (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.uid forKey:@"uid"];
     [aCoder encodeObject:self.real_name forKey:@"real_name"];
     [aCoder encodeObject:self.location forKey:@"location"];
     [aCoder encodeObject:self.birthday forKey:@"birthday"];
@@ -203,8 +207,8 @@ static UserInfo *userInfo=nil;
     [UserInfo sharedInstance].drink  = [dic[@"drink"] integerValue];
     [UserInfo sharedInstance].gender  = [dic[@"gender"] integerValue];
     [UserInfo sharedInstance].height  = [dic[@"height"] integerValue];
-    if ([dic[@"avatar"] isEqualToString:@""]  && [[NSUserDefaults standardUserDefaults] objectForKey:@"avatePhoto"] != nil) {
-        [UserInfo sharedInstance].avatar = [[NSUserDefaults standardUserDefaults] objectForKey:@"avatePhoto"];
+    if ([dic[@"avatar"] isEqualToString:@""]  && [[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] != nil) {
+        [UserInfo sharedInstance].avatar = [[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"];
 
     }else{
         [UserInfo sharedInstance].avatar  = dic[@"avatar"];

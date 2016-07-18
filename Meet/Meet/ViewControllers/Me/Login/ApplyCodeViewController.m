@@ -52,7 +52,7 @@
 - (void)applyCodePress:(UIBarButtonItem *)sender
 {
     [self mappingUserInfoWithDicValues];
-    if ([UserInfo sharedInstance].avatar != nil && ![[UserInfo sharedInstance].personal_label isEqualToString:@""] && ![[UserInfo sharedInstance].mobile_num isEqualToString:@""] && ![[UserInfo sharedInstance].mobile_num isEqualToString:@"0,0"]) {
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] != nil && ![[UserInfo sharedInstance].job_label isEqualToString:@""] && ![[UserInfo sharedInstance].mobile_num isEqualToString:@""] && ![[UserInfo sharedInstance].location isEqualToString:@"0,0"]) {
         __weak typeof(self) weakSelf = self;
         [_loginViewModel applyCode:[UserInfo sharedInstance] workArray:_worke_exps eduArray:_edu_exps Success:^(NSDictionary *object) {
             if (weakSelf.block) {

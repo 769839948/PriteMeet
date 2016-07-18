@@ -10,7 +10,7 @@
 
 @implementation OrderViewModel
 
-- (void)aliPayOrder:(Success)successBlock failBlock:(Fail)failBlock
+- (void)applyMeetOrder:(ApplyMeetModel *)model successBlock:(Success)successBlock failBlock:(Fail)failBlock
 {
     NSString *url = [RequestBaseUrl stringByAppendingString:RequestApplyAppointment];
     NSDictionary *parameters = @{@"host": @"318",

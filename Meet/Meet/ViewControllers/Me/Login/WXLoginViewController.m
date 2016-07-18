@@ -14,12 +14,16 @@
 #import "UserProtocolViewController.h"
 #import "WXApiObject.h"
 #import "UserInfo.h"
+#import "WeiboModel.h"
 #import "LoginViewModel.h"
+#import "UMSocialSnsPlatformManager.h"
+#import "UMSocialAccountManager.h"
 
 @interface WXLoginViewController ()
 
 @property (assign, nonatomic) BOOL isNewUser;
 @property (retain, nonatomic) LoginViewModel *viewModel;
+@property (weak, nonatomic) IBOutlet UIButton *weChatLoginBtn;
 
 @end
 
@@ -29,6 +33,11 @@
     [super viewDidLoad];
     _viewModel = [[LoginViewModel alloc] init];
     _isNewUser = YES;
+    if (![WXApi isWXAppInstalled]) {
+        _weChatLoginBtn.hidden = YES;
+    }else{
+        _weChatLoginBtn.hidden = NO;
+    }
 //    [self navigationItemCleanColorWithNotLine];
 }
 
@@ -55,6 +64,74 @@
     }];
 }
 
+- (IBAction)loginWeiboAction:(UIButton *)sender
+{
+    __weak typeof(self) weakSelf = self;
+    UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
+    
+    snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+        //获取微博用户名、uid、token等
+        if (response.responseCode == UMSResponseCodeSuccess) {
+            
+            UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
+            [WeiboModel shareInstance].unionId = snsAccount.unionId;
+            [WeiboModel shareInstance].userName = snsAccount.userName;
+            [WeiboModel shareInstance].usid = [NSString stringWithFormat:@"weibo_%@",snsAccount.usid];
+            [WeiboModel shareInstance].iconURL = snsAccount.iconURL;
+            [weakSelf loginUser:[NSString stringWithFormat:@"weibo_%@",snsAccount.usid] withUssr:nil withWeiboInfo:[WeiboModel shareInstance]];
+            
+        }});
+}
+
+
+- (void)loginUser:(NSString *)uid withUssr:(WXUserInfo *)info withWeiboInfo:(WeiboModel *)weibo
+{
+    if (info == nil) {
+        [WXUserInfo shareInstance].openid = weibo.usid;
+        [WXUserInfo shareInstance].unionid = @"";
+        [WXUserInfo shareInstance].country = @"";
+        [WXUserInfo shareInstance].headimgurl = weibo.iconURL;
+        [WXUserInfo shareInstance].city = @"";
+        [WXUserInfo shareInstance].nickname = weibo.userName;
+        [WXUserInfo shareInstance].sex = @1;
+        [WXUserInfo shareInstance].province = @"";
+    }
+    [WXUserInfo shareInstance].openid = uid;
+    __weak typeof(self) weakSelf = self;
+    [_viewModel postWXUserInfo:[WXUserInfo shareInstance] withCode:self.code Success:^(NSDictionary *object) {
+        [_viewModel getUserInfo:uid success:^(NSDictionary *object) {
+            /////获取到 [UserInfo shareInstance]的idKye 以后保存需要
+            [UserInfo sharedInstance].uid = uid;
+            [UserInfo synchronizeWithDic:object];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isNewUser"];
+            UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
+            BaseUserInfoViewController *baseUserInfo = [meStoryBoard instantiateViewControllerWithIdentifier:@"BaseInfoViewController"];
+            [weakSelf.navigationController pushViewController:baseUserInfo animated:YES];
+        } fail:^(NSDictionary *object) {
+        } loadingString:^(NSString *str) {
+            
+        }];
+        
+    } Fail:^(NSDictionary *object) {
+        if ([[object objectForKey:@"error"] isEqualToString:@"oldUser"]) {
+            [_viewModel getUserInfo:uid success:^(NSDictionary *object) {
+                [UserInfo sharedInstance].uid = uid;
+                [UserInfo synchronizeWithDic:object];
+                [self dismissViewControllerAnimated:YES completion:^{
+                    [UserInfo sharedInstance].isFirstLogin = YES;
+                    
+                }];
+            } fail:^(NSDictionary *object) {
+            } loadingString:^(NSString *str) {
+                
+            }];
+            /////获取到 [UserInfo shareInstance]的idKye 以后保存需要
+            //这里是在调试中
+        }
+    } showLoding:^(NSString *str) {
+    }];
+}
+
 - (IBAction)loginButtonAction:(id)sender {
     if (_isNewUser) {
         [self sendAuthRequest];
@@ -74,44 +151,10 @@
 
 #pragma mark - notification
 - (void)loginState:(NSNotification *)notification {
-//    UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
-//    BaseUserInfoViewController *baseUserInfo = [meStoryBoard instantiateViewControllerWithIdentifier:@"BaseInfoViewController"];
-//    [self.navigationController pushViewController:baseUserInfo animated:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NewUserLoginWihtWechat" object:nil];
     NSNumber *state = [notification object];
-    if (state.intValue) {
-        __weak typeof(self) weakSelf = self;
-        [_viewModel postWXUserInfo:[WXUserInfo shareInstance] withCode:self.code Success:^(NSDictionary *object) {
-            [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
-                /////获取到 [UserInfo shareInstance]的idKye 以后保存需要
-                [UserInfo synchronizeWithDic:object];
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isNewUser"];
-                UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
-                BaseUserInfoViewController *baseUserInfo = [meStoryBoard instantiateViewControllerWithIdentifier:@"BaseInfoViewController"];
-                [weakSelf.navigationController pushViewController:baseUserInfo animated:YES];
-            } fail:^(NSDictionary *object) {
-            } loadingString:^(NSString *str) {
-                
-            }];
-            
-        } Fail:^(NSDictionary *object) {
-            if ([[object objectForKey:@"error"] isEqualToString:@"oldUser"]) {
-                [_viewModel getUserInfo:[WXUserInfo shareInstance].openid success:^(NSDictionary *object) {
-                    [UserInfo synchronizeWithDic:object];
-                    [self dismissViewControllerAnimated:YES completion:^{
-                        [UserInfo sharedInstance].isFirstLogin = YES;
-                        
-                    }];
-                } fail:^(NSDictionary *object) {
-                } loadingString:^(NSString *str) {
-                    
-                }];
-                /////获取到 [UserInfo shareInstance]的idKye 以后保存需要
-                //这里是在调试中
-            }
-        } showLoding:^(NSString *str) {
-        }];
-        
+    if (state.intValue && [WXUserInfo shareInstance].openid != nil) {
+        [self loginUser:[WXUserInfo shareInstance].openid withUssr:[WXUserInfo shareInstance] withWeiboInfo:nil];
     }
 }
 
@@ -124,7 +167,7 @@
     [AppData shareInstance].wxRandomState = req.state;
     //第三方向微信终端发送一个SendAuthReq消息结构
     if (![WXApi sendReq:req]) {
-        [[UITools shareInstance] showMessageToView:self.view message:@"请安装WeChart" autoHide:YES];
+        [[UITools shareInstance] showMessageToView:self.view message:@"请安装WeChat" autoHide:YES];
         NSLog(@"未安装WeChart");
     };
 }

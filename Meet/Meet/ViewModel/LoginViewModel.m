@@ -46,15 +46,16 @@
                 
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 if ([responseObject[@"success"] boolValue]) {
-                    NSDictionary *parameters = @{@"openid":WXUserInfo.openid,@"nickname":WXUserInfo.nickname,@"gender":[NSString stringWithFormat:@"%@",WXUserInfo.sex],@"head_img_url":[[NSUserDefaults standardUserDefaults] objectForKey:@"avatePhoto"],@"province":WXUserInfo.province,@"city":WXUserInfo.city,@"country":WXUserInfo.country,@"union_id":WXUserInfo.unionid,@"code":code};
-                    [UserInfo sharedInstance].avatar = [[NSUserDefaults standardUserDefaults] objectForKey:@"avatePhoto"];
+                    NSDictionary *parameters = @{@"openid":WXUserInfo.openid,@"nickname":WXUserInfo.nickname,@"gender":[NSString stringWithFormat:@"%@",WXUserInfo.sex],@"head_img_url":[[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"],@"province":WXUserInfo.province,@"city":WXUserInfo.city,@"country":WXUserInfo.country,@"union_id":WXUserInfo.unionid,@"code":code};
+                    [UserInfo sharedInstance].avatar = [[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"];
                     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestCreateUser];
                     
                     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
                         
                     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                         if ([[responseObject objectForKey:@"success"] boolValue]) {
-                            [UserInfo synchronizeWithWXUserInfo:WXUserInfo];
+                            [UserInfo sharedInstance].uid = WXUserInfo.openid;
+                            [UserInfo sharedInstance].avatar = [[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"];
                             failBlock(@{@"error":@"oldUser"});
                         }else{
                             failBlock(@{@"error":@"上传失败"});
@@ -120,13 +121,13 @@
     }];
 }
 
-- (void)oldUserLogin:(WXUserInfo *)WXUserInfo
+- (void)oldUserLogin:(NSString *)uid
              Success:(Success)successBlock
                 Fail:(Fail)failBlock
           showLoding:(LoadingView)loading
 {
     loading(@"登录中");
-    NSDictionary *parameters = @{@"openid":WXUserInfo.openid};
+    NSDictionary *parameters = @{@"openid":uid};
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestCheckUser];
 
     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -190,7 +191,7 @@
     if (userInfo.job_label == nil) {
         userInfo.job_label = @"";
     }
-    NSDictionary *parameters = @{@"avatar":userInfo.avatar, @"real_name": userInfo.real_name, @"gender":[NSString stringWithFormat:@"%ld",(long)userInfo.gender],@"mobile_num": userInfo.mobile_num, @"birthday": userInfo.birthday, @"weixin_num": userInfo.weixin_num,@"location":userInfo.location,@"hometown":userInfo.hometown,@"affection":[NSString stringWithFormat:@"%ld",(long)userInfo.affection],@"height":[NSString stringWithFormat:@"%ld",(long)userInfo.height],@"income":[NSString stringWithFormat:@"%ld",(long)userInfo.income],@"constellation":[NSString stringWithFormat:@"%ld",(long)userInfo.constellation],@"industry":[NSString stringWithFormat:@"%ld",(long)userInfo.industry],@"job_label":userInfo.job_label,@"work_experience":workExpArray,@"edu_experience":eduExpArray};
+    NSDictionary *parameters = @{@"avatar":[[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"], @"real_name": userInfo.real_name, @"gender":[NSString stringWithFormat:@"%ld",(long)userInfo.gender],@"mobile_num": userInfo.mobile_num, @"birthday": userInfo.birthday, @"weixin_num": userInfo.weixin_num,@"location":userInfo.location,@"hometown":userInfo.hometown,@"affection":[NSString stringWithFormat:@"%ld",(long)userInfo.affection],@"height":[NSString stringWithFormat:@"%ld",(long)userInfo.height],@"income":[NSString stringWithFormat:@"%ld",(long)userInfo.income],@"constellation":[NSString stringWithFormat:@"%ld",(long)userInfo.constellation],@"industry":[NSString stringWithFormat:@"%ld",(long)userInfo.industry],@"job_label":userInfo.job_label,@"work_experience":workExpArray,@"edu_experience":eduExpArray};
     
     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         

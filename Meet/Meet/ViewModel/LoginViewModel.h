@@ -17,7 +17,7 @@
                                     Fail:(Fail)failBlock
                               showLoding:(LoadingView)loading;
 
-- (void)oldUserLogin:(WXUserInfo *)WXUserInfo
+- (void)oldUserLogin:(NSString *)uid
              Success:(Success)successBlock
                 Fail:(Fail)failBlock
           showLoding:(LoadingView)loading;

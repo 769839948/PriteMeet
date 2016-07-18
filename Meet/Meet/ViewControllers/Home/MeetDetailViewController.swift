@@ -97,17 +97,20 @@ class MeetDetailViewController: UIViewController {
     }
     
     func meetImmediately(){
-        if !UserInfo.isLoggedIn(){
-            let meStoryBoard = UIStoryboard(name: "Login", bundle: NSBundle.mainBundle())
-            let resgisterVc = meStoryBoard.instantiateViewControllerWithIdentifier("weChatResgisterNavigation")
-            self.presentViewController(resgisterVc, animated: true, completion: {
-                
-            });
-        }else{
-            let meetView = MeetWebViewController()
-            meetView.url = "https://jinshuju.net/f/yzVBmI"
-            self.navigationController?.pushViewController(meetView, animated: true)
-        }
+//        if !UserInfo.isLoggedIn(){
+//            let meStoryBoard = UIStoryboard(name: "Login", bundle: NSBundle.mainBundle())
+//            let resgisterVc = meStoryBoard.instantiateViewControllerWithIdentifier("weChatResgisterNavigation")
+//            self.presentViewController(resgisterVc, animated: true, completion: {
+//                
+//            });
+//        }else{
+//            let meetView = MeetWebViewController()
+//            meetView.url = "https://jinshuju.net/f/yzVBmI"
+//            self.navigationController?.pushViewController(meetView, animated: true)
+//        }
+        let applyMeetVc = ApplyMeetViewController()
+        applyMeetVc.allItems =  self.inviteArray.mutableCopy() as! NSMutableArray
+        self.navigationController?.pushViewController(applyMeetVc, animated: true)
     }
     
     func setUpNavigationBar(){

@@ -58,7 +58,7 @@ PODS:
     - SQLCipher/common
 
 DEPENDENCIES:
-  - AFNetworking (~> 3.0)
+  - AFNetworking
   - AMapLocation
   - Crashlytics
   - DZNEmptyDataSet
@@ -114,6 +114,6 @@ SPEC CHECKSUMS:
   SnapKit: bbad04cb016c7cead63965f16b00c09318d271ee
   SQLCipher: d490d2effe735895d2204d25a154b1e722278421
 
-PODFILE CHECKSUM: 4473899426d89fb32091b378d50f6a8113fc5c62
+PODFILE CHECKSUM: a2c71f2635212bcb0181a717e0074532ab808d10
 
 COCOAPODS: 1.0.0

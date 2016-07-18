@@ -37,8 +37,13 @@
 #define GETUser_info_FromWX_URLStr [WX_userInfo_URL_str stringByAppendingFormat:@"?access_token=%@&openid=%@",[WXAccessModel shareInstance].access_token,[WXAccessModel shareInstance].openid]
 
 
-#define loginStateChange  @"loginStateChange"
+#define WeiboApiKey       @"3220687526"
+#define WeiboApiSecret    @"49d47e4aa35158eb8986cf60f5bc27d3"
+#define WeiboRedirectUrl  @"http://sns.whalecloud.com/sina2/callback"
 
+
+#define loginStateChange  @"loginStateChange"
+#define UmengAppkey       @"5788abfd67e58e7e4f0005b9"
 
 #define GAODEMapKey       @"a2001b013b8cd42ddb1982b3ba2f574a"
 

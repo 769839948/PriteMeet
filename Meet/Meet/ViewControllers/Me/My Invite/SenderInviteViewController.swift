@@ -249,7 +249,7 @@ extension SenderInviteViewController : UITableViewDataSource {
         }else{
             let cellId = "InviteTitleTableViewCell"
             let cell = tableView.dequeueReusableCellWithIdentifier(cellId) as! InviteTitleTableViewCell
-            cell.setData("邀约已开启", isSwitch: (UserInviteModel.shareInstance().results[0] ).is_active,isShowSwitch:true )
+            cell.setData("邀约已开启", isSwitch: (UserInviteModel.shareInstance().results[0]).is_active,isShowSwitch:true )
             cell.myCourse = { _ in
                 self.setUpAlertContol()
             }

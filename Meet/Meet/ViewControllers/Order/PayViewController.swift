@@ -11,7 +11,7 @@ import UIKit
 class PayViewController: UIViewController {
 
     
-    var weChatPayreq:PayReq!
+//    var weChatPayreq:PayReq!
     var aliPayurl:String!
     
     var aliPayButton:UIButton!
@@ -24,14 +24,14 @@ class PayViewController: UIViewController {
         self.view.backgroundColor = UIColor.whiteColor()
         self.setNavigationItemBack()
         viewModel = OrderViewModel()
-        self.weChatPayreq = PayReq()
-        self.weChatPayreq.nonceStr = "11f5d7003eecac92f6b9ee83ce834d0f"
-        self.weChatPayreq.package = "Sign=WXPay"
-        self.weChatPayreq.partnerId = "1305176001"
-        self.weChatPayreq.prepayId = "wx20160714172337c1a249f4d30371936743"
-        self.weChatPayreq.sign = "498A5849D1784F01749D3237EE3BB96E"
-        let time:UInt32 = 1468488217
-        self.weChatPayreq.timeStamp = time
+//        self.weChatPayreq = PayReq()
+//        self.weChatPayreq.nonceStr = "11f5d7003eecac92f6b9ee83ce834d0f"
+//        self.weChatPayreq.package = "Sign=WXPay"
+//        self.weChatPayreq.partnerId = "1305176001"
+//        self.weChatPayreq.prepayId = "wx20160714172337c1a249f4d30371936743"
+//        self.weChatPayreq.sign = "498A5849D1784F01749D3237EE3BB96E"
+//        let time:UInt32 = 1468488217
+//        self.weChatPayreq.timeStamp = time
         self.loadPayInfo()
         self.setUpPayBtn()
         // Do any additional setup after loading the view.
@@ -41,7 +41,7 @@ class PayViewController: UIViewController {
         viewModel.payOrder({ (dic) in
             let payDic = dic as NSDictionary
             self.aliPayurl = payDic.objectForKey("aliPayurl") as! String
-            self.weChatPayreq = PayReq.mj_objectWithKeyValues(payDic["weChatPay"])
+//            self.weChatPayreq = PayReq.mj_objectWithKeyValues(payDic["weChatPay"])
             }, failBlock: { (dic) in
                 
         })
@@ -71,7 +71,7 @@ class PayViewController: UIViewController {
     }
     
     func weChatPay(sender:UIButton){
-        WXApi.sendReq(self.weChatPayreq)
+//        WXApi.sendReq(self.weChatPayreq)
     }
 
     override func didReceiveMemoryWarning() {

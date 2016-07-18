@@ -63,7 +63,10 @@ static UserInviteModel *userInvite = nil;
 - (id)init
 {
     if (self = [super init]) {
-        
+//        Results *result = [[Results alloc] init];
+//        result.theme = @"1";
+//        result.
+//        self.results = @[];
     }
     return self;
 }
