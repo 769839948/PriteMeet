@@ -435,14 +435,14 @@ extension MeViewController : UITableViewDataSource {
                             UserExtenModel.saveCacheImage(image, withName: "cover_photo.jpg")
                         })
                     }else{
-                        if UserInfo.imageForName("headImage.jpg") != nil {
-                            cell.avatarImageView.image = UserInfo.imageForName("headImage.jpg");
-                        }else{
+//                        if UserInfo.imageForName("headImage.jpg") != nil {
+//                            cell.avatarImageView.image = UserInfo.imageForName("headImage.jpg");
+//                        }else{
                             cell.avatarImageView.sd_setImageWithURL(NSURL.init(string: UserInfo.sharedInstance().avatar), placeholderImage: nil, completed: { (image
                                 , error, type, url) in
                                 UserInfo.saveCacheImage(image, withName: "headImage.jpg")
                             })
-                        }
+//                        }
                     }
                 }
               

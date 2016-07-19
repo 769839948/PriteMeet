@@ -27,9 +27,6 @@
     if (self) {
         self.whitView.hidden = YES;
         self.showdowView.hidden = YES;
-        
-        
-        
     }
     return self;
 }
@@ -39,6 +36,7 @@
     if (_cycleScrollView == nil) {
         _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(10, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355) delegate:self placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(ScreenWidth - 20, (ScreenWidth - 20)*236/355)]];
         _cycleScrollView.layer.cornerRadius = 5.0;
+        _cycleScrollView.pageDotColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.4];
         _cycleScrollView.delegate = self;
         _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
         [self.contentView addSubview:_cycleScrollView];

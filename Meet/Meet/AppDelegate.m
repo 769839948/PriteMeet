@@ -15,9 +15,8 @@
 #import "MBProgressHUD.h"
 #import "AFNetWorking.h"
 #import "NetWorkObject.h"
-#import "UMSocial.h"
-#import "UMSocialSinaSSOHandler.h"
-#import "UMSocialWechatHandler.h"
+#import "WeiboSDK.h"
+#import "WeiboModel.h"
 
 #import "FristHomeViewController.h"
 #import "UserInfo.h"
@@ -30,7 +29,7 @@
 #import "Meet-Swift.h"
 #import <AlipaySDK/AlipaySDK.h>
 
-@interface AppDelegate ()<WXApiDelegate,NSURLConnectionDelegate> {
+@interface AppDelegate ()<WXApiDelegate,NSURLConnectionDelegate,WeiboSDKDelegate> {
     NSURLConnection *_connection;
     NSURLConnection *_connectionLoadUserInfo;
     
@@ -69,8 +68,8 @@
         [UserInfo logout];
     }
     
-    NSDictionary *access_TokenDic = [[NSUserDefaults standardUserDefaults] objectForKey:keyAccessModelSave];
-    NSDictionary *weChatUserInfoDic = [[NSUserDefaults standardUserDefaults] objectForKey:keyWXUserInfo];
+//    NSDictionary *access_TokenDic = [[NSUserDefaults standardUserDefaults] objectForKey:keyAccessModelSave];
+//    NSDictionary *weChatUserInfoDic = [[NSUserDefaults standardUserDefaults] objectForKey:keyWXUserInfo];
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     [self setIQkeyboardManager];
 
@@ -80,8 +79,8 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-value"
-    [[WXAccessModel shareInstance] initWithDictionary:access_TokenDic];
-    [[WXUserInfo shareInstance] initWithDictionary:weChatUserInfoDic];
+//    [[WXAccessModel shareInstance] initWithDictionary:access_TokenDic];
+//    [[WXUserInfo shareInstance] initWithDictionary:weChatUserInfoDic];
 //    [[UserInfo shareInstance] initWithDictionary:userInfoDic];
     
     [self.window makeKeyAndVisible];
@@ -109,13 +108,15 @@
 //    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:WeiboApiKey
 //                                              secret:WeiboApiSecret
 //                                         RedirectURL:WeiboRedirectUrl];
-    [UMSocialData setAppKey:@"578357a6e0f55a86a4000ab7"];
-    //设置微信AppId，设置分享url，默认使用友盟的网址
-//    [UMSocialWechatHandler setWXAppId:@"wxc1f29ba6be0adb5e" appSecret:@"d4624c36b6795d1d99dcf0547af5443d" url:@"http://www.umeng.com/social"];
-    //设置微博
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:WeiboApiKey
-                                              secret:WeiboApiSecret
-                                         RedirectURL:WeiboRedirectUrl];
+    [WeiboSDK enableDebugMode:YES];
+    [WeiboSDK registerApp:WeiboApiKey];
+//    [UMSocialData setAppKey:@"578357a6e0f55a86a4000ab7"];
+//    //设置微信AppId，设置分享url，默认使用友盟的网址
+////    [UMSocialWechatHandler setWXAppId:@"wxc1f29ba6be0adb5e" appSecret:@"d4624c36b6795d1d99dcf0547af5443d" url:@"http://www.umeng.com/social"];
+//    //设置微博
+//    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:WeiboApiKey
+//                                              secret:WeiboApiSecret
+//                                         RedirectURL:WeiboRedirectUrl];
 }
 
 - (void)addSplashView
@@ -163,7 +164,10 @@
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             NSLog(@"result = %@",resultDic);
         }];
+    }else if ([url.host isEqualToString:@"response"]){
+        return [WeiboSDK handleOpenURL:url delegate:self];
     }
+     
     return YES;
 }
 
@@ -195,8 +199,8 @@
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
     
-    if([[url absoluteString] hasPrefix:@"wb"]) {
-        return [UMSocialSnsService handleOpenURL:url];
+    if([url.host isEqualToString:@"response"]) {
+        return [WeiboSDK handleOpenURL:url delegate:self];
     }
     if ([url.host isEqualToString:@"safepay"]) {
         //跳转支付宝钱包进行支付，处理支付结果
@@ -210,6 +214,34 @@
 -(MainViewController *)getRootViewController {
     MainViewController *rootVC = (MainViewController *) self.window.rootViewController;
     return rootVC;
+}
+
+#pragma mark - WeiboSDKDelegate
+
+- (void)didReceiveWeiboRequest:(WBBaseRequest *)request
+{
+    
+}
+
+- (void)didReceiveWeiboResponse:(WBBaseResponse *)response
+{
+    if ([response isKindOfClass:WBAuthorizeResponse.class])
+    {
+//        NSString *title = NSLocalizedString(@"认证结果", nil);
+//        NSString *message = [NSString stringWithFormat:@"%@: %d\nresponse.userId: %@\nresponse.accessToken: %@\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode,[(WBAuthorizeResponse *)response userID], [(WBAuthorizeResponse *)response accessToken],  NSLocalizedString(@"响应UserInfo数据", nil), response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil), response.requestUserInfo];
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+//                                                        message:message
+//                                                       delegate:nil
+//                                              cancelButtonTitle:NSLocalizedString(@"确定", nil)
+//                                              otherButtonTitles:nil];
+//        
+//        
+//        [alert show];
+        [WeiboModel shareInstance].usid = [NSString stringWithFormat:@"weibo_%@",[(WBAuthorizeResponse *)response userID]];
+        [WeiboModel shareInstance].userName = response.userInfo[@"userName"];
+        [WeiboModel shareInstance].unionId = response.userInfo[@"unionId"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"UserLoginWihtWeibo" object:[NSNumber numberWithInt:0]];
+    }
 }
 
 
@@ -227,7 +259,6 @@
         if ([response.state isEqualToString:[AppData shareInstance].wxRandomState]) {
         NSString *code = response.code;
         NSDictionary *parameters = @{@"appid":[AppData shareInstance].wxAppID,@"secret":[AppData shareInstance].wxAppSecret,@"grant_type":@"authorization_code",@"code":code};
-          loadingHUD = [[UITools shareInstance] showLoadingViewAddToView:self.window message:NSLocalizedString(@"loading", "加载中") autoHide:NO];
             [NetWorkObject GET:WX_access_tokenURL_str
                 parameters:parameters
                   progress:^(NSProgress *downloadProgress) {

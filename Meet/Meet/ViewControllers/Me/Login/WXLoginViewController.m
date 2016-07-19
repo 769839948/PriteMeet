@@ -14,10 +14,9 @@
 #import "UserProtocolViewController.h"
 #import "WXApiObject.h"
 #import "UserInfo.h"
+#import "WeiboSDK.h"
 #import "WeiboModel.h"
 #import "LoginViewModel.h"
-#import "UMSocialSnsPlatformManager.h"
-#import "UMSocialAccountManager.h"
 
 @interface WXLoginViewController ()
 
@@ -66,23 +65,26 @@
 
 - (IBAction)loginWeiboAction:(UIButton *)sender
 {
-    __weak typeof(self) weakSelf = self;
-    UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
-    
-    snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
-        //获取微博用户名、uid、token等
-        if (response.responseCode == UMSResponseCodeSuccess) {
-            
-            UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
-            [WeiboModel shareInstance].unionId = snsAccount.unionId;
-            [WeiboModel shareInstance].userName = snsAccount.userName;
-            [WeiboModel shareInstance].usid = [NSString stringWithFormat:@"weibo_%@",snsAccount.usid];
-            [WeiboModel shareInstance].iconURL = snsAccount.iconURL;
-            [weakSelf loginUser:[NSString stringWithFormat:@"weibo_%@",snsAccount.usid] withUssr:nil withWeiboInfo:[WeiboModel shareInstance]];
-            
-        }});
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(UerLoginStateWeibo:) name:@"UserLoginWihtWeibo" object:nil];
+    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
+    request.redirectURI = WeiboRedirectUrl;
+    request.scope = @"all";
+    [WeiboSDK sendRequest:request];
 }
 
+- (void)UerLoginStateWeibo:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UserLoginWihtWeibo" object:nil];
+    NSNumber *state = [notification object];
+    if (state && [WeiboModel shareInstance].usid != nil) {
+        [WeiboModel shareInstance].iconURL = @"";
+        [WeiboModel shareInstance].userName = @"网页微博";
+        [self loginUser:[WeiboModel shareInstance].usid withUssr:nil withWeiboInfo:[WeiboModel shareInstance]];
+    } else {
+        [[UITools shareInstance] showMessageToView:self.view message:@"请求出错" autoHide:YES];
+    }
+    
+}
 
 - (void)loginUser:(NSString *)uid withUssr:(WXUserInfo *)info withWeiboInfo:(WeiboModel *)weibo
 {

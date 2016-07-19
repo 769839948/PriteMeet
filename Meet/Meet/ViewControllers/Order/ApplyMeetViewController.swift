@@ -13,6 +13,7 @@ class ApplyMeetViewController: UIViewController {
     var tableView:UITableView!
     var viewModel:OrderViewModel!
     var flowPath:UIView!
+    var host:String = ""
     var allItems = NSMutableArray()
     var plachString = ""
     var selectItems = NSMutableArray()
@@ -49,32 +50,29 @@ class ApplyMeetViewController: UIViewController {
     }
     
     func sendreInvite(){
-        let arrayItems = NSMutableArray()
+        viewModel = OrderViewModel()
+        var appointment_theme = ""
+        
         for idx in 0...cell.interestView.selectItems.count - 1 {
             let ret = cell.interestView.selectItems[idx]
             if ret as! String == "true" {
-                arrayItems.addObject(allItems[idx])
+                appointment_theme = appointment_theme.stringByAppendingString(((ProfileKeyAndValue.shareInstance().appDic as NSDictionary).objectForKey("invitation")?.objectForKey("\(allItems[idx])"))! as! String)
+                appointment_theme = appointment_theme.stringByAppendingString(",")
+
             }
         }
-        
-        var ret:Bool = true
-        viewModel.uploadInvite(textView.text, themeArray: arrayItems as [AnyObject], isActive: ret,success: { (dic) in
-            if self.isNewLogin {
-                self.dismissViewControllerAnimated(true, completion: {
-                    
-                })
-            }else{
-                if !UserInviteModel.shareInstance().results[0].is_active {
-                    UserInviteModel.shareInstance().results[0].is_active = true
-                }
-                self.navigationController?.popViewControllerAnimated(true)
-            }
-            }, fail: { (dic) in
+        let applyModel = ApplyMeetModel()
+        applyModel.appointment_desc = textView.text;
+        applyModel.appointment_theme = appointment_theme
+        applyModel.host = self.host
+        applyModel.guest = "359"
+        viewModel.applyMeetOrder(applyModel, successBlock: { (dic) in
+            let orderStoryBoard = UIStoryboard(name: "Order", bundle: NSBundle.mainBundle())
+            let applyComfim = orderStoryBoard.instantiateViewControllerWithIdentifier("ApplyConfimViewController") as!  ApplyConfimViewController
+            self.navigationController?.pushViewController(applyComfim, animated: true)
+            }) { (dic) in
                 
-        }) { (msg) in
-            
         }
-        
     }
     /*
     // MARK: - Navigation
@@ -123,6 +121,12 @@ extension ApplyMeetViewController : UITableViewDelegate {
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 20
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 3 {
+            self.sendreInvite()
+        }
     }
 }
 

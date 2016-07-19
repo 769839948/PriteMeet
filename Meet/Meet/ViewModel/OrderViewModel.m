@@ -13,20 +13,19 @@
 - (void)applyMeetOrder:(ApplyMeetModel *)model successBlock:(Success)successBlock failBlock:(Fail)failBlock
 {
     NSString *url = [RequestBaseUrl stringByAppendingString:RequestApplyAppointment];
-    NSDictionary *parameters = @{@"host": @"318",
-                                 @"guest": @"321",
-                                 @"appointment_desc": @"appointment_desc",
-                                 @"appointment_theme": @"1"};
+    NSDictionary *parameters = @{@"host": model.host,
+                                 @"guest": model.guest,
+                                 @"appointment_desc": model.appointment_desc,
+                                 @"appointment_theme": model.appointment_theme};
     [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"%@",[responseObject objectForKey:@"pay_url"]);
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject[@"order"]);
+            successBlock(responseObject[@"order_id"]);
         }else{
             
         }
-        successBlock(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
@@ -34,26 +33,23 @@
 
 - (void)payOrder:(Success)successBlock failBlock:(Fail)failBlock
 {
-    NSString *url = [RequestBaseUrl stringByAppendingString:RequestPayUrl];
-    NSDictionary *parameters = @{@"":@""};
-    [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+    NSString *url = [RequestBaseUrl stringByAppendingString:@"/api/get_pay_url/?out_trade_no=20160719101423l0qrpxofygjrk95tch"];
+    [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@",[responseObject objectForKey:@"pay_url"]);
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject[@"payinfo"]);
+            successBlock(responseObject[@"pay_url"]);
         }else{
             
         }
-        successBlock(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@",error);
+        
     }];
 }
 
-- (void)getOrderList:(Success)successBlock failBlock:(Fail)failBlock
+- (void)getOrderList:(NSString *)orderState withGuest:(NSString *)guest successBlock:(Success)successBlock failBlock:(Fail)failBlock
 {
-    NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@?cur_user=321",RequestUserAppoitment]];
+    NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@?cur_user=%@&status=%@",RequestUserAppoitment,guest,orderState]];
     [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

@@ -62,6 +62,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
     [super viewDidLoad];
     _fillterName = ReconmondList;
     [self setUpTableView];
+    
     _page = 0;
     _viewModel = [[HomeViewModel alloc] init];
     _homeModelArray = [NSMutableArray array];
@@ -130,6 +131,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
         NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
         __weak typeof(self) weakSelf = self;
         [_viewModel getHomeList:pageString latitude:_latitude longitude:_logtitude successBlock:^(NSDictionary *object) {
+            weakSelf.tableView.scrollEnabled = YES;
             [weakSelf.homeModelArray addObjectsFromArray:[HomeModel  mj_objectArrayWithKeyValuesArray:object]];
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_footer endRefreshing];
@@ -154,6 +156,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
         [_viewModel getHomeFilterList:pageString latitude:_latitude longitude:_logtitude filter:filter successBlock:^(NSDictionary *object) {
             [weakSelf.homeModelArray addObjectsFromArray:[HomeModel  mj_objectArrayWithKeyValuesArray:object]];
             [weakSelf.tableView reloadData];
+            weakSelf.tableView.scrollEnabled = YES;
             [weakSelf.tableView.mj_footer endRefreshing];
         } failBlock:^(NSDictionary *object) {
             if (_page > 0) {
@@ -240,11 +243,11 @@ typedef NS_ENUM(NSInteger, FillterName) {
 
 - (void)orderPress:(UIButton *)sender
 {
-    UIStoryboard *orderStory = [UIStoryboard storyboardWithName:@"Order" bundle:[NSBundle mainBundle]];
-    OrderViewController *orderVC = [orderStory instantiateViewControllerWithIdentifier:@"OrderViewController"];
-    [self.navigationController pushViewController:orderVC animated:YES];
-//    PayViewController *controller = [[PayViewController alloc] init];
-//    [self.navigationController pushViewController:controller animated:YES];
+//    UIStoryboard *orderStory = [UIStoryboard storyboardWithName:@"Order" bundle:[NSBundle mainBundle]];
+//    OrderViewController *orderVC = [orderStory instantiateViewControllerWithIdentifier:@"OrderViewController"];
+//    [self.navigationController pushViewController:orderVC animated:YES];
+    PayViewController *controller = [[PayViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)setStatusView

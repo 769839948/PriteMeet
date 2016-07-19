@@ -8,26 +8,31 @@
 
 import UIKit
 
+//1  （2，3）待确认
+//4  （5，）待付款
+//6 （）待见面
 class OrderViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segementContol: UISegmentedControl!
-    var viewModel:OrderViewModel!
+    let viewModel = OrderViewModel()
     var orderList = NSMutableArray()
+    var orderState:String = "1"
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpTableView()
-        self.setOrderData()
+        self.setUpSegmentedControl()
+        self.setOrderData(orderState, guest: "359")
         // Do any additional setup after loading the view.
     }
 
-    func setOrderData(){
-        viewModel = OrderViewModel()
-        viewModel.getOrderList({ (dic) in
+    func setOrderData(state:String, guest:String){
+        self.orderList.removeAllObjects()
+        viewModel.getOrderList(state, withGuest: guest, successBlock: { (dic) in
             if ((dic["receive_order_list"] as! NSArray).count != 0){
                 let receive_Order_List = OrderModel.mj_objectArrayWithKeyValuesArray(dic["receive_order_list"])
                 self.orderList.addObjectsFromArray(receive_Order_List as [AnyObject])
-
+                
             }
             if ((dic["apply_order_list"] as! NSArray).count != 0){
                 let apply_Order_List = OrderModel.mj_objectArrayWithKeyValuesArray(dic["apply_order_list"])
@@ -37,6 +42,10 @@ class OrderViewController: UIViewController {
             }) { (dic) in
                 
         }
+    }
+    
+    func setUpSegmentedControl(){
+        self.segementContol.addTarget(self, action: #selector(OrderViewController.segementChangeValue(_:)), forControlEvents: UIControlEvents.ValueChanged)
     }
     
     func setUpTableView() {
@@ -49,16 +58,32 @@ class OrderViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
+    func segementChangeValue(sender:UISegmentedControl) {
+        switch sender.selectedSegmentIndex  {
+        case 0:
+            orderState = "1"
+        case 1:
+            orderState = "4"
+        case 2:
+            orderState = "6"
+        default:
+            orderState = ""
+        }
+        self.setOrderData(orderState, guest: "359")
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if segue.identifier == "PushAppiontMentDetail" {
+//            let applyDetailView = segue.destinationViewController as! AppointmentDetailViewController
+//            let section = (sender as! NSIndexPath).section
+//            applyDetailView.orderModel = (orderList[section] as! OrderModel)
+//        }
+//        // Get the new view controller using segue.destinationViewController.
+//        // Pass the selected object to the new view controller.
+//    }
 
 }
 
@@ -68,6 +93,20 @@ extension OrderViewController: UITableViewDelegate {
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let applyDetailView = AppointmentDetailViewController()
+        applyDetailView.orderModel = (orderList[indexPath.section] as! OrderModel)
+        self.navigationController?.pushViewController(applyDetailView, animated: true)
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 110
+        }else{
+            return 50
+        }
     }
 }
 

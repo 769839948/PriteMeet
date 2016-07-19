@@ -13,7 +13,7 @@
 
 - (void)applyMeetOrder:(ApplyMeetModel *)model successBlock:(Success)successBlock failBlock:(Fail)failBlock;
 
-- (void)getOrderList:(Success)successBlock failBlock:(Fail)failBlock;
+- (void)getOrderList:(NSString *)orderState withGuest:(NSString *)guest successBlock:(Success)successBlock failBlock:(Fail)failBlock;
 
 - (void)payOrder:(Success)successBlock failBlock:(Fail)failBlock;
 
