@@ -548,10 +548,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
 }
 
 #pragma mark - Action
-- (void)backAction:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)saveAction:(id)sender {
 //    if (_selectRow == 2 && !_chooseView.hidden) {////Sex Item alert
 //        return ;
@@ -952,14 +948,18 @@ typedef NS_ENUM(NSUInteger, RowType) {
             }
             if (self.isApplyCode) {
                 if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] != nil) {
-                    [cell.profilePhoto sd_setImageWithURL:[[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    NSArray *photoArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] componentsSeparatedByString:@"?"];
+                    NSString *photoUrl = [photoArray[0] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/500/h/500"]];
+                    [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:photoUrl] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     }];
                 }else{
                     [cell.profilePhoto setImage:[UIImage imageNamed:@"me_profile_photo"]];
                 }
             }else{
                 if ([UserInfo sharedInstance].avatar != nil){
-                    [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:[UserInfo sharedInstance].avatar] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    NSArray *photoArray = [[UserInfo sharedInstance].avatar componentsSeparatedByString:@"?"];
+                    NSString *photoUrl = [photoArray[0] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/500/h/500"]];
+                    [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:photoUrl] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                         [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
                     }];
                 }else{

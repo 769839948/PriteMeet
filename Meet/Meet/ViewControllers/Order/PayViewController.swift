@@ -10,8 +10,9 @@ import UIKit
 
 class PayViewController: UIViewController {
 
+    var order_id:String!
     
-//    var weChatPayreq:PayReq!
+    var weChatPayreq:PayReq!
     var aliPayurl:String!
     
     var aliPayButton:UIButton!
@@ -24,24 +25,25 @@ class PayViewController: UIViewController {
         self.view.backgroundColor = UIColor.whiteColor()
         self.setNavigationItemBack()
         viewModel = OrderViewModel()
-//        self.weChatPayreq = PayReq()
-//        self.weChatPayreq.nonceStr = "11f5d7003eecac92f6b9ee83ce834d0f"
-//        self.weChatPayreq.package = "Sign=WXPay"
-//        self.weChatPayreq.partnerId = "1305176001"
-//        self.weChatPayreq.prepayId = "wx20160714172337c1a249f4d30371936743"
-//        self.weChatPayreq.sign = "498A5849D1784F01749D3237EE3BB96E"
-//        let time:UInt32 = 1468488217
-//        self.weChatPayreq.timeStamp = time
+        self.weChatPayreq = PayReq()
         self.loadPayInfo()
         self.setUpPayBtn()
         // Do any additional setup after loading the view.
     }
     
     func loadPayInfo(){
-        viewModel.payOrder({ (dic) in
+        viewModel.payOrder(self.order_id, successBlock: { (dic) in
             let payDic = dic as NSDictionary
-            self.aliPayurl = payDic.objectForKey("aliPayurl") as! String
-//            self.weChatPayreq = PayReq.mj_objectWithKeyValues(payDic["weChatPay"])
+            self.aliPayurl = payDic.objectForKey("alipay") as! String
+            let weChatDic = payDic["wxpay"] as! NSDictionary;
+            self.weChatPayreq.nonceStr = weChatDic.objectForKey("noncestr") as! String
+            self.weChatPayreq.package = weChatDic.objectForKey("package") as! String
+            self.weChatPayreq.partnerId = weChatDic.objectForKey("partnerid") as! String
+            self.weChatPayreq.prepayId = weChatDic.objectForKey("prepayid") as! String
+            self.weChatPayreq.sign = weChatDic.objectForKey("sign") as! String
+            let timeString = (weChatDic.objectForKey("timestamp") as! String)
+            let time:UInt32 = UInt32(timeString)!
+            self.weChatPayreq.timeStamp = time
             }, failBlock: { (dic) in
                 
         })
@@ -71,7 +73,7 @@ class PayViewController: UIViewController {
     }
     
     func weChatPay(sender:UIButton){
-//        WXApi.sendReq(self.weChatPayreq)
+        WXApi.sendReq(self.weChatPayreq)
     }
 
     override func didReceiveMemoryWarning() {

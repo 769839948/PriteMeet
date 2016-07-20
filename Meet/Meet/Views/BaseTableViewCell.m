@@ -41,7 +41,7 @@
         _whitView.layer.cornerRadius = 5.0;
         __weak typeof(self) weakSelf = self;
         [_whitView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.contentView.mas_top).offset(0);
+            make.top.equalTo(weakSelf.contentView.mas_top).offset(-3);
             make.left.equalTo(weakSelf.contentView.mas_left).offset(10);
             make.right.equalTo(weakSelf.contentView.mas_right).offset(-10);
             make.bottom.equalTo(weakSelf.showdowView.mas_bottom).offset(-3);

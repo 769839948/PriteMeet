@@ -13,55 +13,65 @@
 - (void)applyMeetOrder:(ApplyMeetModel *)model successBlock:(Success)successBlock failBlock:(Fail)failBlock
 {
     NSString *url = [RequestBaseUrl stringByAppendingString:RequestApplyAppointment];
-    NSDictionary *parameters = @{@"host": @"318",
-                                 @"guest": @"321",
-                                 @"appointment_desc": @"appointment_desc",
-                                 @"appointment_theme": @"1"};
-    [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@",[responseObject objectForKey:@"pay_url"]);
+    NSDictionary *parameters = @{@"host": model.host,
+                                 @"guest": model.guest,
+                                 @"appointment_desc": model.appointment_desc,
+                                 @"appointment_theme": model.appointment_theme};
+    [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject[@"order"]);
+            successBlock(responseObject);
         }else{
             
         }
-        successBlock(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@",error);
+    } failure:^(NSDictionary *responseObject) {
+        
     }];
 }
 
-- (void)payOrder:(Success)successBlock failBlock:(Fail)failBlock
+- (void)payOrder:(NSString *)order_id successBlock:(Success)successBlock failBlock:(Fail)failBlock
 {
-    NSString *url = [RequestBaseUrl stringByAppendingString:RequestPayUrl];
-    NSDictionary *parameters = @{@"":@""};
-    [self.manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@",[responseObject objectForKey:@"pay_url"]);
+    NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"/api/get_pay_url/?out_trade_no=%@",order_id]];
+    [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject[@"payinfo"]);
+            successBlock(responseObject[@"pay_url"]);
         }else{
             
         }
-        successBlock(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@",error);
+    } failure:^(NSDictionary *responseObject) {
+        
     }];
 }
 
-- (void)getOrderList:(Success)successBlock failBlock:(Fail)failBlock
+- (void)getOrderList:(NSString *)orderState
+           withGuest:(NSString *)guest
+        successBlock:(Success)successBlock
+           failBlock:(Fail)failBlock
 {
-    NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@?cur_user=321",RequestUserAppoitment]];
-    [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@?cur_user=%@&status=%@",RequestUserAppoitment,guest,orderState]];
+    [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([responseObject[@"success"] boolValue]) {
             successBlock(responseObject);
         }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failBlock(@{@"":@""});
+    } failure:^(NSDictionary *responseObject) {
+        
+    }];
+}
+
+- (void)orderStatusOperation:(NSString *)order_id
+                     withHos:(NSString *)host
+                successBlock:(Success)successBlock
+                   failBlock:(Fail)failBlock
+{
+    NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@",RequestAcceptAppointMent]];
+    NSDictionary *parameters = @{@"host":host,
+                                 @"uuid":order_id
+                                 };
+    [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+        if ([responseObject[@"success"] boolValue]) {
+            successBlock(responseObject);
+        }
+    } failure:^(NSDictionary *responseObject) {
+        
     }];
 }
 

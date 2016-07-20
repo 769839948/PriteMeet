@@ -32,9 +32,6 @@ class MeViewController: UIViewController {
         self.setUpTableView()
         self.loadExtenInfo()
         self.addLineNavigationBottom()
-        
-        
-        
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -58,7 +55,6 @@ class MeViewController: UIViewController {
         if (UserInfo.sharedInstance().isFirstLogin && UserInfo.isLoggedIn()) {
             UserInfo.sharedInstance().isFirstLogin = false
             self.loadInviteInfo()
-//            UserInfo.synchronize()
         }
     }
     
@@ -160,7 +156,13 @@ class MeViewController: UIViewController {
             self.setNavigationItemAplah(1, imageName: ["me_settings","me_edit"], type: 3)
         }
     }
-    
+    /**
+     设置navigaitonBarItem颜色
+     
+     - parameter imageAplah: 颜色的透明度
+     - parameter imageName:  图片名字
+     - parameter type:       navigationbarType[1,2,3]
+     */
     func setNavigationItemAplah(imageAplah:CGFloat, imageName:NSArray, type:NSInteger)  {
         if type == 1 {
             let image = UIImage(named: imageName[0] as! String)?.imageByApplyingAlpha(imageAplah)
@@ -172,7 +174,6 @@ class MeViewController: UIViewController {
             let image = UIImage(named: imageName[0] as! String)?.imageByApplyingAlpha(imageAplah)
             
             let settingItem = UIBarButtonItem(image: image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MeViewController.rightPress(_:)))
-            
             let image1 = UIImage(named: imageName[1] as! String)?.imageByApplyingAlpha(imageAplah)
             let editItem = UIBarButtonItem(image:image1?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MeViewController.editPress(_:)))
             
@@ -183,8 +184,6 @@ class MeViewController: UIViewController {
     
     func cancelPress(sender:UIBarButtonItem){
         self.dismissViewControllerAnimated(true) { 
-//            print("dismiss")
-//            self.navigationController?.navigationBar .setBackgroundImage(UIImage.init(color: UIColor.redColor(), size: CGSizeMake(ScreenWidth, 64)), forBarPosition: UIBarPosition.Any, barMetrics: UIBarMetrics.Default)
         }
     }
     
@@ -225,7 +224,6 @@ class MeViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func pushViewController(tag:NSInteger){
@@ -258,11 +256,11 @@ class MeViewController: UIViewController {
         }
         self.navigationController!.pushViewController(myProfileVC, animated:true)
     }
-    
+    /**
+     添加个人亮点
+     */
     func presentAddStarViewController(){
-        //////展示更多个人信息
         let meStoryBoard = UIStoryboard(name: "Me", bundle: NSBundle.mainBundle())
-        
         let addStarVC = meStoryBoard.instantiateViewControllerWithIdentifier("AddStarViewController") as!  AddStarViewController
         let controller = BaseNavigaitonController(rootViewController: addStarVC)
         self.navigationController!.presentViewController(controller, animated: true, completion: {
@@ -270,11 +268,11 @@ class MeViewController: UIViewController {
         })
 
     }
-    
+    /**
+     展示更多个人信息
+     */
     func presentMoreProfileViewController(){
-        //////展示更多个人信息
         let meStoryBoard = UIStoryboard(name: "Me", bundle: NSBundle.mainBundle())
-        
         let moreProfileView = meStoryBoard.instantiateViewControllerWithIdentifier("MoreProfileViewController") as!  MoreProfileViewController
         let controller = BaseNavigaitonController(rootViewController: moreProfileView)
         self.navigationController!.presentViewController(controller, animated: true, completion: {
@@ -282,9 +280,12 @@ class MeViewController: UIViewController {
         })
         
     }
-    
+    /**
+     邀约collectionView高度
+     
+     - returns: 高度
+     */
     func inviteHeight() -> CGFloat {
-        
         return meetHeight(self.descriptionString(), instrestArray: self.instrestArray())
     }
     
@@ -325,13 +326,9 @@ extension MeViewController : UITableViewDelegate{
             self.pushProfileViewControllr()
         } else if (indexPath.row == 1) {
             UITools.shareInstance().showMessageToView(self.view, message: "^_^ 敬请期待，暂时请联系客服帮忙添加哦", autoHide: true)
-//            self.presentMoreProfileViewController()
         } else  if (indexPath.row == 3 || indexPath.row == 2) {
             let meStoryBoard = UIStoryboard(name: "Me", bundle: NSBundle.mainBundle())
             let senderInviteVC = meStoryBoard.instantiateViewControllerWithIdentifier("SenderInviteViewController") as!  SenderInviteViewController
-//            senderInviteVC.block = { () in
-//                self.tableView.reloadData()
-//            }
             self.navigationController!.pushViewController(senderInviteVC, animated:true)
         }else if(indexPath.row == 4){
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! MeInfoTableViewCell
@@ -435,14 +432,14 @@ extension MeViewController : UITableViewDataSource {
                             UserExtenModel.saveCacheImage(image, withName: "cover_photo.jpg")
                         })
                     }else{
-                        if UserInfo.imageForName("headImage.jpg") != nil {
-                            cell.avatarImageView.image = UserInfo.imageForName("headImage.jpg");
-                        }else{
+//                        if UserInfo.imageForName("headImage.jpg") != nil {
+//                            cell.avatarImageView.image = UserInfo.imageForName("headImage.jpg");
+//                        }else{
                             cell.avatarImageView.sd_setImageWithURL(NSURL.init(string: UserInfo.sharedInstance().avatar), placeholderImage: nil, completed: { (image
                                 , error, type, url) in
                                 UserInfo.saveCacheImage(image, withName: "headImage.jpg")
                             })
-                        }
+//                        }
                     }
                 }
               

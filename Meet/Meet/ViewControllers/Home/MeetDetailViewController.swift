@@ -110,6 +110,7 @@ class MeetDetailViewController: UIViewController {
 //        }
         let applyMeetVc = ApplyMeetViewController()
         applyMeetVc.allItems =  self.inviteArray.mutableCopy() as! NSMutableArray
+        applyMeetVc.host = self.user_id
         self.navigationController?.pushViewController(applyMeetVc, animated: true)
     }
     

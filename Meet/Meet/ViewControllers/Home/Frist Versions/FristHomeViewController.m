@@ -39,8 +39,6 @@ typedef NS_ENUM(NSInteger, FillterName) {
 @property (nonatomic, strong) UIView *bottomView;
 @property (nonatomic, strong) UILabel *numberMeet;
 
-@property (nonatomic, strong) UIView *statusView;
-
 @property (nonatomic, assign) NSInteger page;
 
 @property (nonatomic, strong) HomeViewModel *viewModel;
@@ -62,6 +60,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
     [super viewDidLoad];
     _fillterName = ReconmondList;
     [self setUpTableView];
+    
     _page = 0;
     _viewModel = [[HomeViewModel alloc] init];
     _homeModelArray = [NSMutableArray array];
@@ -130,6 +129,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
         NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
         __weak typeof(self) weakSelf = self;
         [_viewModel getHomeList:pageString latitude:_latitude longitude:_logtitude successBlock:^(NSDictionary *object) {
+            weakSelf.tableView.scrollEnabled = YES;
             [weakSelf.homeModelArray addObjectsFromArray:[HomeModel  mj_objectArrayWithKeyValuesArray:object]];
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_footer endRefreshing];
@@ -154,6 +154,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
         [_viewModel getHomeFilterList:pageString latitude:_latitude longitude:_logtitude filter:filter successBlock:^(NSDictionary *object) {
             [weakSelf.homeModelArray addObjectsFromArray:[HomeModel  mj_objectArrayWithKeyValuesArray:object]];
             [weakSelf.tableView reloadData];
+            weakSelf.tableView.scrollEnabled = YES;
             [weakSelf.tableView.mj_footer endRefreshing];
         } failBlock:^(NSDictionary *object) {
             if (_page > 0) {
@@ -174,8 +175,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
     [self navigationItemWhiteColorAndNotLine];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:HomeTableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [self setStatusView];
-//    [self setUpBottonView];
+    [self setUpBottonView];
     [self setUpNavigationBar];
 }
 
@@ -184,7 +184,6 @@ typedef NS_ENUM(NSInteger, FillterName) {
 
     [super viewWillDisappear:animated];
     [self.bottomView removeFromSuperview];
-    [_statusView setBackgroundColor:[UIColor clearColor]];
     [(ScrollingNavigationController *)self.navigationController showNavbarWithAnimated:YES];
 }
 
@@ -214,7 +213,6 @@ typedef NS_ENUM(NSInteger, FillterName) {
 
 - (void)rightItemPess:(UIBarButtonItem *)sender
 {
-    [self.statusView setBackgroundColor:[UIColor clearColor]];
     [self presentViewController:[[BaseNavigaitonController alloc] initWithRootViewController:[[MeViewController alloc] init]] animated:YES completion:^{
 
     }];
@@ -245,15 +243,6 @@ typedef NS_ENUM(NSInteger, FillterName) {
     [self.navigationController pushViewController:orderVC animated:YES];
 //    PayViewController *controller = [[PayViewController alloc] init];
 //    [self.navigationController pushViewController:controller animated:YES];
-}
-
-- (void)setStatusView
-{
-    //修改信号栏（状态栏）的颜色
-    _statusView = [[UIView alloc] initWithFrame:[UIApplication sharedApplication].statusBarFrame];
-    _statusView.tag = 1000;
-    _statusView.backgroundColor = [UIColor redColor];
-//    [[[UIApplication sharedApplication].delegate window] addSubview:_statusView];
 }
 
 - (void)setUpRefreshView
@@ -468,12 +457,9 @@ typedef NS_ENUM(NSInteger, FillterName) {
 - (void)scrollingNavigationController:(ScrollingNavigationController * _Nonnull)controller didChangeState:(enum NavigationBarState)state
 {
     if (state == NavigationBarStateExpanded) {
-        _statusView.backgroundColor = [UIColor colorWithHexString:HomeTableViewBackGroundColor];
-
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:HomeTableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     }else if (state == NavigationBarStateCollapsed){
-        _statusView.backgroundColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 
     }else{

@@ -138,7 +138,8 @@
 }
 
 - (void)loadSmallImagesInCachWithIndexPath:(NSIndexPath *)indexPath isReload:(BOOL)isReload{
-    if (isReload) {////删除之前 对应indexPath里缓存的内容
+    if (isReload) {
+        //删除之前 对应indexPath里缓存的内容
         NSString *head = FORMAT(@"%ld-%ld-",(long)indexPath.section,(long)indexPath.row);
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF BEGINSWITH[cd] %@",head];
         NSArray *resultArray = [_arrayCacheImgaeKeys filteredArrayUsingPredicate:predicate];
@@ -192,24 +193,7 @@
 }
 
 - (void)saveAction:(id)sender {
-//    for (MoreDescriptionModel *model in _dicContentModels.allValues) {
-//        if (model.idKey.length > 0) {
-//            [[MoreDescriptionDao shareInstance] updateBean:model];
-//        } else
-//            [[MoreDescriptionDao shareInstance] insertBean:model];
-//    }
-//    if (isModifyImages) {
-//        self.modifyBlock();
-//    }
-//    if (_editType == 0){
-//        [self dismissViewControllerAnimated:YES completion:^{
-//        }];
-//    } else {
-//        if (isModifyText) {
-//            self.modifyTextBlock();
-//        }
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
+
 }
 
 #pragma mark - Image File Writ
