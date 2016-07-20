@@ -22,7 +22,7 @@ class OrderViewController: UIViewController {
         super.viewDidLoad()
         self.setUpTableView()
         self.setUpSegmentedControl()
-        self.setOrderData(orderState, guest: "359")
+        self.setOrderData(orderState, guest: UserInfo.sharedInstance().uid)
         // Do any additional setup after loading the view.
     }
 
@@ -69,7 +69,7 @@ class OrderViewController: UIViewController {
         default:
             orderState = ""
         }
-        self.setOrderData(orderState, guest: "359")
+        self.setOrderData(orderState, guest: UserInfo.sharedInstance().uid)
     }
     
     // MARK: - Navigation
@@ -96,9 +96,23 @@ extension OrderViewController: UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let applyDetailView = AppointmentDetailViewController()
-        applyDetailView.orderModel = (orderList[indexPath.section] as! OrderModel)
-        self.navigationController?.pushViewController(applyDetailView, animated: true)
+        print(orderList[indexPath.section] as! OrderModel)
+        let orderModel = orderList[indexPath.section] as! OrderModel
+        let status:String = (orderModel.status?.status_code)!
+        switch status{
+        case "1","2","3":
+            let applyDetailView = ConfirmedViewController()
+            applyDetailView.orderModel = (orderList[indexPath.section] as! OrderModel)
+            self.navigationController?.pushViewController(applyDetailView, animated: true)
+        case "4","5","6":
+            let applyDetailView = WaitPayViewController()
+            applyDetailView.orderModel = (orderList[indexPath.section] as! OrderModel)
+            self.navigationController?.pushViewController(applyDetailView, animated: true)
+        default:
+            let applyDetailView = WaitMeetViewController()
+            applyDetailView.orderModel = (orderList[indexPath.section] as! OrderModel)
+            self.navigationController?.pushViewController(applyDetailView, animated: true)
+        }
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -124,7 +138,7 @@ extension OrderViewController: UITableViewDataSource {
             label.textAlignment = NSTextAlignment.Center
             if orderList.count > 0 {
                 let model = (orderList[indexPath.section] as! OrderModel)
-                label.text = model.status!.front_status
+                cell.textLabel?.text = model.status!.order_status
 
             }
             cell.contentView.addSubview(label)

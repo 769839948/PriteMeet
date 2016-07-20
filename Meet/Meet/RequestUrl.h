@@ -48,12 +48,14 @@
 
 #define  RequestGetDicMap            @"/api/dict_map/"
 
-
+//订单接口
 #define  RequestApplyAppointment     @"/api/apply_for_appointment/"
 
 #define  RequestPayUrl               @"/api/payUrl/"
 
 #define  RequestUserAppoitment       @"/api/check_appointment_order/"
+
+#define  RequestAcceptAppointMent    @"/api/accept_appointment"
 
 //http://momeet.cn/api/dict_map/
 //http://momeet.cn/api/document_map/

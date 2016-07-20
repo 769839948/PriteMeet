@@ -17,6 +17,12 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
         // Initialization code
     }
 
+    func setData(model:OrderModel){
+        weChatNum.text = model.order_user_info?.weixin_num
+        phoneNum.text = model.order_user_info?.mobile_num
+        orderCreateTime.text = model.created_at
+    }
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

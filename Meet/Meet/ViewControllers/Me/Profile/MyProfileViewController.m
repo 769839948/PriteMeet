@@ -948,7 +948,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
             }
             if (self.isApplyCode) {
                 if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] != nil) {
-                    NSArray *photoArray = [[UserInfo sharedInstance].avatar componentsSeparatedByString:@"?"];
+                    NSArray *photoArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] componentsSeparatedByString:@"?"];
                     NSString *photoUrl = [photoArray[0] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/500/h/500"]];
                     [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:photoUrl] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     }];

@@ -65,8 +65,9 @@ class ApplyMeetViewController: UIViewController {
         applyModel.appointment_desc = textView.text;
         applyModel.appointment_theme = appointment_theme
         applyModel.host = self.host
-        applyModel.guest = "359"
+        applyModel.guest = UserInfo.sharedInstance().uid
         viewModel.applyMeetOrder(applyModel, successBlock: { (dic) in
+            
             let orderStoryBoard = UIStoryboard(name: "Order", bundle: NSBundle.mainBundle())
             let applyComfim = orderStoryBoard.instantiateViewControllerWithIdentifier("ApplyConfimViewController") as!  ApplyConfimViewController
             self.navigationController?.pushViewController(applyComfim, animated: true)

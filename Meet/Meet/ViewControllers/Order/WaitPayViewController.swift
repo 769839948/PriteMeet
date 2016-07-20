@@ -1,14 +1,14 @@
 //
-//  ConfirmedViewController.swift
+//  WaitPayViewController.swift
 //  Meet
 //
-//  Created by Zhang on 7/18/16.
+//  Created by Zhang on 7/20/16.
 //  Copyright © 2016 Meet. All rights reserved.
 //
 
 import UIKit
 
-class ConfirmedViewController: BaseOrderViewController {
+class WaitPayViewController: BaseOrderViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,17 +38,14 @@ class ConfirmedViewController: BaseOrderViewController {
             return cellIndexPath(tableViewArray[indexPath.section], indexPath: indexPath, tableView: tableView)
         }
     }
-
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 4 {
-            viewModel.orderStatusOperation(orderModel.order_id, withHos: UserInfo.sharedInstance().uid, successBlock: { (dic) in
-                
-                }, failBlock: { (dic) in
-                    
-            })
+            let payVC = PayViewController()
+            payVC.order_id = orderModel.order_id
+            self.navigationController?.pushViewController(payVC, animated: true)
         }
     }
-    
     /*
     // MARK: - Navigation
 
@@ -60,5 +57,3 @@ class ConfirmedViewController: BaseOrderViewController {
     */
 
 }
-
-

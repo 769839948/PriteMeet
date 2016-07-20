@@ -17,8 +17,10 @@ class AppointMentTableViewCell: UITableViewCell {
         // Initialization code
     }
 
+        
     func setData(model: OrderModel) {
-//        appointmentType.text = model.
+        appointmentType.text = model.appointment_theme[0] as! String
+        appointmentIntroduce.text = model.appointment_desc
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

@@ -39,7 +39,8 @@ typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 
 @property (copy, nonatomic) NSString *headImageUrl;
 
-@property (copy, nonatomic) NSMutableDictionary *dicValues;////////tableView内容数据缓存 Key为对应的Title Value为用户填入的结果
+@property (copy, nonatomic) NSMutableDictionary *dicValues;
+//tableView内容数据缓存 Key为对应的Title Value为用户填入的结果
 @property (copy, nonatomic) NSArray *titleContentArray;
 
 @property (copy, nonatomic) NSMutableDictionary *stateArray;

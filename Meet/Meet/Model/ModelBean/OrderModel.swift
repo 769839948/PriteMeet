@@ -18,6 +18,10 @@ class OrderModel: NSObject {
     
     var distance: String = ""
     
+    var appointment_desc: String = ""
+    
+    var appointment_theme: NSArray = []
+    
     var created_at: String = ""
     
 }

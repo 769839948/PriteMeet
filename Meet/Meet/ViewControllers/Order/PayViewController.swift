@@ -10,6 +10,7 @@ import UIKit
 
 class PayViewController: UIViewController {
 
+    var order_id:String!
     
     var weChatPayreq:PayReq!
     var aliPayurl:String!
@@ -25,30 +26,13 @@ class PayViewController: UIViewController {
         self.setNavigationItemBack()
         viewModel = OrderViewModel()
         self.weChatPayreq = PayReq()
-//        let dic = [
-//                "package": "Sign=WXPay",
-//                "prepay_id": "wx20160719124527a5c605c4ec0221993384",
-//                "timestamp": "1468903528",
-//                "sign": "A7A535121DFA4A7A3FB3EF49DE3AB91F",
-//                "appid": "wx49c4b6f590f83469",
-//                "noncestr": "MZblh2tszy1TxrW98ejJ5domDaXwKpUc",
-//                "partner_id": "1345816001"
-//        ]
-//        self.weChatPayreq = PayReq.mj_objectWithKeyValues(dic)
-//        self.weChatPayreq.nonceStr = "UmzWG7dRCQdQOglCze7fyTxy3yHz772t"
-//        self.weChatPayreq.package = "Sign=WXPay"
-//        self.weChatPayreq.partnerId = "1345816001"
-//        self.weChatPayreq.prepayId = "wx20160719144024512658e16a0514367232"
-//        self.weChatPayreq.sign = "F8C21698D86A1CBF9A890BD06B107EF9"
-//        let time:UInt32 = 1468910424
-//        self.weChatPayreq.timeStamp = time
         self.loadPayInfo()
         self.setUpPayBtn()
         // Do any additional setup after loading the view.
     }
     
     func loadPayInfo(){
-        viewModel.payOrder({ (dic) in
+        viewModel.payOrder(self.order_id, successBlock: { (dic) in
             let payDic = dic as NSDictionary
             self.aliPayurl = payDic.objectForKey("alipay") as! String
             let weChatDic = payDic["wxpay"] as! NSDictionary;

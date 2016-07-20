@@ -13,7 +13,6 @@
 		1F28812D1D2E5E9A00713E9B /* ServiceViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F28812C1D2E5E9A00713E9B /* ServiceViewModel.m */; };
 		1F28812F1D2E61A500713E9B /* ServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F28812E1D2E61A500713E9B /* ServiceModel.swift */; };
 		1F2881321D2F7EEC00713E9B /* UINavigationBar+Awesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2881311D2F7EEC00713E9B /* UINavigationBar+Awesome.m */; };
-		1F293D661D113C210063A9DA /* QiniuNetWorking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D651D113C210063A9DA /* QiniuNetWorking.m */; };
 		1F293D691D1166490063A9DA /* HomeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D681D1166490063A9DA /* HomeViewModel.m */; };
 		1F293D6C1D1175090063A9DA /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D6B1D1175090063A9DA /* HomeModel.m */; };
 		1F293D761D11A4B90063A9DA /* UINavigationBar+Transparent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D711D11A4B90063A9DA /* UINavigationBar+Transparent.m */; };
@@ -101,6 +100,8 @@
 		1FAA07D01D3E25110017F3E3 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1FAA07CC1D3E25110017F3E3 /* WeiboSDK.bundle */; };
 		1FAA07DC1D3E285C0017F3E3 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FAA07D71D3E285C0017F3E3 /* libWeChatSDK.a */; };
 		1FAA07DD1D3E285C0017F3E3 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1FAA07D81D3E285C0017F3E3 /* read_me.txt */; };
+		1FAA07DF1D3F17810017F3E3 /* WaitPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA07DE1D3F17810017F3E3 /* WaitPayViewController.swift */; };
+		1FAA07E11D3F17A00017F3E3 /* WaitMeetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA07E01D3F17A00017F3E3 /* WaitMeetViewController.swift */; };
 		1FBAE3221D25153900D7D039 /* ProfileSectionTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBAE3201D25153900D7D039 /* ProfileSectionTitleTableViewCell.swift */; };
 		1FBAE3231D25153900D7D039 /* ProfileSectionTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBAE3211D25153900D7D039 /* ProfileSectionTitleTableViewCell.xib */; };
 		1FBAE32A1D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBAE3281D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift */; };
@@ -249,8 +250,6 @@
 		1F28812E1D2E61A500713E9B /* ServiceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceModel.swift; sourceTree = "<group>"; };
 		1F2881301D2F7EEB00713E9B /* UINavigationBar+Awesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Awesome.h"; sourceTree = "<group>"; };
 		1F2881311D2F7EEC00713E9B /* UINavigationBar+Awesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Awesome.m"; sourceTree = "<group>"; };
-		1F293D641D113C210063A9DA /* QiniuNetWorking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiniuNetWorking.h; sourceTree = "<group>"; };
-		1F293D651D113C210063A9DA /* QiniuNetWorking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiniuNetWorking.m; sourceTree = "<group>"; };
 		1F293D671D1166490063A9DA /* HomeViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewModel.h; sourceTree = "<group>"; };
 		1F293D681D1166490063A9DA /* HomeViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewModel.m; sourceTree = "<group>"; };
 		1F293D6A1D1175090063A9DA /* HomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeModel.h; sourceTree = "<group>"; };
@@ -395,6 +394,8 @@
 		1FAA07D91D3E285C0017F3E3 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
 		1FAA07DA1D3E285C0017F3E3 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		1FAA07DB1D3E285C0017F3E3 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		1FAA07DE1D3F17810017F3E3 /* WaitPayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitPayViewController.swift; sourceTree = "<group>"; };
+		1FAA07E01D3F17A00017F3E3 /* WaitMeetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitMeetViewController.swift; sourceTree = "<group>"; };
 		1FBAE3201D25153900D7D039 /* ProfileSectionTitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSectionTitleTableViewCell.swift; sourceTree = "<group>"; };
 		1FBAE3211D25153900D7D039 /* ProfileSectionTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileSectionTitleTableViewCell.xib; sourceTree = "<group>"; };
 		1FBAE3281D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkeAndEduTableViewCell.swift; sourceTree = "<group>"; };
@@ -711,6 +712,8 @@
 				1FBBC3221D3CA9D7005D4175 /* ApplyMeetViewController.swift */,
 				1FAA07801D3CC6C70017F3E3 /* ApplyConfimViewController.swift */,
 				1FAA07921D3CEC540017F3E3 /* ConfirmedViewController.swift */,
+				1FAA07DE1D3F17810017F3E3 /* WaitPayViewController.swift */,
+				1FAA07E01D3F17A00017F3E3 /* WaitMeetViewController.swift */,
 				1FAA07821D3CCB8E0017F3E3 /* AppointmentDetailViewController.swift */,
 			);
 			path = Order;
@@ -934,8 +937,6 @@
 				1FCAFFD21D01517A00BF53A1 /* LoginViewModel.m */,
 				1FCAFFD91D01983B00BF53A1 /* UserInfoViewModel.h */,
 				1FCAFFDA1D01983B00BF53A1 /* UserInfoViewModel.m */,
-				1F293D641D113C210063A9DA /* QiniuNetWorking.h */,
-				1F293D651D113C210063A9DA /* QiniuNetWorking.m */,
 				1F28812B1D2E5E9A00713E9B /* ServiceViewModel.h */,
 				1F28812C1D2E5E9A00713E9B /* ServiceViewModel.m */,
 				1F2F56BF1D3621F7005AEBC8 /* OrderViewModel.h */,
@@ -1673,7 +1674,6 @@
 				DA6CEF131CDAF42300EEABFF /* AddInformationViewController.m in Sources */,
 				1FBF40BD1D221267005DB46F /* NSString+StringType.m in Sources */,
 				DA4A88FB1CDB5CB700649983 /* UITextView+Placeholder.m in Sources */,
-				1F293D661D113C210063A9DA /* QiniuNetWorking.m in Sources */,
 				1FC2C1451CFD3311001D6D10 /* NSString+Utils.m in Sources */,
 				DA018F2E1CD39D570051D2D7 /* ManListCell.m in Sources */,
 				1F9E93151D0D7ACE003ED7AF /* UserExtenModel.m in Sources */,
@@ -1724,6 +1724,7 @@
 				DA6B1C541CEC4DAC0020021D /* CoffeeViewController.m in Sources */,
 				1F6850291CFFD443007F3C07 /* CompayTableViewCell.m in Sources */,
 				DA6CEF021CDA402C00EEABFF /* TextViewCell.m in Sources */,
+				1FAA07E11D3F17A00017F3E3 /* WaitMeetViewController.swift in Sources */,
 				1F293D7C1D1266860063A9DA /* HomeDetailModel.swift in Sources */,
 				DAF5C89D1CE6191000DA7901 /* MHFacebookImageViewer.m in Sources */,
 				1FBAE32A1D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift in Sources */,
@@ -1762,6 +1763,7 @@
 				DAF5C8BF1CE6D6AD00DA7901 /* RMMapper.m in Sources */,
 				1F79BB121D0AB98E00814DED /* AutomaticBulletAndNumberLists.m in Sources */,
 				DABF8AE01CE7509400CA2A1D /* MyMeetsViewController.m in Sources */,
+				1FAA07DF1D3F17810017F3E3 /* WaitPayViewController.swift in Sources */,
 				DA018EDB1CD1BCD90051D2D7 /* MainViewController.m in Sources */,
 				DA6CEEF61CD9EFA800EEABFF /* CellTextField.m in Sources */,
 				1F38683D1D260E2900569032 /* OtherProfileTableViewCell.swift in Sources */,

@@ -39,8 +39,6 @@ typedef NS_ENUM(NSInteger, FillterName) {
 @property (nonatomic, strong) UIView *bottomView;
 @property (nonatomic, strong) UILabel *numberMeet;
 
-@property (nonatomic, strong) UIView *statusView;
-
 @property (nonatomic, assign) NSInteger page;
 
 @property (nonatomic, strong) HomeViewModel *viewModel;
@@ -177,8 +175,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
     [self navigationItemWhiteColorAndNotLine];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:HomeTableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [self setStatusView];
-//    [self setUpBottonView];
+    [self setUpBottonView];
     [self setUpNavigationBar];
 }
 
@@ -187,7 +184,6 @@ typedef NS_ENUM(NSInteger, FillterName) {
 
     [super viewWillDisappear:animated];
     [self.bottomView removeFromSuperview];
-    [_statusView setBackgroundColor:[UIColor clearColor]];
     [(ScrollingNavigationController *)self.navigationController showNavbarWithAnimated:YES];
 }
 
@@ -217,7 +213,6 @@ typedef NS_ENUM(NSInteger, FillterName) {
 
 - (void)rightItemPess:(UIBarButtonItem *)sender
 {
-    [self.statusView setBackgroundColor:[UIColor clearColor]];
     [self presentViewController:[[BaseNavigaitonController alloc] initWithRootViewController:[[MeViewController alloc] init]] animated:YES completion:^{
 
     }];
@@ -243,20 +238,11 @@ typedef NS_ENUM(NSInteger, FillterName) {
 
 - (void)orderPress:(UIButton *)sender
 {
-//    UIStoryboard *orderStory = [UIStoryboard storyboardWithName:@"Order" bundle:[NSBundle mainBundle]];
-//    OrderViewController *orderVC = [orderStory instantiateViewControllerWithIdentifier:@"OrderViewController"];
-//    [self.navigationController pushViewController:orderVC animated:YES];
-    PayViewController *controller = [[PayViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
-}
-
-- (void)setStatusView
-{
-    //修改信号栏（状态栏）的颜色
-    _statusView = [[UIView alloc] initWithFrame:[UIApplication sharedApplication].statusBarFrame];
-    _statusView.tag = 1000;
-    _statusView.backgroundColor = [UIColor redColor];
-//    [[[UIApplication sharedApplication].delegate window] addSubview:_statusView];
+    UIStoryboard *orderStory = [UIStoryboard storyboardWithName:@"Order" bundle:[NSBundle mainBundle]];
+    OrderViewController *orderVC = [orderStory instantiateViewControllerWithIdentifier:@"OrderViewController"];
+    [self.navigationController pushViewController:orderVC animated:YES];
+//    PayViewController *controller = [[PayViewController alloc] init];
+//    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)setUpRefreshView
@@ -471,12 +457,9 @@ typedef NS_ENUM(NSInteger, FillterName) {
 - (void)scrollingNavigationController:(ScrollingNavigationController * _Nonnull)controller didChangeState:(enum NavigationBarState)state
 {
     if (state == NavigationBarStateExpanded) {
-        _statusView.backgroundColor = [UIColor colorWithHexString:HomeTableViewBackGroundColor];
-
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:HomeTableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     }else if (state == NavigationBarStateCollapsed){
-        _statusView.backgroundColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 
     }else{
