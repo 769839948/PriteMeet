@@ -17,6 +17,7 @@
 #import "WeiboSDK.h"
 #import "WeiboModel.h"
 #import "LoginViewModel.h"
+#import "JKCountDownButton.h"
 
 @interface WXLoginViewController ()
 
@@ -61,6 +62,35 @@
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
+}
+
+- (IBAction)getCode:(JKCountDownButton *)sender
+{
+    sender.enabled = NO;
+    //button type要 设置成custom 否则会闪动
+    [sender startCountDownWithSecond:60];
+    
+    [sender countDownChanging:^NSString *(JKCountDownButton *countDownButton,NSUInteger second) {
+        NSString *title = [NSString stringWithFormat:@"剩余%zd秒",second];
+        return title;
+    }];
+    [sender countDownFinished:^NSString *(JKCountDownButton *countDownButton, NSUInteger second) {
+        countDownButton.enabled = YES;
+        return @"点击重新获取";
+        
+    }];
+}
+
+- (IBAction)loginWithMobilePhone:(UIButton *)sender
+{
+    [self sendAuthRequest];
+    //////判断是否真实存在用户
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginState:) name:@"NewUserLoginWihtWechat" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(UerLoginStateWeibo:) name:@"UserLoginWihtWeibo" object:nil];
+//    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
+//    request.redirectURI = WeiboRedirectUrl;
+//    request.scope = @"all";
+//    [WeiboSDK sendRequest:request];
 }
 
 - (IBAction)loginWeiboAction:(UIButton *)sender

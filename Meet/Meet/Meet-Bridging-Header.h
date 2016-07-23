@@ -16,6 +16,7 @@
 #import "UIViewController+NavigationItemColor.h"
 #import "UIColor+Hex.h"
 #import "UITools.h"
+#import "EMAlertView.h"
 #import "UserInfoViewModel.h"
 #import "MyProfileViewController.h"
 #import "SetingViewController.h"
@@ -42,11 +43,12 @@
 #import "EqualSpaceFlowLayout.h"
 #import "UITextView+Placeholder.h"
 #import "UIViewController+DismissKeyboard.h"
+#import "UIViewController+hideExcessLine.h"
 #import "UINavigationBar+Awesome.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "OrderViewModel.h"
 #import "WXApi.h"
-
+#import "Theme.h"
 
 
 

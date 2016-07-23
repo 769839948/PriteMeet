@@ -46,40 +46,52 @@
 {
     UIView *inputView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 48)];
     inputView.backgroundColor = [UIColor whiteColor];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 155, 30)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 9, ScreenWidth, 30)];
     label.textColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
     label.font = IQKeyboardManagerFont;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loginWithOldUser:)];
+    label.userInteractionEnabled = YES;
+    [label addGestureRecognizer:tapGesture];
+    label.tag = 3;
+    label.textAlignment = NSTextAlignmentCenter;
     label.text = @"使用已有 Meet 账号登录";
     [inputView addSubview:label];
-    
-    UIButton *weibo = [UIButton buttonWithType:UIButtonTypeCustom];
-    weibo.frame = CGRectMake(ScreenWidth - 50, 9, 30, 30);
-    weibo.layer.cornerRadius = 15;
-    weibo.tag = 1;
-    weibo.layer.masksToBounds = YES;
-    [weibo addTarget:self action:@selector(buttonPress:) forControlEvents:UIControlEventTouchUpInside];
-    [weibo setImage:[UIImage imageNamed:@"keyboard_weibo"] forState:UIControlStateNormal];
-    [inputView addSubview:weibo];
-    
-    if ([WXApi isWXAppInstalled]) {
-        UIButton *weChat = [UIButton buttonWithType:UIButtonTypeCustom];
-        weChat.frame = CGRectMake(ScreenWidth - 94, 9, 30, 30);
-        weChat.layer.cornerRadius = 15;
-        weChat.tag = 2;
-        [weChat addTarget:self action:@selector(buttonPress:) forControlEvents:UIControlEventTouchUpInside];
-        weChat.layer.masksToBounds = YES;
-        [weChat setImage:[UIImage imageNamed:@"keyboard_weChat"] forState:UIControlStateNormal];
-        [inputView addSubview:weChat];
-    }
+    //暂时去除微信微博登录
+//    UIButton *weibo = [UIButton buttonWithType:UIButtonTypeCustom];
+//    weibo.frame = CGRectMake(ScreenWidth - 50, 9, 30, 30);
+//    weibo.layer.cornerRadius = 15;
+//    weibo.tag = 1;
+//    weibo.layer.masksToBounds = YES;
+//    [weibo addTarget:self action:@selector(buttonPress:) forControlEvents:UIControlEventTouchUpInside];
+//    [weibo setImage:[UIImage imageNamed:@"keyboard_weibo"] forState:UIControlStateNormal];
+//    [inputView addSubview:weibo];
+//    
+//    if ([WXApi isWXAppInstalled]) {
+//        UIButton *weChat = [UIButton buttonWithType:UIButtonTypeCustom];
+//        weChat.frame = CGRectMake(ScreenWidth - 94, 9, 30, 30);
+//        weChat.layer.cornerRadius = 15;
+//        weChat.tag = 2;
+//        [weChat addTarget:self action:@selector(buttonPress:) forControlEvents:UIControlEventTouchUpInside];
+//        weChat.layer.masksToBounds = YES;
+//        [weChat setImage:[UIImage imageNamed:@"keyboard_weChat"] forState:UIControlStateNormal];
+//        [inputView addSubview:weChat];
+//    }
     return inputView;
 }
 
-- (void)buttonPress:(UIButton *)sender
+- (void)loginWithOldUser:(UITapGestureRecognizer *)sender
 {
     if (self.block) {
-        self.block(sender.tag);
+        self.block(sender.view.tag);
     }
 }
+//暂时去除微信微博登录
+//- (void)buttonPress:(UIButton *)sender
+//{
+//    if (self.block) {
+//        self.block(sender.tag);
+//    }
+//}
 
 - (NSMutableArray *)labelMArr
 {

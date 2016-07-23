@@ -175,7 +175,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
  */
 - (void)setNavigationBarItem
 {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"me_profile_save"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(saveAction:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveAction:)];
+    [self.navigationController.navigationBar setTintColor:[UIColor colorWithHexString:NavigationBarTintColorCustome]];
+                                        
 }
 
 
@@ -950,6 +952,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] != nil) {
                     NSArray *photoArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] componentsSeparatedByString:@"?"];
                     NSString *photoUrl = [photoArray[0] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/500/h/500"]];
+                    [UserInfo sharedInstance].avatar = photoUrl;
                     [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:photoUrl] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     }];
                 }else{
@@ -997,6 +1000,10 @@ typedef NS_ENUM(NSUInteger, RowType) {
             cell.textField.indexPath = indexPath;
             if (row == RowPhoneNumber || row == RowWX_Id){
                  cell.textField.text = [NSString stringWithFormat:@"%@",_dicValues[_titleContentArray[row]]];
+                if (row == RowPhoneNumber && !self.isApplyCode) {
+                    cell.textField.textColor = [UIColor colorWithHexString:MeViewProfileContentLabelColorLight];
+                    cell.textField.enabled = NO;
+                }
             }else{
                 cell.textField.text = _dicValues[_titleContentArray[row]];
             }
@@ -1151,20 +1158,22 @@ typedef NS_ENUM(NSUInteger, RowType) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0 || indexPath.section == 1) {
-        CGRect rectInTableView = [tableView rectForRowAtIndexPath:indexPath];
-        float height = [[UIScreen mainScreen] bounds].size.height - rectInTableView.origin.y;
-        if (iPhone6Plus){
-            if (height > 330) {
+        if (indexPath.section == 0 && indexPath.row != RowPhoneNumber) {
+            CGRect rectInTableView = [tableView rectForRowAtIndexPath:indexPath];
+            float height = [[UIScreen mainScreen] bounds].size.height - rectInTableView.origin.y;
+            if (iPhone6Plus){
+                if (height > 330) {
+                }else{
+                    insterHeight = 309 - height;
+                    [tableView setContentOffset:CGPointMake(0, insterHeight) animated:YES];
+                }
             }else{
-                insterHeight = 309 - height;
-                [tableView setContentOffset:CGPointMake(0, insterHeight) animated:YES];
-            }
-        }else{
-            if (height > 330) {
-            }else{
-                insterHeight = 309 - height;
-                [tableView setContentOffset:CGPointMake(0, insterHeight) animated:YES];
-                
+                if (height > 330) {
+                }else{
+                    insterHeight = 309 - height;
+                    [tableView setContentOffset:CGPointMake(0, insterHeight) animated:YES];
+                    
+                }
             }
         }
     }

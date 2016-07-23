@@ -303,7 +303,7 @@ class MeViewController: UIViewController {
     func configNewMeetCell(cell:NewMeetInfoTableViewCell, indxPath:NSIndexPath)
     {
         cell.fd_enforceFrameLayout = false;
-        cell.configCell(self.descriptionString(), array: self.instrestArray() as [AnyObject])
+        cell.configCell(self.descriptionString(), array: self.instrestArray() as [AnyObject], andStyle: .ItemWhiteColorAndBlackBoard)
     }
     
     func presentViewLoginViewController(){

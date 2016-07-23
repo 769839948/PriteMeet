@@ -57,7 +57,6 @@
 		1F508D4E1D2FA791001EB676 /* ProfilePhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F508D4C1D2FA791001EB676 /* ProfilePhotoTableViewCell.swift */; };
 		1F508D4F1D2FA791001EB676 /* ProfilePhotoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F508D4D1D2FA791001EB676 /* ProfilePhotoTableViewCell.xib */; };
 		1F55157E1CFEEFE5005B82FA /* InterestCollectViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F55157D1CFEEFE5005B82FA /* InterestCollectViewCell.m */; };
-		1F5515841CFEF859005B82FA /* EqualSpaceFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5515831CFEF859005B82FA /* EqualSpaceFlowLayout.m */; };
 		1F6850201CFFD3D2007F3C07 /* MeetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F68501F1CFFD3D2007F3C07 /* MeetDetailViewController.swift */; };
 		1F6850231CFFD41E007F3C07 /* PhotoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6850221CFFD41E007F3C07 /* PhotoTableViewCell.m */; };
 		1F6850261CFFD431007F3C07 /* MeetInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6850251CFFD431007F3C07 /* MeetInfoTableViewCell.m */; };
@@ -102,6 +101,14 @@
 		1FAA07DD1D3E285C0017F3E3 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1FAA07D81D3E285C0017F3E3 /* read_me.txt */; };
 		1FAA07DF1D3F17810017F3E3 /* WaitPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA07DE1D3F17810017F3E3 /* WaitPayViewController.swift */; };
 		1FAA07E11D3F17A00017F3E3 /* WaitMeetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA07E01D3F17A00017F3E3 /* WaitMeetViewController.swift */; };
+		1FAA08051D40DA670017F3E3 /* EditMoreProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA08041D40DA670017F3E3 /* EditMoreProfileViewController.swift */; };
+		1FAA08071D41C6D60017F3E3 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA08061D41C6D60017F3E3 /* ReportViewController.swift */; };
+		1FAA08091D41CEE80017F3E3 /* BlackListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA08081D41CEE80017F3E3 /* BlackListViewController.swift */; };
+		1FAA08121D41D3660017F3E3 /* EqualSpaceFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA08111D41D3660017F3E3 /* EqualSpaceFlowLayout.m */; };
+		1FAA08181D4228CF0017F3E3 /* JKCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA08171D4228CF0017F3E3 /* JKCountDownButton.m */; };
+		1FAA081A1D42442D0017F3E3 /* BlackListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA08191D42442D0017F3E3 /* BlackListModel.swift */; };
+		1FAA081E1D43160D0017F3E3 /* BlackListCollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FAA081C1D43160D0017F3E3 /* BlackListCollectCell.xib */; };
+		1FAA08201D4319220017F3E3 /* BlackListCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA081F1D4319220017F3E3 /* BlackListCollectCell.swift */; };
 		1FBAE3221D25153900D7D039 /* ProfileSectionTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBAE3201D25153900D7D039 /* ProfileSectionTitleTableViewCell.swift */; };
 		1FBAE3231D25153900D7D039 /* ProfileSectionTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBAE3211D25153900D7D039 /* ProfileSectionTitleTableViewCell.xib */; };
 		1FBAE32A1D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBAE3281D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift */; };
@@ -314,8 +321,6 @@
 		1F508D4D1D2FA791001EB676 /* ProfilePhotoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfilePhotoTableViewCell.xib; sourceTree = "<group>"; };
 		1F55157C1CFEEFE5005B82FA /* InterestCollectViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestCollectViewCell.h; sourceTree = "<group>"; };
 		1F55157D1CFEEFE5005B82FA /* InterestCollectViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestCollectViewCell.m; sourceTree = "<group>"; };
-		1F5515821CFEF859005B82FA /* EqualSpaceFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EqualSpaceFlowLayout.h; path = ../../Views/EqualSpaceFlowLayout.h; sourceTree = "<group>"; };
-		1F5515831CFEF859005B82FA /* EqualSpaceFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EqualSpaceFlowLayout.m; path = ../../Views/EqualSpaceFlowLayout.m; sourceTree = "<group>"; };
 		1F68501F1CFFD3D2007F3C07 /* MeetDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetDetailViewController.swift; sourceTree = "<group>"; };
 		1F6850211CFFD41E007F3C07 /* PhotoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoTableViewCell.h; sourceTree = "<group>"; };
 		1F6850221CFFD41E007F3C07 /* PhotoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoTableViewCell.m; sourceTree = "<group>"; };
@@ -396,6 +401,16 @@
 		1FAA07DB1D3E285C0017F3E3 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		1FAA07DE1D3F17810017F3E3 /* WaitPayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitPayViewController.swift; sourceTree = "<group>"; };
 		1FAA07E01D3F17A00017F3E3 /* WaitMeetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitMeetViewController.swift; sourceTree = "<group>"; };
+		1FAA08041D40DA670017F3E3 /* EditMoreProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMoreProfileViewController.swift; sourceTree = "<group>"; };
+		1FAA08061D41C6D60017F3E3 /* ReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
+		1FAA08081D41CEE80017F3E3 /* BlackListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackListViewController.swift; sourceTree = "<group>"; };
+		1FAA08101D41D3660017F3E3 /* EqualSpaceFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EqualSpaceFlowLayout.h; path = Meet/Views/EqualSpaceFlowLayout.h; sourceTree = SOURCE_ROOT; };
+		1FAA08111D41D3660017F3E3 /* EqualSpaceFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EqualSpaceFlowLayout.m; path = Meet/Views/EqualSpaceFlowLayout.m; sourceTree = SOURCE_ROOT; };
+		1FAA08161D4228CF0017F3E3 /* JKCountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKCountDownButton.h; sourceTree = "<group>"; };
+		1FAA08171D4228CF0017F3E3 /* JKCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKCountDownButton.m; sourceTree = "<group>"; };
+		1FAA08191D42442D0017F3E3 /* BlackListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackListModel.swift; sourceTree = "<group>"; };
+		1FAA081C1D43160D0017F3E3 /* BlackListCollectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlackListCollectCell.xib; sourceTree = "<group>"; };
+		1FAA081F1D4319220017F3E3 /* BlackListCollectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackListCollectCell.swift; sourceTree = "<group>"; };
 		1FBAE3201D25153900D7D039 /* ProfileSectionTitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSectionTitleTableViewCell.swift; sourceTree = "<group>"; };
 		1FBAE3211D25153900D7D039 /* ProfileSectionTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileSectionTitleTableViewCell.xib; sourceTree = "<group>"; };
 		1FBAE3281D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkeAndEduTableViewCell.swift; sourceTree = "<group>"; };
@@ -715,6 +730,7 @@
 				1FAA07DE1D3F17810017F3E3 /* WaitPayViewController.swift */,
 				1FAA07E01D3F17A00017F3E3 /* WaitMeetViewController.swift */,
 				1FAA07821D3CCB8E0017F3E3 /* AppointmentDetailViewController.swift */,
+				1FAA08041D40DA670017F3E3 /* EditMoreProfileViewController.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -749,6 +765,8 @@
 				1F3868751D27749200569032 /* JobLableCollectViewCell.m */,
 				1F508D4C1D2FA791001EB676 /* ProfilePhotoTableViewCell.swift */,
 				1F508D4D1D2FA791001EB676 /* ProfilePhotoTableViewCell.xib */,
+				1FAA081F1D4319220017F3E3 /* BlackListCollectCell.swift */,
+				1FAA081C1D43160D0017F3E3 /* BlackListCollectCell.xib */,
 			);
 			name = Me;
 			sourceTree = "<group>";
@@ -808,8 +826,8 @@
 		1F5515851CFEF8A5005B82FA /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				1F5515821CFEF859005B82FA /* EqualSpaceFlowLayout.h */,
-				1F5515831CFEF859005B82FA /* EqualSpaceFlowLayout.m */,
+				1FAA08101D41D3660017F3E3 /* EqualSpaceFlowLayout.h */,
+				1FAA08111D41D3660017F3E3 /* EqualSpaceFlowLayout.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -821,6 +839,7 @@
 				1F3868421D26141D00569032 /* OtherViewController.swift */,
 				1F293D931D13CB290063A9DA /* AboutDetailViewController.swift */,
 				1FBF3FC31D1BEB22005DB46F /* MeetWebViewController.swift */,
+				1FAA08061D41C6D60017F3E3 /* ReportViewController.swift */,
 			);
 			name = MeetDetailView;
 			sourceTree = "<group>";
@@ -828,6 +847,7 @@
 		1F6850171CFFD30E007F3C07 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1FAA08151D4228CF0017F3E3 /* JKCountDownButton */,
 				1FBBC31E1D3A09A2005D4175 /* PwdLabel */,
 				1FF30A2E1D31ECF40051333F /* AMScrollingNavbar */,
 				1F293D8D1D12F48F0063A9DA /* UICollectionView+ARDynamicHeightLayoutCell */,
@@ -906,6 +926,15 @@
 				1FAA07DB1D3E285C0017F3E3 /* WXApiObject.h */,
 			);
 			path = SDKExport;
+			sourceTree = "<group>";
+		};
+		1FAA08151D4228CF0017F3E3 /* JKCountDownButton */ = {
+			isa = PBXGroup;
+			children = (
+				1FAA08161D4228CF0017F3E3 /* JKCountDownButton.h */,
+				1FAA08171D4228CF0017F3E3 /* JKCountDownButton.m */,
+			);
+			path = JKCountDownButton;
 			sourceTree = "<group>";
 		};
 		1FBBC31E1D3A09A2005D4175 /* PwdLabel */ = {
@@ -1365,6 +1394,7 @@
 				DABF8B091CEB22A100CA2A1D /* UserProtocolViewController.m */,
 				DABF8AF91CEAE71100CA2A1D /* SendEmailViewController.h */,
 				DABF8AFA1CEAE71100CA2A1D /* SendEmailViewController.m */,
+				1FAA08081D41CEE80017F3E3 /* BlackListViewController.swift */,
 			);
 			path = Seting;
 			sourceTree = "<group>";
@@ -1416,6 +1446,7 @@
 				1FCC444E1D37A96A00287EC5 /* OrderModel.swift */,
 				1FAA077D1D3CBE600017F3E3 /* ApplyMeetModel.h */,
 				1FAA077E1D3CBE600017F3E3 /* ApplyMeetModel.m */,
+				1FAA08191D42442D0017F3E3 /* BlackListModel.swift */,
 			);
 			path = ModelBean;
 			sourceTree = "<group>";
@@ -1569,6 +1600,7 @@
 				1FBAE3231D25153900D7D039 /* ProfileSectionTitleTableViewCell.xib in Resources */,
 				1FAA07911D3CE69B0017F3E3 /* MeetOrderInfoTableViewCell.xib in Resources */,
 				DA4A89021CDC388B00649983 /* Login.storyboard in Resources */,
+				1FAA081E1D43160D0017F3E3 /* BlackListCollectCell.xib in Resources */,
 				DA018F521CD4DAFB0051D2D7 /* Localizable.strings in Resources */,
 				1FCC44441D37A4B100287EC5 /* Order.storyboard in Resources */,
 				1FBAE32B1D2526BD00D7D039 /* WorkeAndEduTableViewCell.xib in Resources */,
@@ -1704,7 +1736,6 @@
 				1F1FB4881D0FFBAE00794881 /* UserInviteModel.m in Sources */,
 				DAF5C8201CE0D0ED00DA7901 /* WXAccessModel.m in Sources */,
 				1FAA07961D3D05B00017F3E3 /* String+Class.swift in Sources */,
-				1F5515841CFEF859005B82FA /* EqualSpaceFlowLayout.m in Sources */,
 				1F3DC3321D0D0B890075B7BA /* MePhotoTableViewCell.swift in Sources */,
 				1F293D7F1D12CBB10063A9DA /* String+Size.swift in Sources */,
 				DAF5C8BC1CE6D6AD00DA7901 /* NSObject+RMArchivable.m in Sources */,
@@ -1738,6 +1769,7 @@
 				DAF5C8BE1CE6D6AD00DA7901 /* NSUserDefaults+RMSaveCustomObject.m in Sources */,
 				DAF5C81E1CE0D0ED00DA7901 /* BaseModel.m in Sources */,
 				1F68503D1CFFE4F2007F3C07 /* NewMeetInfoTableViewCell.m in Sources */,
+				1FAA08051D40DA670017F3E3 /* EditMoreProfileViewController.swift in Sources */,
 				DA6B1C581CEC4DAC0020021D /* HomeMoreViewController.m in Sources */,
 				DAF5C7F91CDF479C00DA7901 /* NetWorkObject.m in Sources */,
 				1F2059261D2BBD6F001FF99C /* SetInviteCollectView.m in Sources */,
@@ -1754,9 +1786,11 @@
 				DA6B1C591CEC4DAC0020021D /* MoveViewController.m in Sources */,
 				1FCAFFD81D0181AA00BF53A1 /* EMAlertView.m in Sources */,
 				1F293D761D11A4B90063A9DA /* UINavigationBar+Transparent.m in Sources */,
+				1FAA08091D41CEE80017F3E3 /* BlackListViewController.swift in Sources */,
 				1F3868431D26141D00569032 /* OtherViewController.swift in Sources */,
 				1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */,
 				1FCC444D1D37A6BE00287EC5 /* OrderViewController.swift in Sources */,
+				1FAA081A1D42442D0017F3E3 /* BlackListModel.swift in Sources */,
 				1F3DC3381D0D0F5A0075B7BA /* PhotoDetailTableViewCell.swift in Sources */,
 				1F293D781D11A4B90063A9DA /* UIView+Size.m in Sources */,
 				1FC2C14F1CFD362B001D6D10 /* UIViewController+hideExcessLine.m in Sources */,
@@ -1772,6 +1806,7 @@
 				DA6B1C531CEC4DAC0020021D /* ChoicenessViewController.m in Sources */,
 				DAF5C8851CE5B95000DA7901 /* CoreTextUtils.m in Sources */,
 				1F6850231CFFD41E007F3C07 /* PhotoTableViewCell.m in Sources */,
+				1FAA08201D4319220017F3E3 /* BlackListCollectCell.swift in Sources */,
 				1FC4C08B1D0D590E00E4BB33 /* MeViewController.swift in Sources */,
 				DAF5C8821CE5B95000DA7901 /* CoreTextData.m in Sources */,
 				1F6850361CFFD77A007F3C07 /* BaseTableViewCell.m in Sources */,
@@ -1780,6 +1815,7 @@
 				1F3868761D27749200569032 /* JobLableCollectViewCell.m in Sources */,
 				1F457B541D179C4A00C1D8EC /* CenterlabelView.swift in Sources */,
 				1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */,
+				1FAA08071D41C6D60017F3E3 /* ReportViewController.swift in Sources */,
 				1FBF3FC21D1BD1AC005DB46F /* AppDelegate+AMapLocation.m in Sources */,
 				1F508D4E1D2FA791001EB676 /* ProfilePhotoTableViewCell.swift in Sources */,
 				1FAA07991D3DCC160017F3E3 /* OrderFlowTableViewCell.swift in Sources */,
@@ -1792,6 +1828,7 @@
 				1F38684E1D266A7500569032 /* OhterProfileModel.swift in Sources */,
 				1F6850261CFFD431007F3C07 /* MeetInfoTableViewCell.m in Sources */,
 				1F1FB4851D0FD78E00794881 /* UIImage+Alpha.m in Sources */,
+				1FAA08181D4228CF0017F3E3 /* JKCountDownButton.m in Sources */,
 				1F55157E1CFEEFE5005B82FA /* InterestCollectViewCell.m in Sources */,
 				1FF921301D23D21900AE0429 /* UIViewController+DismissKeyboard.m in Sources */,
 				1FBF3FC41D1BEB22005DB46F /* MeetWebViewController.swift in Sources */,
@@ -1833,6 +1870,7 @@
 				1F293D8B1D12D13F0063A9DA /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				1F293D8A1D12D13F0063A9DA /* UITableView+FDKeyedHeightCache.m in Sources */,
 				1FCAFFD31D01517A00BF53A1 /* LoginViewModel.m in Sources */,
+				1FAA08121D41D3660017F3E3 /* EqualSpaceFlowLayout.m in Sources */,
 				DAF5C8871CE5B95000DA7901 /* CTFrameParserConfig.m in Sources */,
 				1F9E931D1D0E4993003ED7AF /* UIImage+PureColor.m in Sources */,
 				1F2DA9BB1D394B0B0008C434 /* WeiboModel.m in Sources */,

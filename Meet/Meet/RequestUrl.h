@@ -23,6 +23,12 @@
 #define  RequestApplyCode            @"/api/client_get_code/"
 #define  RequestUploadUserPhoto      @"/api/user_avatar/"
 #define  RequestUploadPhotoToken     @"/api/upload_token/"
+#define  RequestBlackList            @"/api/black_list/"
+#define  RequestGetBlackList         @"/api/black_list/"
+#define  RequestReport               @"/api/report_user"
+
+#define  RequestUploadMoreProfile    @"/api/user_detail/"
+#define  RequestUploadCoverPhoto     @"/api/user_cover_photo/"
 
 #define  RequestSenderLocation       @"/api/push_geo_location"
 
@@ -56,6 +62,8 @@
 #define  RequestUserAppoitment       @"/api/check_appointment_order/"
 
 #define  RequestAcceptAppointMent    @"/api/accept_appointment"
+
+#define  RequestSwitchAppointMent    @"switch_appointment_status"
 
 //http://momeet.cn/api/dict_map/
 //http://momeet.cn/api/document_map/

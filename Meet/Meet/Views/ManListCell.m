@@ -165,7 +165,7 @@
             make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(8);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
-            make.bottom.mas_equalTo(weakSelf.interestView.mas_top).offset(-16);
+            make.bottom.mas_equalTo(weakSelf.interestView.mas_top).offset(-14);
             make.height.mas_offset(0.1);
         }];
         [self updateConstraints];
@@ -182,12 +182,12 @@
         }];
         [self updateConstraints];
     }else{
-        [_interestView setCollectViewData:interstArray];
+        [_interestView setCollectViewData:interstArray style:ItemBlackAndWhiteLabelText];
         [weakSelf.interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
+            make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(14);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32);
+            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-17);
             make.height.offset([self cellHeight:interstArray]);
         }];
         [weakSelf updateConstraints];

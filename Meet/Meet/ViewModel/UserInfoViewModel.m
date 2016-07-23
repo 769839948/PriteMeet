@@ -369,6 +369,181 @@
     }];
 }
 
+- (void)uploadCoverPhoto:(UIImage *)image
+                 success:(Success)successBlock
+                    fail:(Fail)failBlock
+           loadingString:(LoadingView)loading
+{
+    [self uploadQiNiuServers:image success:^(NSDictionary *responseObject) {
+        NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUploadCoverPhoto,[UserInfo sharedInstance].uid];
+        [self postWithURLString:url parameters:responseObject[@"parameters"] success:^(NSDictionary *responseObject) {
+            NSLog(@"%@",responseObject);
+        } failure:^(NSDictionary *responseObject) {
+            failBlock(responseObject);
+        }];
+    } failBlock:^(NSDictionary *responseObject) {
+        failBlock(responseObject);
+    }];
+}
+
+- (void)uploadMoreProfile:(NSMutableArray *)imageArrays
+                    title:(NSString *)title
+                  content:(NSString *)content
+                  success:(Success)successBlock
+                     fail:(Fail)failBlock
+{
+    NSMutableArray *photos = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0; i < imageArrays.count; i ++) {
+        [self uploadQiNiuServers:imageArrays[i] success:^(NSDictionary *responseObject) {
+            [photos addObject:responseObject[@"parameters"]];
+            if (i == imageArrays.count - 1) {
+                NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUploadMoreProfile,[UserInfo sharedInstance].uid];
+                NSDictionary *parameters = @{@"photo":photos,
+                                             @"title":title,
+                                             @"content":content
+                                             };
+                [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+                    NSLog(@"%@",responseObject);
+                } failure:^(NSDictionary *responseObject) {
+                    failBlock(responseObject);
+                }];
+            }
+        } failBlock:^(NSDictionary *responseObject) {
+            failBlock(responseObject);
+        }];
+    }
+}
+
+- (void)changeMoreProfile:(NSMutableArray *)imageArrays
+            moreProfileId:(NSString *)moreProfileId
+                    title:(NSString *)title
+                  content:(NSString *)content
+                  success:(Success)successBlock
+                     fail:(Fail)failBlock
+{
+    NSMutableArray *photos = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0; i < imageArrays.count; i ++) {
+        [self uploadQiNiuServers:imageArrays[i] success:^(NSDictionary *responseObject) {
+            [photos addObject:responseObject[@"parameters"]];
+            if (i == imageArrays.count - 1) {
+                NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUploadMoreProfile,[UserInfo sharedInstance].uid];
+                NSDictionary *parameters = @{@"photo":photos,
+                                             @"title":title,
+                                             @"content":content,
+                                             @"detail_id":moreProfileId
+                                             };
+                [self putWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+                    NSLog(@"%@",responseObject);
+                } failure:^(NSDictionary *responseObject) {
+                    
+                }];
+            }
+        } failBlock:^(NSDictionary *responseObject) {
+            failBlock(responseObject);
+        }];
+    }
+}
+
+- (void)uploadQiNiuServers:(UIImage *)image
+                   success:(Success)successBlock
+                 failBlock:(Fail)failBlock
+{
+    NSString *urlToken = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestUploadPhotoToken];
+    [self getWithURLString:urlToken parameters:nil success:^(NSDictionary *responseObject) {
+        QNUploadManager *upManager = [[QNUploadManager alloc] init];
+        NSData *imageData = UIImageJPEGRepresentation(image, 1);
+        NSString *timeNow = [self getTimeNow];
+        [upManager putData:imageData key:timeNow token:responseObject[@"token"] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+            NSDictionary *parameters = @{@"key":resp[@"key"],
+                                         @"hash":resp[@"hash"],
+                                         @"width":resp[@"image"][@"width"],
+                                         @"height":resp[@"image"][@"height"]};
+            successBlock(@{@"parameters":parameters});
+        } option:nil];
+    } failure:^(NSDictionary *responseObject) {
+        failBlock(@{@"error":@"上传七牛出错"});
+    }];
+}
+
+- (void)makeBlackList:(NSString *)otherUid
+               succes:(Success)successBlock
+                 fail:(Fail)faileBlock
+{
+    NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@%@",RequestBlackList,[UserInfo sharedInstance].uid]];
+    NSDictionary *parameters = @{@"black_user":otherUid};
+    [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+        if ([responseObject[@"success"] boolValue]) {
+            successBlock(responseObject);
+        }else{
+            faileBlock(responseObject);
+        }
+    } failure:^(NSDictionary *responseObject) {
+        faileBlock(responseObject);
+    }];
+}
+
+- (void)deleteBlackList:(NSString *)otherUid
+                success:(Success)successBlock
+                   fail:(Fail)faileBlock
+{
+    NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@%@",RequestBlackList,[UserInfo sharedInstance].uid]];
+    NSDictionary *parameters = @{@"black_user":otherUid};
+
+    [self.manager DELETE:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([responseObject[@"success"] boolValue]) {
+            successBlock(responseObject);
+        }else{
+            faileBlock(responseObject);
+        }
+
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        faileBlock(responseObject);
+    }];
+//    [self deleteWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+//        if ([responseObject[@"success"] boolValue]) {
+//            successBlock(responseObject);
+//        }else{
+//            faileBlock(responseObject);
+//        }
+//    } failure:^(NSDictionary *responseObject) {
+//        faileBlock(responseObject);
+//    }];
+}
+
+
+- (void)getBlackList:(Success)successBlock
+                fail:(Fail)failBlock
+{
+    NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@%@",RequestBlackList,[UserInfo sharedInstance].uid]];
+    [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
+        if ([responseObject[@"success"] boolValue]) {
+            successBlock(responseObject[@"black_list"]);
+        }
+    } failure:^(NSDictionary *responseObject) {
+        failBlock(responseObject);
+    }];
+}
+
+- (void)makeReport:(NSString *)otherUid
+            report:(NSString *)reportTheme
+            succes:(Success)successBlock
+              fail:(Fail)faileBlock
+{
+    NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@/%@",RequestReport,[UserInfo sharedInstance].uid]];
+    NSDictionary *parameters = @{@"user":otherUid,
+                                 @"reason":reportTheme
+                                 };
+    [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+        if ([responseObject[@"success"] boolValue]) {
+            successBlock(responseObject);
+        }else{
+            faileBlock(responseObject);
+        }
+    } failure:^(NSDictionary *responseObject) {
+        faileBlock(responseObject);
+    }];
+}
+
 - (NSString *)getTimeNow
 {
     NSString* date;

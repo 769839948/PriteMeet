@@ -8,6 +8,12 @@
 
 #import "BaseTableViewCell.h"
 
+typedef NS_ENUM(NSUInteger, CollectionViewItemStyle) {
+    ItemWhiteColorAndBlackBoard = 0,
+    ItemBlackAndWhiteLabelText,
+    ItemOrginAndWhiteLabelText
+};
+
 typedef void (^tableCellHeight)(CGFloat height);
 
 @interface NewMeetInfoTableViewCell : BaseTableViewCell
@@ -15,7 +21,10 @@ typedef void (^tableCellHeight)(CGFloat height);
 
 @property (nonatomic,strong) tableCellHeight block;
 
-- (void)configCell:(NSString *)meetstring array:(NSArray *)array;
+- (void)configCell:(NSString *)meetstring
+             array:(NSArray *)array
+          andStyle:(CollectionViewItemStyle)style;
+
 - (void)isHaveShadowColor:(BOOL)isShadowColor;
 
 @end

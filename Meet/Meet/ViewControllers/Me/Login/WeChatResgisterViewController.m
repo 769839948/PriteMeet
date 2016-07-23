@@ -61,6 +61,7 @@
     [self.navigationItem.leftBarButtonItem setTintColor:[UIColor colorWithHexString:HomeDetailViewNameColor]];
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor colorWithHexString:HomeDetailViewNameColor]];
     [self setUpCheckLabel];
+    self.view.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.5];
 
 }
 
@@ -84,15 +85,25 @@
     [_checkCodeView addSubview:self.checkLabel];
     __weak typeof(self) weakSelf = self;
     self.checkLabel.block = ^(NSInteger tag){
-        switch (tag) {
-            case 1:
-                [weakSelf loginWeibo];
-                break;
-                
-            default:
-                [weakSelf useWeChatLogin];
-                break;
+        NSLog(@"%ld",(long)tag);
+        if (tag == 3) {
+            [weakSelf performSegueWithIdentifier:@"pushToWXLogin" sender:weakSelf];
         }
+//        switch (tag) {
+//                if (tag == 3) {
+//                    [weakSelf performSegueWithIdentifier:@"pushToWXLogin" sender:weakSelf];
+//                }
+//                /**
+//                 *  新浪微博，微信登陆暂时去除
+//                 */
+////            case 1:
+////                [weakSelf loginWeibo];
+////                break;
+////                
+////            default:
+////                [weakSelf useWeChatLogin];
+////                break;
+//        }
     };
     [self.checkLabel labelTouch:nil];
     self.checkLabel.delegate = self;
@@ -169,8 +180,6 @@
         } showLoding:^(NSString *str) {
         }];
     }
-//
-    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

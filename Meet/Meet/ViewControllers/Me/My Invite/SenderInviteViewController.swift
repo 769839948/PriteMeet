@@ -60,7 +60,7 @@ class SenderInviteViewController: UIViewController {
     }
     
     func setNavigationBar(){
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "setting_savebt"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SenderInviteViewController.sendreInvite))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(SenderInviteViewController.sendreInvite))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
         self.createNavigationBar()
 //        self.navigationItemWithLineAndWihteColor()
@@ -122,7 +122,6 @@ class SenderInviteViewController: UIViewController {
     }
     
     func setUpAlertContol(){
-        
         let aletControl = UIAlertController.init(title: "确定关闭邀约？", message: "邀约关闭后，您将不会出现在首页了哦。", preferredStyle: UIAlertControllerStyle.Alert)
         let cancleAction = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.Cancel, handler: { (canCel) in
             (UserInviteModel.shareInstance().results[0]).is_active = true

@@ -115,6 +115,8 @@
     [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
             successBlock(responseObject);
+        }else{
+            failBlock(responseObject);
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(responseObject);

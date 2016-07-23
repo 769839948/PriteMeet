@@ -18,6 +18,8 @@
 @property (nonatomic, assign) BOOL isMeetBlock;
 @property (nonatomic, assign) BOOL isNewMeetBlock;
 
+@property (nonatomic, assign) CollectionViewItemStyle style;
+
 @end
 
 @implementation InterestCollectView
@@ -39,9 +41,10 @@
     return self;
 }
 
-- (void)setCollectViewData:(NSArray *)array;
+- (void)setCollectViewData:(NSArray *)array style:(CollectionViewItemStyle)style;
 {
     _edgX = 0;
+    _style = style;
     _interstArray = [array mutableCopy];
     [self reloadData];
 }
@@ -84,7 +87,17 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     InterestCollectViewCell *cell = [self dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0];
+    if (self.style == ItemWhiteColorAndBlackBoard) {
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.titleLabel.textColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
+        cell.layer.borderColor = [[UIColor colorWithHexString:HomeDetailViewNameColor] CGColor];
+        cell.layer.borderWidth = 1;
+    }else if (self.style == ItemBlackAndWhiteLabelText){
+        cell.backgroundColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
+        cell.titleLabel.textColor = [UIColor whiteColor];
+    }else{
+        
+    }
     cell.titleLabel.frame = CGRectMake(0, 0, [self cellWidth:_interstArray[indexPath.row]], 27);
     cell.layer.cornerRadius = 2.0f;
     [cell filleCellWithFeed:[_interstArray objectAtIndex:indexPath.row]];

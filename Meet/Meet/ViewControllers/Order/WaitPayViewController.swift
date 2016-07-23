@@ -42,7 +42,7 @@ class WaitPayViewController: BaseOrderViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 4 {
             let payVC = PayViewController()
-            payVC.order_id = orderModel.order_id
+            payVC.orderModel = orderModel
             self.navigationController?.pushViewController(payVC, animated: true)
         }
     }

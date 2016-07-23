@@ -39,6 +39,46 @@ typedef void (^returnImage)(UIImage *image);
          loadingString:(LoadingView)loading;
 
 /**
+ *  上传封面照
+ *
+ *  @param successBlock successBlock description
+ *  @param failBlock    failBlock description
+ *  @param loading      loading description
+ */
+- (void)uploadCoverPhoto:(UIImage *)image
+                 success:(Success)successBlock
+                    fail:(Fail)failBlock
+           loadingString:(LoadingView)loading;
+
+/**
+ *  更多个人介绍
+ *
+ *  @param imageArrays  图片数组
+ *  @param title        标题
+ *  @param content      内容
+ */
+- (void)uploadMoreProfile:(NSMutableArray *)imageArrays
+                    title:(NSString *)title
+                  content:(NSString *)content
+                  success:(Success)successBlock
+                     fail:(Fail)failBlock;
+/**
+ *  更新个人介绍id
+ *
+ *  @param imageArrays   图片数组
+ *  @param moreProfileId 标题id
+ *  @param title         标题
+ *  @param content       内容
+ *  @param successBlock  successBlock description
+ *  @param failBlock     failBlock description
+ */
+- (void)changeMoreProfile:(NSMutableArray *)imageArrays
+            moreProfileId:(NSString *)moreProfileId
+                    title:(NSString *)title
+                  content:(NSString *)content
+                  success:(Success)successBlock
+                     fail:(Fail)failBlock;
+/**
  *  更新教育信息
  *
  *  @param eduString    教育字符串
@@ -155,6 +195,46 @@ typedef void (^returnImage)(UIImage *image);
 - (void)getAllInviteAllItems:(Success)successBlock
                         fail:(Fail)failBlock
                loadingString:(LoadingView)loading;
+/**
+ *  拉入黑名单
+ *
+ *  @param otherUid     黑名单用户id
+ *  @param successBlock successBlock description
+ *  @param faileBlock   faileBlock description
+ */
+- (void)makeBlackList:(NSString *)otherUid
+               succes:(Success)successBlock
+                 fail:(Fail)faileBlock;
+/**
+ *  获取黑名单列表
+ *
+ *  @param successBlock successBlock description
+ *  @param failBlock    failBlock description
+ */
+- (void)getBlackList:(Success)successBlock
+                fail:(Fail)failBlock;
+/**
+ *  解除黑名单
+ *
+ *  @param otherUid     黑名单id
+ *  @param successBlock successBlock description
+ *  @param faileBlock   faileBlock description
+ */
+- (void)deleteBlackList:(NSString *)otherUid
+                success:(Success)successBlock
+                   fail:(Fail)faileBlock;
+/**
+ *  举报用户
+ *
+ *  @param otherUid     举报用户id
+ *  @param report       举报主题
+ *  @param successBlock successBlock description
+ *  @param faileBlock   faileBlock description
+ */
+- (void)makeReport:(NSString *)otherUid
+            report:(NSString *)reportTheme
+            succes:(Success)successBlock
+              fail:(Fail)faileBlock;
 
 /**
  *  最后一次更新数据时间
