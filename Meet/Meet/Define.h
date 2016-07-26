@@ -12,6 +12,7 @@
 
 //#definition code @"BqT7gmS"
 
+
 #define SHARE_APPDELEGATE ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
 #define FORMAT(format, ...) [NSString stringWithFormat:(format), ##__VA_ARGS__]
@@ -46,5 +47,8 @@
 #define UmengAppkey       @"5788abfd67e58e7e4f0005b9"
 
 #define GAODEMapKey       @"a2001b013b8cd42ddb1982b3ba2f574a"
+
+#define WeiXinPayStatues  @"WeixinPaySuccess"
+#define AliPayStatues     @"AliPaySuccess"
 
 #endif /* Define_h */

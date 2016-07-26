@@ -193,7 +193,11 @@
                             <constraint firstAttribute="trailing" secondItem="x4a-vB-Tx7" secondAttribute="trailing" id="qeh-Uh-0mP"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="kD0-wv-PVN"/>
+                    <navigationItem key="navigationItem" id="kD0-wv-PVN">
+                        <barButtonItem key="rightBarButtonItem" title="保存" id="c3d-LF-FDN">
+                            <color key="tintColor" red="0.086698717948717974" green="0.086698717948717974" blue="0.086698717948717974" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="_bottomPickerView" destination="z36-sb-2sL" id="uOY-SV-qrn"/>

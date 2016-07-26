@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Theme.h"
 
-@class Results,Theme;
+@class Results;
 @interface Results : NSObject
 
 @property (nonatomic, copy) NSString *introduction;
@@ -18,14 +19,6 @@
 @property (nonatomic, assign) BOOL is_active;
 
 @property (nonatomic, strong) NSArray<Theme *> *theme;
-
-@end
-
-@interface Theme : NSObject
-
-@property (nonatomic, assign) NSInteger price;
-
-@property (nonatomic, copy) NSString *theme;
 
 @end
 

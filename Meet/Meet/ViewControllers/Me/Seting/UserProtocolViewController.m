@@ -24,7 +24,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     _webView.backgroundColor = [UIColor colorWithHexString:TableViewBackGroundColor];
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://momeet.cn/web/agreement/"]]];
-    [self createNavigationBar];
+//    [self createNavigationBar];
 
 }
 

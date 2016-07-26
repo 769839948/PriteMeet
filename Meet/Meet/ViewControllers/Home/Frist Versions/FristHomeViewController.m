@@ -9,7 +9,6 @@
 #import "FristHomeViewController.h"
 #import "MJRefresh.h"
 #import "ManListCell.h"
-#import "WeChatResgisterViewController.h"
 #import "NSString+StringSize.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "MJRefresh.h"
@@ -175,7 +174,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
     [self navigationItemWhiteColorAndNotLine];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:HomeTableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [self setUpBottonView];
+//    [self setUpBottonView];
     [self setUpNavigationBar];
 }
 
@@ -241,6 +240,8 @@ typedef NS_ENUM(NSInteger, FillterName) {
     UIStoryboard *orderStory = [UIStoryboard storyboardWithName:@"Order" bundle:[NSBundle mainBundle]];
     OrderViewController *orderVC = [orderStory instantiateViewControllerWithIdentifier:@"OrderViewController"];
     [self.navigationController pushViewController:orderVC animated:YES];
+//    EditMoreProfileViewController *edilt = [[EditMoreProfileViewController alloc] init];
+//    [self.navigationController pushViewController:edilt animated:YES];
 //    PayViewController *controller = [[PayViewController alloc] init];
 //    [self.navigationController pushViewController:controller animated:YES];
 }
@@ -451,6 +452,8 @@ typedef NS_ENUM(NSInteger, FillterName) {
         } fail:^(NSDictionary *object) {
             
         }];
+    }else if(status == kCLAuthorizationStatusAuthorizedWhenInUse || status == kCLAuthorizationStatusAuthorizedAlways){
+        [self setUpHomeData];
     }
 }
 

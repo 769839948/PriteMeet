@@ -18,6 +18,17 @@
 #import "AboutViewController.h"
 #import "Masonry.h"
 
+typedef NS_ENUM(NSUInteger, RowType) {
+    RowBlackList,
+    RowNotification,
+    RowApplicationCarsh,
+    RowAboutUs,
+    RowFeedBack,
+    RowRate,
+    RowLogOut,
+};
+
+
 @interface SetingViewController ()<UITableViewDelegate,UITableViewDataSource,UISheetViewDelegate,MFMailComposeViewControllerDelegate> {
     NSArray *_contentArray;
     NSDictionary *_contentDic;
@@ -39,7 +50,7 @@
     _tellPhone = @"";
     self.navigationItem.title = @"设置";
     self.tableView.backgroundColor = [UIColor whiteColor];
-    _contentArray = @[@"新消息通知",@"清除缓存",@"关于我们",@"反馈吐槽",@"喜欢Meet? 去赏个好评",@"退出登录"];
+    _contentArray = @[@"黑名单列表",@"新消息通知",@"清除缓存",@"关于我们",@"反馈吐槽",@"喜欢Meet? 去赏个好评",@"退出登录"];
     [self getServiceData];
     _tableView.rowHeight = 49;
     [self hideExcessLine:_tableView];
@@ -94,7 +105,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 5) {
+    if (indexPath.row == RowLogOut) {
         return 90;
     }else{
         return 50;
@@ -109,7 +120,7 @@
     }
     cell.textLabel.textAlignment = NSTextAlignmentLeft;
 
-    if (indexPath.row == 5) {
+    if (indexPath.row == RowLogOut) {
         UILabel *logOut = [[UILabel alloc] initWithFrame:CGRectMake(15, 54, 56, 20)];
         logOut.text = _contentArray[indexPath.row];
         logOut.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14.0];
@@ -121,7 +132,7 @@
         cell.textLabel.textColor = [UIColor colorWithHexString:TableViewTextColor];
     }
     
-    if (indexPath.row == 1) {
+    if (indexPath.row == RowApplicationCarsh) {
         cell.detailTextLabel.font = SettingViewLabelFont;
         cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
         cell.detailTextLabel.textColor = [UIColor colorWithHexString:MeViewProfileContentLabelColor];
@@ -133,7 +144,7 @@
     }
     
     UILabel *cellLineLabel = [[UILabel alloc] init];
-    if (indexPath.row == 5) {
+    if (indexPath.row == RowLogOut) {
         cellLineLabel.frame = CGRectMake(15, 89, ScreenWidth - 30, 0.5);
     }else{
         cellLineLabel.frame = CGRectMake(15, 49, ScreenWidth - 30, 0.5);
@@ -141,7 +152,7 @@
     cellLineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
     [cell.contentView addSubview:cellLineLabel];
     
-    if (indexPath.row == 1 || indexPath.row == 5) {
+    if (indexPath.row == RowNotification || indexPath.row == RowLogOut) {
         cell.accessoryType = UITableViewCellAccessoryNone;
         
     }else{
@@ -153,29 +164,36 @@
 #pragma mark - tableView Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 0) {
+    if (indexPath.row == RowBlackList) {
+        if (![UserInfo isLoggedIn]) {
+            [[UITools shareInstance] showMessageToView:self.view message:@"请登录后在查看" autoHide:YES];
+        }else{
+            [self performSegueWithIdentifier:@"BlackListViewController" sender:self];
+        }
+    }else if (indexPath.row == RowNotification) {
         [[UITools shareInstance] showMessageToView:self.view message:@"敬请期待" autoHide:YES];
-    }else if (indexPath.row == 1){
+    }else if (indexPath.row == RowApplicationCarsh){
         [EMAlertView showAlertWithTitle:nil message:@"确定清除缓存？" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             if (buttonIndex == 1) {
                 [NSFileManager clearCache:[NSFileManager jk_cachesPath]];
                 [self.tableView reloadData];
             }
         } cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
-    }else if (indexPath.row == 2){
+    }else if (indexPath.row == RowAboutUs){
         [self performSegueWithIdentifier:@"PushToAboutViewController" sender:self];
 
-    }else if (indexPath.row == 3){
+    }else if (indexPath.row == RowFeedBack){
         if (![MFMailComposeViewController canSendMail]) {
             NSLog(@"Mail services are not available.");
             [[UITools shareInstance] showMessageToView:self.view message:@"请先设置邮箱帐号" autoHide:YES];
             return;
         }
         MFMailComposeViewController* composeVC = [[MFMailComposeViewController alloc] init];
+        composeVC.navigationController.navigationBar.tintColor = [UIColor whiteColor];
         composeVC.mailComposeDelegate = self;
         // Configure the fields of the interface.、/////@"feedback@momeet.com"
         //Email
-        NSString *email = @"";
+        NSString *email = @"769839948@qq.com";
         if (email != nil && email.length > 1) {
             [composeVC setToRecipients:@[email]];
         } else
@@ -184,7 +202,7 @@
         
         // Present the view controller modally.
         [self presentViewController:composeVC animated:YES completion:nil];
-    }else if (indexPath.row == 4){
+    }else if (indexPath.row == RowRate){
         NSString *str = @"";
         if ([_appUrl isEqualToString:@""]) {
             str = [NSString stringWithFormat:

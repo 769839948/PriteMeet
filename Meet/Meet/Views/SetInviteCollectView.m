@@ -15,7 +15,6 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     InterestCollectViewCell *cell = [self dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    NSLog(@"%@---",self.selectItems[indexPath.row]);
 //    if ([UserInviteModel isFake]) {
 //        cell.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemUnSelect];
 //        cell.titleLabel.textColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
@@ -27,7 +26,7 @@
         cell.isSelect = YES;
     }else{
         cell.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemUnSelect];
-        cell.titleLabel.textColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
+        cell.titleLabel.textColor = [UIColor colorWithHexString:MeProfileCollectViewItemUnSelectColor];
         cell.isSelect = NO;
     }
 //    }

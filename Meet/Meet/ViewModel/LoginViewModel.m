@@ -104,6 +104,79 @@
     }];
 }
 
+- (void)senderSms:(NSString *)mobile
+          success:(Success)successBlock
+             Fail:(Fail)failBlock
+{
+    NSDictionary *parameters = @{@"mobile_num":mobile};
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestGetSmsCoe];
+    [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+        if ([[responseObject objectForKey:@"success"] boolValue]) {
+            successBlock(responseObject);
+        }else{
+            failBlock(responseObject);
+        }
+    } failure:^(NSDictionary *responseObject) {
+        failBlock(@{@"error":responseObject});
+    }];
+}
+
+
+- (void)loginSms:(NSString *)mobile
+            code:(NSString *)code
+       applyCode:(NSString *)applyCode
+         success:(Success)successBlock
+            fail:(Fail)failBlock
+{
+    
+//    NSDictionary *parameters = @{@"openid":mobile};
+//    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestCheckUser];
+//    
+//    [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+//        if (![[responseObject objectForKey:@"success"] boolValue]) {
+//            NSString *url = [RequestBaseUrl stringByAppendingString:RequestCheckCodeBindUser];
+//            NSDictionary *parameters = @{@"code":code};
+//            [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+//                if ([responseObject[@"success"] boolValue]) {
+//                    NSDictionary *parameters = @{@"openid":WXUserInfo.openid,@"nickname":WXUserInfo.nickname,@"gender":[NSString stringWithFormat:@"%@",WXUserInfo.sex],@"head_img_url":[[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"],@"province":WXUserInfo.province,@"city":WXUserInfo.city,@"country":WXUserInfo.country,@"union_id":WXUserInfo.unionid,@"code":code};
+//                    [UserInfo sharedInstance].avatar = [[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"];
+//                    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestCreateUser];
+//                    [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+//                        if ([[responseObject objectForKey:@"success"] boolValue]) {
+//                            [UserInfo sharedInstance].uid = WXUserInfo.openid;
+//                            [UserInfo sharedInstance].avatar = [[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"];
+//                            failBlock(@{@"error":@"oldUser"});
+//                        }else{
+//                            failBlock(@{@"error":@"上传失败"});
+//                        }
+//                    } failure:^(NSDictionary *responseObject) {
+//                        failBlock(@{@"error":@"网络错误"});
+//                    }];
+//                }else{
+//                    NSDictionary *parameters = @{@"openid":WXUserInfo.openid,@"nickname":WXUserInfo.nickname,@"gender":[NSString stringWithFormat:@"%@",WXUserInfo.sex],@"head_img_url":@"",@"province":WXUserInfo.province,@"city":WXUserInfo.city,@"country":WXUserInfo.country,@"union_id":WXUserInfo.unionid,@"code":code};
+//                    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestCreateUser];
+//                    [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+//                        if ([[responseObject objectForKey:@"success"] boolValue]) {
+//                            [UserInfo synchronizeWithWXUserInfo:WXUserInfo];
+//                            successBlock(responseObject);
+//                        }else{
+//                            failBlock(@{@"error":@"上传失败"});
+//                        }
+//                    } failure:^(NSDictionary *responseObject) {
+//                        failBlock(@{@"error":@"网络错误"});
+//                    }];
+//                }
+//            } failure:^(NSDictionary *responseObject) {
+//                failBlock(@{@"error":@"网络错误"});
+//            }];
+//        }else{
+//            failBlock(@{@"error":@"oldUser"});
+//        }
+//    } failure:^(NSDictionary *responseObject) {
+//        failBlock(@{@"error":@"网络错误"});
+//    }];
+}
+
 - (void)oldUserLogin:(NSString *)uid
              Success:(Success)successBlock
                 Fail:(Fail)failBlock
@@ -115,6 +188,8 @@
     [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
             successBlock(responseObject);
+        }else{
+            failBlock(responseObject);
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(responseObject);

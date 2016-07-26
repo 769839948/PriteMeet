@@ -10,8 +10,7 @@ import UIKit
 
 class PayViewController: UIViewController {
 
-    var order_id:String!
-    
+    var orderModel:OrderModel!
     var weChatPayreq:PayReq!
     var aliPayurl:String!
     
@@ -28,11 +27,13 @@ class PayViewController: UIViewController {
         self.weChatPayreq = PayReq()
         self.loadPayInfo()
         self.setUpPayBtn()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PayViewController.changePayStatues(_:)), name: WeiXinPayStatues, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PayViewController.changePayStatues(_:)), name: AliPayStatues, object: nil)
         // Do any additional setup after loading the view.
     }
     
     func loadPayInfo(){
-        viewModel.payOrder(self.order_id, successBlock: { (dic) in
+        viewModel.payOrder(orderModel.order_id, successBlock: { (dic) in
             let payDic = dic as NSDictionary
             self.aliPayurl = payDic.objectForKey("alipay") as! String
             let weChatDic = payDic["wxpay"] as! NSDictionary;
@@ -67,8 +68,6 @@ class PayViewController: UIViewController {
     
     func payBtn(sender:UIButton){
         AlipaySDK.defaultService().payOrder(self.aliPayurl, fromScheme: "MeetAlipay") { (resultDic) in
-            print("\(resultDic)");
-            
         }
     }
     
@@ -76,6 +75,16 @@ class PayViewController: UIViewController {
         WXApi.sendReq(self.weChatPayreq)
     }
 
+    func changePayStatues(notification:NSNotification) {
+        viewModel.switchOrderStatus(orderModel.order_id, status: "5", succeccBlock: { (dic) in
+            
+            }) { (dic) in
+                
+        }
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: WeiXinPayStatues, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: AliPayStatues, object: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

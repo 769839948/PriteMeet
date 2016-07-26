@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "EqualSpaceFlowLayout.h"
+#import "NewMeetInfoTableViewCell.h"
 
 typedef void (^ReturnColloctHeight)(CGFloat height);
 typedef void (^ReturnMeetInfoHeight)(CGFloat height);
 
 static NSString * const reuseIdentifier = @"InterstCollectViewCell";
-
 
 @interface InterestCollectView : UICollectionView<UICollectionViewDataSource,UICollectionViewDelegate,EqualSpaceFlowLayoutDelegate>
 
@@ -27,7 +27,7 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
 
 @property (nonatomic, assign) CGFloat edgX;
 
-- (void)setCollectViewData:(NSArray *)array;
+- (void)setCollectViewData:(NSArray *)array style:(CollectionViewItemStyle)style;
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;

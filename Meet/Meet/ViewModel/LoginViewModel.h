@@ -8,6 +8,7 @@
 
 #import "BaseRequestViewModel.h"
 #import "WXUserInfo.h"
+#import "PSWView.h"
 
 @interface LoginViewModel : BaseRequestViewModel
 
@@ -46,6 +47,30 @@
              Fail:(Fail)failBlock
        showLoding:(LoadingView)loading;
 
+/**
+ *  发送短信验证码
+ *
+ *  @param mobile       手机号码
+ *  @param successBlock successBlock description
+ *  @param failBlock    failBlock description
+ */
+- (void)senderSms:(NSString *)mobile
+          success:(Success)successBlock
+             Fail:(Fail)failBlock;
+
+/**
+ *  手机号登录
+ *
+ *  @param mobile       手机号
+ *  @param code         验证码
+ *  @param successBlock successBlock description
+ *  @param failBlock    failBlock description
+ */
+- (void)loginSms:(NSString *)mobile
+            code:(NSString *)code
+       applyCode:(NSString *)applyCode
+         success:(Success)successBlock
+            fail:(Fail)failBlock;
 /**
  *  获取用户信息
  *

@@ -12,10 +12,6 @@
 //文件地址名称
 #define kEncodedObjectPath_UserExten ([[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"UserExtenModel"])
 
-@implementation Detail
-
-@end
-
 @implementation UserExtenModel
 @synthesize auth_info;
 

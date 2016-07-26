@@ -66,10 +66,12 @@
     [self updateConstraints];
 }
 
-- (void)configCell:(NSString *)meetstring array:(NSArray *)array
+- (void)configCell:(NSString *)meetstring
+             array:(NSArray *)array
+          andStyle:(CollectionViewItemStyle)style
 {
     _meetLabel.text = meetstring;
-    [_interestView setCollectViewData:array];
+    [_interestView setCollectViewData:array style:style];
     if ([meetstring isEqualToString:@""]) {
         __weak typeof(self) weakSelf = self;
         [weakSelf.interestView mas_remakeConstraints:^(MASConstraintMaker *make) {

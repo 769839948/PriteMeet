@@ -7,20 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Detail.h"
 
-@class Detail,Cover_photo,Photos;
-
-@interface Detail : NSObject
-
-@property (nonatomic, assign) long long id;
-
-@property (nonatomic, copy) NSString *content;
-
-@property (nonatomic, copy) NSString *title;
-
-@property (nonatomic, strong) NSArray<Photos *> *photo;
-
-@end
+@class Cover_photo;
 
 
 @interface UserExtenModel : NSObject

@@ -23,6 +23,7 @@
     [acceptContentTypes addObject:@"application/json"];
     [acceptContentTypes addObject:@"charset=utf-8"];
     [acceptContentTypes addObject:@"multipart/form-data"];
+//    [acceptContentTypes addObject:@{@"Token":@"adfsd"}];
     manager.responseSerializer.acceptableContentTypes = acceptContentTypes;
     return manager;
 }

@@ -75,4 +75,22 @@
     }];
 }
 
+- (void)switchOrderStatus:(NSString *)order_id
+                   status:(NSString *)status
+             succeccBlock:(Success)successBlock
+                failBlock:(Fail)failBlcok
+{
+    NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@",RequestSwitchAppointMent]];
+    NSDictionary *parameters = @{@"status":status,
+                                 @"uuid":order_id
+                                 };
+    [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+        if ([responseObject[@"success"] boolValue]) {
+            successBlock(responseObject);
+        }
+    } failure:^(NSDictionary *responseObject) {
+        failBlcok(responseObject);
+    }];
+}
+
 @end

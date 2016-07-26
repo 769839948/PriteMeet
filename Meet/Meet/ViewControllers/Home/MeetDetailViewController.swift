@@ -47,6 +47,8 @@ class MeetDetailViewController: UIViewController {
     var personTypeString:String = "她"
     var meetCellHeight:CGFloat = 159
     var images = NSMutableArray()
+    let userInfoViewModel = UserInfoViewModel()
+    
     
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
@@ -97,21 +99,25 @@ class MeetDetailViewController: UIViewController {
     }
     
     func meetImmediately(){
-//        if !UserInfo.isLoggedIn(){
-//            let meStoryBoard = UIStoryboard(name: "Login", bundle: NSBundle.mainBundle())
-//            let resgisterVc = meStoryBoard.instantiateViewControllerWithIdentifier("weChatResgisterNavigation")
-//            self.presentViewController(resgisterVc, animated: true, completion: {
-//                
-//            });
-//        }else{
-//            let meetView = MeetWebViewController()
-//            meetView.url = "https://jinshuju.net/f/yzVBmI"
-//            self.navigationController?.pushViewController(meetView, animated: true)
-//        }
-        let applyMeetVc = ApplyMeetViewController()
-        applyMeetVc.allItems =  self.inviteArray.mutableCopy() as! NSMutableArray
-        applyMeetVc.host = self.user_id
-        self.navigationController?.pushViewController(applyMeetVc, animated: true)
+        if !UserInfo.isLoggedIn(){
+            let loginView = LoginView(frame: CGRectMake(0,0,ScreenWidth,ScreenHeight))
+            let windown = UIApplication.sharedApplication().keyWindow
+            loginView.applyCodeClouse = { _ in
+                let loginStory = UIStoryboard.init(name: "Login", bundle: nil)
+                let applyCode = loginStory.instantiateViewControllerWithIdentifier("ApplyCodeViewController") as! ApplyCodeViewController
+                applyCode.isApplyCode = true
+                self.navigationController?.pushViewController(applyCode, animated: true)
+            }
+            windown!.addSubview(loginView)
+        }else{
+            let meetView = MeetWebViewController()
+            meetView.url = "https://jinshuju.net/f/yzVBmI"
+            self.navigationController?.pushViewController(meetView, animated: true)
+        }
+//        let applyMeetVc = ApplyMeetViewController()
+//        applyMeetVc.allItems =  self.inviteArray.mutableCopy() as! NSMutableArray
+//        applyMeetVc.host = self.user_id
+//        self.navigationController?.pushViewController(applyMeetVc, animated: true)
     }
     
     func setUpNavigationBar(){
@@ -138,14 +144,16 @@ class MeetDetailViewController: UIViewController {
 //        colloctBt.setTitle(" 668", forState: UIControlState.Normal)
 //        let colloctItem = UIBarButtonItem(customView: colloctBt)
 //        self.navigationItem.rightBarButtonItems = [uploadItem,colloctItem]
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "navigationbar_more")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(MeetDetailViewController.rigthItemClick(_:)))
     }
     
     func setPersonType(personType:PersonType){
         if personType == .Man {
-            self.bottomView.backgroundColor = UIColor.init(hexString: "009FE8")
+            self.bottomView.backgroundColor = UIColor.init(hexString: HomeViewManColor)
             personTypeString = "他"
         }else{
-            self.bottomView.backgroundColor = UIColor.init(hexString: "FF4F4F")
+            self.bottomView.backgroundColor = UIColor.init(hexString: HomeViewWomenColor)
             personTypeString = "她"
         }
     }
@@ -155,7 +163,69 @@ class MeetDetailViewController: UIViewController {
     }
     
     func rigthItemClick(sender:UIBarButtonItem){
+        let alertControl = UIAlertController(title: "选择您要进行的操作", message: nil, preferredStyle: .ActionSheet)
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel) { (cancel) in
+            
+        }
+        let reportAction = UIAlertAction(title: "投诉", style: .Default) { (reportAction) in
+            self.reportAction()
+        }
         
+        let blackListAction = UIAlertAction(title: "加入黑名单", style: .Destructive) { (blackList) in
+            self.blackListAction()
+        }
+        
+        alertControl.addAction(cancelAction)
+        alertControl.addAction(reportAction)
+        alertControl.addAction(blackListAction)
+        self.presentViewController(alertControl, animated: true) { 
+            
+        }
+    }
+    
+    func reportAction() {
+        if !UserInfo.isLoggedIn(){
+            self.presentLoginView()
+        }else{
+            let reportVC = ReportViewController()
+            reportVC.uid = user_id
+            reportVC.myClouse = { _ in
+                UITools.showMessageToView(self.view, message: "投诉成功", autoHide: true)
+            }
+            self.navigationController?.pushViewController(reportVC, animated: true)
+        }
+    }
+    
+    func blackListAction() {
+        if !UserInfo.isLoggedIn(){
+            self.presentLoginView()
+        }else{
+            let aletControl = UIAlertController.init(title: nil, message: "加入黑名单后，对方将不能再申请约见您；在 “设置-黑名单” 中可撤销此操作。", preferredStyle: UIAlertControllerStyle.Alert)
+            let cancleAction = UIAlertAction.init(title: "暂不", style: UIAlertActionStyle.Cancel, handler: { (canCel) in
+                (UserInviteModel.shareInstance().results[0]).is_active = true
+                self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 2)], withRowAnimation: UITableViewRowAnimation.Automatic)
+            })
+            let doneAction = UIAlertAction.init(title: "拉黑", style: UIAlertActionStyle.Default, handler: { (canCel) in
+                self.userInfoViewModel.makeBlackList(self.user_id, succes: { (dic) in
+                    UITools.showMessageToView(self.view, message: "拉入黑名单成功", autoHide: true)
+                    }, fail: { (dic) in
+                        UITools.showMessageToView(self.view, message: "拉入黑名单失败", autoHide: true)
+                })
+            })
+            aletControl.addAction(cancleAction)
+            aletControl.addAction(doneAction)
+            self.presentViewController(aletControl, animated: true) {
+            }
+        }
+        
+    }
+    
+    func presentLoginView(){
+        let meStoryBoard = UIStoryboard(name: "Login", bundle: NSBundle.mainBundle())
+        let resgisterVc = meStoryBoard.instantiateViewControllerWithIdentifier("weChatResgisterNavigation")
+        self.presentViewController(resgisterVc, animated: true, completion: {
+            
+        });
     }
     
     func getHomeDetailModel(){
@@ -187,7 +257,7 @@ class MeetDetailViewController: UIViewController {
             let details = self.otherUserModel.user_info!.detail
             let dtailArray = Detail.mj_objectArrayWithKeyValuesArray(details)
             for detailModel in dtailArray {
-                let photos = (detailModel as! Detail).photos
+                let photos = (detailModel as! Details).photos
                 let photosModel = Photos.mj_objectArrayWithKeyValuesArray(photos)
                 for model in photosModel {
                     if model.photo != "" {
@@ -285,7 +355,7 @@ class MeetDetailViewController: UIViewController {
     func configCell(cell:MeetInfoTableViewCell, indxPath:NSIndexPath)
     {
         if self.otherUserModel.distance == "" {
-            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)    和你相隔 5000+m", interestCollectArray: self.personalArray as [AnyObject])
+            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)    和你相隔 30+m", interestCollectArray: self.personalArray as [AnyObject])
         }else{
             cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)    和你相隔 \(self.otherUserModel.distance as String)", interestCollectArray: self.personalArray as [AnyObject])
         }
@@ -293,7 +363,7 @@ class MeetDetailViewController: UIViewController {
     
     func configNewMeetCell(cell:NewMeetInfoTableViewCell, indxPath:NSIndexPath)
     {
-        cell.configCell(self.otherUserModel.engagement?.introduction_other, array: self.inviteArray as [AnyObject])
+        cell.configCell(self.otherUserModel.engagement?.introduction_other, array: self.inviteArray as [AnyObject], andStyle: .ItemWhiteColorAndBlackBoard)
     }
 
 }
@@ -631,4 +701,44 @@ extension MeetDetailViewController : UITableViewDataSource {
     }
 }
 
-
+extension MeetDetailViewController : UIActionSheetDelegate {
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        switch buttonIndex {
+        case 0:break
+        case 1:
+            let aletControl = UIAlertController.init(title: nil, message: "加入黑名单后，对方将不能再申请约见您；在 “设置-黑名单” 中可撤销此操作。", preferredStyle: UIAlertControllerStyle.Alert)
+            let cancleAction = UIAlertAction.init(title: "暂不", style: UIAlertActionStyle.Cancel, handler: { (canCel) in
+                (UserInviteModel.shareInstance().results[0]).is_active = true
+                self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 2)], withRowAnimation: UITableViewRowAnimation.Automatic)
+            })
+            let doneAction = UIAlertAction.init(title: "拉黑", style: UIAlertActionStyle.Default, handler: { (canCel) in
+                self.userInfoViewModel.makeBlackList(self.user_id, succes: { (dic) in
+                    UITools.showMessageToView(self.view, message: "拉入黑名单成功", autoHide: true)
+                    }, fail: { (dic) in
+                        UITools.showMessageToView(self.view, message: "拉入黑名单失败", autoHide: true)
+                })
+            })
+            aletControl.addAction(cancleAction)
+            aletControl.addAction(doneAction)
+            self.presentViewController(aletControl, animated: true) {
+                
+            }
+        default:
+            let reportVC = ReportViewController()
+            reportVC.uid = user_id
+            self.navigationController?.pushViewController(reportVC, animated: true)
+        }
+    }
+    
+    func willPresentActionSheet(actionSheet: UIActionSheet) {
+        for subView in actionSheet.subviews {
+            print(subView)
+            if subView.isKindOfClass(UIButton.self) {
+                let button = subView as! UIButton
+                if button.tag == 1 {
+                    button.setTitleColor(UIColor.redColor(), forState: .Normal)
+                }
+            }
+        }
+    }
+}

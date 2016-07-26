@@ -25,7 +25,6 @@
     if (!_titleLabel) {
 //        _titleLabel.backgroundColor = [UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0];
         _titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
-        _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.layer.contentsScale = 2.0f;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:13.0f];

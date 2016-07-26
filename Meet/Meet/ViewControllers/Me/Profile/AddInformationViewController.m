@@ -46,7 +46,7 @@
     [super viewDidLoad];
     _dicValues = [NSMutableDictionary dictionary];
     _cachTitleArray = [NSMutableArray array];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"setting_savebt"] style:UIBarButtonItemStylePlain target:self action:@selector(saveAction:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveAction:)];
     NSString *str;
     if (_viewType == ViewTypeEdit) {
         _leftIetmColor = @"202020";
