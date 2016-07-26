@@ -9,7 +9,6 @@
 #import "FristHomeViewController.h"
 #import "MJRefresh.h"
 #import "ManListCell.h"
-#import "WeChatResgisterViewController.h"
 #import "NSString+StringSize.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "MJRefresh.h"

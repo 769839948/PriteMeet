@@ -100,11 +100,15 @@ class MeetDetailViewController: UIViewController {
     
     func meetImmediately(){
         if !UserInfo.isLoggedIn(){
-            let meStoryBoard = UIStoryboard(name: "Login", bundle: NSBundle.mainBundle())
-            let resgisterVc = meStoryBoard.instantiateViewControllerWithIdentifier("weChatResgisterNavigation")
-            self.presentViewController(resgisterVc, animated: true, completion: {
-                
-            });
+            let loginView = LoginView(frame: CGRectMake(0,0,ScreenWidth,ScreenHeight))
+            let windown = UIApplication.sharedApplication().keyWindow
+            loginView.applyCodeClouse = { _ in
+                let loginStory = UIStoryboard.init(name: "Login", bundle: nil)
+                let applyCode = loginStory.instantiateViewControllerWithIdentifier("ApplyCodeViewController") as! ApplyCodeViewController
+                applyCode.isApplyCode = true
+                self.navigationController?.pushViewController(applyCode, animated: true)
+            }
+            windown!.addSubview(loginView)
         }else{
             let meetView = MeetWebViewController()
             meetView.url = "https://jinshuju.net/f/yzVBmI"
@@ -253,7 +257,7 @@ class MeetDetailViewController: UIViewController {
             let details = self.otherUserModel.user_info!.detail
             let dtailArray = Detail.mj_objectArrayWithKeyValuesArray(details)
             for detailModel in dtailArray {
-                let photos = (detailModel as! Detail).photos
+                let photos = (detailModel as! Details).photos
                 let photosModel = Photos.mj_objectArrayWithKeyValuesArray(photos)
                 for model in photosModel {
                     if model.photo != "" {

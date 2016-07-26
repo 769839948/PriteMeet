@@ -7,7 +7,6 @@
 //
 
 #import "PSWView.h"
-#import "WXApi.h"
 
 #define  LableWidh    40
 #define  LableHeight  52
@@ -19,6 +18,8 @@
 @property (nonatomic, strong)NSMutableArray *labelMArr;
 
 @property (nonatomic, strong)UITextField *numTextField;
+
+@property (nonatomic, assign) BOOL isRightCode;
 
 @property BOOL isShow;
 
@@ -34,49 +35,10 @@
         _numTextField.autocorrectionType = UITextAutocorrectionTypeNo;
         _numTextField.textColor = [UIColor clearColor];
         _numTextField.tintColor = [UIColor clearColor];
-        _numTextField.inputAccessoryView = [self setUpView];
         [_numTextField addTarget:self action:@selector(textFieldChange:) forControlEvents:UIControlEventEditingChanged];
         _numTextField.delegate = self;
     }
     return _numTextField;
-}
-
-
-- (UIView *)setUpView
-{
-    UIView *inputView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 48)];
-    inputView.backgroundColor = [UIColor whiteColor];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 9, ScreenWidth, 30)];
-    label.textColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
-    label.font = IQKeyboardManagerFont;
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loginWithOldUser:)];
-    label.userInteractionEnabled = YES;
-    [label addGestureRecognizer:tapGesture];
-    label.tag = 3;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.text = @"使用已有 Meet 账号登录";
-    [inputView addSubview:label];
-    //暂时去除微信微博登录
-//    UIButton *weibo = [UIButton buttonWithType:UIButtonTypeCustom];
-//    weibo.frame = CGRectMake(ScreenWidth - 50, 9, 30, 30);
-//    weibo.layer.cornerRadius = 15;
-//    weibo.tag = 1;
-//    weibo.layer.masksToBounds = YES;
-//    [weibo addTarget:self action:@selector(buttonPress:) forControlEvents:UIControlEventTouchUpInside];
-//    [weibo setImage:[UIImage imageNamed:@"keyboard_weibo"] forState:UIControlStateNormal];
-//    [inputView addSubview:weibo];
-//    
-//    if ([WXApi isWXAppInstalled]) {
-//        UIButton *weChat = [UIButton buttonWithType:UIButtonTypeCustom];
-//        weChat.frame = CGRectMake(ScreenWidth - 94, 9, 30, 30);
-//        weChat.layer.cornerRadius = 15;
-//        weChat.tag = 2;
-//        [weChat addTarget:self action:@selector(buttonPress:) forControlEvents:UIControlEventTouchUpInside];
-//        weChat.layer.masksToBounds = YES;
-//        [weChat setImage:[UIImage imageNamed:@"keyboard_weChat"] forState:UIControlStateNormal];
-//        [inputView addSubview:weChat];
-//    }
-    return inputView;
 }
 
 - (void)loginWithOldUser:(UITapGestureRecognizer *)sender
@@ -85,13 +47,16 @@
         self.block(sender.view.tag);
     }
 }
-//暂时去除微信微博登录
-//- (void)buttonPress:(UIButton *)sender
-//{
-//    if (self.block) {
-//        self.block(sender.tag);
+
+- (void)changeLabelColor:(BOOL)isRightCode
+{
+//    if (!isRightCode) {
+//        self.isRightCode = NO;
+////        [self textFieldChange:nil];
+//    }else{
+//        self.isRightCode = YES;
 //    }
-//}
+}
 
 - (NSMutableArray *)labelMArr
 {
@@ -115,12 +80,13 @@
         for (int i = 0; i < num; i++) {
             UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake((SpachMarginX + LableWidh) *i, 0, LableWidh, LableHeight)];
             label.backgroundColor = [UIColor colorWithHexString:TableViewBackGroundColor];
-            [self.labelMArr addObject:label];
             label.font = ApplyCodeFont;
             label.textAlignment = NSTextAlignmentCenter;
             label.userInteractionEnabled = YES;
+            label.tag = i+1000;
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(labelTouch:)];
             [label addGestureRecognizer:tap];
+            [self.labelMArr addObject:label];
             [self addSubview:label];
         }
         
@@ -148,6 +114,11 @@
         } else {
             label.text = @"";
         }
+//        if (!self.isRightCode) {
+//            label.textColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
+//        }else{
+//            label.textColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
+//        }
     }
     if (self.numTextField.text.length > 4) {
         self.numTextField.text = [self.numTextField.text substringToIndex:4];
@@ -155,9 +126,14 @@
     if ([self.delegate respondsToSelector:@selector(pwdNum:)]) {
         [self.delegate pwdNum:(self.numTextField.text)];
     }
-//    [self.delegate pwdNum:(self.numTextField.text)];
+}
 
-//    NSLog(@"%@",self.numTextField.text);
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (self.keyBoardPressBlock){
+        self.keyBoardPressBlock(textField.text);
+    }
+    return YES;
 }
 
 @end

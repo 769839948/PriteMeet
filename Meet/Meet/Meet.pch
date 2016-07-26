@@ -14,7 +14,6 @@
 
 #ifdef __OBJC__
 #import "Define.h"
-#import "Theme.h"
 #import "AppData.h"
 #import "UserInfo.h"
 #import "UITools.h"
@@ -28,6 +27,9 @@
 #import "UINavigationController+FDFullscreenPopGesture.h"
 #import "UIImage+PureColor.h"
 #import "UIViewController+NavigationItemColor.h"
+#import "ApplicationTheme.h"
+
+
 
 #endif
 

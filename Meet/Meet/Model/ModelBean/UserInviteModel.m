@@ -11,10 +11,6 @@
 
 #define kEncodedObjectPath_UserInvite ([[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"UserInviteModel"])
 
-@implementation Theme
-
-@end
-
 @implementation Results
 
 @end

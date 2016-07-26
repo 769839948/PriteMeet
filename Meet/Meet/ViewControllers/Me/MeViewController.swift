@@ -307,11 +307,27 @@ class MeViewController: UIViewController {
     }
     
     func presentViewLoginViewController(){
-        let meStoryBoard = UIStoryboard(name: "Login", bundle: NSBundle.mainBundle())
-        let resgisterVc = meStoryBoard.instantiateViewControllerWithIdentifier("weChatResgisterNavigation")
-        self.presentViewController(resgisterVc, animated: true, completion: {
-            
-        });
+        let loginView = LoginView(frame: CGRectMake(0,0,ScreenWidth,ScreenHeight))
+        let windown = UIApplication.sharedApplication().keyWindow
+        loginView.applyCodeClouse = { _ in
+            let loginStory = UIStoryboard.init(name: "Login", bundle: nil)
+            let applyCode = loginStory.instantiateViewControllerWithIdentifier("ApplyCodeViewController") as! ApplyCodeViewController
+            applyCode.isApplyCode = true
+            self.navigationController?.pushViewController(applyCode, animated: true)
+        }
+        
+        loginView.protocolClouse = { _ in
+            let settingStory = UIStoryboard.init(name: "Seting", bundle: nil)
+            let userProtocol = settingStory.instantiateViewControllerWithIdentifier("UserProtocolViewController")  as! UserProtocolViewController
+            self.navigationController?.pushViewController(userProtocol, animated: true)
+        }
+        windown!.addSubview(loginView)
+
+//        let meStoryBoard = UIStoryboard(name: "Login", bundle: NSBundle.mainBundle())
+//        let resgisterVc = meStoryBoard.instantiateViewControllerWithIdentifier("weChatResgisterNavigation")
+//        self.presentViewController(resgisterVc, animated: true, completion: {
+//            
+//        });
     }
 }
 

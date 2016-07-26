@@ -11,7 +11,7 @@ import UIKit
 class User_Info: NSObject {
     
     
-    var detail: [Detail]?
+    var detail: [Details]?
     
     var user_id: Int = 0
     
@@ -27,7 +27,7 @@ class Photos: NSObject {
     var id: Int = 0
 }
 
-class Detail: NSObject {
+class Details: NSObject {
     
     var id: Int = 0
     
@@ -49,13 +49,13 @@ class Engagement: NSObject {
     
     var introduction_other: String?
     
-    var theme: [Theme]?
+    var theme: [Themes]?
     
     var user_id: Int = 0
     
 }
 
-class Theme: NSObject {
+class Themes: NSObject {
     
     var id: Int = 0
     

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef void (^ToolBarButtonPress)(NSInteger tag);
+typedef void (^KeyBoardReturnPress)(NSString *codeNumber);
 
 @protocol DelegatePSW <NSObject>
 
@@ -22,8 +23,14 @@ typedef void (^ToolBarButtonPress)(NSInteger tag);
 
 @property (nonatomic, strong) ToolBarButtonPress block;
 
+@property (nonatomic, strong) KeyBoardReturnPress keyBoardPressBlock;
+
 - (instancetype)initWithFrame:(CGRect)frame labelNum:(NSInteger)num showPSW:(BOOL)isShow;
 
 - (void)labelTouch:(UIGestureRecognizer *)tap;
+
+- (void)changeLabelColor:(BOOL)isRightCode;
+
+
 
 @end

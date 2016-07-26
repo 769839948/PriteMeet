@@ -31,7 +31,6 @@
     _worke_exps = [[NSMutableArray alloc] init];
     _edu_exps = [[NSMutableArray alloc] init];
 //    self.isBaseView = YES;
-    [self createNavigationBar];
     [self navigationItemWithLineAndWihteColor];
 }
 

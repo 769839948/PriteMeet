@@ -138,7 +138,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
     _jobLabelArray = [[NSMutableArray alloc] init];
     [self loadLastUpdate];
     [self setUpTableView];
-    [self createNavigationBar];
+    if (!self.isApplyCode) {
+        [self createNavigationBar];
+    }
     [self setNavigationBarItem];
 //    [self navigationItemWithLineAndWihteColor];
 }

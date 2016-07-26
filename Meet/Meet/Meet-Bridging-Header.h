@@ -23,7 +23,6 @@
 #import "NetWorkObject.h"
 #import "Define.h"
 #import "AppData.h"
-#import "Theme.h"
 #import "ManListCell.h"
 #import "UIImage+ImageEffects.h"
 #import "UIImage+PureColor.h"
@@ -36,7 +35,6 @@
 #import "UINavigationBar+Transparent.h"
 #import "TransparentView.h"
 #import "UITableView+FDTemplateLayoutCell.h"
-#import "WeChatResgisterViewController.h"
 #import "WXUserInfo.h"
 #import "RequestUrl.h"
 #import "SetInviteCollectView.h"
@@ -48,11 +46,11 @@
 #import <AlipaySDK/AlipaySDK.h>
 #import "OrderViewModel.h"
 #import "WXApi.h"
-#import "Theme.h"
-
-
-
-
+#import "LoginViewModel.h"
+#import "NSString+StringType.h"
+#import "ApplicationTheme.h"
+#import "ApplyCodeViewController.h"
+#import "UserProtocolViewController.h"
 
 
 
