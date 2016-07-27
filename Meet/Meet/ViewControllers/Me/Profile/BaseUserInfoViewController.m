@@ -46,9 +46,7 @@
 {
     [EMAlertView showAlertWithTitle:@"注意" message:@"资料未完善，确定退出编辑吗？" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
         if (buttonIndex == 1) {
-            [self dismissViewControllerAnimated:YES completion:^{
-                
-            }];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }
     } cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
 }
@@ -91,8 +89,7 @@
             [EMAlertView showAlertWithTitle:@"设置您的邀约" message:@"邀约设置后，有助于他人了解您的约见说明，从而更精准的吸引志趣相投的朋友。" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
                 switch (buttonIndex) {
                     case 0:
-                        [weakSelf dismissViewControllerAnimated:YES completion:^{
-                        }];
+                        [self.navigationController popToRootViewControllerAnimated:YES];
                         break;
                     default:
                     {

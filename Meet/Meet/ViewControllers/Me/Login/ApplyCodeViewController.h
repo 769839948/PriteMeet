@@ -8,10 +8,12 @@
 
 #import "MyProfileViewController.h"
 
-typedef void (^ShowTools)();
+typedef void (^ShowToolsBlock)();
+typedef void (^LoginViewShow)();
 
 @interface ApplyCodeViewController : MyProfileViewController
 
-@property (nonatomic, strong) ShowTools block;
+@property (nonatomic, strong) ShowToolsBlock showToolsBlock;
+@property (nonatomic, strong) LoginViewShow loginViewBlock;
 
 @end

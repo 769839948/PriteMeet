@@ -51,6 +51,11 @@
 #import "ApplicationTheme.h"
 #import "ApplyCodeViewController.h"
 #import "UserProtocolViewController.h"
+#import "Detail.h"
+#import "Theme.h"
+#import "Photos.h"
+#import "BaseUserInfoViewController.h"
+
 
 
 

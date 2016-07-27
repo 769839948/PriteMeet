@@ -27,6 +27,7 @@
 #define  RequestGetBlackList         @"/api/black_list/"
 #define  RequestReport               @"/api/report_user"
 #define  RequestGetSmsCoe            @"/api/send_sms"
+#define  RequsetMobileLogin          @"/api/user/login/"
 
 #define  RequestUploadMoreProfile    @"/api/user_detail/"
 #define  RequestUploadCoverPhoto     @"/api/user_cover_photo/"

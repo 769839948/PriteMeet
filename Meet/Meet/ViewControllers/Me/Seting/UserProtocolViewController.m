@@ -24,13 +24,15 @@
     self.view.backgroundColor = [UIColor whiteColor];
     _webView.backgroundColor = [UIColor colorWithHexString:TableViewBackGroundColor];
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://momeet.cn/web/agreement/"]]];
-//    [self createNavigationBar];
-
+    [self createNavigationBar];
 }
 
-- (void)setUpNavigationBar
+- (void)viewDidDisappear:(BOOL)animated
 {
-    
+    [super viewDidDisappear:animated];
+    if (self.block) {
+        self.block();
+    }
 }
 
 - (void)didReceiveMemoryWarning {

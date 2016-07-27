@@ -17,6 +17,7 @@
 
 @property (nonatomic, copy) NSMutableArray *worke_exps;
 @property (nonatomic, copy) NSMutableArray *edu_exps;
+@property (nonatomic, assign) BOOL complyApplyCodeSuccess;
 
 @end
 
@@ -37,6 +38,9 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+    if (self.loginViewBlock && !_complyApplyCodeSuccess) {
+        self.loginViewBlock();
+    }
     [UserInfo logout];
 }
 
@@ -54,8 +58,10 @@
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] != nil && ![[UserInfo sharedInstance].job_label isEqualToString:@""] && ![[UserInfo sharedInstance].mobile_num isEqualToString:@""] && ![[UserInfo sharedInstance].location isEqualToString:@"0,0"]) {
         __weak typeof(self) weakSelf = self;
         [_loginViewModel applyCode:[UserInfo sharedInstance] workArray:_worke_exps eduArray:_edu_exps Success:^(NSDictionary *object) {
-            if (weakSelf.block) {
-                weakSelf.block();
+            [UserInfo logout];
+            weakSelf.complyApplyCodeSuccess = YES;
+            if (weakSelf.showToolsBlock) {
+                weakSelf.showToolsBlock();
             }
             [weakSelf.navigationController popViewControllerAnimated:YES];
         } Fail:^(NSDictionary *object) {

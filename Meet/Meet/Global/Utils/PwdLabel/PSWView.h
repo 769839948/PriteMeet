@@ -29,8 +29,6 @@ typedef void (^KeyBoardReturnPress)(NSString *codeNumber);
 
 - (void)labelTouch:(UIGestureRecognizer *)tap;
 
-- (void)changeLabelColor:(BOOL)isRightCode;
-
-
+- (void)changeLabelColor:(UIColor *)textColor;
 
 @end

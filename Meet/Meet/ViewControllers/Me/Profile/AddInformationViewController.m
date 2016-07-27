@@ -14,6 +14,7 @@
 #import "ZHPickView.h"
 #import "Masonry.h"
 #import "UITools.h"
+#import "Masonry.h"
 
 @interface AddInformationViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIActionSheetDelegate,ZHPickViewDelegate> {
     NSMutableDictionary *_dicValues;
@@ -86,6 +87,13 @@
     }
     self.title = _navTitle;
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithHexString:_leftIetmColor];
+    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view.mas_top).offset(0);
+        make.left.equalTo(self.view.mas_left).offset(0);
+        make.right.equalTo(self.view.mas_right).offset(0);
+        make.bottom.equalTo(self.view.mas_bottom).offset(0);
+
+    }];
     //[UIColor colorWithHexString:@"202020"];
 }
 

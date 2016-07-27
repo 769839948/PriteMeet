@@ -59,6 +59,9 @@ typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 
 @property (nonatomic, copy) NSMutableArray *arrayEducateExper;///教育背景
 
+@property (nonatomic, assign) BOOL isCreateNavigationBar;
+
+
 - (void)mappingUserInfoWithDicValues;
 
 - (BOOL)chectBaseInfo;

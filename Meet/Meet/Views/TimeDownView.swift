@@ -39,21 +39,19 @@ class TimeDownView: UIView {
         timeLabel.textAlignment = .Center
         timeLabel.frame = CGRectMake(0, 0, 196, 20)
         timeLabel.font = UIFont.init(name: "PingFangSC-Light", size: 14.0)
+        timeLabel.textColor = UIColor.init(hexString: "C9C9C9")
         self.addSubview(timeLabel)
     }
     
     func timeDown(sender:NSTimer) {
         timeCount  = timeCount - 1
-        let  str = "如未收到可在 \(timeCount) 秒后重新获取"
-        let stringAttribute = NSMutableAttributedString(string: str)
-        stringAttribute.addAttribute(NSForegroundColorAttributeName, value:UIColor.orangeColor(), range: NSRange.init(location: 7, length: 2))
-        timeLabel.attributedText = stringAttribute
+        timeLabel.text = "如未收到可在 \(timeCount) 秒后重新获取"
         if timeCount == 0 {
             time.invalidate()
             time = nil
             let str = "如未收到可以 重新获取"
             let stringAttribute = NSMutableAttributedString(string: str)
-            stringAttribute.addAttribute(NSForegroundColorAttributeName, value:UIColor.orangeColor(), range: NSRange.init(location: 7, length: 4))
+            stringAttribute.addAttribute(NSForegroundColorAttributeName, value:UIColor.init(hexString: MeProfileCollectViewItemSelect), range: NSRange.init(location: 7, length: 4))
             timeLabel.attributedText = stringAttribute
         }
     }

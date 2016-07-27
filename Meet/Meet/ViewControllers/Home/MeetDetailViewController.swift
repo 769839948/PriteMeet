@@ -49,6 +49,7 @@ class MeetDetailViewController: UIViewController {
     var images = NSMutableArray()
     let userInfoViewModel = UserInfoViewModel()
     
+    var loginView:LoginView!
     
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
@@ -221,11 +222,46 @@ class MeetDetailViewController: UIViewController {
     }
     
     func presentLoginView(){
-        let meStoryBoard = UIStoryboard(name: "Login", bundle: NSBundle.mainBundle())
-        let resgisterVc = meStoryBoard.instantiateViewControllerWithIdentifier("weChatResgisterNavigation")
-        self.presentViewController(resgisterVc, animated: true, completion: {
-            
-        });
+        loginView = LoginView(frame: CGRectMake(0,0,ScreenWidth,ScreenHeight))
+        let windown = UIApplication.sharedApplication().keyWindow
+        loginView.applyCodeClouse = { _ in
+            let loginStory = UIStoryboard.init(name: "Login", bundle: nil)
+            let applyCode = loginStory.instantiateViewControllerWithIdentifier("ApplyCodeViewController") as! ApplyCodeViewController
+            applyCode.isApplyCode = true
+            applyCode.showToolsBlock = { _ in
+                UITools.showMessageToView(self.view, message: "申请成功，请耐心等待审核结果^_^", autoHide: true)
+                UserInfo.logout()
+            }
+            applyCode.loginViewBlock = { _ in
+                self.loginView.showViewWithTage(1)
+                UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
+            }
+            UIApplication.sharedApplication().keyWindow?.sendSubviewToBack(self.loginView)
+            self.navigationController?.pushViewController(applyCode, animated: true)
+        }
+        
+        loginView.protocolClouse = { _ in
+            let settingStory = UIStoryboard.init(name: "Seting", bundle: nil)
+            let userProtocol = settingStory.instantiateViewControllerWithIdentifier("UserProtocolViewController")  as! UserProtocolViewController
+            userProtocol.block = { _ in
+                self.loginView.mobileTextField.becomeFirstResponder()
+                UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
+            }
+            self.navigationController?.pushViewController(userProtocol, animated: true)
+            UIApplication.sharedApplication().keyWindow?.sendSubviewToBack(self.loginView)
+        }
+        
+        loginView.newUserLoginClouse = { _ in
+            let meStory = UIStoryboard.init(name: "Me", bundle: nil)
+            let baseUserInfo = meStory.instantiateViewControllerWithIdentifier("BaseInfoViewController")  as! BaseUserInfoViewController
+            self.navigationController?.pushViewController(baseUserInfo, animated: true)
+        }
+        
+        loginView.reloadMeViewClouse = { _ in
+            self.viewWillAppear(true)
+        }
+        
+        windown!.addSubview(loginView)
     }
     
     func getHomeDetailModel(){
@@ -257,7 +293,8 @@ class MeetDetailViewController: UIViewController {
             let details = self.otherUserModel.user_info!.detail
             let dtailArray = Detail.mj_objectArrayWithKeyValuesArray(details)
             for detailModel in dtailArray {
-                let photos = (detailModel as! Details).photos
+                
+                let photos = (detailModel as! Detail).photo
                 let photosModel = Photos.mj_objectArrayWithKeyValuesArray(photos)
                 for model in photosModel {
                     if model.photo != "" {

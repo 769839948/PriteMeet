@@ -12,10 +12,15 @@ import SnapKit
 let LoginViewWidth:CGFloat = 270
 let LoginViewHeight:CGFloat = 320
 
-typealias ApplyCodeClouse = () ->Void
+typealias ApplyCodeClouse = () -> Void
 typealias ProtocolClouse = () -> Void
+typealias NewUserLoginClouse = () -> Void
+typealias ReloadMeViewClouse = () ->Void
+
 class LoginView: UIView {
 
+    var backView:UIView!
+    
     var loginView:UIView!
     var loginCodeView:UIView!
     var loginOldUser:UIView!
@@ -31,14 +36,19 @@ class LoginView: UIView {
     
     let viewModel = LoginViewModel()
     
+    var checkLabelSms:PSWView!
+    
     var applyCode:String = ""
     
+    var reloadMeViewClouse:ReloadMeViewClouse!
     var applyCodeClouse:ApplyCodeClouse!
     var protocolClouse:ProtocolClouse!
-    
+    var newUserLoginClouse:NewUserLoginClouse!
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.init(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 0.5)
+        backView = UIView(frame: frame)
+        backView.backgroundColor = UIColor.init(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 0.5)
+        self.addSubview(backView)
         self.setUpView()
     }
     
@@ -49,7 +59,7 @@ class LoginView: UIView {
     func setUpView(){
         loginView = UIView()
         loginView.frame = CGRectMake((ScreenWidth - LoginViewWidth)/2, 91, LoginViewWidth, LoginViewHeight)
-        loginView.layer.cornerRadius = 5.0
+        loginView.layer.cornerRadius = 10.0
         loginView.backgroundColor = UIColor.whiteColor()
         self.addSubview(loginView)
         
@@ -57,7 +67,7 @@ class LoginView: UIView {
         loginOldUser.backgroundColor = UIColor.whiteColor()
         loginOldUser.tag = 2
         loginOldUser.clipsToBounds = true
-        loginOldUser.layer.cornerRadius = 5.0
+        loginOldUser.layer.cornerRadius = 10.0
         loginView.addSubview(loginOldUser)
         
         
@@ -65,11 +75,11 @@ class LoginView: UIView {
         smsCodeView.backgroundColor = UIColor.whiteColor()
         smsCodeView.tag = 3
         smsCodeView.clipsToBounds = true
-        smsCodeView.layer.cornerRadius = 5.0
+        smsCodeView.layer.cornerRadius = 10.0
         loginView.addSubview(smsCodeView)
         
         loginCodeView = UIView(frame: CGRectMake(0,0,loginView.frame.size.width,loginView.frame.size.height))
-        loginCodeView.layer.cornerRadius = 5.0
+        loginCodeView.layer.cornerRadius = 10.0
         loginCodeView.backgroundColor = UIColor.whiteColor()
         loginView.addSubview(loginCodeView)
         loginCodeView.clipsToBounds = true
@@ -94,9 +104,10 @@ class LoginView: UIView {
         codeLabel = UILabel(frame: CGRectZero)
         codeLabel.text = "使用邀请码或登录已有账号"
         codeLabel.font = UIFont.init(name: "PingFangSc-Light", size: 14.0)
+        codeLabel.textColor = UIColor.init(hexString: HomeMeetNumberColor)
         loginCodeView.addSubview(codeLabel)
         
-        let checkLabel = self.setUpCheckLabel()
+        checkLabel = self.setUpCheckLabel()
         checkLabel.labelTouch(nil)
         checkLabel.keyBoardPressBlock = { code in
             self.applyCode = code
@@ -104,7 +115,7 @@ class LoginView: UIView {
         }
         loginCodeView.addSubview(checkLabel)
         
-        let applyCodeBtn = self.setUpApplyCodeButton("申请验证码")
+        let applyCodeBtn = self.setUpApplyCodeButton("申请邀请码")
         loginCodeView.addSubview(applyCodeBtn)
         
         let loginOldUser = UIButton()
@@ -187,6 +198,8 @@ class LoginView: UIView {
         mobileTextField.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
         mobileTextField.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
         mobileTextField.delegate = self
+        mobileTextField.autocorrectionType = .No
+        mobileTextField.keyboardType = UIKeyboardType.PhonePad
         loginOldUser.addSubview(mobileTextField)
         
         let comfigLabel = UILabel()
@@ -250,13 +263,15 @@ class LoginView: UIView {
         let smsCode = UILabel()
         smsCode.font = UIFont.init(name: "PingFangSC-Light", size: 14)
         smsCode.text = "验证码已发送至"
+        smsCode.textColor = UIColor.init(hexString: "C9C9C9")
         smsCodeView.addSubview(smsCode)
         
         phoneLabel = UILabel()
         phoneLabel.font = UIFont.init(name: "Helvetica-Light", size: 20.0)
+        phoneLabel.textColor = UIColor.init(hexString: "C9C9C9")
         smsCodeView.addSubview(phoneLabel)
         
-        timeDownLabel = TimeDownView(frame: CGRectMake(37, 161, loginView.frame.size.width - 37 * 2, 20))
+        timeDownLabel = TimeDownView(frame: CGRectMake(37, 164, loginView.frame.size.width - 37 * 2, 20))
         timeDownLabel.smsCodeClouse = { _ in
             self.viewModel.senderSms(self.phoneLabel.text, success: { (dic) in
                 
@@ -266,14 +281,15 @@ class LoginView: UIView {
         }
         smsCodeView.addSubview(timeDownLabel)
     
-        let checkLabel = self.setUpCheckLabel()
-        checkLabel.keyBoardPressBlock = { code in
+        checkLabelSms = self.setUpCheckLabel()
+        checkLabelSms.keyBoardPressBlock = { code in
             self.loginWithCode(self.phoneLabel.text!, smsCode: code, applyCode: self.applyCode)
         }
-        smsCodeView.addSubview(checkLabel)
+        smsCodeView.addSubview(checkLabelSms)
         
         checkCodeCallBack = UILabel()
         checkCodeCallBack.text = "验证码输入有误或已过期"
+        checkCodeCallBack.font = UIFont.init(name: "PingFangSC-Light", size: 14.0)
         checkCodeCallBack.textColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
         checkCodeCallBack.hidden = true
         smsCodeView.addSubview(checkCodeCallBack)
@@ -282,7 +298,7 @@ class LoginView: UIView {
         
         titleLabel.snp_makeConstraints { (make) in
             make.centerX.equalTo(loginCodeView.snp_centerX).offset(0)
-            make.top.equalTo(loginCodeView.snp_top).offset(60)
+            make.top.equalTo(loginCodeView.snp_top).offset(51)
             make.height.equalTo(28)
         }
         
@@ -298,7 +314,7 @@ class LoginView: UIView {
             make.height.equalTo(24)
         }
         
-        checkLabel.snp_makeConstraints { (make) in
+        checkLabelSms.snp_makeConstraints { (make) in
             make.centerX.equalTo(smsCodeView.snp_centerX).offset(0)
             make.top.equalTo(phoneLabel.snp_bottom).offset(49)
             make.size.equalTo(CGSizeMake(199, 50))
@@ -306,7 +322,7 @@ class LoginView: UIView {
         
         checkCodeCallBack.snp_makeConstraints { (make) in
             make.centerX.equalTo(smsCodeView.snp_centerX).offset(0)
-            make.top.equalTo(checkLabel.snp_bottom).offset(27)
+            make.top.equalTo(checkLabelSms.snp_bottom).offset(27)
             make.height.equalTo(20)
         }
     }
@@ -323,7 +339,7 @@ class LoginView: UIView {
             applyCodeBtn.addTarget(self, action: #selector(LoginView.applyCode(_:)), forControlEvents: .TouchUpInside)
         }
         applyCodeBtn.layer.borderWidth = 1.0
-        applyCodeBtn.layer.cornerRadius = 18.0
+        applyCodeBtn.layer.cornerRadius = 19.0
         return applyCodeBtn
     }
     
@@ -359,17 +375,29 @@ class LoginView: UIView {
     
     func smsCode(sender:UIButton) {
         if String.isValidateMobile(mobileTextField.text) || mobileTextField.text?.characters.count == 11 {
+//            self.showViewWithTage(3)
+//            self.timeDownLabel.timeCount = 60
+//            self.phoneLabel.text = "18363899723"
+//            checkLabelSms.labelTouch(nil)
+
             viewModel.senderSms(mobileTextField.text, success: { (dic) in
+                UITools.showMessageToView(self, message: "验证码已经发送请查收", autoHide: true)
                 self.showViewWithTage(3)
                 self.timeDownLabel.timeCount = 10
+                self.checkLabelSms.labelTouch(nil)
                 self.phoneLabel.text = self.mobileTextField.text
                 self.phoneLabel.updateConstraintsIfNeeded()
                 }, fail: { (dic) in
-                    
+                    let appDic = dic as NSDictionary
+                    self.shwoTools(appDic["msg"] as! String)
             })
         }else{
             UITools.showMessageToView(self, message: "手机号码不正确", autoHide: true)
         }
+    }
+    
+    func shwoTools(str:String){
+        UITools.showMessageToView(self, message: str, autoHide: true)
     }
     
     func setUpBackImageView(view:UIView){
@@ -394,7 +422,7 @@ class LoginView: UIView {
     }
     
     func setUpCheckLabel() -> PSWView{
-        checkLabel = PSWView(frame: CGRectZero, labelNum: 4, showPSW: true)
+        let checkLabel = PSWView(frame: CGRectZero, labelNum: 4, showPSW: true)
         checkLabel.delegate = self
         return checkLabel
     }
@@ -417,13 +445,23 @@ class LoginView: UIView {
     
     func showViewWithTage(tag:NSInteger){
         fontViewTag = tag
+        switch tag {
+        case 1:
+            checkLabel.labelTouch(nil)
+        case 2:
+            mobileTextField.becomeFirstResponder()
+        case 3:
+            checkLabelSms.labelTouch(nil)
+        default:
+            checkLabelSms.labelTouch(nil)
+        }
         loginView.bringSubviewToFront(loginView.viewWithTag(tag)!)
     }
     
     
     func applyCode(sender:UIButton){
-        self.dismissView()
         if self.applyCodeClouse != nil {
+            self.endEditing(true)
             self.applyCodeClouse()
         }
     }
@@ -436,17 +474,16 @@ class LoginView: UIView {
         if fontViewTag == 1 {
             codeLabel.text = "邀请码输入有误或已过期"
             codeLabel.textColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
-            checkLabel.changeLabelColor(false)
+            checkLabel.changeLabelColor(UIColor.init(hexString: MeProfileCollectViewItemSelect))
         }else{
+            checkLabelSms.changeLabelColor(UIColor.init(hexString: MeProfileCollectViewItemSelect))
             checkCodeCallBack.hidden = false
-            checkLabel.changeLabelColor(false)
         }
     }
     
     func checkCodeNomalColor(){
         codeLabel.text = "使用邀请码或登录已有账号"
-        codeLabel.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
-        checkLabel.changeLabelColor(true)
+        codeLabel.textColor = UIColor.init(hexString: HomeMeetNumberColor)
     }
     
     func checkCode(code:String) {
@@ -455,6 +492,7 @@ class LoginView: UIView {
         }else{
             viewModel.checkCode(code, success: { (dic) in
                 self.showViewWithTage(2)
+                self.applyCode = code
                 self.mobileTextField.becomeFirstResponder()
                 }, fail: { (dic) in
                   self.checkCodeTextColorChange()
@@ -465,8 +503,9 @@ class LoginView: UIView {
     }
     
     func proBtnPress(sender:UIButton) {
-        self.dismissView()
+//        self.dismissView()
         if self.protocolClouse != nil {
+            self.endEditing(true)
             self.protocolClouse()
         }
     }
@@ -475,10 +514,35 @@ class LoginView: UIView {
         if smsCode.characters.count != 4 {
             checkCodeCallBack.hidden = false
         }else{
+            
             viewModel.loginSms(mobile, code: smsCode, applyCode:applyCode, success: { (dic) in
                self.dismissView()
+                UserInfo.sharedInstance().uid = mobile
+                UserInfo.synchronizeWithDic(dic)
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isNewUser")
+                if self.newUserLoginClouse != nil{
+                    self.dismissView()
+                    self.newUserLoginClouse()
+                }
             }) { (dic) in
-                self.checkCodeCallBack.hidden = false
+                if ((dic as NSDictionary).objectForKey("error") as! String) == "oldUser" {
+                    self.viewModel.getUserInfo(mobile, success: { (dic) in
+                        UserInfo.sharedInstance().uid = mobile
+                        UserInfo.synchronizeWithDic(dic)
+                        UserInfo.sharedInstance().isFirstLogin = true
+                        if self.reloadMeViewClouse != nil{
+                            self.reloadMeViewClouse()
+                        }
+                        self.dismissView()
+                        }, fail: { (dic) in
+                            
+                        }, loadingString: { (msg) in
+                            
+                    })
+                }else{
+                    self.checkCodeTextColorChange()
+                    self.checkCodeCallBack.hidden = false
+                }
             }
         }
         
@@ -487,9 +551,15 @@ class LoginView: UIView {
 
 extension LoginView : DelegatePSW {
     func pwdNum(pwdNum: String!) {
-        if fontViewTag == 1{
+        if fontViewTag == 1 {
+            if pwdNum.characters.count == 4 {
+                self.checkCode(pwdNum)
+            }
             self.checkCodeNomalColor()
         }else{
+            if pwdNum.characters.count == 4 {
+                self.loginWithCode(phoneLabel.text!, smsCode: pwdNum, applyCode: applyCode)
+            }
             checkCodeCallBack.hidden = true
         }
     }
@@ -497,6 +567,11 @@ extension LoginView : DelegatePSW {
 
 extension LoginView : UITextFieldDelegate {
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+//        self.showViewWithTage(3)
+//        self.timeDownLabel.timeCount = 60
+//        self.phoneLabel.text = "18363899723"
+//        checkLabelSms.labelTouch(nil)
+//        self.phoneLabel.updateConstraintsIfNeeded()
         if String.isValidateMobile(textField.text) || textField.text?.characters.count == 11 {
             viewModel.senderSms(textField.text, success: { (dic) in
                 self.showViewWithTage(3)
@@ -504,8 +579,10 @@ extension LoginView : UITextFieldDelegate {
                 self.phoneLabel.text = textField.text
                 self.phoneLabel.updateConstraintsIfNeeded()
                 }, fail: { (dic) in
-                    
+                  self.shwoTools(dic["msg"] as! String)
             })
+        }else{
+            UITools.showMessageToView(self, message: "手机号码不正确", autoHide: true)
         }
         return true
     }

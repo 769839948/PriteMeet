@@ -25,8 +25,9 @@ class MeViewController: UIViewController {
     let newMeetInfoTableViewCell = "NewMeetInfoTableViewCell"
     
     var meetCellHeight:CGFloat = 159
-
-
+    
+    var loginView:LoginView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpTableView()
@@ -86,15 +87,11 @@ class MeViewController: UIViewController {
         if UserInfo.isLoggedIn() {
             self.navigationItemWithLineAndWihteColor()
         }
-
     }
     
     func setUpTableView(){
         tableView = UITableView(frame: CGRectZero, style: UITableViewStyle.Plain)
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
-        self.view.addSubview(tableView)
+        
         let meInfoNib = UINib(nibName: "MeInfoTableViewCell", bundle: nil) //nibName指的是我们创建的Cell文件名
         self.tableView.registerNib(meInfoNib, forCellReuseIdentifier: "MeInfoTableViewCell")
         let mePhotoNib = UINib(nibName: "MePhotoTableViewCell", bundle: nil) //nibName指的是我们创建的Cell文件名
@@ -102,6 +99,11 @@ class MeViewController: UIViewController {
         let mePhotoDetailNib = UINib(nibName: "PhotoDetailTableViewCell", bundle: nil) //nibName指的是我们创建的Cell文件名
         self.tableView.registerNib(mePhotoDetailNib, forCellReuseIdentifier: "PhotoDetailTableViewCell")
         self.tableView.registerClass(NewMeetInfoTableViewCell.self, forCellReuseIdentifier: newMeetInfoTableViewCell)
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
+        self.view.addSubview(tableView)
 
         tableView.snp_makeConstraints(closure: { (make) in
             make.top.equalTo(self.view.snp_top).offset(-64)
@@ -135,12 +137,15 @@ class MeViewController: UIViewController {
     func setNavigationBar(){
         if UserInfo.isLoggedIn() {
             UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
+//            self.removeNavigatioinBar()
+//            self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
             self.navigationItemCleanColorWithNotLine()
             self.setLeftBarItem()
         }else{
             UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
-            self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
-            self.navigationItemWhiteColorAndNotLine()
+//            self.createNavigationBar()
+//            self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
+            self.navigationItemCleanColorWithNotLine()
             self.setNavigationItemAplah(1, imageName: ["me_dismissBlack"], type: 1)
             self.setNavigationItemAplah(1, imageName: ["me_settingsBlack"], type: 2)
             
@@ -307,20 +312,45 @@ class MeViewController: UIViewController {
     }
     
     func presentViewLoginViewController(){
-        let loginView = LoginView(frame: CGRectMake(0,0,ScreenWidth,ScreenHeight))
+        loginView = LoginView(frame: CGRectMake(0,0,ScreenWidth,ScreenHeight))
         let windown = UIApplication.sharedApplication().keyWindow
         loginView.applyCodeClouse = { _ in
             let loginStory = UIStoryboard.init(name: "Login", bundle: nil)
             let applyCode = loginStory.instantiateViewControllerWithIdentifier("ApplyCodeViewController") as! ApplyCodeViewController
             applyCode.isApplyCode = true
+            applyCode.showToolsBlock = { _ in
+                UITools.showMessageToView(self.view, message: "申请成功，请耐心等待审核结果^_^", autoHide: true)
+                UserInfo.logout()
+            }
+            applyCode.loginViewBlock = { _ in
+                self.loginView.showViewWithTage(1)
+                UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
+            }
+            UIApplication.sharedApplication().keyWindow?.sendSubviewToBack(self.loginView)
             self.navigationController?.pushViewController(applyCode, animated: true)
         }
         
         loginView.protocolClouse = { _ in
             let settingStory = UIStoryboard.init(name: "Seting", bundle: nil)
             let userProtocol = settingStory.instantiateViewControllerWithIdentifier("UserProtocolViewController")  as! UserProtocolViewController
+            userProtocol.block = { _ in
+                self.loginView.mobileTextField.becomeFirstResponder()
+                UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
+            }
             self.navigationController?.pushViewController(userProtocol, animated: true)
+            UIApplication.sharedApplication().keyWindow?.sendSubviewToBack(self.loginView)
         }
+        
+        loginView.newUserLoginClouse = { _ in
+            let meStory = UIStoryboard.init(name: "Me", bundle: nil)
+            let baseUserInfo = meStory.instantiateViewControllerWithIdentifier("BaseInfoViewController")  as! BaseUserInfoViewController
+            self.navigationController?.pushViewController(baseUserInfo, animated: true)
+        }
+        
+        loginView.reloadMeViewClouse = { _ in
+            self.viewWillAppear(true)
+        }
+        
         windown!.addSubview(loginView)
 
 //        let meStoryBoard = UIStoryboard(name: "Login", bundle: NSBundle.mainBundle())
@@ -538,7 +568,6 @@ extension MeViewController : UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier(mePhotoTableViewCell, forIndexPath: indexPath) as! MePhotoTableViewCell
                 cell.configlogoutView()
                 cell.logoutBtn.addTarget(self, action: (#selector(MeViewController.presentViewLoginViewController)), forControlEvents: UIControlEvents.TouchUpInside)
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 return cell
             }else if indexPath.row == 1 {

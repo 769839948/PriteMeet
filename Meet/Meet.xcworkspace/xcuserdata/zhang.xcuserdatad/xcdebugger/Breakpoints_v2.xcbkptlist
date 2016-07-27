@@ -19,44 +19,44 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Meet/ViewModel/LoginViewModel.m"
-            timestampString = "491130412.986626"
+            filePath = "Meet/ViewControllers/Home/MeetDetailViewController.swift"
+            timestampString = "491300432.439823"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "-senderSms:success:Fail:"
+            startingLineNumber = "766"
+            endingLineNumber = "766"
+            landmarkName = "actionSheet(_:clickedButtonAtIndex:)"
             landmarkType = "5">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[LoginViewModel senderSms:success:Fail:]"
+                  symbolName = "Meet.MeetDetailViewController.actionSheet (__ObjC.UIActionSheet, clickedButtonAtIndex : Swift.Int) -&gt; ()"
                   moduleName = "Meet"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Downloads/PrivateMeet/Meet/Meet/ViewModel/LoginViewModel.m"
-                  timestampString = "491139008.392779"
+                  urlString = "file:///Users/zhang/Downloads/PrivateMeet/Meet/Meet/ViewControllers/Home/MeetDetailViewController.swift"
+                  timestampString = "491300483.282987"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "113"
-                  endingLineNumber = "113"
-                  offsetFromSymbolStart = "312">
+                  startingLineNumber = "766"
+                  endingLineNumber = "766"
+                  offsetFromSymbolStart = "1308">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__41-[LoginViewModel senderSms:success:Fail:]_block_invoke"
+                  symbolName = "Meet.MeetDetailViewController.actionSheet (__ObjC.UIActionSheet, clickedButtonAtIndex : Swift.Int) -&gt; ()"
                   moduleName = "Meet"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Downloads/PrivateMeet/Meet/Meet/ViewModel/LoginViewModel.m"
-                  timestampString = "491139008.392898"
+                  urlString = "file:///Users/zhang/Downloads/PrivateMeet/Meet/Meet/ViewControllers/Home/MeetDetailViewController.swift"
+                  timestampString = "491300483.283209"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "114"
-                  endingLineNumber = "114"
-                  offsetFromSymbolStart = "64">
+                  startingLineNumber = "766"
+                  endingLineNumber = "766"
+                  offsetFromSymbolStart = "1468">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -67,29 +67,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Meet/ViewModel/LoginViewModel.m"
-            timestampString = "491130422.341353"
+            filePath = "Meet/ViewControllers/Home/MeetDetailViewController.swift"
+            timestampString = "491300432.439823"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "-senderSms:success:Fail:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meet/ViewModel/LoginViewModel.m"
-            timestampString = "491130423.728879"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "-senderSms:success:Fail:"
+            startingLineNumber = "765"
+            endingLineNumber = "765"
+            landmarkName = "actionSheet(_:clickedButtonAtIndex:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

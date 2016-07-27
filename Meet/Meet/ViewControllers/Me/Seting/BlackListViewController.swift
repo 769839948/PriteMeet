@@ -44,6 +44,7 @@ class BlackListViewController: UIViewController {
     }
 
     func setUpBlackListData() {
+        self.blackList.removeAllObjects()
         viewModel.getBlackList({ (dic) in
             self.blackList = BlackListModel.mj_objectArrayWithKeyValuesArray(dic)
             self.collectionView.reloadData()
@@ -70,7 +71,7 @@ class BlackListViewController: UIViewController {
     
     func reportBtnPress(sender:UIButton){
         viewModel.deleteBlackList("\(sender.tag)", success: { (dic) in
-            
+            self.setUpBlackListData()
             }) { (dic) in
                 
         }

@@ -59,7 +59,7 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUpdateUser,userInfo.uid];
     [self putWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject);
+            successBlock(responseObject[@"data"]);
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(responseObject);
@@ -80,7 +80,7 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@",RequestAddEduExp,eduId];
     [self putWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject);
+            successBlock(responseObject[@"content"]);
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(responseObject);
@@ -100,7 +100,7 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/",RequestAddEduExp];
     [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject);
+            successBlock(responseObject[@"content"]);
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(responseObject);
@@ -123,7 +123,7 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@",RequestAddWorkExp,workId];
     [self putWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject);
+            successBlock(responseObject[@"content"]);
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(responseObject);
@@ -153,7 +153,7 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@/%@",RequestAddEduExp,eduId];
     [self deleteWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject);
+            successBlock(responseObject[@"content"]);
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(responseObject);
@@ -174,7 +174,7 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestAddWorkExp];
     [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject);
+            successBlock(responseObject[@"content"]);
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(responseObject);
@@ -189,7 +189,7 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestGetUserInfo,openId];
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject[@"data"]);
+            successBlock(responseObject[@"content"][@"data"]);
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(responseObject);
@@ -207,7 +207,7 @@
         QNUploadManager *upManager = [[QNUploadManager alloc] init];
         NSData *imageData = UIImageJPEGRepresentation(image, 1);
         NSString *timeNow = [self getTimeNow];
-        [upManager putData:imageData key:timeNow token:responseObject[@"token"] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+        [upManager putData:imageData key:timeNow token:responseObject[@"content"][@"token"] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             if (!isApplyCode) {
                 NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUploadUserPhoto,[UserInfo sharedInstance].uid];
                 NSDictionary *parameters = @{@"key":resp[@"key"],
@@ -239,7 +239,7 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestExtINfo,[UserInfo sharedInstance].uid];
     [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject);
+            successBlock(responseObject[@"content"]);
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(responseObject);
@@ -255,7 +255,7 @@
     
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock([responseObject objectForKey:@"data"]);
+            successBlock(responseObject[@"content"][@"data"]);
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(responseObject);
@@ -293,7 +293,7 @@
     
     [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject);
+            successBlock(responseObject[@"content"]);
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(responseObject);
@@ -308,7 +308,7 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestInviteInfo,[UserInfo sharedInstance].uid];
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock([responseObject objectForKey:@"data"]);
+            successBlock(responseObject[@"content"][@"data"]);
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(responseObject);
@@ -347,7 +347,7 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestLastUpdate,[UserInfo sharedInstance].uid];
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            lastBlock(responseObject[@"updated_at"]);
+            lastBlock(responseObject[@"content"][@"updated_at"]);
         }
     } failure:^(NSDictionary *responseObject) {
         failBock(responseObject);
@@ -362,7 +362,7 @@
     
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject[@"data"]);
+            successBlock(responseObject[@"content"][@"data"]);
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(responseObject);
@@ -433,7 +433,6 @@
                                              @"detail_id":moreProfileId
                                              };
                 [self putWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
-                    NSLog(@"%@",responseObject);
                 } failure:^(NSDictionary *responseObject) {
                     
                 }];
@@ -486,28 +485,33 @@
                 success:(Success)successBlock
                    fail:(Fail)faileBlock
 {
-    NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@%@",RequestBlackList,[UserInfo sharedInstance].uid]];
-    NSDictionary *parameters = @{@"black_user":otherUid};
-
-    [self.manager DELETE:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if ([responseObject[@"success"] boolValue]) {
-            successBlock(responseObject);
-        }else{
-            faileBlock(responseObject);
-        }
-
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        faileBlock(responseObject);
-    }];
-//    [self deleteWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
-//        if ([responseObject[@"success"] boolValue]) {
-//            successBlock(responseObject);
-//        }else{
-//            faileBlock(responseObject);
-//        }
-//    } failure:^(NSDictionary *responseObject) {
-//        faileBlock(responseObject);
-//    }];
+    NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@%@/black_user/%@",RequestBlackList,[UserInfo sharedInstance].uid,otherUid]];
+    NSDictionary *headers = @{ @"content-type": @"application/json",
+                               @"cache-control": @"no-cache",
+                               @"postman-token": @"9b594c43-9546-7dc8-caee-3fd1f345edd5" };
+    NSDictionary *parameters = @{ @"black_user": otherUid };
+    
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:10.0];
+    [request setHTTPMethod:@"DELETE"];
+    [request setAllHTTPHeaderFields:headers];
+    [request setHTTPBody:postData];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                    if (error) {
+                                                        faileBlock(@{@"error":@"error"});
+                                                        NSLog(@"%@", error);
+                                                    } else {
+                                                        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
+                                                        successBlock(responseDic[@"content"]);
+                                                    }
+                                                }];
+    [dataTask resume];
 }
 
 
@@ -517,7 +521,7 @@
     NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@%@",RequestBlackList,[UserInfo sharedInstance].uid]];
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([responseObject[@"success"] boolValue]) {
-            successBlock(responseObject[@"black_list"]);
+            successBlock(responseObject[@"content"][@"black_list"]);
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(responseObject);

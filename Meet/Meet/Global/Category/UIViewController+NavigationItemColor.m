@@ -82,7 +82,14 @@ static const void *NavigationBarView = &NavigationBarView;
     self.navigationBarView.backgroundColor = [UIColor whiteColor];
     self.navigationBarView.tag = 1000;
     [self.view addSubview:self.navigationBarView];
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithHexString:HomeDetailViewNameColor]];
+//    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+}
+
+- (void)removeNavigatioinBar
+{
+    self.navigationBarView = [self.view viewWithTag:1000];
+    [self.navigationBarView removeFromSuperview];
 }
 
 @end

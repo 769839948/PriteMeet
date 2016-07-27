@@ -19,8 +19,6 @@
 
 @property (nonatomic, strong)UITextField *numTextField;
 
-@property (nonatomic, assign) BOOL isRightCode;
-
 @property BOOL isShow;
 
 @end
@@ -48,14 +46,12 @@
     }
 }
 
-- (void)changeLabelColor:(BOOL)isRightCode
+- (void)changeLabelColor:(UIColor *)textColor
 {
-//    if (!isRightCode) {
-//        self.isRightCode = NO;
-////        [self textFieldChange:nil];
-//    }else{
-//        self.isRightCode = YES;
-//    }
+    for (NSInteger i = 0; i < self.labelMArr.count; i ++ ) {
+        UILabel *label = self.labelMArr[i];
+        label.textColor = textColor;
+    }
 }
 
 - (NSMutableArray *)labelMArr
@@ -114,11 +110,6 @@
         } else {
             label.text = @"";
         }
-//        if (!self.isRightCode) {
-//            label.textColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
-//        }else{
-//            label.textColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
-//        }
     }
     if (self.numTextField.text.length > 4) {
         self.numTextField.text = [self.numTextField.text substringToIndex:4];
@@ -126,6 +117,7 @@
     if ([self.delegate respondsToSelector:@selector(pwdNum:)]) {
         [self.delegate pwdNum:(self.numTextField.text)];
     }
+    [self changeLabelColor:[UIColor colorWithHexString:HomeDetailViewNameColor]];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -133,6 +125,11 @@
     if (self.keyBoardPressBlock){
         self.keyBoardPressBlock(textField.text);
     }
+    
+    if (textField.text.length < 4) {
+        [self changeLabelColor:[UIColor colorWithHexString:MeProfileCollectViewItemSelect]];
+    }
+    
     return YES;
 }
 

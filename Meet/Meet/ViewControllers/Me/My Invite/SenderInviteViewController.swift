@@ -62,7 +62,6 @@ class SenderInviteViewController: UIViewController {
     func setNavigationBar(){
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(SenderInviteViewController.sendreInvite))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
-        self.createNavigationBar()
 //        self.navigationItemWithLineAndWihteColor()
     }
     
@@ -81,9 +80,7 @@ class SenderInviteViewController: UIViewController {
         }
         viewModel.uploadInvite(textView.text, themeArray: arrayItems as [AnyObject], isActive: ret,success: { (dic) in
             if self.isNewLogin {
-                self.dismissViewControllerAnimated(true, completion: {
-                    
-                })
+                self.navigationController?.popToRootViewControllerAnimated(true)
             }else{
                 if !UserInviteModel.shareInstance().results[0].is_active {
                     UserInviteModel.shareInstance().results[0].is_active = true
@@ -96,6 +93,10 @@ class SenderInviteViewController: UIViewController {
             
         }
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.createNavigationBar()
     }
     
     func setUpTableView(){

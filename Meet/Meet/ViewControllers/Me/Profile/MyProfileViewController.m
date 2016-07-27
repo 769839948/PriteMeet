@@ -138,10 +138,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
     _jobLabelArray = [[NSMutableArray alloc] init];
     [self loadLastUpdate];
     [self setUpTableView];
-    if (!self.isApplyCode) {
-        [self createNavigationBar];
-    }
-    [self setNavigationBarItem];
 //    [self navigationItemWithLineAndWihteColor];
 }
 
@@ -164,7 +160,8 @@ typedef NS_ENUM(NSUInteger, RowType) {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
+    [self createNavigationBar];
+    [self setNavigationBarItem];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -179,7 +176,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
 {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveAction:)];
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithHexString:NavigationBarTintColorCustome]];
-                                        
 }
 
 
@@ -1160,19 +1156,27 @@ typedef NS_ENUM(NSUInteger, RowType) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0 || indexPath.section == 1) {
-        if (indexPath.section == 0 && indexPath.row != RowPhoneNumber) {
+        if ((indexPath.section == 0 && indexPath.row != RowPhoneNumber)|| indexPath.section == 1) {
             CGRect rectInTableView = [tableView rectForRowAtIndexPath:indexPath];
             float height = [[UIScreen mainScreen] bounds].size.height - rectInTableView.origin.y;
             if (iPhone6Plus){
                 if (height > 330) {
                 }else{
-                    insterHeight = 309 - height;
+                    if (_isBaseView || _isApplyCode) {
+                        insterHeight = 372 - height;
+                    }else{
+                        insterHeight = 309 - height;
+                    }
                     [tableView setContentOffset:CGPointMake(0, insterHeight) animated:YES];
                 }
             }else{
                 if (height > 330) {
                 }else{
-                    insterHeight = 309 - height;
+                    if (_isBaseView || _isApplyCode) {
+                        insterHeight = 372 - height;
+                    }else{
+                        insterHeight = 309 - height;
+                    }
                     [tableView setContentOffset:CGPointMake(0, insterHeight) animated:YES];
                     
                 }
