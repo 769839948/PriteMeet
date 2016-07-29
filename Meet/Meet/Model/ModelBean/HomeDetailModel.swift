@@ -11,31 +11,13 @@ import UIKit
 class User_Info: NSObject {
     
     
-    var detail: [Details]?
+    var detail: [Detail]?
     
     var user_id: Int = 0
     
     var highlight: String?
     
     var auth_info: String?
-    
-}
-
-class Photos: NSObject {
-    
-    var photo: String?
-    var id: Int = 0
-}
-
-class Details: NSObject {
-    
-    var id: Int = 0
-    
-    var content: String?
-    
-    var title: String?
-    
-    var photos: [Photos]?
     
 }
 
@@ -49,23 +31,11 @@ class Engagement: NSObject {
     
     var introduction_other: String?
     
-    var theme: [Themes]?
+    var theme: [Theme]?
     
     var user_id: Int = 0
     
 }
-
-class Themes: NSObject {
-    
-    var id: Int = 0
-    
-    var price: Int = 0
-    
-    var theme: String?
-    
-}
-
-
 
 
 class HomeDetailModel: NSObject {

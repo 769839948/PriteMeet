@@ -17,9 +17,11 @@
     [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        successBlock(responseObject);
+        if ([responseObject[@"success"] boolValue]) {
+            successBlock(responseObject[@"content"]);
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failBlock(@{@"":@""});
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 

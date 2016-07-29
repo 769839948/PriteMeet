@@ -74,7 +74,7 @@
     
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock([responseObject objectForKey:@"results"]);
+            successBlock(responseObject[@"content"][@"data"]);
         }else{
             failBlock(responseObject);
         }
@@ -97,7 +97,7 @@
     }
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock([responseObject objectForKey:@"data"]);
+            successBlock(responseObject[@"content"][@"data"]);
         }else{
             failBlock(responseObject);
         }
@@ -116,7 +116,7 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestGetOtherInfoProfile,userId];
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock([responseObject objectForKey:@"data"]);
+            successBlock([responseObject objectForKey:@"content"][@"data"]);
         }else{
             failBlock(responseObject);
         }
@@ -132,7 +132,7 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestGetDicMap];
     
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
-        successBlock(responseObject);
+        successBlock(responseObject[@"content"][@"data"]);
     } failure:^(NSDictionary *responseObject) {
         failBlock(@{@"error":@"网络错误"});
     }];

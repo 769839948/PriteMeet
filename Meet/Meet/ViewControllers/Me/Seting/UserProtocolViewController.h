@@ -8,8 +8,10 @@
 
 #import "MeetBaseViewController.h"
 
+typedef void(^LoginViewShow)();
+
 @interface UserProtocolViewController : MeetBaseViewController
 
-- (void)setUpNavigationBar;
+@property (nonatomic, strong) LoginViewShow block;
 
 @end

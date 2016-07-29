@@ -47,7 +47,7 @@
         cell.isSelect = YES;
     }else{
         cell.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemUnSelect];
-        cell.titleLabel.textColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
+        cell.titleLabel.textColor = [UIColor colorWithHexString:MeProfileCollectViewItemUnSelectColor];
         [self.selectItems replaceObjectAtIndex:indexPath.row withObject:@"false"];
         cell.isSelect = NO;
     }

@@ -13,7 +13,7 @@
  *  后台请求数据URL存放处
  */
 //微信登陆后发送微信信息给后台服务器
-#define  RequestBaseUrl              @"http://test.momeet.cn"   //http://django.senzapps.cc/
+#define  RequestBaseUrl              @"http://momeet.cn"   //http://django.senzapps.cc/
 #define  RequestCreateUser           @"/api/user/signup/"
 #define  RequestCheckUser            @"/api/user/check/"
 #define  RequestCheckCodeBindUser    @"/api/code/is_bound_user/"
@@ -27,6 +27,7 @@
 #define  RequestGetBlackList         @"/api/black_list/"
 #define  RequestReport               @"/api/report_user"
 #define  RequestGetSmsCoe            @"/api/send_sms"
+#define  RequsetMobileLogin          @"/api/user/login/"
 
 #define  RequestUploadMoreProfile    @"/api/user_detail/"
 #define  RequestUploadCoverPhoto     @"/api/user_cover_photo/"

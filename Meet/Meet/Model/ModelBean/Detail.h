@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class Photos;
+#import "Photos.h"
 
 @interface Detail : NSObject
 

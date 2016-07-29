@@ -31,21 +31,27 @@
     _worke_exps = [[NSMutableArray alloc] init];
     _edu_exps = [[NSMutableArray alloc] init];
 //    self.isBaseView = YES;
+    [self.navigationController.navigationBar setTranslucent:YES];
     [self navigationItemWithLineAndWihteColor];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    [UserInfo logout];
 }
 
 - (void)setNavigationBarItem
 {
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigationbar_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonPress:)];
     UIBarButtonItem *rightBtItem = [[UIBarButtonItem alloc] initWithTitle:@"提交" style:UIBarButtonItemStylePlain target:self action:@selector(applyCodePress:)];
     [rightBtItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:HomeDetailViewNameColor],NSFontAttributeName:NavigationBarRightItemFont} forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = rightBtItem;
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor colorWithHexString:HomeDetailViewNameColor]];
+}
+
+- (void)leftBarButtonPress:(UIBarButtonItem *)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    [UserInfo logout];
+    if (self.loginViewBlock) {
+        self.loginViewBlock();
+    }
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"ApplyCodeAvatar"];
 }
 
 - (void)applyCodePress:(UIBarButtonItem *)sender
@@ -54,8 +60,10 @@
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] != nil && ![[UserInfo sharedInstance].job_label isEqualToString:@""] && ![[UserInfo sharedInstance].mobile_num isEqualToString:@""] && ![[UserInfo sharedInstance].location isEqualToString:@"0,0"]) {
         __weak typeof(self) weakSelf = self;
         [_loginViewModel applyCode:[UserInfo sharedInstance] workArray:_worke_exps eduArray:_edu_exps Success:^(NSDictionary *object) {
-            if (weakSelf.block) {
-                weakSelf.block();
+            [UserInfo logout];
+            weakSelf.complyApplyCodeSuccess = YES;
+            if (weakSelf.showToolsBlock) {
+                weakSelf.showToolsBlock();
             }
             [weakSelf.navigationController popViewControllerAnimated:YES];
         } Fail:^(NSDictionary *object) {

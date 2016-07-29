@@ -26,4 +26,6 @@
 
 - (void)addLineNavigationBottom;
 
+- (void)removeNavigatioinBar;
+
 @end

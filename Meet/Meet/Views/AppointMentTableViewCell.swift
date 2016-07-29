@@ -19,7 +19,7 @@ class AppointMentTableViewCell: UITableViewCell {
 
         
     func setData(model: OrderModel) {
-        appointmentType.text = model.appointment_theme[0] as! String
+        appointmentType.text = model.appointment_theme[0] as? String
         appointmentIntroduce.text = model.appointment_desc
     }
     

@@ -85,7 +85,7 @@ class SplashView: UIView {
         
         logonLabel = UILabel.init()
         logonLabel.text = "© 2016 MEET. ALL RIGHTS RESERVED."
-        logonLabel.font = UIFont.init(name: "PingFangSC-Regular", size: 10.0)
+        logonLabel.font = SpashViewFont
         self.addSubview(logonLabel)
         logonLabel.snp_makeConstraints { (make) in
             make.centerX.equalTo(self.snp_centerX).offset(0)

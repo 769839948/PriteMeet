@@ -17,8 +17,8 @@ func meetHeight(meetString:String, instrestArray:NSArray) -> CGFloat
         instresTitleString = instresTitleString.stringByAppendingString("    ")
     }
     
-    let instrestHeight = instresTitleString.heightWithFont(UIFont.init(name: "PingFangTC-Light", size: 23.0), constrainedToWidth: UIScreen.mainScreen().bounds.size.width - 40) + 10
-    let titleHeight = meetString.heightWithFont(UIFont.init(name: "PingFangTC-Light", size: 14.0), constrainedToWidth: UIScreen.mainScreen().bounds.size.width - 38)
+    let instrestHeight = instresTitleString.heightWithFont(MeetDetailInterFont, constrainedToWidth: UIScreen.mainScreen().bounds.size.width - 40) + 10
+    let titleHeight = meetString.heightWithFont(LoginCodeLabelFont, constrainedToWidth: UIScreen.mainScreen().bounds.size.width - 38)
     return titleHeight + instrestHeight + 60
 }
 
@@ -49,6 +49,9 @@ class MeetDetailViewController: UIViewController {
     var images = NSMutableArray()
     let userInfoViewModel = UserInfoViewModel()
     
+    var actionSheetSelect:NSInteger! = 0
+    
+    var loginView:LoginView!
     
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
@@ -60,6 +63,7 @@ class MeetDetailViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.setUpNavigationBar()
+        self.navigationController?.navigationBar.translucent = false;
     }
     
     func setUpTableView() {
@@ -93,7 +97,7 @@ class MeetDetailViewController: UIViewController {
         label.text = "立即约见"
         label.textAlignment = NSTextAlignment.Center
         label.textColor = UIColor.init(hexString: "FFFFFF")
-        label.font = UIFont.init(name: "PingFangSC-Semibold", size: 15)
+        label.font = MeetDetailImmitdtFont
         self.bottomView.addSubview(label)
         self.view.addSubview(self.bottomView)
     }
@@ -168,10 +172,12 @@ class MeetDetailViewController: UIViewController {
             
         }
         let reportAction = UIAlertAction(title: "投诉", style: .Default) { (reportAction) in
+            self.actionSheetSelect = 1
             self.reportAction()
         }
         
         let blackListAction = UIAlertAction(title: "加入黑名单", style: .Destructive) { (blackList) in
+            self.actionSheetSelect = 2
             self.blackListAction()
         }
         
@@ -221,11 +227,54 @@ class MeetDetailViewController: UIViewController {
     }
     
     func presentLoginView(){
-        let meStoryBoard = UIStoryboard(name: "Login", bundle: NSBundle.mainBundle())
-        let resgisterVc = meStoryBoard.instantiateViewControllerWithIdentifier("weChatResgisterNavigation")
-        self.presentViewController(resgisterVc, animated: true, completion: {
-            
-        });
+        loginView = LoginView(frame: CGRectMake(0,0,ScreenWidth,ScreenHeight))
+        let windown = UIApplication.sharedApplication().keyWindow
+        windown!.addSubview(loginView)
+        loginView.applyCodeClouse = { _ in
+            let loginStory = UIStoryboard.init(name: "Login", bundle: nil)
+            let applyCode = loginStory.instantiateViewControllerWithIdentifier("ApplyCodeViewController") as! ApplyCodeViewController
+            applyCode.isApplyCode = true
+            applyCode.showToolsBlock = { _ in
+                UITools.showMessageToView(self.view, message: "申请成功，请耐心等待审核结果^_^", autoHide: true)
+                self.loginView.removeFromSuperview()
+                UserInfo.logout()
+            }
+            applyCode.loginViewBlock = { _ in
+                self.loginView.showViewWithTage(1)
+                UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
+            }
+            UIApplication.sharedApplication().keyWindow?.sendSubviewToBack(self.loginView)
+            self.navigationController?.pushViewController(applyCode, animated: true)
+        }
+        
+        loginView.protocolClouse = { _ in
+            let settingStory = UIStoryboard.init(name: "Seting", bundle: nil)
+            let userProtocol = settingStory.instantiateViewControllerWithIdentifier("UserProtocolViewController")  as! UserProtocolViewController
+            userProtocol.block = { _ in
+                self.loginView.mobileTextField.becomeFirstResponder()
+                UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
+            }
+            self.navigationController?.pushViewController(userProtocol, animated: true)
+            UIApplication.sharedApplication().keyWindow?.sendSubviewToBack(self.loginView)
+        }
+        
+        loginView.newUserLoginClouse = { _ in
+            let meStory = UIStoryboard.init(name: "Me", bundle: nil)
+            let baseUserInfo = meStory.instantiateViewControllerWithIdentifier("BaseInfoViewController")  as! BaseUserInfoViewController
+            baseUserInfo.user_id = self.user_id
+            baseUserInfo.isDetailViewLogin = true
+            baseUserInfo.detailViweActionSheetSelect = self.actionSheetSelect
+            self.navigationController?.pushViewController(baseUserInfo, animated: true)
+        }
+        
+        loginView.loginWithDetailClouse = { _ in
+            if self.actionSheetSelect == 1 {
+                self.reportAction()
+            }else{
+                self.blackListAction()
+            }
+        }
+        
     }
     
     func getHomeDetailModel(){
@@ -257,7 +306,8 @@ class MeetDetailViewController: UIViewController {
             let details = self.otherUserModel.user_info!.detail
             let dtailArray = Detail.mj_objectArrayWithKeyValuesArray(details)
             for detailModel in dtailArray {
-                let photos = (detailModel as! Details).photos
+                
+                let photos = (detailModel as! Detail).photo
                 let photosModel = Photos.mj_objectArrayWithKeyValuesArray(photos)
                 for model in photosModel {
                     if model.photo != "" {
@@ -329,7 +379,7 @@ class MeetDetailViewController: UIViewController {
         for item in stringArray {
             let string = item as! String
             if string != "" {
-                height = height + item.heightWithFont(UIFont.init(name: "PingFangTC-Light", size: 14.0), constrainedToWidth: UIScreen.mainScreen().bounds.size.width - 38) + 10
+                height = height + item.heightWithFont(LoginCodeLabelFont, constrainedToWidth: UIScreen.mainScreen().bounds.size.width - 38) + 10
             }
         }
         

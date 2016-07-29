@@ -70,7 +70,9 @@
     
     [self.manager PUT:URLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
-            success(responseObject);
+            success(@{@"success":@YES,@"data":responseObject[@"content"]});
+        }else{
+            failure(@{@"success":@NO,@"data":responseObject[@"content"]});
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failure) {
@@ -83,12 +85,15 @@
 - (void)deleteWithURLString:(NSString *)URLString
                  parameters:(id)parameters
                     success:(Success)success
-                    failure:(Fail)failure{
+                    failure:(Fail)failure
+{
+    self.manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     [self.manager DELETE:URLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
             success(responseObject);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@",error);
         if (failure) {
             failure(@{@"error":error});
         }
@@ -107,7 +112,9 @@
         {
             [self.manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 if (success) {
-                    success(responseObject);
+                    success(responseObject[@"content"]);
+                }else{
+                    failure(@{@"error":@"服务器加载出错"});
                 }
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 if (failure) {
@@ -120,7 +127,9 @@
         {
             [self.manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 if (success) {
-                    success(responseObject);
+                    success(responseObject[@"content"]);
+                }else{
+                    failure(@{@"error":@"服务器加载出错"});
                 }
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 if (failure) {
@@ -143,7 +152,9 @@
         [formData appendPartWithFileData:uploadParam.data name:uploadParam.name fileName:uploadParam.filename mimeType:uploadParam.mimeType];
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
-            success(responseObject);
+            success(responseObject[@"content"]);
+        }else{
+            failure(@{@"error":@"服务器加载出错"});
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failure) {

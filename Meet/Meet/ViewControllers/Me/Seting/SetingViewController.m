@@ -54,13 +54,8 @@ typedef NS_ENUM(NSUInteger, RowType) {
     [self getServiceData];
     _tableView.rowHeight = 49;
     [self hideExcessLine:_tableView];
-    [self navigationItemWithLineAndWihteColor];
+//    [self navigationItemWithLineAndWihteColor];
 
-}
-
-- (void)setUpNavigationBar
-{
-    [self createNavigationBar];
 }
 
 - (void)getServiceData
@@ -77,7 +72,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    [self navigationItemWithLineAndWihteColor];
+    [self createNavigationBar];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -90,7 +85,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.navigationController.navigationBar setTranslucent:YES];
+//    [self.navigationController.navigationBar setTranslucent:YES];
 }
 
 #pragma mark - UITableViewDataSource
@@ -123,7 +118,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     if (indexPath.row == RowLogOut) {
         UILabel *logOut = [[UILabel alloc] initWithFrame:CGRectMake(15, 54, 56, 20)];
         logOut.text = _contentArray[indexPath.row];
-        logOut.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14.0];
+        logOut.font = MeetSectionTitleNameFont;
         logOut.textColor = [UIColor colorWithHexString:TableViewTextColor];
         [cell.contentView addSubview:logOut];
     }else{
@@ -188,9 +183,11 @@ typedef NS_ENUM(NSUInteger, RowType) {
             [[UITools shareInstance] showMessageToView:self.view message:@"请先设置邮箱帐号" autoHide:YES];
             return;
         }
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(ScreenWidth, 64)] forBarMetrics:UIBarMetricsDefault];
         MFMailComposeViewController* composeVC = [[MFMailComposeViewController alloc] init];
         composeVC.navigationController.navigationBar.tintColor = [UIColor whiteColor];
         composeVC.mailComposeDelegate = self;
+        [composeVC.navigationController.navigationBar setTintColor:[UIColor colorWithHexString:HomeViewDetailNameFont]];
         // Configure the fields of the interface.、/////@"feedback@momeet.com"
         //Email
         NSString *email = @"769839948@qq.com";

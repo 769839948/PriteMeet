@@ -11,6 +11,8 @@ import MJExtension
 import IQKeyboardManager
 import FDFullscreenPopGesture
 
+typealias BlackListClouse = () -> Void
+
 class SenderInviteViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -21,6 +23,13 @@ class SenderInviteViewController: UIViewController {
     var selectItems = NSMutableArray()
     var textView:UITextView!
     var cell:InviteItemsTableViewCell!
+    
+    var isDetailViewLogin:Bool = false
+    var detailViewActionSheetSelect:NSInteger = 0
+    var user_id:String! = ""
+    
+    var blackListClouse:BlackListClouse!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +71,6 @@ class SenderInviteViewController: UIViewController {
     func setNavigationBar(){
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(SenderInviteViewController.sendreInvite))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
-        self.createNavigationBar()
 //        self.navigationItemWithLineAndWihteColor()
     }
     
@@ -80,10 +88,20 @@ class SenderInviteViewController: UIViewController {
             ret = UserInviteModel.shareInstance().results[0].is_active
         }
         viewModel.uploadInvite(textView.text, themeArray: arrayItems as [AnyObject], isActive: ret,success: { (dic) in
-            if self.isNewLogin {
-                self.dismissViewControllerAnimated(true, completion: {
-                    
-                })
+            if self.isDetailViewLogin {
+                if self.detailViewActionSheetSelect == 1 {
+                    let reportVC = ReportViewController()
+                    reportVC.uid = self.user_id
+                    reportVC.myClouse = { _ in
+                        UITools.showMessageToView(self.view, message: "投诉成功", autoHide: true)
+                    }
+                    self.navigationController?.pushViewController(reportVC, animated: true)
+                }else{
+                    let viewControllers:NSArray = (self.navigationController?.viewControllers)!
+                    self.navigationController?.pushViewController(viewControllers.objectAtIndex(1) as! UIViewController, animated: true)
+                }
+            }else if self.isNewLogin {
+                self.navigationController?.popToRootViewControllerAnimated(true)
             }else{
                 if !UserInviteModel.shareInstance().results[0].is_active {
                     UserInviteModel.shareInstance().results[0].is_active = true
@@ -96,6 +114,10 @@ class SenderInviteViewController: UIViewController {
             
         }
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.createNavigationBar()
     }
     
     func setUpTableView(){
@@ -234,7 +256,7 @@ extension SenderInviteViewController : UITableViewDataSource {
                 
                 textView.tintColor = UIColor.blackColor()
                 textView.delegate = self
-                textView.font = UIFont.init(name: "PingFangSC-Light", size: 14.0)
+                textView.font = LoginCodeLabelFont
                 cell?.contentView.addSubview(textView)
                 textView.snp_makeConstraints(closure: { (make) in
                     make.top.equalTo((cell?.contentView.snp_top)!).offset(0)

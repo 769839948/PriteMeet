@@ -113,6 +113,7 @@
 		1FAA08541D45F3F50017F3E3 /* TimeDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA08521D45F3F50017F3E3 /* TimeDownView.swift */; };
 		1FAA08571D45FE700017F3E3 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA08561D45FE700017F3E3 /* Theme.m */; };
 		1FAA085A1D45FEE20017F3E3 /* Detail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA08591D45FEE20017F3E3 /* Detail.m */; };
+		1FAA085D1D4703A00017F3E3 /* Photos.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA085C1D4703A00017F3E3 /* Photos.m */; };
 		1FBAE3221D25153900D7D039 /* ProfileSectionTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBAE3201D25153900D7D039 /* ProfileSectionTitleTableViewCell.swift */; };
 		1FBAE3231D25153900D7D039 /* ProfileSectionTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBAE3211D25153900D7D039 /* ProfileSectionTitleTableViewCell.xib */; };
 		1FBAE32A1D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBAE3281D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift */; };
@@ -410,6 +411,8 @@
 		1FAA08561D45FE700017F3E3 /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
 		1FAA08581D45FEE20017F3E3 /* Detail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Detail.h; sourceTree = "<group>"; };
 		1FAA08591D45FEE20017F3E3 /* Detail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Detail.m; sourceTree = "<group>"; };
+		1FAA085B1D4703A00017F3E3 /* Photos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photos.h; sourceTree = "<group>"; };
+		1FAA085C1D4703A00017F3E3 /* Photos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photos.m; sourceTree = "<group>"; };
 		1FBAE3201D25153900D7D039 /* ProfileSectionTitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSectionTitleTableViewCell.swift; sourceTree = "<group>"; };
 		1FBAE3211D25153900D7D039 /* ProfileSectionTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileSectionTitleTableViewCell.xib; sourceTree = "<group>"; };
 		1FBAE3281D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkeAndEduTableViewCell.swift; sourceTree = "<group>"; };
@@ -1349,6 +1352,8 @@
 				1F1FB4871D0FFBAE00794881 /* UserInviteModel.m */,
 				1FAA08551D45FE700017F3E3 /* Theme.h */,
 				1FAA08561D45FE700017F3E3 /* Theme.m */,
+				1FAA085B1D4703A00017F3E3 /* Photos.h */,
+				1FAA085C1D4703A00017F3E3 /* Photos.m */,
 				1F293D6A1D1175090063A9DA /* HomeModel.h */,
 				1F293D6B1D1175090063A9DA /* HomeModel.m */,
 				1F293D7B1D1266850063A9DA /* HomeDetailModel.swift */,
@@ -1780,6 +1785,7 @@
 				DAF5C8871CE5B95000DA7901 /* CTFrameParserConfig.m in Sources */,
 				1F9E931D1D0E4993003ED7AF /* UIImage+PureColor.m in Sources */,
 				1F2DA9BB1D394B0B0008C434 /* WeiboModel.m in Sources */,
+				1FAA085D1D4703A00017F3E3 /* Photos.m in Sources */,
 				DAF5C8911CE5C0EE00DA7901 /* MyDisplayViewController.m in Sources */,
 				DA6CEF0F1CDAF33300EEABFF /* MoreProfileViewController.m in Sources */,
 				1F293D691D1166490063A9DA /* HomeViewModel.m in Sources */,

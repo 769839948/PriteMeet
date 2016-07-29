@@ -22,6 +22,7 @@ class BlackListViewController: UIViewController {
         self.title = "黑名单"
         self.setUpBlackListData()
         self.setNavigationItemBack()
+        self.createNavigationBar()
         // Do any additional setup after loading the view.
     }
     
@@ -38,12 +39,13 @@ class BlackListViewController: UIViewController {
         collectionView.snp_makeConstraints { (make) in
             make.left.equalTo(self.view.snp_left).offset(0)
             make.right.equalTo(self.view.snp_right).offset(0)
-            make.top.equalTo(self.view.snp_top).offset(64)
+            make.top.equalTo(self.view.snp_top).offset(0)
             make.bottom.equalTo(self.view.snp_bottom).offset(0)
         }
     }
 
     func setUpBlackListData() {
+        self.blackList.removeAllObjects()
         viewModel.getBlackList({ (dic) in
             self.blackList = BlackListModel.mj_objectArrayWithKeyValuesArray(dic)
             self.collectionView.reloadData()
@@ -70,7 +72,7 @@ class BlackListViewController: UIViewController {
     
     func reportBtnPress(sender:UIButton){
         viewModel.deleteBlackList("\(sender.tag)", success: { (dic) in
-            
+            self.setUpBlackListData()
             }) { (dic) in
                 
         }
