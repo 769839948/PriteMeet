@@ -61,6 +61,8 @@ typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 
 @property (nonatomic, assign) BOOL isCreateNavigationBar;
 
+@property (nonatomic, assign) BOOL complyApplyCodeSuccess;
+
 
 - (void)mappingUserInfoWithDicValues;
 

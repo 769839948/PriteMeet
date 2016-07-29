@@ -166,7 +166,7 @@ extension ApplyMeetViewController : UITableViewDataSource {
                 textView = UITextView()
                 textView.placeholder = self.plachString
                 textView.tintColor = UIColor.blackColor()
-                textView.font = UIFont.init(name: "PingFangSC-Light", size: 14.0)
+                textView.font = ApplyControllerTextFont
                 cell?.contentView.addSubview(textView)
                 textView.snp_makeConstraints(closure: { (make) in
                     make.top.equalTo((cell?.contentView.snp_top)!).offset(0)

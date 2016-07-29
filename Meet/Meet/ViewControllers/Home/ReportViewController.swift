@@ -25,10 +25,10 @@ class ReportViewController: UIViewController {
         self.title = "投诉原因"
         reportArray = NSMutableArray(array: ["色情低俗","广告骚扰","政治敏感","欺诈骗钱","违法（暴力恐怖、违禁品等）","侵权（抄袭、盗用等）"], copyItems: true)
         selectIndexPaths = NSMutableArray(array: [false,false,false,false,false,false], copyItems: true)
-        self.setNavigationItemBack()
         self.navigationItem.rightBarButtonItem  = UIBarButtonItem(title: "提交", style: .Plain, target: self, action: #selector(ReportViewController.reportBtnPress(_:)))
         self.navigationController?.navigationBar.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
         self.setUpTableView()
+        self.setUpNavigationItem()
         // Do any additional setup after loading the view.
     }
 
@@ -47,6 +47,15 @@ class ReportViewController: UIViewController {
         }
     }
     
+    func setUpNavigationItem(){
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "navigationbar_back")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(ReportViewController.leftItemPress))
+    }
+    
+    func leftItemPress(){
+        let viewControllers:NSArray = (self.navigationController?.viewControllers)!
+        self.navigationController?.popToViewController(viewControllers.objectAtIndex(1) as! UIViewController, animated: true)
+    }
+    
     func reportBtnPress(sender:UIBarButtonItem) {
         var reportString = ""
         for index in 0...reportArray.count - 1 {
@@ -59,7 +68,7 @@ class ReportViewController: UIViewController {
             if self.myClouse != nil{
                 self.myClouse()
             }
-            self.navigationController?.popViewControllerAnimated(true)
+            self.leftItemPress()
             }) { (dic) in
             UITools.showMessageToView(self.view, message: "投诉失败", autoHide: true)
         }
@@ -88,9 +97,16 @@ extension ReportViewController : UITableViewDelegate {
         if  selectIndexPaths[indexPath.row] as! Bool{
             selectIndexPaths[indexPath.row] = false
         }else{
-            selectIndexPaths[indexPath.row] = true
+            for index in 0...selectIndexPaths.count - 1 {
+                if index == indexPath.row {
+                    selectIndexPaths[index] = true
+                }else{
+                    selectIndexPaths[index] = false
+                }
+            }
+            
         }
-        self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: indexPath.row, inSection: indexPath.section)], withRowAnimation: .Automatic)
+        self.tableView.reloadData()
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 50
@@ -110,6 +126,10 @@ extension ReportViewController : UITableViewDataSource {
         var cell = tableView.dequeueReusableCellWithIdentifier(cellIdf)
         if  cell == nil {
             cell = UITableViewCell.init(style: .Default, reuseIdentifier: cellIdf)
+        }else{
+            while cell?.contentView.subviews.last != nil {
+                cell?.contentView.subviews.last?.removeFromSuperview()
+            }
         }
         let checkImage = UIImageView()
         checkImage.image = UIImage.init(named: "report_select")
@@ -132,7 +152,7 @@ extension ReportViewController : UITableViewDataSource {
             make.height.equalTo(0.5)
         }
         cell?.textLabel?.text = reportArray[indexPath.row] as? String
-        cell?.textLabel?.font = UIFont.init(name: "PingFangSC-Light", size: 14.0)
+        cell?.textLabel?.font = LoginCodeLabelFont
         cell?.selectionStyle = .None
         return cell!
     }

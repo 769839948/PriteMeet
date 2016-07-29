@@ -17,7 +17,6 @@
 
 @property (nonatomic, copy) NSMutableArray *worke_exps;
 @property (nonatomic, copy) NSMutableArray *edu_exps;
-@property (nonatomic, assign) BOOL complyApplyCodeSuccess;
 
 @end
 
@@ -32,24 +31,27 @@
     _worke_exps = [[NSMutableArray alloc] init];
     _edu_exps = [[NSMutableArray alloc] init];
 //    self.isBaseView = YES;
+    [self.navigationController.navigationBar setTranslucent:YES];
     [self navigationItemWithLineAndWihteColor];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    if (self.loginViewBlock && !_complyApplyCodeSuccess) {
-        self.loginViewBlock();
-    }
-    [UserInfo logout];
 }
 
 - (void)setNavigationBarItem
 {
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigationbar_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonPress:)];
     UIBarButtonItem *rightBtItem = [[UIBarButtonItem alloc] initWithTitle:@"提交" style:UIBarButtonItemStylePlain target:self action:@selector(applyCodePress:)];
     [rightBtItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:HomeDetailViewNameColor],NSFontAttributeName:NavigationBarRightItemFont} forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = rightBtItem;
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor colorWithHexString:HomeDetailViewNameColor]];
+}
+
+- (void)leftBarButtonPress:(UIBarButtonItem *)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    [UserInfo logout];
+    if (self.loginViewBlock) {
+        self.loginViewBlock();
+    }
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"ApplyCodeAvatar"];
 }
 
 - (void)applyCodePress:(UIBarButtonItem *)sender

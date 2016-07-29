@@ -116,7 +116,7 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestGetOtherInfoProfile,userId];
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock([responseObject objectForKey:@"data"]);
+            successBlock([responseObject objectForKey:@"content"][@"data"]);
         }else{
             failBlock(responseObject);
         }

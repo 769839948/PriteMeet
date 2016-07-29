@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, KeyboardType) {
+    KeyboardTypeDefault,//默认从0开始
+    KeyboardTypeNum
+};
+
 typedef void (^ToolBarButtonPress)(NSInteger tag);
 typedef void (^KeyBoardReturnPress)(NSString *codeNumber);
 
@@ -25,7 +30,7 @@ typedef void (^KeyBoardReturnPress)(NSString *codeNumber);
 
 @property (nonatomic, strong) KeyBoardReturnPress keyBoardPressBlock;
 
-- (instancetype)initWithFrame:(CGRect)frame labelNum:(NSInteger)num showPSW:(BOOL)isShow;
+- (instancetype)initWithFrame:(CGRect)frame labelNum:(NSInteger)num showPSW:(BOOL)isShow keyboarType:(KeyboardType)type;
 
 - (void)labelTouch:(UIGestureRecognizer *)tap;
 

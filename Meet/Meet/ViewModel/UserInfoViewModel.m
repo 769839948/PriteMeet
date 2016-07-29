@@ -207,7 +207,7 @@
         QNUploadManager *upManager = [[QNUploadManager alloc] init];
         NSData *imageData = UIImageJPEGRepresentation(image, 1);
         NSString *timeNow = [self getTimeNow];
-        [upManager putData:imageData key:timeNow token:responseObject[@"content"][@"token"] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+        [upManager putData:imageData key:timeNow token:responseObject[@"token"] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             if (!isApplyCode) {
                 NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUploadUserPhoto,[UserInfo sharedInstance].uid];
                 NSDictionary *parameters = @{@"key":resp[@"key"],

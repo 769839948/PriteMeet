@@ -25,12 +25,44 @@
 #define HomeViewNameColor [UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0]
 #define HomeViewPositionColor [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0]
 
-#define HomeViewNameFont               [UIFont fontWithName:@"PingFangSC-Regular" size:22.0f]
-#define HomeViewPositionFont           [UIFont fontWithName:@"PingFangSC-Thin" size:22.0f]
+#define IOS_9LAST ([[[UIDevice currentDevice] systemVersion] floatValue]>=9.0)?1:0
+
+
+#define HomeViewNameFont             (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Regular" size:22.0f]:[UIFont systemFontOfSize:22]
+
+#define HomeViewPositionFont           (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Thin" size:22.0f]:[UIFont systemFontOfSize:22]
+#define HomeViewAgeFont          (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Semibold" size:10.0f]:[UIFont systemFontOfSize:10]
+#define HomeMeetNumberFont           (IOS_9LAST)?[UIFont fontWithName:@"Helvetica-Light" size:12.0f]:[UIFont systemFontOfSize:12]
+
+#define HomeViewDetailNameFont         (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Regular" size:28.0f]:[UIFont systemFontOfSize:28]
+#define HomeViewDetailPositionFont     (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Thin" size:22.0f]:[UIFont systemFontOfSize:22]
+#define HomeViewDetailMeetNumberFont   (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:12.0f]:[UIFont systemFontOfSize:12]
+#define HomeViewDetailAboutBtnFont     (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Regular" size:10.0f]:[UIFont systemFontOfSize:10]
+
+#define NavigationBarTitleFont          (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:18.0f]:[UIFont systemFontOfSize:18]
+#define NavigationBarRightItemFont     (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:16.0f]:[UIFont systemFontOfSize:16]
+
+#define MeetSectionTitleNameFont      (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Regular" size:14.0f]:[UIFont systemFontOfSize:14]
+
+#define MeViewProfileLabelFont          (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:14.0f]:[UIFont systemFontOfSize:14]
+
+#define AboutUsLabelFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:14.0f]:[UIFont systemFontOfSize:14]
+
+
+#define SettingViewLabelFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:14.0f]:[UIFont systemFontOfSize:14]
+
+#define ReportViewCellFont   (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:14.0f]:[UIFont systemFontOfSize:14]
+
+#define IQKeyboardManagerplaceholderFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Regular" size:14.0f]:[UIFont systemFontOfSize:14]
+
+#define IQKeyboardManagerFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:14.0f]:[UIFont systemFontOfSize:14]
+
+#define KeyBoardToobarTitleFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:14.0f]:[UIFont systemFontOfSize:14]
+
+
 #define HomeViewWomenColor       @"FF8161"
 #define HomeViewManColor         @"4ED6C4"
-#define HomeViewAgeFont          [UIFont fontWithName:@"PingFangSC-Semibold" size:10.0]
-#define HomeMeetNumberFont           [UIFont fontWithName:@"Helvetica-Light" size:12]
+
 #define HomeMeetNumberColor      @"C9C9C9"
 
 #define HomeDetailViewNameColor        @"202020"
@@ -38,22 +70,15 @@
 #define HomeDetailViewMeetNumberColor  @"C9C9C9"
 #define HomeViewDetailAboutBtnColor    @"FFFFFF"
 
-#define HomeViewDetailNameFont         [UIFont fontWithName:@"PingFangSC-Regular" size:28.0f]
-#define HomeViewDetailPositionFont     [UIFont fontWithName:@"PingFangSC-Thin" size:22.0f]
-#define HomeViewDetailMeetNumberFont   [UIFont fontWithName:@"PingFangSC-Light" size:12.0f]
-#define HomeViewDetailAboutBtnFont     [UIFont fontWithName:@"PingFangSC-Regular" size:10.0f]
+
 
 #define HomeViewDetailMeetButtonBack   @"FF8161"
 
 #define PlaceholderImage                [UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeZero]
 
-#define NavigationBarTitleFont         [UIFont fontWithName:@"PingFangSC-Light" size:18.0f]
-#define NavigationBarRightItemFont     [UIFont fontWithName:@"PingFangSC-Light" size:16.0f]
 
-#define MeetSectionTitleNameFont [UIFont fontWithName:@"PingFangSC-Regular" size:14.0f]
 #define MeetSectionTitleNameColot [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0]
 
-#define MeViewProfileLabelFont          [UIFont fontWithName:@"PingFangSC-Light" size:14.0f]
 #define MeViewProfileTitleLabelColor         @"202020"
 #define MeViewProfileContentLabelColor       @"7F7F7F"
 #define MeViewProfileContentLabelColorLight  @"E7E7E7"
@@ -68,19 +93,14 @@
 #define MeProfileCollectViewItemUnSelect   @"F6F6F6"
 #define MeProfileCollectViewItemUnSelectColor @"7F7F7F"
 
-#define AboutUsLabelFont [UIFont fontWithName:@"PingFangSC-Light" size:14.0]
 #define AboutUsLabelColor @"4D4D4D"
 
-#define SettingViewLabelFont [UIFont fontWithName:@"PingFangSC-Light" size:14.0]
-
-#define ReportViewCellFont   [UIFont fontWithName:@"PingFangSC-Light" size:14.0]
 
 
 #define TableViewTextColor @"202020"
 
 #define IQKeyboardManagerTinColor @"202020"
-#define IQKeyboardManagerplaceholderFont [UIFont fontWithName:@"PingFangSC-Regular" size:14.0]
-#define IQKeyboardManagerFont [UIFont fontWithName:@"PingFangSC-Light" size:14.0]
+
 
 #define ApplyCodeFont [UIFont systemFontOfSize:18.0]
 #define ApplyCodeNextBtnColorDis       @"E7E7E7"
@@ -91,7 +111,6 @@
 #define EMAlertViewConfirmTitle  @"朕知道了"
 
 
-#define KeyBoardToobarTitleFont [UIFont fontWithName:@"PingFangSC-Light" size:14.0]
 //IQKeyboardManager Color
 ////Tint color
 //[[self appearance] setTintColor:[UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0]];

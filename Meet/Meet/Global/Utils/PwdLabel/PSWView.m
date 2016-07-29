@@ -19,6 +19,8 @@
 
 @property (nonatomic, strong)UITextField *numTextField;
 
+@property (nonatomic, assign) KeyboardType type;
+
 @property BOOL isShow;
 
 @end
@@ -29,7 +31,11 @@
 {
     if (!_numTextField) {
         _numTextField = [[UITextField alloc]initWithFrame:self.bounds];
-        _numTextField.keyboardType = UIKeyboardTypeASCIICapable;
+        if (self.type == KeyboardTypeDefault) {
+            _numTextField.keyboardType = UIKeyboardTypeASCIICapable;
+        }else{
+            _numTextField.keyboardType = UIKeyboardTypeNumberPad;
+        }
         _numTextField.autocorrectionType = UITextAutocorrectionTypeNo;
         _numTextField.textColor = [UIColor clearColor];
         _numTextField.tintColor = [UIColor clearColor];
@@ -64,11 +70,13 @@
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
-    return [self initWithFrame:frame labelNum:1 showPSW:YES];
+    return [self initWithFrame:frame labelNum:1 showPSW:YES keyboarType:self.type];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame labelNum:(NSInteger)num showPSW:(BOOL)isShow
+- (instancetype)initWithFrame:(CGRect)frame labelNum:(NSInteger)num showPSW:(BOOL)isShow keyboarType:(KeyboardType)type
 {
+    
+    self.type = type;
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.numTextField];

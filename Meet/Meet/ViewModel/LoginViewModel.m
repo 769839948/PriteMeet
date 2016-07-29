@@ -172,12 +172,25 @@
                 failBlock(@{@"error":@"网络错误"});
             }];
         }else{
-            failBlock(@{@"error":@"oldUser"});
+            NSString *url = [RequestBaseUrl stringByAppendingString:RequsetMobileLogin];
+            NSDictionary *parameters = @{@"mobile_num":mobile,@"sms_code":code,@"code":applyCode};
+            [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+                if ([[responseObject objectForKey:@"success"] boolValue]) {
+                    failBlock(@{@"error":@"oldUser"});
+                }else{
+                    failBlock(@{@"error":@"none"});
+                }
+            } failure:^(NSDictionary *responseObject) {
+                failBlock(@{@"error":@"网络错误"});
+            }];
+            
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(@{@"error":@"网络错误"});
     }];
 }
+
+
 
 - (void)oldUserLogin:(NSString *)uid
              Success:(Success)successBlock

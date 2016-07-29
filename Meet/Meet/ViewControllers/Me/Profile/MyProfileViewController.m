@@ -138,6 +138,8 @@ typedef NS_ENUM(NSUInteger, RowType) {
     _jobLabelArray = [[NSMutableArray alloc] init];
     [self loadLastUpdate];
     [self setUpTableView];
+    [self setNavigationBarItem];
+
 //    [self navigationItemWithLineAndWihteColor];
 }
 
@@ -161,7 +163,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
 {
     [super viewWillAppear:animated];
     [self createNavigationBar];
-    [self setNavigationBarItem];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -1163,7 +1164,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 if (height > 330) {
                 }else{
                     if (_isBaseView || _isApplyCode) {
-                        insterHeight = 372 - height;
+                        insterHeight = 309 - height;
                     }else{
                         insterHeight = 309 - height;
                     }
@@ -1173,7 +1174,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 if (height > 330) {
                 }else{
                     if (_isBaseView || _isApplyCode) {
-                        insterHeight = 372 - height;
+                        insterHeight = 309 - height;
                     }else{
                         insterHeight = 309 - height;
                     }
@@ -1354,6 +1355,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    self.complyApplyCodeSuccess = YES;
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isNewUser"]) {
         ProfileTableViewCell  *cell = (ProfileTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         if (cell == nil) {
@@ -1420,8 +1422,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
                     
                 } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
             }else{
-                LabelAndTextFieldCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:RowPhoneNumber  inSection:0]];
-                [cell.textField becomeFirstResponder];
+                [self.view endEditing:YES];
+//                LabelAndTextFieldCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:RowPhoneNumber  inSection:0]];
+//                [cell.textField becomeFirstResponder];
             }
         }else if (textField.tag == RowPhoneNumber) {
             if (![NSString isPureInt:textField.text]) {

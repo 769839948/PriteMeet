@@ -13,7 +13,7 @@ typealias SmsCodeClouse = () ->Void
 class TimeDownView: UIView {
 
     var timeLabel:UILabel!
-    var timeCount = 60
+    var timeCount = 0
     var tapLabel:UITapGestureRecognizer!
     var time:NSTimer!
     var smsCodeClouse:SmsCodeClouse!
@@ -21,7 +21,7 @@ class TimeDownView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setUpTimeLabel()
-        tapLabel = UITapGestureRecognizer(target: self, action: #selector(TimeDownView.timeDownAgaint(_:)))
+        tapLabel = UITapGestureRecognizer(target: self, action: #selector(TimeDownView.timeDownAgaint))
         self.addGestureRecognizer(tapLabel)
         if time == nil {
             self.setUpTime()
@@ -30,7 +30,8 @@ class TimeDownView: UIView {
     
     func setUpTime(){
         time = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(TimeDownView.timeDown(_:)), userInfo: nil, repeats: true)
-
+        let str = "如未收到可在 60 秒后重新获取"
+        timeLabel.text = str
         NSRunLoop.currentRunLoop().addTimer(time, forMode: "NSRunLoopDefault")
     }
     
@@ -38,14 +39,16 @@ class TimeDownView: UIView {
         timeLabel = UILabel()
         timeLabel.textAlignment = .Center
         timeLabel.frame = CGRectMake(0, 0, 196, 20)
-        timeLabel.font = UIFont.init(name: "PingFangSC-Light", size: 14.0)
+        timeLabel.font = LoginCodeLabelFont
         timeLabel.textColor = UIColor.init(hexString: "C9C9C9")
         self.addSubview(timeLabel)
     }
     
     func timeDown(sender:NSTimer) {
-        timeCount  = timeCount - 1
-        timeLabel.text = "如未收到可在 \(timeCount) 秒后重新获取"
+        if timeCount != 0 {
+            timeCount  = timeCount - 1
+            timeLabel.text = "如未收到可在 \(timeCount) 秒后重新获取"
+        }
         if timeCount == 0 {
             time.invalidate()
             time = nil
@@ -56,7 +59,7 @@ class TimeDownView: UIView {
         }
     }
     
-    func timeDownAgaint(agagin:UITapGestureRecognizer) {
+    func timeDownAgaint() {
         if timeCount == 0 {
             timeCount = 60
             if self.smsCodeClouse != nil {

@@ -78,11 +78,13 @@ static const void *NavigationBarView = &NavigationBarView;
 
 -(void)createNavigationBar
 {
-    self.navigationBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 63.5)];
-    self.navigationBarView.backgroundColor = [UIColor whiteColor];
-    self.navigationBarView.tag = 1000;
-    [self.view addSubview:self.navigationBarView];
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithHexString:HomeDetailViewNameColor]];
+    if (self.navigationController.navigationBar.translucent){
+        self.navigationBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 63.5)];
+        self.navigationBarView.backgroundColor = [UIColor whiteColor];
+        self.navigationBarView.tag = 1000;
+        [self.view addSubview:self.navigationBarView];
+        [[UINavigationBar appearance] setTintColor:[UIColor colorWithHexString:HomeDetailViewNameColor]];
+    }
 //    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
 }
 

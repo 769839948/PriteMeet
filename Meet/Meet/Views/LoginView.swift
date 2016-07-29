@@ -16,6 +16,7 @@ typealias ApplyCodeClouse = () -> Void
 typealias ProtocolClouse = () -> Void
 typealias NewUserLoginClouse = () -> Void
 typealias ReloadMeViewClouse = () ->Void
+typealias LoginWithDetailClouse = () ->Void
 
 class LoginView: UIView {
 
@@ -44,6 +45,8 @@ class LoginView: UIView {
     var applyCodeClouse:ApplyCodeClouse!
     var protocolClouse:ProtocolClouse!
     var newUserLoginClouse:NewUserLoginClouse!
+    var loginWithDetailClouse:LoginWithDetailClouse!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backView = UIView(frame: frame)
@@ -103,11 +106,11 @@ class LoginView: UIView {
         
         codeLabel = UILabel(frame: CGRectZero)
         codeLabel.text = "使用邀请码或登录已有账号"
-        codeLabel.font = UIFont.init(name: "PingFangSc-Light", size: 14.0)
+        codeLabel.font = LoginCodeLabelFont
         codeLabel.textColor = UIColor.init(hexString: HomeMeetNumberColor)
         loginCodeView.addSubview(codeLabel)
         
-        checkLabel = self.setUpCheckLabel()
+        checkLabel = self.setUpCheckLabel(.Default)
         checkLabel.labelTouch(nil)
         checkLabel.keyBoardPressBlock = { code in
             self.applyCode = code
@@ -121,7 +124,7 @@ class LoginView: UIView {
         let loginOldUser = UIButton()
         loginOldUser.setTitle("登录已有账号", forState: .Normal)
         loginOldUser.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        loginOldUser.titleLabel?.font = UIFont.init(name: "PingFangSC-Light", size: 12.0)
+        loginOldUser.titleLabel?.font = LoginOldUserBtnFont
         loginOldUser.addTarget(self, action: #selector(LoginView.loginWithOldUser(_:)), forControlEvents: .TouchUpInside)
         loginCodeView.addSubview(loginOldUser)
         
@@ -160,7 +163,7 @@ class LoginView: UIView {
         }
         
         loginOldUser.snp_makeConstraints { (make) in
-            make.top.equalTo(applyCodeBtn.snp_bottom).offset(20)
+            make.top.equalTo(applyCodeBtn.snp_bottom).offset(24)
             make.centerX.equalTo(loginCodeView.snp_centerX).offset(0)
             make.height.equalTo(17)
         }
@@ -186,7 +189,7 @@ class LoginView: UIView {
 
         let label = UILabel()
         label.text = "输入手机获取验证码"
-        label.font = UIFont.init(name: "PingFangSC-Light", size: 18.0)
+        label.font = LoginPhoneLabelFont
         label.numberOfLines = 0
         label.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         label.textAlignment = .Center
@@ -204,16 +207,16 @@ class LoginView: UIView {
         
         let comfigLabel = UILabel()
         comfigLabel.text = "登录即代表您同意"
-        comfigLabel.font = UIFont.init(name: "PingFangSC-Light", size: 12.0)
+        comfigLabel.font = LoginOldUserBtnFont
         loginOldUser.addSubview(comfigLabel)
         
-        let applyCodeBtn = self.setUpApplyCodeButton("获取验证码")
+        let applyCodeBtn = self.setUpApplyCodeButton("发送验证码")
         loginOldUser.addSubview(applyCodeBtn)
         
         let proBtn = UIButton(type: .Custom)
         proBtn.setTitle("用户协议", forState: .Normal)
         proBtn.setTitleColor(UIColor.init(hexString: HomeDetailViewNameColor), forState: .Normal)
-        proBtn.titleLabel?.font = UIFont.init(name: "PingFangSC-Medium", size: 12.0)
+        proBtn.titleLabel?.font = LoginUserPropoclFont
         proBtn.addTarget(self, action: #selector(LoginView.proBtnPress(_:)), forControlEvents: .TouchUpInside)
         loginOldUser.addSubview(proBtn)
 
@@ -261,13 +264,13 @@ class LoginView: UIView {
         
         
         let smsCode = UILabel()
-        smsCode.font = UIFont.init(name: "PingFangSC-Light", size: 14)
+        smsCode.font = LoginCodeLabelFont
         smsCode.text = "验证码已发送至"
         smsCode.textColor = UIColor.init(hexString: "C9C9C9")
         smsCodeView.addSubview(smsCode)
         
         phoneLabel = UILabel()
-        phoneLabel.font = UIFont.init(name: "Helvetica-Light", size: 20.0)
+        phoneLabel.font = LoginPhoneTextFieldFont
         phoneLabel.textColor = UIColor.init(hexString: "C9C9C9")
         smsCodeView.addSubview(phoneLabel)
         
@@ -276,12 +279,13 @@ class LoginView: UIView {
             self.viewModel.senderSms(self.phoneLabel.text, success: { (dic) in
                 
                 }, fail: { (dic) in
-                    
+                    let appDic = dic as NSDictionary
+                    self.shwoTools(appDic["msg"] as! String)
             })
         }
         smsCodeView.addSubview(timeDownLabel)
     
-        checkLabelSms = self.setUpCheckLabel()
+        checkLabelSms = self.setUpCheckLabel(.Num)
         checkLabelSms.keyBoardPressBlock = { code in
             self.loginWithCode(self.phoneLabel.text!, smsCode: code, applyCode: self.applyCode)
         }
@@ -289,7 +293,7 @@ class LoginView: UIView {
         
         checkCodeCallBack = UILabel()
         checkCodeCallBack.text = "验证码输入有误或已过期"
-        checkCodeCallBack.font = UIFont.init(name: "PingFangSC-Light", size: 14.0)
+        checkCodeCallBack.font = LoginCodeLabelFont
         checkCodeCallBack.textColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
         checkCodeCallBack.hidden = true
         smsCodeView.addSubview(checkCodeCallBack)
@@ -332,8 +336,8 @@ class LoginView: UIView {
         applyCodeBtn.setTitle(title, forState: .Normal)
         applyCodeBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
         applyCodeBtn.layer.borderColor = UIColor.blackColor().CGColor
-        applyCodeBtn.titleLabel?.font = UIFont.init(name: "PingFangSC-Light", size: 12.0)
-        if title == "获取验证码" {
+        applyCodeBtn.titleLabel?.font = LoginOldUserBtnFont
+        if title == "发送验证码" {
             applyCodeBtn.addTarget(self, action: #selector(LoginView.smsCode(_:)), forControlEvents: .TouchUpInside)
         }else{
             applyCodeBtn.addTarget(self, action: #selector(LoginView.applyCode(_:)), forControlEvents: .TouchUpInside)
@@ -375,15 +379,10 @@ class LoginView: UIView {
     
     func smsCode(sender:UIButton) {
         if String.isValidateMobile(mobileTextField.text) || mobileTextField.text?.characters.count == 11 {
-//            self.showViewWithTage(3)
-//            self.timeDownLabel.timeCount = 60
-//            self.phoneLabel.text = "18363899723"
-//            checkLabelSms.labelTouch(nil)
-
             viewModel.senderSms(mobileTextField.text, success: { (dic) in
-                UITools.showMessageToView(self, message: "验证码已经发送请查收", autoHide: true)
                 self.showViewWithTage(3)
-                self.timeDownLabel.timeCount = 10
+                self.timeDownLabel.timeCount = 60
+                self.timeDownLabel.setUpTime()
                 self.checkLabelSms.labelTouch(nil)
                 self.phoneLabel.text = self.mobileTextField.text
                 self.phoneLabel.updateConstraintsIfNeeded()
@@ -421,8 +420,8 @@ class LoginView: UIView {
         view.addSubview(leftImageView)
     }
     
-    func setUpCheckLabel() -> PSWView{
-        let checkLabel = PSWView(frame: CGRectZero, labelNum: 4, showPSW: true)
+    func setUpCheckLabel(type:KeyboardType) -> PSWView{
+        let checkLabel = PSWView(frame: CGRectZero, labelNum: 4, showPSW: true ,keyboarType: type)
         checkLabel.delegate = self
         return checkLabel
     }
@@ -430,7 +429,7 @@ class LoginView: UIView {
     func setUpTitleLabel(title:String) -> UILabel{
         let titleLabel = UILabel(frame: CGRectZero)
         titleLabel.text = title
-        titleLabel.font = UIFont.init(name: "PingFangSC-Light", size: 20.0)
+        titleLabel.font = LoginPhoneTextFieldFont
         return titleLabel
     }
     
@@ -521,7 +520,6 @@ class LoginView: UIView {
                 UserInfo.synchronizeWithDic(dic)
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isNewUser")
                 if self.newUserLoginClouse != nil{
-                    self.dismissView()
                     self.newUserLoginClouse()
                 }
             }) { (dic) in
@@ -533,14 +531,21 @@ class LoginView: UIView {
                         if self.reloadMeViewClouse != nil{
                             self.reloadMeViewClouse()
                         }
+                        if self.loginWithDetailClouse != nil {
+                            self.loginWithDetailClouse()
+                        }
                         self.dismissView()
                         }, fail: { (dic) in
                             
                         }, loadingString: { (msg) in
                             
                     })
+                }else if ((dic as NSDictionary).objectForKey("error") as! String) == "noneuser"{
+                    self.checkCodeCallBack.text = "该手机号用户不存在"
+                    self.checkCodeCallBack.hidden = false
                 }else{
                     self.checkCodeTextColorChange()
+                    self.checkCodeCallBack.text = "验证码输入有误或已过期"
                     self.checkCodeCallBack.hidden = false
                 }
             }
@@ -567,15 +572,10 @@ extension LoginView : DelegatePSW {
 
 extension LoginView : UITextFieldDelegate {
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-//        self.showViewWithTage(3)
-//        self.timeDownLabel.timeCount = 60
-//        self.phoneLabel.text = "18363899723"
-//        checkLabelSms.labelTouch(nil)
-//        self.phoneLabel.updateConstraintsIfNeeded()
         if String.isValidateMobile(textField.text) || textField.text?.characters.count == 11 {
             viewModel.senderSms(textField.text, success: { (dic) in
                 self.showViewWithTage(3)
-                self.timeDownLabel.timeCount = 10
+                self.timeDownLabel.setUpTime()
                 self.phoneLabel.text = textField.text
                 self.phoneLabel.updateConstraintsIfNeeded()
                 }, fail: { (dic) in

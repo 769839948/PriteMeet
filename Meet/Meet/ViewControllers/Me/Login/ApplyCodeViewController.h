@@ -13,6 +13,7 @@ typedef void (^LoginViewShow)();
 
 @interface ApplyCodeViewController : MyProfileViewController
 
+
 @property (nonatomic, strong) ShowToolsBlock showToolsBlock;
 @property (nonatomic, strong) LoginViewShow loginViewBlock;
 

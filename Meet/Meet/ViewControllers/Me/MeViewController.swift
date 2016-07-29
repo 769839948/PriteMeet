@@ -84,9 +84,9 @@ class MeViewController: UIViewController {
     
     override func viewDidDisappear(animated: Bool) {
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
-        if UserInfo.isLoggedIn() {
+//        if UserInfo.isLoggedIn() {
             self.navigationItemWithLineAndWihteColor()
-        }
+//        }
     }
     
     func setUpTableView(){
@@ -200,12 +200,11 @@ class MeViewController: UIViewController {
         let meStoryBoard = UIStoryboard(name: "Seting", bundle: NSBundle.mainBundle())
         let settingVC = meStoryBoard.instantiateViewControllerWithIdentifier("SetingViewController") as!  SetingViewController
         settingVC.logoutBlock = {()
-            self.setNavigationBar()
             self.tableView.reloadData()
         }
-        if UserInfo.isLoggedIn() {
-           settingVC.setUpNavigationBar()
-        }
+//        if !UserInfo.isLoggedIn() {
+//            settingVC.navigationItemWithLineAndWihteColor()
+//        }
         self.navigationController!.pushViewController(settingVC, animated:true)
     }
     
@@ -314,12 +313,14 @@ class MeViewController: UIViewController {
     func presentViewLoginViewController(){
         loginView = LoginView(frame: CGRectMake(0,0,ScreenWidth,ScreenHeight))
         let windown = UIApplication.sharedApplication().keyWindow
+        windown!.addSubview(loginView)
         loginView.applyCodeClouse = { _ in
             let loginStory = UIStoryboard.init(name: "Login", bundle: nil)
             let applyCode = loginStory.instantiateViewControllerWithIdentifier("ApplyCodeViewController") as! ApplyCodeViewController
             applyCode.isApplyCode = true
             applyCode.showToolsBlock = { _ in
                 UITools.showMessageToView(self.view, message: "申请成功，请耐心等待审核结果^_^", autoHide: true)
+                self.loginView.removeFromSuperview()
                 UserInfo.logout()
             }
             applyCode.loginViewBlock = { _ in
@@ -351,7 +352,7 @@ class MeViewController: UIViewController {
             self.viewWillAppear(true)
         }
         
-        windown!.addSubview(loginView)
+        
 
 //        let meStoryBoard = UIStoryboard(name: "Login", bundle: NSBundle.mainBundle())
 //        let resgisterVc = meStoryBoard.instantiateViewControllerWithIdentifier("weChatResgisterNavigation")
