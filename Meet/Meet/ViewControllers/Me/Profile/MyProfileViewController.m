@@ -948,6 +948,8 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 
             }
             if (self.isApplyCode) {
+                [cell showapplyCodeLabel];
+
                 if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] != nil) {
                     NSArray *photoArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] componentsSeparatedByString:@"?"];
                     NSString *photoUrl = [photoArray[0] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/500/h/500"]];
@@ -958,6 +960,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                     [cell.profilePhoto setImage:[UIImage imageNamed:@"me_profile_photo"]];
                 }
             }else{
+                [cell hidderapplyCodeLabel];
                 if ([UserInfo sharedInstance].avatar != nil){
                     NSArray *photoArray = [[UserInfo sharedInstance].avatar componentsSeparatedByString:@"?"];
                     NSString *photoUrl = [photoArray[0] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/500/h/500"]];
@@ -968,11 +971,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                     [cell.profilePhoto setImage:[UIImage imageNamed:@"me_profile_photo"]];
                 }
             }
-            if ([UserInfo isLoggedIn]) {
-                [cell hidderapplyCodeLabel];
-            }else{
-                [cell showapplyCodeLabel];
-            }
+            
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
@@ -1000,7 +999,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
             if (row == RowPhoneNumber || row == RowWX_Id){
                  cell.textField.text = [NSString stringWithFormat:@"%@",_dicValues[_titleContentArray[row]]];
                 if (row == RowPhoneNumber && !self.isApplyCode) {
-                    cell.textField.textColor = [UIColor colorWithHexString:MeViewProfileContentLabelColorLight];
+//                    cell.textField.textColor = [UIColor colorWithHexString:MeViewProfileTitleLabelColor];
                     cell.textField.enabled = NO;
                 }
             }else{
@@ -1171,7 +1170,13 @@ typedef NS_ENUM(NSUInteger, RowType) {
                     [tableView setContentOffset:CGPointMake(0, insterHeight) animated:YES];
                 }
             }else{
-                if (height > 330) {
+                if (height > 337) {
+//                    if (_isBaseView || _isApplyCode) {
+//                        insterHeight = 309 - height;
+//                    }else{
+//                        insterHeight = 309 - height;
+//                    }
+//                    [tableView setContentOffset:CGPointMake(0, insterHeight) animated:YES];
                 }else{
                     if (_isBaseView || _isApplyCode) {
                         insterHeight = 309 - height;
@@ -1372,6 +1377,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 if (self.isApplyCode) {
                     NSString *avatar = [[object objectForKey:@"avatar"] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/750/h/544"]];
                     [[NSUserDefaults standardUserDefaults] setObject:avatar forKey:@"ApplyCodeAvatar"];
+                    [[NSUserDefaults standardUserDefaults] setObject:avatar forKey:@"TempAvatar"];
                 }else{
                     NSString *avatar = [[object objectForKey:@"avatar"] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/750/h/544"]];
                     [UserInfo sharedInstance].avatar = avatar;

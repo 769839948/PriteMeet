@@ -126,7 +126,7 @@ static UserExtenModel *userExten = nil;
         Detail *detail = [[Detail alloc] init];
         detail.content = [[detailArray objectAtIndex:i] objectForKey:@"content"];
         detail.id = [[detailArray objectAtIndex:i] objectForKey:@"id"];
-        detail.photo = [[detailArray objectAtIndex:i] objectForKey:@"photos"];
+        detail.photo = [[detailArray objectAtIndex:i] objectForKey:@"photo"];
         detail.title = [[detailArray objectAtIndex:i] objectForKey:@"title"];
         [details addObject:detail];
     }

@@ -98,7 +98,7 @@ class SenderInviteViewController: UIViewController {
                     self.navigationController?.pushViewController(reportVC, animated: true)
                 }else{
                     let viewControllers:NSArray = (self.navigationController?.viewControllers)!
-                    self.navigationController?.pushViewController(viewControllers.objectAtIndex(1) as! UIViewController, animated: true)
+                    self.navigationController?.popToViewController(viewControllers.objectAtIndex(1) as! UIViewController, animated: true)
                 }
             }else if self.isNewLogin {
                 self.navigationController?.popToRootViewControllerAnimated(true)
