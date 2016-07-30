@@ -50,7 +50,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     _tellPhone = @"";
     self.navigationItem.title = @"设置";
     self.tableView.backgroundColor = [UIColor whiteColor];
-    _contentArray = @[@"黑名单列表",@"新消息通知",@"清除缓存",@"关于我们",@"反馈吐槽",@"喜欢Meet? 去赏个好评",@"退出登录"];
+    _contentArray = @[@"黑名单",@"新消息通知",@"清除缓存",@"关于我们",@"反馈吐槽",@"喜欢Meet? 去赏个好评",@"退出登录"];
     [self getServiceData];
     _tableView.rowHeight = 49;
     [self hideExcessLine:_tableView];

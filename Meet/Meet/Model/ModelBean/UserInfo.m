@@ -64,6 +64,7 @@ static UserInfo *userInfo=nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error;
     BOOL result = [fileManager removeItemAtPath:kEncodedObjectPath_User error:&error];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"ApplyCodeAvatar"];
     [UserExtenModel remoUserExtenModel];
     [UserInviteModel removeInvite];
     [WXUserInfo logout];
@@ -207,12 +208,10 @@ static UserInfo *userInfo=nil;
     [UserInfo sharedInstance].drink  = [dic[@"drink"] integerValue];
     [UserInfo sharedInstance].gender  = [dic[@"gender"] integerValue];
     [UserInfo sharedInstance].height  = [dic[@"height"] integerValue];
-    if ([dic[@"avatar"] isEqualToString:@""]  && [[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] != nil) {
-        [UserInfo sharedInstance].avatar = [[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"];
-
+    if ([dic[@"avatar"] isEqualToString:@""]  && [[NSUserDefaults standardUserDefaults] objectForKey:@"TempAvatar"] != nil) {
+        [UserInfo sharedInstance].avatar = [[NSUserDefaults standardUserDefaults] objectForKey:@"TempAvatar"];
     }else{
         [UserInfo sharedInstance].avatar  = dic[@"avatar"];
-
     }
     [UserInfo sharedInstance].age  = [dic[@"age"] integerValue];
     [UserInfo sharedInstance].income  = [dic[@"income"] integerValue];

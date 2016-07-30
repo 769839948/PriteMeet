@@ -536,27 +536,34 @@ extension MeViewController : UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
                 cell.configCell((userInfoModel.imageArray() as NSArray) .objectAtIndex(indexPath.row - 3) as! String, infoString: (userInfoModel.titleArray() as NSArray).objectAtIndex(indexPath.row - 3) as! String, infoDetail: "")
                 if indexPath.row == 4 {
-                    var string = "尚未通过身份、职业、电话认证       "
+                    var string = ""
                     let auto_info = UserExtenModel.shareInstance().auth_info
+                    var tempString = "职业、实名、电话、"
                     if auto_info != "" && auto_info != nil {
                         let autoArray = auto_info.componentsSeparatedByString(",")
+                        let dic = (ProfileKeyAndValue.shareInstance().appDic as NSDictionary).objectForKey("auth_type") as! NSDictionary
                         if autoArray.count == 3 {
                             string = ""
-                        }else{
-                            let dic = (ProfileKeyAndValue.shareInstance().appDic as NSDictionary).objectForKey("auth_info") as! NSDictionary
-                            for autoInfo in autoArray {
-                                let autoName = dic.objectForKey(autoInfo) as! String
-                                let stringArray = string.componentsSeparatedByString(autoName) as NSArray
-                                let firstChar = (stringArray[1] as! NSString).substringToIndex(1)
-                                if firstChar == "、" {
-                                    string = string.stringByReplacingOccurrencesOfString("\(autoName)、" , withString: "")
-                                }else{
-                                    string = string.stringByReplacingOccurrencesOfString("\(autoName)" , withString: "")
-                                }
-                                
+                        }else if (autoArray.count == 2){
+                            for index in 0...autoArray.count - 1 {
+                                let autoName = dic.objectForKey(autoArray[index]) as! String
+                                let firstChar = (autoName as NSString).substringToIndex(2)
+                                tempString = tempString.stringByReplacingOccurrencesOfString("\(firstChar)、", withString: "")
                             }
+                            tempString = tempString.stringByReplacingOccurrencesOfString("、", withString: "")
+                            string = "尚未通过\(tempString)认证       "
+                        }else if (autoArray.count == 1){
+                            let autoName = dic.objectForKey(autoArray[0]) as! String
+                            let firstChar = (autoName as NSString).substringToIndex(2)
+                            tempString = tempString.stringByReplacingOccurrencesOfString("\(firstChar)、", withString: "")
+                            tempString = (tempString as NSString).substringToIndex(5)
+                            string = "尚未通过\(tempString)认证       "
+                        }else{
+                             tempString = "职业、实名、电话"
+                            string = "尚未通过\(tempString)认证       "
                         }
-                        
+                    }else{
+                         string = "尚未通过职业、实名、电话认证       "
                     }
                     cell.infoDetailLabel.text = string
                     cell.setinfoButtonBackGroudColor(lineLabelBackgroundColor)
