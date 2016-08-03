@@ -13,7 +13,6 @@
 #import "EqualSpaceFlowLayout.h"
 
 #define MeetLabelColor @"#4D4D4D"
-#define MeetLabelFont 
 
 @interface NewMeetInfoTableViewCell ()
 

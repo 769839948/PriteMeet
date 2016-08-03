@@ -1,16 +1,15 @@
 //
-//  ApplyConfimViewController.swift
+//  OtherUserInfoViewController.swift
 //  Meet
 //
-//  Created by Zhang on 7/18/16.
+//  Created by Zhang on 8/1/16.
 //  Copyright © 2016 Meet. All rights reserved.
 //
 
 import UIKit
 
-class ApplyConfimViewController: UIViewController {
+class OtherUserInfoViewController: UIViewController {
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

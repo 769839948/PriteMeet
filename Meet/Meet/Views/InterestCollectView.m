@@ -11,7 +11,7 @@
 #import "NSString+StringSize.h"
 #import "InterestCollectViewCell.h"
 #import "UICollectionView+ARDynamicCacheHeightLayoutCell.h"
-
+#import "Meet-Swift.h"
 
 @interface InterestCollectView()
 
@@ -32,6 +32,8 @@
         _selectItems = [[NSMutableArray alloc] init];
         self.backgroundColor = [UIColor whiteColor];
         [self registerClass:[InterestCollectViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+        [self registerClass:[AppointmentCell class] forCellWithReuseIdentifier:reuseIdentifierAppointMent];
+
         self.scrollEnabled = NO;
         _isNewMeetBlock = YES;
         _isMeetBlock = YES;
@@ -95,8 +97,11 @@
     }else if (self.style == ItemBlackAndWhiteLabelText){
         cell.backgroundColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
         cell.titleLabel.textColor = [UIColor whiteColor];
-    }else{
-        
+    }else if (self.style == ItemWhiteBoardOrginBacground){
+        cell.layer.borderColor = [[UIColor whiteColor] CGColor];
+        cell.layer.borderWidth = 1;
+        cell.backgroundColor = [UIColor colorWithHexString:AppointMentBackGroundColor];
+        cell.titleLabel.textColor = [UIColor whiteColor];
     }
     cell.titleLabel.frame = CGRectMake(0, 0, [self cellWidth:_interstArray[indexPath.row]], 27);
     cell.layer.cornerRadius = 2.0f;

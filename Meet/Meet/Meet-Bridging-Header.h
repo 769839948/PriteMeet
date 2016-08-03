@@ -55,7 +55,7 @@
 #import "Theme.h"
 #import "Photos.h"
 #import "BaseUserInfoViewController.h"
-
-
-
+#import "TYTabButtonPagerController.h"
+#import "InterestCollectViewCell.h"
+#import "UIView+DottedLineView.h"
 

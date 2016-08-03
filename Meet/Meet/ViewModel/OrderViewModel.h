@@ -11,6 +11,8 @@
 
 @interface OrderViewModel : BaseRequestViewModel
 
+- (NSArray *)orderPageControllerTitle;
+
 /**
  *  申请邀约
  *

@@ -34,6 +34,8 @@ class Status: NSObject {
     
     var status_code: String = ""
     
+    var status_type: String = "order"
+    
 }
 
 class Order_User_Info: NSObject {

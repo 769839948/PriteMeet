@@ -38,6 +38,16 @@
 #define GETUser_info_FromWX_URLStr [WX_userInfo_URL_str stringByAppendingFormat:@"?access_token=%@&openid=%@",[WXAccessModel shareInstance].access_token,[WXAccessModel shareInstance].openid]
 
 
+#define Storyboard(StoryboarName,ViewControllerId)     [[UIStoryboard storyboardWithName:StoryboarName bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:ViewControllerId]
+
+#define UserDefaultsSynchronize(uname,key)  \
+{ \
+[[NSUserDefaults standardUserDefaults] setObject:uname forKey:key]; \
+[[NSUserDefaults standardUserDefaults] synchronize];\
+}
+#define UserDefaultsGetSynchronize(key)  [[NSUserDefaults standardUserDefaults] objectForKey:key]
+#define UserDefaultsRemoveSynchronize(key) [[NSUserDefaults standardUserDefaults] removeObjectForKey:key]
+
 #define WeiboApiKey       @"3220687526"
 #define WeiboApiSecret    @"49d47e4aa35158eb8986cf60f5bc27d3"
 #define WeiboRedirectUrl  @"http://sns.whalecloud.com/sina2/callback"

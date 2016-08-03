@@ -59,7 +59,6 @@
 
 #define KeyBoardToobarTitleFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:14.0f]:[UIFont systemFontOfSize:14]
 
-
 #define HomeViewWomenColor       @"FF8161"
 #define HomeViewManColor         @"4ED6C4"
 
@@ -70,18 +69,24 @@
 #define HomeDetailViewMeetNumberColor  @"C9C9C9"
 #define HomeViewDetailAboutBtnColor    @"FFFFFF"
 
+#define AppointMentBackGroundColor    @"FB9854"
 
+#define EmptyDataColor           @"C9C9C9"
 
 #define HomeViewDetailMeetButtonBack   @"FF8161"
 
 #define PlaceholderImage                [UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeZero]
 
+#define PlaceholderImageColor          @"E7E7E7"
 
 #define MeetSectionTitleNameColot [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0]
 
 #define MeViewProfileTitleLabelColor         @"202020"
 #define MeViewProfileContentLabelColor       @"7F7F7F"
 #define MeViewProfileContentLabelColorLight  @"E7E7E7"
+
+#define EmptyDataTitleColor                  @"C9C9C9"
+
 
 #define MeViewProfileBackGroundColor         @"f2f2f2"
 

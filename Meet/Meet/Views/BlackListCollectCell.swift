@@ -20,13 +20,11 @@ class BlackListCollectCell: UICollectionViewCell {
         self.setUpSplashView()
         photoImageView.layer.masksToBounds = true
         reportBtn.layer.cornerRadius = 15.0
-        reportBtn.layer.borderColor = UIColor.blackColor().CGColor
-        reportBtn.layer.borderWidth = 1
+        
     }
     
     func setUpSplashView() {
         splashView = UIView()
-        //        [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1.0]
         splashView.backgroundColor = UIColor.init(red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0, alpha: 1.0)
         self.contentView.addSubview(splashView)
         self.contentView.sendSubviewToBack(splashView)
@@ -40,7 +38,26 @@ class BlackListCollectCell: UICollectionViewCell {
         
     }
     
+    func setOrderModel(model:OrderModel) {
+        let orderModel = OrderModel.mj_objectWithKeyValues(model)
+        photoImageView.sd_setImageWithURL(NSURL.init(string: orderModel.order_user_info!.avatar)) { (image, error, cache, url) in
+        }
+        userName.text = orderModel.order_user_info!.real_name
+        jobLabel.text = orderModel.order_user_info!.job_label
+        reportBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        reportBtn.titleLabel?.font = OrderConfirmBtnFont
+        if (model.status?.status_code == "1" && model.status?.status_type == "apply_order") || (model.status?.status_code == "4" && model.status?.status_type == "receive_order"){
+            reportBtn.setTitle(orderModel.status?.order_status, forState: .Normal)
+            reportBtn.backgroundColor = UIColor.init(hexString: MeViewProfileContentLabelColorLight)
+        }else{
+            reportBtn.setTitle(orderModel.status?.order_status, forState: .Normal)
+            reportBtn.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
+        }
+    }
+    
     func setData(model:BlackListModel) {
+        reportBtn.layer.borderColor = UIColor.blackColor().CGColor
+        reportBtn.layer.borderWidth = 1
         let blackModel = BlackListModel.mj_objectWithKeyValues(model)
         photoImageView.sd_setImageWithURL(NSURL.init(string: blackModel.avatar!)) { (image, error, cache, url) in
         }

@@ -103,25 +103,25 @@ class MeetDetailViewController: UIViewController {
     }
     
     func meetImmediately(){
-        if !UserInfo.isLoggedIn(){
-            let loginView = LoginView(frame: CGRectMake(0,0,ScreenWidth,ScreenHeight))
-            let windown = UIApplication.sharedApplication().keyWindow
-            loginView.applyCodeClouse = { _ in
-                let loginStory = UIStoryboard.init(name: "Login", bundle: nil)
-                let applyCode = loginStory.instantiateViewControllerWithIdentifier("ApplyCodeViewController") as! ApplyCodeViewController
-                applyCode.isApplyCode = true
-                self.navigationController?.pushViewController(applyCode, animated: true)
-            }
-            windown!.addSubview(loginView)
-        }else{
-            let meetView = MeetWebViewController()
-            meetView.url = "https://jinshuju.net/f/yzVBmI"
-            self.navigationController?.pushViewController(meetView, animated: true)
-        }
-//        let applyMeetVc = ApplyMeetViewController()
-//        applyMeetVc.allItems =  self.inviteArray.mutableCopy() as! NSMutableArray
-//        applyMeetVc.host = self.user_id
-//        self.navigationController?.pushViewController(applyMeetVc, animated: true)
+//        if !UserInfo.isLoggedIn(){
+//            let loginView = LoginView(frame: CGRectMake(0,0,ScreenWidth,ScreenHeight))
+//            let windown = UIApplication.sharedApplication().keyWindow
+//            loginView.applyCodeClouse = { _ in
+//                let loginStory = UIStoryboard.init(name: "Login", bundle: nil)
+//                let applyCode = loginStory.instantiateViewControllerWithIdentifier("ApplyCodeViewController") as! ApplyCodeViewController
+//                applyCode.isApplyCode = true
+//                self.navigationController?.pushViewController(applyCode, animated: true)
+//            }
+//            windown!.addSubview(loginView)
+//        }else{
+//            let meetView = MeetWebViewController()
+//            meetView.url = "https://jinshuju.net/f/yzVBmI"
+//            self.navigationController?.pushViewController(meetView, animated: true)
+//        }
+        let applyMeetVc = ApplyMeetViewController()
+        applyMeetVc.allItems =  self.inviteArray.mutableCopy() as! NSMutableArray
+        applyMeetVc.host = self.user_id
+        self.navigationController?.pushViewController(applyMeetVc, animated: true)
     }
     
     func setUpNavigationBar(){
@@ -231,8 +231,7 @@ class MeetDetailViewController: UIViewController {
         let windown = UIApplication.sharedApplication().keyWindow
         windown!.addSubview(loginView)
         loginView.applyCodeClouse = { _ in
-            let loginStory = UIStoryboard.init(name: "Login", bundle: nil)
-            let applyCode = loginStory.instantiateViewControllerWithIdentifier("ApplyCodeViewController") as! ApplyCodeViewController
+            let applyCode = Stroyboard("Login", viewControllerId: "ApplyCodeViewController") as! ApplyCodeViewController
             applyCode.isApplyCode = true
             applyCode.showToolsBlock = { _ in
                 UITools.showMessageToView(self.view, message: "申请成功，请耐心等待审核结果^_^", autoHide: true)
@@ -248,8 +247,7 @@ class MeetDetailViewController: UIViewController {
         }
         
         loginView.protocolClouse = { _ in
-            let settingStory = UIStoryboard.init(name: "Seting", bundle: nil)
-            let userProtocol = settingStory.instantiateViewControllerWithIdentifier("UserProtocolViewController")  as! UserProtocolViewController
+            let userProtocol = Stroyboard("Seting", viewControllerId: "UserProtocolViewController") as! UserProtocolViewController
             userProtocol.block = { _ in
                 self.loginView.mobileTextField.becomeFirstResponder()
                 UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
@@ -259,8 +257,7 @@ class MeetDetailViewController: UIViewController {
         }
         
         loginView.newUserLoginClouse = { _ in
-            let meStory = UIStoryboard.init(name: "Me", bundle: nil)
-            let baseUserInfo = meStory.instantiateViewControllerWithIdentifier("BaseInfoViewController")  as! BaseUserInfoViewController
+            let baseUserInfo =  Stroyboard("Me", viewControllerId: "BaseInfoViewController") as! BaseUserInfoViewController
             baseUserInfo.user_id = self.user_id
             baseUserInfo.isDetailViewLogin = true
             baseUserInfo.detailViweActionSheetSelect = self.actionSheetSelect
@@ -422,8 +419,7 @@ extension MeetDetailViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         if indexPath.section == 0 && indexPath.row == 3 {
-            let mainStory = UIStoryboard.init(name: "Main", bundle: NSBundle.mainBundle())
-            let otherInfo = mainStory.instantiateViewControllerWithIdentifier("OtherViewController") as! OtherViewController
+            let otherInfo =  Stroyboard("Main", viewControllerId: "OtherViewController") as! OtherViewController
             otherInfo.uid = user_id
             self.navigationController?.pushViewController(otherInfo, animated: true)
         }else if indexPath.section == 1 && indexPath.row == 1 && self.otherUserModel.user_info!.highlight != ""  && self.otherUserModel.web_url != ""{
