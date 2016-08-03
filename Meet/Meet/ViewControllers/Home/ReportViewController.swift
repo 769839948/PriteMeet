@@ -29,6 +29,7 @@ class ReportViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
         self.setUpTableView()
         self.setUpNavigationItem()
+        self.talKingDataPageName = "Home-Detail-Report"
         // Do any additional setup after loading the view.
     }
 

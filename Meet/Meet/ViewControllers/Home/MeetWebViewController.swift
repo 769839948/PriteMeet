@@ -19,6 +19,7 @@ class MeetWebViewController: UIViewController {
         super.viewDidLoad()
         self.setUpWebView(url)
         self.setUpNavigationBar()
+        self.talKingDataPageName = "Home-Detail-MeetWeb"
         // Do any additional setup after loading the view.
     }
     

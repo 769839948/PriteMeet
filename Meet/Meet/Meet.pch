@@ -28,7 +28,8 @@
 #import "UIImage+PureColor.h"
 #import "UIViewController+NavigationItemColor.h"
 #import "ApplicationTheme.h"
-
+#import "TalkingData.h"
+#import "UIViewController+TalKingData.h"
 
 
 #endif

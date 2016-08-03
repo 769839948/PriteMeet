@@ -67,7 +67,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
     [self setUpRefreshView];
     [self setUpLocationManager];
     [self addLineNavigationBottom];
-    
+    self.talKingDataPageName = @"Home";
 
 }
 
@@ -185,6 +185,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
     [self.bottomView removeFromSuperview];
     [(ScrollingNavigationController *)self.navigationController showNavbarWithAnimated:YES];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -58,4 +58,4 @@
 #import "TYTabButtonPagerController.h"
 #import "InterestCollectViewCell.h"
 #import "UIView+DottedLineView.h"
-
+#import "UIViewController+TalKingData.h"

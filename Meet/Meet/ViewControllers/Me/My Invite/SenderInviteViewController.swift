@@ -40,6 +40,7 @@ class SenderInviteViewController: UIViewController {
         self.setNavigationBar()
         IQKeyboardManager.sharedManager().enable = false
         self.setupForDismissKeyboard()
+        self.talKingDataPageName = "Me-Invite"
         // Do any additional setup after loading the view.
     }
     

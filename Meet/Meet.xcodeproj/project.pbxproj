@@ -84,6 +84,7 @@
 		1F810EC41D509D01008A5EF1 /* OrderCancelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F810EC21D509D01008A5EF1 /* OrderCancelTableViewCell.swift */; };
 		1F810EC51D509D01008A5EF1 /* OrderCancelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F810EC31D509D01008A5EF1 /* OrderCancelTableViewCell.xib */; };
 		1F810EC71D51E386008A5EF1 /* AllMeetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F810EC61D51E386008A5EF1 /* AllMeetViewController.swift */; };
+		1F810ECA1D51F5D0008A5EF1 /* UIViewController+TalKingData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F810EC91D51F5D0008A5EF1 /* UIViewController+TalKingData.m */; };
 		1F9DCF091D4C50C2001467E6 /* TYPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9DCF011D4C50C2001467E6 /* TYPagerController.m */; };
 		1F9DCF0A1D4C50C2001467E6 /* TYTabButtonPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9DCF031D4C50C2001467E6 /* TYTabButtonPagerController.m */; };
 		1F9DCF0B1D4C50C2001467E6 /* TYTabPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9DCF051D4C50C2001467E6 /* TYTabPagerController.m */; };
@@ -324,8 +325,8 @@
 		1F4E43671CFC56EA00730DEA /* UIViewController+HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HUD.m"; sourceTree = "<group>"; };
 		1F4E436E1CFC57F900730DEA /* ThemeTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeTools.h; sourceTree = "<group>"; };
 		1F4E436F1CFC57F900730DEA /* ThemeTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeTools.m; sourceTree = "<group>"; };
-		1F508D491D2FA308001EB676 /* ApplyCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplyCodeViewController.h; sourceTree = "<group>"; };
-		1F508D4A1D2FA308001EB676 /* ApplyCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplyCodeViewController.m; sourceTree = "<group>"; };
+		1F508D491D2FA308001EB676 /* ApplyCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplyCodeViewController.h; path = ../Login/ApplyCodeViewController.h; sourceTree = "<group>"; };
+		1F508D4A1D2FA308001EB676 /* ApplyCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ApplyCodeViewController.m; path = ../Login/ApplyCodeViewController.m; sourceTree = "<group>"; };
 		1F508D4C1D2FA791001EB676 /* ProfilePhotoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePhotoTableViewCell.swift; sourceTree = "<group>"; };
 		1F508D4D1D2FA791001EB676 /* ProfilePhotoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfilePhotoTableViewCell.xib; sourceTree = "<group>"; };
 		1F55157C1CFEEFE5005B82FA /* InterestCollectViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestCollectViewCell.h; sourceTree = "<group>"; };
@@ -373,6 +374,8 @@
 		1F810EC21D509D01008A5EF1 /* OrderCancelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderCancelTableViewCell.swift; sourceTree = "<group>"; };
 		1F810EC31D509D01008A5EF1 /* OrderCancelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderCancelTableViewCell.xib; sourceTree = "<group>"; };
 		1F810EC61D51E386008A5EF1 /* AllMeetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllMeetViewController.swift; sourceTree = "<group>"; };
+		1F810EC81D51F5D0008A5EF1 /* UIViewController+TalKingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TalKingData.h"; sourceTree = "<group>"; };
+		1F810EC91D51F5D0008A5EF1 /* UIViewController+TalKingData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TalKingData.m"; sourceTree = "<group>"; };
 		1F9DCF001D4C50C2001467E6 /* TYPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYPagerController.h; sourceTree = "<group>"; };
 		1F9DCF011D4C50C2001467E6 /* TYPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYPagerController.m; sourceTree = "<group>"; };
 		1F9DCF021D4C50C2001467E6 /* TYTabButtonPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYTabButtonPagerController.h; sourceTree = "<group>"; };
@@ -840,6 +843,8 @@
 				1FBF40BC1D221267005DB46F /* NSString+StringType.m */,
 				1F810E8B1D4F01EE008A5EF1 /* UIView+DottedLineView.h */,
 				1F810E8C1D4F01EE008A5EF1 /* UIView+DottedLineView.m */,
+				1F810EC81D51F5D0008A5EF1 /* UIViewController+TalKingData.h */,
+				1F810EC91D51F5D0008A5EF1 /* UIViewController+TalKingData.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1292,8 +1297,6 @@
 		DA4A88FF1CDC2BD000649983 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				1F508D491D2FA308001EB676 /* ApplyCodeViewController.h */,
-				1F508D4A1D2FA308001EB676 /* ApplyCodeViewController.m */,
 			);
 			name = Login;
 			path = Me/Login;
@@ -1359,6 +1362,8 @@
 				DABF8B091CEB22A100CA2A1D /* UserProtocolViewController.m */,
 				DABF8AF91CEAE71100CA2A1D /* SendEmailViewController.h */,
 				DABF8AFA1CEAE71100CA2A1D /* SendEmailViewController.m */,
+				1F508D491D2FA308001EB676 /* ApplyCodeViewController.h */,
+				1F508D4A1D2FA308001EB676 /* ApplyCodeViewController.m */,
 				1FAA08081D41CEE80017F3E3 /* BlackListViewController.swift */,
 			);
 			path = Seting;
@@ -1783,6 +1788,7 @@
 				DAF5C8851CE5B95000DA7901 /* CoreTextUtils.m in Sources */,
 				1F6850231CFFD41E007F3C07 /* PhotoTableViewCell.m in Sources */,
 				1FAA08201D4319220017F3E3 /* BlackListCollectCell.swift in Sources */,
+				1F810ECA1D51F5D0008A5EF1 /* UIViewController+TalKingData.m in Sources */,
 				1FC4C08B1D0D590E00E4BB33 /* MeViewController.swift in Sources */,
 				DAF5C8821CE5B95000DA7901 /* CoreTextData.m in Sources */,
 				1F6850361CFFD77A007F3C07 /* BaseTableViewCell.m in Sources */,

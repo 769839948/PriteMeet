@@ -33,6 +33,7 @@ class MeViewController: UIViewController {
         self.setUpTableView()
         self.loadExtenInfo()
         self.addLineNavigationBottom()
+        self.talKingDataPageName = "Me"
     }
 
     override func viewWillAppear(animated: Bool) {

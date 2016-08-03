@@ -33,6 +33,7 @@
 //    self.isBaseView = YES;
     [self.navigationController.navigationBar setTranslucent:YES];
     [self navigationItemWithLineAndWihteColor];
+    self.talKingDataPageName = @"Login-ApplyCode";
 }
 
 - (void)setNavigationBarItem

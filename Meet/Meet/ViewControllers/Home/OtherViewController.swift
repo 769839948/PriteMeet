@@ -35,6 +35,8 @@ class OtherViewController: UIViewController {
         super.viewDidLoad()
         self.loadData()
         self.setNavigationBar()
+        self.talKingDataPageName = "Home-Detail-OtherProfile"
+
         // Do any additional setup after loading the view.
     }
     

@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 #import "WXApi.h"
-#import "TalkingData.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import "MBProgressHUD.h"
@@ -32,13 +31,9 @@
 @interface AppDelegate ()<WXApiDelegate,NSURLConnectionDelegate,WeiboSDKDelegate> {
     NSURLConnection *_connection;
     NSURLConnection *_connectionLoadUserInfo;
-    
     MBProgressHUD *loadingHUD;
-    
     SplashView *_splashView;
 }
-
-
 
 @end
 
@@ -52,7 +47,7 @@
     [Fabric with:@[[Crashlytics class]]];////////
     [self logUser];
     [WXApi registerApp:@"wx49c4b6f590f83469"];
-
+    [TalkingData sessionStarted:TalkingDataAppId withChannelId:@"AppStore"];
     [self setUpUMeng];
     
     if ([UserInfo sharedInstance].wechat_union_id == nil) {
@@ -169,7 +164,6 @@
     if ([url.host isEqualToString:@"safepay"]) {
         //跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-            NSLog(@"resultDic========%@",resultDic);
             if ([resultDic[@"resultStatus"] isEqualToString:@"9000"]) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:AliPayStatues object:nil];
             }

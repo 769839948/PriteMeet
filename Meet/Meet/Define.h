@@ -61,4 +61,6 @@
 #define WeiXinPayStatues  @"WeixinPaySuccess"
 #define AliPayStatues     @"AliPaySuccess"
 
+#define TalkingDataAppId  @"7244A450FDAFB46FFEF7C1B68FBA93D3"
+
 #endif /* Define_h */

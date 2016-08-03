@@ -57,6 +57,7 @@ class MeetDetailViewController: UIViewController {
         self.view.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
         super.viewDidLoad()
         self.getHomeDetailModel()
+        self.talKingDataPageName = "Home-Detail"
         // Do any additional setup after loading the view.
     }
 
