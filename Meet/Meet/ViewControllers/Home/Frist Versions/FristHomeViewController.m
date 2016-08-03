@@ -400,11 +400,6 @@ typedef NS_ENUM(NSInteger, FillterName) {
     }
 }
 
-- (void)actionSheetCancel:(UIActionSheet *)actionSheet
-{
-    
-}
-
 #pragma mark - AMapLocationDelegate
 
 - (void)amapLocationManager:(AMapLocationManager *)manager didFailWithError:(NSError *)error
