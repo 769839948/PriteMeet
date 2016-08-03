@@ -15,6 +15,10 @@
 
 @property (nonatomic, assign) BOOL isSelect;
 
+@property (nonatomic, strong) UIFont *titleFont;
+
+@property (nonatomic, strong) UIColor *titleColor;
+
 - (void)filleCellWithFeed:(NSString *)text;
 
 @end

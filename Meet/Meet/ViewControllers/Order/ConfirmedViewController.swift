@@ -12,7 +12,12 @@ class ConfirmedViewController: BaseOrderViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        if self.orderModel.status?.status_type == "receive_order" {
+            bottomBtn.setTitle("待确认订单", forState: .Normal)
+        }else{
+            self.updataConstraints()
+            bottomBtn.hidden = true
+        }
         // Do any additional setup after loading the view.
     }
 
@@ -21,31 +26,30 @@ class ConfirmedViewController: BaseOrderViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 5
+    //MARK:父类方法重写
+    override func bottomPress(sender: UIButton) {
+        viewModel.orderStatusOperation(orderModel.order_id, withHos: UserInfo.sharedInstance().uid, successBlock: { (dic) in
+                if self.myClouse != nil {
+                    self.myClouse(status:(self.orderModel.status?.order_status)!)
+                }
+                self.leftBarPress(self.navigationItem.leftBarButtonItem!)
+            }, failBlock: { (dic) in
+             UITools.showMessageToView(self.view, message: "确认失败", autoHide: true)
+        })
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == 4 {
-            let cellIdf = "DefaultCell"
-            var cell = tableView.dequeueReusableCellWithIdentifier(cellIdf)
-            if cell == nil {
-                cell = UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: cellIdf)
-            }
-            cell?.textLabel?.text = orderModel.status?.order_status
-            return cell!
+        if indexPath.row == 3 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("OrderCancelTableViewCell", forIndexPath: indexPath) as! OrderCancelTableViewCell
+            cell.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
+            cell.selectionStyle = .None
+            return cell
         }else{
-            return cellIndexPath(tableViewArray[indexPath.section], indexPath: indexPath, tableView: tableView)
-        }
-    }
-
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 4 {
-            viewModel.orderStatusOperation(orderModel.order_id, withHos: UserInfo.sharedInstance().uid, successBlock: { (dic) in
-                
-                }, failBlock: { (dic) in
-                    
-            })
+            return cellIndexPath(self.tableViewArray[indexPath.row], indexPath: indexPath, tableView: tableView)
         }
     }
     

@@ -12,7 +12,12 @@ class WaitPayViewController: BaseOrderViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        if self.orderModel.status?.status_type == "receive_order" {
+            bottomBtn.hidden = true
+            self.updataConstraints()
+        }else{
+            bottomBtn.setTitle("立即支付 RMB 50.00", forState: .Normal)
+        }
         // Do any additional setup after loading the view.
     }
 
@@ -21,31 +26,36 @@ class WaitPayViewController: BaseOrderViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 5
+    //MARK:父类方法重写
+    override func bottomPress(sender: UIButton) {
+        let payVC = PayViewController()
+        payVC.orderModel = orderModel
+        self.navigationController?.pushViewController(payVC, animated: true)
+//        viewModel.orderStatusOperation(orderModel.order_id, withHos: UserInfo.sharedInstance().uid, successBlock: { (dic) in
+//            if self.myClouse != nil {
+//                self.myClouse(status:(self.orderModel.status?.order_status)!)
+//            }
+//            self.leftBarPress(self.navigationItem.leftBarButtonItem!)
+//            }, failBlock: { (dic) in
+//                UITools.showMessageToView(self.view, message: "确认失败", autoHide: true)
+//        })
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == 4 {
-            let cellIdf = "DefaultCell"
-            var cell = tableView.dequeueReusableCellWithIdentifier(cellIdf)
-            if cell == nil {
-                cell = UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: cellIdf)
-            }
-            cell?.textLabel?.text = orderModel.status?.order_status
-            return cell!
+        if indexPath.row == 3 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("OrderCancelTableViewCell", forIndexPath: indexPath) as! OrderCancelTableViewCell
+            cell.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
+            cell.selectionStyle = .None
+            return cell
         }else{
-            return cellIndexPath(tableViewArray[indexPath.section], indexPath: indexPath, tableView: tableView)
+            return cellIndexPath(self.tableViewArray[indexPath.row], indexPath: indexPath, tableView: tableView)
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 4 {
-            let payVC = PayViewController()
-            payVC.orderModel = orderModel
-            self.navigationController?.pushViewController(payVC, animated: true)
-        }
-    }
     /*
     // MARK: - Navigation
 

@@ -142,8 +142,7 @@
 
 - (void)editAction:(id)sender {
     ///填写更多个人信息
-    UIStoryboard *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
-    MoreProfileViewController *moreVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"MoreProfileViewController"];
+    MoreProfileViewController *moreVC = Storyboard(@"Me", @"MoreProfileViewController");
     moreVC.modifyBlock = ^(){
         _isModifyPhotos = YES;
         [self reloadScrollView];

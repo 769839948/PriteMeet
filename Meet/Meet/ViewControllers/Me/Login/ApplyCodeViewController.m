@@ -51,13 +51,13 @@
     if (self.loginViewBlock) {
         self.loginViewBlock();
     }
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"ApplyCodeAvatar"];
+    UserDefaultsRemoveSynchronize(@"ApplyCodeAvatar");
 }
 
 - (void)applyCodePress:(UIBarButtonItem *)sender
 {
     [self mappingUserInfoWithDicValues];
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] != nil && ![[UserInfo sharedInstance].job_label isEqualToString:@""] && ![[UserInfo sharedInstance].mobile_num isEqualToString:@""] && ![[UserInfo sharedInstance].location isEqualToString:@"0,0"]) {
+    if (UserDefaultsGetSynchronize(@"ApplyCodeAvatar") != nil && ![[UserInfo sharedInstance].job_label isEqualToString:@""] && ![[UserInfo sharedInstance].mobile_num isEqualToString:@""] && ![[UserInfo sharedInstance].location isEqualToString:@"0,0"]) {
         __weak typeof(self) weakSelf = self;
         [_loginViewModel applyCode:[UserInfo sharedInstance] workArray:_worke_exps eduArray:_edu_exps Success:^(NSDictionary *object) {
             [UserInfo logout];

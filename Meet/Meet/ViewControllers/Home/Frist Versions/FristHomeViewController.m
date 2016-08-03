@@ -174,7 +174,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
     [self navigationItemWhiteColorAndNotLine];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:HomeTableViewBackGroundColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-//    [self setUpBottonView];
+    [self setUpBottonView];
     [self setUpNavigationBar];
 }
 
@@ -237,13 +237,21 @@ typedef NS_ENUM(NSInteger, FillterName) {
 
 - (void)orderPress:(UIButton *)sender
 {
-    UIStoryboard *orderStory = [UIStoryboard storyboardWithName:@"Order" bundle:[NSBundle mainBundle]];
-    OrderViewController *orderVC = [orderStory instantiateViewControllerWithIdentifier:@"OrderViewController"];
-    [self.navigationController pushViewController:orderVC animated:YES];
+//    UIStoryboard *orderStory = [UIStoryboard storyboardWithName:@"Order" bundle:[NSBundle mainBundle]];
+//    OrderViewController *orderVC = [orderStory instantiateViewControllerWithIdentifier:@"OrderViewController"];
+//    [self.navigationController pushViewController:orderVC animated:YES];
 //    EditMoreProfileViewController *edilt = [[EditMoreProfileViewController alloc] init];
 //    [self.navigationController pushViewController:edilt animated:YES];
 //    PayViewController *controller = [[PayViewController alloc] init];
 //    [self.navigationController pushViewController:controller animated:YES];
+    OrderPageViewController *orderPageVC = [[OrderPageViewController alloc] init];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:orderPageVC];
+    [orderPageVC setBarStyle:TYPagerBarStyleCoverView];
+//    orderPageVC.cellSpacing = 100;
+    orderPageVC.progressColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
+    [self.navigationController presentViewController:navVC animated:YES completion:^{
+        
+    }];
 }
 
 - (void)setUpRefreshView

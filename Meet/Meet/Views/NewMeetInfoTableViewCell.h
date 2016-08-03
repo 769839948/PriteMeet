@@ -11,7 +11,8 @@
 typedef NS_ENUM(NSUInteger, CollectionViewItemStyle) {
     ItemWhiteColorAndBlackBoard = 0,
     ItemBlackAndWhiteLabelText,
-    ItemOrginAndWhiteLabelText
+    ItemOrginAndWhiteLabelText,
+    ItemWhiteBoardOrginBacground
 };
 
 typedef void (^tableCellHeight)(CGFloat height);
