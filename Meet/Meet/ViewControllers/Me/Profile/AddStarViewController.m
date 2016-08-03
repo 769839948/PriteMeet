@@ -9,7 +9,6 @@
 #import "AddStarViewController.h"
 #import "UITextView+Placeholder.h"
 #import "IQKeyboardManager.h"
-#import "AutomaticBulletAndNumberLists.h"
 #import "UserInfoViewModel.h"
 #import "UserExtenModel.h"
 #import "UIViewController+DismissKeyboard.h"

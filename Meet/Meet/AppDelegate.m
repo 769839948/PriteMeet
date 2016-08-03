@@ -59,11 +59,11 @@
         [UserInfo logout];
     }
     
+    
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     [self setIQkeyboardManager];
 
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FristHomeViewController *controller = [mainStoryboard instantiateViewControllerWithIdentifier:@"FristHomeViewController"];
+    FristHomeViewController *controller = Storyboard(@"Main", @"FristHomeViewController");
     self.window.rootViewController = [[ScrollingNavigationController alloc] initWithRootViewController:controller];
 
 #pragma clang diagnostic push
@@ -116,22 +116,7 @@
     
 }
 
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation {
-    
-    if ([url.host isEqualToString:@"safepay"]) {
-        //跳转支付宝钱包进行支付，处理支付结果
-        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-            NSLog(@"result = %@",resultDic);
-        }];
-    }else if ([url.host isEqualToString:@"response"]){
-        return [WeiboSDK handleOpenURL:url delegate:self];
-    }
-     
-    return YES;
-}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -159,6 +144,23 @@
     return [WXApi handleOpenURL:url delegate:self];
 }
 
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    
+    if ([url.host isEqualToString:@"safepay"]) {
+        //跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+        }];
+    }else if ([url.host isEqualToString:@"response"]){
+        return [WeiboSDK handleOpenURL:url delegate:self];
+    }
+    
+    return YES;
+}
+
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
     
     if([url.host isEqualToString:@"response"]) {
@@ -174,11 +176,6 @@
         }];
     }
     return [WXApi handleOpenURL:url delegate:self];
-}
-
--(MainViewController *)getRootViewController {
-    MainViewController *rootVC = (MainViewController *) self.window.rootViewController;
-    return rootVC;
 }
 
 #pragma mark - WeiboSDKDelegate

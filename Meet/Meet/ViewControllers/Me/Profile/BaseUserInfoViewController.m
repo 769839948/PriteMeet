@@ -114,8 +114,7 @@
                         break;
                     default:
                     {
-                        UIStoryboard  *meStoryBoard = [UIStoryboard storyboardWithName:@"Me" bundle:[NSBundle mainBundle]];
-                        SenderInviteViewController *senderInviteVC = [meStoryBoard instantiateViewControllerWithIdentifier:@"SenderInviteViewController"];
+                        SenderInviteViewController *senderInviteVC = Storyboard(@"Me", @"SenderInviteViewController");                        
                         if (_isDetailViewLogin) {
                             senderInviteVC.isDetailViewLogin = YES;
                             senderInviteVC.detailViewActionSheetSelect = self.detailViweActionSheetSelect;

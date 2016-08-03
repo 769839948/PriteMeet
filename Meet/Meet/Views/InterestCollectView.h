@@ -14,6 +14,8 @@ typedef void (^ReturnColloctHeight)(CGFloat height);
 typedef void (^ReturnMeetInfoHeight)(CGFloat height);
 
 static NSString * const reuseIdentifier = @"InterstCollectViewCell";
+static NSString * const reuseIdentifierAppointMent = @"AppointmentCell";
+
 
 @interface InterestCollectView : UICollectionView<UICollectionViewDataSource,UICollectionViewDelegate,EqualSpaceFlowLayoutDelegate>
 

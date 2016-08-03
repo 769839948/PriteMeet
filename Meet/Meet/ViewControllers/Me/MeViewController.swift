@@ -197,8 +197,7 @@ class MeViewController: UIViewController {
     }
     
     func rightPress(sender:UIBarButtonItem){
-        let meStoryBoard = UIStoryboard(name: "Seting", bundle: NSBundle.mainBundle())
-        let settingVC = meStoryBoard.instantiateViewControllerWithIdentifier("SetingViewController") as!  SetingViewController
+        let settingVC = Stroyboard("Seting", viewControllerId: "SetingViewController") as!  SetingViewController
         settingVC.logoutBlock = {()
             self.tableView.reloadData()
         }
@@ -250,8 +249,7 @@ class MeViewController: UIViewController {
     }
     
     func pushProfileViewControllr() {
-        let meStoryBoard = UIStoryboard(name: "Me", bundle: NSBundle.mainBundle())
-        let myProfileVC = meStoryBoard.instantiateViewControllerWithIdentifier("MyProfileViewController") as!  MyProfileViewController
+        let myProfileVC = Stroyboard("Me", viewControllerId: "MyProfileViewController") as!  MyProfileViewController
         myProfileVC.fromeMeView = true
         myProfileVC.hightLight = UserExtenModel.shareInstance().highlight
         myProfileVC.reloadMeViewBlock = {(uodataInfo:Bool) in
@@ -264,8 +262,7 @@ class MeViewController: UIViewController {
      添加个人亮点
      */
     func presentAddStarViewController(){
-        let meStoryBoard = UIStoryboard(name: "Me", bundle: NSBundle.mainBundle())
-        let addStarVC = meStoryBoard.instantiateViewControllerWithIdentifier("AddStarViewController") as!  AddStarViewController
+        let addStarVC =  Stroyboard("Me", viewControllerId: "AddStarViewController") as!  AddStarViewController
         let controller = BaseNavigaitonController(rootViewController: addStarVC)
         self.navigationController!.presentViewController(controller, animated: true, completion: {
             
@@ -276,8 +273,7 @@ class MeViewController: UIViewController {
      展示更多个人信息
      */
     func presentMoreProfileViewController(){
-        let meStoryBoard = UIStoryboard(name: "Me", bundle: NSBundle.mainBundle())
-        let moreProfileView = meStoryBoard.instantiateViewControllerWithIdentifier("MoreProfileViewController") as!  MoreProfileViewController
+        let moreProfileView = Stroyboard("Me", viewControllerId: "MoreProfileViewController") as!  MoreProfileViewController
         let controller = BaseNavigaitonController(rootViewController: moreProfileView)
         self.navigationController!.presentViewController(controller, animated: true, completion: {
             
@@ -315,8 +311,7 @@ class MeViewController: UIViewController {
         let windown = UIApplication.sharedApplication().keyWindow
         windown!.addSubview(loginView)
         loginView.applyCodeClouse = { _ in
-            let loginStory = UIStoryboard.init(name: "Login", bundle: nil)
-            let applyCode = loginStory.instantiateViewControllerWithIdentifier("ApplyCodeViewController") as! ApplyCodeViewController
+            let applyCode = Stroyboard("Login", viewControllerId: "ApplyCodeViewController") as! ApplyCodeViewController
             applyCode.isApplyCode = true
             applyCode.showToolsBlock = { _ in
                 UITools.showMessageToView(self.view, message: "申请成功，请耐心等待审核结果^_^", autoHide: true)
@@ -332,8 +327,7 @@ class MeViewController: UIViewController {
         }
         
         loginView.protocolClouse = { _ in
-            let settingStory = UIStoryboard.init(name: "Seting", bundle: nil)
-            let userProtocol = settingStory.instantiateViewControllerWithIdentifier("UserProtocolViewController")  as! UserProtocolViewController
+            let userProtocol = Stroyboard("Seting", viewControllerId: "UserProtocolViewController") as! UserProtocolViewController
             userProtocol.block = { _ in
                 self.loginView.mobileTextField.becomeFirstResponder()
                 UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
@@ -343,8 +337,7 @@ class MeViewController: UIViewController {
         }
         
         loginView.newUserLoginClouse = { _ in
-            let meStory = UIStoryboard.init(name: "Me", bundle: nil)
-            let baseUserInfo = meStory.instantiateViewControllerWithIdentifier("BaseInfoViewController")  as! BaseUserInfoViewController
+            let baseUserInfo = Stroyboard("Me", viewControllerId: "BaseInfoViewController") as! BaseUserInfoViewController
             self.navigationController?.pushViewController(baseUserInfo, animated: true)
         }
         
@@ -374,8 +367,7 @@ extension MeViewController : UITableViewDelegate{
         } else if (indexPath.row == 1) {
             UITools.shareInstance().showMessageToView(self.view, message: "^_^ 敬请期待，暂时请联系客服帮忙添加哦", autoHide: true)
         } else  if (indexPath.row == 3 || indexPath.row == 2) {
-            let meStoryBoard = UIStoryboard(name: "Me", bundle: NSBundle.mainBundle())
-            let senderInviteVC = meStoryBoard.instantiateViewControllerWithIdentifier("SenderInviteViewController") as!  SenderInviteViewController
+            let senderInviteVC = Stroyboard("Me", viewControllerId: "SenderInviteViewController") as!  SenderInviteViewController
             self.navigationController!.pushViewController(senderInviteVC, animated:true)
         }else if(indexPath.row == 4){
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! MeInfoTableViewCell

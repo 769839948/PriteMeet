@@ -68,8 +68,7 @@ class ApplyMeetViewController: UIViewController {
         applyModel.guest = UserInfo.sharedInstance().uid
         viewModel.applyMeetOrder(applyModel, successBlock: { (dic) in
             
-            let orderStoryBoard = UIStoryboard(name: "Order", bundle: NSBundle.mainBundle())
-            let applyComfim = orderStoryBoard.instantiateViewControllerWithIdentifier("ApplyConfimViewController") as!  ApplyConfimViewController
+            let applyComfim = Stroyboard("Order",viewControllerId: "ApplyConfimViewController") as!  ConfirmedViewController
             self.navigationController?.pushViewController(applyComfim, animated: true)
             }) { (dic) in
                 

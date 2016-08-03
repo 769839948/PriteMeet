@@ -32,5 +32,13 @@ extension String{
         
     }//funcstringHeightWith
     
+    func stringWidth(labelStr:String,font:UIFont,height:CGFloat) -> CGFloat {
+        let statusLabelText: NSString = labelStr
+        let size = CGSizeMake(900, height)
+        let dic = NSDictionary(object: font, forKey: NSFontAttributeName)
+        let strSize = statusLabelText.boundingRectWithSize(size, options: .UsesLineFragmentOrigin, attributes: dic as? [String : AnyObject], context: nil).size
+        return strSize.width
+    }
+    
 }//extension end
 

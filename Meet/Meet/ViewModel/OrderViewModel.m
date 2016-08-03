@@ -10,6 +10,11 @@
 
 @implementation OrderViewModel
 
+- (NSArray *)orderPageControllerTitle
+{
+    return @[@"待确认",@"待支付",@"待见面",@"历史约见"];
+}
+
 - (void)applyMeetOrder:(ApplyMeetModel *)model successBlock:(Success)successBlock failBlock:(Fail)failBlock
 {
     NSString *url = [RequestBaseUrl stringByAppendingString:RequestApplyAppointment];
@@ -33,7 +38,7 @@
     NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"/api/get_pay_url/?out_trade_no=%@",order_id]];
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject[@"pay_url"]);
+            successBlock(responseObject[@"content"][@"pay_url"]);
         }else{
             
         }
@@ -50,7 +55,7 @@
     NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@?cur_user=%@&status=%@",RequestUserAppoitment,guest,orderState]];
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([responseObject[@"success"] boolValue]) {
-            successBlock(responseObject);
+            successBlock(responseObject[@"content"]);
         }
     } failure:^(NSDictionary *responseObject) {
         

@@ -59,8 +59,6 @@ static const void *NavigationBarView = &NavigationBarView;
 {
     [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-//    self.navigationBarView = [self.navigationController.navigationBar viewWithTag:1000];
-//    self.navigationBarView.backgroundColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 0.5)]];
     self.navigationBarlineLabel = [self.navigationController.navigationBar viewWithTag:10000000];
     self.navigationBarlineLabel.backgroundColor = [UIColor clearColor];

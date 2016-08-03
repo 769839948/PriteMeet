@@ -8,11 +8,37 @@
 
 import UIKit
 
+let flowViewWidth:CGFloat = 249
+
 class OrderFlowTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    let orderStatusArray:NSArray = ["提交申请","待确认","待付款","待见面"]
+    let font_orderStatus:NSArray = ["待确认","待付款","待见面"]
+    var flowView:ZDQFlowView!
+    var orderStatus:String!
+    var statusType:String!
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.setUpView()
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setUpView(){
+        flowView = ZDQFlowView(frame: CGRectMake((UIScreen.mainScreen().bounds.size.width - flowViewWidth) / 2,49,flowViewWidth,51))
+        flowView.dataSource = self
+        self.contentView.addSubview(flowView)
+    }
+    
+    func setData(status:String,statusType:String) {
+        self.orderStatus = status
+        self.statusType = statusType
+        flowView.reloadData()
+
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
@@ -21,4 +47,89 @@ class OrderFlowTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+}
+
+extension OrderFlowTableViewCell: ZDQFlowViewDataSource {
+    func numberOfFlowViewItemCount(flowView: ZDQFlowView) -> NSInteger {
+        if self.statusType == "receive_order" {
+            return 3
+        }
+        return 4
+    }
+    
+    func numberOfFlowViewItem(flowView: ZDQFlowView, index: NSInteger) -> ZDQFlowViewItem {
+        if self.statusType == "receive_order" {
+            let viewItem = ZDQFlowViewItem()
+            if orderStatus == "1"{
+                switch index {
+                case 0:
+                    viewItem.setData("待确认",type: ZDQFlowViewItemType.ItemWaitSelect)
+                case 1:
+                    viewItem.setData("待付款",type: ZDQFlowViewItemType.ItemNext)
+                default:
+                    viewItem.setData("待见面",type: ZDQFlowViewItemType.ItemNext)
+                }
+            }else if orderStatus == "4" {
+                switch index {
+                case 0:
+                    viewItem.setData("已确认",type: ZDQFlowViewItemType.ItemSelect)
+                case 1:
+                    viewItem.setData("待付款",type: ZDQFlowViewItemType.ItemWaitSelect)
+                default:
+                    viewItem.setData("待见面",type: ZDQFlowViewItemType.ItemNext)
+                }
+            }else if orderStatus == "6" {
+                switch index {
+                case 0:
+                    viewItem.setData("已确认",type: ZDQFlowViewItemType.ItemSelect)
+                case 1:
+                    viewItem.setData("已付款",type: ZDQFlowViewItemType.ItemSelect)
+                default:
+                    viewItem.setData("待见面",type: ZDQFlowViewItemType.ItemWaitSelect)
+                }
+            }
+            return viewItem
+        }else{
+            let viewItem = ZDQFlowViewItem()
+            if orderStatus == "1"{
+                switch index {
+                case 0:
+                    viewItem.setData("提交申请",type: ZDQFlowViewItemType.ItemSelect)
+                case 1:
+                    viewItem.setData("待确认",type: ZDQFlowViewItemType.ItemWaitSelect)
+                case 2:
+                    viewItem.setData("待付款",type: ZDQFlowViewItemType.ItemNext)
+                default:
+                    viewItem.setData("待见面",type: ZDQFlowViewItemType.ItemNext)
+                }
+            }else if orderStatus == "4" {
+                switch index {
+                case 0:
+                    viewItem.setData("提交申请",type: ZDQFlowViewItemType.ItemSelect)
+                case 1:
+                    viewItem.setData("已确认",type: ZDQFlowViewItemType.ItemSelect)
+                case 2:
+                    viewItem.setData("待付款",type: ZDQFlowViewItemType.ItemWaitSelect)
+                default:
+                    viewItem.setData("待见面",type: ZDQFlowViewItemType.ItemNext)
+                }
+            }else if orderStatus == "6" {
+                switch index {
+                case 0:
+                    viewItem.setData("提交申请",type: ZDQFlowViewItemType.ItemSelect)
+                case 1:
+                    viewItem.setData("已确认",type: ZDQFlowViewItemType.ItemSelect)
+                case 2:
+                    viewItem.setData("已付款",type: ZDQFlowViewItemType.ItemSelect)
+                default:
+                    viewItem.setData("待见面",type: ZDQFlowViewItemType.ItemWaitSelect)
+                }
+            }
+            return viewItem
+        }
+    }
+    
+    func flowViewItemSize(flowView: ZDQFlowView) -> CGSize {
+        return CGSizeMake(45, 51)
+    }
 }
