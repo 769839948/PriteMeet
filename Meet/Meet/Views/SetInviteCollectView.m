@@ -51,6 +51,9 @@
         [self.selectItems replaceObjectAtIndex:indexPath.row withObject:@"false"];
         cell.isSelect = NO;
     }
+    if (self.block != nil) {
+        self.block(indexPath.row);
+    }
 }
 
 @end

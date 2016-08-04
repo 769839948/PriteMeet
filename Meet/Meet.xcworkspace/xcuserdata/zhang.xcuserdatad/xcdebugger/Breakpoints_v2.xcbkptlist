@@ -4,115 +4,13 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meet/ViewModel/HomeViewModel.m"
-            timestampString = "491884367.059272"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "-getHomeFilterList:latitude:longitude:filter:successBlock:failBlock:loadingView:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[HomeViewModel getHomeFilterList:latitude:longitude:filter:successBlock:failBlock:loadingView:]"
-                  moduleName = "Meet"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/PrivateMeet/Meet/Meet/ViewModel/HomeViewModel.m"
-                  timestampString = "491884398.364239"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "75"
-                  endingLineNumber = "75"
-                  offsetFromSymbolStart = "956">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__96-[HomeViewModel getHomeFilterList:latitude:longitude:filter:successBlock:failBlock:loadingView:]_block_invoke"
-                  moduleName = "Meet"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/PrivateMeet/Meet/Meet/ViewModel/HomeViewModel.m"
-                  timestampString = "491884398.364401"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "76"
-                  endingLineNumber = "76"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Meet/ViewControllers/Order/PayViewController.swift"
-            timestampString = "491889181.931196"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "loadPayInfo()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meet/ViewModel/OrderViewModel.m"
-            timestampString = "491889219.938212"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "-payOrder:successBlock:failBlock:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meet/ViewModel/OrderViewModel.m"
-            timestampString = "491889240.440294"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "-payOrder:successBlock:failBlock:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meet/ViewControllers/Me/Profile/MyProfileViewController.m"
-            timestampString = "491976035.033828"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1157"
-            endingLineNumber = "1157"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "5">
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

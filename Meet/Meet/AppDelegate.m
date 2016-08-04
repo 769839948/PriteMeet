@@ -10,7 +10,6 @@
 #import "MainViewController.h"
 #import "WXApi.h"
 #import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
 #import "MBProgressHUD.h"
 #import "AFNetWorking.h"
 #import "NetWorkObject.h"
@@ -42,18 +41,15 @@
 /////nothing just test
 ///what 's app
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [self logUser];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [ThemeTools appTheme:AppThemeColorCustom];
-    [Fabric with:@[[Crashlytics class]]];////////
-    [self logUser];
+    
     [WXApi registerApp:@"wx49c4b6f590f83469"];
     [TalkingData sessionStarted:TalkingDataAppId withChannelId:@"AppStore"];
     [self setUpUMeng];
-    
-    if ([UserInfo sharedInstance].wechat_union_id == nil) {
-        [UserInfo logout];
-    }
-    
     
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     [self setIQkeyboardManager];
@@ -68,6 +64,9 @@
     [self.window makeKeyAndVisible];
     [self addSplashView];
 
+    [Crashlytics sharedInstance].debugMode = YES;
+    [Fabric with:@[[Crashlytics class]]];//
+     
     return YES;
 }
 
@@ -94,9 +93,8 @@
 
 - (void) logUser {
 
-    [CrashlyticsKit setUserIdentifier:@"12345"];
-    [CrashlyticsKit setUserEmail:@"user@fabric.io"];
-    [CrashlyticsKit setUserName:@"Test User"];
+    [CrashlyticsKit setUserIdentifier:[UserInfo sharedInstance].uid];
+    [CrashlyticsKit setUserName:[UserInfo sharedInstance].real_name];
 }
 
 - (void)setIQkeyboardManager

@@ -13,6 +13,7 @@
 #pragma mark - appThemeCustomColor
 #define NavigationBarTintColorCustome  @"202020"
 #define NavigationBarTitleColorCustome  @"202020"
+#define NavigationBarTintDisColorCustom  @"E7E7E7"
 
 #define OtherBlackFontColor [UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0]
 

@@ -59,7 +59,6 @@ typedef NS_ENUM(NSInteger, FillterName) {
     [super viewDidLoad];
     _fillterName = ReconmondList;
     [self setUpTableView];
-    
     _page = 0;
     _viewModel = [[HomeViewModel alloc] init];
     _homeModelArray = [NSMutableArray array];
@@ -67,8 +66,11 @@ typedef NS_ENUM(NSInteger, FillterName) {
     [self setUpRefreshView];
     [self setUpLocationManager];
     [self addLineNavigationBottom];
+    
+    /**
+     *  添加崩溃信息和用户表现形式
+     */
     self.talKingDataPageName = @"Home";
-
 }
 
 - (void)getProfileKeyAndValues
@@ -213,6 +215,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
 
 - (void)rightItemPess:(UIBarButtonItem *)sender
 {
+    
     [self presentViewController:[[BaseNavigaitonController alloc] initWithRootViewController:[[MeViewController alloc] init]] animated:YES completion:^{
 
     }];
@@ -360,6 +363,8 @@ typedef NS_ENUM(NSInteger, FillterName) {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MeetDetailViewController *meetDetailView = [[MeetDetailViewController alloc] init];
     HomeModel *model = [_homeModelArray objectAtIndex:indexPath.section];
@@ -398,22 +403,18 @@ typedef NS_ENUM(NSInteger, FillterName) {
             _fillterName = ReconmondList;
             _page = 0;
             [self setUpHomeData];
-        
+            self.tableView.scrollsToTop = YES;
             break;
         case 1:
             [_homeModelArray removeAllObjects];
             _fillterName = LocationList;
             _page = 0;
             [self setUpHomeData];
+            self.tableView.scrollsToTop = YES;
         default:
             
             break;
     }
-}
-
-- (void)actionSheetCancel:(UIActionSheet *)actionSheet
-{
-    
 }
 
 #pragma mark - AMapLocationDelegate

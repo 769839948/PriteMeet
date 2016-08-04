@@ -30,7 +30,7 @@
 #import "ApplicationTheme.h"
 #import "TalkingData.h"
 #import "UIViewController+TalKingData.h"
-
+#import <Crashlytics/Crashlytics.h>
 
 #endif
 

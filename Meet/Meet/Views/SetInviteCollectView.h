@@ -8,7 +8,11 @@
 
 #import "InterestCollectView.h"
 
+typedef void (^InviteCollectViewSelectBlock)(NSInteger selectItem);
+
 @interface SetInviteCollectView : InterestCollectView
+
+@property (nonatomic, strong) InviteCollectViewSelectBlock block;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 

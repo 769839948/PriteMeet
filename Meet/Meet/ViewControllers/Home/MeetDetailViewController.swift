@@ -191,6 +191,7 @@ class MeetDetailViewController: UIViewController {
     }
     
     func reportAction() {
+        
         if !UserInfo.isLoggedIn(){
             self.presentLoginView()
         }else{
@@ -228,6 +229,7 @@ class MeetDetailViewController: UIViewController {
     }
     
     func presentLoginView(){
+        
         loginView = LoginView(frame: CGRectMake(0,0,ScreenWidth,ScreenHeight))
         let windown = UIApplication.sharedApplication().keyWindow
         windown!.addSubview(loginView)
@@ -779,7 +781,6 @@ extension MeetDetailViewController : UIActionSheetDelegate {
     
     func willPresentActionSheet(actionSheet: UIActionSheet) {
         for subView in actionSheet.subviews {
-            print(subView)
             if subView.isKindOfClass(UIButton.self) {
                 let button = subView as! UIButton
                 if button.tag == 1 {
