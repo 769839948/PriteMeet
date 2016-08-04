@@ -400,11 +400,13 @@ typedef NS_ENUM(NSInteger, FillterName) {
             [self setUpHomeData];
         
             break;
-        default:
+        case 1:
             [_homeModelArray removeAllObjects];
             _fillterName = LocationList;
             _page = 0;
             [self setUpHomeData];
+        default:
+            
             break;
     }
 }
