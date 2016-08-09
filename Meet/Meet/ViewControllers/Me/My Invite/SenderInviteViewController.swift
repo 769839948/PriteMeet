@@ -58,6 +58,7 @@ class SenderInviteViewController: UIViewController {
                 self.selectItems = NSMutableArray(array:UserInviteModel.themArray(0) as NSArray)
             }
             self.tableView.reloadData()
+            self.changeNavigationBarItemColor()
             }, fail: { (dic) in
                 
             }) { (msg) in
@@ -66,10 +67,12 @@ class SenderInviteViewController: UIViewController {
     }
     
     func checkNavigationItemEnable() -> Bool {
-        for idx in 0...cell.interestView.selectItems.count - 1 {
-            let ret = cell.interestView.selectItems[idx]
-            if ret as! String == "true" && textView.text.length != 0 {
-                return true
+        if  cell != nil && cell.interestView != nil && cell.interestView.selectItems.count >= 1 {
+            for idx in 0...cell.interestView.selectItems.count - 1 {
+                let ret = cell.interestView.selectItems[idx]
+                if ret as! String == "true" && textView.text.length != 0 {
+                    return true
+                }
             }
         }
         return false
@@ -77,6 +80,7 @@ class SenderInviteViewController: UIViewController {
     
     func setNavigationBar(){
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(SenderInviteViewController.sendreInvite))
+//        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.init(hexString:NavigationBarTintColorCustome)
         self.changeNavigationBarItemColor()
     }
     

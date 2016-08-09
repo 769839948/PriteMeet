@@ -95,7 +95,7 @@ class SplashView: UIView {
         
         logoImage = UIImageView.init()
         logoImage.layer.cornerRadius = 15.0
-        logoImage.image = UIImage.init(named: "logo")
+        logoImage.image = UIImage.init(named: "splash_logo")
         self.addSubview(logoImage)
         logoImage.snp_makeConstraints { (make) in
             make.centerX.equalTo(self.snp_centerX).offset(0)

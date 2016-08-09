@@ -13,7 +13,7 @@ class OrderCancelTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        cancelBtn.layer.borderColor = UIColor.init(hexString: HomeDetailViewPositionColor).CGColor
+        cancelBtn.layer.borderColor = UIColor.init(hexString: OrderBaseCancelBtnColor).CGColor
         cancelBtn.layer.cornerRadius = 18.0
         cancelBtn.layer.borderWidth = 1.0
         cancelBtn.layer.masksToBounds = true

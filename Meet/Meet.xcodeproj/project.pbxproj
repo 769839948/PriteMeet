@@ -159,6 +159,11 @@
 		1FCC444B1D37A66C00287EC5 /* OrderUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FCC44491D37A66C00287EC5 /* OrderUserTableViewCell.xib */; };
 		1FCC444D1D37A6BE00287EC5 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC444C1D37A6BE00287EC5 /* OrderViewController.swift */; };
 		1FCC444F1D37A96A00287EC5 /* OrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC444E1D37A96A00287EC5 /* OrderModel.swift */; };
+		1FD97BBA1D55DBF300556568 /* OrderApplyMeetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BB91D55DBF300556568 /* OrderApplyMeetTableViewCell.swift */; };
+		1FD97BBC1D55E1A900556568 /* OrderApplyIntroductionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BBB1D55E1A900556568 /* OrderApplyIntroductionCell.swift */; };
+		1FD97BBF1D55E41700556568 /* OrderApplyInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BBD1D55E41700556568 /* OrderApplyInfoTableViewCell.swift */; };
+		1FD97BC01D55E41700556568 /* OrderApplyInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FD97BBE1D55E41700556568 /* OrderApplyInfoTableViewCell.xib */; };
+		1FD97BC21D5892BA00556568 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BC11D5892BA00556568 /* HomeViewController.swift */; };
 		1FDA53A61D003DC800C170BC /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA53A51D003DC800C170BC /* UIColor+Hex.m */; };
 		1FF30A2D1D3131720051333F /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF30A2C1D3131720051333F /* SettingTableViewCell.m */; };
 		1FF30A331D31ECF40051333F /* ScrollingNavbar+Sizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF30A301D31ECF40051333F /* ScrollingNavbar+Sizes.swift */; };
@@ -493,6 +498,11 @@
 		1FCC44491D37A66C00287EC5 /* OrderUserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderUserTableViewCell.xib; sourceTree = "<group>"; };
 		1FCC444C1D37A6BE00287EC5 /* OrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		1FCC444E1D37A96A00287EC5 /* OrderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderModel.swift; sourceTree = "<group>"; };
+		1FD97BB91D55DBF300556568 /* OrderApplyMeetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderApplyMeetTableViewCell.swift; sourceTree = "<group>"; };
+		1FD97BBB1D55E1A900556568 /* OrderApplyIntroductionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderApplyIntroductionCell.swift; sourceTree = "<group>"; };
+		1FD97BBD1D55E41700556568 /* OrderApplyInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderApplyInfoTableViewCell.swift; sourceTree = "<group>"; };
+		1FD97BBE1D55E41700556568 /* OrderApplyInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderApplyInfoTableViewCell.xib; sourceTree = "<group>"; };
+		1FD97BC11D5892BA00556568 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		1FDA53A41D003DC800C170BC /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		1FDA53A51D003DC800C170BC /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
 		1FF30A2B1D3131720051333F /* SettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewCell.h; sourceTree = "<group>"; };
@@ -739,6 +749,7 @@
 		1F2F56BC1D36204F005AEBC8 /* Order */ = {
 			isa = PBXGroup;
 			children = (
+				1FBBC3221D3CA9D7005D4175 /* ApplyMeetViewController.swift */,
 				1FCC44411D378B2500287EC5 /* PayViewController.swift */,
 				1F9DCF0D1D4C52A9001467E6 /* OrderPageViewController.swift */,
 				1F9DCF0F1D4C52EA001467E6 /* OrderConfirmViewController.swift */,
@@ -746,7 +757,6 @@
 				1F9DCF131D4C5322001467E6 /* OrderMeetViewController.swift */,
 				1F9DCF151D4C5331001467E6 /* OrderAllViewController.swift */,
 				1FCC444C1D37A6BE00287EC5 /* OrderViewController.swift */,
-				1FBBC3221D3CA9D7005D4175 /* ApplyMeetViewController.swift */,
 				1FAA07921D3CEC540017F3E3 /* ConfirmedViewController.swift */,
 				1FAA07DE1D3F17810017F3E3 /* WaitPayViewController.swift */,
 				1FAA07E01D3F17A00017F3E3 /* WaitMeetViewController.swift */,
@@ -1027,6 +1037,10 @@
 		1FCC44451D37A61D00287EC5 /* Order */ = {
 			isa = PBXGroup;
 			children = (
+				1FD97BB91D55DBF300556568 /* OrderApplyMeetTableViewCell.swift */,
+				1FD97BBB1D55E1A900556568 /* OrderApplyIntroductionCell.swift */,
+				1FD97BBD1D55E41700556568 /* OrderApplyInfoTableViewCell.swift */,
+				1FD97BBE1D55E41700556568 /* OrderApplyInfoTableViewCell.xib */,
 				1FCC44481D37A66C00287EC5 /* OrderUserTableViewCell.swift */,
 				1FCC44491D37A66C00287EC5 /* OrderUserTableViewCell.xib */,
 				1FAA07861D3CE64A0017F3E3 /* OrderProfileTableViewCell.swift */,
@@ -1307,6 +1321,7 @@
 			children = (
 				DA6B1C371CEC4DAC0020021D /* FristHomeViewController.h */,
 				DA6B1C381CEC4DAC0020021D /* FristHomeViewController.m */,
+				1FD97BC11D5892BA00556568 /* HomeViewController.swift */,
 			);
 			path = "Frist Versions";
 			sourceTree = "<group>";
@@ -1577,6 +1592,7 @@
 				1FAA07911D3CE69B0017F3E3 /* MeetOrderInfoTableViewCell.xib in Resources */,
 				DA4A89021CDC388B00649983 /* Login.storyboard in Resources */,
 				1FAA081E1D43160D0017F3E3 /* BlackListCollectCell.xib in Resources */,
+				1FD97BC01D55E41700556568 /* OrderApplyInfoTableViewCell.xib in Resources */,
 				DA018F521CD4DAFB0051D2D7 /* Localizable.strings in Resources */,
 				1FCC44441D37A4B100287EC5 /* Order.storyboard in Resources */,
 				1FBAE32B1D2526BD00D7D039 /* WorkeAndEduTableViewCell.xib in Resources */,
@@ -1681,6 +1697,7 @@
 				1F9DCF101D4C52EA001467E6 /* OrderConfirmViewController.swift in Sources */,
 				DA6CEF131CDAF42300EEABFF /* AddInformationViewController.m in Sources */,
 				1FBF40BD1D221267005DB46F /* NSString+StringType.m in Sources */,
+				1FD97BBF1D55E41700556568 /* OrderApplyInfoTableViewCell.swift in Sources */,
 				1F810E8A1D4C9509008A5EF1 /* BaseOrderPageViewController.swift in Sources */,
 				DA4A88FB1CDB5CB700649983 /* UITextView+Placeholder.m in Sources */,
 				1FC2C1451CFD3311001D6D10 /* NSString+Utils.m in Sources */,
@@ -1772,6 +1789,7 @@
 				1FAA08091D41CEE80017F3E3 /* BlackListViewController.swift in Sources */,
 				1F3868431D26141D00569032 /* OtherViewController.swift in Sources */,
 				1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */,
+				1FD97BBA1D55DBF300556568 /* OrderApplyMeetTableViewCell.swift in Sources */,
 				1FCC444D1D37A6BE00287EC5 /* OrderViewController.swift in Sources */,
 				1FAA081A1D42442D0017F3E3 /* BlackListModel.swift in Sources */,
 				1F3DC3381D0D0F5A0075B7BA /* PhotoDetailTableViewCell.swift in Sources */,
@@ -1803,6 +1821,7 @@
 				1F508D4E1D2FA791001EB676 /* ProfilePhotoTableViewCell.swift in Sources */,
 				1FAA07991D3DCC160017F3E3 /* OrderFlowTableViewCell.swift in Sources */,
 				1FCAFFD01D01515D00BF53A1 /* BaseRequestViewModel.m in Sources */,
+				1FD97BBC1D55E1A900556568 /* OrderApplyIntroductionCell.swift in Sources */,
 				1F810E911D4F37A3008A5EF1 /* AppointmentCell.swift in Sources */,
 				1F79BAD51D080A0500814DED /* NSFileManager+Paths.m in Sources */,
 				1F3DC32F1D0D07A60075B7BA /* MeViewModel.swift in Sources */,
@@ -1857,6 +1876,7 @@
 				1F9E931D1D0E4993003ED7AF /* UIImage+PureColor.m in Sources */,
 				1F2DA9BB1D394B0B0008C434 /* WeiboModel.m in Sources */,
 				1FAA085D1D4703A00017F3E3 /* Photos.m in Sources */,
+				1FD97BC21D5892BA00556568 /* HomeViewController.swift in Sources */,
 				1F9DCF0B1D4C50C2001467E6 /* TYTabPagerController.m in Sources */,
 				DAF5C8911CE5C0EE00DA7901 /* MyDisplayViewController.m in Sources */,
 				DA6CEF0F1CDAF33300EEABFF /* MoreProfileViewController.m in Sources */,

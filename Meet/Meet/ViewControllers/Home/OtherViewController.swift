@@ -140,7 +140,8 @@ class OtherViewController: UIViewController {
             let eduArray = Edu.mj_objectArrayWithKeyValuesArray(self.otherProfileModel.edu)
             for eduModel in eduArray! {
                 let education = (ProfileKeyAndValue.shareInstance().appDic as NSDictionary).objectForKey("education")?.objectForKey("\(eduModel.education)") as! String
-                let eduString = "\(eduModel.graduated)-\(eduModel.major)-\(education)"
+                let model = Edu.mj_objectWithKeyValues(eduModel) as Edu
+                let eduString = "\(model.graduated)-\(model.major)-\(education)"
                 eduInfo.addObject(eduString)
             }
         }

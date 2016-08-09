@@ -47,6 +47,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="4"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="375" id="pIu-Kl-vFF"/>
+                            <constraint firstAttribute="height" constant="4" id="wiu-OR-45u"/>
                         </constraints>
                     </imageView>
                 </subviews>

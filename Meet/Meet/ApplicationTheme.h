@@ -101,11 +101,13 @@
 
 #define AboutUsLabelColor @"4D4D4D"
 
-
+#define OrderApplyMeetTitleColor  @"C9C9C9"
+#define OrderBaseCancelBtnColor   @"C8C8C8"
 
 #define TableViewTextColor @"202020"
 
 #define IQKeyboardManagerTinColor @"202020"
+
 
 
 #define ApplyCodeFont [UIFont systemFontOfSize:18.0]

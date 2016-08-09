@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="aek-99-7ih">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="aek-99-7ih">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -175,7 +175,7 @@
         <!--Meet-->
         <scene sceneID="smA-kx-vd5">
             <objects>
-                <viewController storyboardIdentifier="FristHomeViewController" id="V0u-Ua-dmJ" customClass="FristHomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FristHomeViewController" id="V0u-Ua-dmJ" customClass="HomeViewController" customModule="Meet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7uh-Sv-YJM"/>
                         <viewControllerLayoutGuide type="bottom" id="23B-Sw-HnP"/>

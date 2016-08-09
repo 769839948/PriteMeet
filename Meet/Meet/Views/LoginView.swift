@@ -519,6 +519,7 @@ class LoginView: UIView {
                 UserInfo.sharedInstance().uid = mobile
                 UserInfo.synchronizeWithDic(dic)
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isNewUser")
+                UserInfo.sharedInstance().mobile_num = mobile
                 if self.newUserLoginClouse != nil{
                     self.newUserLoginClouse()
                 }

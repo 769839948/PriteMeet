@@ -51,6 +51,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
 
 @property (nonatomic, assign) FillterName fillterName;
 
+
 @end
 
 @implementation FristHomeViewController
@@ -152,6 +153,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
         }
         NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
         __weak typeof(self) weakSelf = self;
+        
         [_viewModel getHomeFilterList:pageString latitude:_latitude longitude:_logtitude filter:filter successBlock:^(NSDictionary *object) {
             [weakSelf.homeModelArray addObjectsFromArray:[HomeModel  mj_objectArrayWithKeyValuesArray:object]];
             [weakSelf.tableView reloadData];
@@ -207,8 +209,10 @@ typedef NS_ENUM(NSInteger, FillterName) {
 - (void)setUpNavigationBar
 {
     self.navigationItem.titleView = [self titleView];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigationbar_fittle"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"Icon_User"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightItemPess:)];
+    UIBarButtonItem *leftSpace= [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    leftSpace.width = 5;
+    self.navigationItem.leftBarButtonItems = @[leftSpace,[[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigationbar_fittle"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick:)]];
+    self.navigationItem.rightBarButtonItems = @[leftSpace,[[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"Icon_User"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick:)]];
     ScrollingNavigationController *navigation = (ScrollingNavigationController *)self.navigationController;
     navigation.scrollingNavbarDelegate = self;
 }
@@ -223,7 +227,8 @@ typedef NS_ENUM(NSInteger, FillterName) {
 
 - (UIView *)titleView
 {
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(2, -1, 78, 25)];
+    UIImage *image = [UIImage imageNamed:@"navigationbar_title"];
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, -2, image.size.width, image.size.height)];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:titleView.frame];
     imageView.image = [UIImage imageNamed:@"navigationbar_title"];
     [titleView addSubview:imageView];
@@ -248,15 +253,21 @@ typedef NS_ENUM(NSInteger, FillterName) {
 //    [self.navigationController pushViewController:edilt animated:YES];
 //    PayViewController *controller = [[PayViewController alloc] init];
 //    [self.navigationController pushViewController:controller animated:YES];
-    OrderPageViewController *orderPageVC = [[OrderPageViewController alloc] init];
-    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:orderPageVC];
-    [orderPageVC setBarStyle:TYPagerBarStyleCoverView];
-//    orderPageVC.cellSpacing = 100;
-    orderPageVC.progressColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
-    [self.navigationController presentViewController:navVC animated:YES completion:^{
-        
-    }];
+    if ([UserInfo isLoggedIn]) {
+//        [self presentLoginView];
+    }else{
+        OrderPageViewController *orderPageVC = [[OrderPageViewController alloc] init];
+        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:orderPageVC];
+        [orderPageVC setBarStyle:TYPagerBarStyleCoverView];
+        //    orderPageVC.cellSpacing = 100;
+        orderPageVC.progressColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
+        [self.navigationController presentViewController:navVC animated:YES completion:^{
+            
+        }];
+    }
 }
+
+
 
 - (void)setUpRefreshView
 {

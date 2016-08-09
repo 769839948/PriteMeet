@@ -78,6 +78,13 @@ class BaseOrderPageViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(animated: Bool) {
+        if self.navigationController?.navigationBar.frame.height > 44 {
+            let frame = self.navigationController?.navigationBar.frame
+            self.navigationController?.navigationBar.frame = CGRectMake(0, 20, (frame?.size.width)!, (frame?.size.height)! - 21)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -74,7 +74,7 @@ static const void *NavigationBarView = &NavigationBarView;
 
 }
 
--(void)createNavigationBar
+- (void)createNavigationBar
 {
     if (self.navigationController.navigationBar.translucent){
         self.navigationBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 63.5)];
@@ -84,6 +84,12 @@ static const void *NavigationBarView = &NavigationBarView;
         [[UINavigationBar appearance] setTintColor:[UIColor colorWithHexString:HomeDetailViewNameColor]];
     }
 //    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+}
+
+- (void)createCustomNavigationBar
+{
+    CGRect frame = self.navigationController.navigationBar.frame;
+    self.navigationController.navigationBar.frame = CGRectMake(0, 20, frame.size.width, frame.size.height + 21);
 }
 
 - (void)removeNavigatioinBar

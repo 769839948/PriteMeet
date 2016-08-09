@@ -164,6 +164,8 @@
                             }else{
                                 if ([responseObject[@"content"][@"msg"] isEqualToString:@"Invalid sms_code!"]) {
                                     failBlock(@{@"error":@"InvalidSmsCode"});
+                                }else if ([responseObject[@"content"][@"msg"] isEqualToString:@"has not applycode"]){
+                                    failBlock(@{@"error":@"none"});
                                 }else{
                                     failBlock(@{@"error":@"上传失败"});
                                 }
