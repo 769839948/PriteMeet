@@ -863,10 +863,11 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 
             }
             if ([UserInfo sharedInstance].avatar != nil && ![[UserInfo sharedInstance].avatar isEqualToString:@""]) {
-                [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:[UserInfo sharedInstance].avatar] forState:UIControlStateNormal completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                NSArray *photoArray = [[UserInfo sharedInstance].avatar componentsSeparatedByString:@"?"];
+                NSString *photoUrl = [photoArray[0] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/500/h/500"]];
+                [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:photoUrl] forState:UIControlStateNormal completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     _dicValues[_titleContentArray[0]] = image;
                     [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
-
                 }];
             }else{
                 [cell.profilePhoto setImage:[UIImage imageNamed:@"me_profile_photo"] forState:UIControlStateNormal];
