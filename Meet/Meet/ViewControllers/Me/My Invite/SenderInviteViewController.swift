@@ -137,12 +137,12 @@ class SenderInviteViewController: UIViewController {
     func setUpTableView(){
         self.tableView.registerClass(InviteItemsTableViewCell.self, forCellReuseIdentifier: "InviteItemsTableViewCell")
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
-        self.tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
-        }
+//        self.tableView.snp_makeConstraints { (make) in
+//            make.top.equalTo(self.view.snp_top).offset(0)
+//            make.left.equalTo(self.view.snp_left).offset(0)
+//            make.right.equalTo(self.view.snp_right).offset(0)
+//            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+//        }
         self.tableView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
     }
     

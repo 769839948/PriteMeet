@@ -116,14 +116,7 @@ class AppointMentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.appointmentBackGroundView.snp_left).offset(15)
                 make.right.equalTo(self.appointmentBackGroundView.snp_right).offset(-15)
                 make.top.equalTo(self.appointmentIntroduce.snp_bottom).offset(14)
-                make.bottom.equalTo(self.appointmentType.snp_top).offset(14)
-            }
-            
-            appointmentType.snp_makeConstraints { (make) in
-                make.left.equalTo(self.appointmentBackGroundView.snp_left).offset(15)
-                make.right.equalTo(self.appointmentBackGroundView.snp_right).offset(-15)
-                make.top.equalTo(self.appointmentIntroduce.snp_bottom).offset(14)
-                make.bottom.equalTo(self.appointmentType.snp_top).offset(14)
+                make.bottom.equalTo(self.meetInfo.snp_top).offset(-33)
             }
             
             meetInfo.snp_makeConstraints { (make) in

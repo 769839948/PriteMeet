@@ -52,12 +52,6 @@ class HomeViewController: UIViewController {
         self.view.addSubview(self.tableView)
         self.tableView.backgroundColor = UIColor.init(hexString: HomeTableViewBackGroundColor)
         self.tableView.registerClass(ManListCell.self, forCellReuseIdentifier: "MainTableViewCell")
-//        self.tableView.snp_makeConstraints { (make) in
-//            make.top.equalTo(self.view.snp_top).offset(0)
-//            make.left.equalTo(self.view.snp_left).offset(0)
-//            make.right.equalTo(self.view.snp_right).offset(0)
-//            make.bottom.equalTo(self.view.snp_bottom).offset(0)
-//        }
     }
     
     func getProfileKeyAndValues() {
@@ -78,11 +72,11 @@ class HomeViewController: UIViewController {
             if error != nil && error.code == 1{
                 return
             }
-//            self.latitude = location.coordinate.latitude
-//            self.logtitude = location.coordinate.longitude
-//            if UserInfo.isLoggedIn() {
-//                self.viewModel .senderLocation(self.latitude, longitude: self.logtitude)
-//            }
+            self.latitude = location.coordinate.latitude
+            self.logtitude = location.coordinate.longitude
+            if UserInfo.isLoggedIn() {
+                self.viewModel .senderLocation(self.latitude, longitude: self.logtitude)
+            }
         }
     }
     
@@ -154,6 +148,7 @@ class HomeViewController: UIViewController {
         let meetButton = UIButton(type: .Custom)
         meetButton.frame = frame
         meetButton.layer.cornerRadius = frame.size.width/2
+        meetButton.setImage(UIImage.init(named: "meet_order"), forState: .Normal)
         meetButton.backgroundColor = UIColor.init(hexString: HomeDetailViewNameColor)
         meetButton.addTarget(self, action: #selector(HomeViewController.myOrderMeetClick(_:)), forControlEvents: .TouchUpInside)
         
@@ -162,7 +157,7 @@ class HomeViewController: UIViewController {
     
     func meetNumber(frame:CGRect) -> UILabel {
         numberMeet = UILabel(frame: frame)
-        numberMeet.backgroundColor = UIColor.init(hexString: HomeDetailViewNameColor)
+        numberMeet.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
         numberMeet.text = "6"
         numberMeet.font = UIFont.systemFontOfSize(9)
         numberMeet.textAlignment = .Center
@@ -193,6 +188,7 @@ class HomeViewController: UIViewController {
         let titleView = UIView(frame: CGRectMake(0,-2,(image?.size.width)!,(image?.size.height)!))
         let imageView = UIImageView(frame: titleView.frame)
         imageView.image = image
+        titleView.addSubview(imageView)
         return titleView
     }
     
@@ -284,7 +280,7 @@ extension HomeViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.00001
+        return 0.0000001
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -310,11 +306,11 @@ extension HomeViewController : UITableViewDelegate {
 
 extension HomeViewController : UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return homeModelArray.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return homeModelArray.count
+        return 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

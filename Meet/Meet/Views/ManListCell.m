@@ -161,41 +161,25 @@
 
     }
     if ([_meetNumber.text isEqualToString:@""]) {
-        [_meetNumber mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(8);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
-            make.bottom.mas_equalTo(weakSelf.interestView.mas_top).offset(-14);
-            make.height.mas_offset(0.1);
+        [_meetNumber mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_offset(0.01);
         }];
         [self updateConstraints];
     }else{
         _meetNumber.text = _meetNumber.text;
     }
     if ([interstArray[0] isEqualToString:@""]) {
-        [_interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(0);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-0);
+        [_interestView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_offset(0.001);
         }];
         [self updateConstraints];
     }else{
         [_interestView setCollectViewData:interstArray style:ItemBlackAndWhiteLabelText];
-        [weakSelf.interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(14);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-17);
+        [weakSelf.interestView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.offset([self cellHeight:interstArray]);
         }];
         [weakSelf updateConstraints];
         [weakSelf updateConstraintsIfNeeded];
-        _flowLayout.block = ^(CGFloat height){
-            
-            
-        };
     }
     [ManListCell homeNameLabelColor:_nameLabel];
 
@@ -238,28 +222,34 @@
 - (void)updateConstraints
 {
     if (!self.didSetupConstraints) {
-        
         __weak typeof(self) weakSelf = self;
         [_showdowView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.contentView.mas_top).offset(0);
-            make.left.equalTo(weakSelf.contentView.mas_left).offset(10);
-            make.right.equalTo(weakSelf.contentView.mas_right).offset(-10);
-            make.bottom.equalTo(weakSelf.contentView.mas_bottom).offset(0);
+            make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(0);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
+            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-0);
         }];
         
         [_personalView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(0);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
-            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-3);
+            make.bottom.mas_equalTo(weakSelf.showdowView.mas_bottom).offset(-3);
         }];
         
         [_photoImage mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.personalView.mas_top).offset(0);
             make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(0);
             make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(0);
-            make.height.offset(([[UIScreen mainScreen] bounds].size.width - 20)*200/355);
-            make.bottom.mas_equalTo(weakSelf.nameLabel.mas_top).offset(-14);
+            make.height.mas_offset((ScreenWidth - 20)*200/355);
+        }];
+        
+        
+        [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.photoImage.mas_bottom).offset(14);
+            make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(14);
+            make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-14);
+            make.bottom.mas_equalTo(weakSelf.meetNumber.mas_top).offset(-1);
         }];
         
         [_ageNumber mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -269,20 +259,11 @@
             make.width.offset(46);
         }];
         
-        [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.photoImage.mas_bottom).offset(14);
-            make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(14);
-            make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-14);
-            make.bottom.mas_equalTo(weakSelf.meetNumber.mas_top).offset(-1);
-            make.height.mas_offset(30);
-        }];
-        
         [_meetNumber mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(1);
             make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(14);
             make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-14);
-            make.bottom.mas_equalTo(weakSelf.interestView.mas_top).offset(-14);
-            make.height.offset(17);
+            make.bottom.mas_equalTo(weakSelf.interestView.mas_top).offset(-17);
         }];
         
         [_interestView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -290,7 +271,6 @@
             make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(14);
             make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-14);
             make.bottom.mas_equalTo(weakSelf.personalView.mas_bottom).offset(-17);
-            make.height.offset(27);
         }];
         
         self.didSetupConstraints = YES;
