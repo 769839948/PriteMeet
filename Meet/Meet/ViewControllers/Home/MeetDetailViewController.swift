@@ -57,6 +57,7 @@ class MeetDetailViewController: UIViewController {
         self.view.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
         super.viewDidLoad()
         self.getHomeDetailModel()
+        self.talKingDataPageName = "Home-Detail"
         // Do any additional setup after loading the view.
     }
 
@@ -121,6 +122,9 @@ class MeetDetailViewController: UIViewController {
         let applyMeetVc = ApplyMeetViewController()
         applyMeetVc.allItems =  self.inviteArray.mutableCopy() as! NSMutableArray
         applyMeetVc.host = self.user_id
+        applyMeetVc.realName = otherUserModel.real_name
+        applyMeetVc.jobLabel = otherUserModel.job_label
+        applyMeetVc.avater = otherUserModel.cover_photo!.photo
         self.navigationController?.pushViewController(applyMeetVc, animated: true)
     }
     
@@ -190,6 +194,7 @@ class MeetDetailViewController: UIViewController {
     }
     
     func reportAction() {
+        
         if !UserInfo.isLoggedIn(){
             self.presentLoginView()
         }else{
@@ -227,6 +232,7 @@ class MeetDetailViewController: UIViewController {
     }
     
     func presentLoginView(){
+        
         loginView = LoginView(frame: CGRectMake(0,0,ScreenWidth,ScreenHeight))
         let windown = UIApplication.sharedApplication().keyWindow
         windown!.addSubview(loginView)
@@ -778,7 +784,6 @@ extension MeetDetailViewController : UIActionSheetDelegate {
     
     func willPresentActionSheet(actionSheet: UIActionSheet) {
         for subView in actionSheet.subviews {
-            print(subView)
             if subView.isKindOfClass(UIButton.self) {
                 let button = subView as! UIButton
                 if button.tag == 1 {

@@ -40,12 +40,9 @@ class SenderInviteViewController: UIViewController {
         self.setNavigationBar()
         IQKeyboardManager.sharedManager().enable = false
         self.setupForDismissKeyboard()
+        self.talKingDataPageName = "Me-Invite"
         // Do any additional setup after loading the view.
     }
-    
-//    override func viewDidAppear(animated: Bool) {
-//        self.navigationController?.fd_fullscreenPopGestureRecognizer.enabled = true
-//    }
 
     func loadNetData(){
         viewModel = UserInfoViewModel()
@@ -61,6 +58,7 @@ class SenderInviteViewController: UIViewController {
                 self.selectItems = NSMutableArray(array:UserInviteModel.themArray(0) as NSArray)
             }
             self.tableView.reloadData()
+            self.changeNavigationBarItemColor()
             }, fail: { (dic) in
                 
             }) { (msg) in
@@ -68,10 +66,26 @@ class SenderInviteViewController: UIViewController {
         }
     }
     
+    func checkNavigationItemEnable() -> Bool {
+        if  cell != nil && cell.interestView != nil && cell.interestView.selectItems.count >= 1 {
+            for idx in 0...cell.interestView.selectItems.count - 1 {
+                let ret = cell.interestView.selectItems[idx]
+                if ret as! String == "true" && textView.text.length != 0 {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
     func setNavigationBar(){
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(SenderInviteViewController.sendreInvite))
-        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
-//        self.navigationItemWithLineAndWihteColor()
+//        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.init(hexString:NavigationBarTintColorCustome)
+        self.changeNavigationBarItemColor()
+    }
+    
+    func changeNavigationBarItemColor() {
+        self.navigationItem.rightBarButtonItem?.tintColor = self.checkNavigationItemEnable() ? UIColor.init(hexString:NavigationBarTintColorCustome) : UIColor.init(hexString:NavigationBarTintDisColorCustom)
     }
     
     func sendreInvite(){
@@ -123,12 +137,12 @@ class SenderInviteViewController: UIViewController {
     func setUpTableView(){
         self.tableView.registerClass(InviteItemsTableViewCell.self, forCellReuseIdentifier: "InviteItemsTableViewCell")
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
-        self.tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
-        }
+//        self.tableView.snp_makeConstraints { (make) in
+//            make.top.equalTo(self.view.snp_top).offset(0)
+//            make.left.equalTo(self.view.snp_left).offset(0)
+//            make.right.equalTo(self.view.snp_right).offset(0)
+//            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+//        }
         self.tableView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
     }
     
@@ -231,6 +245,9 @@ extension SenderInviteViewController : UITableViewDataSource {
                 let cellId = "InviteItemsTableViewCell"
                 cell = tableView.dequeueReusableCellWithIdentifier(cellId) as! InviteItemsTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
+                cell.clourse = { selectItem in
+                    self.changeNavigationBarItemColor()
+                }
                 self.setData(cell)
                 return cell
             }
@@ -239,6 +256,7 @@ extension SenderInviteViewController : UITableViewDataSource {
                 let cellId = "InviteDetailTitleTableViewCell"
                 let cell = tableView.dequeueReusableCellWithIdentifier(cellId) as! InviteDetailTitleTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
+
                 return cell
             }else{
                 let cellId = "TableViewCell"
@@ -287,5 +305,6 @@ extension SenderInviteViewController : UITextViewDelegate {
                 self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 2)], withRowAnimation: UITableViewRowAnimation.Automatic)
             }
         }
+        self.changeNavigationBarItemColor()
     }
 }

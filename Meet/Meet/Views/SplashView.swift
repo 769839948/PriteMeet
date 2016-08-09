@@ -58,7 +58,6 @@ class SplashView: UIView {
         imageView.snp_makeConstraints { (make) in
             make.top.equalTo(self.backView.snp_top).offset(17)
             make.right.equalTo(self.backView.snp_right).offset(69)
-            make.bottom.equalTo(self.imageView1.snp_top).offset(48)
             make.size.equalTo(CGSizeMake(202, 166))
         }
         
@@ -73,7 +72,6 @@ class SplashView: UIView {
         imageView2.snp_makeConstraints { (make) in
             make.top.equalTo(self.backView.snp_top).offset(125)
             make.left.equalTo(self.backView.snp_left).offset(74)
-            make.left.equalTo(90)
             make.size.equalTo(CGSizeMake(74, 108))
         }
         
@@ -95,7 +93,7 @@ class SplashView: UIView {
         
         logoImage = UIImageView.init()
         logoImage.layer.cornerRadius = 15.0
-        logoImage.image = UIImage.init(named: "logo")
+        logoImage.image = UIImage.init(named: "splash_logo")
         self.addSubview(logoImage)
         logoImage.snp_makeConstraints { (make) in
             make.centerX.equalTo(self.snp_centerX).offset(0)

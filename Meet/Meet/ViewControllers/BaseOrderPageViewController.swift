@@ -21,6 +21,7 @@ class BaseOrderPageViewController: UIViewController {
         self.setUpCollectionView()
         self.view.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
         self.setUpLineView()
+        self.fd_prefersNavigationBarHidden = false
         // Do any additional setup after loading the view.
     }
 
@@ -76,6 +77,10 @@ class BaseOrderPageViewController: UIViewController {
             make.top.equalTo(self.view.snp_top).offset(0)
             make.bottom.equalTo(self.view.snp_bottom).offset(0)
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        
     }
     
     override func didReceiveMemoryWarning() {

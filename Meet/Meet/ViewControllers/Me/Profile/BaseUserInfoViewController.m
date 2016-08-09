@@ -32,6 +32,7 @@
     [self setUpView];
     [self setNavigationItemBar];
     [self.navigationController.navigationBar setTranslucent:YES];
+    self.talKingDataPageName = @"Login-BaseUser";
 }
 
 - (void)setNavigationItemBar

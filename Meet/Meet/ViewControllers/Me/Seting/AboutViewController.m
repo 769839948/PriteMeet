@@ -30,6 +30,7 @@
     _logoImageView.layer.masksToBounds = YES;
     self.hidesBottomBarWhenPushed = YES;
     [self setUpNavigationBarItem];
+    self.talKingDataPageName = @"Me-About";
 }
 
 - (void)setUpNavigationBarItem

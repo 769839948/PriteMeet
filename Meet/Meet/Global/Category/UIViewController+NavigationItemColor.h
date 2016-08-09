@@ -24,6 +24,8 @@
 
 - (void)createNavigationBar;
 
+- (void)createCustomNavigationBar;
+
 - (void)addLineNavigationBottom;
 
 - (void)removeNavigatioinBar;

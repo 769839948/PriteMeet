@@ -110,7 +110,6 @@ static UserExtenModel *userExten = nil;
 
 + (BOOL)synchronizeWithDic:(NSDictionary *)dic
 {
-    
     [UserExtenModel shareInstance].auth_info  = [dic objectForKey:@"auth_info"];
     Cover_photo *coverPhoto = dic[@"cover_photo"];
     [UserExtenModel shareInstance].cover_photo  = coverPhoto;

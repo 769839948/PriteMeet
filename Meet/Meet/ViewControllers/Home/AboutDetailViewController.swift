@@ -22,6 +22,9 @@ class AboutDetailViewController: UIViewController {
         
         self.setUpWebView(url)
         self.setUpNavigationBar()
+        
+        self.talKingDataPageName = "Home-Detail-AboutDetail"
+
         // Do any additional setup after loading the view.
     }
     

@@ -35,6 +35,7 @@ class OtherViewController: UIViewController {
         super.viewDidLoad()
         self.loadData()
         self.setNavigationBar()
+        self.talKingDataPageName = "Home-Detail-OtherProfile"
         // Do any additional setup after loading the view.
     }
     
@@ -96,15 +97,6 @@ class OtherViewController: UIViewController {
                 moreInfoTitle.addObject("年收入")
             }
         }
-        if moreinfo?.height != nil {
-            let dic = dicKey.objectForKey("height") as! NSDictionary
-            let height = String.init(format: "%d", (moreinfo?.height)!)
-            if height != "0" {
-                moreInfo.addObject("\(dic.objectForKey(height)!)")
-                moreInfoTitle.addObject("身高")
-            }
-            
-        }
         
         if moreinfo?.affection != nil {
             let dic = dicKey.objectForKey("affection") as! NSDictionary
@@ -112,14 +104,6 @@ class OtherViewController: UIViewController {
             if affection != "0" {
                 moreInfo.addObject(dic.objectForKey(affection)!)
                 moreInfoTitle.addObject("情感状态")
-            }
-        }
-        
-        if moreinfo?.hometown != nil {
-            let home = moreinfo?.hometown.stringByReplacingOccurrencesOfString(" ", withString: "")
-            if home != "请选择" {
-                moreInfo.addObject((moreinfo?.hometown)!)
-                moreInfoTitle.addObject("家乡")
             }
         }
         
@@ -156,7 +140,8 @@ class OtherViewController: UIViewController {
             let eduArray = Edu.mj_objectArrayWithKeyValuesArray(self.otherProfileModel.edu)
             for eduModel in eduArray! {
                 let education = (ProfileKeyAndValue.shareInstance().appDic as NSDictionary).objectForKey("education")?.objectForKey("\(eduModel.education)") as! String
-                let eduString = "\(eduModel.graduated)-\(eduModel.major)-\(education)"
+                let model = Edu.mj_objectWithKeyValues(eduModel) as Edu
+                let eduString = "\(model.graduated)-\(model.major)-\(education)"
                 eduInfo.addObject(eduString)
             }
         }

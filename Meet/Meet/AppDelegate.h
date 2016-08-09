@@ -18,8 +18,6 @@ static NSString *keyUserInfo = @"k_UserInfoDic";
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
--(MainViewController *)getRootViewController;
-
 
 - (void)wechatLoginByRequestForUserInfo;
 - (void)weChatRefreshAccess_Token;

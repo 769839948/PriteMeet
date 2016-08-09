@@ -48,7 +48,6 @@
         [self.contentView addSubview:_lineLabel];
     }
     
-    
     //确定是水平滚动，还是垂直滚动
     _flowLayout = [[EqualSpaceFlowLayout alloc] init];
     _interestView = [[InterestCollectView alloc] initWithFrame:CGRectZero collectionViewLayout:_flowLayout];
@@ -73,29 +72,17 @@
     [_interestView setCollectViewData:array style:style];
     if ([meetstring isEqualToString:@""]) {
         __weak typeof(self) weakSelf = self;
-        [weakSelf.interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(20);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.contentView.mas_top).offset(-20);
-            make.height.offset([weakSelf cellHeight:array]);
+        [weakSelf.interestView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.offset(0.000001);
         }];
     }else{
         float titleHeight = [meetstring heightWithFont:AboutUsLabelFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 40];
         __weak typeof(self) weakSelf = self;
-        [weakSelf.interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(20);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.meetLabel.mas_top).offset(-20);
-            make.height.offset([weakSelf cellHeight:array]);
+        [weakSelf.interestView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_offset([weakSelf cellHeight:array]);
         }];
         
-        [weakSelf.meetLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.interestView.mas_bottom).offset(20);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-30);
+        [weakSelf.meetLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.offset(titleHeight);
         }];
     }
@@ -117,11 +104,10 @@
             make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(20);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-44);
-//            make.height.offset(27);
+            make.bottom.mas_equalTo(weakSelf.meetLabel.mas_top).offset(-20);
         }];
         [_meetLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(44);
+            make.top.mas_equalTo(weakSelf.interestView.mas_bottom).offset(20);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
             make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-30);

@@ -3,16 +3,16 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "logo.png"
+      "filename" : "order_apply_logo.png"
     },
     {
       "idiom" : "universal",
-      "filename" : "logo@2x.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "order_apply_logo@2x.png"
     },
     {
       "idiom" : "universal",
-      "filename" : "logo@3x.png",
+      "filename" : "order_apply_logo@3x.png",
       "scale" : "3x"
     }
   ],

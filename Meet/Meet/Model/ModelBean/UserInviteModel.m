@@ -83,6 +83,7 @@ static UserInviteModel *userInvite = nil;
 
 + (BOOL)synchronizeWithDic:(NSDictionary *)dicArray
 {
+    
     NSMutableArray *userInviiteArray = [NSMutableArray array];
     Results *result = [[Results alloc] init];
     result.introduction = dicArray[@"introduction_main"];
@@ -105,6 +106,7 @@ static UserInviteModel *userInvite = nil;
 
 + (BOOL)synchronizeWithArray:(NSArray *)itemArray description:(NSString *)description
 {
+    
     Results *result = [[Results alloc] init];
     NSMutableArray *themsArray = [NSMutableArray array];
     for (NSString *itemString in itemArray) {

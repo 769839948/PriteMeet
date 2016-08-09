@@ -23,6 +23,7 @@ class BlackListViewController: UIViewController {
         self.setUpBlackListData()
         self.setNavigationItemBack()
         self.createNavigationBar()
+        self.talKingDataPageName = "Me-BlackList"
         // Do any additional setup after loading the view.
     }
     

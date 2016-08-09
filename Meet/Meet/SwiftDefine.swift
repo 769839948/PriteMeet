@@ -35,9 +35,15 @@ let SpashViewFont =  version >= 9.0 ? UIFont.init(name: "PingFangSC-Regular", si
 
 let AppointMeetLogoPower      =     version >= 9.0 ? UIFont.init(name: "HelveticaNeue-LightItalic", size: 8.0):UIFont.systemFontOfSize(8)
 
+let AppointRealNameLabelFont    = version >= 9.0 ? UIFont.init(name: "PingFangSC-Regular", size: 11.0):UIFont.systemFontOfSize(11)
 let AppointPositionLabelFont    = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 11.0):UIFont.systemFontOfSize(11)
 
 let AppointNameLabelFont    = version >= 9.0 ? UIFont.init(name: "PingFangSC-Regular", size: 11.0):UIFont.systemFontOfSize(11)
+
+let OrderApplyTitleFont    = version >= 9.0 ? UIFont.init(name: "PingFangSC-Medium", size: 14.0):UIFont.systemFontOfSize(14)
+
+
+
 
 let ReloadOrderCollectionView = "ReloadOrderCollectionView"
 
@@ -51,6 +57,17 @@ func UserDefaultsGetSynchronize(key:String) -> String {
     return NSUserDefaults.standardUserDefaults().objectForKey("lastModifield")! as! String
 }
 
+func TableViewRegisterNib(cell:String, idef:String, tableView:UITableView){
+    tableView.registerNib(UINib.init(nibName: cell, bundle: NSBundle.mainBundle()), forCellReuseIdentifier: idef)
+}
 
 let ScreenWidth = UIScreen.mainScreen().bounds.size.width
 let ScreenHeight = UIScreen.mainScreen().bounds.size.height
+
+
+let KeyWindown = UIApplication.sharedApplication().keyWindow
+
+
+
+
+

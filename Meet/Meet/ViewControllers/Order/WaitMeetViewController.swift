@@ -33,7 +33,7 @@ class WaitMeetViewController: BaseOrderViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 3 {
             let cell = tableView.dequeueReusableCellWithIdentifier("OrderCancelTableViewCell", forIndexPath: indexPath) as! OrderCancelTableViewCell
-            cell.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
+            cell.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemUnSelect)
             cell.selectionStyle = .None
             return cell
         }else{

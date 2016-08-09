@@ -64,6 +64,7 @@
 
     }
     if (_indexPath.section == 2 ) {////work
+        self.talKingDataPageName = @"Me-Profile-Worke";
         _navTitle = [str stringByAppendingString:@"工作经历"];
          NSArray  *array = [_cachTitles componentsSeparatedByString:@"-"];
         [_cachTitleArray addObjectsFromArray:array];
@@ -74,6 +75,7 @@
         _arrayTitles = @[@"公司",@"职位"];
         _placeholderTitle = @[@"公司简称",@"职位名称"];
     } else if (_indexPath.section == 3) {
+        self.talKingDataPageName = @"Me-Profile-Edu";
         _navTitle = [str stringByAppendingString:@"教育背景"];
         NSArray  *array = [_cachTitles componentsSeparatedByString:@"-"];
         [_cachTitleArray addObjectsFromArray:array];

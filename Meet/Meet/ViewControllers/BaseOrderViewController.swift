@@ -28,34 +28,43 @@ class BaseOrderViewController: UIViewController {
     
     var myClouse:ReloadCollectionClouser!
     
+    var navigationBarTitleView: UIView!
+    
     let viewModel = OrderViewModel()
     let tableViewArray = ["OrderFlowTableViewCell","AppointMentTableViewCell","MeetOrderInfoTableViewCell"]
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setCustomNavigationFrame()
         self.setUpBottomBtn()
+        self.setUpNavigationTitleView()
         self.setUpTableView()
-        self.setNavigationItem()
+        self.fd_prefersNavigationBarHidden = true
         // Do any additional setup after loading the view.
+    }
+    
+    func setUpNavigationTitleView() {
+        navigationBarTitleView = UIView(frame:CGRectMake(0,0,ScreenWidth, 84))
+        navigationBarTitleView.backgroundColor = UIColor.whiteColor()
+        self.setNavigationItem()
+        lineLabel = UILabel(frame: CGRectMake(0,83.5,ScreenWidth,0.5))
+        lineLabel.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
+        navigationBarTitleView.addSubview(lineLabel)
+        self.setUpTitleView()
+        self.view.addSubview(navigationBarTitleView)
+        
     }
     
     func setNavigationItem(){
         leftButton = UIButton(type: .Custom)
-        leftButton.frame = CGRectMake(20, 10, 20, 20)
+        leftButton.frame = CGRectMake(20, 30, 20, 20)
         leftButton.setImage(UIImage.init(named: "navigationbar_back")?.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
         leftButton.addTarget(self, action: #selector(BaseOrderViewController.leftBarPress(_:)), forControlEvents: .TouchUpInside)
-        self.navigationController?.navigationBar.addSubview(leftButton)
+        navigationBarTitleView.addSubview(leftButton)
         
         rightButton = UIButton(type: .Custom)
-        rightButton.frame = CGRectMake(ScreenWidth - 40, 10, 20, 20)
+        rightButton.frame = CGRectMake(ScreenWidth - 40, 30, 20, 20)
         rightButton.setImage(UIImage.init(named: "navigation_info")?.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
         rightButton.addTarget(self, action: #selector(BaseOrderViewController.rightBarPress(_:)), forControlEvents: .TouchUpInside)
-        self.navigationController?.navigationBar.addSubview(rightButton)
-        
-        
-        let leftBarButton = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
-        self.navigationItem.leftBarButtonItem = leftBarButton
-        leftBarButton.setBackButtonBackgroundVerticalPositionAdjustment(30, forBarMetrics: .Default)
+        navigationBarTitleView.addSubview(rightButton)
 
     }
     
@@ -85,21 +94,7 @@ class BaseOrderViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
-        self.navigationController!.fd_fullscreenPopGestureRecognizer.enabled = false
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-//        self.navigationController!.fd_fullscreenPopGestureRecognizer.enabled = true
-    }
-    
     func leftBarPress(sender:UIBarButtonItem) {
-        self.titleView.removeFromSuperview()
-        self.lineLabel.removeFromSuperview()
-        let frame = self.navigationController?.navigationBar.frame
-        self.navigationController?.navigationBar.frame = CGRectMake(0, 20, (frame?.size.width)!, (frame?.size.height)! - 21)
-        leftButton.removeFromSuperview()
-        rightButton.removeFromSuperview()
         self.navigationController?.popViewControllerAnimated(true)
     }
     
@@ -110,15 +105,8 @@ class BaseOrderViewController: UIViewController {
 //        self.navigationController.
     }
     
-    func setCustomNavigationFrame(){
-        let frame = self.navigationController?.navigationBar.frame
-        self.navigationController?.navigationBar.frame = CGRectMake(0, 20, (frame?.size.width)!, (frame?.size.height)! + 21)
-        lineLabel = UILabel(frame: CGRectMake(0,((frame?.size.height)! + 21.0),ScreenWidth,0.5))
-        lineLabel.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
-        self.navigationController?.navigationBar.addSubview(lineLabel)
-        
-        
-        titleView = UIView(frame: CGRectMake(40,2,ScreenWidth - 80,63))
+    func setUpTitleView(){
+        titleView = UIView(frame: CGRectMake(40,22,ScreenWidth - 80,63))
         let phototView = UIImageView(frame: CGRectMake((titleView.frame.size.width - PhotoWith)/2, 2, PhotoWith, PhotoHeight))
         phototView.layer.cornerRadius = PhotoWith/2
         phototView.layer.masksToBounds = true
@@ -126,12 +114,14 @@ class BaseOrderViewController: UIViewController {
         titleView.addSubview(phototView)
         
         let positionLabel = UILabel(frame: CGRectMake(0, CGRectGetMaxY(phototView.frame) + 3, titleView.frame.size.width, 16))
-        positionLabel.text = "\(orderModel.order_user_info!.real_name ) \(orderModel.order_user_info!.job_label)"
+        let positionString = "\(orderModel.order_user_info!.real_name ) \(orderModel.order_user_info!.job_label)"
+        let attributedString = NSMutableAttributedString(string: positionString)
+        attributedString.addAttributes([NSFontAttributeName:AppointRealNameLabelFont!], range: NSRange.init(location: 0, length: orderModel.order_user_info!.real_name.length))
+        attributedString.addAttributes([NSFontAttributeName:AppointPositionLabelFont!], range: NSRange.init(location: orderModel.order_user_info!.real_name.length + 1, length: orderModel.order_user_info!.job_label.length))
+        positionLabel.attributedText = attributedString
         positionLabel.textAlignment = .Center
-        positionLabel.font = AppointPositionLabelFont
         titleView.addSubview(positionLabel)
-        self.navigationController?.navigationBar.backIndicatorImage = UIImage.init(color: UIColor.redColor(), size: CGSizeMake(ScreenWidth, 63))
-        self.navigationController?.navigationBar.addSubview(titleView)
+        navigationBarTitleView.addSubview(titleView)
     }
     
     func setUpTableView() {
@@ -147,7 +137,7 @@ class BaseOrderViewController: UIViewController {
 
         self.view.addSubview(self.tableView)
         self.tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
+            make.top.equalTo(navigationBarTitleView.snp_bottom).offset(0)
             make.left.equalTo(self.view.snp_left).offset(0)
             make.right.equalTo(self.view.snp_right).offset(0)
             make.bottom.equalTo(self.bottomBtn.snp_top).offset(0)
@@ -198,11 +188,23 @@ extension BaseOrderViewController : UITableViewDelegate {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 128;
+            return 107;
         }else if indexPath.row == 1{
             return tableView.fd_heightForCellWithIdentifier("AppointMentTableViewCell", configuration: { (cell) in
                 self.configAppointThemeTypeCell((cell as! AppointMentTableViewCell), indexPath: indexPath)
             })
+        }else if indexPath.row == 2 {
+            return 245
+        }else{
+            return 209
+        }
+    }
+    
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 107;
+        }else if indexPath.row == 1{
+            return 220
         }else if indexPath.row == 2 {
             return 245
         }else{

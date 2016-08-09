@@ -61,13 +61,7 @@
     
     _centerLabelView = [[CenterlabelView alloc] init];
     [self.contentView addSubview:_centerLabelView];
-//    //确定是水平滚动，还是垂直滚动
-//    EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] init];
-//    
-//    _interestView = [[InterestCollectView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
-//    [_interestView setEdgX:10];
-//    flowLayout.delegate = _interestView;
-//    [self.contentView addSubview:_interestView];
+
     [self updateConstraints];
 }
 
@@ -76,11 +70,7 @@
     _nameLabel.text = name;
     __weak typeof(self) weakSelf = self;
     if ([position isEqualToString:@""]) {
-        [_positionLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(1);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.meetNumber.mas_top).offset(-8);
+        [_positionLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_offset(0.1);
         }];
         [self updateConstraints];
@@ -88,22 +78,14 @@
         _positionLabel.text = position;
         float positionHeight = [position heightWithFont:HomeViewDetailPositionFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 40];
         if (positionHeight > 32){
-            [_positionLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(1);
-                make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-                make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-                make.bottom.mas_equalTo(weakSelf.meetNumber.mas_top).offset(-8);
+            [_positionLabel mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.mas_offset(positionHeight);
             }];
             [self updateConstraints];
         }
     }
     if ([meetNumber isEqualToString:@""]) {
-        [_meetNumber mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.positionLabel.mas_bottom).offset(8);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.centerLabelView.mas_top).offset(-16);
+        [_meetNumber mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_offset(0.1);
         }];
         [self updateConstraints];
@@ -112,22 +94,13 @@
     }
     
     if ([interstArray[0] isEqualToString:@""]) {
-        [_centerLabelView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(0);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-0);
+        [_centerLabelView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_offset(0.001);
         }];
-//        _interestView.backgroundColor = [UIColor redColor];
         [self updateConstraints];
     }else{
         CGFloat height = [_centerLabelView setUpCustomLabelArray:interstArray];
-        [_centerLabelView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32);
+        [_centerLabelView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.offset(height);
         }];
         [weakSelf updateConstraints];
@@ -144,29 +117,25 @@
             make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(21);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
-            make.bottom.mas_equalTo(weakSelf.positionLabel.mas_top).offset(1);
-            make.height.offset(40);
+            make.bottom.mas_equalTo(weakSelf.positionLabel.mas_top).offset(-1);
         }];
         [_positionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(1);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
             make.bottom.mas_equalTo(weakSelf.meetNumber.mas_top).offset(-8);
-            make.height.offset(30);
         }];
         [_meetNumber mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.positionLabel.mas_bottom).offset(8);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
             make.bottom.mas_equalTo(weakSelf.centerLabelView.mas_top).offset(-16);
-            make.height.offset(17);
         }];
         [_centerLabelView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(16);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
             make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32);
-            make.height.offset(30);
         }];
         self.didSetupConstraints = YES;
     }

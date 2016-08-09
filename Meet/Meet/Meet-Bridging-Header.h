@@ -58,4 +58,9 @@
 #import "TYTabButtonPagerController.h"
 #import "InterestCollectViewCell.h"
 #import "UIView+DottedLineView.h"
+#import "UIViewController+TalKingData.h"
+#import "AMScrollingNavbar.h"
+#import <AMapLocationKit/AMapLocationKit.h>
+#import <AMapLocationKit/AMapLocationManager.h>
+#import "ManListCell.h"
 

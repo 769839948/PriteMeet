@@ -66,21 +66,46 @@
               loadingView:(LoadingView)loadViewBlock
 {
     NSString *url = @"";
-    if ([UserInfo isLoggedIn]) {
-        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@&filter=%@&longitude=%@&latitude=%@",RequestGetFilterUserList,page,[UserInfo sharedInstance].uid,filterName,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
+    if (latitude == 0) {
+        NSString *url = @"http://api.cellocation.com/cell/?mcc=460&mnc=1&lac=4301&ci=20986&output=json";
+        [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
+            NSString *url = @"";
+            if ([UserInfo isLoggedIn]) {
+                url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@&filter=%@&longitude=%@&latitude=%@",RequestGetFilterUserList,page,[UserInfo sharedInstance].uid,filterName,[NSString stringWithFormat:@"%f",[responseObject[@"lon"] doubleValue]],[NSString stringWithFormat:@"%f",[responseObject[@"lat"] doubleValue]]];
+            }else{
+                url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&filter=%@&longitude=%@&latitude=%@",RequestGetFilterUserList,page,filterName,[NSString stringWithFormat:@"%f",[responseObject[@"lon"] doubleValue]],[NSString stringWithFormat:@"%f",[responseObject[@"lat"] doubleValue]]];
+            }
+            
+            [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
+                if ([[responseObject objectForKey:@"success"] boolValue]) {
+                    successBlock(responseObject[@"content"][@"data"]);
+                }else{
+                    failBlock(responseObject);
+                }
+            } failure:^(NSDictionary *responseObject) {
+                failBlock(responseObject);
+            }];
+        } failure:^(NSDictionary *responseObject) {
+            failBlock(@{@"error":@"网络错误"});
+        }];
     }else{
-        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&filter=%@&longitude=%@&latitude=%@",RequestGetFilterUserList,page,filterName,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
+        if ([UserInfo isLoggedIn]) {
+            url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@&filter=%@&longitude=%@&latitude=%@",RequestGetFilterUserList,page,[UserInfo sharedInstance].uid,filterName,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
+        }else{
+            url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&filter=%@&longitude=%@&latitude=%@",RequestGetFilterUserList,page,filterName,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
+        }
+        
+        [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
+            if ([[responseObject objectForKey:@"success"] boolValue]) {
+                successBlock(responseObject[@"content"][@"data"]);
+            }else{
+                failBlock(responseObject);
+            }
+        } failure:^(NSDictionary *responseObject) {
+            failBlock(responseObject);
+        }];
     }
     
-    [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
-        if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject[@"content"][@"data"]);
-        }else{
-            failBlock(responseObject);
-        }
-    } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
-    }];
 }
 
 - (void)getOtherUserInfo:(NSString *)userId

@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-typealias selectItems = (array:NSArray) -> Void
+typealias selectItems = (selectItem:NSInteger) -> Void
 
 class InviteItemsTableViewCell: UITableViewCell {
 
@@ -30,6 +30,13 @@ class InviteItemsTableViewCell: UITableViewCell {
         interestView.delegate = interestView
         interestView.dataSource = interestView
         flowLayout.delegate = interestView;
+        
+        interestView.block = { row in
+            if (self.clourse != nil) {
+                self.clourse(selectItem: row);
+            }
+        }
+        
         self.contentView.addSubview(interestView)
         interestView.snp_makeConstraints { (make) in
             make.top.equalTo(self.contentView.snp_top).offset(2)

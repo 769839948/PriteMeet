@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 typealias PopNavigationController = () -> Void
 
 class ReportViewController: UIViewController {
@@ -29,6 +28,8 @@ class ReportViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
         self.setUpTableView()
         self.setUpNavigationItem()
+        
+        self.talKingDataPageName = "Home-Detail-Report"
         // Do any additional setup after loading the view.
     }
 
@@ -57,6 +58,7 @@ class ReportViewController: UIViewController {
     }
     
     func reportBtnPress(sender:UIBarButtonItem) {
+
         var reportString = ""
         for index in 0...reportArray.count - 1 {
             if self.selectIndexPaths[index] as! Bool  {

@@ -51,6 +51,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
 
 @property (nonatomic, assign) FillterName fillterName;
 
+
 @end
 
 @implementation FristHomeViewController
@@ -59,7 +60,6 @@ typedef NS_ENUM(NSInteger, FillterName) {
     [super viewDidLoad];
     _fillterName = ReconmondList;
     [self setUpTableView];
-    
     _page = 0;
     _viewModel = [[HomeViewModel alloc] init];
     _homeModelArray = [NSMutableArray array];
@@ -68,7 +68,10 @@ typedef NS_ENUM(NSInteger, FillterName) {
     [self setUpLocationManager];
     [self addLineNavigationBottom];
     
-
+    /**
+     *  添加崩溃信息和用户表现形式
+     */
+    self.talKingDataPageName = @"Home";
 }
 
 - (void)getProfileKeyAndValues
@@ -150,6 +153,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
         }
         NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
         __weak typeof(self) weakSelf = self;
+        
         [_viewModel getHomeFilterList:pageString latitude:_latitude longitude:_logtitude filter:filter successBlock:^(NSDictionary *object) {
             [weakSelf.homeModelArray addObjectsFromArray:[HomeModel  mj_objectArrayWithKeyValuesArray:object]];
             [weakSelf.tableView reloadData];
@@ -186,6 +190,7 @@ typedef NS_ENUM(NSInteger, FillterName) {
     [(ScrollingNavigationController *)self.navigationController showNavbarWithAnimated:YES];
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -204,14 +209,17 @@ typedef NS_ENUM(NSInteger, FillterName) {
 - (void)setUpNavigationBar
 {
     self.navigationItem.titleView = [self titleView];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigationbar_fittle"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"Icon_User"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightItemPess:)];
+    UIBarButtonItem *leftSpace= [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    leftSpace.width = 5;
+    self.navigationItem.leftBarButtonItems = @[leftSpace,[[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigationbar_fittle"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick:)]];
+    self.navigationItem.rightBarButtonItems = @[leftSpace,[[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"Icon_User"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick:)]];
     ScrollingNavigationController *navigation = (ScrollingNavigationController *)self.navigationController;
     navigation.scrollingNavbarDelegate = self;
 }
 
 - (void)rightItemPess:(UIBarButtonItem *)sender
 {
+    
     [self presentViewController:[[BaseNavigaitonController alloc] initWithRootViewController:[[MeViewController alloc] init]] animated:YES completion:^{
 
     }];
@@ -219,7 +227,8 @@ typedef NS_ENUM(NSInteger, FillterName) {
 
 - (UIView *)titleView
 {
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(2, -1, 78, 25)];
+    UIImage *image = [UIImage imageNamed:@"navigationbar_title"];
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, -2, image.size.width, image.size.height)];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:titleView.frame];
     imageView.image = [UIImage imageNamed:@"navigationbar_title"];
     [titleView addSubview:imageView];
@@ -244,15 +253,21 @@ typedef NS_ENUM(NSInteger, FillterName) {
 //    [self.navigationController pushViewController:edilt animated:YES];
 //    PayViewController *controller = [[PayViewController alloc] init];
 //    [self.navigationController pushViewController:controller animated:YES];
-    OrderPageViewController *orderPageVC = [[OrderPageViewController alloc] init];
-    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:orderPageVC];
-    [orderPageVC setBarStyle:TYPagerBarStyleCoverView];
-//    orderPageVC.cellSpacing = 100;
-    orderPageVC.progressColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
-    [self.navigationController presentViewController:navVC animated:YES completion:^{
-        
-    }];
+    if ([UserInfo isLoggedIn]) {
+//        [self presentLoginView];
+    }else{
+        OrderPageViewController *orderPageVC = [[OrderPageViewController alloc] init];
+        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:orderPageVC];
+        [orderPageVC setBarStyle:TYPagerBarStyleCoverView];
+        //    orderPageVC.cellSpacing = 100;
+        orderPageVC.progressColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
+        [self.navigationController presentViewController:navVC animated:YES completion:^{
+            
+        }];
+    }
 }
+
+
 
 - (void)setUpRefreshView
 {
@@ -359,6 +374,8 @@ typedef NS_ENUM(NSInteger, FillterName) {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MeetDetailViewController *meetDetailView = [[MeetDetailViewController alloc] init];
     HomeModel *model = [_homeModelArray objectAtIndex:indexPath.section];
@@ -397,13 +414,16 @@ typedef NS_ENUM(NSInteger, FillterName) {
             _fillterName = ReconmondList;
             _page = 0;
             [self setUpHomeData];
-        
+            self.tableView.scrollsToTop = YES;
             break;
-        default:
+        case 1:
             [_homeModelArray removeAllObjects];
             _fillterName = LocationList;
             _page = 0;
             [self setUpHomeData];
+            self.tableView.scrollsToTop = YES;
+        default:
+            
             break;
     }
 }

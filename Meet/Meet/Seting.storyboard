@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -85,11 +85,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Xz9-hV-flG"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3gW-VK-M5b">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="wb9-cm-sq5">
-                                <rect key="frame" x="120" y="100" width="80" height="80"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about_logo" translatesAutoresizingMaskIntoConstraints="NO" id="wb9-cm-sq5">
+                                <rect key="frame" x="147" y="100" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="536-6u-0au"/>
                                     <constraint firstAttribute="height" constant="80" id="Ytk-ea-SZ3"/>
@@ -101,7 +101,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YV8-T6-uw9">
-                                <rect key="frame" x="124" y="431" width="72" height="26"/>
+                                <rect key="frame" x="151" y="533" width="72" height="26"/>
                                 <color key="backgroundColor" red="0.094117647058823528" green="0.094117647058823528" blue="0.094117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="72" id="D4p-CI-n9b"/>
@@ -120,8 +120,20 @@
                                     <action selector="useProtocolAction:" destination="jBC-aJ-gmZ" eventType="touchUpInside" id="cQ4-qV-7PW"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MEET 0.0.1 BETA" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKR-ER-Oc0">
+                                <rect key="frame" x="133" y="242" width="108.5" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COPYRIGHTS © 2016 MEET. ALL RIGHTS RESERVED." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oH8-FQ-BYS">
+                                <rect key="frame" x="59" y="591" width="256.5" height="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PRK-hA-xeP">
-                                <rect key="frame" x="28" y="253" width="264" height="110"/>
+                                <rect key="frame" x="55" y="291" width="264" height="110"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="110" id="2yF-4A-DLn"/>
@@ -131,37 +143,26 @@
 development - zhiyi &amp; dequan
 design - da363
 marketing - jiajia</string>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MEET 0.0.1 BETA" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKR-ER-Oc0">
-                                <rect key="frame" x="106" y="197" width="108.5" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COPYRIGHTS © 2016 MEET. ALL RIGHTS RESERVED." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oH8-FQ-BYS">
-                                <rect key="frame" x="32" y="531" width="256.5" height="12"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Xz9-hV-flG" firstAttribute="top" secondItem="oH8-FQ-BYS" secondAttribute="bottom" constant="25" id="0b3-cU-Dwv"/>
                             <constraint firstItem="oH8-FQ-BYS" firstAttribute="centerX" secondItem="3gW-VK-M5b" secondAttribute="centerX" id="4Uh-Vu-yHO"/>
                             <constraint firstItem="wb9-cm-sq5" firstAttribute="centerX" secondItem="3gW-VK-M5b" secondAttribute="centerX" id="4uX-Ph-Y7e"/>
                             <constraint firstItem="PRK-hA-xeP" firstAttribute="centerX" secondItem="3gW-VK-M5b" secondAttribute="centerX" id="6T5-vQ-6kZ"/>
-                            <constraint firstItem="wb9-cm-sq5" firstAttribute="top" secondItem="hwa-vl-Rj2" secondAttribute="bottom" constant="80" id="EG0-kO-70N"/>
-                            <constraint firstItem="Xz9-hV-flG" firstAttribute="top" secondItem="YV8-T6-uw9" secondAttribute="bottom" constant="111" id="LxB-Es-Ily"/>
-                            <constraint firstItem="PRK-hA-xeP" firstAttribute="top" secondItem="hwa-vl-Rj2" secondAttribute="bottom" constant="233" id="N8d-FN-iOx"/>
-                            <constraint firstItem="fKR-ER-Oc0" firstAttribute="top" secondItem="hwa-vl-Rj2" secondAttribute="bottom" constant="177" id="S0H-en-a3w"/>
+                            <constraint firstItem="PRK-hA-xeP" firstAttribute="top" secondItem="fKR-ER-Oc0" secondAttribute="bottom" constant="32" id="Ni0-sE-YqH"/>
+                            <constraint firstItem="fKR-ER-Oc0" firstAttribute="top" secondItem="wb9-cm-sq5" secondAttribute="bottom" constant="62" id="OOR-kd-Epx"/>
                             <constraint firstItem="fKR-ER-Oc0" firstAttribute="centerX" secondItem="3gW-VK-M5b" secondAttribute="centerX" id="SVo-Ef-ZUi"/>
+                            <constraint firstItem="oH8-FQ-BYS" firstAttribute="top" secondItem="YV8-T6-uw9" secondAttribute="bottom" constant="32" id="ZTv-xO-BhS"/>
                             <constraint firstItem="YV8-T6-uw9" firstAttribute="centerX" secondItem="3gW-VK-M5b" secondAttribute="centerX" id="dFd-T8-JSf"/>
+                            <constraint firstItem="Xz9-hV-flG" firstAttribute="top" secondItem="oH8-FQ-BYS" secondAttribute="bottom" constant="64" id="pjf-Ij-fbM"/>
+                            <constraint firstItem="wb9-cm-sq5" firstAttribute="top" secondItem="hwa-vl-Rj2" secondAttribute="bottom" constant="80" id="qKS-hi-MLk"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="33o-I7-wxx"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="_labelLogoBottom" destination="fKR-ER-Oc0" id="N2Y-81-1cG"/>
                         <outlet property="_logoImageView" destination="wb9-cm-sq5" id="Aav-Ue-xkk"/>
@@ -181,11 +182,11 @@ marketing - jiajia</string>
                         <viewControllerLayoutGuide type="bottom" id="23f-9H-sen"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ula-kX-Lxi">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="98C-Hn-M0S">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="hJe-ua-qjW" id="nCT-wM-Zlk"/>
@@ -332,6 +333,6 @@ marketing - jiajia</string>
         </scene>
     </scenes>
     <resources>
-        <image name="logo" width="80" height="80"/>
+        <image name="about_logo" width="80" height="80"/>
     </resources>
 </document>

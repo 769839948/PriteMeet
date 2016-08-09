@@ -53,7 +53,9 @@ class ZDQFlowView: UIView {
         let itemWith:CGFloat = size.width * CGFloat(number)
         let count = CGFloat(number) - 1
         spaceWidthX = (self.frame.size.width - itemWith) / count
-        
+        for subviews in self.subviews {
+            subviews.removeFromSuperview()
+        }
         for index in 0...number - 1 {
             let item = self.dataSource.numberOfFlowViewItem(self, index: index) 
             item.frame = CGRectMake((size.width + spaceWidthX) * CGFloat(index), 0, size.width, size.height)

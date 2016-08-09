@@ -29,7 +29,7 @@ class OrderFlowTableViewCell: UITableViewCell {
     }
     
     func setUpView(){
-        flowView = ZDQFlowView(frame: CGRectMake((UIScreen.mainScreen().bounds.size.width - flowViewWidth) / 2,49,flowViewWidth,51))
+        flowView = ZDQFlowView(frame: CGRectMake((UIScreen.mainScreen().bounds.size.width - flowViewWidth) / 2,28,flowViewWidth,51))
         flowView.dataSource = self
         self.contentView.addSubview(flowView)
     }
@@ -38,7 +38,6 @@ class OrderFlowTableViewCell: UITableViewCell {
         self.orderStatus = status
         self.statusType = statusType
         flowView.reloadData()
-
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
@@ -91,7 +90,18 @@ extension OrderFlowTableViewCell: ZDQFlowViewDataSource {
             return viewItem
         }else{
             let viewItem = ZDQFlowViewItem()
-            if orderStatus == "1"{
+            if orderStatus == "0"{
+                switch index {
+                case 0:
+                    viewItem.setData("提交申请",type: ZDQFlowViewItemType.ItemWaitSelect)
+                case 1:
+                    viewItem.setData("待确认",type: ZDQFlowViewItemType.ItemNext)
+                case 2:
+                    viewItem.setData("待付款",type: ZDQFlowViewItemType.ItemNext)
+                default:
+                    viewItem.setData("待见面",type: ZDQFlowViewItemType.ItemNext)
+                }
+            }else if orderStatus == "1"{
                 switch index {
                 case 0:
                     viewItem.setData("提交申请",type: ZDQFlowViewItemType.ItemSelect)
