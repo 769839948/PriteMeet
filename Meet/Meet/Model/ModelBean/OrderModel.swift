@@ -24,6 +24,13 @@ class OrderModel: NSObject {
     
     var created_at: String = ""
     
+    var meeted_days : String = ""
+    
+    var fee : String = ""
+    
+    var reject_type_desc : String = ""
+    
+    var reject_reason : String = ""
 }
 
 class Status: NSObject {
@@ -34,7 +41,7 @@ class Status: NSObject {
     
     var status_code: String = ""
     
-    var status_type: String = "order"
+    var status_type: String = ""
     
 }
 
@@ -49,6 +56,8 @@ class Order_User_Info: NSObject {
     var real_name: String = ""
     
     var job_label: String = ""
+    
+    var uid : String = ""
     
 }
 

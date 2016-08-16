@@ -29,10 +29,12 @@ class TimeDownView: UIView {
     }
     
     func setUpTime(){
-        time = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(TimeDownView.timeDown(_:)), userInfo: nil, repeats: true)
-        let str = "如未收到可在 60 秒后重新获取"
-        timeLabel.text = str
-        NSRunLoop.currentRunLoop().addTimer(time, forMode: "NSRunLoopDefault")
+        if time == nil {
+            time = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(TimeDownView.timeDown(_:)), userInfo: nil, repeats: true)
+            let str = "如未收到可在 60 秒后重新获取"
+            timeLabel.text = str
+            NSRunLoop.currentRunLoop().addTimer(time, forMode: "NSRunLoopDefault")
+        }
     }
     
     func setUpTimeLabel(){
@@ -50,7 +52,9 @@ class TimeDownView: UIView {
             timeLabel.text = "如未收到可在 \(timeCount) 秒后重新获取"
         }
         if timeCount == 0 {
-            time.invalidate()
+            if time != nil {
+                time.invalidate()
+            }
             time = nil
             let str = "如未收到可以 重新获取"
             let stringAttribute = NSMutableAttributedString(string: str)

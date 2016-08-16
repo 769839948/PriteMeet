@@ -26,15 +26,17 @@ class OrderPayViewController: BaseOrderPageViewController {
     func reloaCollectViewData() {
         self.setOrderData(orderState, guest: UserInfo.sharedInstance().uid)
     }
+    
     //MARK:
+    
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let applyDetailView = WaitPayViewController()
+        applyDetailView.uid = self.guest
         let orderModel = (orderList[indexPath.row] as! OrderModel)
         applyDetailView.myClouse = { status in
             self.orderList.removeObjectAtIndex(indexPath.row)
             self.collectionView.reloadData()
         }
-        orderModel.appointment_theme = ["吃饭聚餐","看电影","逛街","更多","资深设计","视觉设计"]
         applyDetailView.orderModel = orderModel
         self.navigationController?.pushViewController(applyDetailView, animated: true)
     }

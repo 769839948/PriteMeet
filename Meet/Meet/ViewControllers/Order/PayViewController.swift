@@ -76,8 +76,10 @@ class PayViewController: UIViewController {
     }
 
     func changePayStatues(notification:NSNotification) {
-        viewModel.switchOrderStatus(orderModel.order_id, status: "5", succeccBlock: { (dic) in
-            
+        viewModel.switchOrderStatus(orderModel.order_id, status: "5",rejectType: "0",rejectReason: "", succeccBlock: { (dic) in
+            let payCompleteVC = Stroyboard("Order", viewControllerId: "PayCompleteViewController") as! PayCompleteViewController
+            payCompleteVC.orderModel = self.orderModel
+            self.navigationController?.pushViewController(payCompleteVC, animated: true)
             }) { (dic) in
                 
         }

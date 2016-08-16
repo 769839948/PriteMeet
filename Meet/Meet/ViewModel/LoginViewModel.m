@@ -117,7 +117,7 @@
             failBlock(responseObject[@"content"]);
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(@{@"error":responseObject});
+        failBlock(@{@"msg":@"网络错误"});
     }];
 }
 
@@ -135,7 +135,7 @@
         
         if (![[responseObject objectForKey:@"success"] boolValue]) {
             if (applyCode.length < 4 || applyCode == nil) {
-                failBlock(@{@"error":@"none"});
+                failBlock(@{@"error":@"noneuser"});
             }else{
                 NSString *url = [RequestBaseUrl stringByAppendingString:RequestCheckCodeBindUser];
                 NSDictionary *parameters = @{@"code":applyCode};
@@ -165,7 +165,7 @@
                                 if ([responseObject[@"content"][@"msg"] isEqualToString:@"Invalid sms_code!"]) {
                                     failBlock(@{@"error":@"InvalidSmsCode"});
                                 }else if ([responseObject[@"content"][@"msg"] isEqualToString:@"has not applycode"]){
-                                    failBlock(@{@"error":@"none"});
+                                    failBlock(@{@"error":@"noneuser"});
                                 }else{
                                     failBlock(@{@"error":@"上传失败"});
                                 }
@@ -185,7 +185,7 @@
                 if ([[responseObject objectForKey:@"success"] boolValue]) {
                     failBlock(@{@"error":@"oldUser"});
                 }else{
-                    failBlock(@{@"error":@"none"});
+                    failBlock(@{@"error":@"noneuser"});
                 }
             } failure:^(NSDictionary *responseObject) {
                 failBlock(@{@"error":@"网络错误"});

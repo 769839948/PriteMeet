@@ -30,6 +30,9 @@ class SenderInviteViewController: UIViewController {
     
     var blackListClouse:BlackListClouse!
     
+    var isHomeListLogin:Bool = false
+    
+    var isApplyMeetLogin:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,8 +117,13 @@ class SenderInviteViewController: UIViewController {
                     let viewControllers:NSArray = (self.navigationController?.viewControllers)!
                     self.navigationController?.popToViewController(viewControllers.objectAtIndex(1) as! UIViewController, animated: true)
                 }
+            }else if self.isHomeListLogin{
+                self.navigationController?.popToRootViewControllerAnimated(true)
             }else if self.isNewLogin {
                 self.navigationController?.popToRootViewControllerAnimated(true)
+            }else if self.isApplyMeetLogin {
+                let viewControllers:NSArray = (self.navigationController?.viewControllers)!
+                self.navigationController?.popToViewController(viewControllers.objectAtIndex(2) as! UIViewController, animated: true)
             }else{
                 if !UserInviteModel.shareInstance().results[0].is_active {
                     UserInviteModel.shareInstance().results[0].is_active = true
@@ -137,12 +145,6 @@ class SenderInviteViewController: UIViewController {
     func setUpTableView(){
         self.tableView.registerClass(InviteItemsTableViewCell.self, forCellReuseIdentifier: "InviteItemsTableViewCell")
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
-//        self.tableView.snp_makeConstraints { (make) in
-//            make.top.equalTo(self.view.snp_top).offset(0)
-//            make.left.equalTo(self.view.snp_left).offset(0)
-//            make.right.equalTo(self.view.snp_right).offset(0)
-//            make.bottom.equalTo(self.view.snp_bottom).offset(0)
-//        }
         self.tableView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
     }
     

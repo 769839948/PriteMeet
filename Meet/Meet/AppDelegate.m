@@ -16,7 +16,6 @@
 #import "WeiboSDK.h"
 #import "WeiboModel.h"
 
-#import "FristHomeViewController.h"
 #import "UserInfo.h"
 #import "WXAccessModel.h"
 #import "WXUserInfo.h"
@@ -54,7 +53,7 @@
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     [self setIQkeyboardManager];
 
-    FristHomeViewController *controller = Storyboard(@"Main", @"FristHomeViewController");
+    HomeViewController *controller = Storyboard(@"Main", @"FristHomeViewController");
     self.window.rootViewController = [[ScrollingNavigationController alloc] initWithRootViewController:controller];
 
 #pragma clang diagnostic push

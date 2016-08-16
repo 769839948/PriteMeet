@@ -11,6 +11,7 @@ import UIKit
 class OrderApplyInfoTableViewCell: UITableViewCell {
 
     @IBOutlet weak var detailInfoLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.contentView.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemUnSelect)
@@ -18,7 +19,12 @@ class OrderApplyInfoTableViewCell: UITableViewCell {
     }
 
     func setData(detailInfo:String){
-        self.detailTextLabel?.text = detailInfo
+        let strArray = detailInfo.componentsSeparatedByString(" ")
+        let stringAttribute = NSMutableAttributedString(string: detailInfo)
+        stringAttribute.addAttributes([NSFontAttributeName:OrderInfoViewMuchFont!], range: NSRange.init(location: (strArray[0]).length + 1, length: strArray[1].length))
+        detailInfoLabel.attributedText = stringAttribute
+        self.detailTextLabel?.attributedText = stringAttribute
+
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

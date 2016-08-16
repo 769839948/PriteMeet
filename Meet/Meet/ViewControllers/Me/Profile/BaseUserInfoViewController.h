@@ -10,6 +10,8 @@
 #import "MyProfileViewController.h"
 
 typedef void (^BlackListBlock)();
+typedef void (^HomeListLoginBlock)();
+typedef void (^ApplyMeetLoginBlock)();
 
 @interface BaseUserInfoViewController : MyProfileViewController
 
@@ -17,7 +19,15 @@ typedef void (^BlackListBlock)();
 
 @property (nonatomic, assign) BOOL isDetailViewLogin;
 
+@property (nonatomic, assign) BOOL isHomeListViewLogin;
+
+@property (nonatomic, assign) BOOL isApplyMeetViewLogin;
+
 @property (nonatomic, strong) BlackListBlock blackListBlock;
+
+@property (nonatomic, strong) HomeListLoginBlock homeListBlock;
+
+@property (nonatomic, strong) ApplyMeetLoginBlock applyMeeBlock;
 
 @property (nonatomic, assign) NSInteger detailViweActionSheetSelect;
 

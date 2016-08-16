@@ -37,6 +37,7 @@ class MeViewController: UIViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
+        self.navigationController?.fd_prefersNavigationBarHidden = true
         super.viewWillAppear(animated)
         for view in (UIApplication.sharedApplication().keyWindow?.subviews)! {
             view.backgroundColor = UIColor.clearColor()

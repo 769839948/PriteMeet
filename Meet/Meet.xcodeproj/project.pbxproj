@@ -164,7 +164,13 @@
 		1FD97BBF1D55E41700556568 /* OrderApplyInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BBD1D55E41700556568 /* OrderApplyInfoTableViewCell.swift */; };
 		1FD97BC01D55E41700556568 /* OrderApplyInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FD97BBE1D55E41700556568 /* OrderApplyInfoTableViewCell.xib */; };
 		1FD97BC21D5892BA00556568 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BC11D5892BA00556568 /* HomeViewController.swift */; };
+		1FD97C131D5B1F5D00556568 /* PayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97C121D5B1F5C00556568 /* PayView.swift */; };
+		1FD97C151D5C257300556568 /* PayCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97C141D5C257300556568 /* PayCompleteViewController.swift */; };
 		1FDA53A61D003DC800C170BC /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA53A51D003DC800C170BC /* UIColor+Hex.m */; };
+		1FE4111C1D5D86D30090D2AB /* OrderCancelRejectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4111B1D5D86D30090D2AB /* OrderCancelRejectViewController.swift */; };
+		1FE4111E1D5D9D470090D2AB /* OrderCancelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4111D1D5D9D470090D2AB /* OrderCancelViewController.swift */; };
+		1FE411201D5D9E060090D2AB /* CancelInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4111F1D5D9E060090D2AB /* CancelInfoTableViewCell.swift */; };
+		1FE411221D5EC5630090D2AB /* TextViewAutoHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE411211D5EC5620090D2AB /* TextViewAutoHeight.swift */; };
 		1FF30A2D1D3131720051333F /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF30A2C1D3131720051333F /* SettingTableViewCell.m */; };
 		1FF30A331D31ECF40051333F /* ScrollingNavbar+Sizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF30A301D31ECF40051333F /* ScrollingNavbar+Sizes.swift */; };
 		1FF30A341D31ECF50051333F /* ScrollingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF30A311D31ECF40051333F /* ScrollingNavigationController.swift */; };
@@ -205,7 +211,6 @@
 		DA4A891C1CDD91FB00649983 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4A891B1CDD91FB00649983 /* libsqlite3.0.tbd */; };
 		DA4A891E1CDD920F00649983 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4A891D1CDD920F00649983 /* libc++.tbd */; };
 		DA4A892D1CDD95C100649983 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4A892C1CDD95C100649983 /* CoreTelephony.framework */; };
-		DA6B1C521CEC4DAC0020021D /* FristHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6B1C381CEC4DAC0020021D /* FristHomeViewController.m */; };
 		DA6CEEEA1CD97E9A00EEABFF /* Me.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA6CEEE91CD97E9A00EEABFF /* Me.storyboard */; };
 		DA6CEEF21CD9EF9D00EEABFF /* CellButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6CEEF11CD9EF9D00EEABFF /* CellButton.m */; };
 		DA6CEEF61CD9EFA800EEABFF /* CellTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6CEEF51CD9EFA800EEABFF /* CellTextField.m */; };
@@ -503,8 +508,14 @@
 		1FD97BBD1D55E41700556568 /* OrderApplyInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderApplyInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1FD97BBE1D55E41700556568 /* OrderApplyInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderApplyInfoTableViewCell.xib; sourceTree = "<group>"; };
 		1FD97BC11D5892BA00556568 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		1FD97C121D5B1F5C00556568 /* PayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayView.swift; sourceTree = "<group>"; };
+		1FD97C141D5C257300556568 /* PayCompleteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayCompleteViewController.swift; sourceTree = "<group>"; };
 		1FDA53A41D003DC800C170BC /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		1FDA53A51D003DC800C170BC /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		1FE4111B1D5D86D30090D2AB /* OrderCancelRejectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderCancelRejectViewController.swift; sourceTree = "<group>"; };
+		1FE4111D1D5D9D470090D2AB /* OrderCancelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderCancelViewController.swift; sourceTree = "<group>"; };
+		1FE4111F1D5D9E060090D2AB /* CancelInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelInfoTableViewCell.swift; sourceTree = "<group>"; };
+		1FE411211D5EC5620090D2AB /* TextViewAutoHeight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewAutoHeight.swift; sourceTree = "<group>"; };
 		1FF30A2B1D3131720051333F /* SettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewCell.h; sourceTree = "<group>"; };
 		1FF30A2C1D3131720051333F /* SettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewCell.m; sourceTree = "<group>"; };
 		1FF30A2F1D31ECF40051333F /* AMScrollingNavbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMScrollingNavbar.h; sourceTree = "<group>"; };
@@ -572,8 +583,6 @@
 		DA4A891B1CDD91FB00649983 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		DA4A891D1CDD920F00649983 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		DA4A892C1CDD95C100649983 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		DA6B1C371CEC4DAC0020021D /* FristHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FristHomeViewController.h; sourceTree = "<group>"; };
-		DA6B1C381CEC4DAC0020021D /* FristHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FristHomeViewController.m; sourceTree = "<group>"; };
 		DA6CEEE91CD97E9A00EEABFF /* Me.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Me.storyboard; sourceTree = "<group>"; };
 		DA6CEEF11CD9EF9D00EEABFF /* CellButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellButton.m; sourceTree = "<group>"; };
 		DA6CEEF31CD9EFA800EEABFF /* CellButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellButton.h; sourceTree = "<group>"; };
@@ -757,12 +766,15 @@
 				1F9DCF131D4C5322001467E6 /* OrderMeetViewController.swift */,
 				1F9DCF151D4C5331001467E6 /* OrderAllViewController.swift */,
 				1FCC444C1D37A6BE00287EC5 /* OrderViewController.swift */,
+				1FE4111B1D5D86D30090D2AB /* OrderCancelRejectViewController.swift */,
 				1FAA07921D3CEC540017F3E3 /* ConfirmedViewController.swift */,
 				1FAA07DE1D3F17810017F3E3 /* WaitPayViewController.swift */,
 				1FAA07E01D3F17A00017F3E3 /* WaitMeetViewController.swift */,
+				1FE4111D1D5D9D470090D2AB /* OrderCancelViewController.swift */,
 				1F810EC61D51E386008A5EF1 /* AllMeetViewController.swift */,
 				1FAA08041D40DA670017F3E3 /* EditMoreProfileViewController.swift */,
 				1F810E921D4F6E89008A5EF1 /* OtherUserInfoViewController.swift */,
+				1FD97C141D5C257300556568 /* PayCompleteViewController.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -1037,6 +1049,7 @@
 		1FCC44451D37A61D00287EC5 /* Order */ = {
 			isa = PBXGroup;
 			children = (
+				1FD97C121D5B1F5C00556568 /* PayView.swift */,
 				1FD97BB91D55DBF300556568 /* OrderApplyMeetTableViewCell.swift */,
 				1FD97BBB1D55E1A900556568 /* OrderApplyIntroductionCell.swift */,
 				1FD97BBD1D55E41700556568 /* OrderApplyInfoTableViewCell.swift */,
@@ -1053,10 +1066,12 @@
 				1FAA07981D3DCC160017F3E3 /* OrderFlowTableViewCell.xib */,
 				1F810EC21D509D01008A5EF1 /* OrderCancelTableViewCell.swift */,
 				1F810EC31D509D01008A5EF1 /* OrderCancelTableViewCell.xib */,
+				1FE4111F1D5D9E060090D2AB /* CancelInfoTableViewCell.swift */,
 				1F810EBE1D507399008A5EF1 /* ZDQFlowView.swift */,
 				1F810EBF1D507399008A5EF1 /* ZDQFlowViewItem.swift */,
 				1F810E8E1D4F3550008A5EF1 /* AppointmentCollectView.swift */,
 				1F810E901D4F37A3008A5EF1 /* AppointmentCell.swift */,
+				1FE411211D5EC5620090D2AB /* TextViewAutoHeight.swift */,
 			);
 			name = Order;
 			sourceTree = "<group>";
@@ -1319,8 +1334,6 @@
 		DA6B1C361CEC4DAC0020021D /* Frist Versions */ = {
 			isa = PBXGroup;
 			children = (
-				DA6B1C371CEC4DAC0020021D /* FristHomeViewController.h */,
-				DA6B1C381CEC4DAC0020021D /* FristHomeViewController.m */,
 				1FD97BC11D5892BA00556568 /* HomeViewController.swift */,
 			);
 			path = "Frist Versions";
@@ -1740,6 +1753,7 @@
 				1FFB5F3E1D069A8800021F77 /* ProfileKeyAndValue.m in Sources */,
 				DAF5C8541CE5A5C100DA7901 /* UIView+frameAdjust.m in Sources */,
 				DAF5C8841CE5B95000DA7901 /* CoreTextLinkData.m in Sources */,
+				1FD97C151D5C257300556568 /* PayCompleteViewController.swift in Sources */,
 				DA018F391CD44B210051D2D7 /* ThreeImageCell.m in Sources */,
 				1FF30A351D31ECF50051333F /* ScrollingNavigationViewController.swift in Sources */,
 				1FFB5F381D05650400021F77 /* BaseUserInfoViewController.m in Sources */,
@@ -1764,6 +1778,7 @@
 				DAF5C8211CE0D0ED00DA7901 /* WXUserInfo.m in Sources */,
 				DABF8AF21CE9D41100CA2A1D /* BaseMeetViewController.m in Sources */,
 				1F38683F1D260E3A00569032 /* OtherProfileInfoTableViewCell.swift in Sources */,
+				1FE411221D5EC5630090D2AB /* TextViewAutoHeight.swift in Sources */,
 				DAF5C8BE1CE6D6AD00DA7901 /* NSUserDefaults+RMSaveCustomObject.m in Sources */,
 				DAF5C81E1CE0D0ED00DA7901 /* BaseModel.m in Sources */,
 				1F68503D1CFFE4F2007F3C07 /* NewMeetInfoTableViewCell.m in Sources */,
@@ -1821,7 +1836,9 @@
 				1F508D4E1D2FA791001EB676 /* ProfilePhotoTableViewCell.swift in Sources */,
 				1FAA07991D3DCC160017F3E3 /* OrderFlowTableViewCell.swift in Sources */,
 				1FCAFFD01D01515D00BF53A1 /* BaseRequestViewModel.m in Sources */,
+				1FD97C131D5B1F5D00556568 /* PayView.swift in Sources */,
 				1FD97BBC1D55E1A900556568 /* OrderApplyIntroductionCell.swift in Sources */,
+				1FE411201D5D9E060090D2AB /* CancelInfoTableViewCell.swift in Sources */,
 				1F810E911D4F37A3008A5EF1 /* AppointmentCell.swift in Sources */,
 				1F79BAD51D080A0500814DED /* NSFileManager+Paths.m in Sources */,
 				1F3DC32F1D0D07A60075B7BA /* MeViewModel.swift in Sources */,
@@ -1851,10 +1868,10 @@
 				1F79BAD81D080B7B00814DED /* NSFileManager+Utils.m in Sources */,
 				DA6CEEF21CD9EF9D00EEABFF /* CellButton.m in Sources */,
 				1F293D771D11A4B90063A9DA /* TransparentView.m in Sources */,
+				1FE4111E1D5D9D470090D2AB /* OrderCancelViewController.swift in Sources */,
 				1FC69D6C1D2CDF1900BF0B95 /* GuidanceText.m in Sources */,
 				1F79BAD21D071CF700814DED /* UserInfo.m in Sources */,
 				1FBF408C1D1E5BF8005DB46F /* ProfileTableViewCell.swift in Sources */,
-				DA6B1C521CEC4DAC0020021D /* FristHomeViewController.m in Sources */,
 				1F810E931D4F6E89008A5EF1 /* OtherUserInfoViewController.swift in Sources */,
 				DAF5C8C91CE6F3EB00DA7901 /* MyPhotosViewController.m in Sources */,
 				DABF8B071CEB18E700CA2A1D /* MeetBaseViewController.m in Sources */,
@@ -1875,6 +1892,7 @@
 				DAF5C8871CE5B95000DA7901 /* CTFrameParserConfig.m in Sources */,
 				1F9E931D1D0E4993003ED7AF /* UIImage+PureColor.m in Sources */,
 				1F2DA9BB1D394B0B0008C434 /* WeiboModel.m in Sources */,
+				1FE4111C1D5D86D30090D2AB /* OrderCancelRejectViewController.swift in Sources */,
 				1FAA085D1D4703A00017F3E3 /* Photos.m in Sources */,
 				1FD97BC21D5892BA00556568 /* HomeViewController.swift in Sources */,
 				1F9DCF0B1D4C50C2001467E6 /* TYTabPagerController.m in Sources */,
@@ -2027,7 +2045,7 @@
 					"$(PROJECT_DIR)/Meet/3rd/SDKExport",
 					"$(PROJECT_DIR)/Meet/3rd/libWeiboSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.meet.meet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meet.testmeet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Meet/Meet-Bridging-Header.h";
@@ -2057,7 +2075,7 @@
 					"$(PROJECT_DIR)/Meet/3rd/SDKExport",
 					"$(PROJECT_DIR)/Meet/3rd/libWeiboSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.meet.meet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meet.testmeet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Meet/Meet-Bridging-Header.h";

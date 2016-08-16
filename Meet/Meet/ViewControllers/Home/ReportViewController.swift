@@ -24,8 +24,7 @@ class ReportViewController: UIViewController {
         self.title = "投诉原因"
         reportArray = NSMutableArray(array: ["色情低俗","广告骚扰","政治敏感","欺诈骗钱","违法（暴力恐怖、违禁品等）","侵权（抄袭、盗用等）"], copyItems: true)
         selectIndexPaths = NSMutableArray(array: [false,false,false,false,false,false], copyItems: true)
-        self.navigationItem.rightBarButtonItem  = UIBarButtonItem(title: "提交", style: .Plain, target: self, action: #selector(ReportViewController.reportBtnPress(_:)))
-        self.navigationController?.navigationBar.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
+        
         self.setUpTableView()
         self.setUpNavigationItem()
         
@@ -50,6 +49,8 @@ class ReportViewController: UIViewController {
     
     func setUpNavigationItem(){
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "navigationbar_back")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(ReportViewController.leftItemPress))
+        self.navigationItem.rightBarButtonItem  = UIBarButtonItem(title: "提交", style: .Plain, target: self, action: #selector(ReportViewController.reportBtnPress(_:)))
+        self.navigationController?.navigationBar.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
     }
     
     func leftItemPress(){

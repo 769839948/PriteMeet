@@ -36,15 +36,28 @@ class OrderAllViewController: BaseOrderPageViewController {
     */
     //MARK:
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let applyDetailView = AllMeetViewController()
+        
         let orderModel = (orderList[indexPath.row] as! OrderModel)
-        applyDetailView.myClouse = { status in
-            self.orderList.removeObjectAtIndex(indexPath.row)
-            self.collectionView.reloadData()
+        if orderModel.status?.status_code == "2" || orderModel.status?.status_code == "3" || orderModel.status?.status_code == "7" || orderModel.status?.status_code == "8" || orderModel.status?.status_code == "13"  {
+            let applyDetailView = OrderCancelViewController()
+            applyDetailView.uid = self.guest
+            applyDetailView.myClouse = { status in
+                self.orderList.removeObjectAtIndex(indexPath.row)
+                self.collectionView.reloadData()
+            }
+            applyDetailView.orderModel = orderModel
+            self.navigationController?.pushViewController(applyDetailView, animated: true)
+        }else{
+            let applyDetailView = AllMeetViewController()
+            applyDetailView.uid = self.guest
+            applyDetailView.myClouse = { status in
+                self.orderList.removeObjectAtIndex(indexPath.row)
+                self.collectionView.reloadData()
+            }
+            applyDetailView.orderModel = orderModel
+            self.navigationController?.pushViewController(applyDetailView, animated: true)
         }
-        orderModel.appointment_theme = ["吃饭聚餐","看电影","逛街","更多","资深设计","视觉设计"]
-        applyDetailView.orderModel = orderModel
-        self.navigationController?.pushViewController(applyDetailView, animated: true)
+        
     }
 
 }

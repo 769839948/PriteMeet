@@ -14,6 +14,7 @@ enum ZDQFlowViewItemType {
     case ItemWaitSelect
     case ItemCancel
     case ItemNext
+    case ItemCancelDone
 }
 
 class ZDQFlowViewItem: UIView {
@@ -55,9 +56,12 @@ class ZDQFlowViewItem: UIView {
         case .ItemNext:
             imageView.image = UIImage.init(named: "item_next")
             titleLabel.textColor = UIColor.init(hexString: MeProfileCollectViewItemUnSelectColor)
+        case .ItemCancelDone:
+            imageView.image = UIImage.init(named: "item_unselect")
+            titleLabel.textColor = UIColor.init(hexString: MeProfileCollectViewItemUnSelectColor)
         default:
             imageView.image = UIImage.init(named: "item_cancel")
-            titleLabel.textColor = UIColor.init(hexString: MeProfileCollectViewItemUnSelectColor)
+            titleLabel.textColor = UIColor.init(hexString: OrderFlowTitleCnacel)
         }
         titleLabel.text = title
     }

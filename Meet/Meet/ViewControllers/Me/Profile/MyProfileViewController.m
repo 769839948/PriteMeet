@@ -161,6 +161,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
 {
     [super viewWillAppear:animated];
     [self createNavigationBar];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated

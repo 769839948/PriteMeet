@@ -48,7 +48,7 @@ class HomeDetailModel: NSObject {
     var id: Int = 0
     
     var age: Int = 0
-        
+            
     var laititude: String?
     
     var location: String?
@@ -68,4 +68,6 @@ class HomeDetailModel: NSObject {
     var more_introduction: String?
     
     var web_url : String = ""
+    
+    var avatar : String = ""
 }

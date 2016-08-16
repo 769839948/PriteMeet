@@ -46,12 +46,22 @@ class BlackListCollectCell: UICollectionViewCell {
         jobLabel.text = orderModel.order_user_info!.job_label
         reportBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         reportBtn.titleLabel?.font = OrderConfirmBtnFont
-        if (model.status?.status_code == "1" && model.status?.status_type == "apply_order") || (model.status?.status_code == "4" && model.status?.status_type == "receive_order"){
-            reportBtn.setTitle(orderModel.status?.order_status, forState: .Normal)
-            reportBtn.backgroundColor = UIColor.init(hexString: MeViewProfileContentLabelColorLight)
+        if model.status?.status_type == "apply_order" {
+            if model.status?.status_code == "8" || model.status?.status_code == "6" || model.status?.status_code == "4" {
+                reportBtn.setTitle(orderModel.status?.order_status, forState: .Normal)
+                reportBtn.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
+            }else{
+                reportBtn.setTitle(orderModel.status?.order_status, forState: .Normal)
+                reportBtn.backgroundColor = UIColor.init(hexString: MeViewProfileContentLabelColorLight)
+            }
         }else{
-            reportBtn.setTitle(orderModel.status?.order_status, forState: .Normal)
-            reportBtn.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
+            if  model.status?.status_code == "1" || model.status?.status_code == "6" {
+                reportBtn.setTitle(orderModel.status?.order_status, forState: .Normal)
+                reportBtn.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
+            }else{
+                reportBtn.setTitle(orderModel.status?.order_status, forState: .Normal)
+                reportBtn.backgroundColor = UIColor.init(hexString: MeViewProfileContentLabelColorLight)
+            }
         }
     }
     

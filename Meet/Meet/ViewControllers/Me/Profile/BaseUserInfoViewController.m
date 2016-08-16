@@ -109,6 +109,16 @@
                                     self.blackListBlock();
                                 }
                             }
+                        }else if (_isHomeListViewLogin){
+                            [self.navigationController popViewControllerAnimated:YES];
+                            if (self.homeListBlock != nil) {
+                                self.homeListBlock();
+                            }
+                        }else if (_isApplyMeetViewLogin){
+                            [self.navigationController popViewControllerAnimated:YES];
+                            if (self.applyMeeBlock != nil) {
+                                self.applyMeeBlock();
+                            }
                         }else{
                             [self.navigationController popToRootViewControllerAnimated:YES];
                         }
@@ -119,6 +129,10 @@
                         if (_isDetailViewLogin) {
                             senderInviteVC.isDetailViewLogin = YES;
                             senderInviteVC.detailViewActionSheetSelect = self.detailViweActionSheetSelect;
+                        }else if(_isHomeListViewLogin){
+                            senderInviteVC.isHomeListLogin = YES;
+                        }else if (_isApplyMeetViewLogin){
+                            senderInviteVC.isApplyMeetLogin = YES;
                         }
                         senderInviteVC.isNewLogin = YES;
                         [self.navigationController pushViewController:senderInviteVC animated:YES];

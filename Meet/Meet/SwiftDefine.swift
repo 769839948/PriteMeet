@@ -42,8 +42,25 @@ let AppointNameLabelFont    = version >= 9.0 ? UIFont.init(name: "PingFangSC-Reg
 
 let OrderApplyTitleFont    = version >= 9.0 ? UIFont.init(name: "PingFangSC-Medium", size: 14.0):UIFont.systemFontOfSize(14)
 
+let OrderPayViewTitleFont    = version >= 9.0 ? UIFont.init(name: "PingFangSC-Regular", size: 14.0):UIFont.systemFontOfSize(14)
 
+let OrderPayViewPayTitleFont    = version >= 9.0 ? UIFont.init(name: "PingFangSC-Regular", size: 14.0):UIFont.systemFontOfSize(14)
 
+let OrderPayViewPayDetailFont    = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 9.0):UIFont.systemFontOfSize(9.0)
+
+let OrderPayViewPayInfoFont    = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 11.0):UIFont.systemFontOfSize(11)
+
+let OrderPayViewPayAllNumFont  = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 12.0):UIFont.systemFontOfSize(12)
+
+let OrderPayViewPayMuchFont  = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 24.0):UIFont.systemFontOfSize(24)
+
+let OrderInfoPayDetailFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 13.0):UIFont.systemFontOfSize(13.0)
+
+let OrderInfoViewMuchFont      = version >= 9.0 ? UIFont.init(name: "Helvetica-Bold", size: 13.0):UIFont.systemFontOfSize(13.0)
+
+let OrderCancelInfoViewFont      = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 24.0):UIFont.systemFontOfSize(24.0)
+
+let OrderMeetTipFont      = version >= 9.0 ? UIFont.init(name: "PingFangSC-Medium", size: 12.0):UIFont.systemFontOfSize(12.0)
 
 let ReloadOrderCollectionView = "ReloadOrderCollectionView"
 
@@ -60,6 +77,7 @@ func UserDefaultsGetSynchronize(key:String) -> String {
 func TableViewRegisterNib(cell:String, idef:String, tableView:UITableView){
     tableView.registerNib(UINib.init(nibName: cell, bundle: NSBundle.mainBundle()), forCellReuseIdentifier: idef)
 }
+
 
 let ScreenWidth = UIScreen.mainScreen().bounds.size.width
 let ScreenHeight = UIScreen.mainScreen().bounds.size.height

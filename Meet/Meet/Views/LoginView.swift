@@ -17,6 +17,7 @@ typealias ProtocolClouse = () -> Void
 typealias NewUserLoginClouse = () -> Void
 typealias ReloadMeViewClouse = () ->Void
 typealias LoginWithDetailClouse = () ->Void
+typealias LoginWithOrderListClouse = () ->Void
 
 class LoginView: UIView {
 
@@ -46,6 +47,7 @@ class LoginView: UIView {
     var protocolClouse:ProtocolClouse!
     var newUserLoginClouse:NewUserLoginClouse!
     var loginWithDetailClouse:LoginWithDetailClouse!
+    var loginWithOrderListClouse:LoginWithOrderListClouse!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -63,10 +65,11 @@ class LoginView: UIView {
         loginView = UIView()
         loginView.frame = CGRectMake((ScreenWidth - LoginViewWidth)/2, 91, LoginViewWidth, LoginViewHeight)
         loginView.layer.cornerRadius = 10.0
+        loginView.clipsToBounds = true
         loginView.backgroundColor = UIColor.whiteColor()
         self.addSubview(loginView)
         
-        loginOldUser = UIView(frame: CGRectMake(0,0,loginView.frame.size.width,loginView.frame.size.height))
+        loginOldUser = UIView(frame: CGRectMake(LoginViewWidth * 2,0,loginView.frame.size.width,loginView.frame.size.height))
         loginOldUser.backgroundColor = UIColor.whiteColor()
         loginOldUser.tag = 2
         loginOldUser.clipsToBounds = true
@@ -74,7 +77,7 @@ class LoginView: UIView {
         loginView.addSubview(loginOldUser)
         
         
-        smsCodeView = UIView(frame: CGRectMake(0,0,loginView.frame.size.width,loginView.frame.size.height))
+        smsCodeView = UIView(frame: CGRectMake(LoginViewWidth,0,loginView.frame.size.width,loginView.frame.size.height))
         smsCodeView.backgroundColor = UIColor.whiteColor()
         smsCodeView.tag = 3
         smsCodeView.clipsToBounds = true
@@ -301,19 +304,19 @@ class LoginView: UIView {
 
         
         titleLabel.snp_makeConstraints { (make) in
-            make.centerX.equalTo(loginCodeView.snp_centerX).offset(0)
-            make.top.equalTo(loginCodeView.snp_top).offset(51)
+            make.centerX.equalTo(smsCodeView.snp_centerX).offset(0)
+            make.top.equalTo(smsCodeView.snp_top).offset(51)
             make.height.equalTo(28)
         }
         
         smsCode.snp_makeConstraints { (make) in
-            make.centerX.equalTo(loginCodeView.snp_centerX).offset(0)
+            make.centerX.equalTo(smsCodeView.snp_centerX).offset(0)
             make.top.equalTo(titleLabel.snp_bottom).offset(30)
             make.height.equalTo(20)
         }
         
         phoneLabel.snp_makeConstraints { (make) in
-            make.centerX.equalTo(loginCodeView.snp_centerX).offset(0)
+            make.centerX.equalTo(smsCodeView.snp_centerX).offset(0)
             make.top.equalTo(smsCode.snp_bottom).offset(4)
             make.height.equalTo(24)
         }
@@ -454,7 +457,24 @@ class LoginView: UIView {
         default:
             checkLabelSms.labelTouch(nil)
         }
-        loginView.bringSubviewToFront(loginView.viewWithTag(tag)!)
+        UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseInOut, animations: {
+            if tag == 1 {
+                self.loginCodeView.frame = CGRectMake(0, 0, LoginViewWidth, LoginViewHeight)
+                
+                self.loginOldUser.frame = CGRectMake(LoginViewWidth, 0, LoginViewWidth, LoginViewHeight)
+                self.smsCodeView.frame =  CGRectMake(LoginViewWidth * 2, 0, LoginViewWidth, LoginViewHeight)
+            }else if tag == 2 {
+                self.loginCodeView.frame = CGRectMake(-LoginViewWidth, 0, LoginViewWidth, LoginViewHeight)
+                self.loginOldUser.frame = CGRectMake(0, 0, LoginViewWidth, LoginViewHeight)
+                self.smsCodeView.frame =  CGRectMake(LoginViewWidth, 0, LoginViewWidth, LoginViewHeight)
+            }else{
+                self.loginCodeView.frame = CGRectMake(-LoginViewWidth * 2, 0, LoginViewWidth, LoginViewHeight)
+                self.loginOldUser.frame = CGRectMake(-LoginViewWidth, 0, LoginViewWidth, LoginViewHeight)
+                self.smsCodeView.frame =  CGRectMake(0, 0, LoginViewWidth, LoginViewHeight)
+            }
+            }) { (finish) in
+                
+        }
     }
     
     
@@ -502,7 +522,6 @@ class LoginView: UIView {
     }
     
     func proBtnPress(sender:UIButton) {
-//        self.dismissView()
         if self.protocolClouse != nil {
             self.endEditing(true)
             self.protocolClouse()
@@ -535,6 +554,11 @@ class LoginView: UIView {
                         if self.loginWithDetailClouse != nil {
                             self.loginWithDetailClouse()
                         }
+                        
+                        if self.loginWithOrderListClouse != nil {
+                            self.loginWithOrderListClouse()
+                        }
+                        
                         self.dismissView()
                         }, fail: { (dic) in
                             

@@ -31,6 +31,7 @@ class BaseOrderViewController: UIViewController {
     var navigationBarTitleView: UIView!
     
     let viewModel = OrderViewModel()
+    var uid:String = ""
     let tableViewArray = ["OrderFlowTableViewCell","AppointMentTableViewCell","MeetOrderInfoTableViewCell"]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,13 +56,13 @@ class BaseOrderViewController: UIViewController {
     
     func setNavigationItem(){
         leftButton = UIButton(type: .Custom)
-        leftButton.frame = CGRectMake(20, 30, 20, 20)
+        leftButton.frame = CGRectMake(0, 20, 40, 40)
         leftButton.setImage(UIImage.init(named: "navigationbar_back")?.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
         leftButton.addTarget(self, action: #selector(BaseOrderViewController.leftBarPress(_:)), forControlEvents: .TouchUpInside)
         navigationBarTitleView.addSubview(leftButton)
         
         rightButton = UIButton(type: .Custom)
-        rightButton.frame = CGRectMake(ScreenWidth - 40, 30, 20, 20)
+        rightButton.frame = CGRectMake(ScreenWidth - 40, 20, 40, 40)
         rightButton.setImage(UIImage.init(named: "navigation_info")?.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
         rightButton.addTarget(self, action: #selector(BaseOrderViewController.rightBarPress(_:)), forControlEvents: .TouchUpInside)
         navigationBarTitleView.addSubview(rightButton)
@@ -101,8 +102,10 @@ class BaseOrderViewController: UIViewController {
     
     
     func rightBarPress(sender:UIBarButtonItem) {
-        self.modalTransitionStyle = .CoverVertical
-//        self.navigationController.
+        let meetDetailVC = MeetDetailViewController()
+        meetDetailVC.user_id = orderModel.order_user_info!.uid
+        meetDetailVC.isOrderViewPush = true
+        self.navigationController?.pushViewController(meetDetailVC, animated: true)
     }
     
     func setUpTitleView(){
@@ -130,17 +133,26 @@ class BaseOrderViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .None
         self.tableView.registerClass(OrderFlowTableViewCell.self, forCellReuseIdentifier: "OrderFlowTableViewCell")
+        self.tableView.registerClass(CancelInfoTableViewCell.self, forCellReuseIdentifier: "CancelInfoTableViewCell")
         self.tableView.registerNib(UINib.init(nibName: "OrderProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "OrderProfileTableViewCell")
         self.tableView.registerNib(UINib.init(nibName: "AppointMentTableViewCell", bundle: nil), forCellReuseIdentifier: "AppointMentTableViewCell")
         self.tableView.registerNib(UINib.init(nibName: "MeetOrderInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "MeetOrderInfoTableViewCell")
         self.tableView.registerNib(UINib.init(nibName: "OrderCancelTableViewCell", bundle: nil), forCellReuseIdentifier: "OrderCancelTableViewCell")
-
+        
         self.view.addSubview(self.tableView)
         self.tableView.snp_makeConstraints { (make) in
             make.top.equalTo(navigationBarTitleView.snp_bottom).offset(0)
             make.left.equalTo(self.view.snp_left).offset(0)
             make.right.equalTo(self.view.snp_right).offset(0)
             make.bottom.equalTo(self.bottomBtn.snp_top).offset(0)
+        }
+    }
+    
+    func changeShtatues(statues:String) {
+        viewModel.switchOrderStatus(orderModel.order_id, status: statues,rejectType: "0",rejectReason: "", succeccBlock: { (dic) in
+                self.navigationController?.popViewControllerAnimated(true)
+            }) { (dic) in
+                UITools.showMessageToView(self.view, message: (dic as NSDictionary).objectForKey("error") as! String, autoHide: true)
         }
     }
     
@@ -167,7 +179,11 @@ class BaseOrderViewController: UIViewController {
             return returnCell
         case 2:
             let returnCell = cell as! MeetOrderInfoTableViewCell
-            returnCell.setData(orderModel)
+            if self.orderModel.status?.status_code == "6" {
+                returnCell.setData(orderModel,type:.WaitMeet)
+            }else{
+                returnCell.setData(orderModel,type:.WaitPay)
+            }
             return returnCell
         default:
             return UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "Default")
@@ -194,8 +210,14 @@ extension BaseOrderViewController : UITableViewDelegate {
                 self.configAppointThemeTypeCell((cell as! AppointMentTableViewCell), indexPath: indexPath)
             })
         }else if indexPath.row == 2 {
+            if orderModel.status?.status_code == "6" {
+               return 340
+            }
             return 245
         }else{
+            if orderModel.status?.status_code == "11" {
+                return 129
+            }
             return 209
         }
     }

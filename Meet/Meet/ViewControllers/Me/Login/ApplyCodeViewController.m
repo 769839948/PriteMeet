@@ -38,7 +38,7 @@
 
 - (void)setNavigationBarItem
 {
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigationbar_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonPress:)];
+    self.navigationItem.leftBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigationbar_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonPress:)],[[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
     UIBarButtonItem *rightBtItem = [[UIBarButtonItem alloc] initWithTitle:@"提交" style:UIBarButtonItemStylePlain target:self action:@selector(applyCodePress:)];
     [rightBtItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:HomeDetailViewNameColor],NSFontAttributeName:NavigationBarRightItemFont} forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = rightBtItem;

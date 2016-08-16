@@ -73,7 +73,7 @@ class OrderPageViewController: TYTabButtonPagerController {
             orderConfimViewController.reloaCollectViewData()
             orderMeetViewController.reloaCollectViewData()
             orderAllViewController.reloaCollectViewData()
-        }else if notification.object as! String != "4" {
+        }else if notification.object as! String != "6" {
             orderPayViewController.reloaCollectViewData()
             orderConfimViewController.reloaCollectViewData()
             orderAllViewController.reloaCollectViewData()

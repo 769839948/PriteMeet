@@ -60,11 +60,18 @@
 
 #define  RequestPayUrl               @"/api/payUrl/"
 
+//根据订单号查询订单详情
+#define  RequestApiOrder             @"/api/order"
+
 #define  RequestUserAppoitment       @"/api/check_appointment_order/"
 
 #define  RequestAcceptAppointMent    @"/api/accept_appointment"
 
-#define  RequestSwitchAppointMent    @"switch_appointment_status"
+#define  RequestSwitchAppointMent    @"/api/switch_appointment_status"
+
+#define  RequestRejectReson          @"/api/reject_reason_dict/"
+
+
 
 //http://momeet.cn/api/dict_map/
 //http://momeet.cn/api/document_map/

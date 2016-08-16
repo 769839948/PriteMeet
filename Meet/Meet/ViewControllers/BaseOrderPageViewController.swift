@@ -15,7 +15,7 @@ class BaseOrderPageViewController: UIViewController {
     var orderList = NSMutableArray()
     var orderState:String = "1"
     var collectionView:UICollectionView!
-    
+    var guest:String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpCollectionView()
@@ -39,6 +39,7 @@ class BaseOrderPageViewController: UIViewController {
     
     func setOrderData(state:String, guest:String){
         self.orderList.removeAllObjects()
+        self.guest = guest
         viewModel.getOrderList(state, withGuest: guest, successBlock: { (dic) in
             if ((dic["receive_order_list"] as! NSArray).count != 0){
                 let receive_Order_List = OrderModel.mj_objectArrayWithKeyValuesArray(dic["receive_order_list"])
@@ -49,7 +50,9 @@ class BaseOrderPageViewController: UIViewController {
                 let apply_Order_List = OrderModel.mj_objectArrayWithKeyValuesArray(dic["apply_order_list"])
                 self.orderList.addObjectsFromArray(apply_Order_List as [AnyObject])
             }
-            self.collectionView.reloadData()
+            if self.collectionView != nil {
+                self.collectionView.reloadData()
+            }
         }) { (dic) in
             
         }
@@ -80,7 +83,7 @@ class BaseOrderPageViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        
+        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -125,11 +128,6 @@ extension BaseOrderPageViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdef, forIndexPath: indexPath) as! BlackListCollectCell
         cell.reportBtn.userInteractionEnabled = false
         let model = orderList[indexPath.row] as! OrderModel
-        if model.status?.order_status == "待对方付款" ||  model.status?.order_status == "待确认" {
-            model.status?.status_type = "receive_order"
-        }else{
-            model.status?.status_type = "apply_order"
-        }
         cell.layer.cornerRadius = 5.0
         cell.setOrderModel(model)
         cell.backgroundColor = UIColor.whiteColor()
@@ -190,6 +188,8 @@ extension BaseOrderPageViewController : DZNEmptyDataSetSource {
         paragraph.lineBreakMode = .ByWordWrapping
         paragraph.alignment = .Center
         paragraph.lineSpacing = 5.0
+//        let attributes = NSMutableAttributedString()
+//        attributes.addAttributes([NSFontAttributeName:LoginCodeLabelFont!], range: NSRange.init(location: 0, length: string.length))
         let attributes = [NSFontAttributeName:UIFont.systemFontOfSize(14.0),NSParagraphStyleAttributeName:paragraph,NSForegroundColorAttributeName:UIColor.init(hexString: EmptyDataTitleColor)]
         return NSAttributedString(string: string, attributes: attributes)
     }

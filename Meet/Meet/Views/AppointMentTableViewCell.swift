@@ -41,6 +41,8 @@ class AppointMentTableViewCell: UITableViewCell {
     
     var  didSetupConstraints:Bool = false
     
+    let gradient: CAGradientLayer = CAGradientLayer()
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setUpView()
@@ -49,25 +51,28 @@ class AppointMentTableViewCell: UITableViewCell {
 
     func setUpView() {
         appointmentBackGroundView = UIView()
-        appointmentBackGroundView.backgroundColor = UIColor.init(hexString: AppointMentBackGroundColor)
-        appointmentBackGroundView.layer.cornerRadius = 5.0
+        gradient.colors = [UIColor.init(hexString: AppointMentBeginBackGroundColor).CGColor, UIColor.init(hexString: AppointMentEndBackGroundColor).CGColor]
+        appointmentBackGroundView.layer.insertSublayer(gradient, atIndex: 0)
+        gradient.cornerRadius = 5.0
         self.contentView.addSubview(appointmentBackGroundView)
         
         appointmentIntroduce = UILabel()
+        appointmentIntroduce.numberOfLines = 0
         appointmentIntroduce.font = OrderAppointThemeIntroudFont
         appointmentIntroduce.textColor = UIColor.whiteColor()
+        appointmentIntroduce.backgroundColor = UIColor.clearColor()
         appointmentBackGroundView.addSubview(appointmentIntroduce)
         
         flowLayout = EqualSpaceFlowLayout()
         appointmentType = AppointmentCollectView(frame: CGRectZero, collectionViewLayout: flowLayout)
-        appointmentType.backgroundColor = UIColor.init(hexString: AppointMentBackGroundColor)
+        appointmentType.backgroundColor = UIColor.clearColor()
         flowLayout.delegate = appointmentType
         appointmentBackGroundView.addSubview(appointmentType)
        
         
         meetInfo = UILabel()
         meetInfo.text = "POWERED BY MEET CONTROL CENTER"
-        meetInfo.textColor = UIColor.whiteColor()
+        meetInfo.textColor = UIColor.init(white: 1, alpha: 0.5)
         meetInfo.textAlignment = .Right
         meetInfo.font = AppointMeetLogoPower
         appointmentBackGroundView.addSubview(meetInfo)
@@ -89,6 +94,10 @@ class AppointMentTableViewCell: UITableViewCell {
         appointmentType.snp_updateConstraints { (make) in
             make.height.equalTo(tableViewHeight(model.appointment_theme, width: ScreenWidth - 70))
         }
+//        gradient.startPoint = appointmentBackGroundView.frame.origin
+//        gradient.endPoint = CGPointMake(CGRectGetMaxX(appointmentBackGroundView.frame), CGRectGetMaxY(appointmentBackGroundView.frame))
+        
+        gradient.frame = appointmentBackGroundView.bounds
     }
     
     func titleHeight(string:String,width:CGFloat) ->CGFloat {

@@ -16,7 +16,7 @@ enum FillterName {
     case ReconmondList
 }
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController,UINavigationControllerDelegate {
 
     @IBOutlet weak var tableView:UITableView!
     
@@ -42,6 +42,7 @@ class HomeViewController: UIViewController {
         self.addLineNavigationBottom()
         self.talKingDataPageName = "Home"
         self.setUpHomeData()
+        
         // Do any additional setup after loading the view.
     }
 
@@ -72,10 +73,12 @@ class HomeViewController: UIViewController {
             if error != nil && error.code == 1{
                 return
             }
-            self.latitude = location.coordinate.latitude
-            self.logtitude = location.coordinate.longitude
-            if UserInfo.isLoggedIn() {
-                self.viewModel .senderLocation(self.latitude, longitude: self.logtitude)
+            if location != nil{
+                self.latitude = location.coordinate.latitude
+                self.logtitude = location.coordinate.longitude
+                if UserInfo.isLoggedIn() {
+                    self.viewModel .senderLocation(self.latitude, longitude: self.logtitude)
+                }
             }
         }
     }
@@ -93,7 +96,7 @@ class HomeViewController: UIViewController {
             let tempArray = HomeModel.mj_objectArrayWithKeyValuesArray(dic)
             self.homeModelArray.addObjectsFromArray(tempArray as [AnyObject])
             self.tableView.reloadData()
-            self.tableView.scrollEnabled = true
+//            self.tableView.scrollEnabled = true
             self.tableView.mj_footer.endRefreshing()
             }, failBlock: { (dic) in
                 self.page = self.page - 1
@@ -110,13 +113,13 @@ class HomeViewController: UIViewController {
         self.navigationItemCleanColorWithNotLine()
         self.navigationController?.navigationBar.barStyle = .Default
         self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
+        (self.navigationController as! ScrollingNavigationController).delegate = self
         self.setUpBottomView()
         self.setUpNavigationBar()
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        self.bottomView.removeFromSuperview()
         (self.navigationController as! ScrollingNavigationController).showNavbar(animated: false)
     }
     
@@ -139,7 +142,9 @@ class HomeViewController: UIViewController {
     }
     
     func rightItemClick(sender:UIBarButtonItem) {
-        self.presentViewController(        BaseNavigaitonController(rootViewController: MeViewController()) , animated: true) {
+//       KeyWindown?.addSubview(PayView(frame: CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,UIScreen.mainScreen().bounds.size.height)))
+        self.bottomView.removeFromSuperview()
+        self.presentViewController(BaseNavigaitonController(rootViewController: MeViewController()) , animated: true) {
     
         }
     }
@@ -171,17 +176,20 @@ class HomeViewController: UIViewController {
         if !UserInfo.isLoggedIn() {
             self.presentLoginView()
         }else{
-            let orderPageVC = OrderPageViewController()
-            let navigationController = UINavigationController(rootViewController: orderPageVC)
-            orderPageVC.setBarStyle(.CoverView)
-            orderPageVC.progressColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
-            self.presentViewController(navigationController, animated: true, completion: { 
-                
-            })
-            
+            self.bottomView.removeFromSuperview()
+            self.presentOrderView()
         }
     }
     
+    func presentOrderView(){
+        let orderPageVC = OrderPageViewController()
+        let navigationController = UINavigationController(rootViewController: orderPageVC)
+        orderPageVC.setBarStyle(.CoverView)
+        orderPageVC.progressColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
+        self.presentViewController(navigationController, animated: true, completion: {
+            
+        })
+    }
     
     func titleView() ->UIView {
         let image = UIImage.init(named: "navigationbar_title")
@@ -195,13 +203,16 @@ class HomeViewController: UIViewController {
     func leftItemClick(sender:UIBarButtonItem) {
         let leftAlerController = UIAlertController(title: "筛选", message: nil, preferredStyle: .ActionSheet)
         let cancelAction = UIAlertAction(title: "取消", style: .Cancel) { (cancelAction) in
-            
         }
         let commdListAction = UIAlertAction(title: "智能推荐", style: .Default) { (commdListAction) in
-            
+            self.fillterName = .ReconmondList
+            self.tableView.setContentOffset(CGPointMake(0, 0), animated: true)
+            self.setUpHomeData()
         }
         let locationAction = UIAlertAction(title: "离我最近", style: .Default) { (locationAction) in
-            
+            self.fillterName = .LocationList
+            self.tableView.setContentOffset(CGPointMake(0, 0), animated: true)
+            self.setUpHomeData()
         }
         leftAlerController.addAction(cancelAction)
         leftAlerController.addAction(commdListAction)
@@ -233,30 +244,42 @@ class HomeViewController: UIViewController {
         windown!.addSubview(loginView)
         loginView.applyCodeClouse = { _ in
         let applyCode = Stroyboard("Login", viewControllerId: "ApplyCodeViewController") as! ApplyCodeViewController
-        applyCode.isApplyCode = true
-        applyCode.showToolsBlock = { _ in
-        UITools.showMessageToView(self.view, message: "申请成功，请耐心等待审核结果^_^", autoHide: true)
-        self.loginView.removeFromSuperview()
-        UserInfo.logout()
+            applyCode.isApplyCode = true
+            applyCode.showToolsBlock = { _ in
+            UITools.showMessageToView(self.view, message: "申请成功，请耐心等待审核结果^_^", autoHide: true)
+            self.loginView.removeFromSuperview()
+            UserInfo.logout()
         }
         applyCode.loginViewBlock = { _ in
-        self.loginView.showViewWithTage(1)
-        UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
+            self.loginView.showViewWithTage(1)
+            UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
         }
         UIApplication.sharedApplication().keyWindow?.sendSubviewToBack(self.loginView)
-        self.navigationController?.pushViewController(applyCode, animated: true)
+            self.navigationController?.pushViewController(applyCode, animated: true)
         }
         
         loginView.protocolClouse = { _ in
-        let userProtocol = Stroyboard("Seting", viewControllerId: "UserProtocolViewController") as! UserProtocolViewController
-        userProtocol.block = { _ in
-        self.loginView.mobileTextField.becomeFirstResponder()
-        UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
-        }
-        self.navigationController?.pushViewController(userProtocol, animated: true)
-        UIApplication.sharedApplication().keyWindow?.sendSubviewToBack(self.loginView)
+            let userProtocol = Stroyboard("Seting", viewControllerId: "UserProtocolViewController") as! UserProtocolViewController
+            userProtocol.block = { _ in
+                self.loginView.mobileTextField.becomeFirstResponder()
+                UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
+            }
+            self.navigationController?.pushViewController(userProtocol, animated: true)
+            UIApplication.sharedApplication().keyWindow?.sendSubviewToBack(self.loginView)
         }
         
+        loginView.newUserLoginClouse = { _ in
+            let baseUserInfo =  Stroyboard("Me", viewControllerId: "BaseInfoViewController") as! BaseUserInfoViewController
+            baseUserInfo.isHomeListViewLogin = true
+            baseUserInfo.homeListBlock = { _ in
+                self.presentOrderView()
+            }
+            self.navigationController?.pushViewController(baseUserInfo, animated: true)
+        }
+        
+        loginView.loginWithOrderListClouse = { _ in
+            self.presentOrderView()
+        }
     }
 
 }
@@ -284,6 +307,8 @@ extension HomeViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.bottomView.removeFromSuperview()
+        (self.navigationController as! ScrollingNavigationController).showNavbar(animated: false)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let meetDetailVC = MeetDetailViewController()
         let model = homeModelArray[indexPath.section] as! HomeModel
@@ -296,8 +321,11 @@ extension HomeViewController : UITableViewDelegate {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
         if translation.y < -54 {
             self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeDetailViewNameColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
+            UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
         }else if translation.y > 0{
             self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
+            UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
+
         }
 
     }

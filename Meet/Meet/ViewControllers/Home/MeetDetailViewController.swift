@@ -52,6 +52,7 @@ class MeetDetailViewController: UIViewController {
     var actionSheetSelect:NSInteger! = 0
     
     var loginView:LoginView!
+    var isOrderViewPush:Bool = false
     
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
@@ -68,7 +69,7 @@ class MeetDetailViewController: UIViewController {
     }
     
     func setUpTableView() {
-        self.tableView = UITableView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height - 64 - 49), style: .Grouped)
+        self.tableView = UITableView(frame: CGRectZero, style: .Grouped)
         self.tableView.backgroundColor = UIColor.init(colorLiteralRed: 251.0/255.0, green: 251.0/255.0, blue: 251.0/255.0, alpha: 1.0)
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -81,14 +82,24 @@ class MeetDetailViewController: UIViewController {
         self.tableView.registerClass(NewMeetInfoTableViewCell.self, forCellReuseIdentifier: newMeetInfoTableViewCell)
         self.tableView.registerClass(WantMeetTableViewCell.self, forCellReuseIdentifier: wantMeetTableViewCell)
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
-        self.view.addSubview(self.tableView)
         self.tableView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
+        self.view.addSubview(self.tableView)
         
         
+        tableView.snp_makeConstraints { (make) in
+            make.top.equalTo(self.view.snp_top).offset(0)
+            make.left.equalTo(self.view.snp_left).offset(0)
+            make.right.equalTo(self.view.snp_right).offset(0)
+            if self.bottomView != nil {
+                make.bottom.equalTo(self.bottomView.snp_top).offset(0)
+            }else{
+                make.bottom.equalTo(self.view.snp_bottom).offset(0)
+            }
+        }
     }
     
     func setUpBottomView(){
-        self.bottomView = UIView(frame: CGRectMake(0,UIScreen.mainScreen().bounds.size.height - 49 - 64, ScreenWidth, 49))
+        self.bottomView = UIView(frame: CGRectMake(0,ScreenHeight - 49, ScreenWidth, 49))
         self.setPersonType(self.personType)
         let singerTap = UITapGestureRecognizer(target: self, action: #selector(MeetDetailViewController.meetImmediately))
         singerTap.numberOfTouchesRequired = 1
@@ -101,30 +112,22 @@ class MeetDetailViewController: UIViewController {
         label.font = MeetDetailImmitdtFont
         self.bottomView.addSubview(label)
         self.view.addSubview(self.bottomView)
+        
+        self.bottomView.snp_makeConstraints { (make) in
+            make.height.equalTo(49)
+            make.left.equalTo(self.view.snp_left).offset(0)
+            make.right.equalTo(self.view.snp_right).offset(0)
+            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+        }
     }
     
     func meetImmediately(){
-//        if !UserInfo.isLoggedIn(){
-//            let loginView = LoginView(frame: CGRectMake(0,0,ScreenWidth,ScreenHeight))
-//            let windown = UIApplication.sharedApplication().keyWindow
-//            loginView.applyCodeClouse = { _ in
-//                let loginStory = UIStoryboard.init(name: "Login", bundle: nil)
-//                let applyCode = loginStory.instantiateViewControllerWithIdentifier("ApplyCodeViewController") as! ApplyCodeViewController
-//                applyCode.isApplyCode = true
-//                self.navigationController?.pushViewController(applyCode, animated: true)
-//            }
-//            windown!.addSubview(loginView)
-//        }else{
-//            let meetView = MeetWebViewController()
-//            meetView.url = "https://jinshuju.net/f/yzVBmI"
-//            self.navigationController?.pushViewController(meetView, animated: true)
-//        }
         let applyMeetVc = ApplyMeetViewController()
         applyMeetVc.allItems =  self.inviteArray.mutableCopy() as! NSMutableArray
         applyMeetVc.host = self.user_id
         applyMeetVc.realName = otherUserModel.real_name
         applyMeetVc.jobLabel = otherUserModel.job_label
-        applyMeetVc.avater = otherUserModel.cover_photo!.photo
+        applyMeetVc.avater = otherUserModel.avatar
         self.navigationController?.pushViewController(applyMeetVc, animated: true)
     }
     
@@ -283,10 +286,12 @@ class MeetDetailViewController: UIViewController {
     func getHomeDetailModel(){
         viewModel.getOtherUserInfo(user_id, successBlock: { (dic) in
             self.otherUserModel = HomeDetailModel.mj_objectWithKeyValues(dic)
-            self.setUpBottomView()
-            if self.otherUserModel.gender == 1 {
-               self.personType = .Man
-               self.setPersonType(self.personType)
+            if !self.isOrderViewPush {
+                self.setUpBottomView()
+                if self.otherUserModel.gender == 1 {
+                    self.personType = .Man
+                    self.setPersonType(self.personType)
+                }
             }
             self.personalArray = self.personalLabelArray
             self.images.addObjectsFromArray(self.imageArray.copy() as! [AnyObject])

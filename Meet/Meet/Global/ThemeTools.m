@@ -54,6 +54,11 @@ static ThemeTools *themetools = nil;
 + (void)navigationBarTintColor:(UIColor *)navigationBarColor titleColor:(UIColor*)titleColor{
     [[UINavigationBar appearance] setBarTintColor:navigationBarColor];
     [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName:titleColor,NSFontAttributeName:NavigationBarTitleFont};
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[UIColor colorWithHexString:navigationBarColor],
+       NSFontAttributeName:NavigationBarRightItemFont
+       }
+                                                                                            forState:UIControlStateNormal];
 }
 
 

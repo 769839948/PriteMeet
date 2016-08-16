@@ -70,7 +70,13 @@
 #define HomeDetailViewMeetNumberColor  @"C9C9C9"
 #define HomeViewDetailAboutBtnColor    @"FFFFFF"
 
-#define AppointMentBackGroundColor    @"FB9854"
+#define CancelInfoBackGroundColor      @"4ED6C4"
+
+#define AppointMentBackGroundColor    @"FB9158"
+
+
+#define AppointMentBeginBackGroundColor    @"FB9754"
+#define AppointMentEndBackGroundColor      @"FF8160"
 
 #define EmptyDataColor           @"C9C9C9"
 
@@ -99,6 +105,9 @@
 #define MeProfileCollectViewItemUnSelect   @"F6F6F6"
 #define MeProfileCollectViewItemUnSelectColor @"7F7F7F"
 
+#define OrderFlowTitleCnacel               @"4ED6C4"
+
+
 #define AboutUsLabelColor @"4D4D4D"
 
 #define OrderApplyMeetTitleColor  @"C9C9C9"
@@ -107,8 +116,6 @@
 #define TableViewTextColor @"202020"
 
 #define IQKeyboardManagerTinColor @"202020"
-
-
 
 #define ApplyCodeFont [UIFont systemFontOfSize:18.0]
 #define ApplyCodeNextBtnColorDis       @"E7E7E7"

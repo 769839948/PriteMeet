@@ -11,7 +11,9 @@ import UIKit
 class OrderApplyIntroductionCell: UITableViewCell {
 
     var titleLabel:UILabel!
-    var textView:UITextView!
+    var textView:TextViewAutoHeight!
+    
+    var numberText:UILabel!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -30,16 +32,29 @@ class OrderApplyIntroductionCell: UITableViewCell {
         self.contentView.addSubview(titleLabel)
         
         
-        textView = UITextView()
+        textView = TextViewAutoHeight(frame: CGRectMake(20, 20, ScreenWidth - 40, 100))
         textView.tintColor = UIColor.blackColor()
         textView.font = LoginCodeLabelFont
+        textView.maxHeight = 100
         self.contentView.addSubview(textView)
+        
+        numberText = UILabel()
+        numberText.font = LoginCodeLabelFont
+        numberText.textColor = UIColor.init(hexString: OrderApplyMeetTitleColor)
+        numberText.textAlignment = .Right
+        self.contentView.addSubview(numberText)
+        
+        numberText.snp_makeConstraints { (make) in
+            make.top.equalTo(self.textView.snp_bottom).offset(0)
+            make.right.equalTo(self.contentView.snp_right).offset(-20)
+            make.bottom.equalTo(self.contentView.snp_bottom).offset(-10)
+        }
         
         titleLabel.snp_makeConstraints { (make) in
             make.top.equalTo(self.contentView.snp_top).offset(29)
             make.left.equalTo(self.contentView.snp_left).offset(20)
             make.right.equalTo(self.contentView.snp_right).offset(-20)
-            make.bottom.equalTo(self.textView.snp_top).offset(-14)
+            make.height.equalTo(20)
         }
         
         textView.snp_makeConstraints { (make) in

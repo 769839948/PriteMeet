@@ -44,17 +44,17 @@
     
     float orginX = ((ScreenWidth - 20) - imageWidth * 3)/6;
     _nameAut = [[UIImageView alloc] init];
-    _nameAut.image = [UIImage imageNamed:@"home_name"];
+    _nameAut.image = [UIImage imageNamed:@"home_name_select"];
     _nameAut.frame = CGRectMake(orginX + 10, 26, imageWidth, imageHeight);
     [self.contentView addSubview:_nameAut];
     
     _comapyAut = [[UIImageView alloc] init];
-    _comapyAut.image = [UIImage imageNamed:@"home_job"];
+    _comapyAut.image = [UIImage imageNamed:@"home_job_select"];
     _comapyAut.frame = CGRectMake(orginX * 3 + imageWidth  + 10, 26, imageWidth, imageHeight);
     [self.contentView addSubview:_comapyAut];
     
     _photoAut = [[UIImageView alloc] init];
-    _photoAut.image = [UIImage imageNamed:@"home_phone"];
+    _photoAut.image = [UIImage imageNamed:@"home_phone_select"];
     _photoAut.frame = CGRectMake(orginX * 5 + imageWidth * 2  + 10, 26, imageWidth, imageHeight);
     [self.contentView addSubview:_photoAut];
     
@@ -67,11 +67,11 @@
     NSArray *auto_infoArray = [auto_info componentsSeparatedByString:@","];
     for (NSString *autoInfo in auto_infoArray) {
         if ([autoInfo isEqualToString:@"1"]) {
-            _nameAut.image = [UIImage imageNamed:@"home_nameBlack"];
+            _nameAut.image = [UIImage imageNamed:@"home_name_unselect"];
         }else if ([autoInfo isEqualToString:@"2"]){
-            _comapyAut.image = [UIImage imageNamed:@"home_jobBlack"];
+            _comapyAut.image = [UIImage imageNamed:@"home_job_unselect"];
         }else if ([autoInfo isEqualToString:@"3"]){
-            _photoAut.image = [UIImage imageNamed:@"home_phoneBlack"];
+            _photoAut.image = [UIImage imageNamed:@"home_phone_unselect"];
         }
     }
 }
