@@ -1,0 +1,27 @@
+platform :ios,'8.0'
+use_frameworks!
+
+target "Meet" do
+    pod 'SDWebImage', '~>3.7'
+    pod 'MBProgressHUD'
+    pod 'AFNetworking'
+    pod 'FMDB'
+    pod 'SQLCipher', '~> 3.3.1'
+    pod 'MWPhotoBrowser', '~> 2.1.1'
+    pod 'MJRefresh'
+    pod 'Fabric'
+    pod 'Crashlytics'
+    pod 'Masonry'
+    pod 'pop', '~> 1.0'
+    pod 'SnapKit'
+    pod 'IQKeyboardManager'
+    pod 'Qiniu', :git => 'https://github.com/qiniu/objc-sdk.git', :branch => 'AFNetworking-3.x'
+    pod 'MJExtension'
+    pod 'AMapLocation' #定位SDK
+    pod 'SDCycleScrollView','~> 1.64'
+    pod 'NJKWebViewProgress'
+    pod 'FDFullscreenPopGesture', '1.1'
+    pod 'DZNEmptyDataSet'
+
+
+end
