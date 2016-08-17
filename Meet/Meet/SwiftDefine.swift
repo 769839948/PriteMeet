@@ -71,7 +71,12 @@ func Stroyboard(storyName:String, viewControllerId:String) -> UIViewController {
 }
 
 func UserDefaultsGetSynchronize(key:String) -> String {
-    return NSUserDefaults.standardUserDefaults().objectForKey(key)! as! String
+    if NSUserDefaults.standardUserDefaults().objectForKey(key) != nil{
+        return NSUserDefaults.standardUserDefaults().objectForKey(key)! as! String
+    }else{
+        return ""
+    }
+    
 }
 
 func TableViewRegisterNib(cell:String, idef:String, tableView:UITableView){
