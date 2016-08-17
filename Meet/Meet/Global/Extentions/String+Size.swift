@@ -32,6 +32,12 @@ extension String{
         
     }//funcstringHeightWith
     
+    func heightWithConstrainedWidth(width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: CGFloat.max)
+        let boundingBox = self.boundingRectWithSize(constraintRect, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+        return boundingBox.height
+    }
+    
     func stringWidth(labelStr:String,font:UIFont,height:CGFloat) -> CGFloat {
         let statusLabelText: NSString = labelStr
         let size = CGSizeMake(900, height)

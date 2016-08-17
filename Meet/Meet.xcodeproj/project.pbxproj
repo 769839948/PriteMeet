@@ -153,11 +153,9 @@
 		1FCAFFD31D01517A00BF53A1 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFD21D01517A00BF53A1 /* LoginViewModel.m */; };
 		1FCAFFD81D0181AA00BF53A1 /* EMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFD71D0181AA00BF53A1 /* EMAlertView.m */; };
 		1FCAFFDB1D01983B00BF53A1 /* UserInfoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFDA1D01983B00BF53A1 /* UserInfoViewModel.m */; };
-		1FCC44421D378B2500287EC5 /* PayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC44411D378B2500287EC5 /* PayViewController.swift */; };
 		1FCC44441D37A4B100287EC5 /* Order.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FCC44431D37A4B100287EC5 /* Order.storyboard */; };
 		1FCC444A1D37A66C00287EC5 /* OrderUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC44481D37A66C00287EC5 /* OrderUserTableViewCell.swift */; };
 		1FCC444B1D37A66C00287EC5 /* OrderUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FCC44491D37A66C00287EC5 /* OrderUserTableViewCell.xib */; };
-		1FCC444D1D37A6BE00287EC5 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC444C1D37A6BE00287EC5 /* OrderViewController.swift */; };
 		1FCC444F1D37A96A00287EC5 /* OrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC444E1D37A96A00287EC5 /* OrderModel.swift */; };
 		1FD97BBA1D55DBF300556568 /* OrderApplyMeetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BB91D55DBF300556568 /* OrderApplyMeetTableViewCell.swift */; };
 		1FD97BBC1D55E1A900556568 /* OrderApplyIntroductionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BBB1D55E1A900556568 /* OrderApplyIntroductionCell.swift */; };
@@ -185,7 +183,6 @@
 		1FFB5F381D05650400021F77 /* BaseUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F371D05650400021F77 /* BaseUserInfoViewController.m */; };
 		1FFB5F3B1D056D9600021F77 /* MoreInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F3A1D056D9600021F77 /* MoreInfoViewController.m */; };
 		1FFB5F3E1D069A8800021F77 /* ProfileKeyAndValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5F3D1D069A8800021F77 /* ProfileKeyAndValue.m */; };
-		DA018EDB1CD1BCD90051D2D7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018EDA1CD1BCD90051D2D7 /* MainViewController.m */; };
 		DA018F2E1CD39D570051D2D7 /* ManListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F2C1CD39D570051D2D7 /* ManListCell.m */; };
 		DA018F391CD44B210051D2D7 /* ThreeImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F381CD44B210051D2D7 /* ThreeImageCell.m */; };
 		DA018F451CD4B9AA0051D2D7 /* PhotoGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F441CD4B9AA0051D2D7 /* PhotoGridCell.m */; };
@@ -497,11 +494,9 @@
 		1FCAFFD71D0181AA00BF53A1 /* EMAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMAlertView.m; sourceTree = "<group>"; };
 		1FCAFFD91D01983B00BF53A1 /* UserInfoViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewModel.h; sourceTree = "<group>"; };
 		1FCAFFDA1D01983B00BF53A1 /* UserInfoViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewModel.m; sourceTree = "<group>"; };
-		1FCC44411D378B2500287EC5 /* PayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayViewController.swift; sourceTree = "<group>"; };
 		1FCC44431D37A4B100287EC5 /* Order.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Order.storyboard; sourceTree = "<group>"; };
 		1FCC44481D37A66C00287EC5 /* OrderUserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderUserTableViewCell.swift; sourceTree = "<group>"; };
 		1FCC44491D37A66C00287EC5 /* OrderUserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderUserTableViewCell.xib; sourceTree = "<group>"; };
-		1FCC444C1D37A6BE00287EC5 /* OrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		1FCC444E1D37A96A00287EC5 /* OrderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderModel.swift; sourceTree = "<group>"; };
 		1FD97BB91D55DBF300556568 /* OrderApplyMeetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderApplyMeetTableViewCell.swift; sourceTree = "<group>"; };
 		1FD97BBB1D55E1A900556568 /* OrderApplyIntroductionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderApplyIntroductionCell.swift; sourceTree = "<group>"; };
@@ -536,8 +531,6 @@
 		1FFB5F3A1D056D9600021F77 /* MoreInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreInfoViewController.m; sourceTree = "<group>"; };
 		1FFB5F3C1D069A8800021F77 /* ProfileKeyAndValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileKeyAndValue.h; sourceTree = "<group>"; };
 		1FFB5F3D1D069A8800021F77 /* ProfileKeyAndValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileKeyAndValue.m; sourceTree = "<group>"; };
-		DA018ED91CD1BCD90051D2D7 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		DA018EDA1CD1BCD90051D2D7 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		DA018F2B1CD39D570051D2D7 /* ManListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManListCell.h; sourceTree = "<group>"; };
 		DA018F2C1CD39D570051D2D7 /* ManListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManListCell.m; sourceTree = "<group>"; };
 		DA018F371CD44B210051D2D7 /* ThreeImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreeImageCell.h; sourceTree = "<group>"; };
@@ -759,13 +752,11 @@
 			isa = PBXGroup;
 			children = (
 				1FBBC3221D3CA9D7005D4175 /* ApplyMeetViewController.swift */,
-				1FCC44411D378B2500287EC5 /* PayViewController.swift */,
 				1F9DCF0D1D4C52A9001467E6 /* OrderPageViewController.swift */,
 				1F9DCF0F1D4C52EA001467E6 /* OrderConfirmViewController.swift */,
 				1F9DCF111D4C5305001467E6 /* OrderPayViewController.swift */,
 				1F9DCF131D4C5322001467E6 /* OrderMeetViewController.swift */,
 				1F9DCF151D4C5331001467E6 /* OrderAllViewController.swift */,
-				1FCC444C1D37A6BE00287EC5 /* OrderViewController.swift */,
 				1FE4111B1D5D86D30090D2AB /* OrderCancelRejectViewController.swift */,
 				1FAA07921D3CEC540017F3E3 /* ConfirmedViewController.swift */,
 				1FAA07DE1D3F17810017F3E3 /* WaitPayViewController.swift */,
@@ -1253,8 +1244,6 @@
 		DA36267A1CD1A98E00A8AE39 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				DA018ED91CD1BCD90051D2D7 /* MainViewController.h */,
-				DA018EDA1CD1BCD90051D2D7 /* MainViewController.m */,
 				DABF8B051CEB18E700CA2A1D /* MeetBaseViewController.h */,
 				DABF8B061CEB18E700CA2A1D /* MeetBaseViewController.m */,
 				1FAA07841D3CE49E0017F3E3 /* BaseOrderViewController.swift */,
@@ -1805,7 +1794,6 @@
 				1F3868431D26141D00569032 /* OtherViewController.swift in Sources */,
 				1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */,
 				1FD97BBA1D55DBF300556568 /* OrderApplyMeetTableViewCell.swift in Sources */,
-				1FCC444D1D37A6BE00287EC5 /* OrderViewController.swift in Sources */,
 				1FAA081A1D42442D0017F3E3 /* BlackListModel.swift in Sources */,
 				1F3DC3381D0D0F5A0075B7BA /* PhotoDetailTableViewCell.swift in Sources */,
 				1F293D781D11A4B90063A9DA /* UIView+Size.m in Sources */,
@@ -1813,7 +1801,6 @@
 				DAF5C8BF1CE6D6AD00DA7901 /* RMMapper.m in Sources */,
 				DABF8AE01CE7509400CA2A1D /* MyMeetsViewController.m in Sources */,
 				1FAA07DF1D3F17810017F3E3 /* WaitPayViewController.swift in Sources */,
-				DA018EDB1CD1BCD90051D2D7 /* MainViewController.m in Sources */,
 				DA6CEEF61CD9EFA800EEABFF /* CellTextField.m in Sources */,
 				1F38683D1D260E2900569032 /* OtherProfileTableViewCell.swift in Sources */,
 				DA018F5E1CD79D4A0051D2D7 /* RemindImageCell.m in Sources */,
@@ -1843,7 +1830,6 @@
 				1F79BAD51D080A0500814DED /* NSFileManager+Paths.m in Sources */,
 				1F3DC32F1D0D07A60075B7BA /* MeViewModel.swift in Sources */,
 				1FAA08531D45F3F50017F3E3 /* LoginView.swift in Sources */,
-				1FCC44421D378B2500287EC5 /* PayViewController.swift in Sources */,
 				1F38684E1D266A7500569032 /* OhterProfileModel.swift in Sources */,
 				1F6850261CFFD431007F3C07 /* MeetInfoTableViewCell.m in Sources */,
 				1F9DCF0C1D4C50C2001467E6 /* TYTabTitleViewCell.m in Sources */,

@@ -14,6 +14,8 @@ class OrderMeetViewController: BaseOrderPageViewController {
         super.viewDidLoad()
         self.orderState = "6"
         self.setOrderData(orderState, guest: UserInfo.sharedInstance().uid)
+        self.talKingDataPageName = "Order-Order-Meet"
+
         // Do any additional setup after loading the view.
     }
 

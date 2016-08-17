@@ -32,24 +32,27 @@ class AllMeetViewController: BaseOrderViewController {
             bottomBtn.hidden = true
             self.updataConstraints()
         }
+        
+        self.talKingDataPageName = "Order-OrderList-History"
+
         // Do any additional setup after loading the view.
     }
 
-    func cancelClick(){
-        let alertControl = UIAlertController(title: "确定要取消\((orderModel.order_user_info?.real_name)!)的约见吗", message: "接受约见及对方付款后即可开始沟通见面\n取消约见后该预约将自动关闭", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "稍后决定", style: .Cancel) { (cancel) in
-            
-        }
-        let rejectAction = UIAlertAction(title: "取消约见", style: .Default) { (reportAction) in
-            
-        }
-        
-        alertControl.addAction(cancelAction)
-        alertControl.addAction(rejectAction)
-        self.presentViewController(alertControl, animated: true) {
-            
-        }
-    }
+//    func cancelClick(){
+//        let alertControl = UIAlertController(title: "确定要取消\((orderModel.order_user_info?.real_name)!)的约见吗", message: "接受约见及对方付款后即可开始沟通见面\n取消约见后该预约将自动关闭", preferredStyle: .Alert)
+//        let cancelAction = UIAlertAction(title: "稍后决定", style: .Cancel) { (cancel) in
+//            
+//        }
+//        let rejectAction = UIAlertAction(title: "取消约见", style: .Default) { (reportAction) in
+//            
+//        }
+//        
+//        alertControl.addAction(cancelAction)
+//        alertControl.addAction(rejectAction)
+//        self.presentViewController(alertControl, animated: true) {
+//            
+//        }
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

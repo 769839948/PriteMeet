@@ -14,6 +14,8 @@ class OrderPayViewController: BaseOrderPageViewController {
         super.viewDidLoad()
         self.orderState = "4"
         self.setOrderData(orderState, guest: UserInfo.sharedInstance().uid)
+        self.talKingDataPageName = "Order-Order-Pay"
+
         // Do any additional setup after loading the view.
     }
 

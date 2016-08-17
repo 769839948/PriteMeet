@@ -15,6 +15,7 @@ class PayCompleteViewController: UIViewController {
     @IBOutlet weak var muchLabel: UILabel!
     @IBOutlet weak var lookforOrder: UIButton!
     var orderModel:OrderModel!
+    let viewModel = OrderViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,10 +24,21 @@ class PayCompleteViewController: UIViewController {
         muchLabel.text = "RMB 50.00"
         lookforOrder.layer.cornerRadius = 24.0
         self.setNavigationItemBack()
+        self.talKingDataPageName = "Order-OrderList-PayComplete"
+
         // Do any additional setup after loading the view.
     }
     @IBAction func lookforOrderClick(sender: UIButton) {
-        
+        self.viewModel.orderDetail(orderModel.order_id, successBlock: { (dic) in
+            let orderModel = OrderModel.mj_objectWithKeyValues(dic)
+            NSUserDefaults.standardUserDefaults().setObject(dic["customer_service_number"], forKey: "customer_service_number")
+            let applyDetailView = ConfirmedViewController()
+            applyDetailView.uid = (orderModel.order_user_info?.uid)!
+            applyDetailView.orderModel = orderModel
+            self.navigationController?.pushViewController(applyDetailView, animated: true)
+            }, fialBlock: { (dic) in
+                
+        })
     }
 
     override func didReceiveMemoryWarning() {

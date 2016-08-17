@@ -40,6 +40,8 @@ class ApplyMeetViewController: UIViewController {
     
     var loginView:LoginView!
     
+    var isTextViewDidChange : Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupForDismissKeyboard()
@@ -172,6 +174,7 @@ class ApplyMeetViewController: UIViewController {
             let orderDic = dic as NSDictionary
             self.viewModel.orderDetail(orderDic.objectForKey("order_id") as! String, successBlock: { (dic) in
                 let orderModel = OrderModel.mj_objectWithKeyValues(dic)
+            NSUserDefaults.standardUserDefaults().setObject(dic["customer_service_number"], forKey: "customer_service_number")
                 let applyDetailView = ConfirmedViewController()
                 applyDetailView.uid = self.host
                 applyDetailView.orderModel = orderModel
@@ -307,7 +310,11 @@ extension ApplyMeetViewController : UITableViewDelegate {
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-//        self.view.endEditing(true)
+        if !isTextViewDidChange {
+            self.view.endEditing(true)
+        }else if(scrollView.contentOffset.y > 200){
+            isTextViewDidChange = false
+        }
     }
 }
 
@@ -349,10 +356,12 @@ extension ApplyMeetViewController : UITableViewDataSource {
 
 extension ApplyMeetViewController : UITextViewDelegate {
     func textViewDidChange(textView: UITextView) {
-        
+        isTextViewDidChange = true
     }
     
     func textViewDidBeginEditing(textView: UITextView) {
+        isTextViewDidChange = true
+        
         contenOfY = self.tableView.contentOffset.y
     }
     

@@ -25,6 +25,8 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var meetTip: UILabel!
     @IBOutlet weak var line2: UIView!
     
+    var tapGesture:UITapGestureRecognizer!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -32,7 +34,7 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
     }
 
     func setData(model:OrderModel,type:MeetInfoType){
-        if model.status?.status_code == "6" || model.status?.status_code == "11" || model.status?.status_code == "11" || model.status?.status_code == "11" {
+        if model.status?.status_code == "6" || model.status?.status_code == "11"  {
             weChatNum.text = model.order_user_info?.weixin_num
             
             phoneNum.text = model.order_user_info?.mobile_num
@@ -53,19 +55,19 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
             var str = ""
             if model.status?.status_type == "apply_code" {
                 if model.status?.status_code == "1" {
-                    str = "待对方确认及付款后可见"
+                    str = "对方确认及付款后可见"
                 }else if model.status?.status_code == "4" {
                     str = "付款后可见"
                 }else{
-                    
+                    str = "已关闭预约下不可见"
                 }
             }else{
                 if model.status?.status_code == "1" {
-                    str = "确认及对方付款后可见"
+                    str = "接受及对方付款后可见"
                 }else if model.status?.status_code == "4" {
                     str = "对方付款后可见"
                 }else{
-                    
+                    str = "已关闭预约下不可见"
                 }
             }
             phoneNum.text = str
@@ -79,6 +81,9 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
         UIView.drawDashLine(line1, lineLength: 2, lineSpacing: 3, lineColor: UIColor.init(hexString: lineLabelBackgroundColor))
         UIView.drawDashLine(line2, lineLength: 2, lineSpacing: 3, lineColor: UIColor.init(hexString: lineLabelBackgroundColor))
         
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(MeetOrderInfoTableViewCell.panTapClick(_:)))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
         if type == .WaitPay  {
             meetTip.hidden = true
             line2.hidden = true
@@ -88,8 +93,10 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
             stringAttribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: MeProfileCollectViewItemSelect)], range: NSRange.init(location: str.length - 4, length: 4))
              stringAttribute.addAttributes([NSFontAttributeName:OrderMeetTipFont!], range: NSRange.init(location: str.length - 4, length: 4))
             meetTip.attributedText = stringAttribute
+            meetTip.userInteractionEnabled = true
             meetTip.hidden = false
             line2.hidden = false
+            meetTip.addGestureRecognizer(tapGesture)
         }else if type == .Cancel {
             let str = "约见前别忘了先了解 约见贴士"
             let stringAttribute = NSMutableAttributedString(string: str)
@@ -98,7 +105,8 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
             meetTip.attributedText = stringAttribute
             line2.hidden = false
             meetTip.hidden = false
-
+            meetTip.userInteractionEnabled = true
+            meetTip.addGestureRecognizer(tapGesture)
         }
     }
     
@@ -107,6 +115,10 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
         let callWebView = UIWebView()
         callWebView.loadRequest(NSURLRequest.init(URL: NSURL.init(string: str)!))
         self.addSubview(callWebView)
+    }
+    
+    func panTapClick(tap:UIPanGestureRecognizer) {
+        UITools.showMessageToView(KeyWindown, message: "敬请期待", autoHide: true)
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

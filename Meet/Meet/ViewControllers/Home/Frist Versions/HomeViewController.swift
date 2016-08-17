@@ -16,7 +16,7 @@ enum FillterName {
     case ReconmondList
 }
 
-class HomeViewController: UIViewController,UINavigationControllerDelegate {
+class HomeViewController: UIViewController {
 
     @IBOutlet weak var tableView:UITableView!
     
@@ -94,7 +94,11 @@ class HomeViewController: UIViewController,UINavigationControllerDelegate {
         }
         viewModel.getHomeFilterList("\(self.page)", latitude: latitude, longitude: logtitude, filter: fillter, successBlock: { (dic) in
             let tempArray = HomeModel.mj_objectArrayWithKeyValuesArray(dic)
+            if self.page == 1 {
+                self.homeModelArray.removeAllObjects()
+            }
             self.homeModelArray.addObjectsFromArray(tempArray as [AnyObject])
+
             self.tableView.reloadData()
 //            self.tableView.scrollEnabled = true
             self.tableView.mj_footer.endRefreshing()
@@ -113,7 +117,8 @@ class HomeViewController: UIViewController,UINavigationControllerDelegate {
         self.navigationItemCleanColorWithNotLine()
         self.navigationController?.navigationBar.barStyle = .Default
         self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
-        (self.navigationController as! ScrollingNavigationController).delegate = self
+        let navigationController = self.navigationController as! ScrollingNavigationController
+        navigationController.scrollingNavbarDelegate = self
         self.setUpBottomView()
         self.setUpNavigationBar()
     }
@@ -182,13 +187,26 @@ class HomeViewController: UIViewController,UINavigationControllerDelegate {
     }
     
     func presentOrderView(){
-        let orderPageVC = OrderPageViewController()
-        let navigationController = UINavigationController(rootViewController: orderPageVC)
-        orderPageVC.setBarStyle(.CoverView)
-        orderPageVC.progressColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
-        self.presentViewController(navigationController, animated: true, completion: {
+        let orderViewModel = OrderViewModel()
+        orderViewModel.orderNumberOrder(UserInfo.sharedInstance().uid, successBlock: { (dic) in
+            let orderPageVC = OrderPageViewController()
+            let countDic = dic as NSDictionary
+            orderPageVC.numberArray.replaceObjectAtIndex(0, withObject:"\(countDic["1"]!)")
+            orderPageVC.numberArray.replaceObjectAtIndex(1, withObject: "\(countDic["4"]!)")
+            orderPageVC.numberArray.replaceObjectAtIndex(2, withObject: "\(countDic["6"]!)")
+            let navigationController = UINavigationController(rootViewController: orderPageVC)
+            orderPageVC.setBarStyle(.ProgressBounceView)
+            orderPageVC.progressHeight = 0
+            orderPageVC.progressWidth = 0
+            orderPageVC.adjustStatusBarHeight = true
+            orderPageVC.progressColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
+            self.presentViewController(navigationController, animated: true, completion: {
+                
+            })
             
-        })
+        }) { (dic) in
+            
+        }
     }
     
     func titleView() ->UIView {
@@ -205,11 +223,13 @@ class HomeViewController: UIViewController,UINavigationControllerDelegate {
         let cancelAction = UIAlertAction(title: "取消", style: .Cancel) { (cancelAction) in
         }
         let commdListAction = UIAlertAction(title: "智能推荐", style: .Default) { (commdListAction) in
+            self.page = 0
             self.fillterName = .ReconmondList
             self.tableView.setContentOffset(CGPointMake(0, 0), animated: true)
             self.setUpHomeData()
         }
         let locationAction = UIAlertAction(title: "离我最近", style: .Default) { (locationAction) in
+            self.page = 0
             self.fillterName = .LocationList
             self.tableView.setContentOffset(CGPointMake(0, 0), animated: true)
             self.setUpHomeData()
@@ -318,13 +338,13 @@ extension HomeViewController : UITableViewDelegate {
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let translation = scrollView.panGestureRecognizer.translationInView(scrollView.superview)
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
         if translation.y < -54 {
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeDetailViewNameColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
-            UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+//            self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeDetailViewNameColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
+//            UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
         }else if translation.y > 0{
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
-            UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
+//            self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
+//            UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
 
         }
 
@@ -391,6 +411,7 @@ extension HomeViewController: ScrollingNavigationControllerDelegate {
             UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
             self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
         }else if state == .Collapsed {
+            self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeDetailViewNameColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
             UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
         }else{
             

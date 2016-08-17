@@ -37,7 +37,7 @@ class EditMoreProfileViewController: UIViewController {
     func setUpPayBtn() {
         aliPayButton = UIButton(type: UIButtonType.Custom)
         aliPayButton.frame = CGRectMake(0, 100, 100, 50)
-        aliPayButton.addTarget(self, action: #selector(PayViewController.payBtn(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//        aliPayButton.addTarget(self, action: #selector(PayViewController.payBtn(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         aliPayButton.setTitle("Alipay", forState: UIControlState.Normal)
         aliPayButton.backgroundColor = UIColor.redColor()
         self.view.addSubview(aliPayButton)
@@ -45,7 +45,7 @@ class EditMoreProfileViewController: UIViewController {
         weCharPayButton = UIButton(type: UIButtonType.Custom)
         weCharPayButton.frame = CGRectMake(200, 100, 100, 50)
         weCharPayButton.setTitle("weChatPay", forState: UIControlState.Normal)
-        weCharPayButton.addTarget(self, action: #selector(PayViewController.weChatPay(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//        weCharPayButton.addTarget(self, action: #selector(PayViewController.weChatPay(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         weCharPayButton.backgroundColor = UIColor.redColor()
         self.view.addSubview(weCharPayButton)
         

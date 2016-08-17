@@ -14,6 +14,8 @@ class OrderAllViewController: BaseOrderPageViewController {
         super.viewDidLoad()
         self.orderState = ""
         self.setOrderData(orderState, guest: UserInfo.sharedInstance().uid)
+        self.talKingDataPageName = "Order-Order-History"
+
         // Do any additional setup after loading the view.
     }
 

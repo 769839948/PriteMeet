@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "MainViewController.h"
 #import "WXApi.h"
 #import <Fabric/Fabric.h>
 #import "MBProgressHUD.h"

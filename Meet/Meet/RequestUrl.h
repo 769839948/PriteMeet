@@ -71,6 +71,7 @@
 
 #define  RequestRejectReson          @"/api/reject_reason_dict/"
 
+#define  RequestNumberOrder          @"/api/appointment_order_count/"
 
 
 //http://momeet.cn/api/dict_map/

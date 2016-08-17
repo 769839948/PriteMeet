@@ -14,6 +14,8 @@ class OrderConfirmViewController: BaseOrderPageViewController {
         super.viewDidLoad()
         self.orderState = "1"
         self.setOrderData(orderState, guest: UserInfo.sharedInstance().uid)
+        self.talKingDataPageName = "Order-Order-Confirm"
+
         // Do any additional setup after loading the view.
     }
 

@@ -20,6 +20,8 @@ class ConfirmedViewController: BaseOrderViewController {
             self.updataConstraints()
             bottomBtn.hidden = true
         }
+        self.talKingDataPageName = "Order-OrderList-Confirm"
+
         // Do any additional setup after loading the view.
     }
     
@@ -34,30 +36,45 @@ class ConfirmedViewController: BaseOrderViewController {
     }
 
     
-    func cancelClick(){
-        let alertControl = UIAlertController(title: "确定要取消与\((orderModel.order_user_info?.real_name)!)的约见吗", message: "取消约见后预约将自动关闭\n如需帮助请联系客服电话 400-688-2560 客服微信Meetjun1", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "稍后决定", style: .Cancel) { (cancel) in
-            
-        }
-        let rejectAction = UIAlertAction(title: "取消约见", style: .Destructive) { (reportAction) in
-            let cancelView = OrderCancelRejectViewController()
-            cancelView.title = "取消原因说明"
-            cancelView.resonType = .Cancel
-            cancelView.orderModel = self.orderModel
-            if self.orderModel.status?.status_type == "apply_code"{
-                cancelView.changeOrderStatus = "2"
-            }else{
-                cancelView.changeOrderStatus = "3"
-            }
-            self.navigationController?.pushViewController(cancelView, animated: true)
-        }
-        
-        alertControl.addAction(cancelAction)
-        alertControl.addAction(rejectAction)
-        self.presentViewController(alertControl, animated: true) {
-            
-        }
-    }
+//    override func cancelClick(){
+//        let alertControl = UIAlertController(title: "确定要取消与\((orderModel.order_user_info?.real_name)!)的约见吗", message: "取消约见后预约将自动关闭\n如需帮助请联系客服电话 \(UserDefaultsGetSynchronize("customer_service_number")) 客服微信Meetjun1", preferredStyle: .Alert)
+//        let cancelAction = UIAlertAction(title: "稍后决定", style: .Cancel) { (cancel) in
+//            
+//        }
+//        let rejectAction = UIAlertAction(title: "取消约见", style: .Destructive) { (reportAction) in
+//            let cancelView = OrderCancelRejectViewController()
+//            cancelView.title = "取消原因说明"
+//            cancelView.resonType = .Cancel
+//            cancelView.orderModel = self.orderModel
+//            if self.orderModel.status?.status_code == "1" {
+//                if self.orderModel.status?.status_type == "apply_order"{
+//                    cancelView.changeOrderStatus = "2"
+//                }else{
+//                    cancelView.changeOrderStatus = "3"
+//                }
+//                self.navigationController?.pushViewController(cancelView, animated: true)
+//            }else if self.orderModel.status?.status_code == "4" {
+//                if self.orderModel.status?.status_type == "apply_order"{
+//                    cancelView.changeOrderStatus = "12"
+//                }else{
+//                    cancelView.changeOrderStatus = "13"
+//                }
+//            }else if self.orderModel.status?.status_code == "6" {
+//                if self.orderModel.status?.status_type == "apply_order"{
+//                    cancelView.changeOrderStatus = "7"
+//                }else{
+//                    cancelView.changeOrderStatus = "8"
+//                }
+//            }
+//            self.navigationController?.pushViewController(cancelView, animated: true)
+//        }
+//        
+//        alertControl.addAction(cancelAction)
+//        alertControl.addAction(rejectAction)
+//        self.presentViewController(alertControl, animated: true) {
+//            
+//        }
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -76,7 +93,7 @@ class ConfirmedViewController: BaseOrderViewController {
                 if self.myClouse != nil {
                     self.myClouse(status:(self.orderModel.status?.order_status)!)
                 }
-                self.navigationController?.popViewControllerAnimated(true)
+                self.reloadData()
                 }, failBlock: { (dic) in
                     UITools.showMessageToView(self.view, message: "确认失败", autoHide: true)
             })
@@ -98,24 +115,24 @@ class ConfirmedViewController: BaseOrderViewController {
         
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
-    }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row == 3 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("OrderCancelTableViewCell", forIndexPath: indexPath) as! OrderCancelTableViewCell
-            cell.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemUnSelect)
-            cell.selectionStyle = .None
-            cell.setButtonTitle("取消约见", type: .Normal)
-            cell.cancelBtnClickclouse = {
-                self.cancelClick()
-            }
-            return cell
-        }else{
-            return cellIndexPath(self.tableViewArray[indexPath.row], indexPath: indexPath, tableView: tableView)
-        }
-    }
+//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 4
+//    }
+//    
+//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+//        if indexPath.row == 3 {
+//            let cell = tableView.dequeueReusableCellWithIdentifier("OrderCancelTableViewCell", forIndexPath: indexPath) as! OrderCancelTableViewCell
+//            cell.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemUnSelect)
+//            cell.selectionStyle = .None
+//            cell.setButtonTitle("取消约见", type: .Normal)
+//            cell.cancelBtnClickclouse = {
+//                self.cancelClick()
+//            }
+//            return cell
+//        }else{
+//            return cellIndexPath(self.tableViewArray[indexPath.row], indexPath: indexPath, tableView: tableView)
+//        }
+//    }
     
     /*
     // MARK: - Navigation

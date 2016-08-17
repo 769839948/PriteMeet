@@ -13,6 +13,8 @@ enum CancelType {
     case Reject
 }
 
+typealias ReloadOrderStatusChang = () -> Void
+
 class OrderCancelRejectViewController: UIViewController {
 
     var tableView:UITableView!
@@ -32,6 +34,8 @@ class OrderCancelRejectViewController: UIViewController {
     var reject_type:String = "0"
     var reject_reson:String = ""
     
+    var reloadOrderStatusChang:ReloadOrderStatusChang!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem  = UIBarButtonItem(title: "提交", style: .Plain, target: self, action: #selector(ReportViewController.reportBtnPress(_:)))
@@ -48,19 +52,22 @@ class OrderCancelRejectViewController: UIViewController {
     func setUpData() {
         viewModel.orderCancelRejectReson({ (dic) in
             let cancelDic:NSDictionary!
+            var sortedKeysAndValues:NSArray!
             let reason = dic as NSDictionary
             if self.resonType == .Cancel {
                 cancelDic = (reason.objectForKey("cancel") as! NSDictionary)
-
+                sortedKeysAndValues = (cancelDic.allKeys as! [String]).sort({ s1, s2 in
+                    return Int(s1)! < Int(s2)!
+                })
             }else{
                 cancelDic = (reason.objectForKey("reject") as! NSDictionary)
-
+                sortedKeysAndValues = (cancelDic.allKeys as! [String]).sort({ s1, s2 in
+                    return Int(s1)! < Int(s2)!
+                })
             }
-            for key in cancelDic.allKeys {
-                self.reportKeys.addObject(key as! String)
-            }
-            for value in cancelDic.allValues {
-                self.reportArray.addObject(value as! String)
+            self.reportKeys.addObjectsFromArray(sortedKeysAndValues as [AnyObject])
+            for value in sortedKeysAndValues {
+                self.reportArray.addObject(cancelDic.objectForKey(value)!)
                 self.selectIndexPaths.addObject(false)
             }
             self.tableView.reloadData()
@@ -107,10 +114,19 @@ class OrderCancelRejectViewController: UIViewController {
             }
         }
         
+        if reject_type == "0" && reject_reson == "" {
+            UITools.showMessageToView(self.view, message: "请填写原因", autoHide: true)
+            return
+        }
+        
        viewModel.switchOrderStatus(orderModel.order_id, status: changeOrderStatus, rejectType: reject_type, rejectReason: textView.text, succeccBlock: { (dic) in
+        if self.reloadOrderStatusChang != nil{
+            self.reloadOrderStatusChang()
             self.navigationController?.popViewControllerAnimated(true)
+
+        }
         }) { (dic) in
-            
+            UITools.showMessageToView(self.view, message: (dic as! NSDictionary).objectForKey("error") as! String, autoHide: true)
         }
     }
     
@@ -145,7 +161,9 @@ extension OrderCancelRejectViewController : UITableViewDelegate {
             }
             
         }
-        self.tableView.reloadData()
+        for row in 0...reportArray.count - 1 {
+            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: row, inSection: 0)], withRowAnimation: .Automatic)
+        }
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 50
@@ -174,6 +192,8 @@ extension OrderCancelRejectViewController : UITableViewDataSource {
             textView = UITextView(frame: CGRectMake(15, 20, ScreenWidth - 40, 100))
             textView.font = LoginCodeLabelFont
             textView.placeholder = "添加拒绝说明，请您礼貌的拒绝的对方，展现您的绅士魅力"
+            textView.delegate = self
+            textView.text = reject_reson
             textView.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
             cell?.contentView.addSubview(textView)
             return cell!
@@ -212,6 +232,13 @@ extension OrderCancelRejectViewController : UITableViewDataSource {
         cell?.selectionStyle = .None
         cell?.tag = Int(reportKeys[indexPath.row] as! String)!
         return cell!
+    }
+}
+
+extension OrderCancelRejectViewController : UITextViewDelegate {
+    func textView(textView: UITextView, shouldInteractWithURL URL: NSURL, inRange characterRange: NSRange) -> Bool {
+        self.reject_reson = textView.text
+        return true
     }
 }
 

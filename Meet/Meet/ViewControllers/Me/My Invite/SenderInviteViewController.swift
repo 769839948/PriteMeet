@@ -13,6 +13,8 @@ import FDFullscreenPopGesture
 
 typealias BlackListClouse = () -> Void
 
+
+
 class SenderInviteViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -33,6 +35,7 @@ class SenderInviteViewController: UIViewController {
     var isHomeListLogin:Bool = false
     
     var isApplyMeetLogin:Bool = false
+    var isTextViewDidChange:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +86,6 @@ class SenderInviteViewController: UIViewController {
     
     func setNavigationBar(){
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(SenderInviteViewController.sendreInvite))
-//        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.init(hexString:NavigationBarTintColorCustome)
         self.changeNavigationBarItemColor()
     }
     
@@ -230,7 +232,11 @@ extension SenderInviteViewController : UITableViewDelegate {
         }
     }
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        self.view.endEditing(true)
+        if !isTextViewDidChange {
+            self.view.endEditing(true)
+        }else if(scrollView.contentOffset.y > 100){
+            isTextViewDidChange = false
+        }
     }
 }
 
@@ -264,6 +270,7 @@ extension SenderInviteViewController : UITableViewDataSource {
                 let cellId = "TableViewCell"
                 let cell = tableView.dequeueReusableCellWithIdentifier(cellId)
                 textView = UITextView()
+                
                 textView.placeholder = self.plachString
                 if isNewLogin || UserInviteModel.isFake() {
                     
@@ -276,6 +283,7 @@ extension SenderInviteViewController : UITableViewDataSource {
                 
                 textView.tintColor = UIColor.blackColor()
                 textView.delegate = self
+                IQKeyboardManager.sharedManager().enable = true
                 textView.font = LoginCodeLabelFont
                 cell?.contentView.addSubview(textView)
                 textView.snp_makeConstraints(closure: { (make) in
@@ -300,6 +308,10 @@ extension SenderInviteViewController : UITableViewDataSource {
     }
 }
 extension SenderInviteViewController : UITextViewDelegate {
+    func textViewDidBeginEditing(textView: UITextView) {
+        isTextViewDidChange = true
+    }
+    
     func textViewDidChange(textView: UITextView) {
         if !isNewLogin {
             if !UserInviteModel.shareInstance().results[0].is_active {

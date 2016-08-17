@@ -71,7 +71,7 @@ func Stroyboard(storyName:String, viewControllerId:String) -> UIViewController {
 }
 
 func UserDefaultsGetSynchronize(key:String) -> String {
-    return NSUserDefaults.standardUserDefaults().objectForKey("lastModifield")! as! String
+    return NSUserDefaults.standardUserDefaults().objectForKey(key)! as! String
 }
 
 func TableViewRegisterNib(cell:String, idef:String, tableView:UITableView){

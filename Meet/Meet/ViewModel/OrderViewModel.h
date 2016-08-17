@@ -34,6 +34,7 @@
            failBlock:(Fail)failBlock;
 
 
+
 - (void)orderStatusOperation:(NSString *)order_id
                      withHos:(NSString *)host
                 successBlock:(Success)successBlock
@@ -83,4 +84,14 @@
  */
 - (void)orderCancelRejectReson:(Success)successBlock
                      failBlock:(Fail)failBlock;
+
+/**
+ *  查看条数
+ *
+ *  @param successBlock <#successBlock description#>
+ *  @param failBlock    <#failBlock description#>
+ */
+- (void)orderNumberOrder:(NSString *)curentId
+            successBlock:(Success)successBlock
+               failBlock:(Fail)failBlock;
 @end

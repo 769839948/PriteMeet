@@ -60,6 +60,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="cancelBtn" destination="Z4K-m2-sM6" id="uIJ-OB-e7M"/>
+                <outlet property="infoLabel" destination="JR7-VO-hZe" id="5ts-DI-Gc1"/>
             </connections>
             <point key="canvasLocation" x="243.5" y="357.5"/>
         </tableViewCell>

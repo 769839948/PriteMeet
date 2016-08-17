@@ -50,6 +50,7 @@ class BaseOrderPageViewController: UIViewController {
                 let apply_Order_List = OrderModel.mj_objectArrayWithKeyValuesArray(dic["apply_order_list"])
                 self.orderList.addObjectsFromArray(apply_Order_List as [AnyObject])
             }
+            NSUserDefaults.standardUserDefaults().setObject(dic["customer_service_number"], forKey: "customer_service_number")
             if self.collectionView != nil {
                 self.collectionView.reloadData()
             }

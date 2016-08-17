@@ -90,9 +90,11 @@
     [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
         if ([responseObject[@"success"] boolValue]) {
             successBlock(responseObject);
+        }else{
+            failBlock(@{@"error":@"服务器错误"});
         }
     } failure:^(NSDictionary *responseObject) {
-        
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 /**
@@ -107,27 +109,6 @@
  *  @param successBlock <#successBlock description#>
  *  @param failBlock    <#failBlock description#>
  */
-
-- (void)switchOrderStatus:(NSString *)order_id
-                   status:(NSString *)status
-             succeccBlock:(Success)successBlock
-                failBlock:(Fail)failBlock
-{
-    NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@",RequestSwitchAppointMent]];
-    NSString *orderId = [order_id stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSDictionary *parameters = @{@"status":status,
-                                 @"uuid":orderId
-                                 };
-    [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
-        if ([responseObject[@"success"] boolValue]) {
-            successBlock(responseObject);
-        }else{
-            failBlock(@{@"error":@"服务器错误"});
-        }
-    } failure:^(NSDictionary *responseObject) {
-        failBlock(@{@"error":@"网络错误"});
-    }];
-}
 
 
 - (void)switchOrderStatus:(NSString *)order_id
@@ -162,6 +143,22 @@
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([responseObject[@"success"] boolValue]) {
             successBlock(responseObject[@"content"][@"reason"]);
+        }else{
+            failBlock(@{@"error":@"服务器错误"});
+        }
+    } failure:^(NSDictionary *responseObject) {
+        failBlock(@{@"error":@"网络错误"});
+    }];
+}
+
+- (void)orderNumberOrder:(NSString *)curentId
+            successBlock:(Success)successBlock
+               failBlock:(Fail)failBlock
+{
+    NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@?cur_user=%@",RequestNumberOrder,curentId]];
+    [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
+        if ([responseObject[@"success"] boolValue]) {
+            successBlock(responseObject[@"content"][@"count_info"]);
         }else{
             failBlock(@{@"error":@"服务器错误"});
         }

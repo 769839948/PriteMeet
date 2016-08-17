@@ -58,9 +58,11 @@ class AppointMentTableViewCell: UITableViewCell {
         
         appointmentIntroduce = UILabel()
         appointmentIntroduce.numberOfLines = 0
+//        appointmentIntroduce.backgroundColor = UIColor.blueColor()
         appointmentIntroduce.font = OrderAppointThemeIntroudFont
         appointmentIntroduce.textColor = UIColor.whiteColor()
-        appointmentIntroduce.backgroundColor = UIColor.clearColor()
+        appointmentIntroduce.lineBreakMode = .ByWordWrapping
+//        appointmentIntroduce.backgroundColor = UIColor.clearColor()
         appointmentBackGroundView.addSubview(appointmentIntroduce)
         
         flowLayout = EqualSpaceFlowLayout()
@@ -85,23 +87,25 @@ class AppointMentTableViewCell: UITableViewCell {
     }
         
     func setData(model: OrderModel) {
-        appointmentIntroduce.text = model.appointment_desc
+        let string = model.appointment_desc.stringByReplacingOccurrencesOfString(" ", withString: "")
+        appointmentIntroduce.text = string
         appointmentType.setCollectViewData(model.appointment_theme as [AnyObject], style: CollectionViewItemStyle.ItemWhiteBoardOrginBacground)
-        appointmentIntroduce.snp_updateConstraints { (make) in
-            make.height.equalTo(self.titleHeight(model.appointment_desc, width: ScreenWidth - 70))
-        }
-        
+//        appointmentType.backgroundColor = UIColor.redColor()
         appointmentType.snp_updateConstraints { (make) in
             make.height.equalTo(tableViewHeight(model.appointment_theme, width: ScreenWidth - 70))
         }
-//        gradient.startPoint = appointmentBackGroundView.frame.origin
-//        gradient.endPoint = CGPointMake(CGRectGetMaxX(appointmentBackGroundView.frame), CGRectGetMaxY(appointmentBackGroundView.frame))
+        
+        appointmentIntroduce.snp_updateConstraints { (make) in
+            make.height.equalTo(self.titleHeight(string, width: ScreenWidth - 70))
+        }
+        
+        
         
         gradient.frame = appointmentBackGroundView.bounds
     }
     
     func titleHeight(string:String,width:CGFloat) ->CGFloat {
-        let titleHeight:CGFloat = string.stringHeight(OrderAppointThemeIntroudFont!, width: width)
+        let titleHeight:CGFloat = string.heightWithConstrainedWidth(width, font: OrderAppointThemeIntroudFont!)
         return titleHeight
     }
     

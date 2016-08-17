@@ -19,15 +19,19 @@ class OrderPageViewController: TYTabButtonPagerController {
     let orderAllViewController = OrderAllViewController()
     var pageViewControllers:NSArray!
     
+    let numberArray:NSMutableArray = NSMutableArray(array: ["0","0","0","0"])
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.delegate = self
+        
         self.title = "我的约见"
         pageViewControllers = [orderConfimViewController,orderPayViewController,orderMeetViewController,orderAllViewController]
         self.navigationItemWhiteColorAndNotLine()
         self.setUpNavigationItem()
         self.setUpPageViewControllerStyle()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(OrderPageViewController.reloadOtherCollectView(_:)), name: ReloadOrderCollectionView, object: nil)
+        self.talKingDataPageName = "Order-Order-Page"
+
         // Do any additional setup after loading the view.
     }
     func setUpPageViewControllerStyle(){
@@ -44,14 +48,16 @@ class OrderPageViewController: TYTabButtonPagerController {
         self.pagerBarColor = UIColor.redColor()
         self.cellSpacing = kCellSpacing
         self.cellEdging = cellEdging
-        self.progressHeight = 28
+        self.progressHeight = 0.5
         self.progressEdging = 0
         self.contentTopEdging = 49
         self.collectionViewBar.scrollEnabled = false
         self.normalTextFont = LoginCodeLabelFont
         self.selectedTextFont = LoginCodeLabelFont
         self.normalTextColor = UIColor.init(hexString: HomeDetailViewPositionColor)
-        self.selectedTextColor = UIColor.init(hexString: HomeViewDetailAboutBtnColor)
+        self.selectedTextColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
+        
+        
     }
     
     func setUpNavigationItem() {
@@ -121,6 +127,6 @@ class OrderPageViewController: TYTabButtonPagerController {
     }
     
     override func pagerController(pagerController: TYPagerController!, numberForIndex index: Int) -> String! {
-        return "6"
+        return numberArray[index] as! String
     }
 }

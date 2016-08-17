@@ -47,9 +47,11 @@
 {
     UILabel *numberLabel = [[UILabel alloc]init];
     numberLabel.font = [UIFont systemFontOfSize:8];
+    numberLabel.layer.borderWidth = 2.0;
+    numberLabel.layer.borderColor = [[UIColor whiteColor] CGColor];
     numberLabel.textColor = [UIColor whiteColor];
     numberLabel.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
-    numberLabel.layer.cornerRadius = 7;
+    numberLabel.layer.cornerRadius = 8;
     numberLabel.layer.masksToBounds = YES;
     numberLabel.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:numberLabel];
@@ -61,7 +63,7 @@
     [super layoutSubviews];
     CGRect frame = self.contentView.bounds;
     _titleLabel.frame = frame;
-    _numberLabel.frame = CGRectMake(frame.size.width - 20, frame.origin.y + 7, 20, 14);
+    _numberLabel.frame = CGRectMake(frame.size.width - 22, frame.origin.y + 8, 22, 16);
 }
 
 @end

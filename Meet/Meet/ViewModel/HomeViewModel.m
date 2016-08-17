@@ -32,31 +32,6 @@
     return @[@"",@"",@""];
 }
 
-- (void)getHomeList:(NSString *)page
-           latitude:(double)latitude
-          longitude:(double)longitude
-       successBlock:(Success)successBlock
-          failBlock:(Fail)failBlock
-        loadingView:(LoadingView)loadViewBlock
-{
-    NSString *url = @"";
-    if ([UserInfo isLoggedIn]) {
-        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@&longitude=%@&latitude=%@",RequestGetHomeList,page,[UserInfo sharedInstance].uid,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
-    }else{
-        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&longitude=%@&latitude=%@",RequestGetHomeList,page,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
-    }
-    
-    [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
-        if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock([responseObject objectForKey:@"results"]);
-        }else{
-            failBlock(responseObject);
-        }
-    } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
-    }];
-}
-
 - (void)getHomeFilterList:(NSString *)page
                  latitude:(double)latitude
                 longitude:(double)longitude

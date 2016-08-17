@@ -16,19 +16,7 @@
 
 - (NSArray *)baseInfoTitle;
 - (NSArray *)sectionTitle;
-/**
- *  首页用户列表
- *
- *  @param page          分页读取上啦加载更多信息
- *  @param latitude      经度用户距离显示
- *  @param longitude     纬度用户距离显示
- */
-- (void)getHomeList:(NSString *)page
-           latitude:(double)latitude
-          longitude:(double)longitude
-       successBlock:(Success)successBlock
-          failBlock:(Fail)failBlock
-        loadingView:(LoadingView)loadViewBlock;
+
 
 /**
  *  用户筛选接口========两种筛选方式距离和智能推荐

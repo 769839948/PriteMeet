@@ -115,13 +115,11 @@
 - (void)transitionFromCell:(UICollectionViewCell<TYTabTitleCellProtocol> *)fromCell toCell:(UICollectionViewCell<TYTabTitleCellProtocol> *)toCell
 {
     if (fromCell) {
-        fromCell.numberLabel.hidden = NO;
         fromCell.titleLabel.textColor = self.normalTextColor;
         fromCell.transform = CGAffineTransformMakeScale(self.selectFontScale, self.selectFontScale);
     }
     
     if (toCell) {
-        toCell.numberLabel.hidden = YES;
         toCell.titleLabel.textColor = self.selectedTextColor;
         toCell.transform = CGAffineTransformIdentity;
     }
@@ -174,6 +172,11 @@
 - (void)pagerController:(TYTabPagerController *)pagerController configreCell:(UICollectionViewCell *)cell forItemNumber:(NSString *)number atIndexPath:(NSIndexPath *)indexPath
 {
     TYTabTitleViewCell *titleCell = (TYTabTitleViewCell *)cell;
+    if ([number isEqualToString:@"0"]) {
+        titleCell.numberLabel.hidden = YES;
+    }else{
+        titleCell.numberLabel.hidden = NO;
+    }
     titleCell.numberLabel.text = number;
     titleCell.numberLabel.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
     titleCell.numberLabel.font = [UIFont systemFontOfSize:8];

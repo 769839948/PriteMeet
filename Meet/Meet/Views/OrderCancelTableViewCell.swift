@@ -19,6 +19,7 @@ class OrderCancelTableViewCell: UITableViewCell {
     @IBOutlet weak var cancelBtn: UIButton!
     var cancelBtnClickclouse:CanCelButtonClickClouse!
     
+    @IBOutlet weak var infoLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         cancelBtn.layer.borderColor = UIColor.init(hexString: OrderBaseCancelBtnColor).CGColor
@@ -27,6 +28,8 @@ class OrderCancelTableViewCell: UITableViewCell {
         cancelBtn.layer.masksToBounds = true
         cancelBtn.addTarget(self, action: #selector(OrderCancelTableViewCell.cancelBtnClick(_:)), forControlEvents: .TouchUpInside)
         // Initialization code
+        infoLabel.text = "客服电话：\(UserDefaultsGetSynchronize("customer_service_number"))   客服微信：Meetjun1"
+
     }
     
     func setButtonTitle(title:String,type:CellType ) {
