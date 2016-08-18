@@ -132,7 +132,27 @@
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestGetDicMap];
     
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
-        successBlock(responseObject[@"content"][@"data"]);
+        if ([[responseObject objectForKey:@"success"] boolValue]) {
+            successBlock(responseObject[@"content"][@"data"]);
+        }else{
+            failBlock(@{@"error":@"服务器错误"});
+        }
+    } failure:^(NSDictionary *responseObject) {
+        failBlock(@{@"error":@"网络错误"});
+    }];
+}
+
+- (void)getAllPlachText:(Success)successBlock
+              failBlock:(Fail)failBlock
+{
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestPlachText];
+    
+    [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
+        if ([[responseObject objectForKey:@"success"] boolValue]) {
+            successBlock(responseObject[@"content"][@"data"]);
+        }else{
+            failBlock(@{@"error":@"服务器错误"});
+        }
     } failure:^(NSDictionary *responseObject) {
         failBlock(@{@"error":@"网络错误"});
     }];
@@ -165,5 +185,6 @@
     }];
 
 }
+
 
 @end

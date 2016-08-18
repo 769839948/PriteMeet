@@ -40,14 +40,17 @@ class BlackListCollectCell: UICollectionViewCell {
     
     func setOrderModel(model:OrderModel) {
         let orderModel = OrderModel.mj_objectWithKeyValues(model)
-        photoImageView.sd_setImageWithURL(NSURL.init(string: orderModel.order_user_info!.avatar)) { (image, error, cache, url) in
+        //"http://7xsatk.com1.z0.glb.clouddn.com/35acc8bd7b176b21ec2c1019468617f8.jpg?imageView2/1/w/1125/h/816"
+        let imageArray = orderModel.order_user_info!.avatar.componentsSeparatedByString("?")
+//        print(ScreenWidth)
+        photoImageView.sd_setImageWithURL(NSURL.init(string: imageArray[0].stringByAppendingString(AvatarImageSize))) { (image, error, cache, url) in
         }
         userName.text = orderModel.order_user_info!.real_name
         jobLabel.text = orderModel.order_user_info!.job_label
         reportBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         reportBtn.titleLabel?.font = OrderConfirmBtnFont
         if model.status?.status_type == "apply_order" {
-            if model.status?.status_code == "8" || model.status?.status_code == "6" || model.status?.status_code == "4" {
+            if model.status?.status_code == "6" || model.status?.status_code == "4" {
                 reportBtn.setTitle(orderModel.status?.order_status, forState: .Normal)
                 reportBtn.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
             }else{

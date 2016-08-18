@@ -120,13 +120,13 @@ class OrderCancelRejectViewController: UIViewController {
         }
         
        viewModel.switchOrderStatus(orderModel.order_id, status: changeOrderStatus, rejectType: reject_type, rejectReason: textView.text, succeccBlock: { (dic) in
-        if self.reloadOrderStatusChang != nil{
-            self.reloadOrderStatusChang()
+            if self.reloadOrderStatusChang != nil{
+                self.reloadOrderStatusChang()
+            }
             self.navigationController?.popViewControllerAnimated(true)
 
-        }
         }) { (dic) in
-            UITools.showMessageToView(self.view, message: (dic as! NSDictionary).objectForKey("error") as! String, autoHide: true)
+            UITools.showMessageToView(self.view, message: (dic as NSDictionary).objectForKey("error") as! String, autoHide: true)
         }
     }
     

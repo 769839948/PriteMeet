@@ -166,6 +166,7 @@ marketing - jiajia</string>
                     <connections>
                         <outlet property="_labelLogoBottom" destination="fKR-ER-Oc0" id="N2Y-81-1cG"/>
                         <outlet property="_logoImageView" destination="wb9-cm-sq5" id="Aav-Ue-xkk"/>
+                        <outlet property="versionInfo" destination="PRK-hA-xeP" id="ofl-Xq-N8g"/>
                         <segue destination="hJe-ua-qjW" kind="push" identifier="PushToUserProtocolViewController" id="K39-Dw-YZ4"/>
                     </connections>
                 </viewController>

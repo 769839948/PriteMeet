@@ -342,7 +342,6 @@ class MeetDetailViewController: UIViewController {
             let array = descriptions!.componentsSeparatedByString("\n")
             tempArray.addObjectsFromArray(array)
         }
-        print("我就运行一次")
         return tempArray
     }()
     
@@ -356,7 +355,6 @@ class MeetDetailViewController: UIViewController {
                 tempArray.addObject(dic.objectForKey(theme.theme!)!)
             }
         }
-        print("我就运行一次")
         return tempArray
     }()
     
@@ -367,13 +365,11 @@ class MeetDetailViewController: UIViewController {
         }else{
             tempArray = (self.otherUserModel.personal_label?.componentsSeparatedByString(","))!
         }
-        print("我就运行一次")
         return tempArray
     }()
     
     lazy var engagement:Engagement = {
         let engagement = Engagement.mj_objectWithKeyValues(self.otherUserModel.engagement)
-        print("我就运行一次")
         return engagement
     }()
     

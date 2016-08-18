@@ -73,6 +73,7 @@
 
 #define  RequestNumberOrder          @"/api/appointment_order_count/"
 
+#define  RequestPlachText            @"/api/document_map/"
 
 //http://momeet.cn/api/dict_map/
 //http://momeet.cn/api/document_map/

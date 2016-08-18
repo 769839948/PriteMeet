@@ -70,6 +70,15 @@
         failBlock:(Fail)failBlock;
 
 /**
+ *  获取所有文案
+ *
+ *  @param sucessBlock <#sucessBlock description#>
+ *  @param failBlock   <#failBlock description#>
+ */
+- (void)getAllPlachText:(Success)sucessBlock
+              failBlock:(Fail)failBlock;
+
+/**
  *  发送经纬度
  *
  *  @param latitude  latitude description

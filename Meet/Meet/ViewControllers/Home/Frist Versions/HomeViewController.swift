@@ -36,6 +36,8 @@ class HomeViewController: UIViewController {
     var orderNumberArray = NSMutableArray()
     var allOrderNumber:NSInteger = 0
     
+    var isFirstShow:Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpTableView()
@@ -54,7 +56,6 @@ class HomeViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .None
         self.view.addSubview(self.tableView)
-        self.tableView.backgroundColor = UIColor.init(hexString: HomeTableViewBackGroundColor)
         self.tableView.registerClass(ManListCell.self, forCellReuseIdentifier: "MainTableViewCell")
     }
     
@@ -63,6 +64,11 @@ class HomeViewController: UIViewController {
             ProfileKeyAndValue.shareInstance().appDic = dic
             }) { (dic) in
                 
+        }
+        viewModel.getAllPlachText({ (dic) in
+            PlaceholderText.shareInstance().appDic = dic
+            }) { (dic) in
+        
         }
     }
     
@@ -122,8 +128,17 @@ class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
         let navigationController = self.navigationController as! ScrollingNavigationController
         navigationController.scrollingNavbarDelegate = self
-        self.setUpBottomView()
+        if isFirstShow {
+             NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(HomeViewController.addBottomView), userInfo: nil, repeats: false)
+            self.isFirstShow = false
+        }else{
+            self.addBottomView()
+        }
         self.setUpNavigationBar()
+    }
+    
+    func addBottomView() {
+        self.setUpBottomView()
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -135,6 +150,11 @@ class HomeViewController: UIViewController {
         bottomView = UIView(frame: CGRectMake(ScreenWidth  - 84,ScreenHeight - 74,56,54))
         bottomView.addSubview(self.meetButton(CGRectMake(0, 0, 54, 54)))
         bottomView.addSubview(self.meetNumber(CGRectMake(bottomView.frame.size.width - 18, 0, 18, 18)))
+        if self.allOrderNumber == 0 {
+            self.numberMeet.hidden = true
+        }else{
+            self.numberMeet.hidden = false
+        }
         KeyWindown?.addSubview(bottomView)
         
     }
@@ -207,6 +227,12 @@ class HomeViewController: UIViewController {
     func presentOrderView(){
         bottomView.removeFromSuperview()
         let orderPageVC = OrderPageViewController()
+        orderPageVC.setUpNavigationItem()
+        
+        orderPageVC.reloadOrderNumber = { _ in
+            self.getOrderNumber()
+        }
+        
         orderPageVC.numberArray = orderNumberArray
         orderPageVC.setBarStyle(.ProgressBounceView)
         orderPageVC.progressHeight = 0
@@ -217,16 +243,20 @@ class HomeViewController: UIViewController {
         self.presentViewController(navigationController, animated: true, completion: {
             
         })
+        
     }
     
     func getOrderNumber(){
         let orderViewModel = OrderViewModel()
         orderViewModel.orderNumberOrder(UserInfo.sharedInstance().uid, successBlock: { (dic) in
             let countDic = dic as NSDictionary
+            self.allOrderNumber = 0
             for value in countDic.allValues {
                 self.allOrderNumber = self.allOrderNumber + Int(value as! NSNumber)
             }
-            self.numberMeet.text = "\(self.allOrderNumber)"
+            if self.numberMeet != nil && self.allOrderNumber != 0 {
+                self.numberMeet.text = "\(self.allOrderNumber)"
+            }
             self.orderNumberArray.addObject("\(countDic["1"]!)")
             self.orderNumberArray.addObject("\(countDic["4"]!)")
             self.orderNumberArray.addObject("\(countDic["6"]!)")

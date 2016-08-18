@@ -16,6 +16,7 @@
     __weak IBOutlet UIImageView *_logoImageView;
     __weak IBOutlet UILabel *_labelLogoBottom;
     
+    __weak IBOutlet UITextView *versionInfo;
     UserProtocolViewController *_userProtocolVC;
 }
 
@@ -31,6 +32,17 @@
     self.hidesBottomBarWhenPushed = YES;
     [self setUpNavigationBarItem];
     self.talKingDataPageName = @"Me-About";
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = 5;
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    
+    NSDictionary *attributes = @{
+                                 NSFontAttributeName:[UIFont systemFontOfSize:14],
+                                 NSParagraphStyleAttributeName:paragraphStyle
+                                 };
+    versionInfo.attributedText  = [[NSAttributedString alloc]
+                                   initWithString:@"founder & pm - rancan\ndevelopment - zhiyi & dequan\ndesign - da363\nmarketing - jiajia" attributes:attributes];
 }
 
 - (void)setUpNavigationBarItem

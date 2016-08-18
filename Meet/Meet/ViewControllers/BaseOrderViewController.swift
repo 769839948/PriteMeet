@@ -36,7 +36,7 @@ class BaseOrderViewController: UIViewController {
     
     var navigationBarTitleView: UIView!
     
-    var orderType:OrderType!
+    var orderType:OrderType = .Done
     
     let viewModel = OrderViewModel()
     var uid:String = ""
@@ -50,11 +50,12 @@ class BaseOrderViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.changeOrderType()
         self.setUpBottomBtn()
         self.setUpNavigationTitleView()
         self.setUpTableView()
         self.fd_prefersNavigationBarHidden = true
-        self.changeOrderType()
+        self.changeBottomBtnTitle()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WaitPayViewController.changePayStatues(_:)), name: WeiXinPayStatues, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WaitPayViewController.changePayStatues(_:)), name: AliPayStatues, object: nil)
         // Do any additional setup after loading the view.
@@ -127,6 +128,7 @@ class BaseOrderViewController: UIViewController {
         let rejectAction = UIAlertAction(title: "拒绝约见", style: .Destructive) { (reportAction) in
             let cancelView = OrderCancelRejectViewController()
             cancelView.title = "拒绝原因说明"
+            cancelView.changeOrderStatus = "3"
             cancelView.resonType = .Reject
             cancelView.orderModel = self.orderModel
             self.navigationController?.pushViewController(cancelView, animated: true)
@@ -226,7 +228,7 @@ class BaseOrderViewController: UIViewController {
     
     func reloadData() {
         viewModel.orderDetail(orderModel.order_id, successBlock: { (dic) in
-            self.orderModel = OrderModel.mj_objectWithKeyValues(dic)
+            self.orderModel = OrderModel.mj_objectWithKeyValues(dic["order"])
             self.changeOrderType()
             self.tableView.reloadData()
             self.changeBottomBtnTitle()
@@ -265,6 +267,7 @@ class BaseOrderViewController: UIViewController {
         }else if orderModel.status?.status_code == "6" {
             bottomBtn.setTitle("确认双方已约见", forState: .Normal)
         }else{
+            self.updataConstraints()
             bottomBtn.hidden = true
         }
     }
@@ -281,7 +284,8 @@ class BaseOrderViewController: UIViewController {
         let phototView = UIImageView(frame: CGRectMake((titleView.frame.size.width - PhotoWith)/2, 2, PhotoWith, PhotoHeight))
         phototView.layer.cornerRadius = PhotoWith/2
         phototView.layer.masksToBounds = true
-        phototView.sd_setImageWithURL(NSURL.init(string: (orderModel.order_user_info?.avatar)!), placeholderImage: UIImage.init(color: UIColor.init(hexString: PlaceholderImageColor), size: CGSizeMake(PhotoWith, PhotoHeight)), options: .RetryFailed)
+        let imageArray = orderModel.order_user_info?.avatar.componentsSeparatedByString("?")
+        phototView.sd_setImageWithURL(NSURL.init(string: imageArray![0].stringByAppendingString(NavigaitonAvatarImageSize)), placeholderImage: UIImage.init(color: UIColor.init(hexString: PlaceholderImageColor), size: CGSizeMake(PhotoWith, PhotoHeight)), options: .RetryFailed)
         titleView.addSubview(phototView)
         
         let positionLabel = UILabel(frame: CGRectMake(0, CGRectGetMaxY(phototView.frame) + 3, titleView.frame.size.width, 16))
@@ -342,10 +346,11 @@ class BaseOrderViewController: UIViewController {
                 if self.orderModel.status?.status_type == "apply_order"{
                     self.cancelView.changeOrderStatus = "7"
                 }else{
-                    self.cancelView.changeOrderStatus = "8"
+                    self.cancelView.changeOrderStatus = "9"
                 }
             }
             self.cancelView.reloadOrderStatusChang = { _ in
+                
                 self.reloadData()
             }
             self.navigationController?.pushViewController(self.cancelView, animated: true)
@@ -405,7 +410,11 @@ class BaseOrderViewController: UIViewController {
             let returnCell = cell as! OrderCancelTableViewCell
             returnCell.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemUnSelect)
             returnCell.selectionStyle = .None
-            returnCell.setButtonTitle("取消约见", type: .Normal)
+            if self.orderType == .Done {
+                returnCell.setButtonTitle("反馈客服", type: .Cancel)
+            }else{
+                returnCell.setButtonTitle("取消约见", type: .Normal)
+            }
             returnCell.cancelBtnClickclouse = {
                 self.cancelClick()
             }

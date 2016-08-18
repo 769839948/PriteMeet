@@ -117,12 +117,13 @@ class ApplyMeetViewController: UIViewController {
     
     
     func setUpTitleView(){
-
+        
         titleView = UIView(frame: CGRectMake(40,22,ScreenWidth - 80,63))
         let phototView = UIImageView(frame: CGRectMake((titleView.frame.size.width - PhotoWith)/2, 2, PhotoWith, PhotoHeight))
         phototView.layer.cornerRadius = PhotoWith/2
         phototView.layer.masksToBounds = true
-        phototView.sd_setImageWithURL(NSURL.init(string: avater), placeholderImage: UIImage.init(color: UIColor.init(hexString: PlaceholderImageColor), size: CGSizeMake(PhotoWith, PhotoHeight)), options: .RetryFailed)
+        let imageArray = avater.componentsSeparatedByString("?")
+        phototView.sd_setImageWithURL(NSURL.init(string: imageArray[0].stringByAppendingString(NavigaitonAvatarImageSize)), placeholderImage: UIImage.init(color: UIColor.init(hexString: PlaceholderImageColor), size: CGSizeMake(PhotoWith, PhotoHeight)), options: .RetryFailed)
         titleView.addSubview(phototView)
         
         let positionLabel = UILabel(frame: CGRectMake(0, CGRectGetMaxY(phototView.frame) + 3, titleView.frame.size.width, 16))
@@ -311,9 +312,10 @@ extension ApplyMeetViewController : UITableViewDelegate {
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
+        print(scrollView.contentOffset.y)
         if !isTextViewDidChange {
             self.view.endEditing(true)
-        }else if(scrollView.contentOffset.y > 100){
+        }else if(scrollView.contentOffset.y > 180){
             isTextViewDidChange = false
         }
     }

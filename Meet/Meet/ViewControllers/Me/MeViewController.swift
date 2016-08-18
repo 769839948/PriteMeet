@@ -28,12 +28,16 @@ class MeViewController: UIViewController {
     
     var loginView:LoginView!
     
+    let orderNumberArray:NSMutableArray = NSMutableArray()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpTableView()
         self.loadExtenInfo()
         self.addLineNavigationBottom()
         self.talKingDataPageName = "Me"
+        self.navigationController?.navigationBar.translucent = true
+        self.navigationItemCleanColorWithNotLine()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -86,8 +90,10 @@ class MeViewController: UIViewController {
     
     override func viewDidDisappear(animated: Bool) {
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
+//        self.navigationController?.navigationBar.translucent = false
+
 //        if UserInfo.isLoggedIn() {
-            self.navigationItemWithLineAndWihteColor()
+//            self.navigationItemWithLineAndWihteColor()
 //        }
     }
     
@@ -147,7 +153,7 @@ class MeViewController: UIViewController {
             UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
 //            self.createNavigationBar()
 //            self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
-            self.navigationItemCleanColorWithNotLine()
+//            self.navigationItemCleanColorWithNotLine()
             self.setNavigationItemAplah(1, imageName: ["me_dismissBlack"], type: 1)
             self.setNavigationItemAplah(1, imageName: ["me_settingsBlack"], type: 2)
             
@@ -346,14 +352,46 @@ class MeViewController: UIViewController {
         loginView.reloadMeViewClouse = { _ in
             self.viewWillAppear(true)
         }
-        
-        
-
-//        let meStoryBoard = UIStoryboard(name: "Login", bundle: NSBundle.mainBundle())
-//        let resgisterVc = meStoryBoard.instantiateViewControllerWithIdentifier("weChatResgisterNavigation")
-//        self.presentViewController(resgisterVc, animated: true, completion: {
-//            
-//        });
+    }
+    
+    func verificationOrderView(){
+        if orderNumberArray.count == 0 {
+            let queue = dispatch_queue_create("com.meet.order-queue",
+                                              dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INITIATED, 0))
+            
+            dispatch_async(queue) {
+                let orderViewModel = OrderViewModel()
+                orderViewModel.orderNumberOrder(UserInfo.sharedInstance().uid, successBlock: { (dic) in
+                    let countDic = dic as NSDictionary
+                    self.orderNumberArray.addObject("\(countDic["1"]!)")
+                    self.orderNumberArray.addObject("\(countDic["4"]!)")
+                    self.orderNumberArray.addObject("\(countDic["6"]!)")
+                    self.orderNumberArray.addObject("0")
+                }) { (dic) in
+                    
+                }
+            }
+            dispatch_async(queue) {
+                self.presentOrderView()
+            }
+        }else{
+            self.presentOrderView()
+        }
+    }
+    
+    func presentOrderView(){
+        let orderPageVC = OrderPageViewController()
+        orderPageVC.setUpNavigationItem()
+        orderPageVC.numberArray = orderNumberArray
+        orderPageVC.setBarStyle(.ProgressBounceView)
+        orderPageVC.progressHeight = 0
+        orderPageVC.progressWidth = 0
+        orderPageVC.adjustStatusBarHeight = true
+        orderPageVC.progressColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
+        let navigationController = UINavigationController(rootViewController: orderPageVC)
+        self.presentViewController(navigationController, animated: true, completion: {
+            
+        })
     }
 }
 
@@ -378,6 +416,8 @@ extension MeViewController : UITableViewDelegate{
             }else{
                 UITools.shareInstance().showMessageToView(self.view, message: "客服Meet君会尽快联系您认证的哦，还请耐心等待。", autoHide: true)
             }
+        }else if indexPath.row == 5 {
+            self.verificationOrderView()
         }
     }
     
@@ -455,7 +495,7 @@ extension MeViewController : UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if UserInfo.isLoggedIn() {
-            return 6
+            return 7
         }else{
             return 5
         }
@@ -469,6 +509,7 @@ extension MeViewController : UITableViewDataSource {
                 if UserExtenModel.shareInstance().cover_photo != nil {
                     let cover_photo:Cover_photo = Cover_photo.mj_objectWithKeyValues(UserExtenModel.shareInstance().cover_photo)
                     if cover_photo.photo != nil {
+                        //http://7xsatk.com1.z0.glb.clouddn.com/o_1aqc2rujd1vbc11ten5s12tj115fc.jpg?imageView2/1/w/1125/h/816
                         cell.avatarImageView .sd_setImageWithURL(NSURL.init(string:cover_photo.photo ), placeholderImage: nil, completed: { (image, error, type, url) in
                             UserExtenModel.saveCacheImage(image, withName: "cover_photo.jpg")
                         })
@@ -518,15 +559,7 @@ extension MeViewController : UITableViewDataSource {
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.isHaveShadowColor(false)
                 return cell
-            }else if (indexPath.row == 5) {
-                let identifier = "LastCell"
-                var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
-                if cell == nil{
-                    cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: identifier)
-                }
-                cell!.selectionStyle = UITableViewCellSelectionStyle.None
-                return cell!
-            }else{
+            }else if (indexPath.row == 4){
                 let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
                 cell.configCell((userInfoModel.imageArray() as NSArray) .objectAtIndex(indexPath.row - 3) as! String, infoString: (userInfoModel.titleArray() as NSArray).objectAtIndex(indexPath.row - 3) as! String, infoDetail: "")
                 if indexPath.row == 4 {
@@ -538,11 +571,16 @@ extension MeViewController : UITableViewDataSource {
                         let dic = (ProfileKeyAndValue.shareInstance().appDic as NSDictionary).objectForKey("auth_type") as! NSDictionary
                         if autoArray.count == 3 {
                             string = ""
-                        }else if (autoArray.count == 2){
+                        }else if (autoArray.count == 2) {
                             for index in 0...autoArray.count - 1 {
-                                let autoName = dic.objectForKey(autoArray[index]) as! String
-                                let firstChar = (autoName as NSString).substringToIndex(2)
-                                tempString = tempString.stringByReplacingOccurrencesOfString("\(firstChar)、", withString: "")
+                                var autoName = "、"
+                                if dic.objectForKey(autoArray[index]) != nil {
+                                    autoName = dic.objectForKey(autoArray[index]) as! String
+                                }
+                                if autoName.length > 2 {
+                                    let firstChar = (autoName as NSString).substringToIndex(2)
+                                    tempString = tempString.stringByReplacingOccurrencesOfString("\(firstChar)、", withString: "")
+                                }
                             }
                             tempString = tempString.stringByReplacingOccurrencesOfString("、", withString: "")
                             string = "尚未通过\(tempString)认证       "
@@ -564,6 +602,20 @@ extension MeViewController : UITableViewDataSource {
                 }
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 return cell
+            }else if indexPath.row == 5 {
+                let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
+                cell.configCell("me_mymeet", infoString: "我的约见", infoDetail: "")
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                cell.setinfoButtonBackGroudColor(lineLabelBackgroundColor)
+                return cell
+            }else{
+                let identifier = "LastCell"
+                var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
+                if cell == nil{
+                    cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: identifier)
+                }
+                cell!.selectionStyle = UITableViewCellSelectionStyle.None
+                return cell!
             }
         }else{
             if indexPath.row == 0 {

@@ -157,6 +157,7 @@
 		1FCC444A1D37A66C00287EC5 /* OrderUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC44481D37A66C00287EC5 /* OrderUserTableViewCell.swift */; };
 		1FCC444B1D37A66C00287EC5 /* OrderUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FCC44491D37A66C00287EC5 /* OrderUserTableViewCell.xib */; };
 		1FCC444F1D37A96A00287EC5 /* OrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC444E1D37A96A00287EC5 /* OrderModel.swift */; };
+		1FCDE2B61D65D2140029EF9E /* PlaceholderText.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDE2B51D65D2140029EF9E /* PlaceholderText.m */; };
 		1FD97BBA1D55DBF300556568 /* OrderApplyMeetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BB91D55DBF300556568 /* OrderApplyMeetTableViewCell.swift */; };
 		1FD97BBC1D55E1A900556568 /* OrderApplyIntroductionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BBB1D55E1A900556568 /* OrderApplyIntroductionCell.swift */; };
 		1FD97BBF1D55E41700556568 /* OrderApplyInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BBD1D55E41700556568 /* OrderApplyInfoTableViewCell.swift */; };
@@ -498,6 +499,8 @@
 		1FCC44481D37A66C00287EC5 /* OrderUserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderUserTableViewCell.swift; sourceTree = "<group>"; };
 		1FCC44491D37A66C00287EC5 /* OrderUserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderUserTableViewCell.xib; sourceTree = "<group>"; };
 		1FCC444E1D37A96A00287EC5 /* OrderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderModel.swift; sourceTree = "<group>"; };
+		1FCDE2B41D65D2140029EF9E /* PlaceholderText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderText.h; sourceTree = "<group>"; };
+		1FCDE2B51D65D2140029EF9E /* PlaceholderText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderText.m; sourceTree = "<group>"; };
 		1FD97BB91D55DBF300556568 /* OrderApplyMeetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderApplyMeetTableViewCell.swift; sourceTree = "<group>"; };
 		1FD97BBB1D55E1A900556568 /* OrderApplyIntroductionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderApplyIntroductionCell.swift; sourceTree = "<group>"; };
 		1FD97BBD1D55E41700556568 /* OrderApplyInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderApplyInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -1226,6 +1229,8 @@
 				DAF5C8531CE5A5C000DA7901 /* UIView+frameAdjust.m */,
 				1FFB5F3C1D069A8800021F77 /* ProfileKeyAndValue.h */,
 				1FFB5F3D1D069A8800021F77 /* ProfileKeyAndValue.m */,
+				1FCDE2B41D65D2140029EF9E /* PlaceholderText.h */,
+				1FCDE2B51D65D2140029EF9E /* PlaceholderText.m */,
 			);
 			name = Global;
 			path = Meet/Global;
@@ -1760,6 +1765,7 @@
 				DAF5C89D1CE6191000DA7901 /* MHFacebookImageViewer.m in Sources */,
 				1FBAE32A1D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift in Sources */,
 				1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */,
+				1FCDE2B61D65D2140029EF9E /* PlaceholderText.m in Sources */,
 				1F3868731D275B7900569032 /* AddJobLabelTableViewCell.m in Sources */,
 				1F810EC11D507399008A5EF1 /* ZDQFlowViewItem.swift in Sources */,
 				DA3626591CD1A75C00A8AE39 /* main.m in Sources */,

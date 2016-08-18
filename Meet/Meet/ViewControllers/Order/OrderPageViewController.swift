@@ -10,6 +10,9 @@ import UIKit
 
 let kCollectionLayoutEdging:CGFloat = 25
 let kCellSpacing:CGFloat = 10
+
+typealias ReloadOrderNumber = () ->Void
+
 class OrderPageViewController: TYTabButtonPagerController {
 
     let viewModel:OrderViewModel = OrderViewModel()
@@ -21,19 +24,31 @@ class OrderPageViewController: TYTabButtonPagerController {
     
     var numberArray:NSMutableArray = NSMutableArray(array: ["0","0","0","0"])
     
+    var reloadOrderNumber:ReloadOrderNumber!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "我的约见"
         pageViewControllers = [orderConfimViewController,orderPayViewController,orderMeetViewController,orderAllViewController]
-        self.navigationItemWhiteColorAndNotLine()
-        self.setUpNavigationItem()
         self.setUpPageViewControllerStyle()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(OrderPageViewController.reloadOtherCollectView(_:)), name: ReloadOrderCollectionView, object: nil)
         self.talKingDataPageName = "Order-Order-Page"
-
+        self.navigationItemWhiteColorAndNotLine()
         // Do any additional setup after loading the view.
     }
+    
+//    func changeNavigationBar() {
+//
+//        self.navigationController?.navigationBar.translucent = false
+//        self.setNavigationItemBack()
+//        self.fd_prefersNavigationBarHidden = true
+//        
+////        self.createNavigationBar()
+//    }
+//    override func viewWillAppear(animated: Bool) {
+//        self.createNavigationBar()
+//    }
+    
     func setUpPageViewControllerStyle(){
         var stringSize:CGFloat = 0
         for string in viewModel.orderPageControllerTitle() as NSArray {
@@ -59,15 +74,19 @@ class OrderPageViewController: TYTabButtonPagerController {
         
         
     }
-    
+
     func setUpNavigationItem() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "me_dismissBlack")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(OrderPageViewController.leftBtnPress(_:)))
     }
     
     func leftBtnPress(sender:UIBarButtonItem) {
-        self.navigationController?.dismissViewControllerAnimated(true, completion: { 
-            
-        })
+        if self.reloadOrderNumber != nil {
+            self.reloadOrderNumber()
+            self.navigationController?.dismissViewControllerAnimated(true, completion: {
+                
+            })
+        }
+        
     }
     
     func reloadOtherCollectView(notification:NSNotification) {

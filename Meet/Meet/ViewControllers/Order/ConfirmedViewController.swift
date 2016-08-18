@@ -78,38 +78,38 @@ class ConfirmedViewController: BaseOrderViewController {
     }
     
     //MARK:父类方法重写
-    override func bottomPress(sender: UIButton) {
-        let alertControl = UIAlertController(title: "确定要接受\((orderModel.order_user_info?.real_name)!)的约见吗？", message: "接受约见及对方付款后即可开始沟通见面\n拒绝约见后该预约将自动关闭", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "稍后决定", style: .Cancel) { (cancel) in
-            
-        }
-        
-        let accpetAction = UIAlertAction(title: "接受约见", style: .Default) { (blackList) in
-            self.viewModel.orderStatusOperation(self.orderModel.order_id, withHos: UserInfo.sharedInstance().uid, successBlock: { (dic) in
-                if self.myClouse != nil {
-                    self.myClouse(status:(self.orderModel.status?.order_status)!)
-                }
-                self.reloadData()
-                }, failBlock: { (dic) in
-                    UITools.showMessageToView(self.view, message: "确认失败", autoHide: true)
-            })
-        }
-        let rejectAction = UIAlertAction(title: "拒绝约见", style: .Destructive) { (reportAction) in
-            let cancelView = OrderCancelRejectViewController()
-            cancelView.title = "拒绝原因说明"
-            cancelView.resonType = .Reject
-            cancelView.orderModel = self.orderModel
-            self.navigationController?.pushViewController(cancelView, animated: true)
-        }
-        
-        alertControl.addAction(cancelAction)
-        alertControl.addAction(accpetAction)
-        alertControl.addAction(rejectAction)
-        self.presentViewController(alertControl, animated: true) {
-            
-        }
-        
-    }
+//    override func bottomPress(sender: UIButton) {
+//        let alertControl = UIAlertController(title: "确定要接受\((orderModel.order_user_info?.real_name)!)的约见吗？", message: "接受约见及对方付款后即可开始沟通见面\n拒绝约见后该预约将自动关闭", preferredStyle: .Alert)
+//        let cancelAction = UIAlertAction(title: "稍后决定", style: .Cancel) { (cancel) in
+//            
+//        }
+//        
+//        let accpetAction = UIAlertAction(title: "接受约见", style: .Default) { (blackList) in
+//            self.viewModel.orderStatusOperation(self.orderModel.order_id, withHos: UserInfo.sharedInstance().uid, successBlock: { (dic) in
+//                if self.myClouse != nil {
+//                    self.myClouse(status:(self.orderModel.status?.order_status)!)
+//                }
+//                self.reloadData()
+//                }, failBlock: { (dic) in
+//                    UITools.showMessageToView(self.view, message: "确认失败", autoHide: true)
+//            })
+//        }
+//        let rejectAction = UIAlertAction(title: "拒绝约见", style: .Destructive) { (reportAction) in
+//            let cancelView = OrderCancelRejectViewController()
+//            cancelView.title = "拒绝原因说明"
+//            cancelView.resonType = .Reject
+//            cancelView.orderModel = self.orderModel
+//            self.navigationController?.pushViewController(cancelView, animated: true)
+//        }
+//        
+//        alertControl.addAction(cancelAction)
+//        alertControl.addAction(accpetAction)
+//        alertControl.addAction(rejectAction)
+//        self.presentViewController(alertControl, animated: true) {
+//            
+//        }
+//        
+//    }
     
 //    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return 4

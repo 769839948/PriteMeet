@@ -123,6 +123,8 @@
     __weak typeof(self) weakSelf = self;
     if (model.cover_photo != nil || model.cover_photo != NULL) {
         Cover_photo *coverPhoto = [Cover_photo mj_objectWithKeyValues:model.cover_photo];
+        //http://7xsatk.com1.z0.glb.clouddn.com/o_1aqc2rujd1vbc11ten5s12tj115fc.jpg?imageView2/1/w/1065/h/600
+//        NSArray *imageArray = [coverPhoto.photo componentsSeparatedByString:@"?"];
         [_photoImage sd_setImageWithURL:[NSURL URLWithString:coverPhoto.photo] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
 
         }];

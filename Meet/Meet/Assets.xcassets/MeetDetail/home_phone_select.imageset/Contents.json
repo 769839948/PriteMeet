@@ -3,16 +3,16 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "home_phone_select.png"
+      "filename" : "home_phone_unselect.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "home_phone_select@2x.png"
+      "filename" : "home_phone_unselect@2x.png"
     },
     {
       "idiom" : "universal",
-      "filename" : "home_phone_select@3x.png",
+      "filename" : "home_phone_unselect@3x.png",
       "scale" : "3x"
     }
   ],

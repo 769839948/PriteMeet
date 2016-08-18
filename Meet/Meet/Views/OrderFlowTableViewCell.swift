@@ -51,7 +51,11 @@ class OrderFlowTableViewCell: UITableViewCell {
 extension OrderFlowTableViewCell: ZDQFlowViewDataSource {
     func numberOfFlowViewItemCount(flowView: ZDQFlowView) -> NSInteger {
         if self.statusType == "receive_order" {
-            return 3
+            if orderStatus == "7" || orderStatus == "8" || orderStatus == "12" || orderStatus == "13" || orderStatus == "9" || orderStatus == "10" {
+                return 4
+            }else{
+                return 3
+            }
         }
         return 4
     }
@@ -71,14 +75,22 @@ extension OrderFlowTableViewCell: ZDQFlowViewDataSource {
             }else if orderStatus == "2" {
                 switch index {
                 case 0:
-                    viewItem.setData("已取消",type: ZDQFlowViewItemType.ItemCancel)
+                    viewItem.setData("对方取消",type: ZDQFlowViewItemType.ItemCancel)
                 case 1:
                     viewItem.setData("对方付款",type: ZDQFlowViewItemType.ItemNext)
                 default:
                     viewItem.setData("见面",type: ZDQFlowViewItemType.ItemNext)
                 }
-            }
-            else if orderStatus == "4" {
+            }else if orderStatus == "3" {
+                switch index {
+                case 0:
+                    viewItem.setData("已拒绝",type: ZDQFlowViewItemType.ItemCancel)
+                case 1:
+                    viewItem.setData("对方付款",type: ZDQFlowViewItemType.ItemNext)
+                default:
+                    viewItem.setData("见面",type: ZDQFlowViewItemType.ItemNext)
+                }
+            }else if orderStatus == "4" {
                 switch index {
                 case 0:
                     viewItem.setData("已确认",type: ZDQFlowViewItemType.ItemSelect)
@@ -95,32 +107,38 @@ extension OrderFlowTableViewCell: ZDQFlowViewDataSource {
                 case 1:
                     viewItem.setData("已付款",type: ZDQFlowViewItemType.ItemSelect)
                 default:
-                    viewItem.setData("见面",type: ZDQFlowViewItemType.ItemWaitSelect)
+                    viewItem.setData("待见面",type: ZDQFlowViewItemType.ItemWaitSelect)
                 }
-            }else if orderStatus == "3" {
+            }else if orderStatus == "7" || orderStatus == "8" {
                 switch index {
                 case 0:
-                    viewItem.setData("已取消",type: ZDQFlowViewItemType.ItemCancel)
+                    viewItem.setData("已确认",type: ZDQFlowViewItemType.ItemCancelDone)
                 case 1:
-                    viewItem.setData("对方付款",type: ZDQFlowViewItemType.ItemNext)
+                    viewItem.setData("已付款",type: ZDQFlowViewItemType.ItemCancelDone)
+                case 2:
+                    viewItem.setData("对方取消",type: ZDQFlowViewItemType.ItemCancel)
                 default:
                     viewItem.setData("见面",type: ZDQFlowViewItemType.ItemNext)
                 }
-            }else if orderStatus == "7" {
+            }else if orderStatus == "12"  {
                 switch index {
                 case 0:
                     viewItem.setData("已确认",type: ZDQFlowViewItemType.ItemCancelDone)
                 case 1:
                     viewItem.setData("已取消",type: ZDQFlowViewItemType.ItemCancel)
+                case 2:
+                    viewItem.setData("付款",type: ZDQFlowViewItemType.ItemNext)
                 default:
                     viewItem.setData("见面",type: ZDQFlowViewItemType.ItemNext)
                 }
-            }else if orderStatus == "13" {
+            }else if orderStatus == "13"  {
                 switch index {
                 case 0:
                     viewItem.setData("已确认",type: ZDQFlowViewItemType.ItemCancelDone)
                 case 1:
-                    viewItem.setData("已取消",type: ZDQFlowViewItemType.ItemCancel)
+                    viewItem.setData("对方取消",type: ZDQFlowViewItemType.ItemCancel)
+                case 2:
+                    viewItem.setData("付款",type: ZDQFlowViewItemType.ItemNext)
                 default:
                     viewItem.setData("见面",type: ZDQFlowViewItemType.ItemNext)
                 }
@@ -132,6 +150,17 @@ extension OrderFlowTableViewCell: ZDQFlowViewDataSource {
                     viewItem.setData("已付款",type: ZDQFlowViewItemType.ItemSelect)
                 default:
                     viewItem.setData("已见面",type: ZDQFlowViewItemType.ItemSelect)
+                }
+            }else if orderStatus == "9" || orderStatus == "10" {
+                switch index {
+                case 0:
+                    viewItem.setData("已确认",type: ZDQFlowViewItemType.ItemCancelDone)
+                case 1:
+                    viewItem.setData("已付款",type: ZDQFlowViewItemType.ItemCancelDone)
+                case 2:
+                    viewItem.setData("已取消",type: ZDQFlowViewItemType.ItemCancel)
+                default:
+                    viewItem.setData("见面",type: ZDQFlowViewItemType.ItemNext)
                 }
             }
             return viewItem
@@ -159,7 +188,7 @@ extension OrderFlowTableViewCell: ZDQFlowViewDataSource {
                 default:
                     viewItem.setData("见面",type: ZDQFlowViewItemType.ItemNext)
                 }
-            }else if orderStatus == "3" {
+            }else if orderStatus == "3" || orderStatus == "2"{
                 switch index {
                 case 0:
                     viewItem.setData("已取消",type: ZDQFlowViewItemType.ItemCancel)
@@ -214,7 +243,18 @@ extension OrderFlowTableViewCell: ZDQFlowViewDataSource {
                 default:
                     viewItem.setData("已见面",type: ZDQFlowViewItemType.ItemSelect)
                 }
-            }else if orderStatus == "13" {
+            }else if orderStatus == "13" || orderStatus == "12"{
+                switch index {
+                case 0:
+                    viewItem.setData("提交申请",type: ZDQFlowViewItemType.ItemCancelDone)
+                case 1:
+                    viewItem.setData("已确认",type: ZDQFlowViewItemType.ItemCancelDone)
+                case 2:
+                    viewItem.setData("已付款",type: ZDQFlowViewItemType.ItemCancel)
+                default:
+                    viewItem.setData("已取消",type: ZDQFlowViewItemType.ItemNext)
+                }
+            }else if orderStatus == "9" || orderStatus == "10" || orderStatus == "8" {
                 switch index {
                 case 0:
                     viewItem.setData("提交申请",type: ZDQFlowViewItemType.ItemCancelDone)

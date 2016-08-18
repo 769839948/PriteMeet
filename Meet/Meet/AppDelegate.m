@@ -53,6 +53,7 @@
     [self setIQkeyboardManager];
 
     HomeViewController *controller = Storyboard(@"Main", @"FristHomeViewController");
+    controller.isFirstShow  = YES;
     self.window.rootViewController = [[ScrollingNavigationController alloc] initWithRootViewController:controller];
 
 #pragma clang diagnostic push
@@ -79,7 +80,6 @@
     _splashView = [[SplashView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
     [_splashView startAnimation];
     [self.window addSubview:_splashView];
-
     [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(removeSplashView) userInfo:nil repeats:NO];
 
 }
