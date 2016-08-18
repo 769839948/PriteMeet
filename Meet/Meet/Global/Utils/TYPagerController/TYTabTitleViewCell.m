@@ -11,6 +11,8 @@
 @interface TYTabTitleViewCell ()
 @property (nonatomic, weak) UILabel *titleLabel;
 @property (nonatomic, weak) UILabel *numberLabel;
+@property (nonatomic, weak) UIView *numberContainer;
+
 @end
 
 @implementation TYTabTitleViewCell
@@ -45,17 +47,20 @@
 
 - (void)addTabNumberLabel
 {
+    UIView *numberContainer = [[UIView alloc] init];
+    numberContainer.layer.cornerRadius = 8;
+    numberContainer.backgroundColor = [UIColor whiteColor];
     UILabel *numberLabel = [[UILabel alloc]init];
     numberLabel.font = [UIFont systemFontOfSize:8];
-    numberLabel.layer.borderWidth = 2.0;
-    numberLabel.layer.borderColor = [[UIColor whiteColor] CGColor];
     numberLabel.textColor = [UIColor whiteColor];
     numberLabel.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
-    numberLabel.layer.cornerRadius = 8;
+    numberLabel.layer.cornerRadius = 6;
     numberLabel.layer.masksToBounds = YES;
     numberLabel.textAlignment = NSTextAlignmentCenter;
-    [self.contentView addSubview:numberLabel];
+    [numberContainer addSubview:numberLabel];
+    [self.contentView addSubview:numberContainer];
     _numberLabel = numberLabel;
+    _numberContainer = numberContainer;
 }
 
 - (void)layoutSubviews
@@ -63,7 +68,8 @@
     [super layoutSubviews];
     CGRect frame = self.contentView.bounds;
     _titleLabel.frame = frame;
-    _numberLabel.frame = CGRectMake(frame.size.width - 22, frame.origin.y + 8, 22, 16);
+    _numberLabel.frame = CGRectMake(2, 2, 18, 12);
+    _numberContainer.frame = CGRectMake(frame.size.width - 22, frame.origin.y + 8, 22, 16);
 }
 
 @end

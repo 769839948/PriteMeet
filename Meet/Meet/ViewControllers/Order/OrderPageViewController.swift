@@ -19,7 +19,7 @@ class OrderPageViewController: TYTabButtonPagerController {
     let orderAllViewController = OrderAllViewController()
     var pageViewControllers:NSArray!
     
-    let numberArray:NSMutableArray = NSMutableArray(array: ["0","0","0","0"])
+    var numberArray:NSMutableArray = NSMutableArray(array: ["0","0","0","0"])
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -12,7 +12,8 @@ class WaitMeetViewController: BaseOrderViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        bottomBtn.setTitle("确认双方已约见", forState: .Normal)
+        self.changeBottomBtnTitle()
+
         
         self.talKingDataPageName = "Order-OrderList-Meet"
 

@@ -173,9 +173,9 @@
 {
     TYTabTitleViewCell *titleCell = (TYTabTitleViewCell *)cell;
     if ([number isEqualToString:@"0"]) {
-        titleCell.numberLabel.hidden = YES;
+        titleCell.numberContainer.hidden = YES;
     }else{
-        titleCell.numberLabel.hidden = NO;
+        titleCell.numberContainer.hidden = NO;
     }
     titleCell.numberLabel.text = number;
     titleCell.numberLabel.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];

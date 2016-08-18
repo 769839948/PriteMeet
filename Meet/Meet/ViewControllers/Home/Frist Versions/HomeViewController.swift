@@ -33,6 +33,9 @@ class HomeViewController: UIViewController {
     var latitude:Double = 0.0
     var fillterName:FillterName = .ReconmondList
     
+    var orderNumberArray = NSMutableArray()
+    var allOrderNumber:NSInteger = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpTableView()
@@ -42,7 +45,7 @@ class HomeViewController: UIViewController {
         self.addLineNavigationBottom()
         self.talKingDataPageName = "Home"
         self.setUpHomeData()
-        
+        self.getOrderNumber()
         // Do any additional setup after loading the view.
     }
 
@@ -147,7 +150,6 @@ class HomeViewController: UIViewController {
     }
     
     func rightItemClick(sender:UIBarButtonItem) {
-//       KeyWindown?.addSubview(PayView(frame: CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,UIScreen.mainScreen().bounds.size.height)))
         self.bottomView.removeFromSuperview()
         self.presentViewController(BaseNavigaitonController(rootViewController: MeViewController()) , animated: true) {
     
@@ -168,7 +170,7 @@ class HomeViewController: UIViewController {
     func meetNumber(frame:CGRect) -> UILabel {
         numberMeet = UILabel(frame: frame)
         numberMeet.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
-        numberMeet.text = "6"
+        numberMeet.text = "\(allOrderNumber)"
         numberMeet.font = UIFont.systemFontOfSize(9)
         numberMeet.textAlignment = .Center
         numberMeet.textColor = UIColor.whiteColor()
@@ -182,28 +184,53 @@ class HomeViewController: UIViewController {
             self.presentLoginView()
         }else{
             self.bottomView.removeFromSuperview()
+            self.verificationOrderView()
+        }
+    }
+    
+    func verificationOrderView(){
+        if orderNumberArray.count == 0 {
+            let queue = dispatch_queue_create("com.meet.order-queue",
+                                              dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INITIATED, 0))
+            
+            dispatch_async(queue) {
+                self.getOrderNumber()
+            }
+            dispatch_async(queue) {
+                self.presentOrderView()
+            }
+        }else{
             self.presentOrderView()
         }
     }
     
     func presentOrderView(){
+        bottomView.removeFromSuperview()
+        let orderPageVC = OrderPageViewController()
+        orderPageVC.numberArray = orderNumberArray
+        orderPageVC.setBarStyle(.ProgressBounceView)
+        orderPageVC.progressHeight = 0
+        orderPageVC.progressWidth = 0
+        orderPageVC.adjustStatusBarHeight = true
+        orderPageVC.progressColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
+        let navigationController = UINavigationController(rootViewController: orderPageVC)
+        self.presentViewController(navigationController, animated: true, completion: {
+            
+        })
+    }
+    
+    func getOrderNumber(){
         let orderViewModel = OrderViewModel()
         orderViewModel.orderNumberOrder(UserInfo.sharedInstance().uid, successBlock: { (dic) in
-            let orderPageVC = OrderPageViewController()
             let countDic = dic as NSDictionary
-            orderPageVC.numberArray.replaceObjectAtIndex(0, withObject:"\(countDic["1"]!)")
-            orderPageVC.numberArray.replaceObjectAtIndex(1, withObject: "\(countDic["4"]!)")
-            orderPageVC.numberArray.replaceObjectAtIndex(2, withObject: "\(countDic["6"]!)")
-            let navigationController = UINavigationController(rootViewController: orderPageVC)
-            orderPageVC.setBarStyle(.ProgressBounceView)
-            orderPageVC.progressHeight = 0
-            orderPageVC.progressWidth = 0
-            orderPageVC.adjustStatusBarHeight = true
-            orderPageVC.progressColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
-            self.presentViewController(navigationController, animated: true, completion: {
-                
-            })
-            
+            for value in countDic.allValues {
+                self.allOrderNumber = self.allOrderNumber + Int(value as! NSNumber)
+            }
+            self.numberMeet.text = "\(self.allOrderNumber)"
+            self.orderNumberArray.addObject("\(countDic["1"]!)")
+            self.orderNumberArray.addObject("\(countDic["4"]!)")
+            self.orderNumberArray.addObject("\(countDic["6"]!)")
+            self.orderNumberArray.addObject("0")
         }) { (dic) in
             
         }
@@ -292,13 +319,13 @@ class HomeViewController: UIViewController {
             let baseUserInfo =  Stroyboard("Me", viewControllerId: "BaseInfoViewController") as! BaseUserInfoViewController
             baseUserInfo.isHomeListViewLogin = true
             baseUserInfo.homeListBlock = { _ in
-                self.presentOrderView()
+                self.verificationOrderView()
             }
             self.navigationController?.pushViewController(baseUserInfo, animated: true)
         }
         
         loginView.loginWithOrderListClouse = { _ in
-            self.presentOrderView()
+            self.verificationOrderView()
         }
     }
 
@@ -337,19 +364,8 @@ extension HomeViewController : UITableViewDelegate {
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        let translation = scrollView.panGestureRecognizer.translationInView(scrollView.superview)
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
-        if translation.y < -54 {
-//            self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeDetailViewNameColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
-//            UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
-        }else if translation.y > 0{
-//            self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
-//            UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
-
-        }
-
+        
     }
-    
 }
 
 extension HomeViewController : UITableViewDataSource {

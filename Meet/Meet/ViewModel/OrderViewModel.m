@@ -40,7 +40,7 @@
     NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@/%@/?cur_user=%@",RequestApiOrder,order_id,[UserInfo sharedInstance].uid]];
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
-            successBlock(responseObject[@"content"][@"order"]);
+            successBlock(responseObject[@"content"]);
         }else{
             failBlock(@{@"error":@"服务器出错"});
         }

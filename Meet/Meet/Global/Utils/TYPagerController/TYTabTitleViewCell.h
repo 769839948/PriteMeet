@@ -15,4 +15,7 @@
 
 @property (nonatomic, weak,readonly) UILabel *numberLabel;
 
+@property (nonatomic, weak,readonly) UIView *numberContainer;
+
+
 @end

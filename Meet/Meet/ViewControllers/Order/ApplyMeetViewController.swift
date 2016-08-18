@@ -173,10 +173,11 @@ class ApplyMeetViewController: UIViewController {
         viewModel.applyMeetOrder(applyModel, successBlock: { (dic) in
             let orderDic = dic as NSDictionary
             self.viewModel.orderDetail(orderDic.objectForKey("order_id") as! String, successBlock: { (dic) in
-                let orderModel = OrderModel.mj_objectWithKeyValues(dic)
+                let orderModel = OrderModel.mj_objectWithKeyValues(dic["order"])
             NSUserDefaults.standardUserDefaults().setObject(dic["customer_service_number"], forKey: "customer_service_number")
                 let applyDetailView = ConfirmedViewController()
                 applyDetailView.uid = self.host
+                applyDetailView.isAppliViewPush = true
                 applyDetailView.orderModel = orderModel
                 self.navigationController?.pushViewController(applyDetailView, animated: true)
                 }, fialBlock: { (dic) in
@@ -312,7 +313,7 @@ extension ApplyMeetViewController : UITableViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if !isTextViewDidChange {
             self.view.endEditing(true)
-        }else if(scrollView.contentOffset.y > 200){
+        }else if(scrollView.contentOffset.y > 100){
             isTextViewDidChange = false
         }
     }

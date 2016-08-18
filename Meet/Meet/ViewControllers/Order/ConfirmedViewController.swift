@@ -14,12 +14,8 @@ class ConfirmedViewController: BaseOrderViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if self.orderModel.status?.status_type == "receive_order" {
-            bottomBtn.setTitle("接受/拒绝", forState: .Normal)
-        }else{
-            self.updataConstraints()
-            bottomBtn.hidden = true
-        }
+        self.changeBottomBtnTitle()
+
         self.talKingDataPageName = "Order-OrderList-Confirm"
 
         // Do any additional setup after loading the view.

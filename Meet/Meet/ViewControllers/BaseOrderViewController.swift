@@ -259,7 +259,7 @@ class BaseOrderViewController: UIViewController {
                 bottomBtn.hidden = true
                 self.updataConstraints()
             }else{
-                bottomBtn.setTitle("立即支付 RMB \(orderModel.fee)", forState: .Normal)
+                bottomBtn.setTitle("立即支付 ￥\(orderModel.fee)", forState: .Normal)
             }
             self.loadPayInfo()
         }else if orderModel.status?.status_code == "6" {

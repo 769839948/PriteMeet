@@ -16,15 +16,7 @@ class WaitPayViewController: BaseOrderViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if self.orderModel.status?.status_type == "receive_order" {
-            bottomBtn.hidden = true
-            self.updataConstraints()
-        }else{
-            bottomBtn.setTitle("立即支付 RMB \(orderModel.fee)", forState: .Normal)
-        }
-        self.loadPayInfo()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WaitPayViewController.changePayStatues(_:)), name: WeiXinPayStatues, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WaitPayViewController.changePayStatues(_:)), name: AliPayStatues, object: nil)
+        self.changeBottomBtnTitle()
         
         self.talKingDataPageName = "Order-OrderList-Pay"
 
