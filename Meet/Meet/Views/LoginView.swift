@@ -535,7 +535,7 @@ class LoginView: UIView {
             
             viewModel.loginSms(mobile, code: smsCode, applyCode:applyCode, success: { (dic) in
                self.dismissView()
-                UserInfo.sharedInstance().uid = mobile
+//                UserInfo.sharedInstance().uid = mobile
                 UserInfo.synchronizeWithDic(dic)
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isNewUser")
                 UserInfo.sharedInstance().mobile_num = mobile
@@ -545,7 +545,7 @@ class LoginView: UIView {
             }) { (dic) in
                 if ((dic as NSDictionary).objectForKey("error") as! String) == "oldUser" {
                     self.viewModel.getUserInfo(mobile, success: { (dic) in
-                        UserInfo.sharedInstance().uid = mobile
+//                        UserInfo.sharedInstance().uid = mobile
                         UserInfo.synchronizeWithDic(dic)
                         UserInfo.sharedInstance().isFirstLogin = true
                         if self.reloadMeViewClouse != nil{

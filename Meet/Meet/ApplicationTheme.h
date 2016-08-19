@@ -110,6 +110,8 @@
 
 #define AboutUsLabelColor @"4D4D4D"
 
+#define OrderTipsLabelColor @"4D4D4D"
+
 #define OrderApplyMeetTitleColor  @"C9C9C9"
 #define OrderBaseCancelBtnColor   @"C8C8C8"
 

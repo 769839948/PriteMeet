@@ -122,6 +122,10 @@ class MeetDetailViewController: UIViewController {
     }
     
     func meetImmediately(){
+        if UserInfo.sharedInstance().uid == self.user_id {
+            UITools.showMessageToView(self.view, message: "您不能约见自己哦", autoHide: true)
+            return
+        }
         let applyMeetVc = ApplyMeetViewController()
         applyMeetVc.allItems =  self.inviteArray.mutableCopy() as! NSMutableArray
         applyMeetVc.host = self.user_id

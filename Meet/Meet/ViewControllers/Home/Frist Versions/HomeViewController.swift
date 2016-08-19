@@ -109,7 +109,6 @@ class HomeViewController: UIViewController {
             self.homeModelArray.addObjectsFromArray(tempArray as [AnyObject])
 
             self.tableView.reloadData()
-//            self.tableView.scrollEnabled = true
             self.tableView.mj_footer.endRefreshing()
             }, failBlock: { (dic) in
                 self.page = self.page - 1
@@ -232,8 +231,9 @@ class HomeViewController: UIViewController {
         orderPageVC.reloadOrderNumber = { _ in
             self.getOrderNumber()
         }
-        
-        orderPageVC.numberArray = orderNumberArray
+        if orderNumberArray.count != 0 {
+            orderPageVC.numberArray = orderNumberArray
+        }
         orderPageVC.setBarStyle(.ProgressBounceView)
         orderPageVC.progressHeight = 0
         orderPageVC.progressWidth = 0
@@ -248,6 +248,7 @@ class HomeViewController: UIViewController {
     
     func getOrderNumber(){
         let orderViewModel = OrderViewModel()
+        self.orderNumberArray.removeAllObjects()
         orderViewModel.orderNumberOrder(UserInfo.sharedInstance().uid, successBlock: { (dic) in
             let countDic = dic as NSDictionary
             self.allOrderNumber = 0

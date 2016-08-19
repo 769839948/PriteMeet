@@ -12,7 +12,8 @@ import DZNEmptyDataSet
 class BaseOrderPageViewController: UIViewController {
 
     let viewModel = OrderViewModel()
-    var orderList = NSMutableArray()
+    var orderList:[OrderModel] = []
+    var sortOrderList:NSMutableArray = NSMutableArray()
     var orderState:String = "1"
     var collectionView:UICollectionView!
     var guest:String = ""
@@ -38,19 +39,25 @@ class BaseOrderPageViewController: UIViewController {
     }
     
     func setOrderData(state:String, guest:String){
-        self.orderList.removeAllObjects()
+        self.sortOrderList.removeAllObjects()
+        self.orderList.removeAll()
         self.guest = guest
         viewModel.getOrderList(state, withGuest: guest, successBlock: { (dic) in
             if ((dic["receive_order_list"] as! NSArray).count != 0){
                 let receive_Order_List = OrderModel.mj_objectArrayWithKeyValuesArray(dic["receive_order_list"])
-                self.orderList.addObjectsFromArray(receive_Order_List as [AnyObject])
+                self.sortOrderList.addObjectsFromArray(receive_Order_List as [AnyObject])
                 
             }
             if ((dic["apply_order_list"] as! NSArray).count != 0){
                 let apply_Order_List = OrderModel.mj_objectArrayWithKeyValuesArray(dic["apply_order_list"])
-                self.orderList.addObjectsFromArray(apply_Order_List as [AnyObject])
+                self.sortOrderList.addObjectsFromArray(apply_Order_List as [AnyObject])
             }
             NSUserDefaults.standardUserDefaults().setObject(dic["customer_service_number"], forKey: "customer_service_number")
+            for model in self.sortOrderList {
+                let orderModel = OrderModel.mj_objectWithKeyValues(model)
+                self.orderList.append(orderModel)
+            }
+            self.orderList.sortInPlace({ $0.order_id > $1.order_id })
             if self.collectionView != nil {
                 self.collectionView.reloadData()
             }
@@ -128,9 +135,8 @@ extension BaseOrderPageViewController: UICollectionViewDataSource {
         let cellIdef = "BlackListCollectCell"
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdef, forIndexPath: indexPath) as! BlackListCollectCell
         cell.reportBtn.userInteractionEnabled = false
-        let model = orderList[indexPath.row] as! OrderModel
         cell.layer.cornerRadius = 5.0
-        cell.setOrderModel(model)
+        cell.setOrderModel(orderList[indexPath.row])
         cell.backgroundColor = UIColor.whiteColor()
         return cell
     }

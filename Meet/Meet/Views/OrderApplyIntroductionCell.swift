@@ -33,14 +33,14 @@ class OrderApplyIntroductionCell: UITableViewCell {
         
         
         textView = TextViewAutoHeight(frame: CGRectMake(20, 20, ScreenWidth - 40, 100))
-        textView.tintColor = UIColor.blackColor()
+        textView.tintColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
         textView.font = LoginCodeLabelFont
         textView.maxHeight = 100
         self.contentView.addSubview(textView)
         
         numberText = UILabel()
         numberText.font = LoginCodeLabelFont
-        numberText.textColor = UIColor.init(hexString: OrderApplyMeetTitleColor)
+        numberText.textColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
         numberText.textAlignment = .Right
         self.contentView.addSubview(numberText)
         

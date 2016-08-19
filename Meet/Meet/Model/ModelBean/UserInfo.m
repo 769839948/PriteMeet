@@ -155,6 +155,7 @@ static UserInfo *userInfo=nil;
 
 #pragma mark - NSCoding
 - (void)encodeWithCoder:(NSCoder *)aCoder {
+    
     [aCoder encodeObject:self.uid forKey:@"uid"];
     [aCoder encodeObject:self.real_name forKey:@"real_name"];
     [aCoder encodeObject:self.location forKey:@"location"];
@@ -189,6 +190,7 @@ static UserInfo *userInfo=nil;
 
 + (BOOL)synchronizeWithDic:(NSDictionary *)dic
 {
+    [UserInfo sharedInstance].uid = [dic[@"id"] stringValue];
     [UserInfo sharedInstance].real_name  = dic[@"real_name"];
     [UserInfo sharedInstance].location  = dic[@"location"];
     [UserInfo sharedInstance].birthday  = dic[@"birthday"];

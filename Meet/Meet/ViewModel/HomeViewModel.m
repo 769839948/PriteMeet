@@ -163,12 +163,15 @@
 {
     
     NSString *url = [RequestBaseUrl stringByAppendingFormat:RequestSenderLocation];
-    NSDictionary *parmeters = @{@"uid":[UserInfo sharedInstance].uid, @"latitude":[NSString stringWithFormat:@"%f",latitude],@"longitude":[NSString stringWithFormat:@"%f",longitude]};
-    [self postWithURLString:url parameters:parmeters success:^(NSDictionary *responseObject) {
-        
-    } failure:^(NSDictionary *responseObject) {
-        
-    }];
+    if ([UserInfo sharedInstance].uid != nil) {
+        NSDictionary *parmeters = @{@"uid":[UserInfo sharedInstance].uid, @"latitude":[NSString stringWithFormat:@"%f",latitude],@"longitude":[NSString stringWithFormat:@"%f",longitude]};
+        [self postWithURLString:url parameters:parmeters success:^(NSDictionary *responseObject) {
+            
+        } failure:^(NSDictionary *responseObject) {
+            
+        }];
+    }
+    
 }
 
 

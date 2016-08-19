@@ -32,7 +32,7 @@ class ZDQFlowViewItem: UIView {
         titleLabel = UILabel()
         titleLabel.font = UIFont.systemFontOfSize(11.0)
         titleLabel.textAlignment = .Center
-        titleLabel.frame = CGRectMake(0, CGRectGetMaxY(imageView.frame) + 6, 45, 16)
+        titleLabel.frame = CGRectMake(-6, CGRectGetMaxY(imageView.frame) + 6, 57, 16)
         self.addSubview(titleLabel)
 
     }

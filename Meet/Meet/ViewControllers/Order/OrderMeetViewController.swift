@@ -40,12 +40,12 @@ class OrderMeetViewController: BaseOrderPageViewController {
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let applyDetailView = WaitMeetViewController()
         applyDetailView.uid = self.guest
-        let orderModel = (orderList[indexPath.row] as! OrderModel)
+        let model = orderList[indexPath.row]
         applyDetailView.myClouse = { status in
-            self.orderList.removeObjectAtIndex(indexPath.row)
+            self.orderList.removeAtIndex(indexPath.row)
             self.collectionView.reloadData()
         }
-        applyDetailView.orderModel = orderModel
+        applyDetailView.orderModel = model
         self.navigationController?.pushViewController(applyDetailView, animated: true)
     }
 

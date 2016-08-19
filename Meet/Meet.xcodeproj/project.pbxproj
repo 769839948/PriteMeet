@@ -98,6 +98,7 @@
 		1F9E93171D0D8B4D003ED7AF /* SwiftDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9E93161D0D8B4D003ED7AF /* SwiftDefine.swift */; };
 		1F9E931A1D0E486D003ED7AF /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9E93191D0E486D003ED7AF /* UIImage+ImageEffects.m */; };
 		1F9E931D1D0E4993003ED7AF /* UIImage+PureColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9E931C1D0E4993003ED7AF /* UIImage+PureColor.m */; };
+		1F9ED87F1D66DFEE00DCB06A /* OrderTips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9ED87E1D66DFEE00DCB06A /* OrderTips.swift */; };
 		1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */; };
 		1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5931CFDF931002345C1 /* NSString+StringSize.m */; };
 		1FAA077F1D3CBE600017F3E3 /* ApplyMeetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA077E1D3CBE600017F3E3 /* ApplyMeetModel.m */; };
@@ -405,6 +406,7 @@
 		1F9E93191D0E486D003ED7AF /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		1F9E931B1D0E4993003ED7AF /* UIImage+PureColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+PureColor.h"; sourceTree = "<group>"; };
 		1F9E931C1D0E4993003ED7AF /* UIImage+PureColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PureColor.m"; sourceTree = "<group>"; };
+		1F9ED87E1D66DFEE00DCB06A /* OrderTips.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTips.swift; sourceTree = "<group>"; };
 		1FA4E58F1CFDF91F002345C1 /* InterestCollectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestCollectView.h; sourceTree = "<group>"; };
 		1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestCollectView.m; sourceTree = "<group>"; };
 		1FA4E5921CFDF931002345C1 /* NSString+StringSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSize.h"; sourceTree = "<group>"; };
@@ -1044,6 +1046,7 @@
 			isa = PBXGroup;
 			children = (
 				1FD97C121D5B1F5C00556568 /* PayView.swift */,
+				1F9ED87E1D66DFEE00DCB06A /* OrderTips.swift */,
 				1FD97BB91D55DBF300556568 /* OrderApplyMeetTableViewCell.swift */,
 				1FD97BBB1D55E1A900556568 /* OrderApplyIntroductionCell.swift */,
 				1FD97BBD1D55E41700556568 /* OrderApplyInfoTableViewCell.swift */,
@@ -1778,6 +1781,7 @@
 				DAF5C81E1CE0D0ED00DA7901 /* BaseModel.m in Sources */,
 				1F68503D1CFFE4F2007F3C07 /* NewMeetInfoTableViewCell.m in Sources */,
 				1FAA08051D40DA670017F3E3 /* EditMoreProfileViewController.swift in Sources */,
+				1F9ED87F1D66DFEE00DCB06A /* OrderTips.swift in Sources */,
 				DAF5C7F91CDF479C00DA7901 /* NetWorkObject.m in Sources */,
 				1F2059261D2BBD6F001FF99C /* SetInviteCollectView.m in Sources */,
 				1FBBC3211D3A09A2005D4175 /* PSWView.m in Sources */,

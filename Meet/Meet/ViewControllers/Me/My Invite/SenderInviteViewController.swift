@@ -35,7 +35,6 @@ class SenderInviteViewController: UIViewController {
     var isHomeListLogin:Bool = false
     
     var isApplyMeetLogin:Bool = false
-    var isTextViewDidChange:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -231,13 +230,6 @@ extension SenderInviteViewController : UITableViewDelegate {
             return 77
         }
     }
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if !isTextViewDidChange {
-            self.view.endEditing(true)
-        }else if(scrollView.contentOffset.y > 100){
-            isTextViewDidChange = false
-        }
-    }
 }
 
 extension SenderInviteViewController : UITableViewDataSource {
@@ -308,10 +300,6 @@ extension SenderInviteViewController : UITableViewDataSource {
     }
 }
 extension SenderInviteViewController : UITextViewDelegate {
-    func textViewDidBeginEditing(textView: UITextView) {
-        isTextViewDidChange = true
-    }
-    
     func textViewDidChange(textView: UITextView) {
         if !isNewLogin {
             if !UserInviteModel.shareInstance().results[0].is_active {

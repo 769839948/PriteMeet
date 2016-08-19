@@ -39,12 +39,13 @@ class OrderAllViewController: BaseOrderPageViewController {
     //MARK:
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        let orderModel = (orderList[indexPath.row] as! OrderModel)
+        let orderModel = orderList[indexPath.row]
+        
         if orderModel.status?.status_code == "2" || orderModel.status?.status_code == "3" || orderModel.status?.status_code == "7" || orderModel.status?.status_code == "8" || orderModel.status?.status_code == "13"  {
             let applyDetailView = OrderCancelViewController()
             applyDetailView.uid = self.guest
             applyDetailView.myClouse = { status in
-                self.orderList.removeObjectAtIndex(indexPath.row)
+                self.orderList.removeAtIndex(indexPath.row)
                 self.collectionView.reloadData()
             }
             applyDetailView.orderModel = orderModel
@@ -53,7 +54,7 @@ class OrderAllViewController: BaseOrderPageViewController {
             let applyDetailView = AllMeetViewController()
             applyDetailView.uid = self.guest
             applyDetailView.myClouse = { status in
-                self.orderList.removeObjectAtIndex(indexPath.row)
+                self.orderList.removeAtIndex(indexPath.row)
                 self.collectionView.reloadData()
             }
             applyDetailView.orderModel = orderModel

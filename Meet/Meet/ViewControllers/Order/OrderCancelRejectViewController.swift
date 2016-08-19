@@ -48,7 +48,7 @@ class OrderCancelRejectViewController: UIViewController {
         self.setUpData()
         // Do any additional setup after loading the view.
     }
-
+    
     func setUpData() {
         viewModel.orderCancelRejectReson({ (dic) in
             let cancelDic:NSDictionary!
@@ -88,6 +88,7 @@ class OrderCancelRejectViewController: UIViewController {
         self.tableView.dataSource = self
         self.view.addSubview(self.tableView)
         self.hideExcessLine(tableView)
+        tableView.keyboardDismissMode = .OnDrag
         self.tableView.separatorStyle = .None
         self.tableView.snp_makeConstraints { (make) in
             make.top.equalTo(self.view.snp_top).offset(0)
@@ -122,8 +123,8 @@ class OrderCancelRejectViewController: UIViewController {
        viewModel.switchOrderStatus(orderModel.order_id, status: changeOrderStatus, rejectType: reject_type, rejectReason: textView.text, succeccBlock: { (dic) in
             if self.reloadOrderStatusChang != nil{
                 self.reloadOrderStatusChang()
+                self.navigationController?.popViewControllerAnimated(true)
             }
-            self.navigationController?.popViewControllerAnimated(true)
 
         }) { (dic) in
             UITools.showMessageToView(self.view, message: (dic as NSDictionary).objectForKey("error") as! String, autoHide: true)
@@ -149,23 +150,31 @@ class OrderCancelRejectViewController: UIViewController {
 
 extension OrderCancelRejectViewController : UITableViewDelegate {
     func  tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if  selectIndexPaths[indexPath.row] as! Bool{
-            selectIndexPaths[indexPath.row] = false
-        }else{
-            for index in 0...selectIndexPaths.count - 1 {
-                if index == indexPath.row {
-                    selectIndexPaths[index] = true
-                }else{
-                    selectIndexPaths[index] = false
+        if indexPath.row <= reportArray.count - 1 {
+            if  selectIndexPaths[indexPath.row] as! Bool{
+                selectIndexPaths[indexPath.row] = false
+            }else{
+                for index in 0...selectIndexPaths.count - 1 {
+                    if index == indexPath.row {
+                        selectIndexPaths[index] = true
+                    }else{
+                        selectIndexPaths[index] = false
+                    }
                 }
+                
             }
-            
+            for row in 0...reportArray.count - 1 {
+                self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: row, inSection: 0)], withRowAnimation: .Automatic)
+            }
+        }else{
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
-        for row in 0...reportArray.count - 1 {
-            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: row, inSection: 0)], withRowAnimation: .Automatic)
-        }
+        
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row == reportArray.count {
+            return 200
+        }
         return 50
     }
 }
@@ -189,9 +198,16 @@ extension OrderCancelRejectViewController : UITableViewDataSource {
                     cell?.contentView.subviews.last?.removeFromSuperview()
                 }
             }
-            textView = UITextView(frame: CGRectMake(15, 20, ScreenWidth - 40, 100))
+            textView = UITextView(frame: CGRectMake(15, 20, ScreenWidth - 40, 200))
             textView.font = LoginCodeLabelFont
-            textView.placeholder = "添加拒绝说明，请您礼貌的拒绝的对方，展现您的绅士魅力"
+            if self.resonType == .Cancel {
+                textView.placeholder = (PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000004") as! String
+
+            }else {
+                textView.placeholder = (PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000005") as! String
+
+            }
+            textView.returnKeyType = .Done
             textView.delegate = self
             textView.text = reject_reson
             textView.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
@@ -233,12 +249,22 @@ extension OrderCancelRejectViewController : UITableViewDataSource {
         cell?.tag = Int(reportKeys[indexPath.row] as! String)!
         return cell!
     }
+    
 }
 
 extension OrderCancelRejectViewController : UITextViewDelegate {
-    func textView(textView: UITextView, shouldInteractWithURL URL: NSURL, inRange characterRange: NSRange) -> Bool {
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         self.reject_reson = textView.text
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
         return true
+    }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        self.view.endEditing(true)
     }
 }
 

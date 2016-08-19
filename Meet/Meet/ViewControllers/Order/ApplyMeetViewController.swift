@@ -39,8 +39,8 @@ class ApplyMeetViewController: UIViewController {
     var contenOfY:CGFloat = 0
     
     var loginView:LoginView!
-    
-    var isTextViewDidChange : Bool = false
+        
+    var isApplyOrder:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,22 +51,8 @@ class ApplyMeetViewController: UIViewController {
         self.navigationItemWhiteColorAndNotLine()
         self.fd_prefersNavigationBarHidden = true
         self.talKingDataPageName = "Order-ApplyMeet"
-        
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ApplyMeetViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ApplyMeetViewController.keyboardWillDismiss(_:)), name: UIKeyboardWillHideNotification, object: nil)
+    
         // Do any additional setup after loading the view.
-    }
-    
-    func keyboardWillShow(notification:NSNotification) {
-        let userInfo:NSDictionary = notification.userInfo!
-        let value = userInfo.objectForKey(UIKeyboardFrameEndUserInfoKey)
-        let keyboardRect:CGRect = (value?.CGRectValue())!
-        keyboardHeight = keyboardRect.size.height
-    }
-    
-    func keyboardWillDismiss(notification:NSNotification) {
-        
     }
 
     func setUpNavigationTitleView() {
@@ -100,6 +86,7 @@ class ApplyMeetViewController: UIViewController {
         self.tableView.dataSource = self
         self.view.addSubview(self.tableView)
         self.tableView.separatorStyle = .None
+        self.tableView.keyboardDismissMode = .OnDrag
         self.tableView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
         self.tableView.registerClass(OrderFlowTableViewCell.self, forCellReuseIdentifier: "OrderFlowTableViewCell")
         self.tableView.registerClass(OrderApplyMeetTableViewCell.self, forCellReuseIdentifier: "OrderApplyMeetTableViewCell")
@@ -148,6 +135,11 @@ class ApplyMeetViewController: UIViewController {
     }
     
     func applyMeet() {
+        if isApplyOrder {
+            UITools.showMessageToView(self.view, message: "预约提交中请稍后", autoHide: true)
+            return
+        }
+        isApplyOrder = true
         viewModel = OrderViewModel()
         var appointment_theme = ""
         for idx in 0...cell.interestView.selectItems.count - 1 {
@@ -166,6 +158,7 @@ class ApplyMeetViewController: UIViewController {
             UITools.showMessageToView(self.view, message: "未填写约见说明哦", autoHide: true)
             return
         }
+        
         let applyModel = ApplyMeetModel()
         applyModel.appointment_desc = introductionCell.textView.text;
         applyModel.appointment_theme = appointment_theme
@@ -184,9 +177,11 @@ class ApplyMeetViewController: UIViewController {
                 }, fialBlock: { (dic) in
                     
             })
+            self.isApplyOrder = false
         }) { (dic) in
             let failDic = dic as NSDictionary
             UITools.showMessageToView(self.view, message:failDic.objectForKey("error") as! String, autoHide: true)
+            self.isApplyOrder = false
         }
     }
     
@@ -311,14 +306,6 @@ extension ApplyMeetViewController : UITableViewDelegate {
         return 0.00001
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        print(scrollView.contentOffset.y)
-        if !isTextViewDidChange {
-            self.view.endEditing(true)
-        }else if(scrollView.contentOffset.y > 180){
-            isTextViewDidChange = false
-        }
-    }
 }
 
 extension ApplyMeetViewController : UITableViewDataSource {
@@ -350,7 +337,8 @@ extension ApplyMeetViewController : UITableViewDataSource {
                 let cellId = "OrderApplyInfoTableViewCell"
                 let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! OrderApplyInfoTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
-                cell.setData("约见成功，Meet将收取 48 元平台费用\n对方接受约见后，您才需付款\n付款成功后，双方可互见联系电话及微信\n见面前，任何一方放弃约见，约见费用立即全额退还")
+                (PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000003")
+                cell.setData("\((PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000003")!)")
                 return cell
             }
         }
@@ -359,20 +347,17 @@ extension ApplyMeetViewController : UITableViewDataSource {
 
 extension ApplyMeetViewController : UITextViewDelegate {
     func textViewDidChange(textView: UITextView) {
-        isTextViewDidChange = true
     }
     
     func textViewDidBeginEditing(textView: UITextView) {
-        isTextViewDidChange = true
-        
         contenOfY = self.tableView.contentOffset.y
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         self.updataTableViewContent(contenOfY)
         let length = 300 - textView.text.length
-        introductionCell.numberText.text = "最后可输入\(length)字"
-        if textView.text.length > 20 {
+        introductionCell.numberText.text = "\(length)"
+        if textView.text.length > 280 {
             introductionCell.numberText.hidden = false
         }else{
             introductionCell.numberText.hidden = true

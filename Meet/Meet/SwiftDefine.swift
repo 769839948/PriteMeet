@@ -62,6 +62,9 @@ let OrderCancelInfoViewFont      = version >= 9.0 ? UIFont.init(name: "PingFangS
 
 let OrderMeetTipFont      = version >= 9.0 ? UIFont.init(name: "PingFangSC-Medium", size: 12.0):UIFont.systemFontOfSize(12.0)
 
+let OrderMeetTipTitleFont      = version >= 9.0 ? UIFont.init(name: "PingFangSC-Medium", size: 17.0):UIFont.systemFontOfSize(17.0)
+
+
 let ReloadOrderCollectionView = "ReloadOrderCollectionView"
 
 func Stroyboard(storyName:String, viewControllerId:String) -> UIViewController {

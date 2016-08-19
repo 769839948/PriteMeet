@@ -130,6 +130,9 @@ class BaseOrderViewController: UIViewController {
             cancelView.title = "拒绝原因说明"
             cancelView.changeOrderStatus = "3"
             cancelView.resonType = .Reject
+            cancelView.reloadOrderStatusChang = { _ in
+                self.reloadData()
+            }
             cancelView.orderModel = self.orderModel
             self.navigationController?.pushViewController(cancelView, animated: true)
         }
@@ -164,7 +167,7 @@ class BaseOrderViewController: UIViewController {
     }
     
     func meetBottomClick() {
-        let alertControl = UIAlertController(title: "确定要双方已经见面", message: "确认与 \((orderModel.order_user_info?.real_name)!) 见面后\n对方会收到见面完成的确认短信", preferredStyle: .Alert)
+        let alertControl = UIAlertController(title: "确定双方已见面吗", message: "确认与 \((orderModel.order_user_info?.real_name)!) 见面后\n对方会收到见面完成的确认短信", preferredStyle: .Alert)
         let cancelAction = UIAlertAction(title: "暂不", style: .Cancel) { (cancel) in
             
         }
@@ -206,7 +209,11 @@ class BaseOrderViewController: UIViewController {
     
     func changePayStatues(notification:NSNotification) {
         let payCompleteVC = Stroyboard("Order", viewControllerId: "PayCompleteViewController") as! PayCompleteViewController
+        payCompleteVC.payCompleteClouse = { _ in
+            self.reloadData()
+        }
         payCompleteVC.orderModel = self.orderModel
+        
         self.navigationController?.pushViewController(payCompleteVC, animated: true)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: WeiXinPayStatues, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: AliPayStatues, object: nil)
@@ -273,6 +280,10 @@ class BaseOrderViewController: UIViewController {
     }
     
     func rightBarPress(sender:UIBarButtonItem) {
+        self.pushMeetDetaiVC()
+    }
+    
+    func pushMeetDetaiVC() {
         let meetDetailVC = MeetDetailViewController()
         meetDetailVC.user_id = orderModel.order_user_info!.uid
         meetDetailVC.isOrderViewPush = true
@@ -281,6 +292,7 @@ class BaseOrderViewController: UIViewController {
     
     func setUpTitleView(){
         titleView = UIView(frame: CGRectMake(40,22,ScreenWidth - 80,63))
+        titleView.userInteractionEnabled = true
         let phototView = UIImageView(frame: CGRectMake((titleView.frame.size.width - PhotoWith)/2, 2, PhotoWith, PhotoHeight))
         phototView.layer.cornerRadius = PhotoWith/2
         phototView.layer.masksToBounds = true
@@ -297,6 +309,16 @@ class BaseOrderViewController: UIViewController {
         positionLabel.textAlignment = .Center
         titleView.addSubview(positionLabel)
         navigationBarTitleView.addSubview(titleView)
+        
+        let tapGetues =  UITapGestureRecognizer(target: self, action: #selector(BaseOrderViewController.pushUserDetail(_:)))
+        tapGetues.numberOfTapsRequired = 1
+        tapGetues.numberOfTouchesRequired = 1
+        titleView.addGestureRecognizer(tapGetues)
+
+    }
+    
+    func pushUserDetail(tap:UITapGestureRecognizer) {
+        self.pushMeetDetaiVC()
     }
     
     func setUpTableView() {
@@ -334,13 +356,13 @@ class BaseOrderViewController: UIViewController {
                 if self.orderModel.status?.status_type == "apply_order"{
                     self.cancelView.changeOrderStatus = "2"
                 }else{
-                    self.cancelView.changeOrderStatus = "3"
+                    self.cancelView.changeOrderStatus = "2"
                 }
             }else if self.orderModel.status?.status_code == "4" {
                 if self.orderModel.status?.status_type == "apply_order"{
-                    self.cancelView.changeOrderStatus = "12"
-                }else{
                     self.cancelView.changeOrderStatus = "13"
+                }else{
+                    self.cancelView.changeOrderStatus = "12"
                 }
             }else if self.orderModel.status?.status_code == "6" {
                 if self.orderModel.status?.status_type == "apply_order"{
@@ -379,7 +401,29 @@ class BaseOrderViewController: UIViewController {
     
     
     func configCell(cell:CancelInfoTableViewCell, index:NSIndexPath) {
-        cell.setUpData("\((orderModel.order_user_info?.real_name)!) 因\((orderModel.reject_type_desc))", resonDetail: "\((orderModel.reject_reason))")
+        //guest
+        var resonType:String = ""
+        let statusCode = orderModel.status?.status_code
+        if orderModel.status?.status_type == "apply_order" {
+            if statusCode == "2" || statusCode == "7" || statusCode == "8" || statusCode == "13" {
+                resonType = "您 因\((orderModel.reject_type_desc))取消了约见"
+            }else if statusCode == "3" {
+                resonType = "\(orderModel.order_user_info!.real_name) 因\((orderModel.reject_type_desc))拒绝了您的约见"
+            }else if statusCode == "9" || statusCode == "10"  {
+                resonType = "\(orderModel.order_user_info!.real_name) 因\((orderModel.reject_type_desc))取消了与您的约见"
+            }
+        }else{
+            if statusCode == "2" || statusCode == "7" || statusCode == "8" || statusCode == "13" {
+                resonType = "\(orderModel.order_user_info!.real_name) 因\((orderModel.reject_type_desc))取消了您的约见"
+            }else if statusCode == "3" {
+                resonType = "您 因\((orderModel.reject_type_desc))拒绝了约见"
+            }else if statusCode == "9" || statusCode == "10"  {
+                resonType = "您 因\((orderModel.reject_type_desc))取消了约见"
+
+            }
+        }
+        
+        cell.setUpData(resonType as String, resonDetail: "\((orderModel.reject_reason))")
     }
     
     func configAppointThemeTypeCell(cell:AppointMentTableViewCell, indexPath:NSIndexPath) {
@@ -401,16 +445,16 @@ class BaseOrderViewController: UIViewController {
         case 2:
             let returnCell = cell as! MeetOrderInfoTableViewCell
             if self.orderModel.status?.status_code == "6" {
-                returnCell.setData(orderModel,type:.WaitMeet)
+                returnCell.setData(orderModel,type:.PayDas)
             }else{
-                returnCell.setData(orderModel,type:.WaitPay)
+                returnCell.setData(orderModel,type:.Normal)
             }
             return returnCell
         default:
             let returnCell = cell as! OrderCancelTableViewCell
             returnCell.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemUnSelect)
             returnCell.selectionStyle = .None
-            if self.orderType == .Done {
+            if self.orderType == .Done || self.orderModel.status?.status_code == "" {
                 returnCell.setButtonTitle("反馈客服", type: .Cancel)
             }else{
                 returnCell.setButtonTitle("取消约见", type: .Normal)
@@ -465,7 +509,7 @@ extension BaseOrderViewController : UITableViewDelegate {
                 if orderModel.status?.status_code == "6" {
                     return 340
                 }
-                return 245
+                return 320
             }else{
                 if orderModel.status?.status_code == "11" {
                     return 129
@@ -510,13 +554,14 @@ extension BaseOrderViewController : UITableViewDataSource {
                 return cell
             case 3:
                 let cell = tableView.dequeueReusableCellWithIdentifier("MeetOrderInfoTableViewCell", forIndexPath: indexPath) as! MeetOrderInfoTableViewCell
-                cell.setData(orderModel, type: .Cancel)
+                cell.setData(orderModel, type: .Normal)
                 cell.selectionStyle = .None
                 return cell
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier("OrderCancelTableViewCell", forIndexPath: indexPath) as! OrderCancelTableViewCell
                 cell.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemUnSelect)
                 cell.setButtonTitle("反馈客服", type: .Cancel)
+                cell.selectionStyle = .None
                 cell.cancelBtnClickclouse = { _ in
                     
                 }
