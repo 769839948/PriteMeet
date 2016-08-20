@@ -31,7 +31,7 @@ class BaseOrderPageViewController: UIViewController {
         lineLabel.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
         self.view.addSubview(lineLabel)
         lineLabel.snp_makeConstraints { (make) in
-            make.bottom.equalTo(self.collectionView.snp_top).offset(1)
+            make.bottom.equalTo(self.collectionView.snp_top).offset(0.5)
             make.left.equalTo(self.view.snp_left).offset(0)
             make.right.equalTo(self.view.snp_right).offset(0)
             make.height.equalTo(0.5)
@@ -79,7 +79,7 @@ class BaseOrderPageViewController: UIViewController {
         collectionView.emptyDataSetDelegate = self
         collectionView.emptyDataSetSource = self
         collectionView.backgroundColor = UIColor.init(colorLiteralRed: 251.0/255.0, green: 251.0/255.0, blue: 251.0/255.0, alpha: 1.0)
-        collectionView.registerNib(UINib.init(nibName: "BlackListCollectCell", bundle:nil), forCellWithReuseIdentifier: "BlackListCollectCell")
+        collectionView.registerNib(UINib.init(nibName: "OrderCollectionViewCell", bundle:nil), forCellWithReuseIdentifier: "OrderCollectionViewCell")
         self.view.addSubview(collectionView)
         
         collectionView.snp_makeConstraints { (make) in
@@ -132,8 +132,8 @@ extension BaseOrderPageViewController: UICollectionViewDataSource {
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cellIdef = "BlackListCollectCell"
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdef, forIndexPath: indexPath) as! BlackListCollectCell
+        let cellIdef = "OrderCollectionViewCell"
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdef, forIndexPath: indexPath) as! OrderCollectionViewCell
         cell.reportBtn.userInteractionEnabled = false
         cell.layer.cornerRadius = 5.0
         cell.setOrderModel(orderList[indexPath.row])
@@ -195,8 +195,6 @@ extension BaseOrderPageViewController : DZNEmptyDataSetSource {
         paragraph.lineBreakMode = .ByWordWrapping
         paragraph.alignment = .Center
         paragraph.lineSpacing = 5.0
-//        let attributes = NSMutableAttributedString()
-//        attributes.addAttributes([NSFontAttributeName:LoginCodeLabelFont!], range: NSRange.init(location: 0, length: string.length))
         let attributes = [NSFontAttributeName:UIFont.systemFontOfSize(14.0),NSParagraphStyleAttributeName:paragraph,NSForegroundColorAttributeName:UIColor.init(hexString: EmptyDataTitleColor)]
         return NSAttributedString(string: string, attributes: attributes)
     }

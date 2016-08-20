@@ -29,11 +29,15 @@ class MeViewController: UIViewController {
     var loginView:LoginView!
     
     let orderNumberArray:NSMutableArray = NSMutableArray()
+    var allOrderNumber:NSInteger = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpTableView()
         self.loadExtenInfo()
+        if UserInfo.isLoggedIn() {
+            self.getOrderNumber()
+        }
         self.addLineNavigationBottom()
         self.talKingDataPageName = "Me"
         self.navigationController?.navigationBar.translucent = true
@@ -93,7 +97,7 @@ class MeViewController: UIViewController {
 //        self.navigationController?.navigationBar.translucent = false
 
 //        if UserInfo.isLoggedIn() {
-//            self.navigationItemWithLineAndWihteColor()
+            self.navigationItemWithLineAndWihteColor()
 //        }
     }
     
@@ -360,16 +364,7 @@ class MeViewController: UIViewController {
                                               dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INITIATED, 0))
             
             dispatch_async(queue) {
-                let orderViewModel = OrderViewModel()
-                orderViewModel.orderNumberOrder(UserInfo.sharedInstance().uid, successBlock: { (dic) in
-                    let countDic = dic as NSDictionary
-                    self.orderNumberArray.addObject("\(countDic["1"]!)")
-                    self.orderNumberArray.addObject("\(countDic["4"]!)")
-                    self.orderNumberArray.addObject("\(countDic["6"]!)")
-                    self.orderNumberArray.addObject("0")
-                }) { (dic) in
-                    
-                }
+                self.getOrderNumber()
             }
             dispatch_async(queue) {
                 self.presentOrderView()
@@ -382,7 +377,13 @@ class MeViewController: UIViewController {
     func presentOrderView(){
         let orderPageVC = OrderPageViewController()
         orderPageVC.setUpNavigationItem()
-        orderPageVC.numberArray = orderNumberArray
+        
+        orderPageVC.reloadOrderNumber = { _ in
+            self.getOrderNumber()
+        }
+        if orderNumberArray.count != 0 {
+            orderPageVC.numberArray = orderNumberArray
+        }
         orderPageVC.setBarStyle(.ProgressBounceView)
         orderPageVC.progressHeight = 0
         orderPageVC.progressWidth = 0
@@ -392,7 +393,28 @@ class MeViewController: UIViewController {
         self.presentViewController(navigationController, animated: true, completion: {
             
         })
+        
     }
+    
+    func getOrderNumber(){
+        let orderViewModel = OrderViewModel()
+        self.orderNumberArray.removeAllObjects()
+        orderViewModel.orderNumberOrder(UserInfo.sharedInstance().uid, successBlock: { (dic) in
+            let countDic = dic as NSDictionary
+            self.allOrderNumber = 0
+            for value in countDic.allValues {
+                self.allOrderNumber = self.allOrderNumber + Int(value as! NSNumber)
+            }
+            self.orderNumberArray.addObject("\(countDic["1"]!)")
+            self.orderNumberArray.addObject("\(countDic["4"]!)")
+            self.orderNumberArray.addObject("\(countDic["6"]!)")
+            self.orderNumberArray.addObject("0")
+            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 5, inSection: 0)], withRowAnimation: .Automatic)
+        }) { (dic) in
+            
+        }
+    }
+    
 }
 
 extension MeViewController : UITableViewDelegate{
@@ -550,7 +572,7 @@ extension MeViewController : UITableViewDataSource {
                     cell.configCell("me_newmeet", infoString: "我的邀约", infoDetail: "")
                 }
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
-                cell.setinfoButtonBackGroudColor(lineLabelBackgroundColor)
+                cell.setInfoButtonBackGroudColor(lineLabelBackgroundColor)
                 cell.hidderLine()
                 return cell
             }else if indexPath.row == 3 {
@@ -598,15 +620,19 @@ extension MeViewController : UITableViewDataSource {
                          string = "尚未通过职业、实名、电话认证       "
                     }
                     cell.infoDetailLabel.text = string
-                    cell.setinfoButtonBackGroudColor(lineLabelBackgroundColor)
+                    cell.setInfoButtonBackGroudColor(lineLabelBackgroundColor)
                 }
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 return cell
             }else if indexPath.row == 5 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
-                cell.configCell("me_mymeet", infoString: "我的约见", infoDetail: "")
+                if allOrderNumber == 0 {
+                    cell.configCell("me_mymeet", infoString: "我的约见", infoDetail: "")
+                }else{
+                    cell.configCell("me_mymeet", infoString: "我的约见", infoDetail: "共 \(allOrderNumber) 个进行中     ")
+                }
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
-                cell.setinfoButtonBackGroudColor(lineLabelBackgroundColor)
+                cell.setInfoButtonBackGroudColor(MeProfileCollectViewItemSelect)
                 return cell
             }else{
                 let identifier = "LastCell"

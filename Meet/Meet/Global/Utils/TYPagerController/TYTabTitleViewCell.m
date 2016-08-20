@@ -48,10 +48,10 @@
 - (void)addTabNumberLabel
 {
     UIView *numberContainer = [[UIView alloc] init];
-    numberContainer.layer.cornerRadius = 8;
+    numberContainer.layer.cornerRadius = 10;
     numberContainer.backgroundColor = [UIColor whiteColor];
     UILabel *numberLabel = [[UILabel alloc]init];
-    numberLabel.font = [UIFont systemFontOfSize:8];
+    numberLabel.font = [UIFont systemFontOfSize:10];
     numberLabel.textColor = [UIColor whiteColor];
     numberLabel.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
     numberLabel.layer.cornerRadius = 6;
@@ -70,6 +70,7 @@
     _titleLabel.frame = frame;
     _numberLabel.frame = CGRectMake(2, 2, 18, 12);
     _numberContainer.frame = CGRectMake(frame.size.width - 22, frame.origin.y + 8, 22, 16);
+    _numberContainer.backgroundColor = [UIColor whiteColor];
 }
 
 @end

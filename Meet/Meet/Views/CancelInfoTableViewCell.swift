@@ -33,6 +33,10 @@ class CancelInfoTableViewCell: UITableViewCell {
     func setUpView() {
         appointmentBackGroundView = UIView()
         appointmentBackGroundView.backgroundColor = UIColor.init(hexString: CancelInfoBackGroundColor)
+        appointmentBackGroundView.layer.shadowColor = UIColor.init(red: 90/255.0, green: 18/255.0, blue: 0, alpha: 1).CGColor
+        appointmentBackGroundView.layer.shadowOpacity = 0.12;
+        appointmentBackGroundView.layer.shadowRadius = 10//阴影半径，默认3
+        appointmentBackGroundView.layer.shadowOffset = CGSizeMake(0, 10)
         appointmentBackGroundView.layer.cornerRadius = 5.0
         self.contentView.addSubview(appointmentBackGroundView)
         
@@ -66,8 +70,15 @@ class CancelInfoTableViewCell: UITableViewCell {
     }
     
     func setUpData(reson:String, resonDetail:String) {
+        
         resonLabel.text = reson
         resonDetailLabel.text = resonDetail
+        resonLabel.snp_updateConstraints { (make) in
+            make.height.equalTo(reson.heightWithConstrainedWidth(ScreenWidth - 70, font: OrderCancelInfoViewFont!) + 3)
+        }
+        resonDetailLabel.snp_updateConstraints { (make) in
+            make.height.equalTo(reson.heightWithConstrainedWidth(ScreenWidth - 70, font: OrderInfoPayDetailFont!))
+        }
     }
     
     override func updateConstraints() {
@@ -90,7 +101,7 @@ class CancelInfoTableViewCell: UITableViewCell {
                 make.left.equalTo(self.appointmentBackGroundView.snp_left).offset(15)
                 make.right.equalTo(self.appointmentBackGroundView.snp_right).offset(-15)
                 make.top.equalTo(self.resonLabel.snp_bottom).offset(12)
-                make.bottom.equalTo(self.meetInfo.snp_top).offset(-54)
+                make.bottom.greaterThanOrEqualTo(self.appointmentBackGroundView.snp_top).offset(-66)
             }
             
             meetInfo.snp_makeConstraints { (make) in

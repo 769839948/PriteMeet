@@ -39,6 +39,9 @@ class AppointMentTableViewCell: UITableViewCell {
     var meetInfo:UILabel!
     var meetImage:UIImageView!
     
+    var backImageView:UIImageView!
+    
+
     var  didSetupConstraints:Bool = false
     
     let gradient: CAGradientLayer = CAGradientLayer()
@@ -51,10 +54,19 @@ class AppointMentTableViewCell: UITableViewCell {
 
     func setUpView() {
         appointmentBackGroundView = UIView()
-        gradient.colors = [UIColor.init(hexString: AppointMentBeginBackGroundColor).CGColor, UIColor.init(hexString: AppointMentEndBackGroundColor).CGColor]
-        appointmentBackGroundView.layer.insertSublayer(gradient, atIndex: 0)
-        gradient.cornerRadius = 5.0
+        appointmentBackGroundView.layer.shadowColor = UIColor.init(red: 90/255.0, green: 18/255.0, blue: 0, alpha: 1).CGColor
+        appointmentBackGroundView.layer.shadowOpacity = 0.12;
+        appointmentBackGroundView.layer.shadowRadius = 10//阴影半径，默认3
+        appointmentBackGroundView.layer.shadowOffset = CGSizeMake(0, 10)
+        appointmentBackGroundView.layer.cornerRadius = 5.0
         self.contentView.addSubview(appointmentBackGroundView)
+        
+        backImageView = UIImageView()
+        backImageView.image = UIImage.init(named: "order_appointment_back")
+        backImageView.layer.cornerRadius = 5.0
+        backImageView.layer.masksToBounds = true
+        appointmentBackGroundView.addSubview(backImageView)
+
         
         appointmentIntroduce = UILabel()
         appointmentIntroduce.numberOfLines = 0
@@ -90,7 +102,6 @@ class AppointMentTableViewCell: UITableViewCell {
         let string = model.appointment_desc.stringByReplacingOccurrencesOfString(" ", withString: "")
         appointmentIntroduce.text = string
         appointmentType.setCollectViewData(model.appointment_theme as [AnyObject], style: CollectionViewItemStyle.ItemWhiteBoardOrginBacground)
-//        appointmentType.backgroundColor = UIColor.redColor()
         appointmentType.snp_updateConstraints { (make) in
             make.height.equalTo(tableViewHeight(model.appointment_theme, width: ScreenWidth - 70))
         }
@@ -115,7 +126,14 @@ class AppointMentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp_left).offset(20)
                 make.right.equalTo(self.contentView.snp_right).offset(-20)
                 make.top.equalTo(self.contentView.snp_top).offset(0)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(0)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-30)
+            }
+            
+            backImageView.snp_makeConstraints { (make) in
+                make.left.equalTo(self.appointmentBackGroundView.snp_left).offset(0)
+                make.right.equalTo(self.appointmentBackGroundView.snp_right).offset(0)
+                make.top.equalTo(self.appointmentBackGroundView.snp_top).offset(0)
+                make.bottom.equalTo(self.appointmentBackGroundView.snp_bottom).offset(0)
             }
             
             appointmentIntroduce.snp_makeConstraints { (make) in
@@ -129,13 +147,12 @@ class AppointMentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.appointmentBackGroundView.snp_left).offset(15)
                 make.right.equalTo(self.appointmentBackGroundView.snp_right).offset(-15)
                 make.top.equalTo(self.appointmentIntroduce.snp_bottom).offset(14)
-                make.bottom.equalTo(self.meetInfo.snp_top).offset(-33)
+                make.bottom.greaterThanOrEqualTo(self.appointmentBackGroundView.snp_top).offset(-66)
             }
             
             meetInfo.snp_makeConstraints { (make) in
                 make.left.equalTo(self.appointmentBackGroundView.snp_left).offset(15)
                 make.right.equalTo(self.appointmentBackGroundView.snp_right).offset(-40)
-                make.top.equalTo(self.appointmentType.snp_bottom).offset(33)
                 make.bottom.equalTo(self.appointmentBackGroundView.snp_bottom).offset(-23)
             }
             

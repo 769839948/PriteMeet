@@ -22,7 +22,8 @@ class OrderCancelTableViewCell: UITableViewCell {
     @IBOutlet weak var infoLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        cancelBtn.layer.borderColor = UIColor.init(hexString: OrderBaseCancelBtnColor).CGColor
+        cancelBtn.layer.borderColor = UIColor.init(hexString: OrderApplyMeetTitleColor).CGColor
+        cancelBtn.titleLabel?.textColor = UIColor.init(hexString: OrderApplyMeetTitleColor)
         cancelBtn.layer.cornerRadius = 18.0
         cancelBtn.layer.borderWidth = 1.0
         cancelBtn.layer.masksToBounds = true

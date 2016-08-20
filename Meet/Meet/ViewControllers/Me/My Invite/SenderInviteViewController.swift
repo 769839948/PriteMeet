@@ -275,6 +275,7 @@ extension SenderInviteViewController : UITableViewDataSource {
                 
                 textView.tintColor = UIColor.blackColor()
                 textView.delegate = self
+                textView.placeholderColor = UIColor.init(hexString: MeViewProfileContentLabelColorLight)
                 IQKeyboardManager.sharedManager().enable = true
                 textView.font = LoginCodeLabelFont
                 cell?.contentView.addSubview(textView)

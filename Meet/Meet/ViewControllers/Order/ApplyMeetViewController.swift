@@ -114,9 +114,13 @@ class ApplyMeetViewController: UIViewController {
         titleView.addSubview(phototView)
         
         let positionLabel = UILabel(frame: CGRectMake(0, CGRectGetMaxY(phototView.frame) + 3, titleView.frame.size.width, 16))
-        positionLabel.text = "\(realName) \(jobLabel)"
+        let positionString = "\(realName) \(jobLabel)"
+        let attributedString = NSMutableAttributedString(string: positionString)
+        attributedString.addAttributes([NSFontAttributeName:AppointRealNameLabelFont!], range: NSRange.init(location: 0, length: realName.length))
+        attributedString.addAttributes([NSFontAttributeName:AppointPositionLabelFont!], range: NSRange.init(location: realName.length + 1, length: jobLabel.length))
+        attributedString.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: HomeDetailViewNameColor)], range: NSRange.init(location: 0, length: positionString.length))
+        positionLabel.attributedText = attributedString
         positionLabel.textAlignment = .Center
-        positionLabel.font = AppointPositionLabelFont
         titleView.addSubview(positionLabel)
         navigationBarTitleView.addSubview(titleView)
     }
@@ -231,7 +235,8 @@ class ApplyMeetViewController: UIViewController {
     
     func setUpBottomBtn() {
         bottomBtn = UIButton()
-        bottomBtn.backgroundColor = UIColor.init(hexString: AppointMentBackGroundColor)
+        bottomBtn.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeViewDetailMeetButtonBack), size: CGSizeMake(ScreenWidth, 49)), forState: .Normal)
+        bottomBtn.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeViewDetailMeetButtonHightBack), size: CGSizeMake(ScreenWidth, 49)), forState: .Highlighted)
         bottomBtn.addTarget(self, action: #selector(ApplyMeetViewController.senderApplyMeet(_:)), forControlEvents: .TouchUpInside)
         bottomBtn.setTitle("提交申请", forState: .Normal)
         bottomBtn.titleLabel?.font = MeetDetailImmitdtFont
@@ -327,7 +332,7 @@ extension ApplyMeetViewController : UITableViewDataSource {
             if indexPath.row == 0 {
                 let cellId = "OrderApplyIntroductionCell"
                 introductionCell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! OrderApplyIntroductionCell
-                introductionCell.setData("您可以说说为什么想约见对方以及希望见面聊聊的话题。真诚且走心的约见说明，会让对方更感兴趣，被接受的几率也会大大增加哦，最多可输入 300 字")
+                introductionCell.setData("\((PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000002")!)")
                 introductionCell.textView.delegate = self
                 introductionCell.textView.scrollEnabled = false
                 introductionCell.selectionStyle = UITableViewCellSelectionStyle.None

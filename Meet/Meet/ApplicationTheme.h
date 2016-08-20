@@ -81,6 +81,8 @@
 #define EmptyDataColor           @"C9C9C9"
 
 #define HomeViewDetailMeetButtonBack   @"FF8161"
+#define HomeViewDetailMeetButtonHightBack   @"FB9854"
+
 
 #define PlaceholderImage                [UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeZero]
 
@@ -95,7 +97,7 @@
 #define EmptyDataTitleColor                  @"C9C9C9"
 
 
-#define MeViewProfileBackGroundColor         @"f2f2f2"
+#define MeViewProfileBackGroundColor         @"F2F2F2"
 
 #define MeetDetailLineColor [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1.0]
 #define lineLabelBackgroundColor @"E7E7E7"

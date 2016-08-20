@@ -56,7 +56,7 @@ class MeInfoTableViewCell: UITableViewCell {
         self.lineLabel.hidden = true
     }
     
-    func setinfoButtonBackGroudColor(color:String){
+    func setInfoButtonBackGroudColor(color:String){
         infoDetailLabel.backgroundColor = UIColor.init(hexString: color)
         infoDetailLabel.layer.cornerRadius = 10.0
     }

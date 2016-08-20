@@ -21,6 +21,8 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var line: UIView!
     @IBOutlet weak var line1: UIView!
     
+    @IBOutlet weak var order_id: UILabel!
+    
     @IBOutlet weak var meetTip: UILabel!
     @IBOutlet weak var line2: UIView!
     
@@ -85,10 +87,11 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
         time = time.stringByReplacingOccurrencesOfString("T", withString: " ")
         time = time.stringByReplacingOccurrencesOfString("Z", withString: "")
         time = time.stringByReplacingOccurrencesOfString("-", withString: "-")
-        orderCreateTime.text = time
-        UIView.drawDashLine(line, lineLength: 2, lineSpacing: 3, lineColor: UIColor.init(hexString: lineLabelBackgroundColor))
-        UIView.drawDashLine(line1, lineLength: 2, lineSpacing: 3, lineColor: UIColor.init(hexString: lineLabelBackgroundColor))
-        UIView.drawDashLine(line2, lineLength: 2, lineSpacing: 3, lineColor: UIColor.init(hexString: lineLabelBackgroundColor))
+        orderCreateTime.attributedText = self.setStringAttribute("预约时间：\(time)")
+        order_id.attributedText = self.setStringAttribute("预约单号：\(model.order_id)")
+        UIView.drawDashLine(line, lineLength: 1, lineSpacing: 3, lineColor: UIColor.init(hexString: lineLabelBackgroundColor))
+        UIView.drawDashLine(line1, lineLength: 1, lineSpacing: 3, lineColor: UIColor.init(hexString: lineLabelBackgroundColor))
+        UIView.drawDashLine(line2, lineLength: 1, lineSpacing: 3, lineColor: UIColor.init(hexString: lineLabelBackgroundColor))
         
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(MeetOrderInfoTableViewCell.panTapClick(_:)))
         tapGesture.numberOfTapsRequired = 1
@@ -116,6 +119,13 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
         }
     }
     
+    
+    func setStringAttribute(string:String) -> NSMutableAttributedString {
+        let attribute = NSMutableAttributedString(string: string)
+        attribute.addAttributes([NSFontAttributeName:OrderPayViewPayInfoFont!], range: NSRange.init(location: 0, length: 5))
+        return attribute
+    }
+    
     func callbuttonClick(tap:UITapGestureRecognizer) {
         let str = "tel:\((phoneNum.text)!)"
         let callWebView = UIWebView()
@@ -124,7 +134,8 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
     }
     
     func panTapClick(tap:UIPanGestureRecognizer) {
-        let orderTips = OrderTips(frame: CGRectMake(0, 0, ScreenWidth, ScreenHeight), tips: ["约见成功，Meet 将收取 48 元平台费用；","对方接受约见后，您才需付款；","付款成功后，双方可互见联系电话及微信；","见面前，任何一方放弃约见，约见费用立即全额退还。","见面前，任何一方放弃约见，约见费用立即全额退还。"])
+        let tips:String = (PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000006") as! String
+        let orderTips = OrderTips(frame: CGRectMake(0, 0, ScreenWidth, ScreenHeight), tips: tips.componentsSeparatedByString("\n"))
         KeyWindown?.addSubview(orderTips)
     }
     

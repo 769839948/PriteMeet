@@ -31,7 +31,7 @@
     }
 //    }
     
-    cell.titleLabel.frame = CGRectMake(0, 0, [self cellWidth:self.interstArray[indexPath.row]], 27);
+    cell.titleLabel.frame = CGRectMake(7, 0, [self cellWidth:self.interstArray[indexPath.row]], 30);
     cell.layer.cornerRadius = 2.0f;
     [cell filleCellWithFeed:[self.interstArray objectAtIndex:indexPath.row]];
     return cell;

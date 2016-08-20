@@ -201,13 +201,13 @@
 
 - (CGFloat)cellHeight:(NSArray *)interArray
 {
-    CGFloat yOffset = 28;
+    CGFloat yOffset = 30;
     CGFloat allSizeWidth = 0;
     for (NSInteger idx = 0; idx < interArray.count; idx++) {
-        CGSize itemSize = CGSizeMake([self cellWidth:[interArray objectAtIndex:idx]], 28);
+        CGSize itemSize = CGSizeMake([self cellWidth:[interArray objectAtIndex:idx]], 30);
         allSizeWidth = allSizeWidth + itemSize.width + 10;
         if (allSizeWidth > ScreenWidth - 40) {
-            yOffset = yOffset + 35;
+            yOffset = yOffset + 40;
             allSizeWidth = itemSize.width + 10;
         }
     }
@@ -270,8 +270,8 @@
         
         [_interestView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.meetNumber.mas_bottom).offset(17);
-            make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(14);
-            make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-14);
+            make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(15);
+            make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-15);
             make.bottom.mas_equalTo(weakSelf.personalView.mas_bottom).offset(-17);
         }];
         

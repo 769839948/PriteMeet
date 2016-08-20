@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F1BA9471D682AFE00BDD665 /* OrderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BA9451D682AFE00BDD665 /* OrderCollectionViewCell.swift */; };
+		1F1BA9481D682AFE00BDD665 /* OrderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F1BA9461D682AFE00BDD665 /* OrderCollectionViewCell.xib */; };
 		1F1FB4851D0FD78E00794881 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1FB4841D0FD78E00794881 /* UIImage+Alpha.m */; };
 		1F1FB4881D0FFBAE00794881 /* UserInviteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1FB4871D0FFBAE00794881 /* UserInviteModel.m */; };
 		1F2059261D2BBD6F001FF99C /* SetInviteCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2059251D2BBD6F001FF99C /* SetInviteCollectView.m */; };
@@ -265,6 +267,8 @@
 /* Begin PBXFileReference section */
 		01422377568E95CDDD430F0B /* Pods_Meet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Meet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		02C96CF04F633E7BC70CC3F6 /* Pods-Meet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Meet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Meet/Pods-Meet.debug.xcconfig"; sourceTree = "<group>"; };
+		1F1BA9451D682AFE00BDD665 /* OrderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderCollectionViewCell.swift; sourceTree = "<group>"; };
+		1F1BA9461D682AFE00BDD665 /* OrderCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderCollectionViewCell.xib; sourceTree = "<group>"; };
 		1F1FB4831D0FD78E00794881 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
 		1F1FB4841D0FD78E00794881 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
 		1F1FB4861D0FFBAE00794881 /* UserInviteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInviteModel.h; sourceTree = "<group>"; };
@@ -1069,6 +1073,8 @@
 				1F810E8E1D4F3550008A5EF1 /* AppointmentCollectView.swift */,
 				1F810E901D4F37A3008A5EF1 /* AppointmentCell.swift */,
 				1FE411211D5EC5620090D2AB /* TextViewAutoHeight.swift */,
+				1F1BA9451D682AFE00BDD665 /* OrderCollectionViewCell.swift */,
+				1F1BA9461D682AFE00BDD665 /* OrderCollectionViewCell.xib */,
 			);
 			name = Order;
 			sourceTree = "<group>";
@@ -1609,6 +1615,7 @@
 				DA6CEEEA1CD97E9A00EEABFF /* Me.storyboard in Resources */,
 				1FBF408D1D1E5BF8005DB46F /* ProfileTableViewCell.xib in Resources */,
 				1FAA07D01D3E25110017F3E3 /* WeiboSDK.bundle in Resources */,
+				1F1BA9481D682AFE00BDD665 /* OrderCollectionViewCell.xib in Resources */,
 				DA1A67EC1CEF107C00F9CC9D /* area.plist in Resources */,
 				1F2F56AE1D361C27005AEBC8 /* AlipaySDK.bundle in Resources */,
 				DA3626671CD1A75C00A8AE39 /* LaunchScreen.storyboard in Resources */,
@@ -1825,6 +1832,7 @@
 				1FBBC3231D3CA9D7005D4175 /* ApplyMeetViewController.swift in Sources */,
 				1F3868461D2617FD00569032 /* UIViewController+NavigationBar.swift in Sources */,
 				1F3868761D27749200569032 /* JobLableCollectViewCell.m in Sources */,
+				1F1BA9471D682AFE00BDD665 /* OrderCollectionViewCell.swift in Sources */,
 				1F457B541D179C4A00C1D8EC /* CenterlabelView.swift in Sources */,
 				1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */,
 				1FAA08071D41C6D60017F3E3 /* ReportViewController.swift in Sources */,

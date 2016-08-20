@@ -37,7 +37,6 @@ class OrderConfirmViewController: BaseOrderPageViewController {
         let orderModel = (orderList[indexPath.row] )
         applyDetailView.myClouse = { status in
             self.orderList.removeAtIndex(indexPath.row)
-            //            self.orderList.removeObjectAtIndex(indexPath.row)
             NSNotificationCenter.defaultCenter().postNotificationName(ReloadOrderCollectionView, object: self.orderState)
             self.collectionView.reloadData()
         }

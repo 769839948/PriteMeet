@@ -49,16 +49,16 @@ class ZDQFlowViewItem: UIView {
             titleLabel.textColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
         case .ItemUnSelect:
             imageView.image = UIImage.init(named: "item_unselect")
-            titleLabel.textColor = UIColor.init(hexString: MeProfileCollectViewItemUnSelectColor)
+            titleLabel.textColor = UIColor.init(hexString: OrderApplyMeetTitleColor)
         case .ItemWaitSelect:
             imageView.image = UIImage.init(named: "item_wait_select")
             titleLabel.textColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
         case .ItemNext:
             imageView.image = UIImage.init(named: "item_next")
-            titleLabel.textColor = UIColor.init(hexString: MeProfileCollectViewItemUnSelectColor)
+            titleLabel.textColor = UIColor.init(hexString: OrderApplyMeetTitleColor)
         case .ItemCancelDone:
             imageView.image = UIImage.init(named: "item_unselect")
-            titleLabel.textColor = UIColor.init(hexString: MeProfileCollectViewItemUnSelectColor)
+            titleLabel.textColor = UIColor.init(hexString: OrderApplyMeetTitleColor)
         default:
             imageView.image = UIImage.init(named: "item_cancel")
             titleLabel.textColor = UIColor.init(hexString: OrderFlowTitleCnacel)

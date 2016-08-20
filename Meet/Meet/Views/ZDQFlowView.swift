@@ -62,9 +62,9 @@ class ZDQFlowView: UIView {
             let label = UILabel()
             label.frame = CGRectMake(CGRectGetMaxX(item.frame) + 2, 14, spaceWidthX - 4, 1)
             if item.itemType == ZDQFlowViewItemType.ItemSelect {
-                label.backgroundColor = UIColor.orangeColor()
+                label.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
             }else{
-                label.backgroundColor = UIColor.lightGrayColor()
+                label.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
             }
             if index < number - 1 {
                 self.addSubview(label)

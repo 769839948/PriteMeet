@@ -86,13 +86,13 @@ class OrderApplyMeetTableViewCell: UITableViewCell {
     }
     
     func cellHeight(interArray:NSArray) -> CGFloat{
-        var yOffset:CGFloat = 28
+        var yOffset:CGFloat = 30
         var allSizeWidth:CGFloat = 0
         for idx in 0...interArray.count - 1 {
-            let itemSize = CGSizeMake(self.cellWidth(interArray[idx] as! NSString), 28)
+            let itemSize = CGSizeMake(self.cellWidth(interArray[idx] as! NSString), 30)
             allSizeWidth = allSizeWidth + itemSize.width + 10
             if allSizeWidth > ScreenWidth - 40 {
-                yOffset = yOffset + 35
+                yOffset = yOffset + 40
                 allSizeWidth = 0;
             }
         }

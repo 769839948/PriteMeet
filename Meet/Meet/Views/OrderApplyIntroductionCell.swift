@@ -32,7 +32,7 @@ class OrderApplyIntroductionCell: UITableViewCell {
         self.contentView.addSubview(titleLabel)
         
         
-        textView = TextViewAutoHeight(frame: CGRectMake(20, 20, ScreenWidth - 40, 100))
+        textView = TextViewAutoHeight(frame: CGRectMake(10, 20, ScreenWidth - 30, 100))
         textView.tintColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
         textView.font = LoginCodeLabelFont
         textView.maxHeight = 100
@@ -59,14 +59,15 @@ class OrderApplyIntroductionCell: UITableViewCell {
         
         textView.snp_makeConstraints { (make) in
             make.top.equalTo(self.titleLabel.snp_bottom).offset(14)
-            make.left.equalTo(self.contentView.snp_left).offset(20)
-            make.right.equalTo(self.contentView.snp_right).offset(-20)
+            make.left.equalTo(self.contentView.snp_left).offset(15)
+            make.right.equalTo(self.contentView.snp_right).offset(-15)
             make.bottom.equalTo(self.contentView.snp_bottom).offset(-30)
         }
     }
     
     
     func setData(plachText:String){
+        textView.placeholderColor = UIColor.init(hexString: MeViewProfileContentLabelColorLight)
         textView.placeholder = plachText
     }
     

@@ -40,7 +40,7 @@ class PayViewType: UIView {
     }
     
     func setUpView(type:PayType) {
-        imageView = UIImageView(frame: CGRectMake(20, 20, 32, 32))
+        imageView = UIImageView(frame: CGRectMake(20, 18, 32, 32))
         self.addSubview(imageView)
         
         selectImage = UIImageView(frame: CGRectMake(ScreenWidth - 44, 20, 24, 24))
@@ -60,16 +60,16 @@ class PayViewType: UIView {
         lineLabel = UILabel(frame: CGRectMake(20,64,ScreenWidth - 40,0.5))
         self.addSubview(lineLabel)
         
-        UIView.drawDashLine(lineLabel, lineLength: 2, lineSpacing: 3, lineColor: UIColor.init(hexString: lineLabelBackgroundColor))
+        UIView.drawDashLine(lineLabel, lineLength: 1, lineSpacing: 3, lineColor: UIColor.init(hexString: lineLabelBackgroundColor))
 
         switch type {
         case .WeiChat:
-            imageView.image = UIImage.init(named: "pay_weChat")
+            imageView.image = UIImage.init(named: "pay_Wechat")
             payTypeLabel.text = "微信支付"
             payTypeDetail.text = "亿万用户的选择，更快更安全"
             self.tag = 10000
         default:
-            imageView.image = UIImage.init(named: "pay_AliPay")
+            imageView.image = UIImage.init(named: "pay_Alipay")
             payTypeLabel.text = "支付宝支付"
             payTypeDetail.text = "推荐支付宝用户使用"
             self.tag = 20000
@@ -169,7 +169,7 @@ class PayView: UIView {
         
         let backBtn = UIButton(type: .Custom)
         backBtn.addTarget(self, action: #selector(PayView.backBtnClick), forControlEvents: .TouchUpInside)
-        backBtn.setImage(UIImage.init(named: "login_leftBtn"), forState: .Normal)
+        backBtn.setImage(UIImage.init(named: "pay_back"), forState: .Normal)
         backBtn.frame = CGRectMake(20, 26, 20, 20)
         payInfoViewTitle.addSubview(backBtn)
         
@@ -249,7 +249,7 @@ class PayView: UIView {
         
         
         let lineLabel = UILabel(frame: CGRectMake(20,64,UIScreen.mainScreen().bounds.size.width - 40,2))
-        lineLabel.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
+        lineLabel.backgroundColor = UIColor.init(hexString: MeViewProfileBackGroundColor)
         payViewTitle.addSubview(lineLabel)
         
         return payViewTitle

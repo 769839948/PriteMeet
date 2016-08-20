@@ -75,13 +75,13 @@ class BaseOrderViewController: UIViewController {
     
     func setNavigationItem(){
         leftButton = UIButton(type: .Custom)
-        leftButton.frame = CGRectMake(0, 20, 40, 40)
+        leftButton.frame = CGRectMake(5, 20, 40, 40)
         leftButton.setImage(UIImage.init(named: "navigationbar_back")?.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
         leftButton.addTarget(self, action: #selector(BaseOrderViewController.leftBarPress(_:)), forControlEvents: .TouchUpInside)
         navigationBarTitleView.addSubview(leftButton)
         
         rightButton = UIButton(type: .Custom)
-        rightButton.frame = CGRectMake(ScreenWidth - 40, 20, 40, 40)
+        rightButton.frame = CGRectMake(ScreenWidth - 45, 20, 40, 40)
         rightButton.setImage(UIImage.init(named: "navigation_info")?.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
         rightButton.addTarget(self, action: #selector(BaseOrderViewController.rightBarPress(_:)), forControlEvents: .TouchUpInside)
         navigationBarTitleView.addSubview(rightButton)
@@ -96,7 +96,8 @@ class BaseOrderViewController: UIViewController {
     
     func setUpBottomBtn() {
         bottomBtn = UIButton()
-        bottomBtn.backgroundColor = UIColor.init(hexString: AppointMentBackGroundColor)
+        bottomBtn.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeViewDetailMeetButtonBack), size: CGSizeMake(ScreenWidth, 49)), forState: .Normal)
+        bottomBtn.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeViewDetailMeetButtonHightBack), size: CGSizeMake(ScreenWidth, 49)), forState: .Highlighted)
         bottomBtn.addTarget(self, action: #selector(BaseOrderViewController.bottomPress(_:)), forControlEvents: .TouchUpInside)
         bottomBtn.titleLabel?.font = MeetDetailImmitdtFont
         self.view.addSubview(bottomBtn)
@@ -300,11 +301,12 @@ class BaseOrderViewController: UIViewController {
         phototView.sd_setImageWithURL(NSURL.init(string: imageArray![0].stringByAppendingString(NavigaitonAvatarImageSize)), placeholderImage: UIImage.init(color: UIColor.init(hexString: PlaceholderImageColor), size: CGSizeMake(PhotoWith, PhotoHeight)), options: .RetryFailed)
         titleView.addSubview(phototView)
         
-        let positionLabel = UILabel(frame: CGRectMake(0, CGRectGetMaxY(phototView.frame) + 3, titleView.frame.size.width, 16))
+        let positionLabel = UILabel(frame: CGRectMake(0, CGRectGetMaxY(phototView.frame) + 2, titleView.frame.size.width, 16))
         let positionString = "\(orderModel.order_user_info!.real_name ) \(orderModel.order_user_info!.job_label)"
         let attributedString = NSMutableAttributedString(string: positionString)
         attributedString.addAttributes([NSFontAttributeName:AppointRealNameLabelFont!], range: NSRange.init(location: 0, length: orderModel.order_user_info!.real_name.length))
         attributedString.addAttributes([NSFontAttributeName:AppointPositionLabelFont!], range: NSRange.init(location: orderModel.order_user_info!.real_name.length + 1, length: orderModel.order_user_info!.job_label.length))
+        attributedString.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: HomeDetailViewNameColor)], range: NSRange.init(location: 0, length: positionString.length))
         positionLabel.attributedText = attributedString
         positionLabel.textAlignment = .Center
         titleView.addSubview(positionLabel)
@@ -334,12 +336,22 @@ class BaseOrderViewController: UIViewController {
         self.tableView.registerNib(UINib.init(nibName: "OrderCancelTableViewCell", bundle: nil), forCellReuseIdentifier: "OrderCancelTableViewCell")
         
         self.view.addSubview(self.tableView)
-        self.tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(navigationBarTitleView.snp_bottom).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.bottomBtn.snp_top).offset(0)
+        if self.bottomBtn.hidden {
+            self.tableView.snp_makeConstraints { (make) in
+                make.top.equalTo(navigationBarTitleView.snp_bottom).offset(0)
+                make.left.equalTo(self.view.snp_left).offset(0)
+                make.right.equalTo(self.view.snp_right).offset(0)
+                make.bottom.equalTo(self.view.snp_bottom).offset(0)
+            }
+        }else{
+            self.tableView.snp_makeConstraints { (make) in
+                make.top.equalTo(navigationBarTitleView.snp_bottom).offset(0)
+                make.left.equalTo(self.view.snp_left).offset(0)
+                make.right.equalTo(self.view.snp_right).offset(0)
+                make.bottom.equalTo(self.bottomBtn.snp_top).offset(0)
+            }
         }
+        
     }
     
     func cancelClick(){
@@ -354,8 +366,6 @@ class BaseOrderViewController: UIViewController {
             self.cancelView.orderModel = self.orderModel
             if self.orderModel.status?.status_code == "1" {
                 if self.orderModel.status?.status_type == "apply_order"{
-                    self.cancelView.changeOrderStatus = "2"
-                }else{
                     self.cancelView.changeOrderStatus = "2"
                 }
             }else if self.orderModel.status?.status_code == "4" {
@@ -406,19 +416,19 @@ class BaseOrderViewController: UIViewController {
         let statusCode = orderModel.status?.status_code
         if orderModel.status?.status_type == "apply_order" {
             if statusCode == "2" || statusCode == "7" || statusCode == "8" || statusCode == "13" {
-                resonType = "您 因\((orderModel.reject_type_desc))取消了约见"
+                resonType = "您因 \((orderModel.reject_type_desc)) 取消了约见"
             }else if statusCode == "3" {
-                resonType = "\(orderModel.order_user_info!.real_name) 因\((orderModel.reject_type_desc))拒绝了您的约见"
-            }else if statusCode == "9" || statusCode == "10"  {
-                resonType = "\(orderModel.order_user_info!.real_name) 因\((orderModel.reject_type_desc))取消了与您的约见"
+                resonType = "\(orderModel.order_user_info!.real_name) 因 \((orderModel.reject_type_desc)) 拒绝了您的约见"
+            }else if statusCode == "9" || statusCode == "10" || statusCode == "12"  {
+                resonType = "\(orderModel.order_user_info!.real_name) 因 \((orderModel.reject_type_desc)) 取消了与您的约见"
             }
         }else{
             if statusCode == "2" || statusCode == "7" || statusCode == "8" || statusCode == "13" {
-                resonType = "\(orderModel.order_user_info!.real_name) 因\((orderModel.reject_type_desc))取消了您的约见"
+                resonType = "\(orderModel.order_user_info!.real_name) 因 \((orderModel.reject_type_desc))取消了您的约见"
             }else if statusCode == "3" {
-                resonType = "您 因\((orderModel.reject_type_desc))拒绝了约见"
-            }else if statusCode == "9" || statusCode == "10"  {
-                resonType = "您 因\((orderModel.reject_type_desc))取消了约见"
+                resonType = "您因 \((orderModel.reject_type_desc)) 拒绝了约见"
+            }else if statusCode == "9" || statusCode == "10" || statusCode == "12"  {
+                resonType = "您因 \((orderModel.reject_type_desc)) 取消了约见"
 
             }
         }
@@ -454,7 +464,9 @@ class BaseOrderViewController: UIViewController {
             let returnCell = cell as! OrderCancelTableViewCell
             returnCell.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemUnSelect)
             returnCell.selectionStyle = .None
-            if self.orderType == .Done || self.orderModel.status?.status_code == "" {
+            if self.orderType == .Done || self.orderModel.status?.status_code == "11" {
+                returnCell.setButtonTitle("反馈客服", type: .Cancel)
+            }else if self.orderModel.status?.status_code == "1" && self.orderModel.status?.status_type == "receive_order" {
                 returnCell.setButtonTitle("反馈客服", type: .Cancel)
             }else{
                 returnCell.setButtonTitle("取消约见", type: .Normal)
@@ -486,13 +498,25 @@ extension BaseOrderViewController : UITableViewDelegate {
             if indexPath.row == 0 {
                 return 107
             }else if indexPath.row == 1 {
-                return tableView.fd_heightForCellWithIdentifier("CancelInfoTableViewCell", configuration: { (cell) in
+                if tableView.fd_heightForCellWithIdentifier("CancelInfoTableViewCell", configuration: { (cell) in
                     self.configCell((cell as! CancelInfoTableViewCell), index: indexPath)
-                }) + 10
+                }) > 250 {
+                    return tableView.fd_heightForCellWithIdentifier("CancelInfoTableViewCell", configuration: { (cell) in
+                        self.configCell((cell as! CancelInfoTableViewCell), index: indexPath)
+                    }) + 10
+                }
+                return 250
+                
             }else if indexPath.row == 2{
-                return tableView.fd_heightForCellWithIdentifier("AppointMentTableViewCell", configuration: { (cell) in
+                if tableView.fd_heightForCellWithIdentifier("AppointMentTableViewCell", configuration: { (cell) in
                     self.configAppointThemeTypeCell((cell as! AppointMentTableViewCell), indexPath: indexPath)
-                })
+                }) > 260 {
+                    return tableView.fd_heightForCellWithIdentifier("AppointMentTableViewCell", configuration: { (cell) in
+                        self.configAppointThemeTypeCell((cell as! AppointMentTableViewCell), indexPath: indexPath)
+                    })
+                }
+                return 260
+                
             }else if indexPath.row == 3 {
                 return 320
             }else{
@@ -502,9 +526,14 @@ extension BaseOrderViewController : UITableViewDelegate {
             if indexPath.row == 0 {
                 return 107;
             }else if indexPath.row == 1{
-                return tableView.fd_heightForCellWithIdentifier("AppointMentTableViewCell", configuration: { (cell) in
+                if tableView.fd_heightForCellWithIdentifier("AppointMentTableViewCell", configuration: { (cell) in
                     self.configAppointThemeTypeCell((cell as! AppointMentTableViewCell), indexPath: indexPath)
-                })
+                }) > 250 {
+                    return tableView.fd_heightForCellWithIdentifier("AppointMentTableViewCell", configuration: { (cell) in
+                        self.configAppointThemeTypeCell((cell as! AppointMentTableViewCell), indexPath: indexPath)
+                    })
+                }
+                return 250
             }else if indexPath.row == 2 {
                 if orderModel.status?.status_code == "6" {
                     return 340
@@ -512,6 +541,8 @@ extension BaseOrderViewController : UITableViewDelegate {
                 return 320
             }else{
                 if orderModel.status?.status_code == "11" {
+                    return 129
+                }else if self.orderModel.status?.status_code == "1" && self.orderModel.status?.status_type == "receive_order" {
                     return 129
                 }
                 return 209

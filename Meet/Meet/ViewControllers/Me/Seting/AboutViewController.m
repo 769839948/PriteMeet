@@ -38,7 +38,7 @@
     paragraphStyle.alignment = NSTextAlignmentCenter;
     
     NSDictionary *attributes = @{
-                                 NSFontAttributeName:[UIFont systemFontOfSize:14],
+                                 NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Light" size:14.0],
                                  NSParagraphStyleAttributeName:paragraphStyle
                                  };
     versionInfo.attributedText  = [[NSAttributedString alloc]

@@ -103,7 +103,7 @@
         cell.backgroundColor = [UIColor colorWithHexString:AppointMentBackGroundColor];
         cell.titleLabel.textColor = [UIColor whiteColor];
     }
-    cell.titleLabel.frame = CGRectMake(0, 0, [self cellWidth:_interstArray[indexPath.row]], 27);
+    cell.titleLabel.frame = CGRectMake(7, 0, [self cellWidth:_interstArray[indexPath.row]], 30);
     cell.layer.cornerRadius = 2.0f;
     [cell filleCellWithFeed:[_interstArray objectAtIndex:indexPath.row]];
     CGFloat height = [self.collectionViewLayout collectionViewContentSize].height;
@@ -135,7 +135,7 @@
 //定义每个UICollectionView 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake([self cellWidth:[_interstArray objectAtIndex:indexPath.row]], 27);
+    return CGSizeMake([self cellWidth:[_interstArray objectAtIndex:indexPath.row]] + 14, 30);
 }
 //定义每个UICollectionView 的 margin
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section

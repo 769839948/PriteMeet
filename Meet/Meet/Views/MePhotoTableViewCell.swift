@@ -37,6 +37,7 @@ class MePhotoTableViewCell: UITableViewCell {
         avatarImageView.image = UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSizeZero)
         completeInfoView.layer.cornerRadius = 14.0
         completeInfoView.layer.masksToBounds = true
+        completeInfoView.backgroundColor = UIColor.init(hexString:MeProfileCollectViewItemSelect)
         // Initialization code
     }
     

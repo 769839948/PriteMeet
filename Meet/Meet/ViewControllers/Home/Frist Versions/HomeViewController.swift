@@ -56,6 +56,7 @@ class HomeViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .None
         self.view.addSubview(self.tableView)
+        self.tableView.backgroundColor = UIColor.init(hexString: HomeTableViewBackGroundColor)
         self.tableView.registerClass(ManListCell.self, forCellReuseIdentifier: "MainTableViewCell")
     }
     
@@ -171,7 +172,6 @@ class HomeViewController: UIViewController {
     func rightItemClick(sender:UIBarButtonItem) {
         self.bottomView.removeFromSuperview()
         self.presentViewController(BaseNavigaitonController(rootViewController: MeViewController()) , animated: true) {
-    
         }
     }
     

@@ -71,6 +71,7 @@ class OrderPageViewController: TYTabButtonPagerController {
         self.selectedTextFont = LoginCodeLabelFont
         self.normalTextColor = UIColor.init(hexString: HomeDetailViewPositionColor)
         self.selectedTextColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
+        self.selectedTextFont = LoginCodeSelectLabelFont
         
         
     }

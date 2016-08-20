@@ -12,6 +12,9 @@ let version = (UIDevice.currentDevice().systemVersion as NSString).floatValue
 
 let ApplyControllerTextFont = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 14.0):UIFont.systemFontOfSize(14)
 let LoginCodeLabelFont      = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 14.0):UIFont.systemFontOfSize(14)
+
+let LoginCodeSelectLabelFont      = version >= 9.0 ? UIFont.init(name: "PingFangSC-Regular", size: 14.0):UIFont.systemFontOfSize(14)
+
 let LoginOldUserBtnFont      = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 12.0):UIFont.systemFontOfSize(12)
 let LoginPhoneLabelFont      = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 18.0):UIFont.systemFontOfSize(18)
 
@@ -36,7 +39,8 @@ let SpashViewFont =  version >= 9.0 ? UIFont.init(name: "PingFangSC-Regular", si
 let AppointMeetLogoPower      =     version >= 9.0 ? UIFont.init(name: "HelveticaNeue-LightItalic", size: 8.0):UIFont.systemFontOfSize(8)
 
 let AppointRealNameLabelFont    = version >= 9.0 ? UIFont.init(name: "PingFangSC-Regular", size: 11.0):UIFont.systemFontOfSize(11)
-let AppointPositionLabelFont    = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 11.0):UIFont.systemFontOfSize(11)
+
+let AppointPositionLabelFont    = version >= 9.0 ? UIFont.init(name: "PingFangSC-Thin", size: 11.0):UIFont.systemFontOfSize(11)
 
 let AppointNameLabelFont    = version >= 9.0 ? UIFont.init(name: "PingFangSC-Regular", size: 11.0):UIFont.systemFontOfSize(11)
 
@@ -58,7 +62,7 @@ let OrderInfoPayDetailFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Li
 
 let OrderInfoViewMuchFont      = version >= 9.0 ? UIFont.init(name: "Helvetica-Bold", size: 13.0):UIFont.systemFontOfSize(13.0)
 
-let OrderCancelInfoViewFont      = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 24.0):UIFont.systemFontOfSize(24.0)
+let OrderCancelInfoViewFont      = version >= 9.0 ? UIFont.init(name: "PingFangSC-Thin", size: 24.0):UIFont.systemFontOfSize(24.0)
 
 let OrderMeetTipFont      = version >= 9.0 ? UIFont.init(name: "PingFangSC-Medium", size: 12.0):UIFont.systemFontOfSize(12.0)
 

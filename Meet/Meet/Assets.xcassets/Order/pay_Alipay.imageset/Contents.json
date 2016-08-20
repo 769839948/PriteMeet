@@ -3,16 +3,16 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "pay_AliPay.png"
+      "filename" : "pay_Alipay.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "pay_AliPay@2x.png"
+      "filename" : "pay_Alipay@2x.png"
     },
     {
       "idiom" : "universal",
-      "filename" : "pay_AliPay@3x.png",
+      "filename" : "pay_Alipay@3x.png",
       "scale" : "3x"
     }
   ],
