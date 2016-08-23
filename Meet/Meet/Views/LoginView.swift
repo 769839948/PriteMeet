@@ -18,7 +18,7 @@ typealias NewUserLoginClouse = () -> Void
 typealias ReloadMeViewClouse = () ->Void
 typealias LoginWithDetailClouse = () ->Void
 typealias LoginWithOrderListClouse = () ->Void
-
+typealias OrderListShorOrderButton = () ->Void
 class LoginView: UIView {
 
     var backView:UIView!
@@ -48,6 +48,7 @@ class LoginView: UIView {
     var newUserLoginClouse:NewUserLoginClouse!
     var loginWithDetailClouse:LoginWithDetailClouse!
     var loginWithOrderListClouse:LoginWithOrderListClouse!
+    var orderListShorOrderButton:OrderListShorOrderButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -486,6 +487,9 @@ class LoginView: UIView {
     }
     
     func dismissView(){
+        if self.orderListShorOrderButton != nil {
+            self.orderListShorOrderButton()
+        }
         self.removeFromSuperview()
     }
     

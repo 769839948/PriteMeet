@@ -48,6 +48,15 @@ class HomeViewController: UIViewController {
         self.talKingDataPageName = "Home"
         self.setUpHomeData()
         self.getOrderNumber()
+        if isFirstShow {
+            NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(HomeViewController.addBottomView), userInfo: nil, repeats: false)
+            self.isFirstShow = false
+        }else{
+            if self.loginView == nil {
+                self.addBottomView()
+            }
+        }
+
         // Do any additional setup after loading the view.
     }
 
@@ -128,12 +137,8 @@ class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
         let navigationController = self.navigationController as! ScrollingNavigationController
         navigationController.scrollingNavbarDelegate = self
-        if isFirstShow {
-             NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(HomeViewController.addBottomView), userInfo: nil, repeats: false)
-            self.isFirstShow = false
-        }else{
-            self.addBottomView()
-        }
+        self.navigationController!.navigationBar.translucent = false
+
         self.setUpNavigationBar()
     }
     
@@ -147,7 +152,7 @@ class HomeViewController: UIViewController {
     }
     
     func setUpBottomView() {
-        bottomView = UIView(frame: CGRectMake(ScreenWidth  - 84,ScreenHeight - 74,56,54))
+        bottomView = UIView(frame:CGRectMake(ScreenWidth  - 84,ScreenHeight - 67 - self.view.frame.origin.y,56,54))
         bottomView.addSubview(self.meetButton(CGRectMake(0, 0, 54, 54)))
         bottomView.addSubview(self.meetNumber(CGRectMake(bottomView.frame.size.width - 18, 0, 18, 18)))
         if self.allOrderNumber == 0 {
@@ -155,7 +160,7 @@ class HomeViewController: UIViewController {
         }else{
             self.numberMeet.hidden = false
         }
-        KeyWindown?.addSubview(bottomView)
+        self.view.addSubview(bottomView)
         
     }
     
@@ -170,7 +175,6 @@ class HomeViewController: UIViewController {
     }
     
     func rightItemClick(sender:UIBarButtonItem) {
-        self.bottomView.removeFromSuperview()
         self.presentViewController(BaseNavigaitonController(rootViewController: MeViewController()) , animated: true) {
         }
     }
@@ -200,9 +204,9 @@ class HomeViewController: UIViewController {
     
     func myOrderMeetClick(sender:UIButton) {
         if !UserInfo.isLoggedIn() {
+            
             self.presentLoginView()
         }else{
-            self.bottomView.removeFromSuperview()
             self.verificationOrderView()
         }
     }
@@ -224,7 +228,6 @@ class HomeViewController: UIViewController {
     }
     
     func presentOrderView(){
-        bottomView.removeFromSuperview()
         let orderPageVC = OrderPageViewController()
         orderPageVC.setUpNavigationItem()
         
@@ -316,8 +319,8 @@ class HomeViewController: UIViewController {
     }
     
     func presentLoginView(){
-    
         loginView = LoginView(frame: CGRectMake(0,0,ScreenWidth,ScreenHeight))
+        loginView.tag = 200;
         let windown = UIApplication.sharedApplication().keyWindow
         windown!.addSubview(loginView)
         loginView.applyCodeClouse = { _ in
@@ -332,6 +335,7 @@ class HomeViewController: UIViewController {
             self.loginView.showViewWithTage(1)
             UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
         }
+            
         UIApplication.sharedApplication().keyWindow?.sendSubviewToBack(self.loginView)
             self.navigationController?.pushViewController(applyCode, animated: true)
         }
@@ -357,6 +361,10 @@ class HomeViewController: UIViewController {
         
         loginView.loginWithOrderListClouse = { _ in
             self.verificationOrderView()
+        }
+        
+        loginView.orderListShorOrderButton = { _ in
+//            self.setUpBottomView()
         }
     }
 
@@ -385,7 +393,6 @@ extension HomeViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.bottomView.removeFromSuperview()
         (self.navigationController as! ScrollingNavigationController).showNavbar(animated: false)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let meetDetailVC = MeetDetailViewController()
@@ -395,7 +402,7 @@ extension HomeViewController : UITableViewDelegate {
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        
+        bottomView.frame = CGRectMake(ScreenWidth  - 84,ScreenHeight - 67 - self.view.frame.origin.y,56,54)
     }
 }
 
@@ -461,7 +468,6 @@ extension HomeViewController: ScrollingNavigationControllerDelegate {
             self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeDetailViewNameColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
             UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
         }else{
-            
         }
     }
 }

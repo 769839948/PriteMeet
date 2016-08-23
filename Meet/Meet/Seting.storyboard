@@ -120,8 +120,8 @@
                                     <action selector="useProtocolAction:" destination="jBC-aJ-gmZ" eventType="touchUpInside" id="cQ4-qV-7PW"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MEET 0.0.1 BETA" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKR-ER-Oc0">
-                                <rect key="frame" x="133" y="242" width="108.5" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MEET 0.1.0 BETA" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKR-ER-Oc0">
+                                <rect key="frame" x="133" y="242" width="109" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -172,7 +172,7 @@ marketing - jiajia</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ryj-nz-yYS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="738" y="199"/>
+            <point key="canvasLocation" x="737.5" y="198.5"/>
         </scene>
         <!--User Protocol View Controller-->
         <scene sceneID="A1D-WR-1Dp">

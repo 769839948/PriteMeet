@@ -45,12 +45,12 @@ class PayCompleteViewController: UIViewController {
     }
     
     func setUpData() {
-//        orderid.text = orderModel.order_id
-//        var time = orderModel.created_at
-//        time = time.stringByReplacingOccurrencesOfString("T", withString: " ")
-//        time = time.stringByReplacingOccurrencesOfString("Z", withString: "")
-//        createTime.text = time
-//        muchLabel.text = "RMB \(orderModel.fee)"
+        orderid.text = orderModel.order_id
+        var time = orderModel.created_at
+        time = time.stringByReplacingOccurrencesOfString("T", withString: " ")
+        time = time.stringByReplacingOccurrencesOfString("Z", withString: "")
+        createTime.text = time
+        muchLabel.text = "RMB \(orderModel.fee)"
         lookforOrder.layer.cornerRadius = 24.0
         lookforOrder.layer.masksToBounds = true
         lookforOrder.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeViewDetailMeetButtonBack), size: CGSizeMake(180, 45)), forState: .Normal)
