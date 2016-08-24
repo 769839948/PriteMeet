@@ -10,10 +10,10 @@ import UIKit
 
 protocol ZDQFlowViewDelegate {
     func flowViewDidSelectItem(flowView:ZDQFlowView, selectItem:NSInteger) -> Void
-    
 }
 
 protocol ZDQFlowViewDataSource {
+    
     func numberOfFlowViewItemCount(flowView:ZDQFlowView) -> NSInteger
     
     func numberOfFlowViewItem(flowView:ZDQFlowView, index:NSInteger) -> ZDQFlowViewItem

@@ -93,8 +93,10 @@
     if (![web_url isEqualToString:@""]) {
         if (CGRectGetMaxY(_aboutAll.frame) < maxHeight) {
             _aboutAll.frame = CGRectMake((ScreenWidth - 72) / 2, maxHeight + 23, 72, 27);
+            _aboutAll.hidden = NO;
         }
     }else{
+         _aboutAll.frame = CGRectMake((ScreenWidth - 72) / 2, maxHeight, 72, 27);
         _aboutAll.hidden = YES;
     }
 }

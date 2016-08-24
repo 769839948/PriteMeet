@@ -9,6 +9,7 @@
 import UIKit
 import MJRefresh
 import MJExtension
+import TZImagePickerController
 
 enum FillterName {
     case NomalList
@@ -37,6 +38,8 @@ class HomeViewController: UIViewController {
     var allOrderNumber:NSInteger = 0
     
     var isFirstShow:Bool = false
+    
+    var lastContentOffset:CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -175,7 +178,26 @@ class HomeViewController: UIViewController {
     }
     
     func rightItemClick(sender:UIBarButtonItem) {
-        self.presentViewController(BaseNavigaitonController(rootViewController: MeViewController()) , animated: true) {
+//        self.presentViewController(BaseNavigaitonController(rootViewController: MeViewController()) , animated: true) {
+//        }
+        let imagePickerVC = TZImagePickerController(maxImagesCount: 2, delegate: self)
+        imagePickerVC.navigationBar.barTintColor = UIColor.whiteColor()
+        imagePickerVC.navigationBar.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
+        imagePickerVC.allowPickingVideo = false
+        imagePickerVC.allowTakePicture = false
+        imagePickerVC.barItemTextFont = NavigationBarRightItemFont
+        imagePickerVC.oKButtonTitleColorNormal = UIColor.init(hexString: HomeDetailViewNameColor)
+        imagePickerVC.oKButtonTitleColorDisabled = UIColor.init(hexString: lineLabelBackgroundColor)
+        imagePickerVC.allowPickingOriginalPhoto = true
+//        let imagePickerVC = TZImagePickerController(navigationBarClass: self.navigationController?.navigationBar.self(), toolbarClass: nil)
+        imagePickerVC.barItemTextColor = UIColor.init(hexString: HomeDetailViewNameColor)
+        imagePickerVC.didFinishPickingPhotosHandle = { photos,assets,isfinst in
+            
+        }
+        // You can get the photos by block, the same as by delegate.
+        // 你可以通过block或者代理，来得到用户选择的照片.
+        
+        self.presentViewController(imagePickerVC , animated: true) {
         }
     }
     
@@ -402,7 +424,33 @@ extension HomeViewController : UITableViewDelegate {
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        bottomView.frame = CGRectMake(ScreenWidth  - 84,ScreenHeight - 67 - self.view.frame.origin.y,56,54)
+        if (lastContentOffset < scrollView.contentOffset.y) {
+           self.hiderBottomView()
+        }else{
+            self.showBottomView()
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        lastContentOffset = scrollView.contentOffset.y;
+        self.showBottomView()
+    }
+    
+    func hiderBottomView() {
+        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+            let frame = self.bottomView.frame
+            self.bottomView.frame = CGRectMake(frame.origin.x, ScreenHeight + self.view.frame.origin.y, frame.size.width, frame.size.height)
+        }) { (finish) in
+            
+        }
+    }
+    func showBottomView() {
+        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+            let frame = self.bottomView.frame
+            self.bottomView.frame = CGRectMake(frame.origin.x, ScreenHeight - 67 - self.view.frame.origin.y, frame.size.width, frame.size.height)
+        }) { (finish) in
+            
+        }
     }
 }
 
@@ -469,5 +517,25 @@ extension HomeViewController: ScrollingNavigationControllerDelegate {
             UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
         }else{
         }
+    }
+}
+
+extension HomeViewController : TZImagePickerControllerDelegate {
+    func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool)
+    {
+        
+    }
+    func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool, infos: [[NSObject : AnyObject]]!) {
+        
+    }
+    func imagePickerControllerDidCancel(picker: TZImagePickerController!) {
+        
+    }
+    // If user picking a video, this callback will be called.
+    // If system version > iOS8,asset is kind of PHAsset class, else is ALAsset class.
+    // 如果用户选择了一个视频，下面的handle会被执行
+    // 如果系统版本大于iOS8，asset是PHAsset类的对象，否则是ALAsset类的对象
+    func imagePickerController(picker: TZImagePickerController!, didFinishPickingVideo coverImage: UIImage!, sourceAssets asset: AnyObject!) {
+        
     }
 }
