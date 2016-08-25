@@ -56,7 +56,7 @@
                             <constraint firstAttribute="height" constant="31" id="iLO-Xd-n5T"/>
                             <constraint firstAttribute="width" constant="76" id="ud3-fE-5nu"/>
                         </constraints>
-                        <state key="normal" title="解除">
+                        <state key="normal" title="移除">
                             <color key="titleColor" red="0.094117647058823528" green="0.094117647058823528" blue="0.094117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>

@@ -236,7 +236,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="bcY-62-ecf">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="660"/>
+                                <rect key="frame" x="-4" y="64" width="383" height="596"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -338,7 +338,7 @@
                             <constraint firstItem="r95-fP-MzH" firstAttribute="top" secondItem="bcY-62-ecf" secondAttribute="bottom" constant="-37" id="4F4-FV-esa"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bcY-62-ecf" secondAttribute="trailing" constant="-20" id="7z1-ZJ-AV2"/>
                             <constraint firstItem="bcY-62-ecf" firstAttribute="leading" secondItem="uaF-08-uL2" secondAttribute="leadingMargin" constant="-20" id="jVx-UR-TQf"/>
-                            <constraint firstItem="bcY-62-ecf" firstAttribute="top" secondItem="PbQ-IX-W5Y" secondAttribute="bottom" constant="-64" id="r6k-vB-0gK"/>
+                            <constraint firstItem="bcY-62-ecf" firstAttribute="top" secondItem="PbQ-IX-W5Y" secondAttribute="bottom" id="r6k-vB-0gK"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="Nxx-yd-rXF" appends="YES" id="6xP-Nx-isf"/>

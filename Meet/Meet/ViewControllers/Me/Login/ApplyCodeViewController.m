@@ -31,10 +31,15 @@
     _worke_exps = [[NSMutableArray alloc] init];
     _edu_exps = [[NSMutableArray alloc] init];
 //    self.isBaseView = YES;
-    [self.navigationController.navigationBar setTranslucent:YES];
-    [self navigationItemWithLineAndWihteColor];
     self.talKingDataPageName = @"Login-ApplyCode";
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 
 - (void)setNavigationBarItem
 {

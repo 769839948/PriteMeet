@@ -20,7 +20,6 @@
 @property (nonatomic, strong) UIView *personalView;
 
 @property (nonatomic, strong) UILabel *nameLabel;
-@property (nonatomic, strong) UIButton *likeBtn;
 @property (nonatomic, strong) UIButton *ageNumber;
 @property (nonatomic, strong) UILabel *meetNumber;
 @property (nonatomic, strong) UIImageView *photoImage;
@@ -34,6 +33,8 @@
 @property (nonatomic, strong) UILabel *bottomLine;
 
 @property (nonatomic, assign) BOOL didSetupConstraints;
+
+@property (nonatomic, copy) NSString *user_id;
 
 @end
 
@@ -76,16 +77,15 @@
     _nameLabel.numberOfLines = 0;
     [_personalView addSubview:_nameLabel];
     
-//    _likeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    _likeBtn.frame = CGRectMake(_personalView.frame.size.width - 67, 169, 40, 40);
-//    _likeBtn.layer.cornerRadius = 20;
-//    [_likeBtn setImage:[UIImage imageNamed:@"Icon_Like"] forState:UIControlStateNormal];
-//    _likeBtn.layer.shadowOffset = CGSizeMake(0, 1);
-//    _likeBtn.layer.shadowOpacity = 1.0;
-//    _likeBtn.layer.shadowRadius = 3;
-//    _likeBtn.layer.shadowColor = [[UIColor colorWithRed:201.0/255.0 green:201.0/255.0 blue:201.0/255.0 alpha:1.0] CGColor];
-//    _likeBtn.backgroundColor = [UIColor whiteColor];
-//    [_personalView addSubview:_likeBtn];
+    _likeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _likeBtn.layer.cornerRadius = 24;
+    _likeBtn.layer.shadowOffset = CGSizeMake(0, 1);
+    _likeBtn.layer.shadowOpacity = 1.0;
+    _likeBtn.layer.shadowRadius = 3;
+    _likeBtn.layer.shadowColor = [[UIColor colorWithWhite:0.938 alpha:1.000] CGColor];
+    [_likeBtn addTarget:self action:@selector(likeButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+    _likeBtn.backgroundColor = [UIColor clearColor];
+    [_personalView addSubview:_likeBtn];
     
     
     _meetNumber = [[UILabel alloc] init];
@@ -120,6 +120,7 @@
 
 - (void)configCell:(HomeModel *)model interstArray:(NSArray *)interstArray
 {
+    _user_id = [NSString stringWithFormat:@"%ld",(long)model.uid];
     __weak typeof(self) weakSelf = self;
     if (model.cover_photo != nil || model.cover_photo != NULL) {
         Cover_photo *coverPhoto = [Cover_photo mj_objectWithKeyValues:model.cover_photo];
@@ -138,6 +139,13 @@
     }else{
         [_ageNumber setImage:[UIImage imageNamed:@"home_women"] forState:UIControlStateNormal];
         _ageNumber.backgroundColor = [UIColor colorWithHexString:HomeViewWomenColor];
+    }
+    if (model.liked) {
+        [self reloadLikeBtnImage:YES];
+        _likeBtn.tag = 1;
+    }else{
+        [self reloadLikeBtnImage:NO];
+        _likeBtn.tag = 0;
     }
     [_ageNumber setTitle:[NSString stringWithFormat:@" %ld",(long)model.age] forState:UIControlStateNormal];
     
@@ -214,6 +222,17 @@
     return yOffset;
 }
 
+- (void)reloadLikeBtnImage:(BOOL)isLike
+{
+    UIImage *image = isLike?[UIImage imageNamed:@"home_like"]:[UIImage imageNamed:@"home_unlike"];
+    NSInteger tag = isLike?1:0;
+    _likeBtn.tag = tag;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_likeBtn setBackgroundImage:image forState:UIControlStateNormal];
+    });
+//    [_likeBtn setImage:image forState:UIControlStateNormal];
+}
+
 - (CGFloat)cellWidth:(NSString *)itemString
 {
     CGFloat cellWidth;
@@ -237,6 +256,12 @@
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
             make.bottom.mas_equalTo(weakSelf.showdowView.mas_bottom).offset(-3);
+        }];
+        
+        [_likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.personalView.mas_top).offset(169);
+            make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-27);
+            make.size.mas_offset(CGSizeMake(48, 48));
         }];
         
         [_photoImage mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -278,6 +303,14 @@
         self.didSetupConstraints = YES;
     }
     [super updateConstraints];
+}
+
+- (void)likeButtonPress:(UIButton *)sender
+{
+    if (self.block) {
+        BOOL isLike = sender.tag?1:0;
+        self.block(isLike,_user_id);
+    }
 }
 
 - (void)layoutSubviews

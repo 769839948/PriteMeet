@@ -24,7 +24,6 @@
     self.view.backgroundColor = [UIColor whiteColor];
     _webView.backgroundColor = [UIColor colorWithHexString:TableViewBackGroundColor];
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://momeet.cn/web/agreement/"]]];
-    [self createNavigationBar];
     self.talKingDataPageName = @"Me-Protocol";
 
 }
@@ -35,6 +34,12 @@
     if (self.block) {
         self.block();
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

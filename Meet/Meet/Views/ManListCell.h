@@ -9,14 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "HomeModel.h"
 
+typedef void(^LikeButtonBlock)(BOOL isLike, NSString *user_id);
+
 @interface ManListCell : UITableViewCell
 
+@property (nonatomic, strong) UIButton *likeBtn;
 
 @property (assign, nonatomic) NSInteger index;
 
+@property (nonatomic, strong) LikeButtonBlock block;
 
 + (void)homeNameLabelColor:(UILabel *)nameLable;
 
 - (void)configCell:(HomeModel *)model interstArray:(NSArray *)interstArray;
+
+- (void)reloadLikeBtnImage:(BOOL)isLike;
 
 @end

@@ -223,6 +223,16 @@ typedef void (^returnImage)(UIImage *image);
 - (void)deleteBlackList:(NSString *)otherUid
                 success:(Success)successBlock
                    fail:(Fail)faileBlock;
+
+/**
+ *  获取喜欢列表
+ *
+ *  @param successBlock successBlock description
+ *  @param failBlock    failBlock description
+ */
+- (void)getLikeList:(NSString *)page
+       successBlock:(Success)successBlock
+               fail:(Fail)failBlock;
 /**
  *  举报用户
  *
@@ -235,6 +245,28 @@ typedef void (^returnImage)(UIImage *image);
             report:(NSString *)reportTheme
             succes:(Success)successBlock
               fail:(Fail)faileBlock;
+
+/**
+ *  点击喜欢
+ *
+ *  @param uid          被关注用户
+ *  @param successBlock
+ *  @param failBlock
+ */
+- (void)likeUser:(NSString *)uid
+    successBlock:(Success)successBlock
+       failBlock:(Fail)failBlock;
+
+/**
+ *  取消喜欢
+ *
+ *  @param uid          被关注用户
+ *  @param successBlock
+ *  @param failBlock
+ */
+- (void)deleteLikeUser:(NSString *)uid
+          successBlock:(Success)successBlock
+             failBlock:(Fail)failBlock;
 
 /**
  *  最后一次更新数据时间

@@ -55,7 +55,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
     _tableView.rowHeight = 49;
     [self hideExcessLine:_tableView];
     self.talKingDataPageName = @"Me-Setting";
-//    [self navigationItemWithLineAndWihteColor];
 
 }
 
@@ -73,7 +72,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self createNavigationBar];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

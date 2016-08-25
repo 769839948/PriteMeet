@@ -40,7 +40,7 @@ static const void *NavigationBarView = &NavigationBarView;
 - (void)navigationItemWithLineAndWihteColor
 {
     [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionTop barMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(ScreenWidth, 64)] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 0.5)]];
     self.navigationBarlineLabel = [self.navigationController.navigationBar viewWithTag:10000000];
     self.navigationBarlineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
@@ -49,7 +49,7 @@ static const void *NavigationBarView = &NavigationBarView;
 - (void)navigationItemCleanColorWithNotLine
 {
     [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 64)]  forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 0.5)]];
     self.navigationBarlineLabel = [self.navigationController.navigationBar viewWithTag:10000000];
     self.navigationBarlineLabel.backgroundColor = [UIColor clearColor];
@@ -58,7 +58,7 @@ static const void *NavigationBarView = &NavigationBarView;
 - (void)navigationItemWhiteColorAndNotLine
 {
     [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(ScreenWidth, 64)] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 0.5)]];
     self.navigationBarlineLabel = [self.navigationController.navigationBar viewWithTag:10000000];
     self.navigationBarlineLabel.backgroundColor = [UIColor clearColor];

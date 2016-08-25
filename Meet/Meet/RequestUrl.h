@@ -12,7 +12,7 @@
 /**
  *  后台请求数据URL存放处
  */
-#define  RequestBaseUrl              @"http://momeet.cn"   //http://django.senzapps.cc/
+#define  RequestBaseUrl              @"http://test.momeet.cn"   //http://django.senzapps.cc/
 #define  RequestCreateUser           @"/api/user/signup/"
 #define  RequestCheckUser            @"/api/user/check/"
 #define  RequestCheckCodeBindUser    @"/api/code/is_bound_user/"
@@ -27,6 +27,9 @@
 #define  RequestReport               @"/api/report_user"
 #define  RequestGetSmsCoe            @"/api/send_sms"
 #define  RequsetMobileLogin          @"/api/user/login/"
+
+#define  RequestLikeList             @"/api/liked_list/"
+
 
 #define  RequestUploadMoreProfile    @"/api/user_detail/"
 #define  RequestUploadCoverPhoto     @"/api/user_cover_photo/"
@@ -54,6 +57,8 @@
 #define  RequestGetService           @"/api/customer_service/"
 
 #define  RequestGetDicMap            @"/api/dict_map/"
+
+#define  RequestLikeUser             @"/api/like/"
 
 //订单接口
 #define  RequestApplyAppointment     @"/api/apply_for_appointment/"

@@ -11,6 +11,8 @@ import MJRefresh
 import MJExtension
 import TZImagePickerController
 
+typealias successBlock = (success:Bool) ->Void
+
 enum FillterName {
     case NomalList
     case LocationList
@@ -27,6 +29,8 @@ class HomeViewController: UIViewController {
     var numberMeet:UILabel!
     var page:NSInteger = 0
     var viewModel:HomeViewModel = HomeViewModel()
+    var userInfoViewMode:UserInfoViewModel = UserInfoViewModel()
+    
     var homeModelArray:NSMutableArray = NSMutableArray()
     var offscreenCells:NSMutableDictionary = NSMutableDictionary()
     var locationManager:AMapLocationManager!
@@ -178,27 +182,27 @@ class HomeViewController: UIViewController {
     }
     
     func rightItemClick(sender:UIBarButtonItem) {
-//        self.presentViewController(BaseNavigaitonController(rootViewController: MeViewController()) , animated: true) {
+        self.presentViewController(UINavigationController(rootViewController: MeViewController()) , animated: true) {
+        }
+//        let imagePickerVC = TZImagePickerController(maxImagesCount: 2, delegate: self)
+//        imagePickerVC.navigationBar.barTintColor = UIColor.whiteColor()
+//        imagePickerVC.navigationBar.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
+//        imagePickerVC.allowPickingVideo = false
+//        imagePickerVC.allowTakePicture = false
+//        imagePickerVC.barItemTextFont = NavigationBarRightItemFont
+//        imagePickerVC.oKButtonTitleColorNormal = UIColor.init(hexString: HomeDetailViewNameColor)
+//        imagePickerVC.oKButtonTitleColorDisabled = UIColor.init(hexString: lineLabelBackgroundColor)
+//        imagePickerVC.allowPickingOriginalPhoto = true
+////        let imagePickerVC = TZImagePickerController(navigationBarClass: self.navigationController?.navigationBar.self(), toolbarClass: nil)
+//        imagePickerVC.barItemTextColor = UIColor.init(hexString: HomeDetailViewNameColor)
+//        imagePickerVC.didFinishPickingPhotosHandle = { photos,assets,isfinst in
+//            
 //        }
-        let imagePickerVC = TZImagePickerController(maxImagesCount: 2, delegate: self)
-        imagePickerVC.navigationBar.barTintColor = UIColor.whiteColor()
-        imagePickerVC.navigationBar.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
-        imagePickerVC.allowPickingVideo = false
-        imagePickerVC.allowTakePicture = false
-        imagePickerVC.barItemTextFont = NavigationBarRightItemFont
-        imagePickerVC.oKButtonTitleColorNormal = UIColor.init(hexString: HomeDetailViewNameColor)
-        imagePickerVC.oKButtonTitleColorDisabled = UIColor.init(hexString: lineLabelBackgroundColor)
-        imagePickerVC.allowPickingOriginalPhoto = true
-//        let imagePickerVC = TZImagePickerController(navigationBarClass: self.navigationController?.navigationBar.self(), toolbarClass: nil)
-        imagePickerVC.barItemTextColor = UIColor.init(hexString: HomeDetailViewNameColor)
-        imagePickerVC.didFinishPickingPhotosHandle = { photos,assets,isfinst in
-            
-        }
-        // You can get the photos by block, the same as by delegate.
-        // 你可以通过block或者代理，来得到用户选择的照片.
-        
-        self.presentViewController(imagePickerVC , animated: true) {
-        }
+//        // You can get the photos by block, the same as by delegate.
+//        // 你可以通过block或者代理，来得到用户选择的照片.
+//        
+//        self.presentViewController(imagePickerVC , animated: true) {
+//        }
     }
     
     func meetButton(frame:CGRect) -> UIButton {
@@ -389,6 +393,24 @@ class HomeViewController: UIViewController {
 //            self.setUpBottomView()
         }
     }
+    
+    func createLikeUser(user_id:String,block:successBlock) {
+        userInfoViewMode.likeUser(user_id, successBlock: { (dic) in
+            block(success: true)
+            }) { (dic) in
+            UITools.showMessageToView(self.view, message: dic["error"] as! String, autoHide: true)
+
+        }
+    }
+    
+    func deleteLikeUser(user_id:String, block:successBlock) {
+        userInfoViewMode.deleteLikeUser(user_id, successBlock: { (dic) in
+            block(success: true)
+        }) { (dic) in
+            UITools.showMessageToView(self.view, message: dic["error"] as! String, autoHide: true)
+            
+        }
+    }
 
 }
 
@@ -468,6 +490,23 @@ extension HomeViewController : UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIndef, forIndexPath: indexPath) as! ManListCell
         self.configureCell(cell, indexPath: indexPath)
         cell.selectionStyle = .None
+        cell.block = { isLike, user_id in
+            if UserInfo.isLoggedIn() {
+                if isLike {
+                    self.deleteLikeUser(user_id, block: { (success) in
+                        cell.likeBtn.tag = 0
+                        cell.reloadLikeBtnImage(false)
+                    })
+                }else{
+                    self.createLikeUser(user_id, block: { (success) in
+                        cell.likeBtn.tag = 1
+                        cell.reloadLikeBtnImage(true)
+                    })
+                }
+            }else{
+                self.presentLoginView()
+            }
+        }
         return cell
     }
     

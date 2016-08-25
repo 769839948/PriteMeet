@@ -31,6 +31,12 @@ class MeViewController: UIViewController {
     let orderNumberArray:NSMutableArray = NSMutableArray()
     var allOrderNumber:NSInteger = 0
     
+    var navigaitionTitleView: UIView!
+    var dismissButton:UIButton!
+    
+    var editButton:UIButton!
+    var settingButton:UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpTableView()
@@ -40,22 +46,60 @@ class MeViewController: UIViewController {
         }
         self.addLineNavigationBottom()
         self.talKingDataPageName = "Me"
-        self.navigationController?.navigationBar.translucent = true
-        self.navigationItemCleanColorWithNotLine()
+        self.setUpNavigationTitleView()
+        self.navigationItemWithLineAndWihteColor()
     }
 
+    func setUpNavigationTitleView() {
+        navigaitionTitleView = UIView()
+        navigaitionTitleView.userInteractionEnabled = true
+        navigaitionTitleView.backgroundColor = UIColor.redColor()
+        self.view.addSubview(navigaitionTitleView)
+        
+        editButton = UIButton(type: .Custom)
+        editButton.setImage(UIImage.init(named: "me_editBlack"), forState: .Normal)
+        editButton.addTarget(self, action: #selector(MeViewController.editPress(_:)), forControlEvents: .TouchUpInside)
+        navigaitionTitleView.addSubview(editButton)
+        
+        settingButton = UIButton(type: .Custom)
+        settingButton.setImage(UIImage.init(named: "me_settingsBlack"), forState: .Normal)
+        settingButton.addTarget(self, action: #selector(MeViewController.rightPress(_:)), forControlEvents: .TouchUpInside)
+        navigaitionTitleView.addSubview(settingButton)
+        
+        dismissButton = UIButton(type: .Custom)
+        dismissButton.setImage(UIImage.init(named: "me_dismissBlack"), forState: .Normal)
+        dismissButton.addTarget(self, action: #selector(MeViewController.cancelPress(_:)), forControlEvents: .TouchUpInside)
+        navigaitionTitleView.addSubview(dismissButton)
+        
+        navigaitionTitleView.snp_makeConstraints { (make) in
+            make.top.equalTo(self.view.snp_top).offset(0)
+            make.left.equalTo(self.view.snp_left).offset(0)
+            make.right.equalTo(self.view.snp_right).offset(0)
+            make.height.equalTo(64)
+        }
+        
+        dismissButton.snp_makeConstraints { (make) in
+            make.top.equalTo(self.navigaitionTitleView.snp_top).offset(22)
+            make.left.equalTo(self.navigaitionTitleView.snp_left).offset(10)
+            make.size.equalTo(CGSizeMake(40, 40))
+        }
+        
+        settingButton.snp_makeConstraints { (make) in
+            make.top.equalTo(self.navigaitionTitleView.snp_top).offset(22)
+            make.right.equalTo(self.navigaitionTitleView.snp_right).offset(-10)
+            make.size.equalTo(CGSizeMake(40, 40))
+        }
+        
+        editButton.snp_makeConstraints { (make) in
+            make.top.equalTo(self.navigaitionTitleView.snp_top).offset(22)
+            make.right.equalTo(self.settingButton.snp_left).offset(-10)
+            make.size.equalTo(CGSizeMake(40, 40))
+        }
+    }
+    
     override func viewWillAppear(animated: Bool) {
-        self.navigationController?.fd_prefersNavigationBarHidden = true
         super.viewWillAppear(animated)
-        for view in (UIApplication.sharedApplication().keyWindow?.subviews)! {
-            view.backgroundColor = UIColor.clearColor()
-        }
-        let window = UIApplication.sharedApplication().keyWindow
-        let status = window?.viewWithTag(1000)
-        if status != nil {
-            status?.backgroundColor = UIColor.clearColor()
-        }
-
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.setNavigationBar()
         if UserInfo.isLoggedIn() {
             self.lastModifield()
@@ -94,11 +138,6 @@ class MeViewController: UIViewController {
     
     override func viewDidDisappear(animated: Bool) {
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
-//        self.navigationController?.navigationBar.translucent = false
-
-//        if UserInfo.isLoggedIn() {
-            self.navigationItemWithLineAndWihteColor()
-//        }
     }
     
     func setUpTableView(){
@@ -149,15 +188,9 @@ class MeViewController: UIViewController {
     func setNavigationBar(){
         if UserInfo.isLoggedIn() {
             UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
-//            self.removeNavigatioinBar()
-//            self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
-            self.navigationItemCleanColorWithNotLine()
             self.setLeftBarItem()
         }else{
             UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
-//            self.createNavigationBar()
-//            self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
-//            self.navigationItemCleanColorWithNotLine()
             self.setNavigationItemAplah(1, imageName: ["me_dismissBlack"], type: 1)
             self.setNavigationItemAplah(1, imageName: ["me_settingsBlack"], type: 2)
             
@@ -183,39 +216,34 @@ class MeViewController: UIViewController {
     func setNavigationItemAplah(imageAplah:CGFloat, imageName:NSArray, type:NSInteger)  {
         if type == 1 {
             let image = UIImage(named: imageName[0] as! String)?.imageByApplyingAlpha(imageAplah)
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MeViewController.cancelPress(_:)))
+            dismissButton.setImage(image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), forState: .Normal)
         }else if type == 2{
             let image = UIImage(named: imageName[0] as! String)?.imageByApplyingAlpha(imageAplah)
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MeViewController.rightPress(_:)))
+            settingButton.setImage(image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), forState: .Normal)
         }else{
             let image = UIImage(named: imageName[0] as! String)?.imageByApplyingAlpha(imageAplah)
             
-            let settingItem = UIBarButtonItem(image: image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MeViewController.rightPress(_:)))
+            settingButton.setImage(image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), forState: .Normal)
             let image1 = UIImage(named: imageName[1] as! String)?.imageByApplyingAlpha(imageAplah)
-            let editItem = UIBarButtonItem(image:image1?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MeViewController.editPress(_:)))
-            
-            self.navigationItem.rightBarButtonItems = [settingItem,editItem]
+            editButton.setImage(image1?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), forState: .Normal)
         }
     }
     
     
-    func cancelPress(sender:UIBarButtonItem){
+    func cancelPress(sender:UIButton){
         self.dismissViewControllerAnimated(true) { 
         }
     }
     
-    func editPress(sender:UIBarButtonItem){
+    func editPress(sender:UIButton){
         self.pushProfileViewControllr()
     }
     
-    func rightPress(sender:UIBarButtonItem){
+    func rightPress(sender:UIButton){
         let settingVC = Stroyboard("Seting", viewControllerId: "SetingViewController") as!  SetingViewController
         settingVC.logoutBlock = {()
             self.tableView.reloadData()
         }
-//        if !UserInfo.isLoggedIn() {
-//            settingVC.navigationItemWithLineAndWihteColor()
-//        }
         self.navigationController!.pushViewController(settingVC, animated:true)
     }
     
@@ -396,6 +424,11 @@ class MeViewController: UIViewController {
         
     }
     
+    func pushLikeView() {
+        let likeManView = LikeManViewController()
+        self.navigationController!.pushViewController(likeManView, animated:true)
+    }
+    
     func getOrderNumber(){
         let orderViewModel = OrderViewModel()
         self.orderNumberArray.removeAllObjects()
@@ -440,6 +473,8 @@ extension MeViewController : UITableViewDelegate{
             }
         }else if indexPath.row == 5 {
             self.verificationOrderView()
+        }else if indexPath.row == 6 {
+            self.pushLikeView()
         }
     }
     
@@ -486,7 +521,7 @@ extension MeViewController : UITableViewDelegate{
                     self.dismissViewControllerAnimated(true, completion: { 
                     })
                 }
-                self.navigationController?.navigationBar.setBackgroundImage(UIImage.createImageWithColor(UIColor.init(red: 242.0/255.0, green: 241.0/255.0, blue: 238.0/255.0, alpha: 0)), forBarPosition: .Any, barMetrics: .Default)
+                navigaitionTitleView.backgroundColor = UIColor.init(red: 242.0/255.0, green: 241.0/255.0, blue: 238.0/255.0, alpha: 0)
                 self.setLeftBarItem()
             }else{
                 self.setNavigationItemAplah(y/124, imageName: ["me_dismissBlack"], type: 1)
@@ -497,8 +532,7 @@ extension MeViewController : UITableViewDelegate{
                 }
                 if cell != nil {
                 }
-                self.navigationController?.navigationBar.setBackgroundImage(UIImage.createImageWithColor(UIColor.init(red: 242.0/255.0, green: 241.0/255.0, blue: 238.0/255.0, alpha: y/124)), forBarPosition: .Any, barMetrics: .Default)
-                
+                navigaitionTitleView.backgroundColor = UIColor.init(red: 242.0/255.0, green: 241.0/255.0, blue: 238.0/255.0, alpha: y/124)
                 if y > 50{
                     UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
                 }else{
@@ -517,7 +551,7 @@ extension MeViewController : UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if UserInfo.isLoggedIn() {
-            return 7
+            return 8
         }else{
             return 5
         }
@@ -631,6 +665,12 @@ extension MeViewController : UITableViewDataSource {
                 }else{
                     cell.configCell("me_mymeet", infoString: "我的约见", infoDetail: "共 \(allOrderNumber) 个进行中     ")
                 }
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                cell.setInfoButtonBackGroudColor(MeProfileCollectViewItemSelect)
+                return cell
+            }else if indexPath.row == 6 {
+                let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
+                cell.configCell("me_wantmeet", infoString: "想见的人", infoDetail: "")
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.setInfoButtonBackGroudColor(MeProfileCollectViewItemSelect)
                 return cell

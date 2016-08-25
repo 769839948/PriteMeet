@@ -486,32 +486,12 @@
                    fail:(Fail)faileBlock
 {
     NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@%@/black_user/%@",RequestBlackList,[UserInfo sharedInstance].uid,otherUid]];
-    NSDictionary *headers = @{ @"content-type": @"application/json",
-                               @"cache-control": @"no-cache",
-                               @"postman-token": @"9b594c43-9546-7dc8-caee-3fd1f345edd5" };
     NSDictionary *parameters = @{ @"black_user": otherUid };
-    
-    NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
-                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                       timeoutInterval:10.0];
-    [request setHTTPMethod:@"DELETE"];
-    [request setAllHTTPHeaderFields:headers];
-    [request setHTTPBody:postData];
-    
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
-                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                    if (error) {
-                                                        faileBlock(@{@"error":@"error"});
-                                                        NSLog(@"%@", error);
-                                                    } else {
-                                                        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
-                                                        successBlock(responseDic[@"content"]);
-                                                    }
-                                                }];
-    [dataTask resume];
+    [self deleteWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+        successBlock(responseObject[@"content"]);
+    } failure:^(NSDictionary *responseObject) {
+        faileBlock(@{@"error":@"error"});
+    }];
 }
 
 
@@ -525,6 +505,58 @@
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(responseObject);
+    }];
+}
+
+- (void)getLikeList:(NSString *)page
+       successBlock:(Success)successBlock
+                fail:(Fail)failBlock
+{
+    NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@?cur_user=%@&page=%@",RequestLikeList,[UserInfo sharedInstance].uid,page]];
+    [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
+        if ([responseObject[@"success"] boolValue]) {
+            successBlock(responseObject[@"content"][@"data"]);
+        }else{
+            failBlock(@{@"error":@"请求错误"});
+        }
+    } failure:^(NSDictionary *responseObject) {
+        failBlock(responseObject);
+    }];
+}
+
+- (void)likeUser:(NSString *)uid
+    successBlock:(Success)successBlock
+       failBlock:(Fail)failBlock
+{
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:RequestLikeUser];
+    NSDictionary *parameters = @{@"user_id":uid,
+                                 @"cur_user":[UserInfo sharedInstance].uid};
+    [self putWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+        if ([responseObject[@"success"] boolValue]) {
+            successBlock(responseObject[@"data"]);
+        }else{
+            failBlock(@{@"error":@"收藏失败"});
+        }
+    } failure:^(NSDictionary *responseObject) {
+        failBlock(@{@"error":@"网络错误"});
+    }];
+}
+
+- (void)deleteLikeUser:(NSString *)uid
+          successBlock:(Success)successBlock
+             failBlock:(Fail)failBlock
+{
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:RequestLikeUser];
+    NSDictionary *parameters = @{@"user_id":uid,
+                                 @"cur_user":[UserInfo sharedInstance].uid};
+    [self deleteWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+        if ([responseObject[@"success"] boolValue]) {
+            successBlock(responseObject[@"data"]);
+        }else{
+            failBlock(@{@"error":@"取消收藏失败"});
+        }
+    } failure:^(NSDictionary *responseObject) {
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 

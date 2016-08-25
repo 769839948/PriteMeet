@@ -138,8 +138,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
     [self setUpTableView];
     [self setNavigationBarItem];
     self.talKingDataPageName = @"Me-MyProfile";
-    [self setFd_prefersNavigationBarHidden:NO];
-//    [self navigationItemWithLineAndWihteColor];
 }
 
 - (void)setUpTableView
@@ -161,8 +159,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self createNavigationBar];
-    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

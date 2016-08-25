@@ -46,7 +46,6 @@ class SenderInviteViewController: UIViewController {
         IQKeyboardManager.sharedManager().enable = false
         self.setupForDismissKeyboard()
         self.talKingDataPageName = "Me-Invite"
-        // Do any additional setup after loading the view.
     }
 
     func loadNetData(){
@@ -140,13 +139,20 @@ class SenderInviteViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.createNavigationBar()
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     func setUpTableView(){
         self.tableView.registerClass(InviteItemsTableViewCell.self, forCellReuseIdentifier: "InviteItemsTableViewCell")
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
         self.tableView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
+        self.tableView.snp_makeConstraints { (make) in
+            make.top.equalTo(self.view.snp_top).offset(0)
+            make.left.equalTo(self.view.snp_left).offset(0)
+            make.right.equalTo(self.view.snp_right).offset(0)
+            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+        }
     }
     
     override func didReceiveMemoryWarning() {

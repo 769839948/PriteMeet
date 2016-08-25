@@ -22,6 +22,8 @@
 
 @property (nonatomic, assign) NSInteger gender;
 
+@property (nonatomic, assign) BOOL liked;
+
 @property (nonatomic, copy) Cover_photo *cover_photo;
 
 @property (nonatomic, copy) NSString *job_label;

@@ -87,6 +87,10 @@
 		1F810EC51D509D01008A5EF1 /* OrderCancelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F810EC31D509D01008A5EF1 /* OrderCancelTableViewCell.xib */; };
 		1F810EC71D51E386008A5EF1 /* AllMeetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F810EC61D51E386008A5EF1 /* AllMeetViewController.swift */; };
 		1F810ECA1D51F5D0008A5EF1 /* UIViewController+TalKingData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F810EC91D51F5D0008A5EF1 /* UIViewController+TalKingData.m */; };
+		1F8FF7721D6ECE8B00C7A5B9 /* LikeManViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8FF7711D6ECE8B00C7A5B9 /* LikeManViewController.swift */; };
+		1F8FF7821D6EDA0200C7A5B9 /* LikeListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8FF7811D6EDA0200C7A5B9 /* LikeListModel.swift */; };
+		1F8FF7851D6EDD0000C7A5B9 /* LikeListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8FF7831D6EDD0000C7A5B9 /* LikeListCollectionViewCell.swift */; };
+		1F8FF7861D6EDD0000C7A5B9 /* LikeListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F8FF7841D6EDD0000C7A5B9 /* LikeListCollectionViewCell.xib */; };
 		1F9DCF091D4C50C2001467E6 /* TYPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9DCF011D4C50C2001467E6 /* TYPagerController.m */; };
 		1F9DCF0A1D4C50C2001467E6 /* TYTabButtonPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9DCF031D4C50C2001467E6 /* TYTabButtonPagerController.m */; };
 		1F9DCF0B1D4C50C2001467E6 /* TYTabPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9DCF051D4C50C2001467E6 /* TYTabPagerController.m */; };
@@ -389,6 +393,10 @@
 		1F810EC61D51E386008A5EF1 /* AllMeetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllMeetViewController.swift; sourceTree = "<group>"; };
 		1F810EC81D51F5D0008A5EF1 /* UIViewController+TalKingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TalKingData.h"; sourceTree = "<group>"; };
 		1F810EC91D51F5D0008A5EF1 /* UIViewController+TalKingData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TalKingData.m"; sourceTree = "<group>"; };
+		1F8FF7711D6ECE8B00C7A5B9 /* LikeManViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeManViewController.swift; sourceTree = "<group>"; };
+		1F8FF7811D6EDA0200C7A5B9 /* LikeListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeListModel.swift; sourceTree = "<group>"; };
+		1F8FF7831D6EDD0000C7A5B9 /* LikeListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeListCollectionViewCell.swift; sourceTree = "<group>"; };
+		1F8FF7841D6EDD0000C7A5B9 /* LikeListCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LikeListCollectionViewCell.xib; sourceTree = "<group>"; };
 		1F9DCF001D4C50C2001467E6 /* TYPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYPagerController.h; sourceTree = "<group>"; };
 		1F9DCF011D4C50C2001467E6 /* TYPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYPagerController.m; sourceTree = "<group>"; };
 		1F9DCF021D4C50C2001467E6 /* TYTabButtonPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYTabButtonPagerController.h; sourceTree = "<group>"; };
@@ -511,7 +519,7 @@
 		1FD97BBB1D55E1A900556568 /* OrderApplyIntroductionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderApplyIntroductionCell.swift; sourceTree = "<group>"; };
 		1FD97BBD1D55E41700556568 /* OrderApplyInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderApplyInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1FD97BBE1D55E41700556568 /* OrderApplyInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderApplyInfoTableViewCell.xib; sourceTree = "<group>"; };
-		1FD97BC11D5892BA00556568 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		1FD97BC11D5892BA00556568 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = "Frist Versions/HomeViewController.swift"; sourceTree = "<group>"; };
 		1FD97C121D5B1F5C00556568 /* PayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayView.swift; sourceTree = "<group>"; };
 		1FD97C141D5C257300556568 /* PayCompleteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayCompleteViewController.swift; sourceTree = "<group>"; };
 		1FDA53A41D003DC800C170BC /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
@@ -526,7 +534,7 @@
 		1FF30A301D31ECF40051333F /* ScrollingNavbar+Sizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ScrollingNavbar+Sizes.swift"; sourceTree = "<group>"; };
 		1FF30A311D31ECF40051333F /* ScrollingNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollingNavigationController.swift; sourceTree = "<group>"; };
 		1FF30A321D31ECF40051333F /* ScrollingNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollingNavigationViewController.swift; sourceTree = "<group>"; };
-		1FF3C50A1D2B842400BE89A9 /* SenderInviteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SenderInviteViewController.swift; sourceTree = "<group>"; };
+		1FF3C50A1D2B842400BE89A9 /* SenderInviteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SenderInviteViewController.swift; path = "My Invite/SenderInviteViewController.swift"; sourceTree = "<group>"; };
 		1FF3C50D1D2B8A0E00BE89A9 /* InviteTitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteTitleTableViewCell.swift; sourceTree = "<group>"; };
 		1FF3C50F1D2B8A3300BE89A9 /* InviteItemsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteItemsTableViewCell.swift; sourceTree = "<group>"; };
 		1FF3C5111D2B8A5000BE89A9 /* InviteDetailInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteDetailInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -809,6 +817,8 @@
 				1F3868751D27749200569032 /* JobLableCollectViewCell.m */,
 				1F508D4C1D2FA791001EB676 /* ProfilePhotoTableViewCell.swift */,
 				1F508D4D1D2FA791001EB676 /* ProfilePhotoTableViewCell.xib */,
+				1F8FF7831D6EDD0000C7A5B9 /* LikeListCollectionViewCell.swift */,
+				1F8FF7841D6EDD0000C7A5B9 /* LikeListCollectionViewCell.xib */,
 				1FAA081F1D4319220017F3E3 /* BlackListCollectCell.swift */,
 				1FAA081C1D43160D0017F3E3 /* BlackListCollectCell.xib */,
 			);
@@ -878,18 +888,6 @@
 				1FAA08111D41D3660017F3E3 /* EqualSpaceFlowLayout.m */,
 			);
 			path = Other;
-			sourceTree = "<group>";
-		};
-		1F6850131CFFD29F007F3C07 /* MeetDetailView */ = {
-			isa = PBXGroup;
-			children = (
-				1F68501F1CFFD3D2007F3C07 /* MeetDetailViewController.swift */,
-				1F3868421D26141D00569032 /* OtherViewController.swift */,
-				1F293D931D13CB290063A9DA /* AboutDetailViewController.swift */,
-				1FBF3FC31D1BEB22005DB46F /* MeetWebViewController.swift */,
-				1FAA08061D41C6D60017F3E3 /* ReportViewController.swift */,
-			);
-			name = MeetDetailView;
 			sourceTree = "<group>";
 		};
 		1F6850171CFFD30E007F3C07 /* Utils */ = {
@@ -1141,8 +1139,12 @@
 		DA018EDC1CD1D2CD0051D2D7 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				1F6850131CFFD29F007F3C07 /* MeetDetailView */,
-				DA6B1C361CEC4DAC0020021D /* Frist Versions */,
+				1FD97BC11D5892BA00556568 /* HomeViewController.swift */,
+				1F68501F1CFFD3D2007F3C07 /* MeetDetailViewController.swift */,
+				1F3868421D26141D00569032 /* OtherViewController.swift */,
+				1F293D931D13CB290063A9DA /* AboutDetailViewController.swift */,
+				1FBF3FC31D1BEB22005DB46F /* MeetWebViewController.swift */,
+				1FAA08061D41C6D60017F3E3 /* ReportViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1151,8 +1153,9 @@
 			isa = PBXGroup;
 			children = (
 				1FC4C08A1D0D590E00E4BB33 /* MeViewController.swift */,
+				1FF3C50A1D2B842400BE89A9 /* SenderInviteViewController.swift */,
+				1F8FF7711D6ECE8B00C7A5B9 /* LikeManViewController.swift */,
 				DA6CEF0A1CDAF33300EEABFF /* Profile */,
-				DAF5C8CE1CE6F81C00DA7901 /* My Invite */,
 				DAF5C8CA1CE6F79900DA7901 /* Album Center */,
 				DABF8AF51CEAC27500CA2A1D /* Seting */,
 			);
@@ -1334,14 +1337,6 @@
 			path = Me/Login;
 			sourceTree = "<group>";
 		};
-		DA6B1C361CEC4DAC0020021D /* Frist Versions */ = {
-			isa = PBXGroup;
-			children = (
-				1FD97BC11D5892BA00556568 /* HomeViewController.swift */,
-			);
-			path = "Frist Versions";
-			sourceTree = "<group>";
-		};
 		DA6CEF0A1CDAF33300EEABFF /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -1454,6 +1449,7 @@
 				1FAA077D1D3CBE600017F3E3 /* ApplyMeetModel.h */,
 				1FAA077E1D3CBE600017F3E3 /* ApplyMeetModel.m */,
 				1FAA08191D42442D0017F3E3 /* BlackListModel.swift */,
+				1F8FF7811D6EDA0200C7A5B9 /* LikeListModel.swift */,
 			);
 			path = ModelBean;
 			sourceTree = "<group>";
@@ -1530,14 +1526,6 @@
 				DAF5C8CC1CE6F79900DA7901 /* PhotosGridViewController.m */,
 			);
 			path = "Album Center";
-			sourceTree = "<group>";
-		};
-		DAF5C8CE1CE6F81C00DA7901 /* My Invite */ = {
-			isa = PBXGroup;
-			children = (
-				1FF3C50A1D2B842400BE89A9 /* SenderInviteViewController.swift */,
-			);
-			path = "My Invite";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1626,6 +1614,7 @@
 				1FAA07891D3CE64A0017F3E3 /* OrderProfileTableViewCell.xib in Resources */,
 				1F810EC51D509D01008A5EF1 /* OrderCancelTableViewCell.xib in Resources */,
 				1F79BAA21D06AF5C00814DED /* ProfileKeyValue.txt in Resources */,
+				1F8FF7861D6EDD0000C7A5B9 /* LikeListCollectionViewCell.xib in Resources */,
 				DAF5C8471CE2DA6E00DA7901 /* LabelTableViewCell.xib in Resources */,
 				1FAA078D1D3CE6850017F3E3 /* AppointMentTableViewCell.xib in Resources */,
 				DA4A88F81CDB2BFD00649983 /* LabelAndTextFieldCell.xib in Resources */,
@@ -1757,6 +1746,7 @@
 				1FFB5F3E1D069A8800021F77 /* ProfileKeyAndValue.m in Sources */,
 				DAF5C8541CE5A5C100DA7901 /* UIView+frameAdjust.m in Sources */,
 				DAF5C8841CE5B95000DA7901 /* CoreTextLinkData.m in Sources */,
+				1F8FF7821D6EDA0200C7A5B9 /* LikeListModel.swift in Sources */,
 				1FD97C151D5C257300556568 /* PayCompleteViewController.swift in Sources */,
 				DA018F391CD44B210051D2D7 /* ThreeImageCell.m in Sources */,
 				1FF30A351D31ECF50051333F /* ScrollingNavigationViewController.swift in Sources */,
@@ -1767,6 +1757,7 @@
 				1FAA07881D3CE64A0017F3E3 /* OrderProfileTableViewCell.swift in Sources */,
 				DAF5C8461CE2DA6E00DA7901 /* LabelTableViewCell.m in Sources */,
 				DA36265C1CD1A75C00A8AE39 /* AppDelegate.m in Sources */,
+				1F8FF7851D6EDD0000C7A5B9 /* LikeListCollectionViewCell.swift in Sources */,
 				1FF30A2D1D3131720051333F /* SettingTableViewCell.m in Sources */,
 				1F6850291CFFD443007F3C07 /* CompayTableViewCell.m in Sources */,
 				DA6CEF021CDA402C00EEABFF /* TextViewCell.m in Sources */,
@@ -1877,6 +1868,7 @@
 				1F79BAD21D071CF700814DED /* UserInfo.m in Sources */,
 				1FBF408C1D1E5BF8005DB46F /* ProfileTableViewCell.swift in Sources */,
 				1F810E931D4F6E89008A5EF1 /* OtherUserInfoViewController.swift in Sources */,
+				1F8FF7721D6ECE8B00C7A5B9 /* LikeManViewController.swift in Sources */,
 				DAF5C8C91CE6F3EB00DA7901 /* MyPhotosViewController.m in Sources */,
 				DABF8B071CEB18E700CA2A1D /* MeetBaseViewController.m in Sources */,
 				1F79BAE31D09248B00814DED /* ZHPickView.m in Sources */,

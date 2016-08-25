@@ -64,4 +64,3 @@
 #import <AMapLocationKit/AMapLocationManager.h>
 #import "ManListCell.h"
 #import "PlaceholderText.h"
-

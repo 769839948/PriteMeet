@@ -81,23 +81,35 @@
     }];
 }
 
-#pragma mark -- delete网络请求 -- 
+#pragma mark -- delete网络请求 --
 - (void)deleteWithURLString:(NSString *)URLString
                  parameters:(id)parameters
                     success:(Success)success
                     failure:(Fail)failure
 {
-    self.manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    [self.manager DELETE:URLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (success) {
-            success(responseObject);
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@",error);
-        if (failure) {
-            failure(@{@"error":error});
-        }
-    }];
+    NSDictionary *headers = @{ @"content-type": @"application/json",
+                               @"cache-control": @"no-cache",
+                               @"postman-token": @"9b594c43-9546-7dc8-caee-3fd1f345edd5" };
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:URLString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:10.0];
+    [request setHTTPMethod:@"DELETE"];
+    [request setAllHTTPHeaderFields:headers];
+    [request setHTTPBody:postData];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                    if (error) {
+                                                        failure(@{@"error":error});
+                                                    } else {
+                                                        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
+                                                        success(responseDic);
+                                                    }
+                                                }];
+    [dataTask resume];
 }
 
 #pragma mark -- POST/GET网络请求 --
@@ -162,5 +174,7 @@
         }
     }];
 }
+
+
 
 @end
