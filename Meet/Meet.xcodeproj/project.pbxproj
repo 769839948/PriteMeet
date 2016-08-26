@@ -765,13 +765,6 @@
 			path = "UICollectionView+ARDynamicHeightLayoutCell";
 			sourceTree = "<group>";
 		};
-		1F2F56BC1D36204F005AEBC8 /* Order */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Order;
-			sourceTree = "<group>";
-		};
 		1F4E43651CFC56AE00730DEA /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -1333,13 +1326,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DA018EDC1CD1D2CD0051D2D7 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Home;
-			sourceTree = "<group>";
-		};
 		DA018EDD1CD1D2CD0051D2D7 /* Me */ = {
 			isa = PBXGroup;
 			children = (
@@ -1453,11 +1439,8 @@
 		DA36267A1CD1A98E00A8AE39 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				1F2F56BC1D36204F005AEBC8 /* Order */,
-				DA018EDC1CD1D2CD0051D2D7 /* Home */,
 				DABF8ADA1CE74FCF00CA2A1D /* Meet Centent */,
 				DA018EDD1CD1D2CD0051D2D7 /* Me */,
-				DA4A88FF1CDC2BD000649983 /* Login */,
 			);
 			name = ViewControllers;
 			path = Meet/ViewControllers;
@@ -1493,14 +1476,6 @@
 			);
 			name = Views;
 			path = Meet/Views;
-			sourceTree = "<group>";
-		};
-		DA4A88FF1CDC2BD000649983 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Login;
-			path = Me/Login;
 			sourceTree = "<group>";
 		};
 		DA6CEF0A1CDAF33300EEABFF /* Profile */ = {

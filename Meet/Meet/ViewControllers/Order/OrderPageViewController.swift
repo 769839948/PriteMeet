@@ -37,17 +37,12 @@ class OrderPageViewController: TYTabButtonPagerController {
         // Do any additional setup after loading the view.
     }
     
-//    func changeNavigationBar() {
-//
-//        self.navigationController?.navigationBar.translucent = false
-//        self.setNavigationItemBack()
-//        self.fd_prefersNavigationBarHidden = true
-//        
-////        self.createNavigationBar()
-//    }
-//    override func viewWillAppear(animated: Bool) {
-//        self.createNavigationBar()
-//    }
+    func changeNavigationBar() {
+        self.setNavigationItemBack()
+    }
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
     
     func setUpPageViewControllerStyle(){
         var stringSize:CGFloat = 0

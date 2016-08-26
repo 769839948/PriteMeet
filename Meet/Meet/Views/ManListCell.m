@@ -229,8 +229,18 @@
     _likeBtn.tag = tag;
     dispatch_async(dispatch_get_main_queue(), ^{
         [_likeBtn setBackgroundImage:image forState:UIControlStateNormal];
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             self.likeBtn.transform = CGAffineTransformMakeScale(1.2, 1.2);
+                         }completion:^(BOOL finish){
+                             [UIView animateWithDuration:0.5
+                                              animations:^{
+                                                  self.likeBtn.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                                              }completion:^(BOOL finish){
+                                                  
+                                              }];
+                         }];
     });
-//    [_likeBtn setImage:image forState:UIControlStateNormal];
 }
 
 - (CGFloat)cellWidth:(NSString *)itemString

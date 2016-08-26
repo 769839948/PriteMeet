@@ -417,11 +417,8 @@ class MeViewController: UIViewController {
         orderPageVC.progressWidth = 0
         orderPageVC.adjustStatusBarHeight = true
         orderPageVC.progressColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
-        let navigationController = UINavigationController(rootViewController: orderPageVC)
-        self.presentViewController(navigationController, animated: true, completion: {
-            
-        })
-        
+        orderPageVC.changeNavigationBar()
+        self.navigationController?.pushViewController(orderPageVC, animated: true)
     }
     
     func pushLikeView() {
@@ -532,7 +529,7 @@ extension MeViewController : UITableViewDelegate{
                 }
                 if cell != nil {
                 }
-                navigaitionTitleView.backgroundColor = UIColor.init(red: 242.0/255.0, green: 241.0/255.0, blue: 238.0/255.0, alpha: y/124)
+                navigaitionTitleView.backgroundColor = UIColor.init(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: y/124)
                 if y > 50{
                     UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
                 }else{
