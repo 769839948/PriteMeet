@@ -70,6 +70,7 @@ let OrderMeetTipTitleFont      = version >= 9.0 ? UIFont.init(name: "PingFangSC-
 
 let NavigationBarRightItemFont  = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size:16.0):UIFont.systemFontOfSize(16)
 
+let HomeDetailCenterLabelFont  = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 13.0):UIFont.systemFontOfSize(13)
 
 let ReloadOrderCollectionView = "ReloadOrderCollectionView"
 

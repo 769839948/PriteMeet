@@ -70,4 +70,8 @@ class HomeDetailModel: NSObject {
     var web_url : String = ""
     
     var avatar : String = ""
+    
+    var cur_user_liked : Bool = false
+    
+    var liked_count : NSInteger = 0
 }

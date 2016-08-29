@@ -76,7 +76,7 @@
         [self updateConstraints];
     }else{
         _positionLabel.text = position;
-        float positionHeight = [position heightWithFont:HomeViewDetailPositionFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 40];
+        float positionHeight = [position heightWithFont:HomeViewDetailPositionFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 90];
         if (positionHeight > 32){
             [_positionLabel mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.mas_offset(positionHeight);
@@ -93,18 +93,28 @@
         _meetNumber.text = meetNumber;
     }
     
-    if ([interstArray[0] isEqualToString:@""]) {
+    if (interstArray.count == 0) {
         [_centerLabelView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_offset(0.001);
+            make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(0);
         }];
         [self updateConstraints];
     }else{
-        CGFloat height = [_centerLabelView setUpCustomLabelArray:interstArray];
-        [_centerLabelView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.offset(height);
-        }];
-        [weakSelf updateConstraints];
-        [weakSelf updateConstraintsIfNeeded];
+        if ([interstArray[0] isEqualToString:@""]) {
+            [_centerLabelView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_offset(0.001);
+                make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(0);
+
+            }];
+            [self updateConstraints];
+        }else{
+            CGFloat height = [_centerLabelView setUpCustomLabelArray:interstArray];
+            [_centerLabelView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.offset(height);
+            }];
+            [weakSelf updateConstraints];
+            [weakSelf updateConstraintsIfNeeded];
+        }
     }
     [self updateConstraintsIfNeeded];
 }
@@ -121,8 +131,8 @@
         }];
         [_positionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(1);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(45);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-45);
             make.bottom.mas_equalTo(weakSelf.meetNumber.mas_top).offset(-8);
         }];
         [_meetNumber mas_makeConstraints:^(MASConstraintMaker *make) {

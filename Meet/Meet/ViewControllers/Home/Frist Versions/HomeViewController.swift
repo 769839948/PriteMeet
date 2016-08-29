@@ -456,6 +456,17 @@ extension HomeViewController : UITableViewDelegate {
         let meetDetailVC = MeetDetailViewController()
         let model = homeModelArray[indexPath.section] as! HomeModel
         meetDetailVC.user_id = "\(model.uid)"
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! ManListCell
+        meetDetailVC.reloadHomeListLike = { isLike in
+            if isLike {
+                cell.likeBtn.tag = 1
+                cell.reloadLikeBtnImage(true)
+            }else{
+                cell.likeBtn.tag = 0
+                cell.reloadLikeBtnImage(false)
+            }
+            
+        }
         self.navigationController?.pushViewController(meetDetailVC, animated: true)
     }
     

@@ -29,6 +29,8 @@ enum PersonType {
 }
 
 
+typealias ReloadHomeListLike = (isLike:Bool) -> Void
+
 class MeetDetailViewController: UIViewController {
 
     var tableView:UITableView!
@@ -53,6 +55,10 @@ class MeetDetailViewController: UIViewController {
     
     var loginView:LoginView!
     var isOrderViewPush:Bool = false
+    
+    var likeButton:UIButton!
+    
+    var reloadHomeListLike:ReloadHomeListLike!
     
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
@@ -152,17 +158,17 @@ class MeetDetailViewController: UIViewController {
 //        uploadBt.setImage(UIImage(named: "navigationbar_upload"), forState: UIControlState.Normal)
 //        uploadBt.frame = CGRectMake(0, 0, 40, 40);
 //        let uploadItem = UIBarButtonItem(customView: uploadBt)
-//        
-//        let colloctBt = UIButton(type: UIButtonType.Custom)
-//        colloctBt.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-//        colloctBt.setImage(UIImage(named: "navigationbar_collect"), forState: UIControlState.Normal)
-//        colloctBt.frame = CGRectMake(0, 0, 60, 40);
-//        colloctBt.titleLabel?.font = UIFont.init(name: "PingFangSC-Regular", size: 14.0)
-//        colloctBt.setTitle(" 668", forState: UIControlState.Normal)
-//        let colloctItem = UIBarButtonItem(customView: colloctBt)
-//        self.navigationItem.rightBarButtonItems = [uploadItem,colloctItem]
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "navigationbar_more")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(MeetDetailViewController.rigthItemClick(_:)))
+        let moreBtn = UIBarButtonItem(image: UIImage.init(named: "navigationbar_more")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(MeetDetailViewController.rigthItemClick(_:)))
+        
+        
+        likeButton = UIButton(type: UIButtonType.Custom)
+        likeButton.addTarget(self, action: #selector(MeetDetailViewController.likeButtonPress(_:)), forControlEvents: .TouchUpInside)
+        
+        likeButton.titleLabel?.font = UIFont.systemFontOfSize(14)
+        likeButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        let likeItem = UIBarButtonItem(customView: likeButton)
+        self.navigationItem.rightBarButtonItems = [moreBtn,likeItem]
     }
     
     func setPersonType(personType:PersonType){
@@ -173,6 +179,19 @@ class MeetDetailViewController: UIViewController {
             self.bottomView.backgroundColor = UIColor.init(hexString: HomeViewWomenColor)
             personTypeString = "她"
         }
+    }
+    
+    func likeButtonPress(sender:UIButton) {
+        if sender.tag == 0 {
+            self.otherUserModel.liked_count = self.otherUserModel.liked_count + 1
+            self.otherUserModel.cur_user_liked = true
+            sender.tag = 1
+        }else{
+            self.otherUserModel.liked_count = self.otherUserModel.liked_count - 1
+            self.otherUserModel.cur_user_liked = false
+            sender.tag = 0
+        }
+        self.changeLikeButton(self.otherUserModel.cur_user_liked)
     }
     
     func leftItemClick(sender:UIBarButtonItem){
@@ -289,6 +308,29 @@ class MeetDetailViewController: UIViewController {
         
     }
     
+    func changeLikeButton(isLike:Bool) {
+        self.otherUserModel.cur_user_liked = isLike
+        let image = self.otherUserModel.cur_user_liked ? UIImage.init(named: "detail_liked_normal"):UIImage.init(named: "detail_like_normal")
+        var number = ""
+        if self.otherUserModel.liked_count == 0 {
+            number = ""
+        }else{
+           number = " \(self.otherUserModel.liked_count)"
+
+        }
+        likeButton.setTitle(number, forState: .Normal)
+        likeButton.setImage(image, forState: .Normal)
+        likeButton.frame = CGRectMake(0, 0, number.stringWidth(number, font: UIFont.systemFontOfSize(14.0), height: 20) + 20,20)
+        
+        let imageHight = self.otherUserModel.cur_user_liked ? UIImage.init(named: "detail_liked_pressed") : UIImage.init(named: "detail_like_pressed")
+        likeButton.setImage(imageHight, forState: .Highlighted)
+        
+        if self.reloadHomeListLike != nil {
+            self.reloadHomeListLike(isLike: isLike)
+        }
+        
+    }
+    
     func getHomeDetailModel(){
         viewModel.getOtherUserInfo(user_id, successBlock: { (dic) in
             self.otherUserModel = HomeDetailModel.mj_objectWithKeyValues(dic)
@@ -302,6 +344,7 @@ class MeetDetailViewController: UIViewController {
             self.personalArray = self.personalLabelArray
             self.images.addObjectsFromArray(self.imageArray.copy() as! [AnyObject])
             self.setUpTableView()
+            self.changeLikeButton(self.otherUserModel.cur_user_liked)
             }, failBlock: { (dic) in
                 self.getHomeDetailModel()
         }) { (msg) in
@@ -602,7 +645,11 @@ extension MeetDetailViewController : UITableViewDataSource {
                 case 0:
                     return 49
                 default:
-                    return self.aboutUsHeight(self.dataArray) + 30 + 50
+                    if self.otherUserModel.web_url == "" {
+                        return self.aboutUsHeight(self.dataArray) + 30
+                    }else{
+                        return self.aboutUsHeight(self.dataArray) + 30 + 50
+                    }
                 }
                 
             case 2:

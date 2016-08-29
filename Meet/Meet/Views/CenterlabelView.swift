@@ -49,7 +49,7 @@ class CenterlabelView: UIView {
         for idx in 0...titleArray.count - 1 {
             if titleArray.count > 1 {
                 let label = CustomLabel(frame: CGRectMake(0,0,0,0))
-                let itemSize = label.setUpCustomLabel(titleArray[idx] as! String, font:UIFont.init(name: "PingFangSC-Light", size: 13.0)! , textColor: UIColor.whiteColor(), backColor: UIColor.blackColor())
+                let itemSize = label.setUpCustomLabel(titleArray[idx] as! String, font:HomeDetailCenterLabelFont! , textColor: UIColor.whiteColor(), backColor: UIColor.blackColor())
                 allItemSize = allItemSize + itemSize.width + 10
                 if allItemSize > ScreenWidth - 20 {
                     allItemSize = allItemSize - itemSize.width - 10
@@ -58,12 +58,11 @@ class CenterlabelView: UIView {
                 }else{
                     
                 }
-                
                 if isScreenWidth || idx == titleArray.count - 1 {
                     xOffset = (ScreenWidth - allItemSize - 40 + 10)/2
                     for index in layoutItem...idx - 1 {
                         let label = CustomLabel(frame: CGRectMake(xOffset,yOffset,0,0))
-                        let itemSize = label.setUpCustomLabel(titleArray[index] as! String, font:UIFont.init(name: "PingFangSC-Light", size: 13.0)! , textColor: UIColor.whiteColor(), backColor: UIColor.blackColor())
+                        let itemSize = label.setUpCustomLabel(titleArray[index] as! String, font:HomeDetailCenterLabelFont! , textColor: UIColor.whiteColor(), backColor: UIColor.blackColor())
                         xOffset = xOffset + itemSize.width + 10
                         self.addSubview(label)
                     }
@@ -72,12 +71,12 @@ class CenterlabelView: UIView {
                         if !isScreenWidth {
                             yOffset = yOffset - itemSize.height - 10
                             let label = CustomLabel(frame: CGRectMake(xOffset,yOffset,0,0))
-                            let itemSize = label.setUpCustomLabel(titleArray[idx] as! String, font:UIFont.init(name: "PingFangSC-Light", size: 13.0)! , textColor: UIColor.whiteColor(), backColor: UIColor.blackColor())
+                            let itemSize = label.setUpCustomLabel(titleArray[idx] as! String, font:HomeDetailCenterLabelFont! , textColor: UIColor.whiteColor(), backColor: UIColor.blackColor())
                             label.frame = CGRectMake(xOffset, yOffset, itemSize.width, itemSize.height)
                             self.addSubview(label)
                         }else{
                             let label = CustomLabel(frame: CGRectMake(xOffset,yOffset,0,0))
-                            let itemSize = label.setUpCustomLabel(titleArray[idx] as! String, font:UIFont.init(name: "PingFangSC-Light", size: 13.0)! , textColor: UIColor.whiteColor(), backColor: UIColor.blackColor())
+                            let itemSize = label.setUpCustomLabel(titleArray[idx] as! String, font:HomeDetailCenterLabelFont! , textColor: UIColor.whiteColor(), backColor: UIColor.blackColor())
                             label.frame = CGRectMake((ScreenWidth - itemSize.width - 40)/2, yOffset, itemSize.width, itemSize.height)
                             self.addSubview(label)
                         }
@@ -90,7 +89,7 @@ class CenterlabelView: UIView {
                 }
             }else{
                 let label = CustomLabel(frame: CGRectMake(0,0,0,0))
-                let itemSize = label.setUpCustomLabel(titleArray[idx] as! String, font:UIFont.init(name: "PingFangSC-Light", size: 13.0)! , textColor: UIColor.whiteColor(), backColor: UIColor.blackColor())
+                let itemSize = label.setUpCustomLabel(titleArray[idx] as! String, font:HomeDetailCenterLabelFont! , textColor: UIColor.whiteColor(), backColor: UIColor.blackColor())
                 label.frame = CGRectMake((ScreenWidth - itemSize.width - 40)/2, 0, itemSize.width, 28)
                 self.addSubview(label)
             }
