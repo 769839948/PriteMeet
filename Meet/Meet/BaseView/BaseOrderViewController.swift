@@ -424,7 +424,7 @@ class BaseOrderViewController: UIViewController {
             }
         }else{
             if statusCode == "2" || statusCode == "7" || statusCode == "8" || statusCode == "13" {
-                resonType = "\(orderModel.order_user_info!.real_name) 因 \((orderModel.reject_type_desc))取消了您的约见"
+                resonType = "\(orderModel.order_user_info!.real_name) 因 \((orderModel.reject_type_desc))取消了约见"
             }else if statusCode == "3" {
                 resonType = "您因 \((orderModel.reject_type_desc)) 拒绝了约见"
             }else if statusCode == "9" || statusCode == "10" || statusCode == "12"  {

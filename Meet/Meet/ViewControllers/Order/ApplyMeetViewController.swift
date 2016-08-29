@@ -143,7 +143,6 @@ class ApplyMeetViewController: UIViewController {
             UITools.showMessageToView(self.view, message: "预约提交中请稍后", autoHide: true)
             return
         }
-        isApplyOrder = true
         viewModel = OrderViewModel()
         var appointment_theme = ""
         for idx in 0...cell.interestView.selectItems.count - 1 {
@@ -162,7 +161,7 @@ class ApplyMeetViewController: UIViewController {
             UITools.showMessageToView(self.view, message: "未填写约见说明哦", autoHide: true)
             return
         }
-        
+        isApplyOrder = true
         let applyModel = ApplyMeetModel()
         applyModel.appointment_desc = introductionCell.textView.text;
         applyModel.appointment_theme = appointment_theme

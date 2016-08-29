@@ -115,11 +115,27 @@ class OrderCancelRejectViewController: UIViewController {
             }
         }
         
-        if reject_type == "0" && reject_reson == "" {
-            UITools.showMessageToView(self.view, message: "请填写原因", autoHide: true)
+        var rejectType = ""
+        var rejectReson = ""
+        
+        if reject_type == "0"{
+            if self.resonType == .Cancel {
+                rejectType = "请填写取消原因哦"
+            }else{
+                rejectType = "请填写拒绝原因哦"
+            }
+            UITools.showMessageToView(self.view, message: rejectType, autoHide: true)
             return
         }
-        
+        if reject_reson == "" {
+            if self.resonType == .Cancel {
+                rejectReson = "请填写取消理由哦"
+            }else{
+                rejectReson = "请填写拒绝理由哦"
+            }
+            UITools.showMessageToView(self.view, message: rejectReson, autoHide: true)
+            return
+        }
        viewModel.switchOrderStatus(orderModel.order_id, status: changeOrderStatus, rejectType: reject_type, rejectReason: textView.text, succeccBlock: { (dic) in
             if self.reloadOrderStatusChang != nil{
                 self.reloadOrderStatusChang()
