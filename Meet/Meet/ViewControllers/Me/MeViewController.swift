@@ -53,7 +53,6 @@ class MeViewController: UIViewController {
     func setUpNavigationTitleView() {
         navigaitionTitleView = UIView()
         navigaitionTitleView.userInteractionEnabled = true
-        navigaitionTitleView.backgroundColor = UIColor.redColor()
         self.view.addSubview(navigaitionTitleView)
         
         editButton = UIButton(type: .Custom)
@@ -157,7 +156,7 @@ class MeViewController: UIViewController {
         self.view.addSubview(tableView)
 
         tableView.snp_makeConstraints(closure: { (make) in
-            make.top.equalTo(self.view.snp_top).offset(-64)
+            make.top.equalTo(self.view.snp_top).offset(-20)
             make.left.equalTo(self.view.snp_left).offset(0)
             make.right.equalTo(self.view.snp_right).offset(0)
             make.bottom.equalTo(self.view.snp_bottom).offset(0)
@@ -198,13 +197,25 @@ class MeViewController: UIViewController {
     }
     
     func setLeftBarItem(){
-        self.setNavigationItemAplah(1, imageName: ["me_dismiss"], type: 1)
-        
-        if UserInfo.sharedInstance().completeness.next_page != 4 {
-            self.setNavigationItemAplah(1, imageName: ["me_settings"], type: 2)
+        if self.tableView.contentOffset.y > 160 {
+            self.setNavigationItemAplah(1, imageName: ["me_dismissBlack"], type: 1)
+            
+            if UserInfo.sharedInstance().completeness.next_page != 4 {
+                self.setNavigationItemAplah(1, imageName: ["me_settings"], type: 2)
+            }else{
+                self.setNavigationItemAplah(1, imageName: ["me_settingsBlack","me_editBlack"], type: 3)
+            }
         }else{
-            self.setNavigationItemAplah(1, imageName: ["me_settings","me_edit"], type: 3)
+            self.setNavigationItemAplah(1, imageName: ["me_dismiss"], type: 1)
+            
+            if UserInfo.sharedInstance().completeness.next_page != 4 {
+                self.setNavigationItemAplah(1, imageName: ["me_settings"], type: 2)
+            }else{
+                self.setNavigationItemAplah(1, imageName: ["me_settings","me_edit"], type: 3)
+            }
         }
+        
+        
     }
     /**
      设置navigaitonBarItem颜色
@@ -218,14 +229,15 @@ class MeViewController: UIViewController {
             let image = UIImage(named: imageName[0] as! String)?.imageByApplyingAlpha(imageAplah)
             dismissButton.setImage(image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), forState: .Normal)
         }else if type == 2{
+            editButton.hidden = true
             let image = UIImage(named: imageName[0] as! String)?.imageByApplyingAlpha(imageAplah)
             settingButton.setImage(image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), forState: .Normal)
         }else{
             let image = UIImage(named: imageName[0] as! String)?.imageByApplyingAlpha(imageAplah)
-            
             settingButton.setImage(image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), forState: .Normal)
             let image1 = UIImage(named: imageName[1] as! String)?.imageByApplyingAlpha(imageAplah)
             editButton.setImage(image1?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), forState: .Normal)
+            editButton.hidden = false
         }
     }
     
@@ -509,12 +521,12 @@ extension MeViewController : UITableViewDelegate{
             let index = NSIndexPath.init(forRow: 0, inSection: 0)
             let cell = self.tableView.cellForRowAtIndexPath(index) as? MePhotoTableViewCell
             if(y <= 0){
-                if y <= -64 && cell != nil{
-                    let frame = CGRectMake(375 * (y + 64)/(272 * 2), y + 64, ScreenWidth - 375 * (y + 64)/272, ScreenWidth*272/375 - y - 64)
+                if y <= -20 && cell != nil{
+                    let frame = CGRectMake(375 * (y + 20)/(272 * 2), y + 20, ScreenWidth - 375 * (y + 20)/272, ScreenWidth*272/375 - y - 20)
                     cell!.avatarImageView.frame = frame
                     cell?.placImageView.frame = frame
                 }
-                if y <= -230 {
+                if y <= -190 {
                     self.dismissViewControllerAnimated(true, completion: { 
                     })
                 }
@@ -523,13 +535,13 @@ extension MeViewController : UITableViewDelegate{
             }else{
                 self.setNavigationItemAplah(y/124, imageName: ["me_dismissBlack"], type: 1)
                 if UserInfo.sharedInstance().completeness.next_page != 4  {
-                    self.setNavigationItemAplah(y/124, imageName: ["me_settingsBlack"], type: 2)
+                    self.setNavigationItemAplah(y/164, imageName: ["me_settingsBlack"], type: 2)
                 }else{
-                    self.setNavigationItemAplah(y/124, imageName: ["me_settingsBlack","me_editBlack"], type: 3)
+                    self.setNavigationItemAplah(y/164, imageName: ["me_settingsBlack","me_editBlack"], type: 3)
                 }
                 if cell != nil {
                 }
-                navigaitionTitleView.backgroundColor = UIColor.init(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: y/124)
+                navigaitionTitleView.backgroundColor = UIColor.init(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: y/164)
                 if y > 50{
                     UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
                 }else{
