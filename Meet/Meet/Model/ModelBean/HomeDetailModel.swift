@@ -19,6 +19,7 @@ class User_Info: NSObject {
     
     var auth_info: String?
     
+    
 }
 
 class Engagement: NSObject {

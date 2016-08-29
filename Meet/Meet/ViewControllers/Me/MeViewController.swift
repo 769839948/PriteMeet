@@ -562,7 +562,7 @@ extension MeViewController : UITableViewDataSource {
         if UserInfo.isLoggedIn() {
             return 8
         }else{
-            return 5
+            return 7
         }
     }
     
@@ -706,7 +706,7 @@ extension MeViewController : UITableViewDataSource {
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.accessoryType = UITableViewCellAccessoryType.None
                 return cell
-            }else if (indexPath.row == 4) {
+            }else if (indexPath.row == 6) {
                 let identifier = "LastCell"
                 var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
                 if cell == nil{

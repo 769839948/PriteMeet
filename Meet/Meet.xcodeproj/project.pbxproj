@@ -90,6 +90,8 @@
 		1F85D99F1D73FD27004DEAFE /* BaseOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F85D99A1D73FD27004DEAFE /* BaseOrderViewController.swift */; };
 		1F85D9A01D73FD27004DEAFE /* MeetBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F85D99C1D73FD27004DEAFE /* MeetBaseViewController.m */; };
 		1F85D9A31D73FD40004DEAFE /* BaseRequestViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F85D9A21D73FD40004DEAFE /* BaseRequestViewModel.m */; };
+		1F85D9A81D7413E2004DEAFE /* MeetOrderInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F85D9A61D7413E2004DEAFE /* MeetOrderInfoTableViewCell.swift */; };
+		1F85D9A91D7413E2004DEAFE /* MeetOrderInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F85D9A71D7413E2004DEAFE /* MeetOrderInfoTableViewCell.xib */; };
 		1F8FF7721D6ECE8B00C7A5B9 /* LikeManViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8FF7711D6ECE8B00C7A5B9 /* LikeManViewController.swift */; };
 		1F8FF7821D6EDA0200C7A5B9 /* LikeListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8FF7811D6EDA0200C7A5B9 /* LikeListModel.swift */; };
 		1F8FF7851D6EDD0000C7A5B9 /* LikeListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8FF7831D6EDD0000C7A5B9 /* LikeListCollectionViewCell.swift */; };
@@ -115,8 +117,6 @@
 		1FAA07891D3CE64A0017F3E3 /* OrderProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FAA07871D3CE64A0017F3E3 /* OrderProfileTableViewCell.xib */; };
 		1FAA078C1D3CE6850017F3E3 /* AppointMentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA078A1D3CE6850017F3E3 /* AppointMentTableViewCell.swift */; };
 		1FAA078D1D3CE6850017F3E3 /* AppointMentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FAA078B1D3CE6850017F3E3 /* AppointMentTableViewCell.xib */; };
-		1FAA07901D3CE69B0017F3E3 /* MeetOrderInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA078E1D3CE69B0017F3E3 /* MeetOrderInfoTableViewCell.swift */; };
-		1FAA07911D3CE69B0017F3E3 /* MeetOrderInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FAA078F1D3CE69B0017F3E3 /* MeetOrderInfoTableViewCell.xib */; };
 		1FAA07931D3CEC540017F3E3 /* ConfirmedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA07921D3CEC540017F3E3 /* ConfirmedViewController.swift */; };
 		1FAA07961D3D05B00017F3E3 /* String+Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA07951D3D05B00017F3E3 /* String+Class.swift */; };
 		1FAA07991D3DCC160017F3E3 /* OrderFlowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA07971D3DCC160017F3E3 /* OrderFlowTableViewCell.swift */; };
@@ -398,6 +398,8 @@
 		1F85D99C1D73FD27004DEAFE /* MeetBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetBaseViewController.m; sourceTree = "<group>"; };
 		1F85D9A11D73FD40004DEAFE /* BaseRequestViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseRequestViewModel.h; sourceTree = "<group>"; };
 		1F85D9A21D73FD40004DEAFE /* BaseRequestViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseRequestViewModel.m; sourceTree = "<group>"; };
+		1F85D9A61D7413E2004DEAFE /* MeetOrderInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetOrderInfoTableViewCell.swift; sourceTree = "<group>"; };
+		1F85D9A71D7413E2004DEAFE /* MeetOrderInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetOrderInfoTableViewCell.xib; sourceTree = "<group>"; };
 		1F8FF7711D6ECE8B00C7A5B9 /* LikeManViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeManViewController.swift; path = ../ViewControllers/Me/LikeManViewController.swift; sourceTree = "<group>"; };
 		1F8FF7811D6EDA0200C7A5B9 /* LikeListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeListModel.swift; path = ../Model/ModelBean/LikeListModel.swift; sourceTree = "<group>"; };
 		1F8FF7831D6EDD0000C7A5B9 /* LikeListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeListCollectionViewCell.swift; path = ../Views/LikeListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -434,8 +436,6 @@
 		1FAA07871D3CE64A0017F3E3 /* OrderProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OrderProfileTableViewCell.xib; path = ../Views/OrderProfileTableViewCell.xib; sourceTree = "<group>"; };
 		1FAA078A1D3CE6850017F3E3 /* AppointMentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppointMentTableViewCell.swift; path = ../Views/AppointMentTableViewCell.swift; sourceTree = "<group>"; };
 		1FAA078B1D3CE6850017F3E3 /* AppointMentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AppointMentTableViewCell.xib; path = ../Views/AppointMentTableViewCell.xib; sourceTree = "<group>"; };
-		1FAA078E1D3CE69B0017F3E3 /* MeetOrderInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeetOrderInfoTableViewCell.swift; path = ../Views/MeetOrderInfoTableViewCell.swift; sourceTree = "<group>"; };
-		1FAA078F1D3CE69B0017F3E3 /* MeetOrderInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MeetOrderInfoTableViewCell.xib; path = ../Views/MeetOrderInfoTableViewCell.xib; sourceTree = "<group>"; };
 		1FAA07921D3CEC540017F3E3 /* ConfirmedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfirmedViewController.swift; path = ../ViewControllers/Order/ConfirmedViewController.swift; sourceTree = "<group>"; };
 		1FAA07951D3D05B00017F3E3 /* String+Class.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Class.swift"; sourceTree = "<group>"; };
 		1FAA07971D3DCC160017F3E3 /* OrderFlowTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderFlowTableViewCell.swift; path = ../Views/OrderFlowTableViewCell.swift; sourceTree = "<group>"; };
@@ -1038,8 +1038,8 @@
 				1FAA07871D3CE64A0017F3E3 /* OrderProfileTableViewCell.xib */,
 				1FAA078A1D3CE6850017F3E3 /* AppointMentTableViewCell.swift */,
 				1FAA078B1D3CE6850017F3E3 /* AppointMentTableViewCell.xib */,
-				1FAA078E1D3CE69B0017F3E3 /* MeetOrderInfoTableViewCell.swift */,
-				1FAA078F1D3CE69B0017F3E3 /* MeetOrderInfoTableViewCell.xib */,
+				1F85D9A61D7413E2004DEAFE /* MeetOrderInfoTableViewCell.swift */,
+				1F85D9A71D7413E2004DEAFE /* MeetOrderInfoTableViewCell.xib */,
 				1FAA07971D3DCC160017F3E3 /* OrderFlowTableViewCell.swift */,
 				1FAA07981D3DCC160017F3E3 /* OrderFlowTableViewCell.xib */,
 				1F810EC21D509D01008A5EF1 /* OrderCancelTableViewCell.swift */,
@@ -1670,10 +1670,10 @@
 			files = (
 				1F508D4F1D2FA791001EB676 /* ProfilePhotoTableViewCell.xib in Resources */,
 				1FBAE3231D25153900D7D039 /* ProfileSectionTitleTableViewCell.xib in Resources */,
-				1FAA07911D3CE69B0017F3E3 /* MeetOrderInfoTableViewCell.xib in Resources */,
 				DA4A89021CDC388B00649983 /* Login.storyboard in Resources */,
 				1FAA081E1D43160D0017F3E3 /* BlackListCollectCell.xib in Resources */,
 				1FD97BC01D55E41700556568 /* OrderApplyInfoTableViewCell.xib in Resources */,
+				1F85D9A91D7413E2004DEAFE /* MeetOrderInfoTableViewCell.xib in Resources */,
 				DA018F521CD4DAFB0051D2D7 /* Localizable.strings in Resources */,
 				1FCC44441D37A4B100287EC5 /* Order.storyboard in Resources */,
 				1FBAE32B1D2526BD00D7D039 /* WorkeAndEduTableViewCell.xib in Resources */,
@@ -1805,7 +1805,6 @@
 				DA4A88FE1CDB5D7A00649983 /* CellTextView.m in Sources */,
 				DABF8AFB1CEAE71100CA2A1D /* SendEmailViewController.m in Sources */,
 				1F3DC32A1D0D06ED0075B7BA /* MeInfoTableViewCell.swift in Sources */,
-				1FAA07901D3CE69B0017F3E3 /* MeetOrderInfoTableViewCell.swift in Sources */,
 				1FCC444F1D37A96A00287EC5 /* OrderModel.swift in Sources */,
 				DA6CEF101CDAF33300EEABFF /* MyProfileViewController.m in Sources */,
 				DABF8B011CEB158300CA2A1D /* AboutViewController.m in Sources */,
@@ -1970,6 +1969,7 @@
 				1FD97BC21D5892BA00556568 /* HomeViewController.swift in Sources */,
 				1F9DCF0B1D4C50C2001467E6 /* TYTabPagerController.m in Sources */,
 				DAF5C8911CE5C0EE00DA7901 /* MyDisplayViewController.m in Sources */,
+				1F85D9A81D7413E2004DEAFE /* MeetOrderInfoTableViewCell.swift in Sources */,
 				DA6CEF0F1CDAF33300EEABFF /* MoreProfileViewController.m in Sources */,
 				1F9DCF091D4C50C2001467E6 /* TYPagerController.m in Sources */,
 				1F9DCF121D4C5305001467E6 /* OrderPayViewController.swift in Sources */,

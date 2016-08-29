@@ -59,6 +59,8 @@ class Order_User_Info: NSObject {
     
     var uid : String = ""
     
+    var gender : NSInteger = 0
+
 }
 
 
