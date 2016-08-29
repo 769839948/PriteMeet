@@ -73,16 +73,11 @@
     [self.tableView addSubview:imageView];
 }
 
-//- (void)viewDidAppear:(BOOL)animated
-//{
-//    [super viewDidAppear:animated];
-//    UIImage *alphaImage = [UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(ScreenWidth, 64)];
-//    [alphaImage imageByApplyingAlpha:0.5];
-//    [self.navigationController.navigationBar setBackgroundImage:alphaImage
-//                                                 forBarPosition:UIBarPositionAny
-//                                                     barMetrics:UIBarMetricsDefault];
-//    [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 0.5)]];
-//}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 
 - (void)nextStep:(UIBarButtonItem *)sender
 {

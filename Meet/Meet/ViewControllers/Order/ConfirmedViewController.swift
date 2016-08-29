@@ -15,7 +15,9 @@ class ConfirmedViewController: BaseOrderViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.changeBottomBtnTitle()
-
+        if isAppliViewPush {
+            UITools.showMessageToView(self.view, message: "申请成功，请耐心等待审核结果^_^", autoHide: true)
+        }
         self.talKingDataPageName = "Order-OrderList-Confirm"
 
         // Do any additional setup after loading the view.

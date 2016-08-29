@@ -14,7 +14,6 @@
 #import "NetWorkObject.h"
 #import "WeiboSDK.h"
 #import "WeiboModel.h"
-
 #import "UserInfo.h"
 #import "WXAccessModel.h"
 #import "WXUserInfo.h"
@@ -41,7 +40,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self logUser];
-    
+    if ([UserInfo sharedInstance].uid == nil) {
+        [UserInfo logout];
+    }
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [ThemeTools appTheme:AppThemeColorCustom];
     

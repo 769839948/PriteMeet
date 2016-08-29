@@ -31,6 +31,13 @@
 
 #define HomeViewNameFont             (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Regular" size:22.0f]:[UIFont systemFontOfSize:22]
 
+#define AboutJobLabelTextFont             (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:12.0f]:[UIFont systemFontOfSize:12]
+
+#define AllInfoLabelFont             (IOS_9LAST)?[UIFont fontWithName:@"PingFangTC-Light" size:14.0]:[UIFont systemFontOfSize:14]
+
+#define InterestCollectItemFont             (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:13.0f]:[UIFont systemFontOfSize:13]
+
+
 #define HomeViewPositionFont           (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Thin" size:22.0f]:[UIFont systemFontOfSize:22]
 #define HomeViewAgeFont          (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Semibold" size:10.0f]:[UIFont systemFontOfSize:10]
 #define HomeMeetNumberFont           (IOS_9LAST)?[UIFont fontWithName:@"Helvetica-Light" size:12.0f]:[UIFont systemFontOfSize:12]
@@ -39,6 +46,7 @@
 #define HomeViewDetailPositionFont     (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Thin" size:22.0f]:[UIFont systemFontOfSize:22]
 #define HomeViewDetailMeetNumberFont   (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:12.0f]:[UIFont systemFontOfSize:12]
 #define HomeViewDetailAboutBtnFont     (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Regular" size:10.0f]:[UIFont systemFontOfSize:10]
+#define ImagePickerFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:18.0]:[UIFont systemFontOfSize:18]
 
 #define NavigationBarTitleFont          (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:18.0f]:[UIFont systemFontOfSize:18]
 #define NavigationBarRightItemFont     (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:16.0f]:[UIFont systemFontOfSize:16]

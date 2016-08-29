@@ -1660,7 +1660,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
 {
     BOOL ret = NO;
     NSLog(@"%@",[UserInfo sharedInstance].real_name);
-    if ([[UserInfo sharedInstance].avatar isEqualToString:@""]) {
+    if ([[UserInfo sharedInstance].avatar isEqualToString:@""] || [UserInfo sharedInstance].avatar == nil) {
         [EMAlertView showAlertWithTitle:nil message:@"头像为必填内容哦" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             
         } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];

@@ -72,9 +72,11 @@
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([responseObject[@"success"] boolValue]) {
             successBlock(responseObject[@"content"]);
+        }else {
+            failBlock(@{@"error":@"服务器连接错误"});
         }
     } failure:^(NSDictionary *responseObject) {
-        
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 

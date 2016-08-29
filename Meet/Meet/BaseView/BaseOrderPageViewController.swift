@@ -62,7 +62,7 @@ class BaseOrderPageViewController: UIViewController {
                 self.collectionView.reloadData()
             }
         }) { (dic) in
-            
+            UITools.showMessageToView(self.view, message: dic["error"] as! String, autoHide: true)
         }
     }
     

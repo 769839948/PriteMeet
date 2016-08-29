@@ -100,6 +100,15 @@ class SenderInviteViewController: UIViewController {
             }
         }
         
+        if arrayItems.count == 0 {
+            UITools.showMessageToView(self.view, message: "邀约说明是必填内容哦", autoHide: true)
+            return
+        }
+        if textView.text == "" {
+            UITools.showMessageToView(self.view, message: "邀约说明是必填内容哦", autoHide: true)
+            return
+        }
+        
         var ret:Bool = true
         if !isNewLogin {
             ret = UserInviteModel.shareInstance().results[0].is_active
@@ -309,7 +318,7 @@ extension SenderInviteViewController : UITableViewDataSource {
 extension SenderInviteViewController : UITextViewDelegate {
     func textViewDidChange(textView: UITextView) {
         if !isNewLogin {
-            if !UserInviteModel.shareInstance().results[0].is_active {
+            if !UserInviteModel.shareInstance().results[0].is_active && !UserInviteModel.shareInstance().results[0].is_fake {
                 UserInviteModel.shareInstance().results[0].is_active = true
                 self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 2)], withRowAnimation: UITableViewRowAnimation.Automatic)
             }

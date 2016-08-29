@@ -68,7 +68,9 @@ class OtherViewController: UIViewController {
             self.setMoreData()
             self.setWorkeData()
             self.setEduData()
-            self.tableView.reloadData()
+            if self.sectionTitle.count > 0 {
+                self.tableView.reloadData()
+            }
             }, failBlock: { (dic) in
                 
             }) { (msg) in
@@ -117,8 +119,8 @@ class OtherViewController: UIViewController {
         }
         if moreInfo.count > 0 {
             sectionTitle.addObject("更多信息")
+            self.tableViewData.addObject(moreInfo)
         }
-        self.tableViewData.addObject(moreInfo)
     }
     
     func setWorkeData(){

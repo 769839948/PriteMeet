@@ -63,7 +63,7 @@
     _textField = [[UITextField alloc] init];
     _textField.delegate = self;
     _textField.leftView = leftView;
-    _textField.font = [UIFont fontWithName:@"PingFangSC-Light" size:12.0];
+    _textField.font = AboutJobLabelTextFont;
     _textField.leftViewMode = UITextFieldViewModeUnlessEditing;
     _textField.placeholder = @"添加职业标签";
     [self.contentView addSubview:_textField];

@@ -196,7 +196,6 @@ class ApplyMeetViewController: UIViewController {
             let applyCode = Stroyboard("Login", viewControllerId: "ApplyCodeViewController") as! ApplyCodeViewController
             applyCode.isApplyCode = true
             applyCode.showToolsBlock = { _ in
-                UITools.showMessageToView(self.view, message: "申请成功，请耐心等待审核结果^_^", autoHide: true)
                 self.loginView.removeFromSuperview()
                 UserInfo.logout()
             }

@@ -567,7 +567,7 @@ extension MeViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if UserInfo.isLoggedIn() && UserExtenModel.shareInstance().completeness != nil {
+        if UserInfo.isLoggedIn(){
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(mePhotoTableViewCell, forIndexPath: indexPath) as! MePhotoTableViewCell
                 cell.avatarImageView.backgroundColor = UIColor.init(hexString: "e7e7e7")
@@ -591,7 +591,13 @@ extension MeViewController : UITableViewDataSource {
                 }
               
                 cell.avatarImageView.autoresizingMask = UIViewAutoresizing.FlexibleTopMargin;
-                cell.cofigLoginCell(UserInfo.sharedInstance().real_name, infoCom: UserInfo.sharedInstance().job_label,compass: UserExtenModel.shareInstance().completeness)
+                if UserExtenModel.shareInstance().completeness != nil {
+                    cell.cofigLoginCell(UserInfo.sharedInstance().real_name, infoCom: UserInfo.sharedInstance().job_label,compass: UserExtenModel.shareInstance().completeness)
+
+                }else{
+//                    cell.cofigLoginCell(UserInfo.sharedInstance().real_name, infoCom: UserInfo.sharedInstance().job_label,compass: UserExtenModel.shareInstance().completeness)
+
+                }
                 frame = cell.avatarImageView.frame;
                 cell.block = { (tag) in
                     self.pushViewController(tag)
@@ -720,7 +726,9 @@ extension MeViewController : UITableViewDataSource {
                     cell.hidderLine()
                 }
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
-                cell.configCell((userInfoModel.imageArray() as NSArray) .objectAtIndex(indexPath.row - 2) as! String, infoString: (userInfoModel.titleArray() as NSArray).objectAtIndex(indexPath.row - 2) as! String, infoDetail: "")
+                let imageArray = userInfoModel.imageArray()
+                let titleArray = userInfoModel.titleArray()
+                cell.configCell((userInfoModel.imageArray() as NSArray).objectAtIndex(indexPath.row - 2) as! String, infoString: (userInfoModel.titleArray() as NSArray).objectAtIndex(indexPath.row - 2) as! String, infoDetail: "")
                 return cell
             }
         }

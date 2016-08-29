@@ -27,7 +27,7 @@
         _titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
         _titleLabel.layer.contentsScale = 2.0f;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:13.0f];
+        _titleLabel.font = InterestCollectItemFont;
         [self.contentView addSubview:_titleLabel];
     }
     
@@ -59,7 +59,7 @@
 - (CGFloat)cellWidth:(NSString *)itemString
 {
     CGFloat cellWidth;
-    cellWidth = [itemString widthWithFont:[UIFont systemFontOfSize:13.0] constrainedToHeight:18];
+    cellWidth = [itemString widthWithFont:InterestCollectItemFont constrainedToHeight:18];
     return cellWidth;
 }
 

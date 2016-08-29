@@ -34,7 +34,7 @@ class OrderConfirmViewController: BaseOrderPageViewController {
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let applyDetailView = ConfirmedViewController()
         applyDetailView.uid = self.guest
-        let orderModel = (orderList[indexPath.row] )
+        let orderModel = (orderList[indexPath.row])
         applyDetailView.myClouse = { status in
             self.orderList.removeAtIndex(indexPath.row)
             NSNotificationCenter.defaultCenter().postNotificationName(ReloadOrderCollectionView, object: self.orderState)
