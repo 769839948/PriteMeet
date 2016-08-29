@@ -46,7 +46,6 @@
 		1F3868761D27749200569032 /* JobLableCollectViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3868751D27749200569032 /* JobLableCollectViewCell.m */; };
 		1F3DC32A1D0D06ED0075B7BA /* MeInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3DC3271D0D06ED0075B7BA /* MeInfoTableViewCell.swift */; };
 		1F3DC32B1D0D06ED0075B7BA /* MeInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F3DC3281D0D06ED0075B7BA /* MeInfoTableViewCell.xib */; };
-		1F3DC32C1D0D06ED0075B7BA /* BaseNavigaitonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3DC3291D0D06ED0075B7BA /* BaseNavigaitonController.swift */; };
 		1F3DC32F1D0D07A60075B7BA /* MeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3DC32E1D0D07A60075B7BA /* MeViewModel.swift */; };
 		1F3DC3321D0D0B890075B7BA /* MePhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3DC3301D0D0B890075B7BA /* MePhotoTableViewCell.swift */; };
 		1F3DC3331D0D0B890075B7BA /* MePhotoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F3DC3311D0D0B890075B7BA /* MePhotoTableViewCell.xib */; };
@@ -76,7 +75,6 @@
 		1F79BAD81D080B7B00814DED /* NSFileManager+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BAD71D080B7B00814DED /* NSFileManager+Utils.m */; };
 		1F79BADB1D080B9100814DED /* NSFileManager+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BADA1D080B9100814DED /* NSFileManager+Cache.m */; };
 		1F79BAE31D09248B00814DED /* ZHPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BAE21D09248B00814DED /* ZHPickView.m */; };
-		1F810E8A1D4C9509008A5EF1 /* BaseOrderPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F810E891D4C9509008A5EF1 /* BaseOrderPageViewController.swift */; };
 		1F810E8D1D4F01EE008A5EF1 /* UIView+DottedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F810E8C1D4F01EE008A5EF1 /* UIView+DottedLineView.m */; };
 		1F810E8F1D4F3550008A5EF1 /* AppointmentCollectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F810E8E1D4F3550008A5EF1 /* AppointmentCollectView.swift */; };
 		1F810E911D4F37A3008A5EF1 /* AppointmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F810E901D4F37A3008A5EF1 /* AppointmentCell.swift */; };
@@ -87,6 +85,11 @@
 		1F810EC51D509D01008A5EF1 /* OrderCancelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F810EC31D509D01008A5EF1 /* OrderCancelTableViewCell.xib */; };
 		1F810EC71D51E386008A5EF1 /* AllMeetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F810EC61D51E386008A5EF1 /* AllMeetViewController.swift */; };
 		1F810ECA1D51F5D0008A5EF1 /* UIViewController+TalKingData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F810EC91D51F5D0008A5EF1 /* UIViewController+TalKingData.m */; };
+		1F85D99D1D73FD27004DEAFE /* BaseNavigaitonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F85D9981D73FD27004DEAFE /* BaseNavigaitonController.swift */; };
+		1F85D99E1D73FD27004DEAFE /* BaseOrderPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F85D9991D73FD27004DEAFE /* BaseOrderPageViewController.swift */; };
+		1F85D99F1D73FD27004DEAFE /* BaseOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F85D99A1D73FD27004DEAFE /* BaseOrderViewController.swift */; };
+		1F85D9A01D73FD27004DEAFE /* MeetBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F85D99C1D73FD27004DEAFE /* MeetBaseViewController.m */; };
+		1F85D9A31D73FD40004DEAFE /* BaseRequestViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F85D9A21D73FD40004DEAFE /* BaseRequestViewModel.m */; };
 		1F8FF7721D6ECE8B00C7A5B9 /* LikeManViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8FF7711D6ECE8B00C7A5B9 /* LikeManViewController.swift */; };
 		1F8FF7821D6EDA0200C7A5B9 /* LikeListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8FF7811D6EDA0200C7A5B9 /* LikeListModel.swift */; };
 		1F8FF7851D6EDD0000C7A5B9 /* LikeListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8FF7831D6EDD0000C7A5B9 /* LikeListCollectionViewCell.swift */; };
@@ -108,7 +111,6 @@
 		1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5901CFDF91F002345C1 /* InterestCollectView.m */; };
 		1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4E5931CFDF931002345C1 /* NSString+StringSize.m */; };
 		1FAA077F1D3CBE600017F3E3 /* ApplyMeetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA077E1D3CBE600017F3E3 /* ApplyMeetModel.m */; };
-		1FAA07851D3CE49E0017F3E3 /* BaseOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA07841D3CE49E0017F3E3 /* BaseOrderViewController.swift */; };
 		1FAA07881D3CE64A0017F3E3 /* OrderProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA07861D3CE64A0017F3E3 /* OrderProfileTableViewCell.swift */; };
 		1FAA07891D3CE64A0017F3E3 /* OrderProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FAA07871D3CE64A0017F3E3 /* OrderProfileTableViewCell.xib */; };
 		1FAA078C1D3CE6850017F3E3 /* AppointMentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA078A1D3CE6850017F3E3 /* AppointMentTableViewCell.swift */; };
@@ -156,7 +158,6 @@
 		1FC69D6C1D2CDF1900BF0B95 /* GuidanceText.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC69D6B1D2CDF1900BF0B95 /* GuidanceText.m */; };
 		1FC69D6F1D2D053200BF0B95 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC69D6E1D2D053200BF0B95 /* SplashView.swift */; };
 		1FCAFFCC1D012B6900BF53A1 /* UIViewController+NavigationItemColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFCB1D012B6900BF53A1 /* UIViewController+NavigationItemColor.m */; };
-		1FCAFFD01D01515D00BF53A1 /* BaseRequestViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFCF1D01515D00BF53A1 /* BaseRequestViewModel.m */; };
 		1FCAFFD31D01517A00BF53A1 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFD21D01517A00BF53A1 /* LoginViewModel.m */; };
 		1FCAFFD81D0181AA00BF53A1 /* EMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFD71D0181AA00BF53A1 /* EMAlertView.m */; };
 		1FCAFFDB1D01983B00BF53A1 /* UserInfoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFDA1D01983B00BF53A1 /* UserInfoViewModel.m */; };
@@ -234,7 +235,6 @@
 		DABF8AFB1CEAE71100CA2A1D /* SendEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DABF8AFA1CEAE71100CA2A1D /* SendEmailViewController.m */; };
 		DABF8AFE1CEB089400CA2A1D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DABF8AFD1CEB089400CA2A1D /* MessageUI.framework */; };
 		DABF8B011CEB158300CA2A1D /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DABF8B001CEB158300CA2A1D /* AboutViewController.m */; };
-		DABF8B071CEB18E700CA2A1D /* MeetBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DABF8B061CEB18E700CA2A1D /* MeetBaseViewController.m */; };
 		DABF8B0A1CEB22A100CA2A1D /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DABF8B091CEB22A100CA2A1D /* UserProtocolViewController.m */; };
 		DAF5C7F91CDF479C00DA7901 /* NetWorkObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5C7F81CDF479C00DA7901 /* NetWorkObject.m */; };
 		DAF5C8001CDF490000DA7901 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF5C7FF1CDF490000DA7901 /* AdSupport.framework */; };
@@ -329,7 +329,6 @@
 		1F3868751D27749200569032 /* JobLableCollectViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JobLableCollectViewCell.m; path = ../Views/JobLableCollectViewCell.m; sourceTree = "<group>"; };
 		1F3DC3271D0D06ED0075B7BA /* MeInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeInfoTableViewCell.swift; path = ../ViewControllers/MeInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1F3DC3281D0D06ED0075B7BA /* MeInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MeInfoTableViewCell.xib; path = ../ViewControllers/MeInfoTableViewCell.xib; sourceTree = "<group>"; };
-		1F3DC3291D0D06ED0075B7BA /* BaseNavigaitonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseNavigaitonController.swift; path = ../ViewControllers/BaseNavigaitonController.swift; sourceTree = "<group>"; };
 		1F3DC32E1D0D07A60075B7BA /* MeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeViewModel.swift; path = ../ViewModel/MeViewModel.swift; sourceTree = "<group>"; };
 		1F3DC3301D0D0B890075B7BA /* MePhotoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MePhotoTableViewCell.swift; path = ../Views/MePhotoTableViewCell.swift; sourceTree = "<group>"; };
 		1F3DC3311D0D0B890075B7BA /* MePhotoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MePhotoTableViewCell.xib; path = ../Views/MePhotoTableViewCell.xib; sourceTree = "<group>"; };
@@ -380,7 +379,6 @@
 		1F79BADA1D080B9100814DED /* NSFileManager+Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Cache.m"; sourceTree = "<group>"; };
 		1F79BAE11D09248B00814DED /* ZHPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPickView.h; sourceTree = "<group>"; };
 		1F79BAE21D09248B00814DED /* ZHPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPickView.m; sourceTree = "<group>"; };
-		1F810E891D4C9509008A5EF1 /* BaseOrderPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseOrderPageViewController.swift; path = ../ViewControllers/BaseOrderPageViewController.swift; sourceTree = "<group>"; };
 		1F810E8B1D4F01EE008A5EF1 /* UIView+DottedLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DottedLineView.h"; sourceTree = "<group>"; };
 		1F810E8C1D4F01EE008A5EF1 /* UIView+DottedLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DottedLineView.m"; sourceTree = "<group>"; };
 		1F810E8E1D4F3550008A5EF1 /* AppointmentCollectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppointmentCollectView.swift; path = ../Views/AppointmentCollectView.swift; sourceTree = "<group>"; };
@@ -393,6 +391,13 @@
 		1F810EC61D51E386008A5EF1 /* AllMeetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AllMeetViewController.swift; path = ../ViewControllers/Order/AllMeetViewController.swift; sourceTree = "<group>"; };
 		1F810EC81D51F5D0008A5EF1 /* UIViewController+TalKingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TalKingData.h"; sourceTree = "<group>"; };
 		1F810EC91D51F5D0008A5EF1 /* UIViewController+TalKingData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TalKingData.m"; sourceTree = "<group>"; };
+		1F85D9981D73FD27004DEAFE /* BaseNavigaitonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigaitonController.swift; sourceTree = "<group>"; };
+		1F85D9991D73FD27004DEAFE /* BaseOrderPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseOrderPageViewController.swift; sourceTree = "<group>"; };
+		1F85D99A1D73FD27004DEAFE /* BaseOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseOrderViewController.swift; sourceTree = "<group>"; };
+		1F85D99B1D73FD27004DEAFE /* MeetBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetBaseViewController.h; sourceTree = "<group>"; };
+		1F85D99C1D73FD27004DEAFE /* MeetBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetBaseViewController.m; sourceTree = "<group>"; };
+		1F85D9A11D73FD40004DEAFE /* BaseRequestViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseRequestViewModel.h; sourceTree = "<group>"; };
+		1F85D9A21D73FD40004DEAFE /* BaseRequestViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseRequestViewModel.m; sourceTree = "<group>"; };
 		1F8FF7711D6ECE8B00C7A5B9 /* LikeManViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeManViewController.swift; path = ../ViewControllers/Me/LikeManViewController.swift; sourceTree = "<group>"; };
 		1F8FF7811D6EDA0200C7A5B9 /* LikeListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeListModel.swift; path = ../Model/ModelBean/LikeListModel.swift; sourceTree = "<group>"; };
 		1F8FF7831D6EDD0000C7A5B9 /* LikeListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeListCollectionViewCell.swift; path = ../Views/LikeListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -425,7 +430,6 @@
 		1FA4E5931CFDF931002345C1 /* NSString+StringSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StringSize.m"; sourceTree = "<group>"; };
 		1FAA077D1D3CBE600017F3E3 /* ApplyMeetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplyMeetModel.h; path = ../Model/ModelBean/ApplyMeetModel.h; sourceTree = "<group>"; };
 		1FAA077E1D3CBE600017F3E3 /* ApplyMeetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ApplyMeetModel.m; path = ../Model/ModelBean/ApplyMeetModel.m; sourceTree = "<group>"; };
-		1FAA07841D3CE49E0017F3E3 /* BaseOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseOrderViewController.swift; path = ../ViewControllers/BaseOrderViewController.swift; sourceTree = "<group>"; };
 		1FAA07861D3CE64A0017F3E3 /* OrderProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderProfileTableViewCell.swift; path = ../Views/OrderProfileTableViewCell.swift; sourceTree = "<group>"; };
 		1FAA07871D3CE64A0017F3E3 /* OrderProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OrderProfileTableViewCell.xib; path = ../Views/OrderProfileTableViewCell.xib; sourceTree = "<group>"; };
 		1FAA078A1D3CE6850017F3E3 /* AppointMentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppointMentTableViewCell.swift; path = ../Views/AppointMentTableViewCell.swift; sourceTree = "<group>"; };
@@ -500,8 +504,6 @@
 		1FC69D6E1D2D053200BF0B95 /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		1FCAFFCA1D012B6900BF53A1 /* UIViewController+NavigationItemColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NavigationItemColor.h"; sourceTree = "<group>"; };
 		1FCAFFCB1D012B6900BF53A1 /* UIViewController+NavigationItemColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavigationItemColor.m"; sourceTree = "<group>"; };
-		1FCAFFCE1D01515D00BF53A1 /* BaseRequestViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseRequestViewModel.h; path = ../ViewModel/BaseRequestViewModel.h; sourceTree = "<group>"; };
-		1FCAFFCF1D01515D00BF53A1 /* BaseRequestViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseRequestViewModel.m; path = ../ViewModel/BaseRequestViewModel.m; sourceTree = "<group>"; };
 		1FCAFFD11D01517A00BF53A1 /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewModel.h; path = ../ViewModel/LoginViewModel.h; sourceTree = "<group>"; };
 		1FCAFFD21D01517A00BF53A1 /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewModel.m; path = ../ViewModel/LoginViewModel.m; sourceTree = "<group>"; };
 		1FCAFFD41D01532000BF53A1 /* RequestUrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestUrl.h; sourceTree = "<group>"; };
@@ -626,8 +628,6 @@
 		DABF8AFD1CEB089400CA2A1D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		DABF8AFF1CEB158300CA2A1D /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = ../ViewControllers/Me/Seting/AboutViewController.h; sourceTree = "<group>"; };
 		DABF8B001CEB158300CA2A1D /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = ../ViewControllers/Me/Seting/AboutViewController.m; sourceTree = "<group>"; };
-		DABF8B051CEB18E700CA2A1D /* MeetBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeetBaseViewController.h; path = ../ViewControllers/MeetBaseViewController.h; sourceTree = "<group>"; };
-		DABF8B061CEB18E700CA2A1D /* MeetBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MeetBaseViewController.m; path = ../ViewControllers/MeetBaseViewController.m; sourceTree = "<group>"; };
 		DABF8B081CEB22A100CA2A1D /* UserProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserProtocolViewController.h; path = ../ViewControllers/Me/Seting/UserProtocolViewController.h; sourceTree = "<group>"; };
 		DABF8B091CEB22A100CA2A1D /* UserProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserProtocolViewController.m; path = ../ViewControllers/Me/Seting/UserProtocolViewController.m; sourceTree = "<group>"; };
 		DAF5C7F71CDF479C00DA7901 /* NetWorkObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkObject.h; sourceTree = "<group>"; };
@@ -873,7 +873,22 @@
 			path = ZHPickView;
 			sourceTree = "<group>";
 		};
-		1F8FF7871D7016D500C7A5B9 /* Home */ = {
+		1F85D98A1D73FC54004DEAFE /* BaseView */ = {
+			isa = PBXGroup;
+			children = (
+				1F85D9A11D73FD40004DEAFE /* BaseRequestViewModel.h */,
+				1F85D9A21D73FD40004DEAFE /* BaseRequestViewModel.m */,
+				1F85D9981D73FD27004DEAFE /* BaseNavigaitonController.swift */,
+				1F85D9991D73FD27004DEAFE /* BaseOrderPageViewController.swift */,
+				1F85D99A1D73FD27004DEAFE /* BaseOrderViewController.swift */,
+				1F85D99B1D73FD27004DEAFE /* MeetBaseViewController.h */,
+				1F85D99C1D73FD27004DEAFE /* MeetBaseViewController.m */,
+			);
+			name = BaseView;
+			path = Meet/BaseView;
+			sourceTree = "<group>";
+		};
+		1F85D98B1D73FC54004DEAFE /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				1F8FF78E1D70174300C7A5B9 /* ViewModel */,
@@ -885,7 +900,7 @@
 			path = Meet/Home;
 			sourceTree = "<group>";
 		};
-		1F8FF7881D7016D500C7A5B9 /* Login */ = {
+		1F85D98C1D73FC54004DEAFE /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				1F8FF79A1D70198100C7A5B9 /* ViewModel */,
@@ -895,7 +910,7 @@
 			path = Meet/Login;
 			sourceTree = "<group>";
 		};
-		1F8FF7891D7016D500C7A5B9 /* Me */ = {
+		1F85D98D1D73FC54004DEAFE /* Me */ = {
 			isa = PBXGroup;
 			children = (
 				1F8FF7981D7017EC00C7A5B9 /* ViewController */,
@@ -907,13 +922,25 @@
 			path = Meet/Me;
 			sourceTree = "<group>";
 		};
-		1F8FF78A1D7016D500C7A5B9 /* Other */ = {
+		1F85D98E1D73FC54004DEAFE /* Other */ = {
 			isa = PBXGroup;
 			children = (
 				1FC69D6D1D2D050300BF0B95 /* SplashView */,
 			);
 			name = Other;
 			path = Meet/Other;
+			sourceTree = "<group>";
+		};
+		1F85D9A51D73FD9E004DEAFE /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				1F8FF7941D7017B600C7A5B9 /* Model */,
+				1F8FF7931D7017AF00C7A5B9 /* ViewModel */,
+				1F8FF7921D7017A900C7A5B9 /* View */,
+				1F8FF7911D70179F00C7A5B9 /* ViewController */,
+			);
+			name = Order;
+			path = Meet/Order;
 			sourceTree = "<group>";
 		};
 		1F8FF78B1D70171200C7A5B9 /* ViewController */ = {
@@ -972,33 +999,6 @@
 				1F293D681D1166490063A9DA /* HomeViewModel.m */,
 			);
 			name = ViewModel;
-			sourceTree = "<group>";
-		};
-		1F8FF78F1D70178600C7A5B9 /* BaseView */ = {
-			isa = PBXGroup;
-			children = (
-				1FCAFFCE1D01515D00BF53A1 /* BaseRequestViewModel.h */,
-				1FCAFFCF1D01515D00BF53A1 /* BaseRequestViewModel.m */,
-				DABF8B051CEB18E700CA2A1D /* MeetBaseViewController.h */,
-				DABF8B061CEB18E700CA2A1D /* MeetBaseViewController.m */,
-				1FAA07841D3CE49E0017F3E3 /* BaseOrderViewController.swift */,
-				1F810E891D4C9509008A5EF1 /* BaseOrderPageViewController.swift */,
-				1F3DC3291D0D06ED0075B7BA /* BaseNavigaitonController.swift */,
-			);
-			name = BaseView;
-			path = Meet/BaseView;
-			sourceTree = "<group>";
-		};
-		1F8FF7901D70178600C7A5B9 /* Order */ = {
-			isa = PBXGroup;
-			children = (
-				1F8FF7941D7017B600C7A5B9 /* Model */,
-				1F8FF7931D7017AF00C7A5B9 /* ViewModel */,
-				1F8FF7921D7017A900C7A5B9 /* View */,
-				1F8FF7911D70179F00C7A5B9 /* ViewController */,
-			);
-			name = Order;
-			path = Meet/Order;
 			sourceTree = "<group>";
 		};
 		1F8FF7911D70179F00C7A5B9 /* ViewController */ = {
@@ -1339,12 +1339,12 @@
 		DA36264B1CD1A75C00A8AE39 = {
 			isa = PBXGroup;
 			children = (
-				1F8FF7871D7016D500C7A5B9 /* Home */,
-				1F8FF7881D7016D500C7A5B9 /* Login */,
-				1F8FF7891D7016D500C7A5B9 /* Me */,
-				1F8FF78A1D7016D500C7A5B9 /* Other */,
-				1F8FF78F1D70178600C7A5B9 /* BaseView */,
-				1F8FF7901D70178600C7A5B9 /* Order */,
+				1F85D98A1D73FC54004DEAFE /* BaseView */,
+				1F85D98B1D73FC54004DEAFE /* Home */,
+				1F85D98C1D73FC54004DEAFE /* Login */,
+				1F85D9A51D73FD9E004DEAFE /* Order */,
+				1F85D98D1D73FC54004DEAFE /* Me */,
+				1F85D98E1D73FC54004DEAFE /* Other */,
 				DA36267A1CD1A98E00A8AE39 /* ViewControllers */,
 				DA36267B1CD1A98E00A8AE39 /* Views */,
 				DA3626751CD1A98E00A8AE39 /* Model */,
@@ -1781,7 +1781,6 @@
 				DA6CEF131CDAF42300EEABFF /* AddInformationViewController.m in Sources */,
 				1FBF40BD1D221267005DB46F /* NSString+StringType.m in Sources */,
 				1FD97BBF1D55E41700556568 /* OrderApplyInfoTableViewCell.swift in Sources */,
-				1F810E8A1D4C9509008A5EF1 /* BaseOrderPageViewController.swift in Sources */,
 				DA4A88FB1CDB5CB700649983 /* UITextView+Placeholder.m in Sources */,
 				1FC2C1451CFD3311001D6D10 /* NSString+Utils.m in Sources */,
 				1F810E8F1D4F3550008A5EF1 /* AppointmentCollectView.swift in Sources */,
@@ -1804,7 +1803,6 @@
 				1FAA08571D45FE700017F3E3 /* Theme.m in Sources */,
 				DA36267C1CD1A98E00A8AE39 /* AppData.m in Sources */,
 				DA4A88FE1CDB5D7A00649983 /* CellTextView.m in Sources */,
-				1F3DC32C1D0D06ED0075B7BA /* BaseNavigaitonController.swift in Sources */,
 				DABF8AFB1CEAE71100CA2A1D /* SendEmailViewController.m in Sources */,
 				1F3DC32A1D0D06ED0075B7BA /* MeInfoTableViewCell.swift in Sources */,
 				1FAA07901D3CE69B0017F3E3 /* MeetOrderInfoTableViewCell.swift in Sources */,
@@ -1875,6 +1873,7 @@
 				1FAA085A1D45FEE20017F3E3 /* Detail.m in Sources */,
 				1FCAFFD81D0181AA00BF53A1 /* EMAlertView.m in Sources */,
 				1F293D761D11A4B90063A9DA /* UINavigationBar+Transparent.m in Sources */,
+				1F85D99F1D73FD27004DEAFE /* BaseOrderViewController.swift in Sources */,
 				1FAA08091D41CEE80017F3E3 /* BlackListViewController.swift in Sources */,
 				1F3868431D26141D00569032 /* OtherViewController.swift in Sources */,
 				1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */,
@@ -1902,13 +1901,13 @@
 				1F3868761D27749200569032 /* JobLableCollectViewCell.m in Sources */,
 				1F1BA9471D682AFE00BDD665 /* OrderCollectionViewCell.swift in Sources */,
 				1F457B541D179C4A00C1D8EC /* CenterlabelView.swift in Sources */,
+				1F85D99E1D73FD27004DEAFE /* BaseOrderPageViewController.swift in Sources */,
 				1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */,
 				1FAA08071D41C6D60017F3E3 /* ReportViewController.swift in Sources */,
 				1F9DCF141D4C5322001467E6 /* OrderMeetViewController.swift in Sources */,
 				1FBF3FC21D1BD1AC005DB46F /* AppDelegate+AMapLocation.m in Sources */,
 				1F508D4E1D2FA791001EB676 /* ProfilePhotoTableViewCell.swift in Sources */,
 				1FAA07991D3DCC160017F3E3 /* OrderFlowTableViewCell.swift in Sources */,
-				1FCAFFD01D01515D00BF53A1 /* BaseRequestViewModel.m in Sources */,
 				1FD97C131D5B1F5D00556568 /* PayView.swift in Sources */,
 				1FD97BBC1D55E1A900556568 /* OrderApplyIntroductionCell.swift in Sources */,
 				1FE411201D5D9E060090D2AB /* CancelInfoTableViewCell.swift in Sources */,
@@ -1933,10 +1932,11 @@
 				1F9DCF161D4C5331001467E6 /* OrderAllViewController.swift in Sources */,
 				1F293D8C1D12D13F0063A9DA /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				1FCC444A1D37A66C00287EC5 /* OrderUserTableViewCell.swift in Sources */,
-				1FAA07851D3CE49E0017F3E3 /* BaseOrderViewController.swift in Sources */,
 				1FF30A341D31ECF50051333F /* ScrollingNavigationController.swift in Sources */,
 				1F293D891D12D13F0063A9DA /* UITableView+FDIndexPathHeightCache.m in Sources */,
+				1F85D9A31D73FD40004DEAFE /* BaseRequestViewModel.m in Sources */,
 				1FAA07931D3CEC540017F3E3 /* ConfirmedViewController.swift in Sources */,
+				1F85D9A01D73FD27004DEAFE /* MeetBaseViewController.m in Sources */,
 				1F79BAD81D080B7B00814DED /* NSFileManager+Utils.m in Sources */,
 				DA6CEEF21CD9EF9D00EEABFF /* CellButton.m in Sources */,
 				1F293D771D11A4B90063A9DA /* TransparentView.m in Sources */,
@@ -1946,8 +1946,8 @@
 				1FBF408C1D1E5BF8005DB46F /* ProfileTableViewCell.swift in Sources */,
 				1F810E931D4F6E89008A5EF1 /* OtherUserInfoViewController.swift in Sources */,
 				1F8FF7721D6ECE8B00C7A5B9 /* LikeManViewController.swift in Sources */,
+				1F85D99D1D73FD27004DEAFE /* BaseNavigaitonController.swift in Sources */,
 				DAF5C8C91CE6F3EB00DA7901 /* MyPhotosViewController.m in Sources */,
-				DABF8B071CEB18E700CA2A1D /* MeetBaseViewController.m in Sources */,
 				1F79BAE31D09248B00814DED /* ZHPickView.m in Sources */,
 				1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */,
 				1F293D941D13CB290063A9DA /* AboutDetailViewController.swift in Sources */,
