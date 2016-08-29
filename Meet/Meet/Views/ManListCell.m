@@ -79,9 +79,9 @@
     
     _likeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _likeBtn.layer.cornerRadius = 24;
-    _likeBtn.layer.shadowOffset = CGSizeMake(0, 1);
-    _likeBtn.layer.shadowOpacity = 1.0;
-    _likeBtn.layer.shadowRadius = 3;
+    _likeBtn.layer.shadowOffset = CGSizeMake(0, 4);
+    _likeBtn.layer.shadowOpacity = 0.5;
+    _likeBtn.adjustsImageWhenHighlighted = NO;
     _likeBtn.layer.shadowColor = [[UIColor colorWithWhite:0.938 alpha:1.000] CGColor];
     [_likeBtn addTarget:self action:@selector(likeButtonPress:) forControlEvents:UIControlEventTouchUpInside];
     _likeBtn.backgroundColor = [UIColor clearColor];
@@ -224,16 +224,20 @@
 
 - (void)reloadLikeBtnImage:(BOOL)isLike
 {
-    UIImage *image = isLike?[UIImage imageNamed:@"home_like"]:[UIImage imageNamed:@"home_unlike"];
+    UIImage *image = isLike?[UIImage imageNamed:@"Icon_Liked_Normal"]:[UIImage imageNamed:@"Icon_Like_Normal"];
+    UIImage *imageBack = isLike?[UIImage imageNamed:@"Liked"]:[UIImage imageNamed:@"Like"];
+    UIImage *imageHight = isLike?[UIImage imageNamed:@"Icon_Liked_Pressed"]:[UIImage imageNamed:@"Icon_Like_Pressed"];
     NSInteger tag = isLike?1:0;
     _likeBtn.tag = tag;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [_likeBtn setBackgroundImage:image forState:UIControlStateNormal];
-        [UIView animateWithDuration:0.5
+        [_likeBtn setImage:image forState:UIControlStateNormal];
+        [_likeBtn setImage:imageHight forState:UIControlStateHighlighted];
+        [_likeBtn setBackgroundImage:imageBack forState:UIControlStateNormal];
+        [UIView animateWithDuration:0.25
                          animations:^{
                              self.likeBtn.transform = CGAffineTransformMakeScale(1.2, 1.2);
                          }completion:^(BOOL finish){
-                             [UIView animateWithDuration:0.5
+                             [UIView animateWithDuration:0.25
                                               animations:^{
                                                   self.likeBtn.transform = CGAffineTransformMakeScale(1.0, 1.0);
                                               }completion:^(BOOL finish){
@@ -269,8 +273,8 @@
         }];
         
         [_likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.personalView.mas_top).offset(169);
-            make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-27);
+            make.bottom.mas_equalTo(weakSelf.nameLabel.mas_top).offset(-4);
+            make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-23);
             make.size.mas_offset(CGSizeMake(48, 48));
         }];
         

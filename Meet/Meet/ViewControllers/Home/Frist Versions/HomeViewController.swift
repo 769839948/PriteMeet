@@ -111,6 +111,10 @@ class HomeViewController: UIViewController {
     
     
     func setUpHomeData() {
+        if bottomView != nil {
+            bottomView.hidden = true
+        }
+        
         self.page = self.page + 1
         var fillter = ""
         if (fillterName == .LocationList) {
@@ -127,10 +131,18 @@ class HomeViewController: UIViewController {
 
             self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
+            if self.bottomView != nil {
+                self.bottomView.hidden = false
+            }
+
             }, failBlock: { (dic) in
                 self.page = self.page - 1
                 self.setUpHomeData()
                 self.tableView.mj_footer.endRefreshing()
+                if self.bottomView != nil {
+                    self.bottomView.hidden = false
+                }
+
             }) { (msg) in
                 
         }
@@ -159,7 +171,9 @@ class HomeViewController: UIViewController {
     }
     
     func setUpBottomView() {
-        bottomView = UIView(frame:CGRectMake(ScreenWidth  - 84,ScreenHeight - 67 - self.view.frame.origin.y,56,54))
+        bottomView = UIView(frame:CGRectMake(ScreenWidth  - 84,ScreenHeight - 88 - self.view.frame.origin.y,56,54))
+        bottomView.layer.shadowOffset = CGSizeMake(0, 4)
+        bottomView.layer.shadowOpacity = 0.2
         bottomView.addSubview(self.meetButton(CGRectMake(0, 0, 54, 54)))
         bottomView.addSubview(self.meetNumber(CGRectMake(bottomView.frame.size.width - 18, 0, 18, 18)))
         if self.allOrderNumber == 0 {
@@ -380,13 +394,13 @@ class HomeViewController: UIViewController {
             let baseUserInfo =  Stroyboard("Me", viewControllerId: "BaseInfoViewController") as! BaseUserInfoViewController
             baseUserInfo.isHomeListViewLogin = true
             baseUserInfo.homeListBlock = { _ in
-                self.verificationOrderView()
+//                self.verificationOrderView()
             }
             self.navigationController?.pushViewController(baseUserInfo, animated: true)
         }
         
         loginView.loginWithOrderListClouse = { _ in
-            self.verificationOrderView()
+//            self.verificationOrderView()
         }
         
         loginView.orderListShorOrderButton = { _ in
@@ -469,7 +483,7 @@ extension HomeViewController : UITableViewDelegate {
     func showBottomView() {
         UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             let frame = self.bottomView.frame
-            self.bottomView.frame = CGRectMake(frame.origin.x, ScreenHeight - 67 - self.view.frame.origin.y, frame.size.width, frame.size.height)
+            self.bottomView.frame = CGRectMake(frame.origin.x, ScreenHeight - 88 - self.view.frame.origin.y, frame.size.width, frame.size.height)
         }) { (finish) in
             
         }
