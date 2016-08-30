@@ -77,7 +77,7 @@ class CancelInfoTableViewCell: UITableViewCell {
             make.height.equalTo(reson.heightWithConstrainedWidth(ScreenWidth - 70, font: OrderCancelInfoViewFont!) + 3)
         }
         resonDetailLabel.snp_updateConstraints { (make) in
-            make.height.equalTo(reson.heightWithConstrainedWidth(ScreenWidth - 70, font: OrderInfoPayDetailFont!))
+            make.height.equalTo(resonDetail.heightWithConstrainedWidth(ScreenWidth - 70, font: OrderInfoPayDetailFont!))
         }
     }
     
@@ -101,7 +101,7 @@ class CancelInfoTableViewCell: UITableViewCell {
                 make.left.equalTo(self.appointmentBackGroundView.snp_left).offset(15)
                 make.right.equalTo(self.appointmentBackGroundView.snp_right).offset(-15)
                 make.top.equalTo(self.resonLabel.snp_bottom).offset(12)
-                make.bottom.greaterThanOrEqualTo(self.appointmentBackGroundView.snp_top).offset(-66)
+                make.bottom.lessThanOrEqualTo(self.appointmentBackGroundView.snp_bottom).offset(-66)
             }
             
             meetInfo.snp_makeConstraints { (make) in

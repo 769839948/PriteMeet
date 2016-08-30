@@ -44,7 +44,7 @@ class OrderApplyMeetTableViewCell: UITableViewCell {
         
         interestView.block = { row in
             if (self.clourse != nil) {
-                self.clourse(selectItem: row);
+                self.clourse(selectItem: row)
             }
         }
         
@@ -66,20 +66,8 @@ class OrderApplyMeetTableViewCell: UITableViewCell {
     }
     
     func setData(array:NSArray, selectItems:NSArray){
-        self.setUpView()
-        let selectItemsArray = NSMutableArray()
-        for idx in 0...array.count - 1{
-            var ret = "false"
-            for str in selectItems{
-                if array[idx] as! String == str as! String {
-                    ret = "true"
-                    break
-                }
-            }
-            selectItemsArray.addObject(ret)
-        }
-        
-        interestView.setCollectViewData(array as [AnyObject], andSelectArray: selectItemsArray as [AnyObject])
+        self.setUpView()        
+        interestView.setCollectViewData(array as [AnyObject], andSelectArray: selectItems as [AnyObject])
         interestView.snp_updateConstraints{ (make) in
             make.height.equalTo(self.cellHeight(array))
         }

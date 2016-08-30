@@ -526,9 +526,12 @@ extension BaseOrderViewController : UITableViewDelegate {
             if indexPath.row == 0 {
                 return 107;
             }else if indexPath.row == 1{
+                print(tableView.fd_heightForCellWithIdentifier("AppointMentTableViewCell", configuration: { (cell) in
+                    self.configAppointThemeTypeCell((cell as! AppointMentTableViewCell), indexPath: indexPath)
+                }));
                 if tableView.fd_heightForCellWithIdentifier("AppointMentTableViewCell", configuration: { (cell) in
                     self.configAppointThemeTypeCell((cell as! AppointMentTableViewCell), indexPath: indexPath)
-                }) > 250 {
+                }) > 240 {
                     return tableView.fd_heightForCellWithIdentifier("AppointMentTableViewCell", configuration: { (cell) in
                         self.configAppointThemeTypeCell((cell as! AppointMentTableViewCell), indexPath: indexPath)
                     })

@@ -70,11 +70,9 @@ class AppointMentTableViewCell: UITableViewCell {
         
         appointmentIntroduce = UILabel()
         appointmentIntroduce.numberOfLines = 0
-//        appointmentIntroduce.backgroundColor = UIColor.blueColor()
         appointmentIntroduce.font = OrderAppointThemeIntroudFont
         appointmentIntroduce.textColor = UIColor.whiteColor()
         appointmentIntroduce.lineBreakMode = .ByWordWrapping
-//        appointmentIntroduce.backgroundColor = UIColor.clearColor()
         appointmentBackGroundView.addSubview(appointmentIntroduce)
         
         flowLayout = EqualSpaceFlowLayout()
@@ -147,7 +145,7 @@ class AppointMentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.appointmentBackGroundView.snp_left).offset(15)
                 make.right.equalTo(self.appointmentBackGroundView.snp_right).offset(-15)
                 make.top.equalTo(self.appointmentIntroduce.snp_bottom).offset(14)
-                make.bottom.greaterThanOrEqualTo(self.appointmentBackGroundView.snp_top).offset(-66)
+                make.bottom.lessThanOrEqualTo(self.appointmentBackGroundView.snp_bottom).offset(-66)
             }
             
             meetInfo.snp_makeConstraints { (make) in

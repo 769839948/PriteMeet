@@ -34,10 +34,6 @@ class ApplyMeetViewController: UIViewController {
     
     var navigationBarTitleView: UIView!
     
-    var keyboardHeight:CGFloat = 216
-    
-    var contenOfY:CGFloat = 0
-    
     var loginView:LoginView!
         
     var isApplyOrder:Bool = false
@@ -51,7 +47,9 @@ class ApplyMeetViewController: UIViewController {
         self.navigationItemWhiteColorAndNotLine()
         self.fd_prefersNavigationBarHidden = true
         self.talKingDataPageName = "Order-ApplyMeet"
-    
+        for _ in 0...self.allItems.count - 1 {
+            self.selectItems.addObject("false")
+        }
         // Do any additional setup after loading the view.
     }
 
@@ -145,8 +143,8 @@ class ApplyMeetViewController: UIViewController {
         }
         viewModel = OrderViewModel()
         var appointment_theme = ""
-        for idx in 0...cell.interestView.selectItems.count - 1 {
-            let ret = cell.interestView.selectItems[idx]
+        for idx in 0...self.selectItems.count - 1 {
+            let ret = self.selectItems[idx]
             if ret as! String == "true" {
                 appointment_theme = appointment_theme.stringByAppendingString(((ProfileKeyAndValue.shareInstance().appDic as NSDictionary).objectForKey("invitation")?.objectForKey("\(allItems[idx])"))! as! String)
                 appointment_theme = appointment_theme.stringByAppendingString(",")
@@ -159,6 +157,11 @@ class ApplyMeetViewController: UIViewController {
         }
         if introductionCell.textView.text == "" {
             UITools.showMessageToView(self.view, message: "未填写约见说明哦", autoHide: true)
+            return
+        }
+        
+        if introductionCell.textView.text.length > 300 {
+            UITools.showMessageToView(self.view, message: "邀约说明超过300", autoHide: true)
             return
         }
         isApplyOrder = true
@@ -261,17 +264,6 @@ class ApplyMeetViewController: UIViewController {
             cell.setData(allItems.copy() as! NSArray, selectItems: selectItems.copy() as! NSArray)
         }
     }
-    
-    
-    func updataTableViewContent(textViewHeight:CGFloat) {
-        let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 1, inSection: 0))
-        if textViewHeight > 80 {
-            tableView.setContentOffset(CGPointMake(0, textViewHeight + ((cell?.contentView.frame.size.height)! - 149)), animated: true)
-        }
-    }
-    
-    
-
 }
 
 extension ApplyMeetViewController : UITableViewDelegate {
@@ -324,6 +316,14 @@ extension ApplyMeetViewController : UITableViewDataSource {
                 cell = tableView.dequeueReusableCellWithIdentifier(cellId) as! OrderApplyMeetTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 self.setData(cell)
+                cell.clourse = { selectItem in
+                    if self.selectItems[selectItem] as! String == "true" {
+                        self.selectItems.replaceObjectAtIndex(selectItem, withObject: "false")
+                    }else{
+                        self.selectItems.replaceObjectAtIndex(selectItem, withObject: "true")
+                    }
+                    
+                }
                 return cell
             }
         }else{
@@ -353,11 +353,9 @@ extension ApplyMeetViewController : UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(textView: UITextView) {
-        contenOfY = self.tableView.contentOffset.y
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        self.updataTableViewContent(contenOfY)
         let length = 300 - textView.text.length
         introductionCell.numberText.text = "\(length)"
         if textView.text.length > 280 {

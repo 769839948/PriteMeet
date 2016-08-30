@@ -1105,10 +1105,19 @@ typedef NS_ENUM(NSUInteger, RowType) {
             }else{
                 if (height > 337) {
                 }else{
+                    
                     if (_isBaseView || _isApplyCode) {
-                        insterHeight = 309 - height;
+                        if (IS_IPHONE_5){
+                            insterHeight = 369 - height;
+                        }else{
+                            insterHeight = 309 - height;
+                        }
                     }else{
-                        insterHeight = 309 - height;
+                        if (IS_IPHONE_5){
+                            insterHeight = 369 - height;
+                        }else{
+                            insterHeight = 309 - height;
+                        }
                     }
                     [tableView setContentOffset:CGPointMake(0, insterHeight) animated:YES];
                     
