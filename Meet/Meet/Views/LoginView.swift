@@ -19,6 +19,7 @@ typealias ReloadMeViewClouse = () ->Void
 typealias LoginWithDetailClouse = () ->Void
 typealias LoginWithOrderListClouse = () ->Void
 typealias OrderListShorOrderButton = () ->Void
+
 class LoginView: UIView {
 
     var backView:UIView!

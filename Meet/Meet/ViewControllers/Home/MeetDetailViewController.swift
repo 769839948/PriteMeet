@@ -164,7 +164,7 @@ class MeetDetailViewController: UIViewController {
         
         likeButton = UIButton(type: UIButtonType.Custom)
         likeButton.addTarget(self, action: #selector(MeetDetailViewController.likeButtonPress(_:)), forControlEvents: .TouchUpInside)
-        
+        likeButton.frame = CGRectMake(0, 0, 20, 40)
         likeButton.titleLabel?.font = UIFont.systemFontOfSize(14)
         likeButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         let likeItem = UIBarButtonItem(customView: likeButton)
@@ -320,7 +320,9 @@ class MeetDetailViewController: UIViewController {
         }
         likeButton.setTitle(number, forState: .Normal)
         likeButton.setImage(image, forState: .Normal)
-        likeButton.frame = CGRectMake(0, 0, number.stringWidth(number, font: UIFont.systemFontOfSize(14.0), height: 20) + 20,20)
+        var frame = likeButton.frame
+        frame.size.width = number.stringWidth(number, font: UIFont.systemFontOfSize(14.0), height: 20) + 20
+        likeButton.frame = frame
         
         let imageHight = self.otherUserModel.cur_user_liked ? UIImage.init(named: "detail_liked_pressed") : UIImage.init(named: "detail_like_pressed")
         likeButton.setImage(imageHight, forState: .Highlighted)

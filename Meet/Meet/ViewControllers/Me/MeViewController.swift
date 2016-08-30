@@ -186,7 +186,7 @@ class MeViewController: UIViewController {
     
     func setNavigationBar(){
         if UserInfo.isLoggedIn() {
-            UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
+            UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)    
             self.setLeftBarItem()
         }else{
             UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
@@ -201,10 +201,11 @@ class MeViewController: UIViewController {
             self.setNavigationItemAplah(1, imageName: ["me_dismissBlack"], type: 1)
             
             if UserInfo.sharedInstance().completeness.next_page != 4 {
-                self.setNavigationItemAplah(1, imageName: ["me_settings"], type: 2)
+                self.setNavigationItemAplah(1, imageName: ["me_settingsBlack"], type: 2)
             }else{
                 self.setNavigationItemAplah(1, imageName: ["me_settingsBlack","me_editBlack"], type: 3)
             }
+            UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
         }else{
             self.setNavigationItemAplah(1, imageName: ["me_dismiss"], type: 1)
             

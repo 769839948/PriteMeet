@@ -471,10 +471,12 @@ extension HomeViewController : UITableViewDelegate {
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        if (lastContentOffset < scrollView.contentOffset.y) {
-           self.hiderBottomView()
-        }else{
-            self.showBottomView()
+        if self.bottomView != nil {
+            if (lastContentOffset < scrollView.contentOffset.y) {
+                self.hiderBottomView()
+            }else{
+                self.showBottomView()
+            }
         }
     }
     
