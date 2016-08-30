@@ -41,6 +41,7 @@
 
 @property (nonatomic, copy) NSString *distance;
 
+
 @end
 
 @implementation ManListCell
@@ -152,9 +153,6 @@
         [self reloadLikeBtnImage:NO];
         _likeBtn.tag = 0;
     }
-    _numberOfLike = model.liked_count;
-    _distance = model.distance;
-    [self setUpMeetNumber:model.liked_count distance:model.distance];
     
     [_ageNumber setTitle:[NSString stringWithFormat:@" %ld",(long)model.age] forState:UIControlStateNormal];
     
@@ -166,58 +164,53 @@
 
     }
     float titleHeight = [_nameLabel.text heightWithFont:HomeViewNameFont constrainedToWidth:ScreenWidth - 40];
-    if (titleHeight > 30){
-        [_nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_offset(titleHeight);
-        }];
-        [self updateConstraints];
-    }
-    
+    [_nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_offset(titleHeight);
+    }];
+    _numberOfLike = model.liked_count;
+    _distance = model.distance;
+    [self setUpMeetNumber:model.liked_count distance:model.distance];
+
     if ([interstArray[0] isEqualToString:@""]) {
         [_interestView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_offset(0.001);
         }];
-        [self updateConstraints];
     }else{
         [_interestView setCollectViewData:interstArray style:ItemBlackAndWhiteLabelText];
         [weakSelf.interestView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.offset([self cellHeight:interstArray]);
+            make.height.mas_offset([self cellHeight:interstArray]);
         }];
-        [weakSelf updateConstraints];
-        [weakSelf updateConstraintsIfNeeded];
+        
     }
     [ManListCell homeNameLabelColor:_nameLabel];
-
+    [self updateConstraints];
+    [self updateConstraintsIfNeeded];
 }
 
-- (void)reloadNumberOfMeet:(BOOL)isLike
+- (void)reloadNumberOfMeet:(BOOL)isLike number:(NSInteger)number
 {
-    if (isLike){
-        _numberOfLike = _numberOfLike - 1;
-    }else{
-        _numberOfLike = _numberOfLike + 1;
-    }
-    
-    [self setUpMeetNumber:_numberOfLike distance:_distance];
+    [self setUpMeetNumber:number distance:_distance];
 }
 
 - (void)setUpMeetNumber:(NSInteger)number distance:(NSString *)distance
 {
-    NSString *str = @"";
-    if (number != 0) {
-        str = [str stringByAppendingString:[NSString stringWithFormat:@"%ld 人想见你 ", (long)number]];
-    }
-    if (![distance isEqualToString:@""]) {
-        str = [str stringByAppendingString:[NSString stringWithFormat:@"和你相隔 %@", distance]];
-    }
-    if ([str isEqualToString:@""]) {
-        [_meetNumber mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_offset(0.01);
-        }];
-        [self updateConstraints];
-    }else{
-        _meetNumber.text = str;
-    }
+     dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *str = @"";
+        if (number != 0) {
+            str = [str stringByAppendingString:[NSString stringWithFormat:@"%ld 人想见 ", (long)number]];
+        }
+        if (![distance isEqualToString:@""]) {
+            str = [str stringByAppendingString:[NSString stringWithFormat:@"和你相隔 %@", distance]];
+        }
+        if ([str isEqualToString:@""]) {
+            [_meetNumber mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_offset(0.01);
+            }];
+            [self updateConstraints];
+        }else{
+            _meetNumber.text = str;
+        }
+    });
 }
 
 + (void)homeNameLabelColor:(UILabel *)nameLable
@@ -287,13 +280,13 @@
             make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(0);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
-            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-0);
+            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(0);
         }];
         
         [_personalView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(0);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
+            make.top.mas_equalTo(weakSelf.showdowView.mas_top).offset(0);
+            make.left.mas_equalTo(weakSelf.showdowView.mas_left).offset(0);
+            make.right.mas_equalTo(weakSelf.showdowView.mas_right).offset(0);
             make.bottom.mas_equalTo(weakSelf.showdowView.mas_bottom).offset(-3);
         }];
         
@@ -309,7 +302,6 @@
             make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(0);
             make.height.mas_offset((ScreenWidth - 20)*200/355);
         }];
-        
         
         [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.photoImage.mas_bottom).offset(14);
@@ -330,6 +322,7 @@
             make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(14);
             make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-14);
             make.bottom.mas_equalTo(weakSelf.interestView.mas_top).offset(-17);
+            make.height.mas_offset(20);
         }];
         
         [_interestView mas_makeConstraints:^(MASConstraintMaker *make) {

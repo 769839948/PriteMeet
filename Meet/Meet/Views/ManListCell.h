@@ -27,6 +27,6 @@ typedef void(^LikeButtonBlock)(BOOL isLike, NSString *user_id);
 
 - (void)reloadLikeBtnImage:(BOOL)isLike;
 
-- (void)reloadNumberOfMeet:(BOOL)isLike;
+- (void)reloadNumberOfMeet:(BOOL)isLike number:(NSInteger)number;
 
 @end

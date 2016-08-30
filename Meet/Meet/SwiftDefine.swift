@@ -80,6 +80,12 @@ func Stroyboard(storyName:String, viewControllerId:String) -> UIViewController {
     return viewController
 }
 
+func MainThreadAlertShow(msg:String,view:UIView){
+    dispatch_async(dispatch_get_main_queue()) {
+        UITools.shareInstance().showMessageToView(view, message: msg, autoHide: true)
+    }
+}
+
 func UserDefaultsGetSynchronize(key:String) -> String {
     if NSUserDefaults.standardUserDefaults().objectForKey(key) != nil{
         return NSUserDefaults.standardUserDefaults().objectForKey(key)! as! String

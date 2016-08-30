@@ -265,7 +265,7 @@ class HomeViewController: UIViewController {
     
     func presentOrderView(){
         let orderPageVC = OrderPageViewController()
-        orderPageVC.setUpNavigationItem()
+        orderPageVC.loadType = .Present
         
         orderPageVC.reloadOrderNumber = { _ in
             self.getOrderNumber()
@@ -363,7 +363,7 @@ class HomeViewController: UIViewController {
         let applyCode = Stroyboard("Login", viewControllerId: "ApplyCodeViewController") as! ApplyCodeViewController
             applyCode.isApplyCode = true
             applyCode.showToolsBlock = { _ in
-            UITools.showMessageToView(self.view, message: "申请成功，请耐心等待审核结果^_^", autoHide: true)
+            MainThreadAlertShow("申请成功，请耐心等待审核结果^_^", view: self.view)
             self.loginView.removeFromSuperview()
             UserInfo.logout()
         }
@@ -408,7 +408,7 @@ class HomeViewController: UIViewController {
         userInfoViewMode.likeUser(user_id, successBlock: { (dic) in
             block(success: true)
             }) { (dic) in
-            UITools.showMessageToView(self.view, message: dic["error"] as! String, autoHide: true)
+            MainThreadAlertShow(dic["error"] as! String, view: self.view)
 
         }
     }
@@ -417,7 +417,7 @@ class HomeViewController: UIViewController {
         userInfoViewMode.deleteLikeUser(user_id, successBlock: { (dic) in
             block(success: true)
         }) { (dic) in
-            UITools.showMessageToView(self.view, message: dic["error"] as! String, autoHide: true)
+            MainThreadAlertShow(dic["error"] as! String, view: self.view)
             
         }
     }
@@ -490,12 +490,16 @@ extension HomeViewController : UITableViewDelegate {
         let model = homeModelArray[indexPath.section] as! HomeModel
         meetDetailVC.user_id = "\(model.uid)"
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! ManListCell
-        meetDetailVC.reloadHomeListLike = { isLike in
+        meetDetailVC.reloadHomeListLike = { isLike, number in
             if isLike {
                 cell.likeBtn.tag = 1
+                model.liked_count = number
+                cell.reloadNumberOfMeet(isLike, number: number)
                 cell.reloadLikeBtnImage(true)
             }else{
                 cell.likeBtn.tag = 0
+                model.liked_count = number
+                cell.reloadNumberOfMeet(isLike, number: number)
                 cell.reloadLikeBtnImage(false)
             }
             
@@ -535,21 +539,26 @@ extension HomeViewController : UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIndef, forIndexPath: indexPath) as! ManListCell
         self.configureCell(cell, indexPath: indexPath)
         cell.selectionStyle = .None
+        let model = homeModelArray[indexPath.section] as! HomeModel
         cell.block = { isLike, user_id in
             if UserInfo.isLoggedIn() {
                 if isLike {
                     self.deleteLikeUser(user_id, block: { (success) in
                         cell.likeBtn.tag = 0
-                        
+                        model.liked = false
                         cell.reloadLikeBtnImage(false)
+                        model.liked_count = model.liked_count - 1
+                        cell.reloadNumberOfMeet(isLike,number: model.liked_count)
                     })
                 }else{
                     self.createLikeUser(user_id, block: { (success) in
                         cell.likeBtn.tag = 1
+                        model.liked = true
+                        model.liked_count = model.liked_count + 1
                         cell.reloadLikeBtnImage(true)
+                        cell.reloadNumberOfMeet(isLike,number: model.liked_count)
                     })
                 }
-                cell.reloadNumberOfMeet(isLike)
             }else{
                 self.presentLoginView()
             }
@@ -572,11 +581,14 @@ extension HomeViewController : AMapLocationManagerDelegate {
     
     func amapLocationManager(manager: AMapLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .NotDetermined {
+            self.page = 0
             self.showLoacationAlert()
         }else if status == .Denied {
+            self.page = 0
             self.showLoacationAlert()
         }else if status == .AuthorizedWhenInUse || status == .AuthorizedAlways
         {
+            self.page = 0
             locationManager.requestLocationWithReGeocode(false) { (location, geocode, error) in
                 if error != nil && error == 2{
                     self.showLoacationAlert()
@@ -585,7 +597,6 @@ extension HomeViewController : AMapLocationManagerDelegate {
                 if location != nil{
                     self.latitude = location.coordinate.latitude
                     self.logtitude = location.coordinate.longitude
-                    self.page = 0
                     self.setUpHomeData()
                     if UserInfo.isLoggedIn() {
                         self.viewModel .senderLocation(self.latitude, longitude: self.logtitude)

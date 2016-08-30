@@ -450,7 +450,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     if ([workcity[0] isEqualToString:@"未选择"]) {
         location = [NSString stringWithFormat:@"0,0"];
     }else{
-        location = [NSString stringWithFormat:@"%@,%@",[self.stateArray objectForKey:workcity[0]],[self.stateArray objectForKey:workcity[1]]];
+        location = [NSString stringWithFormat:@"%@,%@",[_stateArray objectForKey:workcity[0]],[_stateArray objectForKey:workcity[1]]];
     }
 
     NSString *hometown = @"";
@@ -549,7 +549,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
             }
             [UserInfo synchronize];
         } fail:^(NSDictionary *object) {
-            [[UITools shareInstance] showMessageToView:self.view message:@"保存失败" autoHide:YES];
+            MainTheand([[UITools shareInstance] showMessageToView:self.view message:@"保存失败" autoHide:YES];)
         } loadingString:^(NSString *str) {
         }];
     }
@@ -1108,7 +1108,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                     
                     if (_isBaseView || _isApplyCode) {
                         if (IS_IPHONE_5){
-                            insterHeight = 369 - height;
+                            insterHeight = 309 - height;
                         }else{
                             insterHeight = 309 - height;
                         }
@@ -1116,7 +1116,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                         if (IS_IPHONE_5){
                             insterHeight = 369 - height;
                         }else{
-                            insterHeight = 309 - height;
+                            insterHeight = 369 - height;
                         }
                     }
                     [tableView setContentOffset:CGPointMake(0, insterHeight) animated:YES];
@@ -1677,11 +1677,11 @@ typedef NS_ENUM(NSUInteger, RowType) {
         [EMAlertView showAlertWithTitle:nil message:@"真实姓名为必填内容哦" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             
         } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
-    }else if([[UserInfo sharedInstance].birthday isEqualToString:@""]){
+    }else if([[UserInfo sharedInstance].birthday isEqualToString:@""] || [[UserInfo sharedInstance].birthday isEqualToString:@"未选择"]){
         [EMAlertView showAlertWithTitle:nil message:@"生日为必填内容哦" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             
         } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
-    }else if([[UserInfo sharedInstance].country isEqualToString:@"0,0"]){
+    }else if([[UserInfo sharedInstance].location isEqualToString:@"0,0"] || [[UserInfo sharedInstance].location isEqualToString:@""]){
         [EMAlertView showAlertWithTitle:nil message:@"工作生活城市为必填内容哦" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             
         } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];

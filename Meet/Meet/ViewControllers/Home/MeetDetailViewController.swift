@@ -29,7 +29,7 @@ enum PersonType {
 }
 
 
-typealias ReloadHomeListLike = (isLike:Bool) -> Void
+typealias ReloadHomeListLike = (isLike:Bool, number:NSInteger) -> Void
 
 class MeetDetailViewController: UIViewController {
 
@@ -130,7 +130,7 @@ class MeetDetailViewController: UIViewController {
     func meetImmediately(){
         if UserInfo.isLoggedIn() {
             if UserInfo.sharedInstance().uid == self.user_id {
-                UITools.showMessageToView(self.view, message: "您不能约见自己哦", autoHide: true)
+                MainThreadAlertShow("您不能约见自己哦", view: self.view)
                 return
             }
         }
@@ -229,7 +229,7 @@ class MeetDetailViewController: UIViewController {
             let reportVC = ReportViewController()
             reportVC.uid = user_id
             reportVC.myClouse = { _ in
-                UITools.showMessageToView(self.view, message: "投诉成功", autoHide: true)
+                 MainThreadAlertShow("投诉成功", view: self.view)
             }
             self.navigationController?.pushViewController(reportVC, animated: true)
         }
@@ -246,9 +246,9 @@ class MeetDetailViewController: UIViewController {
             })
             let doneAction = UIAlertAction.init(title: "拉黑", style: UIAlertActionStyle.Default, handler: { (canCel) in
                 self.userInfoViewModel.makeBlackList(self.user_id, succes: { (dic) in
-                    UITools.showMessageToView(self.view, message: "拉入黑名单成功", autoHide: true)
+                    MainThreadAlertShow("拉入黑名单成功", view: self.view)
                     }, fail: { (dic) in
-                        UITools.showMessageToView(self.view, message: "拉入黑名单失败", autoHide: true)
+                        MainThreadAlertShow("拉入黑名单失败", view: self.view)
                 })
             })
             aletControl.addAction(cancleAction)
@@ -268,7 +268,7 @@ class MeetDetailViewController: UIViewController {
             let applyCode = Stroyboard("Login", viewControllerId: "ApplyCodeViewController") as! ApplyCodeViewController
             applyCode.isApplyCode = true
             applyCode.showToolsBlock = { _ in
-                UITools.showMessageToView(self.view, message: "申请成功，请耐心等待审核结果^_^", autoHide: true)
+                MainThreadAlertShow("申请成功，请耐心等待审核结果^_^", view: self.view)
                 self.loginView.removeFromSuperview()
                 UserInfo.logout()
             }
@@ -318,6 +318,7 @@ class MeetDetailViewController: UIViewController {
            number = " \(self.otherUserModel.liked_count)"
 
         }
+        likeButton.tag = isLike ? 1:0
         likeButton.setTitle(number, forState: .Normal)
         likeButton.setImage(image, forState: .Normal)
         var frame = likeButton.frame
@@ -328,7 +329,7 @@ class MeetDetailViewController: UIViewController {
         likeButton.setImage(imageHight, forState: .Highlighted)
         
         if self.reloadHomeListLike != nil {
-            self.reloadHomeListLike(isLike: isLike)
+            self.reloadHomeListLike(isLike: isLike,number: self.otherUserModel.liked_count)
         }
         
     }
@@ -820,9 +821,9 @@ extension MeetDetailViewController : UIActionSheetDelegate {
             })
             let doneAction = UIAlertAction.init(title: "拉黑", style: UIAlertActionStyle.Default, handler: { (canCel) in
                 self.userInfoViewModel.makeBlackList(self.user_id, succes: { (dic) in
-                    UITools.showMessageToView(self.view, message: "拉入黑名单成功", autoHide: true)
+                    MainThreadAlertShow("拉入黑名单成功", view: self.view)
                     }, fail: { (dic) in
-                        UITools.showMessageToView(self.view, message: "拉入黑名单失败", autoHide: true)
+                        MainThreadAlertShow("拉入黑名单失败", view: self.view)
                 })
             })
             aletControl.addAction(cancleAction)

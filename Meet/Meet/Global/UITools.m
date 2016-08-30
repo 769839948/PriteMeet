@@ -98,8 +98,8 @@ static UITools *tools = nil;
 }
 
 - (MBProgressHUD *)showMessageToView:(UIView *)view message:(NSString *)message autoHide:(BOOL)autoHide {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeText;
     hud.labelText = message;
     hud.margin = 10.f;
@@ -112,8 +112,8 @@ static UITools *tools = nil;
 
 + (MBProgressHUD *)showMessageToView:(UIView *)view message:(NSString *)message autoHide:(BOOL)autoHide
 {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeText;
     hud.labelText = message;
     hud.margin = 10.f;

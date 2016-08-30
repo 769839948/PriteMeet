@@ -396,12 +396,12 @@ class LoginView: UIView {
                     self.shwoTools(appDic["msg"] as! String)
             })
         }else{
-            UITools.showMessageToView(self, message: "手机号码不正确", autoHide: true)
+            MainThreadAlertShow( "手机号码不正确", view: self)
         }
     }
     
     func shwoTools(str:String){
-        UITools.showMessageToView(self, message: str, autoHide: true)
+        MainThreadAlertShow(str, view: self)
     }
     
     func setUpBackImageView(view:UIView){
@@ -612,7 +612,7 @@ extension LoginView : UITextFieldDelegate {
                   self.shwoTools(dic["msg"] as! String)
             })
         }else{
-            UITools.showMessageToView(self, message: "手机号码不正确", autoHide: true)
+             MainThreadAlertShow( "手机号码不正确", view: self)
         }
         return true
     }

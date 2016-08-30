@@ -246,14 +246,12 @@
         
         [[WXUserInfo shareInstance] initWithDictionary:WXuserInfo];
         [WXUserInfo initWithDic:WXuserInfo];
-//        [[UITools shareInstance] showMessageToView:self.window message:@"登录成功" autoHide:YES];
          NSLog(@"请求微信用户信息成功！");
         [[NSUserDefaults standardUserDefaults] setObject:WXuserInfo forKey:keyWXUserInfo];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NewUserLoginWihtWechat" object:[NSNumber numberWithInt:1]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"OldUserLoginWihtWechat" object:[NSNumber numberWithInt:1]];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//         [[UITools shareInstance] showMessageToView:self.window message:@"登录失败" autoHide:YES];
          NSLog(@"请求微信用户信息失败！");
          NSLog(@"error :%@",error.localizedFailureReason);
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NewUserLoginWihtWechat" object:[NSNumber numberWithInt:0]];

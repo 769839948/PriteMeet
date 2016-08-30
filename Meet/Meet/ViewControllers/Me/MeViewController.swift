@@ -367,7 +367,7 @@ class MeViewController: UIViewController {
             let applyCode = Stroyboard("Login", viewControllerId: "ApplyCodeViewController") as! ApplyCodeViewController
             applyCode.isApplyCode = true
             applyCode.showToolsBlock = { _ in
-                UITools.showMessageToView(self.view, message: "申请成功，请耐心等待审核结果^_^", autoHide: true)
+                MainThreadAlertShow("申请成功，请耐心等待审核结果^_^", view: self.view)
                 self.loginView.removeFromSuperview()
                 UserInfo.logout()
             }
@@ -417,7 +417,6 @@ class MeViewController: UIViewController {
     
     func presentOrderView(){
         let orderPageVC = OrderPageViewController()
-        orderPageVC.setUpNavigationItem()
         
         orderPageVC.reloadOrderNumber = { _ in
             self.getOrderNumber()
@@ -430,7 +429,7 @@ class MeViewController: UIViewController {
         orderPageVC.progressWidth = 0
         orderPageVC.adjustStatusBarHeight = true
         orderPageVC.progressColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
-        orderPageVC.changeNavigationBar()
+        orderPageVC.loadType = .Push
         self.navigationController?.pushViewController(orderPageVC, animated: true)
     }
     
@@ -470,16 +469,16 @@ extension MeViewController : UITableViewDelegate{
         if (indexPath.row == 0) {
             self.pushProfileViewControllr()
         } else if (indexPath.row == 1) {
-            UITools.shareInstance().showMessageToView(self.view, message: "^_^ 敬请期待，暂时请联系客服帮忙添加哦", autoHide: true)
+            MainThreadAlertShow("申请成功，请耐心等待审核结果^_^", view: self.view)
         } else  if (indexPath.row == 3 || indexPath.row == 2) {
             let senderInviteVC = Stroyboard("Me", viewControllerId: "SenderInviteViewController") as!  SenderInviteViewController
             self.navigationController!.pushViewController(senderInviteVC, animated:true)
         }else if(indexPath.row == 4){
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! MeInfoTableViewCell
             if cell.infoDetailLabel.text == "" {
-                UITools.shareInstance().showMessageToView(self.view, message: "您已通过所有认证了哦", autoHide: true)
+                MainThreadAlertShow("您已通过所有认证了哦", view: self.view)
             }else{
-                UITools.shareInstance().showMessageToView(self.view, message: "客服Meet君会尽快联系您认证的哦，还请耐心等待。", autoHide: true)
+                MainThreadAlertShow("客服Meet君会尽快联系您认证的哦，还请耐心等待。", view: self.view)
             }
         }else if indexPath.row == 5 {
             self.verificationOrderView()
@@ -609,7 +608,7 @@ extension MeViewController : UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier(photoDetailTableViewCell, forIndexPath: indexPath) as! PhotoDetailTableViewCell
                     cell.configCell(UserExtenModel.allImageUrl())
                 cell.closure = { () in
-                    UITools.shareInstance().showMessageToView(self.view, message: "^_^ 敬请期待，暂时请联系客服帮忙添加哦", autoHide: true)
+                    MainThreadAlertShow("^_^ 敬请期待，暂时请联系客服帮忙添加哦", view: self.view)
                 }
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
                 cell.selectionStyle = UITableViewCellSelectionStyle.None

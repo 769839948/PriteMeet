@@ -111,7 +111,9 @@ class SenderInviteViewController: UIViewController {
         
         var ret:Bool = true
         if !isNewLogin {
-            ret = UserInviteModel.shareInstance().results[0].is_active
+            if !UserInviteModel.shareInstance().results[0].is_fake {
+                ret = UserInviteModel.shareInstance().results[0].is_active
+            }
         }
         viewModel.uploadInvite(textView.text, themeArray: arrayItems as [AnyObject], isActive: ret,success: { (dic) in
             if self.isDetailViewLogin {
@@ -262,6 +264,12 @@ extension SenderInviteViewController : UITableViewDataSource {
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.clourse = { selectItem in
                     self.changeNavigationBarItemColor()
+                    if !self.isNewLogin {
+                        if !UserInviteModel.shareInstance().results[0].is_active && !UserInviteModel.shareInstance().results[0].is_fake {
+                            UserInviteModel.shareInstance().results[0].is_active = true
+                            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 2)], withRowAnimation: UITableViewRowAnimation.Automatic)
+                        }
+                    }
                 }
                 self.setData(cell)
                 return cell

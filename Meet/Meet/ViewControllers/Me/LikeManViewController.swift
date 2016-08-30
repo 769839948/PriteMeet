@@ -56,7 +56,7 @@ class LikeManViewController: UIViewController {
             self.likeList = LikeListModel.mj_objectArrayWithKeyValuesArray(dic["liked_list"])
             self.collectionView.reloadData()
             }, fail: { (dic) in
-                UITools.showMessageToView(self.view, message: dic["error"] as! String, autoHide: true)
+                MainThreadAlertShow(dic["error"] as! String, view: self.view)
         })
     }
 
