@@ -574,7 +574,7 @@ extension MeViewController : UITableViewDataSource {
                 cell.avatarImageView.backgroundColor = UIColor.init(hexString: "e7e7e7")
                 if UserExtenModel.shareInstance().cover_photo != nil {
                     let cover_photo:Cover_photo = Cover_photo.mj_objectWithKeyValues(UserExtenModel.shareInstance().cover_photo)
-                    if cover_photo.photo != nil {
+                    if cover_photo.photo != "" {
                         //http://7xsatk.com1.z0.glb.clouddn.com/o_1aqc2rujd1vbc11ten5s12tj115fc.jpg?imageView2/1/w/1125/h/816
                         cell.avatarImageView .sd_setImageWithURL(NSURL.init(string:cover_photo.photo ), placeholderImage: nil, completed: { (image, error, type, url) in
                             UserExtenModel.saveCacheImage(image, withName: "cover_photo.jpg")

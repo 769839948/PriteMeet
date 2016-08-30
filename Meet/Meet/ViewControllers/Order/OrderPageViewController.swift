@@ -32,9 +32,16 @@ class OrderPageViewController: TYTabButtonPagerController {
         pageViewControllers = [orderConfimViewController,orderPayViewController,orderMeetViewController,orderAllViewController]
         self.setUpPageViewControllerStyle()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(OrderPageViewController.reloadOtherCollectView(_:)), name: ReloadOrderCollectionView, object: nil)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.init(named:"me_dismissBlack")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(OrderPageViewController.disMisstView(_:)))
         self.talKingDataPageName = "Order-Order-Page"
         self.navigationItemWhiteColorAndNotLine()
         // Do any additional setup after loading the view.
+    }
+    
+    func disMisstView(sendre:UINavigationItem) {
+        self.dismissViewControllerAnimated(true) { 
+            
+        }
     }
     
     func changeNavigationBar() {

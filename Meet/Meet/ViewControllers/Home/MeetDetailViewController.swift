@@ -357,7 +357,7 @@ class MeetDetailViewController: UIViewController {
     lazy var imageArray:NSArray = {
         let tempArray = NSMutableArray()
         if self.otherUserModel.cover_photo != nil {
-            if self.otherUserModel.cover_photo!.photo != "" &&  self.otherUserModel.cover_photo!.photo != nil{
+            if self.otherUserModel.cover_photo!.photo != "" {
                 tempArray.addObject(self.otherUserModel.cover_photo!.photo)
             }
         }
@@ -460,7 +460,7 @@ class MeetDetailViewController: UIViewController {
     func configCell(cell:MeetInfoTableViewCell, indxPath:NSIndexPath)
     {
         if self.otherUserModel.distance == "" {
-            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)    和你相隔 30+m", interestCollectArray: self.personalArray as [AnyObject])
+            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)", interestCollectArray: self.personalArray as [AnyObject])
         }else{
             cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)    和你相隔 \(self.otherUserModel.distance as String)", interestCollectArray: self.personalArray as [AnyObject])
         }
@@ -661,7 +661,6 @@ extension MeetDetailViewController : UITableViewDataSource {
                 default:
                     return tableView.fd_heightForCellWithIdentifier(newMeetInfoTableViewCell, cacheByKey: self.user_id, configuration: { (cell) in
                         self.configNewMeetCell(cell as! NewMeetInfoTableViewCell, indxPath: indexPath)
-                        
                     })
                 }
             default:

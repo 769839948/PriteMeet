@@ -13,6 +13,7 @@
 #import "EqualSpaceFlowLayout.h"
 #import "MJExtension.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "Meet-Swift.h"
 
 @interface ManListCell ()<EqualSpaceFlowLayoutDelegate>
 
@@ -35,6 +36,10 @@
 @property (nonatomic, assign) BOOL didSetupConstraints;
 
 @property (nonatomic, copy) NSString *user_id;
+
+@property (nonatomic, assign) NSInteger numberOfLike;
+
+@property (nonatomic, copy) NSString *distance;
 
 @end
 
@@ -147,6 +152,10 @@
         [self reloadLikeBtnImage:NO];
         _likeBtn.tag = 0;
     }
+    _numberOfLike = model.liked_count;
+    _distance = model.distance;
+    [self setUpMeetNumber:model.liked_count distance:model.distance];
+    
     [_ageNumber setTitle:[NSString stringWithFormat:@" %ld",(long)model.age] forState:UIControlStateNormal];
     
     if ([model.job_label isEqualToString:@" "]) {
@@ -163,21 +172,7 @@
         }];
         [self updateConstraints];
     }
-    if (model.distance == nil) {
-        _meetNumber.text = [NSString stringWithFormat:@"和你相隔  0m"];
-
-    }else{
-        _meetNumber.text = [NSString stringWithFormat:@"和你相隔  %@",model.distance];
-
-    }
-    if ([_meetNumber.text isEqualToString:@""]) {
-        [_meetNumber mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_offset(0.01);
-        }];
-        [self updateConstraints];
-    }else{
-        _meetNumber.text = _meetNumber.text;
-    }
+    
     if ([interstArray[0] isEqualToString:@""]) {
         [_interestView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_offset(0.001);
@@ -193,6 +188,36 @@
     }
     [ManListCell homeNameLabelColor:_nameLabel];
 
+}
+
+- (void)reloadNumberOfMeet:(BOOL)isLike
+{
+    if (isLike){
+        _numberOfLike = _numberOfLike - 1;
+    }else{
+        _numberOfLike = _numberOfLike + 1;
+    }
+    
+    [self setUpMeetNumber:_numberOfLike distance:_distance];
+}
+
+- (void)setUpMeetNumber:(NSInteger)number distance:(NSString *)distance
+{
+    NSString *str = @"";
+    if (number != 0) {
+        str = [str stringByAppendingString:[NSString stringWithFormat:@"%ld 人想见你 ", (long)number]];
+    }
+    if (![distance isEqualToString:@""]) {
+        str = [str stringByAppendingString:[NSString stringWithFormat:@"和你相隔 %@", distance]];
+    }
+    if ([str isEqualToString:@""]) {
+        [_meetNumber mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_offset(0.01);
+        }];
+        [self updateConstraints];
+    }else{
+        _meetNumber.text = str;
+    }
 }
 
 + (void)homeNameLabelColor:(UILabel *)nameLable

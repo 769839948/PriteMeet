@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HomeModel.h"
+//#import "Meet-Swift.h"
+
+@class HomeModel;
 
 typedef void(^LikeButtonBlock)(BOOL isLike, NSString *user_id);
 
@@ -24,5 +26,7 @@ typedef void(^LikeButtonBlock)(BOOL isLike, NSString *user_id);
 - (void)configCell:(HomeModel *)model interstArray:(NSArray *)interstArray;
 
 - (void)reloadLikeBtnImage:(BOOL)isLike;
+
+- (void)reloadNumberOfMeet:(BOOL)isLike;
 
 @end

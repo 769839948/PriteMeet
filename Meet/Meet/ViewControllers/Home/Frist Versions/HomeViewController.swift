@@ -95,18 +95,6 @@ class HomeViewController: UIViewController {
         locationManager.locationTimeout = 3
         locationManager.reGeocodeTimeout = 2
         locationManager.delegate = self
-        locationManager.requestLocationWithReGeocode(false) { (location, geocode, error) in
-            if error != nil && error.code == 1{
-                return
-            }
-            if location != nil{
-                self.latitude = location.coordinate.latitude
-                self.logtitude = location.coordinate.longitude
-                if UserInfo.isLoggedIn() {
-                    self.viewModel .senderLocation(self.latitude, longitude: self.logtitude)
-                }
-            }
-        }
     }
     
     
@@ -123,7 +111,17 @@ class HomeViewController: UIViewController {
             fillter = "recommend"
         }
         viewModel.getHomeFilterList("\(self.page)", latitude: latitude, longitude: logtitude, filter: fillter, successBlock: { (dic) in
+            
+            if self.bottomView != nil {
+                self.bottomView.hidden = false
+            }
+            
             let tempArray = HomeModel.mj_objectArrayWithKeyValuesArray(dic)
+            if tempArray.count == 0 {
+                self.page = self.page - 1
+                self.tableView.mj_footer.endRefreshing()
+                return
+            }
             if self.page == 1 {
                 self.homeModelArray.removeAllObjects()
             }
@@ -131,9 +129,7 @@ class HomeViewController: UIViewController {
 
             self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
-            if self.bottomView != nil {
-                self.bottomView.hidden = false
-            }
+            
 
             }, failBlock: { (dic) in
                 self.page = self.page - 1
@@ -425,6 +421,43 @@ class HomeViewController: UIViewController {
             
         }
     }
+    
+    func hiderBottomView() {
+        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+            let frame = self.bottomView.frame
+            self.bottomView.frame = CGRectMake(frame.origin.x, ScreenHeight + self.view.frame.origin.y, frame.size.width, frame.size.height)
+        }) { (finish) in
+            
+        }
+    }
+    func showBottomView() {
+        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+            let frame = self.bottomView.frame
+            self.bottomView.frame = CGRectMake(frame.origin.x, ScreenHeight - 88 - self.view.frame.origin.y, frame.size.width, frame.size.height)
+        }) { (finish) in
+            
+        }
+    }
+    
+    
+    func showLoacationAlert(){
+        let alertAction = UIAlertController(title: "定位服务未开启", message: "请在手机设置中开启定位服务可以看到用户据您多远", preferredStyle: .Alert)
+        let canCelAction = UIAlertAction.init(title: "知道了", style: .Default) { (cancelAction) in
+            self.setUpHomeData()
+        }
+        
+        let openAction = UIAlertAction.init(title: "开启定位", style: .Default) { (openAction) in
+            let url = NSURL.init(string: "prefs:root=LOCATION_SERVICES")
+            if UIApplication.sharedApplication().canOpenURL(url!){
+                UIApplication.sharedApplication().openURL(url!)
+            }
+        }
+        alertAction.addAction(canCelAction)
+        alertAction.addAction(openAction)
+        self.presentViewController(alertAction, animated: true) {
+            
+        }
+    }
 
 }
 
@@ -485,22 +518,7 @@ extension HomeViewController : UITableViewDelegate {
         self.showBottomView()
     }
     
-    func hiderBottomView() {
-        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
-            let frame = self.bottomView.frame
-            self.bottomView.frame = CGRectMake(frame.origin.x, ScreenHeight + self.view.frame.origin.y, frame.size.width, frame.size.height)
-        }) { (finish) in
-            
-        }
-    }
-    func showBottomView() {
-        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
-            let frame = self.bottomView.frame
-            self.bottomView.frame = CGRectMake(frame.origin.x, ScreenHeight - 88 - self.view.frame.origin.y, frame.size.width, frame.size.height)
-        }) { (finish) in
-            
-        }
-    }
+    
 }
 
 extension HomeViewController : UITableViewDataSource {
@@ -522,6 +540,7 @@ extension HomeViewController : UITableViewDataSource {
                 if isLike {
                     self.deleteLikeUser(user_id, block: { (success) in
                         cell.likeBtn.tag = 0
+                        
                         cell.reloadLikeBtnImage(false)
                     })
                 }else{
@@ -530,6 +549,7 @@ extension HomeViewController : UITableViewDataSource {
                         cell.reloadLikeBtnImage(true)
                     })
                 }
+                cell.reloadNumberOfMeet(isLike)
             }else{
                 self.presentLoginView()
             }
@@ -552,23 +572,28 @@ extension HomeViewController : AMapLocationManagerDelegate {
     
     func amapLocationManager(manager: AMapLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .NotDetermined {
-            viewModel.senderIpAddress({ (dic) in
-                let manager = dic as NSDictionary
-                self.latitude = (manager["lat"]?.doubleValue)!
-                self.logtitude = (manager["lon"]?.doubleValue)!
-                }, fail: { (dic) in
-                    
-            })
+            self.showLoacationAlert()
         }else if status == .Denied {
-            viewModel.senderIpAddress({ (dic) in
-                let manager = dic as NSDictionary
-                self.latitude = (manager["lat"]?.doubleValue)!
-                self.logtitude = (manager["lon"]?.doubleValue)!
-                }, fail: { (dic) in
-                    
-            })
-        }else if status == .AuthorizedWhenInUse || status == .AuthorizedAlways {
-            self.setUpHomeData()
+            self.showLoacationAlert()
+        }else if status == .AuthorizedWhenInUse || status == .AuthorizedAlways
+        {
+            locationManager.requestLocationWithReGeocode(false) { (location, geocode, error) in
+                if error != nil && error == 2{
+                    self.showLoacationAlert()
+                    return
+                }
+                if location != nil{
+                    self.latitude = location.coordinate.latitude
+                    self.logtitude = location.coordinate.longitude
+                    self.page = 0
+                    self.setUpHomeData()
+                    if UserInfo.isLoggedIn() {
+                        self.viewModel .senderLocation(self.latitude, longitude: self.logtitude)
+                    }
+                }else{
+                    self.setUpHomeData()
+                }
+            }
         }
     }
 }

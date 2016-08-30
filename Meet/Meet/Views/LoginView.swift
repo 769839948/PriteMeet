@@ -555,6 +555,7 @@ class LoginView: UIView {
                         if self.reloadMeViewClouse != nil{
                             self.reloadMeViewClouse()
                         }
+                        
                         if self.loginWithDetailClouse != nil {
                             self.loginWithDetailClouse()
                         }

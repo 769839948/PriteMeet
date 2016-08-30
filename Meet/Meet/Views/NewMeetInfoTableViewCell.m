@@ -72,8 +72,12 @@
     [_interestView setCollectViewData:array style:style];
     if ([meetstring isEqualToString:@""]) {
         __weak typeof(self) weakSelf = self;
-        [weakSelf.interestView mas_updateConstraints:^(MASConstraintMaker *make) {
+        [weakSelf.meetLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.offset(0.000001);
+            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(0.01);
+        }];
+        [weakSelf.interestView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_offset([weakSelf cellHeight:array]);
         }];
     }else{
         float titleHeight = [meetstring heightWithFont:AboutUsLabelFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 40];

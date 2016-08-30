@@ -16,7 +16,6 @@
 		1F28812F1D2E61A500713E9B /* ServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F28812E1D2E61A500713E9B /* ServiceModel.swift */; };
 		1F2881321D2F7EEC00713E9B /* UINavigationBar+Awesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2881311D2F7EEC00713E9B /* UINavigationBar+Awesome.m */; };
 		1F293D691D1166490063A9DA /* HomeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D681D1166490063A9DA /* HomeViewModel.m */; };
-		1F293D6C1D1175090063A9DA /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D6B1D1175090063A9DA /* HomeModel.m */; };
 		1F293D761D11A4B90063A9DA /* UINavigationBar+Transparent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D711D11A4B90063A9DA /* UINavigationBar+Transparent.m */; };
 		1F293D771D11A4B90063A9DA /* TransparentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D731D11A4B90063A9DA /* TransparentView.m */; };
 		1F293D781D11A4B90063A9DA /* UIView+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D751D11A4B90063A9DA /* UIView+Size.m */; };
@@ -92,6 +91,7 @@
 		1F85D9A31D73FD40004DEAFE /* BaseRequestViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F85D9A21D73FD40004DEAFE /* BaseRequestViewModel.m */; };
 		1F85D9A81D7413E2004DEAFE /* MeetOrderInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F85D9A61D7413E2004DEAFE /* MeetOrderInfoTableViewCell.swift */; };
 		1F85D9A91D7413E2004DEAFE /* MeetOrderInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F85D9A71D7413E2004DEAFE /* MeetOrderInfoTableViewCell.xib */; };
+		1F85D9AB1D7536F6004DEAFE /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F85D9AA1D7536F6004DEAFE /* HomeModel.swift */; };
 		1F8FF7721D6ECE8B00C7A5B9 /* LikeManViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8FF7711D6ECE8B00C7A5B9 /* LikeManViewController.swift */; };
 		1F8FF7821D6EDA0200C7A5B9 /* LikeListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8FF7811D6EDA0200C7A5B9 /* LikeListModel.swift */; };
 		1F8FF7851D6EDD0000C7A5B9 /* LikeListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8FF7831D6EDD0000C7A5B9 /* LikeListCollectionViewCell.swift */; };
@@ -286,8 +286,6 @@
 		1F2881311D2F7EEC00713E9B /* UINavigationBar+Awesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Awesome.m"; sourceTree = "<group>"; };
 		1F293D671D1166490063A9DA /* HomeViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewModel.h; path = ../ViewModel/HomeViewModel.h; sourceTree = "<group>"; };
 		1F293D681D1166490063A9DA /* HomeViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewModel.m; path = ../ViewModel/HomeViewModel.m; sourceTree = "<group>"; };
-		1F293D6A1D1175090063A9DA /* HomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeModel.h; path = ../Model/ModelBean/HomeModel.h; sourceTree = "<group>"; };
-		1F293D6B1D1175090063A9DA /* HomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeModel.m; path = ../Model/ModelBean/HomeModel.m; sourceTree = "<group>"; };
 		1F293D701D11A4B90063A9DA /* UINavigationBar+Transparent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Transparent.h"; sourceTree = "<group>"; };
 		1F293D711D11A4B90063A9DA /* UINavigationBar+Transparent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Transparent.m"; sourceTree = "<group>"; };
 		1F293D721D11A4B90063A9DA /* TransparentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentView.h; sourceTree = "<group>"; };
@@ -400,6 +398,7 @@
 		1F85D9A21D73FD40004DEAFE /* BaseRequestViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseRequestViewModel.m; sourceTree = "<group>"; };
 		1F85D9A61D7413E2004DEAFE /* MeetOrderInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetOrderInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1F85D9A71D7413E2004DEAFE /* MeetOrderInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetOrderInfoTableViewCell.xib; sourceTree = "<group>"; };
+		1F85D9AA1D7536F6004DEAFE /* HomeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		1F8FF7711D6ECE8B00C7A5B9 /* LikeManViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeManViewController.swift; path = ../ViewControllers/Me/LikeManViewController.swift; sourceTree = "<group>"; };
 		1F8FF7811D6EDA0200C7A5B9 /* LikeListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeListModel.swift; path = ../Model/ModelBean/LikeListModel.swift; sourceTree = "<group>"; };
 		1F8FF7831D6EDD0000C7A5B9 /* LikeListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeListCollectionViewCell.swift; path = ../Views/LikeListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -984,10 +983,9 @@
 		1F8FF78D1D70172900C7A5B9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1F293D6A1D1175090063A9DA /* HomeModel.h */,
-				1F293D6B1D1175090063A9DA /* HomeModel.m */,
 				1F293D7B1D1266850063A9DA /* HomeDetailModel.swift */,
 				1F38684D1D266A7500569032 /* OhterProfileModel.swift */,
+				1F85D9AA1D7536F6004DEAFE /* HomeModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1790,7 +1788,6 @@
 				DA6CEEFA1CD9FA7200EEABFF /* LabelAndTextFieldCell.m in Sources */,
 				DA4A88F61CDB1DD900649983 /* AddStarViewController.m in Sources */,
 				1F2F56C11D3621F7005AEBC8 /* OrderViewModel.m in Sources */,
-				1F293D6C1D1175090063A9DA /* HomeModel.m in Sources */,
 				1FBAE3221D25153900D7D039 /* ProfileSectionTitleTableViewCell.swift in Sources */,
 				1F2881321D2F7EEC00713E9B /* UINavigationBar+Awesome.m in Sources */,
 				1F508D4B1D2FA308001EB676 /* ApplyCodeViewController.m in Sources */,
@@ -1871,6 +1868,7 @@
 				DABF8AEF1CE9B83300CA2A1D /* AllMeetViewController.m in Sources */,
 				1FAA085A1D45FEE20017F3E3 /* Detail.m in Sources */,
 				1FCAFFD81D0181AA00BF53A1 /* EMAlertView.m in Sources */,
+				1F85D9AB1D7536F6004DEAFE /* HomeModel.swift in Sources */,
 				1F293D761D11A4B90063A9DA /* UINavigationBar+Transparent.m in Sources */,
 				1F85D99F1D73FD27004DEAFE /* BaseOrderViewController.swift in Sources */,
 				1FAA08091D41CEE80017F3E3 /* BlackListViewController.swift in Sources */,
