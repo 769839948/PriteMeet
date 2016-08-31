@@ -142,13 +142,13 @@
     [_okButton setTitleColor:_tzImagePickerVc.oKButtonTitleColorNormal forState:UIControlStateNormal];
     
     _numberImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamedFromMyBundle:_tzImagePickerVc.photoNumberIconImageName]];
-    _numberImageView.backgroundColor = [UIColor clearColor];
-    _numberImageView.frame = CGRectMake(self.view.tz_width - 56 - 24, 9, 26, 26);
+    _numberImageView.frame = CGRectMake(self.view.tz_width - 56 - 24, 13, 26, 17);
     _numberImageView.hidden = _tzImagePickerVc.selectedModels.count <= 0;
+    _numberImageView.backgroundColor = [UIColor clearColor];
     
     _numberLable = [[UILabel alloc] init];
     _numberLable.frame = _numberImageView.frame;
-    _numberLable.font = [UIFont systemFontOfSize:16];
+    _numberLable.font = [UIFont systemFontOfSize:10];
     _numberLable.textColor = [UIColor whiteColor];
     _numberLable.textAlignment = NSTextAlignmentCenter;
     _numberLable.text = [NSString stringWithFormat:@"%zd",_tzImagePickerVc.selectedModels.count];

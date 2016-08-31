@@ -28,6 +28,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/UIButton+WebCache.h>
 #import "IQKeyboardManager.h"
+#import "TZImagePickerController.h"
 
 typedef NS_ENUM(NSUInteger, SectonContentType) {
     SectionProfile,
@@ -53,7 +54,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     RowConstellation,
 };
 
-@interface MyProfileViewController () <UIPickerViewDataSource, UIPickerViewDelegate,UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UISheetViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate> {
+@interface MyProfileViewController () <UIPickerViewDataSource, UIPickerViewDelegate,UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UISheetViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate, TZImagePickerControllerDelegate> {
     
     __weak IBOutlet UIView *_bottomPickerView;
     __weak IBOutlet UIDatePicker *_datePicker;
@@ -1249,18 +1250,22 @@ typedef NS_ENUM(NSUInteger, RowType) {
         }
         case 1: //相簿
         {
-            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-            imagePicker.delegate = self;
-            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
-            [imagePicker.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-            [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
-            imagePicker.mediaTypes = mediaTypes;
-            imagePicker.allowsEditing = YES;
-            imagePicker.navigationBar.tintColor = [UIColor blackColor];
-            imagePicker.navigationBar.barTintColor = self.navigationController.navigationBar.barTintColor;
-           [imagePicker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
-            [self presentViewController:imagePicker animated:YES completion:nil];
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+            TZImagePickerController *imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
+            imagePickerVC.navigationBar.barTintColor = [UIColor whiteColor];
+            imagePickerVC.navigationBar.tintColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
+            imagePickerVC.allowPickingVideo = NO;
+            imagePickerVC.allowTakePicture = NO;
+            imagePickerVC.barItemTextFont = NavigationBarRightItemFont;
+            imagePickerVC.oKButtonTitleColorNormal = [UIColor colorWithHexString:HomeDetailViewNameColor];
+            imagePickerVC.oKButtonTitleColorDisabled = [UIColor colorWithHexString:lineLabelBackgroundColor];
+            imagePickerVC.allowPickingOriginalPhoto = YES;
+            imagePickerVC.didFinishPickingPhotosHandle = ^(NSArray<UIImage *> *photos,NSArray *assets,BOOL isSelectOriginalPhoto){
+                
+            };
+            [self presentViewController:imagePickerVC animated:YES completion:^{
+                
+            }];
             break;
         }
             
@@ -1268,6 +1273,40 @@ typedef NS_ENUM(NSUInteger, RowType) {
             break;
     }
     [_sheetView hidden];
+}
+
+#pragma mark - TZImagePickerControllerDelegate
+// The picker should dismiss itself; when it dismissed these handle will be called.
+// You can also set autoDismiss to NO, then the picker don't dismiss itself.
+// If isOriginalPhoto is YES, user picked the original photo.
+// You can get original photo with asset, by the method [[TZImageManager manager] getOriginalPhotoWithAsset:completion:].
+// The UIImage Object in photos default width is 828px, you can set it by photoWidth property.
+// 这个照片选择器会自己dismiss，当选择器dismiss的时候，会执行下面的handle
+// 你也可以设置autoDismiss属性为NO，选择器就不会自己dismis了
+// 如果isSelectOriginalPhoto为YES，表明用户选择了原图
+// 你可以通过一个asset获得原图，通过这个方法：[[TZImageManager manager] getOriginalPhotoWithAsset:completion:]
+// photos数组里的UIImage对象，默认是828像素宽，你可以通过设置photoWidth属性的值来改变它
+- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto
+{
+    
+}
+
+- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto infos:(NSArray<NSDictionary *> *)infos
+{
+    
+}
+
+- (void)imagePickerControllerDidCancel:(TZImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+// If user picking a video, this callback will be called.
+// If system version > iOS8,asset is kind of PHAsset class, else is ALAsset class.
+// 如果用户选择了一个视频，下面的handle会被执行
+// 如果系统版本大于iOS8，asset是PHAsset类的对象，否则是ALAsset类的对象
+- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingVideo:(UIImage *)coverImage sourceAssets:(id)asset
+{
+    
 }
 
 #pragma mark - UIImagePickerControllerDelegate
@@ -1311,10 +1350,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
     }];
 }
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    [picker dismissViewControllerAnimated:YES completion:nil];
-}
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {

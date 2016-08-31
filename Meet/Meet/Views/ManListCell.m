@@ -197,7 +197,7 @@
      dispatch_async(dispatch_get_main_queue(), ^{
         NSString *str = @"";
         if (number != 0) {
-            str = [str stringByAppendingString:[NSString stringWithFormat:@"%ld 人想见 ", (long)number]];
+            str = [str stringByAppendingString:[NSString stringWithFormat:@"%ld人想见 ", (long)number]];
         }
         if (![distance isEqualToString:@""]) {
             str = [str stringByAppendingString:[NSString stringWithFormat:@"和你相隔 %@", distance]];

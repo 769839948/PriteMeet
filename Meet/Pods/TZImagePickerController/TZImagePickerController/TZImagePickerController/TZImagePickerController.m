@@ -174,13 +174,13 @@
 - (void)pushToPhotoPickerVc {
     _pushToPhotoPickerVc = YES;
     if (_pushToPhotoPickerVc) {
-        TZPhotoPickerController *photoPickerVc = [[TZPhotoPickerController alloc] init];
-        photoPickerVc.isFirstAppear = YES;
-        [[TZImageManager manager] getCameraRollAlbum:self.allowPickingVideo allowPickingImage:self.allowPickingImage completion:^(TZAlbumModel *model) {
-            photoPickerVc.model = model;
-            [self pushViewController:photoPickerVc animated:YES];
-            _pushToPhotoPickerVc = NO;
-        }];
+//        TZPhotoPickerController *photoPickerVc = [[TZPhotoPickerController alloc] init];
+//        photoPickerVc.isFirstAppear = YES;
+//        [[TZImageManager manager] getCameraRollAlbum:self.allowPickingVideo allowPickingImage:self.allowPickingImage completion:^(TZAlbumModel *model) {
+//            photoPickerVc.model = model;
+//            [self pushViewController:photoPickerVc animated:YES];
+//            _pushToPhotoPickerVc = NO;
+//        }];
     }
 }
 

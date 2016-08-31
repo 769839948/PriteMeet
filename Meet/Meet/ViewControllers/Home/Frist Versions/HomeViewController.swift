@@ -194,25 +194,7 @@ class HomeViewController: UIViewController {
     func rightItemClick(sender:UIBarButtonItem) {
         self.presentViewController(UINavigationController(rootViewController: MeViewController()) , animated: true) {
         }
-//        let imagePickerVC = TZImagePickerController(maxImagesCount: 2, delegate: self)
-//        imagePickerVC.navigationBar.barTintColor = UIColor.whiteColor()
-//        imagePickerVC.navigationBar.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
-//        imagePickerVC.allowPickingVideo = false
-//        imagePickerVC.allowTakePicture = false
-//        imagePickerVC.barItemTextFont = NavigationBarRightItemFont
-//        imagePickerVC.oKButtonTitleColorNormal = UIColor.init(hexString: HomeDetailViewNameColor)
-//        imagePickerVC.oKButtonTitleColorDisabled = UIColor.init(hexString: lineLabelBackgroundColor)
-//        imagePickerVC.allowPickingOriginalPhoto = true
-////        let imagePickerVC = TZImagePickerController(navigationBarClass: self.navigationController?.navigationBar.self(), toolbarClass: nil)
-//        imagePickerVC.barItemTextColor = UIColor.init(hexString: HomeDetailViewNameColor)
-//        imagePickerVC.didFinishPickingPhotosHandle = { photos,assets,isfinst in
-//            
-//        }
-//        // You can get the photos by block, the same as by delegate.
-//        // 你可以通过block或者代理，来得到用户选择的照片.
-//        
-//        self.presentViewController(imagePickerVC , animated: true) {
-//        }
+        
     }
     
     func meetButton(frame:CGRect) -> UIButton {
