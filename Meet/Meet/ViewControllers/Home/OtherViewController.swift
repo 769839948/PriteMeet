@@ -68,7 +68,7 @@ class OtherViewController: UIViewController {
             self.setMoreData()
             self.setWorkeData()
             self.setEduData()
-            if self.sectionTitle.count > 0 {
+            if self.tableViewData.count > 0 {
                 self.tableView.reloadData()
             }
             }, failBlock: { (dic) in

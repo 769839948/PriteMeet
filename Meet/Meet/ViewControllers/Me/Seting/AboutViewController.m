@@ -18,6 +18,8 @@
     
     __weak IBOutlet UITextView *versionInfo;
     UserProtocolViewController *_userProtocolVC;
+    __weak IBOutlet UILabel *aboutInfo;
+    
 }
 
 @end
@@ -32,6 +34,8 @@
     self.hidesBottomBarWhenPushed = YES;
     [self setUpNavigationBarItem];
     self.talKingDataPageName = @"Me-About";
+    
+    aboutInfo.text = [NSString stringWithFormat:@"MEET %@ BETA",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineSpacing = 5;

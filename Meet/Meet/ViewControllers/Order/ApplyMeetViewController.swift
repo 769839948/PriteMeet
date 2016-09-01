@@ -151,20 +151,27 @@ class ApplyMeetViewController: UIViewController {
                 
             }
         }
+        
         if appointment_theme == "" {
-            UITools.showMessageToView(self.view, message: "未选择约见形式哦", autoHide: true)
+            MainThreadAlertShow("未选择约见形式哦", view: self.view)
             return
         }
+        
         if introductionCell.textView.text == "" {
-            UITools.showMessageToView(self.view, message: "未填写约见说明哦", autoHide: true)
+            MainThreadAlertShow("未填写约见说明哦", view: self.view)
             return
         }
         
         if introductionCell.textView.text.length > 300 {
-            UITools.showMessageToView(self.view, message: "邀约说明超过300", autoHide: true)
+            MainThreadAlertShow("约见说明超过最多300字限制了哦", view: self.view)
             return
         }
-        isApplyOrder = true
+        
+        if introductionCell.textView.text.length < 15 {
+            MainThreadAlertShow("约见说明可以再丰富些哦", view: self.view)
+            return
+        }
+        self.isApplyOrder = true
         let applyModel = ApplyMeetModel()
         applyModel.appointment_desc = introductionCell.textView.text;
         applyModel.appointment_theme = appointment_theme
@@ -186,7 +193,7 @@ class ApplyMeetViewController: UIViewController {
             self.isApplyOrder = false
         }) { (dic) in
             let failDic = dic as NSDictionary
-            UITools.showMessageToView(self.view, message:failDic.objectForKey("error") as! String, autoHide: true)
+            MainThreadAlertShow(failDic.objectForKey("error") as! String, view: self.view)
             self.isApplyOrder = false
         }
     }

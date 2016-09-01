@@ -41,7 +41,8 @@ class LikeListCollectionViewCell: UICollectionViewCell {
         reportBtn.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
         reportBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         let likeModel = LikeListModel.mj_objectWithKeyValues(model)
-        photoImageView.sd_setImageWithURL(NSURL.init(string: likeModel.avatar)) { (image, error, cache, url) in
+        let imageArray = likeModel.avatar.componentsSeparatedByString("?")
+        photoImageView.sd_setImageWithURL(NSURL.init(string: imageArray[0].stringByAppendingString(AvatarImageSize))) { (image, error, cache, url) in
         }
         reportBtn.tag = model.uid
         userName.text = likeModel.real_name

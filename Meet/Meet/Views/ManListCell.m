@@ -197,17 +197,19 @@
      dispatch_async(dispatch_get_main_queue(), ^{
         NSString *str = @"";
         if (number != 0) {
-            str = [str stringByAppendingString:[NSString stringWithFormat:@"%ld人想见 ", (long)number]];
+            str = [str stringByAppendingString:[NSString stringWithFormat:@"%ld人想见   ", (long)number]];
         }
         if (![distance isEqualToString:@""]) {
             str = [str stringByAppendingString:[NSString stringWithFormat:@"和你相隔 %@", distance]];
         }
         if ([str isEqualToString:@""]) {
             [_meetNumber mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.height.mas_offset(0.01);
+                make.height.mas_offset(0.00001);
             }];
-            [self updateConstraints];
         }else{
+            [_meetNumber mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_offset(20);
+            }];
             _meetNumber.text = str;
         }
     });
@@ -300,6 +302,7 @@
             make.top.mas_equalTo(weakSelf.personalView.mas_top).offset(0);
             make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(0);
             make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(0);
+            make.bottom.mas_equalTo(weakSelf.nameLabel.mas_top).offset(-14);
             make.height.mas_offset((ScreenWidth - 20)*200/355);
         }];
         
@@ -307,7 +310,7 @@
             make.top.mas_equalTo(weakSelf.photoImage.mas_bottom).offset(14);
             make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(14);
             make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-14);
-            make.bottom.mas_equalTo(weakSelf.meetNumber.mas_top).offset(-1);
+            make.bottom.mas_equalTo(weakSelf.meetNumber.mas_top).offset(-3);
         }];
         
         [_ageNumber mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -318,11 +321,11 @@
         }];
         
         [_meetNumber mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(1);
+            make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(3);
             make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(14);
             make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-14);
             make.bottom.mas_equalTo(weakSelf.interestView.mas_top).offset(-17);
-            make.height.mas_offset(20);
+//            make.height.mas_offset(20);
         }];
         
         [_interestView mas_makeConstraints:^(MASConstraintMaker *make) {

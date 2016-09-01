@@ -1250,22 +1250,34 @@ typedef NS_ENUM(NSUInteger, RowType) {
         }
         case 1: //相簿
         {
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-            TZImagePickerController *imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
-            imagePickerVC.navigationBar.barTintColor = [UIColor whiteColor];
-            imagePickerVC.navigationBar.tintColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
-            imagePickerVC.allowPickingVideo = NO;
-            imagePickerVC.allowTakePicture = NO;
-            imagePickerVC.barItemTextFont = NavigationBarRightItemFont;
-            imagePickerVC.oKButtonTitleColorNormal = [UIColor colorWithHexString:HomeDetailViewNameColor];
-            imagePickerVC.oKButtonTitleColorDisabled = [UIColor colorWithHexString:lineLabelBackgroundColor];
-            imagePickerVC.allowPickingOriginalPhoto = YES;
-            imagePickerVC.didFinishPickingPhotosHandle = ^(NSArray<UIImage *> *photos,NSArray *assets,BOOL isSelectOriginalPhoto){
-                
-            };
-            [self presentViewController:imagePickerVC animated:YES completion:^{
-                
-            }];
+//            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+//            TZImagePickerController *imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
+//            imagePickerVC.navigationBar.barTintColor = [UIColor whiteColor];
+//            imagePickerVC.navigationBar.tintColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
+//            imagePickerVC.allowPickingVideo = NO;
+//            imagePickerVC.allowTakePicture = NO;
+//            imagePickerVC.barItemTextFont = NavigationBarRightItemFont;
+//            imagePickerVC.oKButtonTitleColorNormal = [UIColor colorWithHexString:HomeDetailViewNameColor];
+//            imagePickerVC.oKButtonTitleColorDisabled = [UIColor colorWithHexString:lineLabelBackgroundColor];
+//            imagePickerVC.allowPickingOriginalPhoto = YES;
+//            imagePickerVC.didFinishPickingPhotosHandle = ^(NSArray<UIImage *> *photos,NSArray *assets,BOOL isSelectOriginalPhoto){
+//                
+//            };
+//            [self presentViewController:imagePickerVC animated:YES completion:^{
+//                
+//            }];
+            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+            imagePicker.delegate = self;
+            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
+            [imagePicker.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+            [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
+            imagePicker.mediaTypes = mediaTypes;
+            imagePicker.allowsEditing = YES;
+            imagePicker.navigationBar.tintColor = [UIColor blackColor];
+            imagePicker.navigationBar.barTintColor = self.navigationController.navigationBar.barTintColor;
+            [imagePicker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
+            [self presentViewController:imagePicker animated:YES completion:nil];
             break;
         }
             

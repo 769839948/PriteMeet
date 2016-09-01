@@ -23,7 +23,7 @@ class LikeManViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setNavigationItemBack()
-        self.title = "我喜欢的人"
+        self.title = "想见的人"
         self.view.backgroundColor = UIColor.whiteColor()
         self.setUpCollectionView()
         self.setUpLikeListData()
@@ -97,7 +97,7 @@ class LikeManViewController: UIViewController {
 extension LikeManViewController : UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let meetDetailVC = MeetDetailViewController()
-        let model = likeList[indexPath.section] as! LikeListModel
+        let model = likeList[indexPath.row] as! LikeListModel
         meetDetailVC.user_id = "\(model.uid)"
         self.navigationController?.pushViewController(meetDetailVC, animated: true)
 

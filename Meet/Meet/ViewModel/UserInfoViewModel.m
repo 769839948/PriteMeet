@@ -62,7 +62,7 @@
             successBlock(responseObject[@"data"]);
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -83,7 +83,7 @@
             successBlock(responseObject[@"content"]);
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -103,7 +103,7 @@
             successBlock(responseObject[@"content"]);
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -126,7 +126,7 @@
             successBlock(responseObject[@"content"]);
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -141,7 +141,7 @@
             successBlock(responseObject);
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -156,7 +156,7 @@
             successBlock(responseObject[@"content"]);
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -177,7 +177,7 @@
             successBlock(responseObject[@"content"]);
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -192,7 +192,7 @@
             successBlock(responseObject[@"content"][@"data"]);
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -242,7 +242,7 @@
             successBlock(responseObject[@"content"]);
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -258,7 +258,7 @@
             successBlock(responseObject[@"content"][@"data"]);
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -296,7 +296,7 @@
             successBlock(responseObject[@"content"]);
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -311,7 +311,7 @@
             successBlock(responseObject[@"content"][@"data"]);
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -350,7 +350,7 @@
             lastBlock(responseObject[@"content"][@"updated_at"]);
         }
     } failure:^(NSDictionary *responseObject) {
-        failBock(responseObject);
+        failBock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -365,7 +365,7 @@
             successBlock(responseObject[@"content"][@"data"]);
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -382,7 +382,7 @@
             failBlock(responseObject);
         }];
     } failBlock:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -409,7 +409,7 @@
                 }];
             }
         } failBlock:^(NSDictionary *responseObject) {
-            failBlock(responseObject);
+            failBlock(@{@"error":@"网络错误"});
         }];
     }
 }
@@ -438,7 +438,7 @@
                 }];
             }
         } failBlock:^(NSDictionary *responseObject) {
-            failBlock(responseObject);
+            failBlock(@{@"error":@"网络错误"});
         }];
     }
 }
@@ -477,7 +477,7 @@
             faileBlock(responseObject);
         }
     } failure:^(NSDictionary *responseObject) {
-        faileBlock(responseObject);
+        faileBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -504,7 +504,7 @@
             successBlock(responseObject[@"content"][@"black_list"]);
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -520,7 +520,7 @@
             failBlock(@{@"error":@"请求错误"});
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -576,7 +576,7 @@
             faileBlock(responseObject);
         }
     } failure:^(NSDictionary *responseObject) {
-        faileBlock(responseObject);
+        faileBlock(@{@"error":@"网络错误"});
     }];
 }
 
