@@ -19,6 +19,9 @@
 @property (nonatomic, strong) UILabel *positionLabel;
 @property (nonatomic, strong) UILabel *meetNumber;
 
+@property (nonatomic, strong) UIImageView *authentication;
+@property (nonatomic, strong) UIImageView *unAuthentication;
+
 @property (nonatomic, strong) CenterlabelView *centerLabelView;
 
 
@@ -62,10 +65,16 @@
     _centerLabelView = [[CenterlabelView alloc] init];
     [self.contentView addSubview:_centerLabelView];
 
+    _authentication = [[UIImageView alloc] init];
+    [self.contentView addSubview:_authentication];
+    
+    _unAuthentication = [[UIImageView alloc] init];
+    [self.contentView addSubview:_unAuthentication];
+    
     [self updateConstraints];
 }
 
-- (void)configCell:(NSString *)name position:(NSString *)position meetNumber:(NSString *)meetNumber interestCollectArray:(NSArray *)interstArray
+- (void)configCell:(NSString *)name position:(NSString *)position meetNumber:(NSString *)meetNumber interestCollectArray:(NSArray *)interstArray autotnInfo:(NSString *)autnInfo
 {
     _nameLabel.text = name;
     __weak typeof(self) weakSelf = self;
@@ -76,7 +85,7 @@
         [self updateConstraints];
     }else{
         _positionLabel.text = position;
-        float positionHeight = [position heightWithFont:HomeViewDetailPositionFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 90];
+        float positionHeight = [position heightWithFont:HomeViewDetailPositionFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 160];
         if (positionHeight > 32){
             [_positionLabel mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.mas_offset(positionHeight);
@@ -116,6 +125,16 @@
             [weakSelf updateConstraintsIfNeeded];
         }
     }
+    
+    NSArray *authArray = [autnInfo componentsSeparatedByString:@","];
+    if (authArray.count == 3) {
+        _authentication.image = [UIImage imageNamed:@"home_detail_verifie_select"];
+        _unAuthentication.image = [UIImage imageNamed:@"home_detail_uverifie_unselect"];
+    }else{
+        _authentication.image = [UIImage imageNamed:@"home_detail_verifie_unselect"];
+        _unAuthentication.image = [UIImage imageNamed:@"home_detail_uverifie_select"];
+    }
+    
     [self updateConstraintsIfNeeded];
 }
 
@@ -124,16 +143,17 @@
     if (!self.didSetupConstraints) {
         __weak typeof(self) weakSelf = self;
         [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(21);
+            make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(25);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
-            make.bottom.mas_equalTo(weakSelf.positionLabel.mas_top).offset(-1);
+            make.bottom.mas_equalTo(weakSelf.positionLabel.mas_top).offset(-5);
         }];
         [_positionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(1);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(45);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-45);
+            make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(5);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(80);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-80);
             make.bottom.mas_equalTo(weakSelf.meetNumber.mas_top).offset(-8);
+            make.height.offset(30);
         }];
         [_meetNumber mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.positionLabel.mas_bottom).offset(8);
@@ -147,6 +167,19 @@
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
             make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-32);
         }];
+        
+        [_authentication mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(20);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
+            make.size.mas_offset(CGSizeMake(68, 30));
+        }];
+        
+        [_unAuthentication mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.authentication.mas_bottom).offset(10);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
+            make.size.mas_offset(CGSizeMake(68, 30));
+        }];
+        
         self.didSetupConstraints = YES;
     }
     

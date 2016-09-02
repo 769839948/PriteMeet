@@ -72,6 +72,13 @@ let NavigationBarRightItemFont  = version >= 9.0 ? UIFont.init(name: "PingFangSC
 
 let HomeDetailCenterLabelFont  = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 13.0):UIFont.systemFontOfSize(13)
 
+let AboutUsTitleFont  = version >= 9.0 ? UIFont.init(name: "PingFangSC-Thin", size: 24.0):UIFont.systemFontOfSize(24)
+let AboutUsInfoFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 13.0):UIFont.systemFontOfSize(13)
+
+let HightLightTitleFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 24.0):UIFont.systemFontOfSize(24)
+let HightLightInfoFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 16):UIFont.systemFontOfSize(16)
+
+
 let ReloadOrderCollectionView = "ReloadOrderCollectionView"
 
 func Stroyboard(storyName:String, viewControllerId:String) -> UIViewController {

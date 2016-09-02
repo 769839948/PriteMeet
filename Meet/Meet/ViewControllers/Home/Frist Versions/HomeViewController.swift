@@ -194,7 +194,6 @@ class HomeViewController: UIViewController {
     func rightItemClick(sender:UIBarButtonItem) {
         self.presentViewController(UINavigationController(rootViewController: MeViewController()) , animated: true) {
         }
-        
     }
     
     func meetButton(frame:CGRect) -> UIButton {

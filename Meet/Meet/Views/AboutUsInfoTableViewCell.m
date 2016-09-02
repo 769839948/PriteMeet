@@ -8,6 +8,7 @@
 
 #import "AboutUsInfoTableViewCell.h"
 #import "NSString+StringSize.h"
+#import "Masonry.h"
 
 @interface CustomLabel : UILabel
 
@@ -37,7 +38,12 @@
 @property (nonatomic, strong) UILabel *lineLabel;
 @property (nonatomic, strong) UILabel *textlabel;
 
+@property (nonatomic, strong) UILabel *titleLabel;
+
 @property (nonatomic, copy) NSMutableArray *stringArray;
+
+@property (nonatomic, strong) UIView *imageContent;
+
 @property (nonatomic, assign) BOOL isFirstLoad;
 
 @end
@@ -64,46 +70,91 @@
         _lineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
         [self.contentView addSubview:_lineLabel];
     }
-    _aboutAll = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_aboutAll setTitle:@"更多介绍" forState:UIControlStateNormal];
-    _aboutAll.layer.cornerRadius = 14.0;
-    _aboutAll.userInteractionEnabled = NO;
-    _aboutAll.titleLabel.font = HomeViewDetailAboutBtnFont;
-    [_aboutAll setTitleColor:[UIColor colorWithHexString:HomeViewDetailAboutBtnColor] forState:UIControlStateNormal];
-    _aboutAll.backgroundColor = [UIColor blackColor];
-    [self.contentView addSubview:_aboutAll];
+    
+    _titleLabel = [[UILabel alloc] init];
+    _titleLabel.numberOfLines = 0;
+    _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    _titleLabel.font = HomeDetailAboutUsTitleLabelFont;
+    _titleLabel.textColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
+    [self.contentView addSubview:_titleLabel];
+    
+    _textlabel = [[UILabel alloc] init];
+    _textlabel.font = HomeDetailAboutUsLabelFont;
+    _textlabel.numberOfLines = 0;
+    _textlabel.lineBreakMode = NSLineBreakByWordWrapping;
+    _textlabel.textColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
+    [self.contentView addSubview:_textlabel];
+    
+    
+    _imageContent = [[UIView alloc] init];
+    [self.contentView addSubview:_imageContent];
     
 }
 
-- (void)configCell:(NSArray *)stringArray withUrl:(NSString *)web_url
+- (void)configCell:(NSString *)title info:(NSString *)info imageArray:(NSArray *)images withUrl:(NSString *)web_url
 {
-    float maxHeight = 10.0;
-    if (_isFirstLoad && stringArray != _stringArray) {
-        for (NSInteger i = 0; i < stringArray.count; i ++) {
-            if (![[stringArray objectAtIndex:i] isEqualToString:@""]) {
-                CustomLabel *customLabel = [CustomLabel setUpLabel:CGRectMake(19, (maxHeight) + 10, ScreenWidth - 38, 0) text:[stringArray objectAtIndex:i]];
-                [self.contentView addSubview:customLabel];
-                maxHeight = CGRectGetMaxY(customLabel.frame);
-            }
-            
-        }
-        _stringArray = [stringArray mutableCopy];
-        _isFirstLoad = NO;
-    }
+    
+    _titleLabel.text = title;
+    _textlabel.text = info;
+    
+//    float maxHeight = 10.0;
+//    if (_isFirstLoad && stringArray != _stringArray) {
+//        for (NSInteger i = 0; i < stringArray.count; i ++) {
+//            if (![[stringArray objectAtIndex:i] isEqualToString:@""]) {
+//                CustomLabel *customLabel = [CustomLabel setUpLabel:CGRectMake(19, (maxHeight) + 10, ScreenWidth - 38, 0) text:[stringArray objectAtIndex:i]];
+//                [self.contentView addSubview:customLabel];
+//                maxHeight = CGRectGetMaxY(customLabel.frame);
+//            }
+//            
+//        }
+//        _stringArray = [stringArray mutableCopy];
+//        _isFirstLoad = NO;
+//    }
     if (![web_url isEqualToString:@""]) {
-        if (CGRectGetMaxY(_aboutAll.frame) < maxHeight) {
-            _aboutAll.frame = CGRectMake((ScreenWidth - 72) / 2, maxHeight + 23, 72, 27);
-            _aboutAll.hidden = NO;
+        for (NSInteger i = 0; i < images.count; i ++) {
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[images objectAtIndex:i]];
+            imageView.frame = CGRectMake(i * 64, 0, 59, 59);
+            [_imageContent addSubview:imageView];
         }
+        UIImageView *detailImage = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth - 40 - 78, 0, 78, 59)];
+        detailImage.image  = [UIImage imageNamed:@"photo_detail"];
+        [_imageContent addSubview:detailImage];
+        
+        UIImageView *detailNextImage = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth - 47, 24, 7, 12)];
+        detailNextImage.image  = [UIImage imageNamed:@"info_next"];
+        [_imageContent addSubview:detailNextImage];
     }else{
-         _aboutAll.frame = CGRectMake((ScreenWidth - 72) / 2, maxHeight, 72, 27);
-        _aboutAll.hidden = YES;
+         __weak typeof(self) weakSelf = self;
+        [_textlabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(weakSelf.contentView.mas_bottom).offset(-30);
+        }];
     }
 }
 
 - (void)updateConstraints
 {
     if (!self.didSetupConstraints) {
+        __weak typeof(self) weakSelf = self;
+        [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(26);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
+            make.bottom.mas_equalTo(weakSelf.textLabel.mas_top).offset(-15);
+        }];
+        [_textlabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.titleLabel.mas_bottom).offset(15);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
+            make.bottom.mas_equalTo(weakSelf.imageContent.mas_top).offset(-22);
+        }];
+        
+        [_imageContent mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.textlabel.mas_bottom).offset(22);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
+            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-30);
+            make.height.offset(59);
+        }];
         self.didSetupConstraints = YES;
     }
     

@@ -35,6 +35,8 @@ class MePhotoTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         avatarImageView.image = UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSizeZero)
+        avatarImageView.layer.masksToBounds = true
+        
         completeInfoView.layer.cornerRadius = 14.0
         completeInfoView.layer.masksToBounds = true
         completeInfoView.backgroundColor = UIColor.init(hexString:MeProfileCollectViewItemSelect)
@@ -44,7 +46,7 @@ class MePhotoTableViewCell: UITableViewCell {
     
     func configlogoutView(){
         loginView.hidden = true
-        logoutView.backgroundColor = UIColor.whiteColor()
+        logoutView.backgroundColor = UIColor.clearColor()
         logoutView.hidden = false
         
     }
@@ -57,6 +59,7 @@ class MePhotoTableViewCell: UITableViewCell {
         }
         logoutView.hidden = true
         self.loginView.hidden = false
+        self.loginView.backgroundColor = UIColor.whiteColor()
         if compass.next_page != 4 {
             completeInfoView.hidden = false
             infoCompleLabel.hidden = true
@@ -73,6 +76,13 @@ class MePhotoTableViewCell: UITableViewCell {
             infoCompleLabel.text = infoCom;
             self.infoCompleLabel.hidden = false
         }
+        self.contentView.layer.cornerRadius = 5.0
+        let maskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, avatarImageView.frame.size.width, avatarImageView.frame.size.height), byRoundingCorners: [.TopLeft,.TopRight], cornerRadii: CGSizeMake(5, 0))
+        let maskLayer = CAShapeLayer()
+        
+        maskLayer.frame = CGRectMake(0, 0, ScreenWidth - 10, avatarImageView.frame.size.height)
+        maskLayer.path = maskPath.CGPath
+        avatarImageView.layer.mask = maskLayer
         //        ManListCell.homeNameLabelColor(nameLabel)
     }
     

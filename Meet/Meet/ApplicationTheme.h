@@ -58,6 +58,10 @@
 #define AboutUsLabelFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:14.0f]:[UIFont systemFontOfSize:14]
 
 
+#define HomeDetailAboutUsTitleLabelFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Medium" size:19.0f]:[UIFont systemFontOfSize:19]
+#define HomeDetailAboutUsLabelFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Thin" size:14.0f]:[UIFont systemFontOfSize:14]
+
+
 #define SettingViewLabelFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:14.0f]:[UIFont systemFontOfSize:14]
 
 #define ReportViewCellFont   (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:14.0f]:[UIFont systemFontOfSize:14]

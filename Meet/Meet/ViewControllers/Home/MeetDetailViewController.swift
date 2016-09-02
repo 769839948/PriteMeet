@@ -461,9 +461,9 @@ class MeetDetailViewController: UIViewController {
     func configCell(cell:MeetInfoTableViewCell, indxPath:NSIndexPath)
     {
         if self.otherUserModel.distance == "" {
-            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)", interestCollectArray: self.personalArray as [AnyObject])
+            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)", interestCollectArray: self.personalArray as [AnyObject],autotnInfo: self.otherUserModel.user_info?.auth_info)
         }else{
-            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)    和你相隔 \(self.otherUserModel.distance as String)", interestCollectArray: self.personalArray as [AnyObject])
+            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)    和你相隔 \(self.otherUserModel.distance as String)", interestCollectArray: self.personalArray as [AnyObject], autotnInfo: self.otherUserModel.user_info?.auth_info)
         }
     }
     
@@ -471,7 +471,11 @@ class MeetDetailViewController: UIViewController {
     {
         cell.configCell(self.otherUserModel.engagement?.introduction_other, array: self.inviteArray as [AnyObject], andStyle: .ItemWhiteColorAndBlackBoard)
     }
-
+    
+    func configAboutCell(cell:AboutUsInfoTableViewCell, indxPath:NSIndexPath)
+    {
+        cell.configCell("不会讲鬼故事的演员就不是长得好看的策划", info: self.otherUserModel.user_info?.highlight, imageArray: nil, withUrl: self.otherUserModel.web_url)
+    }
 }
 
 extension MeetDetailViewController : UITableViewDelegate {
@@ -493,7 +497,7 @@ extension MeetDetailViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 4
+            return 3
         case 1:
             return 2
         case 2:
@@ -529,9 +533,6 @@ extension MeetDetailViewController : UITableViewDataSource {
                     return (UIScreen.mainScreen().bounds.size.width - 20)*236/355
                 case 1:
                     return 195
-                case 2:
-                    
-                    return 77
                 default:
                     return 49
                 }
@@ -559,9 +560,6 @@ extension MeetDetailViewController : UITableViewDataSource {
                     return (UIScreen.mainScreen().bounds.size.width - 20)*236/355
                 case 1:
                     return 195
-                case 2:
-                    
-                    return 77
                 default:
                     return 49
                 }
@@ -603,9 +601,6 @@ extension MeetDetailViewController : UITableViewDataSource {
                     return tableView.fd_heightForCellWithIdentifier(meetInfoTableViewCell, configuration: { (cell) in
                         self.configCell(cell as! MeetInfoTableViewCell, indxPath: indexPath)
                     })
-                case 2:
-                    return 104
-                    
                 default:
                     return 53
                 }
@@ -637,9 +632,6 @@ extension MeetDetailViewController : UITableViewDataSource {
                     return tableView.fd_heightForCellWithIdentifier(meetInfoTableViewCell, configuration: { (cell) in
                         self.configCell(cell as! MeetInfoTableViewCell, indxPath: indexPath)
                     })
-                case 2:
-                    return 104
-                    
                 default:
                     return 49
                 }
@@ -648,13 +640,10 @@ extension MeetDetailViewController : UITableViewDataSource {
                 case 0:
                     return 49
                 default:
-                    if self.otherUserModel.web_url == "" {
-                        return self.aboutUsHeight(self.dataArray) + 30
-                    }else{
-                        return self.aboutUsHeight(self.dataArray) + 30 + 50
-                    }
+                    return tableView.fd_heightForCellWithIdentifier(aboutUsInfoTableViewCell, configuration: { (cell) in
+                        self.configAboutCell(cell as! AboutUsInfoTableViewCell, indxPath: indexPath)
+                    })
                 }
-                
             case 2:
                 switch indexPath.row {
                 case 0:
@@ -689,12 +678,6 @@ extension MeetDetailViewController : UITableViewDataSource {
                     self.configCell(cell, indxPath: indexPath)
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
                     cell.userInteractionEnabled = false
-                    return cell
-                case 2:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(compayTableViewCell, forIndexPath: indexPath) as! CompayTableViewCell
-                    cell.configCell(self.otherUserModel.user_info?.auth_info)
-                    cell.selectionStyle = UITableViewCellSelectionStyle.None
-//                    cell.userInteractionEnabled = false
                     return cell
                 default:
                     let identifier = "MoreTableViewCell"
@@ -747,12 +730,6 @@ extension MeetDetailViewController : UITableViewDataSource {
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
                     cell.userInteractionEnabled = false
                     return cell
-                case 2:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(compayTableViewCell, forIndexPath: indexPath) as! CompayTableViewCell
-                    cell.configCell(self.otherUserModel.user_info?.auth_info)
-                    cell.selectionStyle = UITableViewCellSelectionStyle.None
-                    cell.userInteractionEnabled = false
-                    return cell
                 default:
                     let identifier = "MoreTableViewCell"
                     var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
@@ -772,7 +749,7 @@ extension MeetDetailViewController : UITableViewDataSource {
                     return cell
                 default:
                     let cell = tableView.dequeueReusableCellWithIdentifier(aboutUsInfoTableViewCell, forIndexPath: indexPath) as! AboutUsInfoTableViewCell
-                    cell.configCell(self.dataArray as [AnyObject], withUrl: self.otherUserModel.web_url)
+                    self.configAboutCell(cell, indxPath: indexPath)
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
                     return cell
                 }
@@ -787,6 +764,7 @@ extension MeetDetailViewController : UITableViewDataSource {
                 default:
                     let cell = tableView.dequeueReusableCellWithIdentifier(newMeetInfoTableViewCell, forIndexPath: indexPath) as! NewMeetInfoTableViewCell
                     self.configNewMeetCell(cell, indxPath: indexPath)
+                    cell.isHaveShadowColor(true)
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
                     cell.userInteractionEnabled = false
                     return cell

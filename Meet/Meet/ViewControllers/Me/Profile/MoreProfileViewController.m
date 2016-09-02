@@ -12,7 +12,6 @@
 #import "TextViewCell.h"
 #import "UITextView+Placeholder.h"
 #import "CellTextView.h"
-#import "MyPhotosViewController.h"
 #import "UISheetView.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 

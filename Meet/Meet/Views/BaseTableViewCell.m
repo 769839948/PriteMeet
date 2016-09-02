@@ -46,7 +46,8 @@
             make.right.equalTo(weakSelf.contentView.mas_right).offset(-10);
             make.bottom.equalTo(weakSelf.showdowView.mas_bottom).offset(-3);
         }];
-
+        [self.contentView sendSubviewToBack:_whitView];
+        [self.contentView sendSubviewToBack:_showdowView];
     }else if (isCornerRadius && !isBottom){
         _whitView = [[UIView alloc] initWithFrame:CGRectMake(10, 0, self.contentView.bounds.size.width - 20, 59)];
         _whitView.backgroundColor = [UIColor whiteColor];
@@ -63,7 +64,8 @@
             make.right.equalTo(weakSelf.contentView.mas_right).offset(-10);
             make.bottom.equalTo(weakSelf.contentView.mas_bottom).offset(0);
         }];
-        
+        [self.contentView sendSubviewToBack:_whitView];
+        [self.contentView sendSubviewToBack:_showdowView];
     }else{
         _whitView = [[UIView alloc] init];
         _whitView.backgroundColor = [UIColor whiteColor];
@@ -75,7 +77,8 @@
             make.right.equalTo(weakSelf.contentView.mas_right).offset(-10);
             make.bottom.equalTo(weakSelf.contentView.mas_bottom).offset(0);
         }];
-
+        [self.contentView sendSubviewToBack:_whitView];
+        [self.contentView sendSubviewToBack:_showdowView];
     }
 }
 

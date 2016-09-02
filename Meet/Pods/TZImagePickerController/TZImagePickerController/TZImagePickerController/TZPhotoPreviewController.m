@@ -21,7 +21,6 @@
     
     UIView *_naviBar;
     UIButton *_backButton;
-    UILabel *_titleLabel;
     UIButton *_selectButton;
     
     UIView *_toolBar;
@@ -44,10 +43,10 @@
         _assetsTemp = [NSMutableArray arrayWithArray:_tzImagePickerVc.selectedAssets];
         self.isSelectOriginalPhoto = _tzImagePickerVc.isSelectOriginalPhoto;
     }
-    self.view.backgroundColor = [UIColor whiteColor];
     [self configCollectionView];
     [self configCustomNaviBar];
     [self configBottomToolBar];
+    self.view.clipsToBounds = YES;
 }
 
 - (void)setPhotos:(NSMutableArray *)photos {
@@ -69,30 +68,29 @@
     if (iOS7Later) [UIApplication sharedApplication].statusBarHidden = NO;
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)configCustomNaviBar {
     TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
-    
+
     _naviBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.tz_width, 64)];
-    _naviBar.backgroundColor = [UIColor whiteColor];
-    _naviBar.alpha = 1.0;
+    _naviBar.backgroundColor = [UIColor colorWithRed:(34/255.0) green:(34/255.0)  blue:(34/255.0) alpha:1.0];
+    _naviBar.alpha = 0.7;
     
-    _backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 44, 44)];
-    [_backButton setImage:[UIImage imageNamed:@"navigationbar_back"] forState:UIControlStateNormal];
+    _backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 44, 44)];
+    [_backButton setImage:[UIImage imageNamedFromMyBundle:@"navi_back.png"] forState:UIControlStateNormal];
     [_backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width - 100)/2, 33, 100, 18)];
-    _titleLabel.text = @"浏览";
-    _titleLabel.textAlignment = NSTextAlignmentCenter;
-    _titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:18.0];
-    [_naviBar addSubview:_titleLabel];
+    _selectButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.tz_width - 54, 10, 42, 42)];
+    [_selectButton setImage:[UIImage imageNamedFromMyBundle:tzImagePickerVc.photoDefImageName] forState:UIControlStateNormal];
+    [_selectButton setImage:[UIImage imageNamedFromMyBundle:tzImagePickerVc.photoSelImageName] forState:UIControlStateSelected];
+    [_selectButton addTarget:self action:@selector(select:) forControlEvents:UIControlEventTouchUpInside];
+    _selectButton.hidden = tzImagePickerVc.maxImagesCount == 1;
     
-//    _selectButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.tz_width - 54, 10, 42, 42)];
-//    [_selectButton setImage:[UIImage imageNamedFromMyBundle:tzImagePickerVc.photoDefImageName] forState:UIControlStateNormal];
-//    [_selectButton setImage:[UIImage imageNamedFromMyBundle:tzImagePickerVc.photoSelImageName] forState:UIControlStateSelected];
-//    [_selectButton addTarget:self action:@selector(select:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [_naviBar addSubview:_selectButton];
+    [_naviBar addSubview:_selectButton];
     [_naviBar addSubview:_backButton];
     [self.view addSubview:_naviBar];
 }
@@ -100,39 +98,34 @@
 - (void)configBottomToolBar {
     _toolBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.tz_height - 44, self.view.tz_width, 44)];
     CGFloat rgb = 34 / 255.0;
-    _toolBar.backgroundColor = [UIColor whiteColor];
+    _toolBar.backgroundColor = [UIColor colorWithRed:rgb green:rgb blue:rgb alpha:1.0];
     _toolBar.alpha = 0.7;
     
     TZImagePickerController *_tzImagePickerVc = (TZImagePickerController *)self.navigationController;
-//    if (_tzImagePickerVc.allowPickingOriginalPhoto) {
-//        NSString *fullImageText = [NSBundle tz_localizedStringForKey:@"Full image"];
-//        CGFloat fullImageWidth = [fullImageText boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil].size.width;
-//        _originalPhotoButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        _originalPhotoButton.frame = CGRectMake(0, 0, fullImageWidth + 56, 44);
-//        _originalPhotoButton.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
-//        _originalPhotoButton.backgroundColor = [UIColor clearColor];
-//        [_originalPhotoButton addTarget:self action:@selector(originalPhotoButtonClick) forControlEvents:UIControlEventTouchUpInside];
-//        _originalPhotoButton.titleLabel.font = [UIFont systemFontOfSize:13];
-//        [_originalPhotoButton setTitle:fullImageText forState:UIControlStateNormal];
-//        [_originalPhotoButton setTitle:fullImageText forState:UIControlStateSelected];
-//        [_originalPhotoButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-//        [_originalPhotoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-//        [_originalPhotoButton setImage:[UIImage imageNamedFromMyBundle:_tzImagePickerVc.photoPreviewOriginDefImageName] forState:UIControlStateNormal];
-//        [_originalPhotoButton setImage:[UIImage imageNamedFromMyBundle:_tzImagePickerVc.photoOriginSelImageName] forState:UIControlStateSelected];
-//        
-//        _originalPhotoLable = [[UILabel alloc] init];
-//        _originalPhotoLable.frame = CGRectMake(fullImageWidth + 42, 0, 80, 44);
-//        _originalPhotoLable.textAlignment = NSTextAlignmentLeft;
-//        _originalPhotoLable.font = [UIFont systemFontOfSize:13];
-//        _originalPhotoLable.textColor = [UIColor whiteColor];
-//        _originalPhotoLable.backgroundColor = [UIColor clearColor];
-//        if (_isSelectOriginalPhoto) [self showPhotoBytes];
-//    }
-    _selectButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 42, 42)];
-    [_selectButton setImage:[UIImage imageNamedFromMyBundle:_tzImagePickerVc.photoDefImageName] forState:UIControlStateNormal];
-    [_selectButton setImage:[UIImage imageNamedFromMyBundle:_tzImagePickerVc.photoSelImageName] forState:UIControlStateSelected];
-    [_selectButton addTarget:self action:@selector(select:) forControlEvents:UIControlEventTouchUpInside];
-    [_toolBar addSubview:_selectButton];
+    if (_tzImagePickerVc.allowPickingOriginalPhoto) {
+        NSString *fullImageText = [NSBundle tz_localizedStringForKey:@"Full image"];
+        CGFloat fullImageWidth = [fullImageText boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil].size.width;
+        _originalPhotoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _originalPhotoButton.frame = CGRectMake(0, 0, fullImageWidth + 56, 44);
+        _originalPhotoButton.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+        _originalPhotoButton.backgroundColor = [UIColor clearColor];
+        [_originalPhotoButton addTarget:self action:@selector(originalPhotoButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        _originalPhotoButton.titleLabel.font = [UIFont systemFontOfSize:13];
+        [_originalPhotoButton setTitle:fullImageText forState:UIControlStateNormal];
+        [_originalPhotoButton setTitle:fullImageText forState:UIControlStateSelected];
+        [_originalPhotoButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [_originalPhotoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [_originalPhotoButton setImage:[UIImage imageNamedFromMyBundle:_tzImagePickerVc.photoPreviewOriginDefImageName] forState:UIControlStateNormal];
+        [_originalPhotoButton setImage:[UIImage imageNamedFromMyBundle:_tzImagePickerVc.photoOriginSelImageName] forState:UIControlStateSelected];
+        
+        _originalPhotoLable = [[UILabel alloc] init];
+        _originalPhotoLable.frame = CGRectMake(fullImageWidth + 42, 0, 80, 44);
+        _originalPhotoLable.textAlignment = NSTextAlignmentLeft;
+        _originalPhotoLable.font = [UIFont systemFontOfSize:13];
+        _originalPhotoLable.textColor = [UIColor whiteColor];
+        _originalPhotoLable.backgroundColor = [UIColor clearColor];
+        if (_isSelectOriginalPhoto) [self showPhotoBytes];
+    }
     
     _okButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _okButton.frame = CGRectMake(self.view.tz_width - 44 - 12, 0, 44, 44);
@@ -142,13 +135,13 @@
     [_okButton setTitleColor:_tzImagePickerVc.oKButtonTitleColorNormal forState:UIControlStateNormal];
     
     _numberImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamedFromMyBundle:_tzImagePickerVc.photoNumberIconImageName]];
-    _numberImageView.frame = CGRectMake(self.view.tz_width - 56 - 24, 13, 26, 17);
-    _numberImageView.hidden = _tzImagePickerVc.selectedModels.count <= 0;
     _numberImageView.backgroundColor = [UIColor clearColor];
+    _numberImageView.frame = CGRectMake(self.view.tz_width - 56 - 28, 7, 30, 30);
+    _numberImageView.hidden = _tzImagePickerVc.selectedModels.count <= 0;
     
     _numberLable = [[UILabel alloc] init];
     _numberLable.frame = _numberImageView.frame;
-    _numberLable.font = [UIFont systemFontOfSize:10];
+    _numberLable.font = [UIFont systemFontOfSize:15];
     _numberLable.textColor = [UIColor whiteColor];
     _numberLable.textAlignment = NSTextAlignmentCenter;
     _numberLable.text = [NSString stringWithFormat:@"%zd",_tzImagePickerVc.selectedModels.count];
@@ -170,7 +163,7 @@
     layout.minimumInteritemSpacing = 0;
     layout.minimumLineSpacing = 0;
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(-10, 0, self.view.tz_width + 20, self.view.tz_height) collectionViewLayout:layout];
-    _collectionView.backgroundColor = [UIColor redColor];
+    _collectionView.backgroundColor = [UIColor blackColor];
     _collectionView.dataSource = self;
     _collectionView.delegate = self;
     _collectionView.pagingEnabled = YES;
@@ -283,7 +276,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     TZPhotoPreviewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TZPhotoPreviewCell" forIndexPath:indexPath];
     cell.model = _models[indexPath.row];
-    cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    
     if (!cell.singleTapGestureBlock) {
         __block BOOL _weakIsHideNaviBar = _isHideNaviBar;
         __weak typeof(_naviBar) weakNaviBar = _naviBar;

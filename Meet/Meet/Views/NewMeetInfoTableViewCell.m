@@ -34,7 +34,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         _isBlock = YES;
-        [self setWhiteView:YES isBottom:YES];
         [self setUpView];
     }
     return self;
@@ -95,9 +94,15 @@
 - (void)isHaveShadowColor:(BOOL)isShadowColor
 {
     if (!isShadowColor) {
-//        [self setWhiteView:NO isBottom:NO];
-        self.showdowView.hidden = YES;
+        [self setWhiteView:NO isBottom:NO];
+    }else{
+        [self setWhiteView:YES isBottom:YES];
     }
+}
+
+- (void)hidderLine
+{
+    _lineLabel.hidden = YES;
 }
 
 - (void)updateConstraints

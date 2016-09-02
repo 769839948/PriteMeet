@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import MBProgressHUD
+import TZImagePickerController
 
 class MeViewController: UIViewController {
 
@@ -31,11 +32,7 @@ class MeViewController: UIViewController {
     let orderNumberArray:NSMutableArray = NSMutableArray()
     var allOrderNumber:NSInteger = 0
     
-    var navigaitionTitleView: UIView!
-    var dismissButton:UIButton!
-    
-    var editButton:UIButton!
-    var settingButton:UIButton!
+    var hightImagesArray:NSMutableArray = NSMutableArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,63 +41,19 @@ class MeViewController: UIViewController {
         if UserInfo.isLoggedIn() {
             self.getOrderNumber()
         }
-        self.addLineNavigationBottom()
         self.talKingDataPageName = "Me"
-        self.setUpNavigationTitleView()
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
         self.navigationItemWithLineAndWihteColor()
-    }
-
-    func setUpNavigationTitleView() {
-        navigaitionTitleView = UIView()
-        navigaitionTitleView.userInteractionEnabled = true
-        self.view.addSubview(navigaitionTitleView)
-        
-        editButton = UIButton(type: .Custom)
-        editButton.setImage(UIImage.init(named: "me_editBlack"), forState: .Normal)
-        editButton.addTarget(self, action: #selector(MeViewController.editPress(_:)), forControlEvents: .TouchUpInside)
-        navigaitionTitleView.addSubview(editButton)
-        
-        settingButton = UIButton(type: .Custom)
-        settingButton.setImage(UIImage.init(named: "me_settingsBlack"), forState: .Normal)
-        settingButton.addTarget(self, action: #selector(MeViewController.rightPress(_:)), forControlEvents: .TouchUpInside)
-        navigaitionTitleView.addSubview(settingButton)
-        
-        dismissButton = UIButton(type: .Custom)
-        dismissButton.setImage(UIImage.init(named: "me_dismissBlack"), forState: .Normal)
-        dismissButton.addTarget(self, action: #selector(MeViewController.cancelPress(_:)), forControlEvents: .TouchUpInside)
-        navigaitionTitleView.addSubview(dismissButton)
-        
-        navigaitionTitleView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.height.equalTo(64)
-        }
-        
-        dismissButton.snp_makeConstraints { (make) in
-            make.top.equalTo(self.navigaitionTitleView.snp_top).offset(22)
-            make.left.equalTo(self.navigaitionTitleView.snp_left).offset(10)
-            make.size.equalTo(CGSizeMake(40, 40))
-        }
-        
-        settingButton.snp_makeConstraints { (make) in
-            make.top.equalTo(self.navigaitionTitleView.snp_top).offset(22)
-            make.right.equalTo(self.navigaitionTitleView.snp_right).offset(-10)
-            make.size.equalTo(CGSizeMake(40, 40))
-        }
-        
-        editButton.snp_makeConstraints { (make) in
-            make.top.equalTo(self.navigaitionTitleView.snp_top).offset(22)
-            make.right.equalTo(self.settingButton.snp_left).offset(-10)
-            make.size.equalTo(CGSizeMake(40, 40))
-        }
+        self.addLineNavigationBottom()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.setNavigationBar()
         if UserInfo.isLoggedIn() {
+            if self.tableView.style == .Plain {
+                self.setUpTableView()
+            }
             self.lastModifield()
             self.loadExtenInfo()
             self.loadInviteInfo()
@@ -135,12 +88,14 @@ class MeViewController: UIViewController {
         }
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
-    }
-    
     func setUpTableView(){
-        tableView = UITableView(frame: CGRectZero, style: UITableViewStyle.Plain)
+        if UserInfo.isLoggedIn() {
+            tableView = UITableView(frame: CGRectZero, style: UITableViewStyle.Grouped)
+            tableView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
+        }else{
+            tableView = UITableView(frame: CGRectZero, style: UITableViewStyle.Plain)
+            tableView.backgroundColor = UIColor.whiteColor()
+        }
         
         let meInfoNib = UINib(nibName: "MeInfoTableViewCell", bundle: nil) //nibName指的是我们创建的Cell文件名
         self.tableView.registerNib(meInfoNib, forCellReuseIdentifier: "MeInfoTableViewCell")
@@ -148,15 +103,16 @@ class MeViewController: UIViewController {
         self.tableView.registerNib(mePhotoNib, forCellReuseIdentifier: "MePhotoTableViewCell")
         let mePhotoDetailNib = UINib(nibName: "PhotoDetailTableViewCell", bundle: nil) //nibName指的是我们创建的Cell文件名
         self.tableView.registerNib(mePhotoDetailNib, forCellReuseIdentifier: "PhotoDetailTableViewCell")
-        self.tableView.registerClass(NewMeetInfoTableViewCell.self, forCellReuseIdentifier: newMeetInfoTableViewCell)
         
+        self.tableView.registerClass(NewMeetInfoTableViewCell.self, forCellReuseIdentifier: newMeetInfoTableViewCell)
+        self.tableView.registerClass(AboutUsCell.self, forCellReuseIdentifier: "AboutUsCell")
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
         self.view.addSubview(tableView)
 
         tableView.snp_makeConstraints(closure: { (make) in
-            make.top.equalTo(self.view.snp_top).offset(-20)
+            make.top.equalTo(self.view.snp_top).offset(0)
             make.left.equalTo(self.view.snp_left).offset(0)
             make.right.equalTo(self.view.snp_right).offset(0)
             make.bottom.equalTo(self.view.snp_bottom).offset(0)
@@ -186,73 +142,30 @@ class MeViewController: UIViewController {
     
     func setNavigationBar(){
         if UserInfo.isLoggedIn() {
-            UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)    
-            self.setLeftBarItem()
-        }else{
-            UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
-            self.setNavigationItemAplah(1, imageName: ["me_dismissBlack"], type: 1)
-            self.setNavigationItemAplah(1, imageName: ["me_settingsBlack"], type: 2)
-            
-        }
-    }
-    
-    func setLeftBarItem(){
-        if self.tableView.contentOffset.y > 160 {
-            self.setNavigationItemAplah(1, imageName: ["me_dismissBlack"], type: 1)
-            
-            if UserInfo.sharedInstance().completeness.next_page != 4 {
-                self.setNavigationItemAplah(1, imageName: ["me_settingsBlack"], type: 2)
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "me_dismissBlack")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: .Plain, target: self, action: #selector(MeViewController.cancelPress(_:)))
+            if UserInfo.sharedInstance().completeness != nil && UserInfo.sharedInstance().completeness.next_page != 4  {
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "me_settingsBlack")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: .Plain, target: self, action: #selector(MeViewController.rightPress(_:)))
             }else{
-                self.setNavigationItemAplah(1, imageName: ["me_settingsBlack","me_editBlack"], type: 3)
+                let settingItem = UIBarButtonItem(image:UIImage.init(named: "me_settingsBlack")!.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(MeViewController.rightPress(_:)))
+                let editButton = UIBarButtonItem(image: UIImage.init(named: "me_editBlack")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(MeViewController.editPress(_:)))
+                self.navigationItem.setRightBarButtonItems([settingItem,editButton], animated: true)
             }
-            UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
         }else{
-            self.setNavigationItemAplah(1, imageName: ["me_dismiss"], type: 1)
-            
-            if UserInfo.sharedInstance().completeness.next_page != 4 {
-                self.setNavigationItemAplah(1, imageName: ["me_settings"], type: 2)
-            }else{
-                self.setNavigationItemAplah(1, imageName: ["me_settings","me_edit"], type: 3)
-            }
-        }
-        
-        
-    }
-    /**
-     设置navigaitonBarItem颜色
-     
-     - parameter imageAplah: 颜色的透明度
-     - parameter imageName:  图片名字
-     - parameter type:       navigationbarType[1,2,3]
-     */
-    func setNavigationItemAplah(imageAplah:CGFloat, imageName:NSArray, type:NSInteger)  {
-        if type == 1 {
-            let image = UIImage(named: imageName[0] as! String)?.imageByApplyingAlpha(imageAplah)
-            dismissButton.setImage(image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), forState: .Normal)
-        }else if type == 2{
-            editButton.hidden = true
-            let image = UIImage(named: imageName[0] as! String)?.imageByApplyingAlpha(imageAplah)
-            settingButton.setImage(image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), forState: .Normal)
-        }else{
-            let image = UIImage(named: imageName[0] as! String)?.imageByApplyingAlpha(imageAplah)
-            settingButton.setImage(image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), forState: .Normal)
-            let image1 = UIImage(named: imageName[1] as! String)?.imageByApplyingAlpha(imageAplah)
-            editButton.setImage(image1?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), forState: .Normal)
-            editButton.hidden = false
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "me_dismissBlack")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: .Plain, target: self, action: #selector(MeViewController.cancelPress(_:)))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "me_settingsBlack")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: .Plain, target: self, action: #selector(MeViewController.rightPress(_:)))
         }
     }
-    
-    
-    func cancelPress(sender:UIButton){
+
+    func cancelPress(sender:UIBarButtonItem){
         self.dismissViewControllerAnimated(true) { 
         }
     }
     
-    func editPress(sender:UIButton){
+    func editPress(sender:UIBarButtonItem){
         self.pushProfileViewControllr()
     }
     
-    func rightPress(sender:UIButton){
+    func rightPress(sender:UIBarButtonItem){
         let settingVC = Stroyboard("Seting", viewControllerId: "SetingViewController") as!  SetingViewController
         settingVC.logoutBlock = {()
             self.tableView.reloadData()
@@ -306,7 +219,6 @@ class MeViewController: UIViewController {
         myProfileVC.fromeMeView = true
         myProfileVC.hightLight = UserExtenModel.shareInstance().highlight
         myProfileVC.reloadMeViewBlock = {(uodataInfo:Bool) in
-            self.setLeftBarItem()
             self.tableView.reloadData()
         }
         self.navigationController!.pushViewController(myProfileVC, animated:true)
@@ -433,9 +345,53 @@ class MeViewController: UIViewController {
         self.navigationController?.pushViewController(orderPageVC, animated: true)
     }
     
+    
+    func presentImagePicker() {
+        let imagePickerVC = TZImagePickerController(maxImagesCount: 8, delegate: self)
+        
+        imagePickerVC.navigationBar.barTintColor = UIColor.whiteColor()
+        imagePickerVC.navigationBar.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
+        imagePickerVC.allowPickingVideo = false
+        imagePickerVC.allowTakePicture = false
+        imagePickerVC.oKButtonTitleColorNormal = UIColor.init(hexString: HomeDetailViewNameColor)
+        imagePickerVC.oKButtonTitleColorDisabled = UIColor.init(hexString: lineLabelBackgroundColor)
+        imagePickerVC.allowPickingOriginalPhoto = true
+        imagePickerVC.didFinishPickingPhotosHandle = { photos,assets,isSelectOriginalPhoto in
+            
+        }
+        
+        self.presentViewController(imagePickerVC, animated: true) { 
+            
+        }
+    }
+    
+    func presentImageBrowse(index:NSInteger, imageArray:NSMutableArray) {
+//        hightImagesArray.removeAllObjects()
+//        for index in 0...imageArray.count - 1 {
+//            hightImagesArray.addObject(MWPhoto(image: imageArray[index] as! UIImage))
+//        }
+//        let mwPhotosBrowser = MWPhotoBrowser(delegate: self)
+//        mwPhotosBrowser.displayActionButton = false
+//        mwPhotosBrowser.displaySelectionButtons = false
+//        mwPhotosBrowser.enableGrid = false
+//        mwPhotosBrowser.startOnGrid = false
+//        mwPhotosBrowser.autoPlayOnAppear = false
+//        mwPhotosBrowser.setCurrentPhotoIndex(UInt(index))
+//        mwPhotosBrowser.navigationController?.setNavigationItemBack()
+//        mwPhotosBrowser.alwaysShowControls = true
+//        self.navigationController?.pushViewController(mwPhotosBrowser, animated: true)
+    }
+    
     func pushLikeView() {
         let likeManView = LikeManViewController()
         self.navigationController!.pushViewController(likeManView, animated:true)
+    }
+    
+    func pushHightLightVC(){
+        let hightLight = HightLightViewController()
+        hightLight.titleStr = "不会讲鬼故事的演员就不是长得好看的策划"
+        hightLight.infoStr = "最不像表演系的表演系学生，这点从入学开始就逐渐暴露，同学和老师评价我是表演系里最会导演的，导演系里最会制片的，制片专业里长得最好看。在选择与我见面前，请把你的问题更具体化，方便我做更精确的准备，提升见面效率，期待与你的见面。"
+        self.navigationController?.pushViewController(hightLight, animated: true)
     }
     
     func getOrderNumber(){
@@ -451,189 +407,220 @@ class MeViewController: UIViewController {
             self.orderNumberArray.addObject("\(countDic["4"]!)")
             self.orderNumberArray.addObject("\(countDic["6"]!)")
             self.orderNumberArray.addObject("0")
-            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 5, inSection: 0)], withRowAnimation: .Automatic)
+            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 5, inSection: 1)], withRowAnimation: .Automatic)
         }) { (dic) in
             
         }
     }
     
+    func configAboutUsCell(cell:AboutUsCell, indexPath:NSIndexPath) {
+        cell.configCell("不会讲鬼故事的演员就不是长得好看的策划", info: "最不像表演系的表演系学生，这点从入学开始就逐渐暴露，同学和老师评价我是表演系里最会导演的，导演系里最会制片的，制片专业里长得最好看。")
+    }
+
+    
+    
 }
 
 extension MeViewController : UITableViewDelegate{
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if UserInfo.isLoggedIn() {
+            return 10
+        }
+        return 0.001
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.0001
+    }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath,animated:true)
         if (!UserInfo.isLoggedIn()) {
-            self.presentViewLoginViewController()
+            UserInfo.sharedInstance().uid = "153"
+            UserInfo.sharedInstance().avatar = ""
+            let modelv = LoginViewModel()
+            modelv.getUserInfo("153", success: { (dic) in
+                UserInfo.synchronizeWithDic(dic)
+                
+                }, fail: { (dic) in
+                    
+                }, loadingString: { (msg) in
+                    
+            })
+            UserInfo.synchronize()
+            self.viewWillAppear(true)
             return ;
         }
-        if (indexPath.row == 0) {
-            self.pushProfileViewControllr()
-        } else if (indexPath.row == 1) {
-            MainThreadAlertShow("申请成功，请耐心等待审核结果^_^", view: self.view)
-        } else  if (indexPath.row == 3 || indexPath.row == 2) {
-            let senderInviteVC = Stroyboard("Me", viewControllerId: "SenderInviteViewController") as!  SenderInviteViewController
-            self.navigationController!.pushViewController(senderInviteVC, animated:true)
-        }else if(indexPath.row == 4){
-            let cell = tableView.cellForRowAtIndexPath(indexPath) as! MeInfoTableViewCell
-            if cell.infoDetailLabel.text == "" {
-                MainThreadAlertShow("您已通过所有认证了哦", view: self.view)
-            }else{
-                MainThreadAlertShow("客服Meet君会尽快联系您认证的哦，还请耐心等待。", view: self.view)
+        switch indexPath.section {
+        case 0:
+            switch indexPath.row {
+            case 0:
+                self.pushProfileViewControllr()
+            default:
+                break;
             }
-        }else if indexPath.row == 5 {
-            self.verificationOrderView()
-        }else if indexPath.row == 6 {
-            self.pushLikeView()
+        default:
+            switch indexPath.row {
+            case 0,1:
+                self.pushHightLightVC()
+            case 2,3:
+                let senderInviteVC = Stroyboard("Me", viewControllerId: "SenderInviteViewController") as!  SenderInviteViewController
+                self.navigationController!.pushViewController(senderInviteVC, animated:true)
+            case 4:
+                let cell = tableView.cellForRowAtIndexPath(indexPath) as! MeInfoTableViewCell
+                if cell.infoDetailLabel.text == "" {
+                    MainThreadAlertShow("您已通过所有认证了哦", view: self.view)
+                }else{
+                    MainThreadAlertShow("客服Meet君会尽快联系您认证的哦，还请耐心等待。", view: self.view)
+                }
+            case 5:
+                self.verificationOrderView()
+            default:
+                self.pushLikeView()
+            }
         }
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if UserInfo.isLoggedIn() {
-            switch indexPath.row {
+            switch indexPath.section {
             case 0:
-                return ScreenWidth*272/375
-            case 1:
-                return 100
-            case 2:
-                return 50
-            case 3:
-                return tableView.fd_heightForCellWithIdentifier(newMeetInfoTableViewCell, configuration: { (cell) in
-                    self.configNewMeetCell((cell as! NewMeetInfoTableViewCell), indxPath: indexPath)
-                })
+                switch indexPath.row {
+                case 0:
+                    return ScreenWidth*236/355 + 116
+                default:
+                    return 115
+                }
             default:
-                return 50
+                switch indexPath.row {
+                case 1:
+                    return tableView.fd_heightForCellWithIdentifier("AboutUsCell", configuration: { (cell) in
+                        self.configAboutUsCell(cell as! AboutUsCell, indexPath: indexPath)
+                    })
+                case 3:
+                    return tableView.fd_heightForCellWithIdentifier(newMeetInfoTableViewCell, configuration: { (cell) in
+                        self.configNewMeetCell((cell as! NewMeetInfoTableViewCell), indxPath: indexPath)
+                    })
+                default:
+                    return 50
+                }
             }
         }else{
             switch indexPath.row {
                 case 0:
-                    return ScreenWidth*272/375
-                case 1:
-                    return 100
+                    return ScreenWidth*272/375 + 40
                 default:
                     return 50
             }
         }
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if UserInfo.isLoggedIn() {
-            let y = scrollView.contentOffset.y
-            let index = NSIndexPath.init(forRow: 0, inSection: 0)
-            let cell = self.tableView.cellForRowAtIndexPath(index) as? MePhotoTableViewCell
-            if(y <= 0){
-                if y <= -20 && cell != nil{
-                    let frame = CGRectMake(375 * (y + 20)/(272 * 2), y + 20, ScreenWidth - 375 * (y + 20)/272, ScreenWidth*272/375 - y - 20)
-                    cell!.avatarImageView.frame = frame
-                    cell?.placImageView.frame = frame
-                }
-                if y <= -190 {
-                    self.dismissViewControllerAnimated(true, completion: { 
-                    })
-                }
-                navigaitionTitleView.backgroundColor = UIColor.init(red: 242.0/255.0, green: 241.0/255.0, blue: 238.0/255.0, alpha: 0)
-                self.setLeftBarItem()
-            }else{
-                self.setNavigationItemAplah(y/124, imageName: ["me_dismissBlack"], type: 1)
-                if UserInfo.sharedInstance().completeness.next_page != 4  {
-                    self.setNavigationItemAplah(y/164, imageName: ["me_settingsBlack"], type: 2)
-                }else{
-                    self.setNavigationItemAplah(y/164, imageName: ["me_settingsBlack","me_editBlack"], type: 3)
-                }
-                if cell != nil {
-                }
-                navigaitionTitleView.backgroundColor = UIColor.init(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: y/164)
-                if y > 50{
-                    UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
-                }else{
-                    UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
-                }
-                
-            }
-        }
-    }
 }
 
 extension MeViewController : UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        if UserInfo.isLoggedIn() {
+            return 2
+        }else{
+            return 1
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if UserInfo.isLoggedIn() {
-            return 8
+            if section == 0 {
+                return 2
+            }else{
+                return 7
+            }
         }else{
-            return 7
+            return 5
         }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if UserInfo.isLoggedIn(){
-            if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCellWithIdentifier(mePhotoTableViewCell, forIndexPath: indexPath) as! MePhotoTableViewCell
-                cell.avatarImageView.backgroundColor = UIColor.init(hexString: "e7e7e7")
-                if UserExtenModel.shareInstance().cover_photo != nil {
-                    let cover_photo:Cover_photo = Cover_photo.mj_objectWithKeyValues(UserExtenModel.shareInstance().cover_photo)
-                    if cover_photo.photo != "" {
-                        //http://7xsatk.com1.z0.glb.clouddn.com/o_1aqc2rujd1vbc11ten5s12tj115fc.jpg?imageView2/1/w/1125/h/816
-                        cell.avatarImageView .sd_setImageWithURL(NSURL.init(string:cover_photo.photo ), placeholderImage: nil, completed: { (image, error, type, url) in
-                            UserExtenModel.saveCacheImage(image, withName: "cover_photo.jpg")
-                        })
-                    }else{
-//                        if UserInfo.imageForName("headImage.jpg") != nil {
-//                            cell.avatarImageView.image = UserInfo.imageForName("headImage.jpg");
-//                        }else{
+            if indexPath.section == 0 {
+                if indexPath.row == 0 {
+                    let cell = tableView.dequeueReusableCellWithIdentifier(mePhotoTableViewCell, forIndexPath: indexPath) as! MePhotoTableViewCell
+                    cell.avatarImageView.backgroundColor = UIColor.init(hexString: "e7e7e7")
+                    if UserExtenModel.shareInstance().cover_photo != nil {
+                        let cover_photo:Cover_photo = Cover_photo.mj_objectWithKeyValues(UserExtenModel.shareInstance().cover_photo)
+                        if cover_photo.photo != "" {
+                            //http://7xsatk.com1.z0.glb.clouddn.com/o_1aqc2rujd1vbc11ten5s12tj115fc.jpg?imageView2/1/w/1125/h/816
+                            cell.avatarImageView .sd_setImageWithURL(NSURL.init(string:cover_photo.photo ), placeholderImage: nil, completed: { (image, error, type, url) in
+                                UserExtenModel.saveCacheImage(image, withName: "cover_photo.jpg")
+                            })
+                        }else{
+                            //                        if UserInfo.imageForName("headImage.jpg") != nil {
+                            //                            cell.avatarImageView.image = UserInfo.imageForName("headImage.jpg");
+                            //                        }else{
                             cell.avatarImageView.sd_setImageWithURL(NSURL.init(string: UserInfo.sharedInstance().avatar), placeholderImage: nil, completed: { (image
                                 , error, type, url) in
                                 UserInfo.saveCacheImage(image, withName: "headImage.jpg")
                             })
-//                        }
+                            //                        }
+                        }
                     }
-                }
-              
-                cell.avatarImageView.autoresizingMask = UIViewAutoresizing.FlexibleTopMargin;
-                if UserExtenModel.shareInstance().completeness != nil {
-                    cell.cofigLoginCell(UserInfo.sharedInstance().real_name, infoCom: UserInfo.sharedInstance().job_label,compass: UserExtenModel.shareInstance().completeness)
-
+                    
+                    cell.avatarImageView.autoresizingMask = UIViewAutoresizing.FlexibleTopMargin;
+                    if UserExtenModel.shareInstance().completeness != nil {
+                        cell.cofigLoginCell(UserInfo.sharedInstance().real_name, infoCom: UserInfo.sharedInstance().job_label,compass: UserExtenModel.shareInstance().completeness)
+                        
+                    }else{
+                        //                    cell.cofigLoginCell(UserInfo.sharedInstance().real_name, infoCom: UserInfo.sharedInstance().job_label,compass: UserExtenModel.shareInstance().completeness)
+                        
+                    }
+                    frame = cell.avatarImageView.frame;
+                    cell.block = { (tag) in
+                        self.pushViewController(tag)
+                    }
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell.backgroundColor = UIColor.clearColor()
+                    return cell
                 }else{
-//                    cell.cofigLoginCell(UserInfo.sharedInstance().real_name, infoCom: UserInfo.sharedInstance().job_label,compass: UserExtenModel.shareInstance().completeness)
-
-                }
-                frame = cell.avatarImageView.frame;
-                cell.block = { (tag) in
-                    self.pushViewController(tag)
-                }
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
-                return cell
-            }else if indexPath.row == 1 {
-                let cell = tableView.dequeueReusableCellWithIdentifier(photoDetailTableViewCell, forIndexPath: indexPath) as! PhotoDetailTableViewCell
+                    let cell = tableView.dequeueReusableCellWithIdentifier(photoDetailTableViewCell, forIndexPath: indexPath) as! PhotoDetailTableViewCell
                     cell.configCell(UserExtenModel.allImageUrl())
-                cell.closure = { () in
-                    MainThreadAlertShow("^_^ 敬请期待，暂时请联系客服帮忙添加哦", view: self.view)
+                    cell.closure = { () in
+                        self.presentImagePicker()
+                    }
+                    cell.cellImageArray = { (index,imageArray) in
+                        self.presentImageBrowse(index, imageArray: imageArray)
+                    }
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell.backgroundColor = UIColor.clearColor()
+                    return cell
                 }
-                cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
-                return cell
-            }else if indexPath.row == 2 {
-                let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
-                if !UserInviteModel.isEmptyDescription()&&(!UserInviteModel.shareInstance().results[0].is_active || UserInviteModel.isFake()){
-                    cell.configCell("me_newmeet", infoString: "我的邀约", infoDetail: "未开启     ")
-                }else{
-                    cell.configCell("me_newmeet", infoString: "我的邀约", infoDetail: "")
-                }
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
-                cell.setInfoButtonBackGroudColor(lineLabelBackgroundColor)
-                cell.hidderLine()
-                return cell
-            }else if indexPath.row == 3 {
-                let cell = tableView.dequeueReusableCellWithIdentifier(newMeetInfoTableViewCell, forIndexPath: indexPath) as! NewMeetInfoTableViewCell
-                self.configNewMeetCell(cell, indxPath: indexPath)
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
-                cell.isHaveShadowColor(false)
-                return cell
-            }else if (indexPath.row == 4){
-                let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
-                cell.configCell((userInfoModel.imageArray() as NSArray) .objectAtIndex(indexPath.row - 3) as! String, infoString: (userInfoModel.titleArray() as NSArray).objectAtIndex(indexPath.row - 3) as! String, infoDetail: "")
-                if indexPath.row == 4 {
+            }else{
+                if indexPath.row == 0 {
+                    let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
+                    cell.configCell("me_about", infoString: "关于我的那些事", infoDetail: "", shadowColor: false,cornerRadiusType: .Top)
+                    cell.hidderLine()
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell.setInfoButtonBackGroudColor(MeProfileCollectViewItemSelect)
+                    return cell
+                }else if indexPath.row == 1 {
+                    let cell = tableView.dequeueReusableCellWithIdentifier("AboutUsCell", forIndexPath: indexPath) as! AboutUsCell
+                    self.configAboutUsCell(cell, indexPath: indexPath)
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    return cell
+                }else if indexPath.row == 2 {
+                    let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
+                    cell.configCell("me_newmeet", infoString: "最新邀约", infoDetail: "", shadowColor: false,cornerRadiusType: .None)
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell.setInfoButtonBackGroudColor(MeProfileCollectViewItemSelect)
+                    return cell
+                }else if indexPath.row == 3 {
+                    let cell = tableView.dequeueReusableCellWithIdentifier(newMeetInfoTableViewCell, forIndexPath: indexPath) as! NewMeetInfoTableViewCell
+                    self.configNewMeetCell(cell, indxPath: indexPath)
+                    cell.isHaveShadowColor(false)
+                    cell.hidderLine()
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    return cell
+                }else if (indexPath.row == 4){
+                    let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
+                    cell.configCell((userInfoModel.imageArray() as NSArray) .objectAtIndex(indexPath.row - 3) as! String, infoString: (userInfoModel.titleArray() as NSArray).objectAtIndex(indexPath.row - 3) as! String, infoDetail: "", shadowColor: false,cornerRadiusType: .None)
                     var string = ""
                     let auto_info = UserExtenModel.shareInstance().auth_info
                     var tempString = "职业、实名、电话、"
@@ -662,41 +649,33 @@ extension MeViewController : UITableViewDataSource {
                             tempString = (tempString as NSString).substringToIndex(5)
                             string = "尚未通过\(tempString)认证       "
                         }else{
-                             tempString = "职业、实名、电话"
+                            tempString = "职业、实名、电话"
                             string = "尚未通过\(tempString)认证       "
                         }
                     }else{
-                         string = "尚未通过职业、实名、电话认证       "
+                        string = "尚未通过职业、实名、电话认证       "
                     }
                     cell.infoDetailLabel.text = string
                     cell.setInfoButtonBackGroudColor(lineLabelBackgroundColor)
-                }
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
-                return cell
-            }else if indexPath.row == 5 {
-                let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
-                if allOrderNumber == 0 {
-                    cell.configCell("me_mymeet", infoString: "我的约见", infoDetail: "")
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    return cell
+                }else if indexPath.row == 5 {
+                    let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
+                    if allOrderNumber == 0 {
+                        cell.configCell("me_mymeet", infoString: "我的约见", infoDetail: "", shadowColor: false,cornerRadiusType: .None)
+                    }else{
+                        cell.configCell("me_mymeet", infoString: "我的约见", infoDetail: "共 \(allOrderNumber) 个进行中     ", shadowColor: false,cornerRadiusType: .None)
+                    }
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell.setInfoButtonBackGroudColor(MeProfileCollectViewItemSelect)
+                    return cell
                 }else{
-                    cell.configCell("me_mymeet", infoString: "我的约见", infoDetail: "共 \(allOrderNumber) 个进行中     ")
+                    let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
+                    cell.configCell("me_wantmeet", infoString: "想见的人", infoDetail: "", shadowColor: true,cornerRadiusType: .Bottom)
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell.setInfoButtonBackGroudColor(MeProfileCollectViewItemSelect)
+                    return cell
                 }
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
-                cell.setInfoButtonBackGroudColor(MeProfileCollectViewItemSelect)
-                return cell
-            }else if indexPath.row == 6 {
-                let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
-                cell.configCell("me_wantmeet", infoString: "想见的人", infoDetail: "")
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
-                cell.setInfoButtonBackGroudColor(MeProfileCollectViewItemSelect)
-                return cell
-            }else{
-                let identifier = "LastCell"
-                var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
-                if cell == nil{
-                    cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: identifier)
-                }
-                cell!.selectionStyle = UITableViewCellSelectionStyle.None
-                return cell!
             }
         }else{
             if indexPath.row == 0 {
@@ -705,35 +684,44 @@ extension MeViewController : UITableViewDataSource {
                 cell.logoutBtn.addTarget(self, action: (#selector(MeViewController.presentViewLoginViewController)), forControlEvents: UIControlEvents.TouchUpInside)
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 return cell
-            }else if indexPath.row == 1 {
-                let cell = tableView.dequeueReusableCellWithIdentifier(photoDetailTableViewCell, forIndexPath: indexPath) as! PhotoDetailTableViewCell
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
-                cell.configLogoutView()
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
-                cell.accessoryType = UITableViewCellAccessoryType.None
-                return cell
-            }else if (indexPath.row == 6) {
-                let identifier = "LastCell"
-                var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
-                if cell == nil{
-                    cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: identifier)
-                }
-                cell!.selectionStyle = UITableViewCellSelectionStyle.None
-                return cell!
             }else{
                 let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
-                if indexPath.row == 2 {
-                    cell.hidderLine()
-                }
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
-                let imageArray = userInfoModel.imageArray()
-                let titleArray = userInfoModel.titleArray()
-                cell.configCell((userInfoModel.imageArray() as NSArray).objectAtIndex(indexPath.row - 2) as! String, infoString: (userInfoModel.titleArray() as NSArray).objectAtIndex(indexPath.row - 2) as! String, infoDetail: "")
+                cell.configCell((userInfoModel.imageArray() as NSArray).objectAtIndex(indexPath.row - 1) as! String, infoString: (userInfoModel.titleArray() as NSArray).objectAtIndex(indexPath.row - 1) as! String, infoDetail: "", shadowColor: false,cornerRadiusType: .None)
                 return cell
             }
         }
-   }
+    }
+}
+extension MeViewController : TZImagePickerControllerDelegate {
+    func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool)
+    {
+    }
+    func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool, infos: [[NSObject : AnyObject]]!) {
+        
+    }
+    func imagePickerControllerDidCancel(picker: TZImagePickerController!) {
+        
+    }
+    // If user picking a video, this callback will be called.
+    // If system version > iOS8,asset is kind of PHAsset class, else is ALAsset class.
+    // 如果用户选择了一个视频，下面的handle会被执行
+    // 如果系统版本大于iOS8，asset是PHAsset类的对象，否则是ALAsset类的对象
+    func imagePickerController(picker: TZImagePickerController!, didFinishPickingVideo coverImage: UIImage!, sourceAssets asset: AnyObject!) {
+        
+    }
 }
 
-
+//extension MeViewController : MWPhotoBrowserDelegate {
+//    func numberOfPhotosInPhotoBrowser(photoBrowser: MWPhotoBrowser!) -> UInt {
+//        return UInt(hightImagesArray.count)
+//    }
+//    
+//    func photoBrowser(photoBrowser: MWPhotoBrowser!, photoAtIndex index: UInt) -> MWPhotoProtocol! {
+//        if index < UInt(self.hightImagesArray.count) {
+//            return self.hightImagesArray.objectAtIndex(Int(index)) as! MWPhotoProtocol
+//        }
+//        return nil
+//    }
+//}
 

@@ -74,6 +74,7 @@ static UserInfo *userInfo=nil;
     }else{
         
     }
+    [UserInfo sharedInstance].uid = nil;
     [UserInfo sharedInstance].real_name  = nil;
     [UserInfo sharedInstance].location  = nil;
     [UserInfo sharedInstance].birthday  = nil;

@@ -11,6 +11,6 @@
 
 @interface MeetInfoTableViewCell : BaseTableViewCell
 
-- (void)configCell:(NSString *)name position:(NSString *)position meetNumber:(NSString *)meetNumber interestCollectArray:(NSArray *)interstArray;
+- (void)configCell:(NSString *)name position:(NSString *)position meetNumber:(NSString *)meetNumber interestCollectArray:(NSArray *)interstArray autotnInfo:(NSString *)autnInfo;
 
 @end

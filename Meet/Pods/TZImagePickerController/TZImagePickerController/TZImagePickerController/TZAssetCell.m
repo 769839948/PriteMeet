@@ -69,6 +69,16 @@
     }
 }
 
+- (void)setMaxImagesCount:(NSInteger)maxImagesCount {
+    _maxImagesCount = maxImagesCount;
+    if (!self.selectPhotoButton.hidden) {
+        self.selectPhotoButton.hidden = maxImagesCount == 1;
+    }
+    if (!self.selectImageView.hidden) {
+        self.selectImageView.hidden = maxImagesCount == 1;
+    }
+}
+
 - (void)setType:(TZAssetCellType)type {
     _type = type;
     if (type == TZAssetCellTypePhoto || type == TZAssetCellTypeLivePhoto) {

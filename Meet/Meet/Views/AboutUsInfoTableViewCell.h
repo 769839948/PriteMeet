@@ -12,6 +12,6 @@
 
 @property (nonatomic, strong) UIButton *aboutAll;
 
-- (void)configCell:(NSArray *)stringArray withUrl:(NSString *)web_url;
+- (void)configCell:(NSString *)title info:(NSString *)info imageArray:(NSArray *)images withUrl:(NSString *)web_url;
 
 @end
