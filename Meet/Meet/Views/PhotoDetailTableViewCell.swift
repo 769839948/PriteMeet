@@ -11,7 +11,7 @@ import SnapKit
 import SDWebImage
 
 typealias ImageClick = ()->Void
-typealias CellImageArray = (index:NSInteger, imageArray:NSMutableArray) ->Void
+typealias CellImageArray = (index:NSInteger, imageArray:NSMutableArray, disPlayviews:NSMutableArray) ->Void
 
 class PhotoDetailTableViewCell: UITableViewCell {
 
@@ -22,6 +22,7 @@ class PhotoDetailTableViewCell: UITableViewCell {
     var shadowView:UIView!
     var cellImageArray:CellImageArray!
     var imageArray:NSMutableArray = NSMutableArray()
+    var disPlayViews:NSMutableArray = NSMutableArray()
     override func awakeFromNib() {
         super.awakeFromNib()
         logoutView = UIView(frame: CGRectMake(0,0,ScreenWidth,self.bounds.height))
@@ -102,6 +103,7 @@ class PhotoDetailTableViewCell: UITableViewCell {
                 imageTap.numberOfTapsRequired = 1
                 imageTap.numberOfTouchesRequired = 1
                 photoImage.addGestureRecognizer(imageTap)
+                disPlayViews.addObject(photoImage)
             }
            let detailImage = UIImageView(frame: CGRectMake(infoView.frame.size.width - 78, 0, 78, 59))
             detailImage.image = UIImage.init(named: "photo_detail")
@@ -129,7 +131,7 @@ class PhotoDetailTableViewCell: UITableViewCell {
     
     func imageTap(tap:UITapGestureRecognizer) {
         if self.cellImageArray != nil {
-            self.cellImageArray(index: (tap.view?.tag)!, imageArray: self.imageArray)
+            self.cellImageArray(index: (tap.view?.tag)!, imageArray: self.imageArray,disPlayviews: self.disPlayViews)
         }
     }
     override func setSelected(selected: Bool, animated: Bool) {

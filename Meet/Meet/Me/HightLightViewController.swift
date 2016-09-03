@@ -18,6 +18,8 @@ class HightLightViewController: UIViewController {
     var tableView:UITableView!
     
 
+    let viewModel = UserInfoViewModel()
+    
     var titleHeight:CGFloat = 192.0
     
     override func viewDidLoad() {
@@ -52,6 +54,16 @@ class HightLightViewController: UIViewController {
     func sublimTitle(sender:UIBarButtonItem) {
         if titleStr == "" || infoStr == "" {
             MainThreadAlertShow("请输入资料", view: self.view)
+        }else{
+            viewModel.addStar(infoStr, experience: titleStr, success: { (dic) in
+                UserExtenModel.shareInstance().highlight = self.infoStr
+                UserExtenModel.shareInstance().experience = self.titleStr
+                self.navigationController?.popViewControllerAnimated(true)
+                }, fail: { (dic) in
+                    MainThreadAlertShow("添加失败", view: self.view)
+                }, loadingString: { (msg) in
+                    
+            })
         }
     }
     
@@ -126,6 +138,7 @@ extension HightLightViewController : UITableViewDataSource {
             }
             titleText.tintColor = UIColor.blackColor()
             titleText.delegate = self
+            titleText.tag = 1
             titleText.placeholderColor = UIColor.init(hexString: MeViewProfileContentLabelColorLight)
             titleText.font = HightLightTitleFont
             cell?.contentView.addSubview(titleText)

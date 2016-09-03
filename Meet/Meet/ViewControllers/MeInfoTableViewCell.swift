@@ -26,6 +26,7 @@ class MeInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var infoImageView: UIImageView!
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var infoDetailLabel: UILabel!
+    @IBOutlet weak var info_next: UIImageView!
     
     var lineLabel: UILabel!
     @IBOutlet weak var infoView: UIView!
@@ -39,6 +40,7 @@ class MeInfoTableViewCell: UITableViewCell {
         infoDetailLabel.textColor = UIColor.whiteColor()
         infoDetailLabel.layer.cornerRadius = 10.0
         infoDetailLabel.layer.masksToBounds = true
+        
         self.contentView.addSubview(self.lineLabel)
         shadownView.layer.cornerRadius = 5.0
         // Initialization code
@@ -62,12 +64,10 @@ class MeInfoTableViewCell: UITableViewCell {
             maskLayer.path = maskPath.CGPath
             infoView.layer.mask = maskLayer
         }
-
+        
+        let offset = shadowColor ? -3:0
         infoView.snp_updateConstraints { (make) in
-            make.top.equalTo(self.contentView.snp_top).offset(0)
-            make.left.equalTo(self.contentView.snp_left).offset(10)
-            make.right.equalTo(self.contentView.snp_right).offset(-10)
-            make.bottom.equalTo(self.contentView.snp_bottom).offset(shadowColor ? -3:0)
+            make.bottom.equalTo(self.contentView.snp_bottom).offset(offset)
         }
         if !shadowColor {
             shadownView.hidden = true
@@ -95,7 +95,28 @@ class MeInfoTableViewCell: UITableViewCell {
                 make.top.equalTo(self.contentView.snp_top).offset(0)
                 make.left.equalTo(self.contentView.snp_left).offset(10)
                 make.right.equalTo(self.contentView.snp_right).offset(-10)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(0)
+            })
+            
+            infoImageView.snp_makeConstraints(closure: { (make) in
+                make.left.equalTo(self.infoView.snp_left).offset(10)
+                make.centerY.equalTo(self.infoView.snp_centerY).offset(0)
+                make.size.equalTo(CGSizeMake(16, 16))
+            })
+            
+            infoLabel.snp_makeConstraints(closure: { (make) in
+                make.left.equalTo(self.infoImageView.snp_right).offset(10)
+                make.centerY.equalTo(self.infoView.snp_centerY).offset(0)
+            })
+            
+            infoDetailLabel.snp_makeConstraints(closure: { (make) in
+                make.right.equalTo(self.info_next.snp_left).offset(-10)
+                make.centerY.equalTo(self.infoView.snp_centerY).offset(0)
+            })
+            
+            info_next.snp_makeConstraints(closure: { (make) in
+                make.right.equalTo(self.infoView.snp_right).offset(-10)
+                make.centerY.equalTo(self.infoView.snp_centerY).offset(0)
+                make.size.equalTo(CGSizeMake(7, 12))
             })
             self.didSetUpConstraints = true
         }

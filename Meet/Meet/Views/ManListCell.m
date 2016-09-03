@@ -174,6 +174,7 @@
     if ([interstArray[0] isEqualToString:@""]) {
         [_interestView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_offset(0.001);
+            make.bottom.mas_equalTo(weakSelf.personalView.mas_bottom).offset(0.0001);
         }];
     }else{
         [_interestView setCollectViewData:interstArray style:ItemBlackAndWhiteLabelText];
@@ -202,9 +203,25 @@
         if (![distance isEqualToString:@""]) {
             str = [str stringByAppendingString:[NSString stringWithFormat:@"和你相隔 %@", distance]];
         }
+//         __weak typeof(self) weakSelf = self;
         if ([str isEqualToString:@""]) {
+            _meetNumber.hidden = YES;
+//            [_nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.top.mas_equalTo(weakSelf.photoImage.mas_bottom).offset(14);
+//                make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(14);
+//                make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-14);
+//                make.bottom.mas_equalTo(weakSelf.interestView.mas_top).offset(-17);
+//
+//            }];
+//            
+//            [_interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(17);
+//                make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(15);
+//                make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-15);
+//                make.bottom.mas_equalTo(weakSelf.personalView.mas_bottom).offset(-17);
+//            }];
             [_meetNumber mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.height.mas_offset(0.00001);
+                make.height.mas_offset(20);
             }];
         }else{
             [_meetNumber mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -213,6 +230,7 @@
             _meetNumber.text = str;
         }
     });
+    [self updateConstraints];
 }
 
 + (void)homeNameLabelColor:(UILabel *)nameLable
@@ -325,7 +343,7 @@
             make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(14);
             make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-14);
             make.bottom.mas_equalTo(weakSelf.interestView.mas_top).offset(-17);
-//            make.height.mas_offset(20);
+            make.height.mas_offset(20);
         }];
         
         [_interestView mas_makeConstraints:^(MASConstraintMaker *make) {

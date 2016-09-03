@@ -23,6 +23,8 @@
 
 @property (nonatomic, copy) NSString *highlight;
 
+@property (nonatomic, copy) NSString *experience;
+
 @property (nonatomic, copy) NSString *auth_info;
 
 @property (nonatomic, strong) Completeness *completeness;

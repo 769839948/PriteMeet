@@ -231,11 +231,14 @@
 
 
 - (void)addStar:(NSString *)description
+     experience:(NSString *)experience
         success:(Success)successBlock
            fail:(Fail)failBlock
   loadingString:(LoadingView)loading
 {
-    NSDictionary *parameters = @{@"highlight":description};
+    NSDictionary *parameters = @{@"highlight":description,
+                                 @"experience":experience
+                                 };
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestExtINfo,[UserInfo sharedInstance].uid];
     [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {

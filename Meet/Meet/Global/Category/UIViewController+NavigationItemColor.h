@@ -30,4 +30,6 @@
 
 - (void)removeNavigatioinBar;
 
+- (void)removeBottomLine;
+
 @end

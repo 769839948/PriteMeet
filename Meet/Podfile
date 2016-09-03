@@ -7,7 +7,6 @@ target "Meet" do
     pod 'AFNetworking'
     pod 'FMDB'
     pod 'SQLCipher', '~> 3.3.1'
-#    pod 'MWPhotoBrowser', '~> 2.1.1'
     pod 'MJRefresh'
     pod 'Fabric'
     pod 'Crashlytics'
@@ -22,6 +21,5 @@ target "Meet" do
     pod 'NJKWebViewProgress'
     pod 'FDFullscreenPopGesture', '1.1'
     pod 'DZNEmptyDataSet'
-    pod 'TZImagePickerController'
 
 end

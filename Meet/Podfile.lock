@@ -51,7 +51,6 @@ PODS:
   - SQLCipher/common (3.3.1)
   - SQLCipher/standard (3.3.1):
     - SQLCipher/common
-  - TZImagePickerController (1.6.3)
 
 DEPENDENCIES:
   - AFNetworking
@@ -73,7 +72,6 @@ DEPENDENCIES:
   - SDWebImage (~> 3.7)
   - SnapKit
   - SQLCipher (~> 3.3.1)
-  - TZImagePickerController
 
 EXTERNAL SOURCES:
   Qiniu:
@@ -107,8 +105,7 @@ SPEC CHECKSUMS:
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SnapKit: 0dd2fd157330f1ea11fd84da13e6be8a7a22bae0
   SQLCipher: d490d2effe735895d2204d25a154b1e722278421
-  TZImagePickerController: d9c1b5af69ace10242fae6dbe418c2bed74bb3e9
 
-PODFILE CHECKSUM: a50b0885708325fd8b5d1c9824296280dab3e16f
+PODFILE CHECKSUM: 9070baf3029259f9b3a5213980b2a96802a149ef
 
 COCOAPODS: 1.0.0

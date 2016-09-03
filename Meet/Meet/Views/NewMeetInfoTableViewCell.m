@@ -89,6 +89,9 @@
             make.height.offset(titleHeight);
         }];
     }
+    [self.contentView bringSubviewToFront:_interestView];
+    [self updateFocusIfNeeded];
+    [self updateConstraints];
 }
 
 - (void)isHaveShadowColor:(BOOL)isShadowColor

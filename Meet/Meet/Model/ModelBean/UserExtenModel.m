@@ -53,6 +53,7 @@ static UserExtenModel *userExten = nil;
     }else{
         
     }
+    [UserExtenModel shareInstance].experience = nil;
     [UserExtenModel shareInstance].auth_info  = nil;
     [UserExtenModel shareInstance].cover_photo  = nil;
     [UserExtenModel shareInstance].highlight  = nil;
@@ -75,6 +76,7 @@ static UserExtenModel *userExten = nil;
 {
     self = [self init];
     if (self) {
+        self.experience = [aDecoder decodeObjectForKey:@"experience"];
         self.auth_info = [aDecoder decodeObjectForKey:@"auth_info"];
         self.cover_photo = [aDecoder decodeObjectForKey:@"cover_photo"];
         self.highlight = [aDecoder decodeObjectForKey:@"highlight"];
@@ -86,6 +88,7 @@ static UserExtenModel *userExten = nil;
 
 #pragma mark - NSCoding
 - (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.experience forKey:@"experience"];
     [aCoder encodeObject:self.auth_info forKey:@"auth_info"];
     [aCoder encodeObject:self.cover_photo forKey:@"cover_photo"];
     [aCoder encodeObject:self.highlight forKey:@"highlight"];
@@ -112,6 +115,7 @@ static UserExtenModel *userExten = nil;
 {
     [UserExtenModel shareInstance].auth_info  = [dic objectForKey:@"auth_info"];
     Cover_photo *coverPhoto = dic[@"cover_photo"];
+    [UserExtenModel shareInstance].experience = dic[@"experience"];
     [UserExtenModel shareInstance].cover_photo  = coverPhoto;
     [UserExtenModel shareInstance].highlight  = dic[@"highlight"];
     NSMutableArray *details = [NSMutableArray array];

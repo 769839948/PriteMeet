@@ -46,6 +46,8 @@ static const void *NavigationBarView = &NavigationBarView;
     self.navigationBarlineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
 }
 
+
+
 - (void)navigationItemCleanColorWithNotLine
 {
     [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
@@ -67,11 +69,23 @@ static const void *NavigationBarView = &NavigationBarView;
 
 - (void)addLineNavigationBottom
 {
-    self.navigationBarlineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 43.5, ScreenWidth, 0.5)];
-    self.navigationBarlineLabel.tag = 10000000;
-    self.navigationBarlineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
-    [self.navigationController.navigationBar addSubview:self.navigationBarlineLabel];
+    if ([self.navigationController.navigationBar viewWithTag:10000000] == nil) {
+        self.navigationBarlineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 43.5, ScreenWidth, 0.5)];
+        self.navigationBarlineLabel.tag = 10000000;
+        self.navigationBarlineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
+        [self.navigationController.navigationBar addSubview:self.navigationBarlineLabel];
+    }else{
+        self.navigationBarlineLabel = [self.navigationController.navigationBar viewWithTag:10000000];
+        self.navigationBarlineLabel.hidden = NO;
+        self.navigationBarlineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
+    }
+}
 
+- (void)removeBottomLine
+{
+    self.navigationBarlineLabel = [self.navigationController.navigationBar viewWithTag:10000000];
+    self.navigationBarlineLabel.hidden = YES;
+    self.navigationBarlineLabel.backgroundColor = [UIColor redColor];
 }
 
 - (void)createNavigationBar

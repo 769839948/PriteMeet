@@ -111,17 +111,17 @@
             }
         }
     }
-    __weak typeof(self) weakSelf = self;
-    [_viewModel addStar:string success:^(NSDictionary *object) {
-        [UserExtenModel shareInstance].highlight = string;
-        [weakSelf dismissViewControllerAnimated:YES completion:^{
-            
-        }];
-    } fail:^(NSDictionary *object) {
-        
-    } loadingString:^(NSString *str) {
-        
-    }];
+//    __weak typeof(self) weakSelf = self;
+//    [_viewModel addStar:string success:^(NSDictionary *object) {
+//        [UserExtenModel shareInstance].highlight = string;
+//        [weakSelf dismissViewControllerAnimated:YES completion:^{
+//            
+//        }];
+//    } fail:^(NSDictionary *object) {
+//        
+//    } loadingString:^(NSString *str) {
+//        
+//    }];
     
 }
 

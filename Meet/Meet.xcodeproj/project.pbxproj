@@ -195,6 +195,87 @@
 		1FFEE34B1D7805D600EEC61F /* AboutUsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE34A1D7805D600EEC61F /* AboutUsCell.swift */; };
 		1FFEE34D1D7827B600EEC61F /* HightLightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE34C1D7827B600EEC61F /* HightLightViewController.swift */; };
 		1FFEE34F1D798B7000EEC61F /* logoutTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE34E1D798B7000EEC61F /* logoutTableView.swift */; };
+		1FFEE4D01D7A682A00EEC61F /* PhotoBrowser+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4BD1D7A682A00EEC61F /* PhotoBrowser+Common.swift */; };
+		1FFEE4D11D7A682A00EEC61F /* pic.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1FFEE4BE1D7A682A00EEC61F /* pic.bundle */; };
+		1FFEE4D21D7A682A00EEC61F /* PhotoBrowser+CollectionViewExtend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4C01D7A682A00EEC61F /* PhotoBrowser+CollectionViewExtend.swift */; };
+		1FFEE4D31D7A682A00EEC61F /* PhotoBrowser+HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4C11D7A682A00EEC61F /* PhotoBrowser+HUD.swift */; };
+		1FFEE4D41D7A682A00EEC61F /* PhotoBrowser+Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4C21D7A682A00EEC61F /* PhotoBrowser+Indicator.swift */; };
+		1FFEE4D51D7A682A00EEC61F /* PhotoBrowser+Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4C31D7A682A00EEC61F /* PhotoBrowser+Main.swift */; };
+		1FFEE4D61D7A682A00EEC61F /* PhotoBrowser+PBType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4C41D7A682A00EEC61F /* PhotoBrowser+PBType.swift */; };
+		1FFEE4D71D7A682A00EEC61F /* PhotoBrowser+ZoomAnim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4C51D7A682A00EEC61F /* PhotoBrowser+ZoomAnim.swift */; };
+		1FFEE4D81D7A682A00EEC61F /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4C71D7A682A00EEC61F /* Layout.swift */; };
+		1FFEE4D91D7A682B00EEC61F /* PhotoBrowser+Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4C91D7A682A00EEC61F /* PhotoBrowser+Model.swift */; };
+		1FFEE4DA1D7A682B00EEC61F /* PhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4CA1D7A682A00EEC61F /* PhotoBrowser.swift */; };
+		1FFEE4DB1D7A682B00EEC61F /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4CC1D7A682A00EEC61F /* CollectionView.swift */; };
+		1FFEE4DC1D7A682B00EEC61F /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4CD1D7A682A00EEC61F /* ItemCell.swift */; };
+		1FFEE4DD1D7A682B00EEC61F /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FFEE4CE1D7A682A00EEC61F /* ItemCell.xib */; };
+		1FFEE4DE1D7A682B00EEC61F /* ShowImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4CF1D7A682A00EEC61F /* ShowImageView.swift */; };
+		1FFEE52B1D7A683200EEC61F /* CFSnapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4E11D7A683200EEC61F /* CFSnapKit.swift */; };
+		1FFEE5391D7A683200EEC61F /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4F21D7A683200EEC61F /* Cache.swift */; };
+		1FFEE53A1D7A683200EEC61F /* CGSize+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4F31D7A683200EEC61F /* CGSize+Swift.swift */; };
+		1FFEE53B1D7A683200EEC61F /* CryptoSwiftMD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4F41D7A683200EEC61F /* CryptoSwiftMD5.swift */; };
+		1FFEE53C1D7A683200EEC61F /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4F51D7A683200EEC61F /* Data.swift */; };
+		1FFEE53D1D7A683200EEC61F /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4F61D7A683200EEC61F /* DiskCache.swift */; };
+		1FFEE53E1D7A683200EEC61F /* DiskFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4F71D7A683200EEC61F /* DiskFetcher.swift */; };
+		1FFEE53F1D7A683200EEC61F /* Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4F81D7A683200EEC61F /* Fetch.swift */; };
+		1FFEE5401D7A683200EEC61F /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4F91D7A683200EEC61F /* Fetcher.swift */; };
+		1FFEE5411D7A683200EEC61F /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4FA1D7A683200EEC61F /* Format.swift */; };
+		1FFEE5421D7A683200EEC61F /* Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4FC1D7A683200EEC61F /* Haneke.swift */; };
+		1FFEE5431D7A683200EEC61F /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4FD1D7A683200EEC61F /* Log.swift */; };
+		1FFEE5441D7A683200EEC61F /* NetworkFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4FE1D7A683200EEC61F /* NetworkFetcher.swift */; };
+		1FFEE5451D7A683200EEC61F /* NSFileManager+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE4FF1D7A683200EEC61F /* NSFileManager+Haneke.swift */; };
+		1FFEE5461D7A683200EEC61F /* NSHTTPURLResponse+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5001D7A683200EEC61F /* NSHTTPURLResponse+Haneke.swift */; };
+		1FFEE5471D7A683200EEC61F /* NSURLResponse+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5011D7A683200EEC61F /* NSURLResponse+Haneke.swift */; };
+		1FFEE5481D7A683200EEC61F /* String+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5021D7A683200EEC61F /* String+Haneke.swift */; };
+		1FFEE5491D7A683200EEC61F /* UIButton+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5031D7A683200EEC61F /* UIButton+Haneke.swift */; };
+		1FFEE54A1D7A683200EEC61F /* UIImage+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5041D7A683200EEC61F /* UIImage+Haneke.swift */; };
+		1FFEE54B1D7A683200EEC61F /* UIImageView+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5051D7A683200EEC61F /* UIImageView+Haneke.swift */; };
+		1FFEE54C1D7A683200EEC61F /* UIView+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5061D7A683200EEC61F /* UIView+Haneke.swift */; };
+		1FFEE54D1D7A683200EEC61F /* NVActivityIndicatorAnimationBallBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5091D7A683200EEC61F /* NVActivityIndicatorAnimationBallBeat.swift */; };
+		1FFEE54E1D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE50A1D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotate.swift */; };
+		1FFEE54F1D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE50B1D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift */; };
+		1FFEE5501D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotatePulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE50C1D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotatePulse.swift */; };
+		1FFEE5511D7A683200EEC61F /* NVActivityIndicatorAnimationBallGridBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE50D1D7A683200EEC61F /* NVActivityIndicatorAnimationBallGridBeat.swift */; };
+		1FFEE5521D7A683200EEC61F /* NVActivityIndicatorAnimationBallGridPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE50E1D7A683200EEC61F /* NVActivityIndicatorAnimationBallGridPulse.swift */; };
+		1FFEE5531D7A683200EEC61F /* NVActivityIndicatorAnimationBallPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE50F1D7A683200EEC61F /* NVActivityIndicatorAnimationBallPulse.swift */; };
+		1FFEE5541D7A683200EEC61F /* NVActivityIndicatorAnimationBallPulseRise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5101D7A683200EEC61F /* NVActivityIndicatorAnimationBallPulseRise.swift */; };
+		1FFEE5551D7A683200EEC61F /* NVActivityIndicatorAnimationBallPulseSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5111D7A683200EEC61F /* NVActivityIndicatorAnimationBallPulseSync.swift */; };
+		1FFEE5561D7A683200EEC61F /* NVActivityIndicatorAnimationBallRotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5121D7A683200EEC61F /* NVActivityIndicatorAnimationBallRotate.swift */; };
+		1FFEE5571D7A683200EEC61F /* NVActivityIndicatorAnimationBallRotateChase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5131D7A683200EEC61F /* NVActivityIndicatorAnimationBallRotateChase.swift */; };
+		1FFEE5581D7A683200EEC61F /* NVActivityIndicatorAnimationBallScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5141D7A683200EEC61F /* NVActivityIndicatorAnimationBallScale.swift */; };
+		1FFEE5591D7A683200EEC61F /* NVActivityIndicatorAnimationBallScaleMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5151D7A683200EEC61F /* NVActivityIndicatorAnimationBallScaleMultiple.swift */; };
+		1FFEE55A1D7A683200EEC61F /* NVActivityIndicatorAnimationBallScaleRipple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5161D7A683200EEC61F /* NVActivityIndicatorAnimationBallScaleRipple.swift */; };
+		1FFEE55B1D7A683200EEC61F /* NVActivityIndicatorAnimationBallScaleRippleMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5171D7A683200EEC61F /* NVActivityIndicatorAnimationBallScaleRippleMultiple.swift */; };
+		1FFEE55C1D7A683200EEC61F /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5181D7A683200EEC61F /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift */; };
+		1FFEE55D1D7A683200EEC61F /* NVActivityIndicatorAnimationBallTrianglePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5191D7A683200EEC61F /* NVActivityIndicatorAnimationBallTrianglePath.swift */; };
+		1FFEE55E1D7A683200EEC61F /* NVActivityIndicatorAnimationBallZigZag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE51A1D7A683200EEC61F /* NVActivityIndicatorAnimationBallZigZag.swift */; };
+		1FFEE55F1D7A683200EEC61F /* NVActivityIndicatorAnimationBallZigZagDeflect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE51B1D7A683200EEC61F /* NVActivityIndicatorAnimationBallZigZagDeflect.swift */; };
+		1FFEE5601D7A683200EEC61F /* NVActivityIndicatorAnimationBlank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE51C1D7A683200EEC61F /* NVActivityIndicatorAnimationBlank.swift */; };
+		1FFEE5611D7A683200EEC61F /* NVActivityIndicatorAnimationCubeTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE51D1D7A683200EEC61F /* NVActivityIndicatorAnimationCubeTransition.swift */; };
+		1FFEE5621D7A683200EEC61F /* NVActivityIndicatorAnimationLineScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE51E1D7A683200EEC61F /* NVActivityIndicatorAnimationLineScale.swift */; };
+		1FFEE5631D7A683200EEC61F /* NVActivityIndicatorAnimationLineScaleParty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE51F1D7A683200EEC61F /* NVActivityIndicatorAnimationLineScaleParty.swift */; };
+		1FFEE5641D7A683200EEC61F /* NVActivityIndicatorAnimationLineScalePulseOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5201D7A683200EEC61F /* NVActivityIndicatorAnimationLineScalePulseOut.swift */; };
+		1FFEE5651D7A683200EEC61F /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5211D7A683200EEC61F /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift */; };
+		1FFEE5661D7A683200EEC61F /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5221D7A683200EEC61F /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift */; };
+		1FFEE5671D7A683200EEC61F /* NVActivityIndicatorAnimationPacman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5231D7A683200EEC61F /* NVActivityIndicatorAnimationPacman.swift */; };
+		1FFEE5681D7A683200EEC61F /* NVActivityIndicatorAnimationSemiCircleSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5241D7A683200EEC61F /* NVActivityIndicatorAnimationSemiCircleSpin.swift */; };
+		1FFEE5691D7A683200EEC61F /* NVActivityIndicatorAnimationSquareSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5251D7A683200EEC61F /* NVActivityIndicatorAnimationSquareSpin.swift */; };
+		1FFEE56A1D7A683200EEC61F /* NVActivityIndicatorAnimationTriangleSkewSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5261D7A683200EEC61F /* NVActivityIndicatorAnimationTriangleSkewSpin.swift */; };
+		1FFEE56B1D7A683200EEC61F /* NVActivityIndicatorAnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5271D7A683200EEC61F /* NVActivityIndicatorAnimationDelegate.swift */; };
+		1FFEE56C1D7A683200EEC61F /* NVActivityIndicatorShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5281D7A683200EEC61F /* NVActivityIndicatorShape.swift */; };
+		1FFEE56D1D7A683200EEC61F /* NVActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE52A1D7A683200EEC61F /* NVActivityIndicatorView.swift */; };
+		1FFEE57B1D7AA92300EEC61F /* PhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE57A1D7AA92300EEC61F /* PhotoBrowserViewController.swift */; };
+		1FFEE5B91D7AAEB300EEC61F /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5A51D7AAEB300EEC61F /* NSBundle+TZImagePicker.m */; };
+		1FFEE5BA1D7AAEB300EEC61F /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5A71D7AAEB300EEC61F /* TZAssetCell.m */; };
+		1FFEE5BB1D7AAEB300EEC61F /* TZAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5A91D7AAEB300EEC61F /* TZAssetModel.m */; };
+		1FFEE5BC1D7AAEB300EEC61F /* TZImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5AB1D7AAEB300EEC61F /* TZImageManager.m */; };
+		1FFEE5BD1D7AAEB300EEC61F /* TZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1FFEE5AC1D7AAEB300EEC61F /* TZImagePickerController.bundle */; };
+		1FFEE5BE1D7AAEB300EEC61F /* TZImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5AE1D7AAEB300EEC61F /* TZImagePickerController.m */; };
+		1FFEE5BF1D7AAEB300EEC61F /* TZPhotoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5B01D7AAEB300EEC61F /* TZPhotoPickerController.m */; };
+		1FFEE5C01D7AAEB300EEC61F /* TZPhotoPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5B21D7AAEB300EEC61F /* TZPhotoPreviewCell.m */; };
+		1FFEE5C11D7AAEB300EEC61F /* TZPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5B41D7AAEB300EEC61F /* TZPhotoPreviewController.m */; };
+		1FFEE5C21D7AAEB300EEC61F /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5B61D7AAEB300EEC61F /* TZVideoPlayerController.m */; };
+		1FFEE5C31D7AAEB300EEC61F /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5B81D7AAEB300EEC61F /* UIView+Layout.m */; };
 		DA018F2E1CD39D570051D2D7 /* ManListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F2C1CD39D570051D2D7 /* ManListCell.m */; };
 		DA018F391CD44B210051D2D7 /* ThreeImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F381CD44B210051D2D7 /* ThreeImageCell.m */; };
 		DA018F4E1CD4C03B0051D2D7 /* MyPhotoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DA018F4D1CD4C03B0051D2D7 /* MyPhotoItem.m */; };
@@ -551,6 +632,99 @@
 		1FFEE34A1D7805D600EEC61F /* AboutUsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsCell.swift; sourceTree = "<group>"; };
 		1FFEE34C1D7827B600EEC61F /* HightLightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HightLightViewController.swift; sourceTree = "<group>"; };
 		1FFEE34E1D798B7000EEC61F /* logoutTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = logoutTableView.swift; sourceTree = "<group>"; };
+		1FFEE4BD1D7A682A00EEC61F /* PhotoBrowser+Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoBrowser+Common.swift"; sourceTree = "<group>"; };
+		1FFEE4BE1D7A682A00EEC61F /* pic.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = pic.bundle; sourceTree = "<group>"; };
+		1FFEE4C01D7A682A00EEC61F /* PhotoBrowser+CollectionViewExtend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoBrowser+CollectionViewExtend.swift"; sourceTree = "<group>"; };
+		1FFEE4C11D7A682A00EEC61F /* PhotoBrowser+HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoBrowser+HUD.swift"; sourceTree = "<group>"; };
+		1FFEE4C21D7A682A00EEC61F /* PhotoBrowser+Indicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoBrowser+Indicator.swift"; sourceTree = "<group>"; };
+		1FFEE4C31D7A682A00EEC61F /* PhotoBrowser+Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoBrowser+Main.swift"; sourceTree = "<group>"; };
+		1FFEE4C41D7A682A00EEC61F /* PhotoBrowser+PBType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoBrowser+PBType.swift"; sourceTree = "<group>"; };
+		1FFEE4C51D7A682A00EEC61F /* PhotoBrowser+ZoomAnim.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoBrowser+ZoomAnim.swift"; sourceTree = "<group>"; };
+		1FFEE4C71D7A682A00EEC61F /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
+		1FFEE4C91D7A682A00EEC61F /* PhotoBrowser+Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoBrowser+Model.swift"; sourceTree = "<group>"; };
+		1FFEE4CA1D7A682A00EEC61F /* PhotoBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoBrowser.swift; sourceTree = "<group>"; };
+		1FFEE4CC1D7A682A00EEC61F /* CollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
+		1FFEE4CD1D7A682A00EEC61F /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+		1FFEE4CE1D7A682A00EEC61F /* ItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
+		1FFEE4CF1D7A682A00EEC61F /* ShowImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowImageView.swift; sourceTree = "<group>"; };
+		1FFEE4E11D7A683200EEC61F /* CFSnapKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CFSnapKit.swift; sourceTree = "<group>"; };
+		1FFEE4F21D7A683200EEC61F /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		1FFEE4F31D7A683200EEC61F /* CGSize+Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Swift.swift"; sourceTree = "<group>"; };
+		1FFEE4F41D7A683200EEC61F /* CryptoSwiftMD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoSwiftMD5.swift; sourceTree = "<group>"; };
+		1FFEE4F51D7A683200EEC61F /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		1FFEE4F61D7A683200EEC61F /* DiskCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
+		1FFEE4F71D7A683200EEC61F /* DiskFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskFetcher.swift; sourceTree = "<group>"; };
+		1FFEE4F81D7A683200EEC61F /* Fetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fetch.swift; sourceTree = "<group>"; };
+		1FFEE4F91D7A683200EEC61F /* Fetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
+		1FFEE4FA1D7A683200EEC61F /* Format.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
+		1FFEE4FB1D7A683200EEC61F /* Haneke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Haneke.h; sourceTree = "<group>"; };
+		1FFEE4FC1D7A683200EEC61F /* Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Haneke.swift; sourceTree = "<group>"; };
+		1FFEE4FD1D7A683200EEC61F /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		1FFEE4FE1D7A683200EEC61F /* NetworkFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkFetcher.swift; sourceTree = "<group>"; };
+		1FFEE4FF1D7A683200EEC61F /* NSFileManager+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSFileManager+Haneke.swift"; sourceTree = "<group>"; };
+		1FFEE5001D7A683200EEC61F /* NSHTTPURLResponse+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSHTTPURLResponse+Haneke.swift"; sourceTree = "<group>"; };
+		1FFEE5011D7A683200EEC61F /* NSURLResponse+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLResponse+Haneke.swift"; sourceTree = "<group>"; };
+		1FFEE5021D7A683200EEC61F /* String+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Haneke.swift"; sourceTree = "<group>"; };
+		1FFEE5031D7A683200EEC61F /* UIButton+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Haneke.swift"; sourceTree = "<group>"; };
+		1FFEE5041D7A683200EEC61F /* UIImage+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Haneke.swift"; sourceTree = "<group>"; };
+		1FFEE5051D7A683200EEC61F /* UIImageView+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Haneke.swift"; sourceTree = "<group>"; };
+		1FFEE5061D7A683200EEC61F /* UIView+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Haneke.swift"; sourceTree = "<group>"; };
+		1FFEE5091D7A683200EEC61F /* NVActivityIndicatorAnimationBallBeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallBeat.swift; sourceTree = "<group>"; };
+		1FFEE50A1D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallClipRotate.swift; sourceTree = "<group>"; };
+		1FFEE50B1D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallClipRotateMultiple.swift; sourceTree = "<group>"; };
+		1FFEE50C1D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotatePulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallClipRotatePulse.swift; sourceTree = "<group>"; };
+		1FFEE50D1D7A683200EEC61F /* NVActivityIndicatorAnimationBallGridBeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallGridBeat.swift; sourceTree = "<group>"; };
+		1FFEE50E1D7A683200EEC61F /* NVActivityIndicatorAnimationBallGridPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallGridPulse.swift; sourceTree = "<group>"; };
+		1FFEE50F1D7A683200EEC61F /* NVActivityIndicatorAnimationBallPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallPulse.swift; sourceTree = "<group>"; };
+		1FFEE5101D7A683200EEC61F /* NVActivityIndicatorAnimationBallPulseRise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallPulseRise.swift; sourceTree = "<group>"; };
+		1FFEE5111D7A683200EEC61F /* NVActivityIndicatorAnimationBallPulseSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallPulseSync.swift; sourceTree = "<group>"; };
+		1FFEE5121D7A683200EEC61F /* NVActivityIndicatorAnimationBallRotate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallRotate.swift; sourceTree = "<group>"; };
+		1FFEE5131D7A683200EEC61F /* NVActivityIndicatorAnimationBallRotateChase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallRotateChase.swift; sourceTree = "<group>"; };
+		1FFEE5141D7A683200EEC61F /* NVActivityIndicatorAnimationBallScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallScale.swift; sourceTree = "<group>"; };
+		1FFEE5151D7A683200EEC61F /* NVActivityIndicatorAnimationBallScaleMultiple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallScaleMultiple.swift; sourceTree = "<group>"; };
+		1FFEE5161D7A683200EEC61F /* NVActivityIndicatorAnimationBallScaleRipple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallScaleRipple.swift; sourceTree = "<group>"; };
+		1FFEE5171D7A683200EEC61F /* NVActivityIndicatorAnimationBallScaleRippleMultiple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallScaleRippleMultiple.swift; sourceTree = "<group>"; };
+		1FFEE5181D7A683200EEC61F /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallSpinFadeLoader.swift; sourceTree = "<group>"; };
+		1FFEE5191D7A683200EEC61F /* NVActivityIndicatorAnimationBallTrianglePath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallTrianglePath.swift; sourceTree = "<group>"; };
+		1FFEE51A1D7A683200EEC61F /* NVActivityIndicatorAnimationBallZigZag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallZigZag.swift; sourceTree = "<group>"; };
+		1FFEE51B1D7A683200EEC61F /* NVActivityIndicatorAnimationBallZigZagDeflect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallZigZagDeflect.swift; sourceTree = "<group>"; };
+		1FFEE51C1D7A683200EEC61F /* NVActivityIndicatorAnimationBlank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBlank.swift; sourceTree = "<group>"; };
+		1FFEE51D1D7A683200EEC61F /* NVActivityIndicatorAnimationCubeTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationCubeTransition.swift; sourceTree = "<group>"; };
+		1FFEE51E1D7A683200EEC61F /* NVActivityIndicatorAnimationLineScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationLineScale.swift; sourceTree = "<group>"; };
+		1FFEE51F1D7A683200EEC61F /* NVActivityIndicatorAnimationLineScaleParty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationLineScaleParty.swift; sourceTree = "<group>"; };
+		1FFEE5201D7A683200EEC61F /* NVActivityIndicatorAnimationLineScalePulseOut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationLineScalePulseOut.swift; sourceTree = "<group>"; };
+		1FFEE5211D7A683200EEC61F /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationLineScalePulseOutRapid.swift; sourceTree = "<group>"; };
+		1FFEE5221D7A683200EEC61F /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationLineSpinFadeLoader.swift; sourceTree = "<group>"; };
+		1FFEE5231D7A683200EEC61F /* NVActivityIndicatorAnimationPacman.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationPacman.swift; sourceTree = "<group>"; };
+		1FFEE5241D7A683200EEC61F /* NVActivityIndicatorAnimationSemiCircleSpin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationSemiCircleSpin.swift; sourceTree = "<group>"; };
+		1FFEE5251D7A683200EEC61F /* NVActivityIndicatorAnimationSquareSpin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationSquareSpin.swift; sourceTree = "<group>"; };
+		1FFEE5261D7A683200EEC61F /* NVActivityIndicatorAnimationTriangleSkewSpin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationTriangleSkewSpin.swift; sourceTree = "<group>"; };
+		1FFEE5271D7A683200EEC61F /* NVActivityIndicatorAnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationDelegate.swift; sourceTree = "<group>"; };
+		1FFEE5281D7A683200EEC61F /* NVActivityIndicatorShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorShape.swift; sourceTree = "<group>"; };
+		1FFEE5291D7A683200EEC61F /* NVActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVActivityIndicatorView.h; sourceTree = "<group>"; };
+		1FFEE52A1D7A683200EEC61F /* NVActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorView.swift; sourceTree = "<group>"; };
+		1FFEE57A1D7AA92300EEC61F /* PhotoBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoBrowserViewController.swift; sourceTree = "<group>"; };
+		1FFEE5A41D7AAEB300EEC61F /* NSBundle+TZImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+TZImagePicker.h"; sourceTree = "<group>"; };
+		1FFEE5A51D7AAEB300EEC61F /* NSBundle+TZImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+TZImagePicker.m"; sourceTree = "<group>"; };
+		1FFEE5A61D7AAEB300EEC61F /* TZAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZAssetCell.h; sourceTree = "<group>"; };
+		1FFEE5A71D7AAEB300EEC61F /* TZAssetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZAssetCell.m; sourceTree = "<group>"; };
+		1FFEE5A81D7AAEB300EEC61F /* TZAssetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZAssetModel.h; sourceTree = "<group>"; };
+		1FFEE5A91D7AAEB300EEC61F /* TZAssetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZAssetModel.m; sourceTree = "<group>"; };
+		1FFEE5AA1D7AAEB300EEC61F /* TZImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZImageManager.h; sourceTree = "<group>"; };
+		1FFEE5AB1D7AAEB300EEC61F /* TZImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageManager.m; sourceTree = "<group>"; };
+		1FFEE5AC1D7AAEB300EEC61F /* TZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TZImagePickerController.bundle; sourceTree = "<group>"; };
+		1FFEE5AD1D7AAEB300EEC61F /* TZImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZImagePickerController.h; sourceTree = "<group>"; };
+		1FFEE5AE1D7AAEB300EEC61F /* TZImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImagePickerController.m; sourceTree = "<group>"; };
+		1FFEE5AF1D7AAEB300EEC61F /* TZPhotoPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPickerController.h; sourceTree = "<group>"; };
+		1FFEE5B01D7AAEB300EEC61F /* TZPhotoPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZPhotoPickerController.m; sourceTree = "<group>"; };
+		1FFEE5B11D7AAEB300EEC61F /* TZPhotoPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPreviewCell.h; sourceTree = "<group>"; };
+		1FFEE5B21D7AAEB300EEC61F /* TZPhotoPreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZPhotoPreviewCell.m; sourceTree = "<group>"; };
+		1FFEE5B31D7AAEB300EEC61F /* TZPhotoPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPreviewController.h; sourceTree = "<group>"; };
+		1FFEE5B41D7AAEB300EEC61F /* TZPhotoPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZPhotoPreviewController.m; sourceTree = "<group>"; };
+		1FFEE5B51D7AAEB300EEC61F /* TZVideoPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZVideoPlayerController.h; sourceTree = "<group>"; };
+		1FFEE5B61D7AAEB300EEC61F /* TZVideoPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZVideoPlayerController.m; sourceTree = "<group>"; };
+		1FFEE5B71D7AAEB300EEC61F /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
+		1FFEE5B81D7AAEB300EEC61F /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
 		DA018F2B1CD39D570051D2D7 /* ManListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ManListCell.h; path = ../Views/ManListCell.h; sourceTree = "<group>"; };
 		DA018F2C1CD39D570051D2D7 /* ManListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ManListCell.m; path = ../Views/ManListCell.m; sourceTree = "<group>"; };
 		DA018F371CD44B210051D2D7 /* ThreeImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreeImageCell.h; sourceTree = "<group>"; };
@@ -820,6 +994,8 @@
 		1F6850171CFFD30E007F3C07 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1FFEE5A31D7AAEB300EEC61F /* TZImagePickerController */,
+				1FFEE4BB1D7A682A00EEC61F /* PhotoBrowser */,
 				1F9DCEFF1D4C50C2001467E6 /* TYPagerController */,
 				1FBBC31E1D3A09A2005D4175 /* PwdLabel */,
 				1FF30A2E1D31ECF40051333F /* AMScrollingNavbar */,
@@ -1161,6 +1337,7 @@
 				1FC4C08A1D0D590E00E4BB33 /* MeViewController.swift */,
 				1FF3C50A1D2B842400BE89A9 /* SenderInviteViewController.swift */,
 				1F8FF7711D6ECE8B00C7A5B9 /* LikeManViewController.swift */,
+				1FFEE57A1D7AA92300EEC61F /* PhotoBrowserViewController.swift */,
 				DA6CEF0D1CDAF33300EEABFF /* MyProfileViewController.h */,
 				DA6CEF0E1CDAF33300EEABFF /* MyProfileViewController.m */,
 				DA6CEF111CDAF42300EEABFF /* AddInformationViewController.h */,
@@ -1285,6 +1462,192 @@
 				1FF30A321D31ECF40051333F /* ScrollingNavigationViewController.swift */,
 			);
 			path = AMScrollingNavbar;
+			sourceTree = "<group>";
+		};
+		1FFEE4BB1D7A682A00EEC61F /* PhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				1FFEE4DF1D7A683200EEC61F /* Frameworks */,
+				1FFEE4BC1D7A682A00EEC61F /* Common */,
+				1FFEE4BF1D7A682A00EEC61F /* Controller */,
+				1FFEE4C61D7A682A00EEC61F /* Layout */,
+				1FFEE4C81D7A682A00EEC61F /* Model */,
+				1FFEE4CA1D7A682A00EEC61F /* PhotoBrowser.swift */,
+				1FFEE4CB1D7A682A00EEC61F /* View */,
+			);
+			path = PhotoBrowser;
+			sourceTree = "<group>";
+		};
+		1FFEE4BC1D7A682A00EEC61F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				1FFEE4BD1D7A682A00EEC61F /* PhotoBrowser+Common.swift */,
+				1FFEE4BE1D7A682A00EEC61F /* pic.bundle */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		1FFEE4BF1D7A682A00EEC61F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1FFEE4C01D7A682A00EEC61F /* PhotoBrowser+CollectionViewExtend.swift */,
+				1FFEE4C11D7A682A00EEC61F /* PhotoBrowser+HUD.swift */,
+				1FFEE4C21D7A682A00EEC61F /* PhotoBrowser+Indicator.swift */,
+				1FFEE4C31D7A682A00EEC61F /* PhotoBrowser+Main.swift */,
+				1FFEE4C41D7A682A00EEC61F /* PhotoBrowser+PBType.swift */,
+				1FFEE4C51D7A682A00EEC61F /* PhotoBrowser+ZoomAnim.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		1FFEE4C61D7A682A00EEC61F /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				1FFEE4C71D7A682A00EEC61F /* Layout.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
+		1FFEE4C81D7A682A00EEC61F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1FFEE4C91D7A682A00EEC61F /* PhotoBrowser+Model.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1FFEE4CB1D7A682A00EEC61F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1FFEE4CC1D7A682A00EEC61F /* CollectionView.swift */,
+				1FFEE4CD1D7A682A00EEC61F /* ItemCell.swift */,
+				1FFEE4CE1D7A682A00EEC61F /* ItemCell.xib */,
+				1FFEE4CF1D7A682A00EEC61F /* ShowImageView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1FFEE4DF1D7A683200EEC61F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1FFEE4E01D7A683200EEC61F /* CFSnapKit */,
+				1FFEE4F11D7A683200EEC61F /* Haneke */,
+				1FFEE5071D7A683200EEC61F /* NVActivityIndicatorView */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		1FFEE4E01D7A683200EEC61F /* CFSnapKit */ = {
+			isa = PBXGroup;
+			children = (
+				1FFEE4E11D7A683200EEC61F /* CFSnapKit.swift */,
+			);
+			path = CFSnapKit;
+			sourceTree = "<group>";
+		};
+		1FFEE4F11D7A683200EEC61F /* Haneke */ = {
+			isa = PBXGroup;
+			children = (
+				1FFEE4F21D7A683200EEC61F /* Cache.swift */,
+				1FFEE4F31D7A683200EEC61F /* CGSize+Swift.swift */,
+				1FFEE4F41D7A683200EEC61F /* CryptoSwiftMD5.swift */,
+				1FFEE4F51D7A683200EEC61F /* Data.swift */,
+				1FFEE4F61D7A683200EEC61F /* DiskCache.swift */,
+				1FFEE4F71D7A683200EEC61F /* DiskFetcher.swift */,
+				1FFEE4F81D7A683200EEC61F /* Fetch.swift */,
+				1FFEE4F91D7A683200EEC61F /* Fetcher.swift */,
+				1FFEE4FA1D7A683200EEC61F /* Format.swift */,
+				1FFEE4FB1D7A683200EEC61F /* Haneke.h */,
+				1FFEE4FC1D7A683200EEC61F /* Haneke.swift */,
+				1FFEE4FD1D7A683200EEC61F /* Log.swift */,
+				1FFEE4FE1D7A683200EEC61F /* NetworkFetcher.swift */,
+				1FFEE4FF1D7A683200EEC61F /* NSFileManager+Haneke.swift */,
+				1FFEE5001D7A683200EEC61F /* NSHTTPURLResponse+Haneke.swift */,
+				1FFEE5011D7A683200EEC61F /* NSURLResponse+Haneke.swift */,
+				1FFEE5021D7A683200EEC61F /* String+Haneke.swift */,
+				1FFEE5031D7A683200EEC61F /* UIButton+Haneke.swift */,
+				1FFEE5041D7A683200EEC61F /* UIImage+Haneke.swift */,
+				1FFEE5051D7A683200EEC61F /* UIImageView+Haneke.swift */,
+				1FFEE5061D7A683200EEC61F /* UIView+Haneke.swift */,
+			);
+			path = Haneke;
+			sourceTree = "<group>";
+		};
+		1FFEE5071D7A683200EEC61F /* NVActivityIndicatorView */ = {
+			isa = PBXGroup;
+			children = (
+				1FFEE5081D7A683200EEC61F /* Animations */,
+				1FFEE5271D7A683200EEC61F /* NVActivityIndicatorAnimationDelegate.swift */,
+				1FFEE5281D7A683200EEC61F /* NVActivityIndicatorShape.swift */,
+				1FFEE5291D7A683200EEC61F /* NVActivityIndicatorView.h */,
+				1FFEE52A1D7A683200EEC61F /* NVActivityIndicatorView.swift */,
+			);
+			path = NVActivityIndicatorView;
+			sourceTree = "<group>";
+		};
+		1FFEE5081D7A683200EEC61F /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				1FFEE5091D7A683200EEC61F /* NVActivityIndicatorAnimationBallBeat.swift */,
+				1FFEE50A1D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotate.swift */,
+				1FFEE50B1D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift */,
+				1FFEE50C1D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotatePulse.swift */,
+				1FFEE50D1D7A683200EEC61F /* NVActivityIndicatorAnimationBallGridBeat.swift */,
+				1FFEE50E1D7A683200EEC61F /* NVActivityIndicatorAnimationBallGridPulse.swift */,
+				1FFEE50F1D7A683200EEC61F /* NVActivityIndicatorAnimationBallPulse.swift */,
+				1FFEE5101D7A683200EEC61F /* NVActivityIndicatorAnimationBallPulseRise.swift */,
+				1FFEE5111D7A683200EEC61F /* NVActivityIndicatorAnimationBallPulseSync.swift */,
+				1FFEE5121D7A683200EEC61F /* NVActivityIndicatorAnimationBallRotate.swift */,
+				1FFEE5131D7A683200EEC61F /* NVActivityIndicatorAnimationBallRotateChase.swift */,
+				1FFEE5141D7A683200EEC61F /* NVActivityIndicatorAnimationBallScale.swift */,
+				1FFEE5151D7A683200EEC61F /* NVActivityIndicatorAnimationBallScaleMultiple.swift */,
+				1FFEE5161D7A683200EEC61F /* NVActivityIndicatorAnimationBallScaleRipple.swift */,
+				1FFEE5171D7A683200EEC61F /* NVActivityIndicatorAnimationBallScaleRippleMultiple.swift */,
+				1FFEE5181D7A683200EEC61F /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift */,
+				1FFEE5191D7A683200EEC61F /* NVActivityIndicatorAnimationBallTrianglePath.swift */,
+				1FFEE51A1D7A683200EEC61F /* NVActivityIndicatorAnimationBallZigZag.swift */,
+				1FFEE51B1D7A683200EEC61F /* NVActivityIndicatorAnimationBallZigZagDeflect.swift */,
+				1FFEE51C1D7A683200EEC61F /* NVActivityIndicatorAnimationBlank.swift */,
+				1FFEE51D1D7A683200EEC61F /* NVActivityIndicatorAnimationCubeTransition.swift */,
+				1FFEE51E1D7A683200EEC61F /* NVActivityIndicatorAnimationLineScale.swift */,
+				1FFEE51F1D7A683200EEC61F /* NVActivityIndicatorAnimationLineScaleParty.swift */,
+				1FFEE5201D7A683200EEC61F /* NVActivityIndicatorAnimationLineScalePulseOut.swift */,
+				1FFEE5211D7A683200EEC61F /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift */,
+				1FFEE5221D7A683200EEC61F /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift */,
+				1FFEE5231D7A683200EEC61F /* NVActivityIndicatorAnimationPacman.swift */,
+				1FFEE5241D7A683200EEC61F /* NVActivityIndicatorAnimationSemiCircleSpin.swift */,
+				1FFEE5251D7A683200EEC61F /* NVActivityIndicatorAnimationSquareSpin.swift */,
+				1FFEE5261D7A683200EEC61F /* NVActivityIndicatorAnimationTriangleSkewSpin.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
+		1FFEE5A31D7AAEB300EEC61F /* TZImagePickerController */ = {
+			isa = PBXGroup;
+			children = (
+				1FFEE5A41D7AAEB300EEC61F /* NSBundle+TZImagePicker.h */,
+				1FFEE5A51D7AAEB300EEC61F /* NSBundle+TZImagePicker.m */,
+				1FFEE5A61D7AAEB300EEC61F /* TZAssetCell.h */,
+				1FFEE5A71D7AAEB300EEC61F /* TZAssetCell.m */,
+				1FFEE5A81D7AAEB300EEC61F /* TZAssetModel.h */,
+				1FFEE5A91D7AAEB300EEC61F /* TZAssetModel.m */,
+				1FFEE5AA1D7AAEB300EEC61F /* TZImageManager.h */,
+				1FFEE5AB1D7AAEB300EEC61F /* TZImageManager.m */,
+				1FFEE5AC1D7AAEB300EEC61F /* TZImagePickerController.bundle */,
+				1FFEE5AD1D7AAEB300EEC61F /* TZImagePickerController.h */,
+				1FFEE5AE1D7AAEB300EEC61F /* TZImagePickerController.m */,
+				1FFEE5AF1D7AAEB300EEC61F /* TZPhotoPickerController.h */,
+				1FFEE5B01D7AAEB300EEC61F /* TZPhotoPickerController.m */,
+				1FFEE5B11D7AAEB300EEC61F /* TZPhotoPreviewCell.h */,
+				1FFEE5B21D7AAEB300EEC61F /* TZPhotoPreviewCell.m */,
+				1FFEE5B31D7AAEB300EEC61F /* TZPhotoPreviewController.h */,
+				1FFEE5B41D7AAEB300EEC61F /* TZPhotoPreviewController.m */,
+				1FFEE5B51D7AAEB300EEC61F /* TZVideoPlayerController.h */,
+				1FFEE5B61D7AAEB300EEC61F /* TZVideoPlayerController.m */,
+				1FFEE5B71D7AAEB300EEC61F /* UIView+Layout.h */,
+				1FFEE5B81D7AAEB300EEC61F /* UIView+Layout.m */,
+			);
+			path = TZImagePickerController;
 			sourceTree = "<group>";
 		};
 		5AF50953ADC31DBA8A53F5F5 /* Pods */ = {
@@ -1671,6 +2034,8 @@
 				1F3DC3331D0D0B890075B7BA /* MePhotoTableViewCell.xib in Resources */,
 				1FAA07891D3CE64A0017F3E3 /* OrderProfileTableViewCell.xib in Resources */,
 				1F810EC51D509D01008A5EF1 /* OrderCancelTableViewCell.xib in Resources */,
+				1FFEE4DD1D7A682B00EEC61F /* ItemCell.xib in Resources */,
+				1FFEE4D11D7A682A00EEC61F /* pic.bundle in Resources */,
 				1F79BAA21D06AF5C00814DED /* ProfileKeyValue.txt in Resources */,
 				1F8FF7861D6EDD0000C7A5B9 /* LikeListCollectionViewCell.xib in Resources */,
 				DAF5C8471CE2DA6E00DA7901 /* LabelTableViewCell.xib in Resources */,
@@ -1679,6 +2044,7 @@
 				1F3DC32B1D0D06ED0075B7BA /* MeInfoTableViewCell.xib in Resources */,
 				1F3DC3391D0D0F5A0075B7BA /* PhotoDetailTableViewCell.xib in Resources */,
 				DA3626621CD1A75C00A8AE39 /* Main.storyboard in Resources */,
+				1FFEE5BD1D7AAEB300EEC61F /* TZImagePickerController.bundle in Resources */,
 				1FAA07DD1D3E285C0017F3E3 /* read_me.txt in Resources */,
 				1FCC444B1D37A66C00287EC5 /* OrderUserTableViewCell.xib in Resources */,
 			);
@@ -1752,17 +2118,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FFEE53F1D7A683200EEC61F /* Fetch.swift in Sources */,
 				1FF3C5101D2B8A3300BE89A9 /* InviteItemsTableViewCell.swift in Sources */,
 				1FF3C5121D2B8A5000BE89A9 /* InviteDetailInfoTableViewCell.swift in Sources */,
+				1FFEE4DB1D7A682B00EEC61F /* CollectionView.swift in Sources */,
 				1FCAFFDB1D01983B00BF53A1 /* UserInfoViewModel.m in Sources */,
+				1FFEE53D1D7A683200EEC61F /* DiskCache.swift in Sources */,
+				1FFEE57B1D7AA92300EEC61F /* PhotoBrowserViewController.swift in Sources */,
+				1FFEE5C11D7AAEB300EEC61F /* TZPhotoPreviewController.m in Sources */,
 				1FAA077F1D3CBE600017F3E3 /* ApplyMeetModel.m in Sources */,
 				1F293D901D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m in Sources */,
 				1FAA078C1D3CE6850017F3E3 /* AppointMentTableViewCell.swift in Sources */,
 				1F9DCF101D4C52EA001467E6 /* OrderConfirmViewController.swift in Sources */,
 				DA6CEF131CDAF42300EEABFF /* AddInformationViewController.m in Sources */,
+				1FFEE54E1D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotate.swift in Sources */,
 				1FBF40BD1D221267005DB46F /* NSString+StringType.m in Sources */,
 				1FD97BBF1D55E41700556568 /* OrderApplyInfoTableViewCell.swift in Sources */,
 				DA4A88FB1CDB5CB700649983 /* UITextView+Placeholder.m in Sources */,
+				1FFEE5531D7A683200EEC61F /* NVActivityIndicatorAnimationBallPulse.swift in Sources */,
+				1FFEE55D1D7A683200EEC61F /* NVActivityIndicatorAnimationBallTrianglePath.swift in Sources */,
 				1FC2C1451CFD3311001D6D10 /* NSString+Utils.m in Sources */,
 				1F810E8F1D4F3550008A5EF1 /* AppointmentCollectView.swift in Sources */,
 				DA018F2E1CD39D570051D2D7 /* ManListCell.m in Sources */,
@@ -1771,20 +2145,24 @@
 				DABF8AE91CE9B76000CA2A1D /* WillMeetViewColler.m in Sources */,
 				DA6CEEFA1CD9FA7200EEABFF /* LabelAndTextFieldCell.m in Sources */,
 				DA4A88F61CDB1DD900649983 /* AddStarViewController.m in Sources */,
+				1FFEE5461D7A683200EEC61F /* NSHTTPURLResponse+Haneke.swift in Sources */,
 				1F2F56C11D3621F7005AEBC8 /* OrderViewModel.m in Sources */,
 				1FBAE3221D25153900D7D039 /* ProfileSectionTitleTableViewCell.swift in Sources */,
 				1F2881321D2F7EEC00713E9B /* UINavigationBar+Awesome.m in Sources */,
 				1F508D4B1D2FA308001EB676 /* ApplyCodeViewController.m in Sources */,
+				1FFEE5661D7A683200EEC61F /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift in Sources */,
 				1FAA08541D45F3F50017F3E3 /* TimeDownView.swift in Sources */,
 				1FFB5F3B1D056D9600021F77 /* MoreInfoViewController.m in Sources */,
 				1F810E8D1D4F01EE008A5EF1 /* UIView+DottedLineView.m in Sources */,
 				DA018F591CD78E9C0051D2D7 /* ImageAndTitleView.m in Sources */,
 				1FF3C50B1D2B842400BE89A9 /* SenderInviteViewController.swift in Sources */,
+				1FFEE54B1D7A683200EEC61F /* UIImageView+Haneke.swift in Sources */,
 				1FAA08571D45FE700017F3E3 /* Theme.m in Sources */,
 				DA36267C1CD1A98E00A8AE39 /* AppData.m in Sources */,
 				DA4A88FE1CDB5D7A00649983 /* CellTextView.m in Sources */,
 				DABF8AFB1CEAE71100CA2A1D /* SendEmailViewController.m in Sources */,
 				1F3DC32A1D0D06ED0075B7BA /* MeInfoTableViewCell.swift in Sources */,
+				1FFEE5611D7A683200EEC61F /* NVActivityIndicatorAnimationCubeTransition.swift in Sources */,
 				1FCC444F1D37A96A00287EC5 /* OrderModel.swift in Sources */,
 				DA6CEF101CDAF33300EEABFF /* MyProfileViewController.m in Sources */,
 				DABF8B011CEB158300CA2A1D /* AboutViewController.m in Sources */,
@@ -1796,11 +2174,14 @@
 				1F9DCF0A1D4C50C2001467E6 /* TYTabButtonPagerController.m in Sources */,
 				1F3DC3321D0D0B890075B7BA /* MePhotoTableViewCell.swift in Sources */,
 				1F293D7F1D12CBB10063A9DA /* String+Size.swift in Sources */,
+				1FFEE5651D7A683200EEC61F /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift in Sources */,
 				DAF5C8BC1CE6D6AD00DA7901 /* NSObject+RMArchivable.m in Sources */,
 				1FFB5F3E1D069A8800021F77 /* ProfileKeyAndValue.m in Sources */,
 				DAF5C8541CE5A5C100DA7901 /* UIView+frameAdjust.m in Sources */,
 				DAF5C8841CE5B95000DA7901 /* CoreTextLinkData.m in Sources */,
 				1F8FF7821D6EDA0200C7A5B9 /* LikeListModel.swift in Sources */,
+				1FFEE5BC1D7AAEB300EEC61F /* TZImageManager.m in Sources */,
+				1FFEE5551D7A683200EEC61F /* NVActivityIndicatorAnimationBallPulseSync.swift in Sources */,
 				1FD97C151D5C257300556568 /* PayCompleteViewController.swift in Sources */,
 				DA018F391CD44B210051D2D7 /* ThreeImageCell.m in Sources */,
 				1FF30A351D31ECF50051333F /* ScrollingNavigationViewController.swift in Sources */,
@@ -1810,34 +2191,48 @@
 				DAF5C83A1CE18A2400DA7901 /* UISheetView.m in Sources */,
 				1FAA07881D3CE64A0017F3E3 /* OrderProfileTableViewCell.swift in Sources */,
 				DAF5C8461CE2DA6E00DA7901 /* LabelTableViewCell.m in Sources */,
+				1FFEE4D01D7A682A00EEC61F /* PhotoBrowser+Common.swift in Sources */,
 				DA36265C1CD1A75C00A8AE39 /* AppDelegate.m in Sources */,
 				1F8FF7851D6EDD0000C7A5B9 /* LikeListCollectionViewCell.swift in Sources */,
 				1FF30A2D1D3131720051333F /* SettingTableViewCell.m in Sources */,
 				1F6850291CFFD443007F3C07 /* CompayTableViewCell.m in Sources */,
 				DA6CEF021CDA402C00EEABFF /* TextViewCell.m in Sources */,
+				1FFEE5441D7A683200EEC61F /* NetworkFetcher.swift in Sources */,
 				1FAA07E11D3F17A00017F3E3 /* WaitMeetViewController.swift in Sources */,
+				1FFEE4D81D7A682A00EEC61F /* Layout.swift in Sources */,
 				1F293D7C1D1266860063A9DA /* HomeDetailModel.swift in Sources */,
 				DAF5C89D1CE6191000DA7901 /* MHFacebookImageViewer.m in Sources */,
 				1FBAE32A1D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift in Sources */,
+				1FFEE5471D7A683200EEC61F /* NSURLResponse+Haneke.swift in Sources */,
+				1FFEE5C01D7AAEB300EEC61F /* TZPhotoPreviewCell.m in Sources */,
 				1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */,
 				1FCDE2B61D65D2140029EF9E /* PlaceholderText.m in Sources */,
+				1FFEE5BA1D7AAEB300EEC61F /* TZAssetCell.m in Sources */,
 				1F3868731D275B7900569032 /* AddJobLabelTableViewCell.m in Sources */,
 				1F810EC11D507399008A5EF1 /* ZDQFlowViewItem.swift in Sources */,
 				DA3626591CD1A75C00A8AE39 /* main.m in Sources */,
 				1F68502F1CFFD46B007F3C07 /* AboutUsInfoTableViewCell.m in Sources */,
+				1FFEE4D71D7A682A00EEC61F /* PhotoBrowser+ZoomAnim.swift in Sources */,
 				DAF5C8211CE0D0ED00DA7901 /* WXUserInfo.m in Sources */,
 				DABF8AF21CE9D41100CA2A1D /* BaseMeetViewController.m in Sources */,
 				1F38683F1D260E3A00569032 /* OtherProfileInfoTableViewCell.swift in Sources */,
 				1FE411221D5EC5630090D2AB /* TextViewAutoHeight.swift in Sources */,
+				1FFEE54D1D7A683200EEC61F /* NVActivityIndicatorAnimationBallBeat.swift in Sources */,
 				DAF5C8BE1CE6D6AD00DA7901 /* NSUserDefaults+RMSaveCustomObject.m in Sources */,
 				DAF5C81E1CE0D0ED00DA7901 /* BaseModel.m in Sources */,
+				1FFEE56B1D7A683200EEC61F /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
+				1FFEE5681D7A683200EEC61F /* NVActivityIndicatorAnimationSemiCircleSpin.swift in Sources */,
 				1F68503D1CFFE4F2007F3C07 /* NewMeetInfoTableViewCell.m in Sources */,
 				1FAA08051D40DA670017F3E3 /* EditMoreProfileViewController.swift in Sources */,
+				1FFEE5491D7A683200EEC61F /* UIButton+Haneke.swift in Sources */,
 				1F9ED87F1D66DFEE00DCB06A /* OrderTips.swift in Sources */,
+				1FFEE53B1D7A683200EEC61F /* CryptoSwiftMD5.swift in Sources */,
 				DAF5C7F91CDF479C00DA7901 /* NetWorkObject.m in Sources */,
+				1FFEE5511D7A683200EEC61F /* NVActivityIndicatorAnimationBallGridBeat.swift in Sources */,
 				1F2059261D2BBD6F001FF99C /* SetInviteCollectView.m in Sources */,
 				1FBBC3211D3A09A2005D4175 /* PSWView.m in Sources */,
 				1FFEE34D1D7827B600EEC61F /* HightLightViewController.swift in Sources */,
+				1FFEE5541D7A683200EEC61F /* NVActivityIndicatorAnimationBallPulseRise.swift in Sources */,
 				1F6850201CFFD3D2007F3C07 /* MeetDetailViewController.swift in Sources */,
 				1F6E8BE51D0276C00044CD40 /* NSObject+PerformSelector.m in Sources */,
 				DABF8AEC1CE9B7BD00CA2A1D /* WillAllowViewColler.m in Sources */,
@@ -1849,41 +2244,55 @@
 				DABF8B0A1CEB22A100CA2A1D /* UserProtocolViewController.m in Sources */,
 				1F28812F1D2E61A500713E9B /* ServiceModel.swift in Sources */,
 				DAF5C8861CE5B95000DA7901 /* CTFrameParser.m in Sources */,
+				1FFEE5BE1D7AAEB300EEC61F /* TZImagePickerController.m in Sources */,
 				DABF8AEF1CE9B83300CA2A1D /* AllMeetViewController.m in Sources */,
+				1FFEE4DC1D7A682B00EEC61F /* ItemCell.swift in Sources */,
 				1FAA085A1D45FEE20017F3E3 /* Detail.m in Sources */,
 				1FCAFFD81D0181AA00BF53A1 /* EMAlertView.m in Sources */,
 				1F85D9AB1D7536F6004DEAFE /* HomeModel.swift in Sources */,
 				1F293D761D11A4B90063A9DA /* UINavigationBar+Transparent.m in Sources */,
 				1F85D99F1D73FD27004DEAFE /* BaseOrderViewController.swift in Sources */,
 				1FAA08091D41CEE80017F3E3 /* BlackListViewController.swift in Sources */,
+				1FFEE53C1D7A683200EEC61F /* Data.swift in Sources */,
 				1F3868431D26141D00569032 /* OtherViewController.swift in Sources */,
 				1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */,
+				1FFEE54F1D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift in Sources */,
 				1FD97BBA1D55DBF300556568 /* OrderApplyMeetTableViewCell.swift in Sources */,
+				1FFEE5421D7A683200EEC61F /* Haneke.swift in Sources */,
 				1FAA081A1D42442D0017F3E3 /* BlackListModel.swift in Sources */,
 				1F3DC3381D0D0F5A0075B7BA /* PhotoDetailTableViewCell.swift in Sources */,
 				1F293D781D11A4B90063A9DA /* UIView+Size.m in Sources */,
+				1FFEE55E1D7A683200EEC61F /* NVActivityIndicatorAnimationBallZigZag.swift in Sources */,
+				1FFEE4DE1D7A682B00EEC61F /* ShowImageView.swift in Sources */,
 				1FC2C14F1CFD362B001D6D10 /* UIViewController+hideExcessLine.m in Sources */,
 				DAF5C8BF1CE6D6AD00DA7901 /* RMMapper.m in Sources */,
 				1FFEE34B1D7805D600EEC61F /* AboutUsCell.swift in Sources */,
 				DABF8AE01CE7509400CA2A1D /* MyMeetsViewController.m in Sources */,
 				1FAA07DF1D3F17810017F3E3 /* WaitPayViewController.swift in Sources */,
+				1FFEE4D91D7A682B00EEC61F /* PhotoBrowser+Model.swift in Sources */,
 				DA6CEEF61CD9EFA800EEABFF /* CellTextField.m in Sources */,
 				1F38683D1D260E2900569032 /* OtherProfileTableViewCell.swift in Sources */,
 				DA018F5E1CD79D4A0051D2D7 /* RemindImageCell.m in Sources */,
+				1FFEE4D41D7A682A00EEC61F /* PhotoBrowser+Indicator.swift in Sources */,
 				DA36267D1CD1A98E00A8AE39 /* UITools.m in Sources */,
 				DAF5C8851CE5B95000DA7901 /* CoreTextUtils.m in Sources */,
 				1F6850231CFFD41E007F3C07 /* PhotoTableViewCell.m in Sources */,
 				1FAA08201D4319220017F3E3 /* BlackListCollectCell.swift in Sources */,
 				1F810ECA1D51F5D0008A5EF1 /* UIViewController+TalKingData.m in Sources */,
+				1FFEE5391D7A683200EEC61F /* Cache.swift in Sources */,
 				1FC4C08B1D0D590E00E4BB33 /* MeViewController.swift in Sources */,
 				DAF5C8821CE5B95000DA7901 /* CoreTextData.m in Sources */,
+				1FFEE5521D7A683200EEC61F /* NVActivityIndicatorAnimationBallGridPulse.swift in Sources */,
 				1F6850361CFFD77A007F3C07 /* BaseTableViewCell.m in Sources */,
+				1FFEE55C1D7A683200EEC61F /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift in Sources */,
+				1FFEE4DA1D7A682B00EEC61F /* PhotoBrowser.swift in Sources */,
 				1FBBC3231D3CA9D7005D4175 /* ApplyMeetViewController.swift in Sources */,
 				1F3868461D2617FD00569032 /* UIViewController+NavigationBar.swift in Sources */,
 				1F3868761D27749200569032 /* JobLableCollectViewCell.m in Sources */,
 				1F1BA9471D682AFE00BDD665 /* OrderCollectionViewCell.swift in Sources */,
 				1F457B541D179C4A00C1D8EC /* CenterlabelView.swift in Sources */,
 				1F85D99E1D73FD27004DEAFE /* BaseOrderPageViewController.swift in Sources */,
+				1FFEE52B1D7A683200EEC61F /* CFSnapKit.swift in Sources */,
 				1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */,
 				1FAA08071D41C6D60017F3E3 /* ReportViewController.swift in Sources */,
 				1F9DCF141D4C5322001467E6 /* OrderMeetViewController.swift in Sources */,
@@ -1895,44 +2304,67 @@
 				1FE411201D5D9E060090D2AB /* CancelInfoTableViewCell.swift in Sources */,
 				1F810E911D4F37A3008A5EF1 /* AppointmentCell.swift in Sources */,
 				1F79BAD51D080A0500814DED /* NSFileManager+Paths.m in Sources */,
+				1FFEE53E1D7A683200EEC61F /* DiskFetcher.swift in Sources */,
 				1F3DC32F1D0D07A60075B7BA /* MeViewModel.swift in Sources */,
 				1FAA08531D45F3F50017F3E3 /* LoginView.swift in Sources */,
+				1FFEE55F1D7A683200EEC61F /* NVActivityIndicatorAnimationBallZigZagDeflect.swift in Sources */,
 				1F38684E1D266A7500569032 /* OhterProfileModel.swift in Sources */,
+				1FFEE5691D7A683200EEC61F /* NVActivityIndicatorAnimationSquareSpin.swift in Sources */,
+				1FFEE5571D7A683200EEC61F /* NVActivityIndicatorAnimationBallRotateChase.swift in Sources */,
 				1F6850261CFFD431007F3C07 /* MeetInfoTableViewCell.m in Sources */,
 				1F9DCF0C1D4C50C2001467E6 /* TYTabTitleViewCell.m in Sources */,
 				1F1FB4851D0FD78E00794881 /* UIImage+Alpha.m in Sources */,
 				1F55157E1CFEEFE5005B82FA /* InterestCollectViewCell.m in Sources */,
+				1FFEE5BB1D7AAEB300EEC61F /* TZAssetModel.m in Sources */,
+				1FFEE5631D7A683200EEC61F /* NVActivityIndicatorAnimationLineScaleParty.swift in Sources */,
 				1FF921301D23D21900AE0429 /* UIViewController+DismissKeyboard.m in Sources */,
+				1FFEE5671D7A683200EEC61F /* NVActivityIndicatorAnimationPacman.swift in Sources */,
 				1FBF3FC41D1BEB22005DB46F /* MeetWebViewController.swift in Sources */,
 				1FC69D6F1D2D053200BF0B95 /* SplashView.swift in Sources */,
 				1FF30A331D31ECF40051333F /* ScrollingNavbar+Sizes.swift in Sources */,
+				1FFEE5501D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotatePulse.swift in Sources */,
 				1F28812D1D2E5E9A00713E9B /* ServiceViewModel.m in Sources */,
 				1F9E93171D0D8B4D003ED7AF /* SwiftDefine.swift in Sources */,
+				1FFEE5641D7A683200EEC61F /* NVActivityIndicatorAnimationLineScalePulseOut.swift in Sources */,
 				1F68502C1CFFD458007F3C07 /* SectionInfoTableViewCell.m in Sources */,
+				1FFEE55A1D7A683200EEC61F /* NVActivityIndicatorAnimationBallScaleRipple.swift in Sources */,
+				1FFEE5561D7A683200EEC61F /* NVActivityIndicatorAnimationBallRotate.swift in Sources */,
+				1FFEE5591D7A683200EEC61F /* NVActivityIndicatorAnimationBallScaleMultiple.swift in Sources */,
 				1F6850321CFFD4B3007F3C07 /* WantMeetTableViewCell.m in Sources */,
 				1F810EC41D509D01008A5EF1 /* OrderCancelTableViewCell.swift in Sources */,
+				1FFEE55B1D7A683200EEC61F /* NVActivityIndicatorAnimationBallScaleRippleMultiple.swift in Sources */,
+				1FFEE4D51D7A682A00EEC61F /* PhotoBrowser+Main.swift in Sources */,
 				1F9DCF161D4C5331001467E6 /* OrderAllViewController.swift in Sources */,
 				1F293D8C1D12D13F0063A9DA /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				1FCC444A1D37A66C00287EC5 /* OrderUserTableViewCell.swift in Sources */,
 				1FF30A341D31ECF50051333F /* ScrollingNavigationController.swift in Sources */,
 				1F293D891D12D13F0063A9DA /* UITableView+FDIndexPathHeightCache.m in Sources */,
 				1F85D9A31D73FD40004DEAFE /* BaseRequestViewModel.m in Sources */,
+				1FFEE5581D7A683200EEC61F /* NVActivityIndicatorAnimationBallScale.swift in Sources */,
 				1FAA07931D3CEC540017F3E3 /* ConfirmedViewController.swift in Sources */,
 				1F85D9A01D73FD27004DEAFE /* MeetBaseViewController.m in Sources */,
 				1F79BAD81D080B7B00814DED /* NSFileManager+Utils.m in Sources */,
+				1FFEE5621D7A683200EEC61F /* NVActivityIndicatorAnimationLineScale.swift in Sources */,
 				DA6CEEF21CD9EF9D00EEABFF /* CellButton.m in Sources */,
+				1FFEE4D21D7A682A00EEC61F /* PhotoBrowser+CollectionViewExtend.swift in Sources */,
 				1F293D771D11A4B90063A9DA /* TransparentView.m in Sources */,
 				1FE4111E1D5D9D470090D2AB /* OrderCancelViewController.swift in Sources */,
 				1FC69D6C1D2CDF1900BF0B95 /* GuidanceText.m in Sources */,
+				1FFEE56C1D7A683200EEC61F /* NVActivityIndicatorShape.swift in Sources */,
 				1F79BAD21D071CF700814DED /* UserInfo.m in Sources */,
 				1FBF408C1D1E5BF8005DB46F /* ProfileTableViewCell.swift in Sources */,
 				1F810E931D4F6E89008A5EF1 /* OtherUserInfoViewController.swift in Sources */,
+				1FFEE5431D7A683200EEC61F /* Log.swift in Sources */,
 				1F8FF7721D6ECE8B00C7A5B9 /* LikeManViewController.swift in Sources */,
 				1F85D99D1D73FD27004DEAFE /* BaseNavigaitonController.swift in Sources */,
+				1FFEE54A1D7A683200EEC61F /* UIImage+Haneke.swift in Sources */,
+				1FFEE5B91D7AAEB300EEC61F /* NSBundle+TZImagePicker.m in Sources */,
 				1F79BAE31D09248B00814DED /* ZHPickView.m in Sources */,
+				1FFEE56A1D7A683200EEC61F /* NVActivityIndicatorAnimationTriangleSkewSpin.swift in Sources */,
 				1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */,
 				1F293D941D13CB290063A9DA /* AboutDetailViewController.swift in Sources */,
 				1FF3C50E1D2B8A0E00BE89A9 /* InviteTitleTableViewCell.swift in Sources */,
+				1FFEE4D61D7A682A00EEC61F /* PhotoBrowser+PBType.swift in Sources */,
 				1FC2C1491CFD3332001D6D10 /* NSDate+Category.m in Sources */,
 				1FF3C5141D2B8A6C00BE89A9 /* InviteDetailTitleTableViewCell.swift in Sources */,
 				1FC2C14C1CFD3583001D6D10 /* NSDateFormatter+Category.m in Sources */,
@@ -1941,20 +2373,32 @@
 				1F293D8B1D12D13F0063A9DA /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				1F293D8A1D12D13F0063A9DA /* UITableView+FDKeyedHeightCache.m in Sources */,
 				1FCAFFD31D01517A00BF53A1 /* LoginViewModel.m in Sources */,
+				1FFEE56D1D7A683200EEC61F /* NVActivityIndicatorView.swift in Sources */,
+				1FFEE5411D7A683200EEC61F /* Format.swift in Sources */,
 				1FAA08121D41D3660017F3E3 /* EqualSpaceFlowLayout.m in Sources */,
+				1FFEE5481D7A683200EEC61F /* String+Haneke.swift in Sources */,
 				DAF5C8871CE5B95000DA7901 /* CTFrameParserConfig.m in Sources */,
 				1F9E931D1D0E4993003ED7AF /* UIImage+PureColor.m in Sources */,
+				1FFEE53A1D7A683200EEC61F /* CGSize+Swift.swift in Sources */,
 				1F2DA9BB1D394B0B0008C434 /* WeiboModel.m in Sources */,
+				1FFEE5601D7A683200EEC61F /* NVActivityIndicatorAnimationBlank.swift in Sources */,
 				1FE4111C1D5D86D30090D2AB /* OrderCancelRejectViewController.swift in Sources */,
+				1FFEE4D31D7A682A00EEC61F /* PhotoBrowser+HUD.swift in Sources */,
 				1FAA085D1D4703A00017F3E3 /* Photos.m in Sources */,
+				1FFEE5401D7A683200EEC61F /* Fetcher.swift in Sources */,
+				1FFEE5C31D7AAEB300EEC61F /* UIView+Layout.m in Sources */,
 				1FD97BC21D5892BA00556568 /* HomeViewController.swift in Sources */,
 				1F9DCF0B1D4C50C2001467E6 /* TYTabPagerController.m in Sources */,
 				DAF5C8911CE5C0EE00DA7901 /* MyDisplayViewController.m in Sources */,
+				1FFEE5451D7A683200EEC61F /* NSFileManager+Haneke.swift in Sources */,
+				1FFEE5BF1D7AAEB300EEC61F /* TZPhotoPickerController.m in Sources */,
 				1F85D9A81D7413E2004DEAFE /* MeetOrderInfoTableViewCell.swift in Sources */,
 				DA6CEF0F1CDAF33300EEABFF /* MoreProfileViewController.m in Sources */,
 				1F9DCF091D4C50C2001467E6 /* TYPagerController.m in Sources */,
 				1F9DCF121D4C5305001467E6 /* OrderPayViewController.swift in Sources */,
 				1F293D691D1166490063A9DA /* HomeViewModel.m in Sources */,
+				1FFEE5C21D7AAEB300EEC61F /* TZVideoPlayerController.m in Sources */,
+				1FFEE54C1D7A683200EEC61F /* UIView+Haneke.swift in Sources */,
 				1F6850401CFFFB02007F3C07 /* AllInfoTableViewCell.m in Sources */,
 				DAF5C8BD1CE6D6AD00DA7901 /* NSObject+RMCopyable.m in Sources */,
 				1FDA53A61D003DC800C170BC /* UIColor+Hex.m in Sources */,

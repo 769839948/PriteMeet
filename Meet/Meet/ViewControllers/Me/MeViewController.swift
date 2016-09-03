@@ -9,7 +9,6 @@
 import UIKit
 import SnapKit
 import MBProgressHUD
-import TZImagePickerController
 
 class MeViewController: UIViewController {
 
@@ -44,11 +43,12 @@ class MeViewController: UIViewController {
         self.talKingDataPageName = "Me"
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
         self.navigationItemWithLineAndWihteColor()
-        self.addLineNavigationBottom()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.addLineNavigationBottom()
+
         self.setNavigationBar()
         if UserInfo.isLoggedIn() {
             if self.tableView.style == .Plain {
@@ -132,7 +132,10 @@ class MeViewController: UIViewController {
     func loadInviteInfo(){
         userInfoModel.getInvite({ (dic) in
             UserInviteModel.synchronizeWithDic(dic)
-            self.tableView.reloadData()
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+
+            })
             }, fail: { (dic) in
                 
             }) { (msg) in
@@ -267,7 +270,7 @@ class MeViewController: UIViewController {
     
     func configNewMeetCell(cell:NewMeetInfoTableViewCell, indxPath:NSIndexPath)
     {
-        cell.fd_enforceFrameLayout = false;
+//        cell.fd_enforceFrameLayout = false;
         cell.configCell(self.descriptionString(), array: self.instrestArray() as [AnyObject], andStyle: .ItemWhiteColorAndBlackBoard)
     }
     
@@ -320,7 +323,9 @@ class MeViewController: UIViewController {
                 self.getOrderNumber()
             }
             dispatch_async(queue) {
-                self.presentOrderView()
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentOrderView()
+                })
             }
         }else{
             self.presentOrderView()
@@ -348,7 +353,6 @@ class MeViewController: UIViewController {
     
     func presentImagePicker() {
         let imagePickerVC = TZImagePickerController(maxImagesCount: 8, delegate: self)
-        
         imagePickerVC.navigationBar.barTintColor = UIColor.whiteColor()
         imagePickerVC.navigationBar.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
         imagePickerVC.allowPickingVideo = false
@@ -365,21 +369,29 @@ class MeViewController: UIViewController {
         }
     }
     
-    func presentImageBrowse(index:NSInteger, imageArray:NSMutableArray) {
-//        hightImagesArray.removeAllObjects()
-//        for index in 0...imageArray.count - 1 {
-//            hightImagesArray.addObject(MWPhoto(image: imageArray[index] as! UIImage))
-//        }
-//        let mwPhotosBrowser = MWPhotoBrowser(delegate: self)
-//        mwPhotosBrowser.displayActionButton = false
-//        mwPhotosBrowser.displaySelectionButtons = false
-//        mwPhotosBrowser.enableGrid = false
-//        mwPhotosBrowser.startOnGrid = false
-//        mwPhotosBrowser.autoPlayOnAppear = false
-//        mwPhotosBrowser.setCurrentPhotoIndex(UInt(index))
-//        mwPhotosBrowser.navigationController?.setNavigationItemBack()
-//        mwPhotosBrowser.alwaysShowControls = true
-//        self.navigationController?.pushViewController(mwPhotosBrowser, animated: true)
+    func presentImageBrowse(index:NSInteger, imageArray:NSMutableArray,  disPalyViews:NSMutableArray) {
+        let pbVC = PhotoBrowser()
+//        pbVC.isNavBarHidden = false
+//        pbVC.isStatusBarHidden = false
+        /**  设置相册展示样式  */
+        pbVC.showType = PhotoBrowser.ShowType.Push
+        /**  设置相册类型  */
+        pbVC.photoType = PhotoBrowser.PhotoType.Local
+        
+        //强制关闭显示一切信息
+        pbVC.hideMsgForZoomAndDismissWithSingleTap = false
+        
+        var models: [PhotoBrowser.PhotoModel] = []
+        
+//        let title = ""
+//        let desc = ""
+        for image in imageArray {
+            models.append(PhotoBrowser.PhotoModel(localImg: image as! UIImage, titleStr: nil, descStr: nil, sourceView: disPalyViews[index] as! UIView))
+        }
+        /**  设置数据  */
+        pbVC.photoModels = models
+        
+        pbVC.show(inVC: self,index: index)
     }
     
     func pushLikeView() {
@@ -389,8 +401,8 @@ class MeViewController: UIViewController {
     
     func pushHightLightVC(){
         let hightLight = HightLightViewController()
-        hightLight.titleStr = "不会讲鬼故事的演员就不是长得好看的策划"
-        hightLight.infoStr = "最不像表演系的表演系学生，这点从入学开始就逐渐暴露，同学和老师评价我是表演系里最会导演的，导演系里最会制片的，制片专业里长得最好看。在选择与我见面前，请把你的问题更具体化，方便我做更精确的准备，提升见面效率，期待与你的见面。"
+        hightLight.titleStr = UserExtenModel.shareInstance().experience
+        hightLight.infoStr = UserExtenModel.shareInstance().highlight
         self.navigationController?.pushViewController(hightLight, animated: true)
     }
     
@@ -414,11 +426,11 @@ class MeViewController: UIViewController {
     }
     
     func configAboutUsCell(cell:AboutUsCell, indexPath:NSIndexPath) {
-        cell.configCell("不会讲鬼故事的演员就不是长得好看的策划", info: "最不像表演系的表演系学生，这点从入学开始就逐渐暴露，同学和老师评价我是表演系里最会导演的，导演系里最会制片的，制片专业里长得最好看。")
+        if UserExtenModel.shareInstance().experience != nil {
+            cell.configCell(UserExtenModel.shareInstance().experience, info: UserExtenModel.shareInstance().highlight)
+        }
     }
 
-    
-    
 }
 
 extension MeViewController : UITableViewDelegate{
@@ -432,6 +444,8 @@ extension MeViewController : UITableViewDelegate{
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
+        
+        
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -442,14 +456,14 @@ extension MeViewController : UITableViewDelegate{
             let modelv = LoginViewModel()
             modelv.getUserInfo("153", success: { (dic) in
                 UserInfo.synchronizeWithDic(dic)
-                
+                UserInfo.synchronize()
+                self.viewWillAppear(true)
                 }, fail: { (dic) in
                     
                 }, loadingString: { (msg) in
                     
             })
-            UserInfo.synchronize()
-            self.viewWillAppear(true)
+            
             return ;
         }
         switch indexPath.section {
@@ -585,8 +599,8 @@ extension MeViewController : UITableViewDataSource {
                     cell.closure = { () in
                         self.presentImagePicker()
                     }
-                    cell.cellImageArray = { (index,imageArray) in
-                        self.presentImageBrowse(index, imageArray: imageArray)
+                    cell.cellImageArray = { (index,imageArray,disPalyViews) in
+                        self.presentImageBrowse(index, imageArray: imageArray, disPalyViews:disPalyViews)
                     }
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
                     cell.backgroundColor = UIColor.clearColor()

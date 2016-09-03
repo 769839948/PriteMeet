@@ -155,9 +155,10 @@ typedef void (^returnImage)(UIImage *image);
  *  @param description  个人亮点字符串
  */
 - (void)addStar:(NSString *)description
-            success:(Success)successBlock
-               fail:(Fail)failBlock
-      loadingString:(LoadingView)loading;
+     experience:(NSString *)experience
+        success:(Success)successBlock
+           fail:(Fail)failBlock
+  loadingString:(LoadingView)loading;
 /**
  *  获取个人更多信息
  *
