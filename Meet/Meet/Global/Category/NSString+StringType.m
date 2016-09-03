@@ -122,7 +122,6 @@
 + (BOOL)isHaveSpecialCharacters:(NSString *)string
 {
     BOOL ret = NO;
-    NSString *jap = @",";
     NSArray *temArray = @[@",",@"-",@"，",@"、"];
     for (NSInteger i = 0; i < temArray.count; i ++){
         NSRange foundObj=[string rangeOfString:temArray[i] options:NSCaseInsensitiveSearch];

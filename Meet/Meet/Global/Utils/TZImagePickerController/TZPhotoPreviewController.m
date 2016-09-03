@@ -72,7 +72,7 @@
 }
 
 - (void)configCustomNaviBar {
-    TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
+//    TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
     _naviBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.tz_width, 64)];
     _naviBar.backgroundColor = [UIColor whiteColor];
     _naviBar.alpha = 1.0;

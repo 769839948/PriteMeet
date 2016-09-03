@@ -8,9 +8,9 @@
 
 #import "NSString+StringSize.h"
 #import <objc/runtime.h>
-static char SCTextStorageKey;
-static char SCLayoutManagerKey;
-static char SCTextContainerKey;
+//static char SCTextStorageKey;
+//static char SCLayoutManagerKey;
+//static char SCTextContainerKey;
 
 @implementation NSString (StringSize)
 
@@ -20,7 +20,6 @@ static char SCTextContainerKey;
     UIFont *systemFont = font;
     CGSize textSize = CGSizeMake(availableWidth - (2 * padding) - 26, CGFLOAT_MAX); // rough accessory size
     CGSize sizeWithFont = [text sizeWithFont:systemFont constrainedToSize:textSize lineBreakMode:NSLineBreakByWordWrapping];
-    
 #if defined(__LP64__) && __LP64__
     return ceil(sizeWithFont.height) + padding;
 #else

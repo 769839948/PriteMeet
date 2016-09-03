@@ -12,7 +12,7 @@ typedef void (^InviteCollectViewSelectBlock)(NSInteger selectItem);
 
 @interface SetInviteCollectView : InterestCollectView
 
-@property (nonatomic, strong) InviteCollectViewSelectBlock block;
+@property (nonatomic, strong) InviteCollectViewSelectBlock selectBlock;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 

@@ -42,7 +42,7 @@ class OrderApplyMeetTableViewCell: UITableViewCell {
         interestView.dataSource = interestView
         flowLayout.delegate = interestView;
         
-        interestView.block = { row in
+        interestView.selectBlock = { row in
             if (self.clourse != nil) {
                 self.clourse(selectItem: row)
             }

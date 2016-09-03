@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 class LikeManViewController: UIViewController {
 
@@ -28,6 +29,7 @@ class LikeManViewController: UIViewController {
         self.setUpCollectionView()
         self.setUpLikeListData()
         self.talKingDataPageName = "Me-LikeList"
+        self.setUpRefreshView()
     }
 
     func setUpCollectionView(){
@@ -48,15 +50,28 @@ class LikeManViewController: UIViewController {
         }
     }
     
+    func setUpRefreshView() {
+        self.collectionView.mj_footer = MJRefreshBackNormalFooter.init(refreshingTarget: self, refreshingAction: #selector(LikeManViewController.setUpLikeListData))
+    }
+    
     func setUpLikeListData() {
-        self.likeList.removeAllObjects()
         page = page + 1
+        if  page == 1 {
+            self.likeList.removeAllObjects()
+        }
         viewModel.getLikeList("\(page)", successBlock: { (dic) in
             self.hasNext = dic["has_next"] as! Bool
-            self.likeList = LikeListModel.mj_objectArrayWithKeyValuesArray(dic["liked_list"])
+            self.likeList.addObjectsFromArray(LikeListModel.mj_objectArrayWithKeyValuesArray(dic["liked_list"]) as NSMutableArray as [AnyObject])
             self.collectionView.reloadData()
+            if !self.hasNext {
+                self.collectionView.mj_footer.endRefreshingWithNoMoreData()
+            }else{
+                self.collectionView.mj_footer.endRefreshing()
+            }
             }, fail: { (dic) in
                 MainThreadAlertShow(dic["error"] as! String, view: self.view)
+                self.page = self.page - 1
+                self.collectionView.mj_footer.endRefreshing()
         })
     }
 

@@ -82,11 +82,11 @@ extension ItemCell: UIScrollViewDelegate{
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        doubleTapGesture = UITapGestureRecognizer(target: self, action: "doubleTap:")
+        doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(ItemCell.doubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         doubleTapGesture.numberOfTouchesRequired = 1
         
-        singleTapGesture = UITapGestureRecognizer(target: self, action: "singleTap:")
+        singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(ItemCell.singleTap(_:)))
         singleTapGesture.requireGestureRecognizerToFail(self.doubleTapGesture)
         singleTapGesture.numberOfTapsRequired = 1
         singleTapGesture.numberOfTouchesRequired = 1
@@ -97,7 +97,7 @@ extension ItemCell: UIScrollViewDelegate{
         
         msgContentTextView.textContainerInset = UIEdgeInsetsZero
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ItemCell.didRotate), name: UIDeviceOrientationDidChangeNotification, object: nil)
         
         //HUD初始化
         asHUD.layer.cornerRadius = 40
@@ -223,7 +223,7 @@ extension ItemCell: UIScrollViewDelegate{
             
             self.imageV.image = nil
             /** 服务器图片模式 */
-            let url = NSURL(string: photoModel.hostHDImgURL)!
+            _ = NSURL(string: photoModel.hostHDImgURL)!
             
             if cache == nil {cache = Cache<UIImage>(name: CFPBCacheKey)}
             

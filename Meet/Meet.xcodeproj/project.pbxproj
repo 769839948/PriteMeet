@@ -51,7 +51,6 @@
 		1F3DC3381D0D0F5A0075B7BA /* PhotoDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3DC3361D0D0F5A0075B7BA /* PhotoDetailTableViewCell.swift */; };
 		1F3DC3391D0D0F5A0075B7BA /* PhotoDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F3DC3371D0D0F5A0075B7BA /* PhotoDetailTableViewCell.xib */; };
 		1F457B541D179C4A00C1D8EC /* CenterlabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F457B531D179C4A00C1D8EC /* CenterlabelView.swift */; };
-		1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E43671CFC56EA00730DEA /* UIViewController+HUD.m */; };
 		1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E436F1CFC57F900730DEA /* ThemeTools.m */; };
 		1F508D4B1D2FA308001EB676 /* ApplyCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F508D4A1D2FA308001EB676 /* ApplyCodeViewController.m */; };
 		1F508D4E1D2FA791001EB676 /* ProfilePhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F508D4C1D2FA791001EB676 /* ProfilePhotoTableViewCell.swift */; };
@@ -415,8 +414,6 @@
 		1F457B531D179C4A00C1D8EC /* CenterlabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CenterlabelView.swift; path = ../Views/CenterlabelView.swift; sourceTree = "<group>"; };
 		1F4E43611CFC43F200730DEA /* Meet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Meet-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F4E43641CFC470F00730DEA /* ApplicationTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationTheme.h; sourceTree = "<group>"; };
-		1F4E43661CFC56EA00730DEA /* UIViewController+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HUD.h"; sourceTree = "<group>"; };
-		1F4E43671CFC56EA00730DEA /* UIViewController+HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HUD.m"; sourceTree = "<group>"; };
 		1F4E436E1CFC57F900730DEA /* ThemeTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeTools.h; sourceTree = "<group>"; };
 		1F4E436F1CFC57F900730DEA /* ThemeTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeTools.m; sourceTree = "<group>"; };
 		1F508D491D2FA308001EB676 /* ApplyCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplyCodeViewController.h; path = ../ViewControllers/Me/Login/ApplyCodeViewController.h; sourceTree = "<group>"; };
@@ -956,8 +953,6 @@
 				1FC2C14B1CFD3583001D6D10 /* NSDateFormatter+Category.m */,
 				1FC2C14D1CFD362B001D6D10 /* UIViewController+hideExcessLine.h */,
 				1FC2C14E1CFD362B001D6D10 /* UIViewController+hideExcessLine.m */,
-				1F4E43661CFC56EA00730DEA /* UIViewController+HUD.h */,
-				1F4E43671CFC56EA00730DEA /* UIViewController+HUD.m */,
 				1FDA53A41D003DC800C170BC /* UIColor+Hex.h */,
 				1FDA53A51D003DC800C170BC /* UIColor+Hex.m */,
 				1F9E931B1D0E4993003ED7AF /* UIImage+PureColor.h */,
@@ -2255,7 +2250,6 @@
 				1FAA08091D41CEE80017F3E3 /* BlackListViewController.swift in Sources */,
 				1FFEE53C1D7A683200EEC61F /* Data.swift in Sources */,
 				1F3868431D26141D00569032 /* OtherViewController.swift in Sources */,
-				1F4E43681CFC56EA00730DEA /* UIViewController+HUD.m in Sources */,
 				1FFEE54F1D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift in Sources */,
 				1FD97BBA1D55DBF300556568 /* OrderApplyMeetTableViewCell.swift in Sources */,
 				1FFEE5421D7A683200EEC61F /* Haneke.swift in Sources */,

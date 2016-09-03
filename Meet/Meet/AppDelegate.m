@@ -217,10 +217,8 @@
                        [dic setObject:model.saveDate forKey:@"saveDate"];
                        [[NSUserDefaults standardUserDefaults] setObject:dic forKey:keyAccessModelSave];
                        [self wechatLoginByRequestForUserInfo];
-                       [loadingHUD hide:YES];
             }
                    failure:^(NSURLSessionDataTask *task, NSError *error) {
-                       [loadingHUD hide:YES];
                       
                 NSLog(@"AF error :%@",error.localizedFailureReason);
             }];

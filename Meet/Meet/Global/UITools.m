@@ -90,10 +90,10 @@ static UITools *tools = nil;
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     
     hud.mode = MBProgressHUDModeText;
-    hud.labelText = message;
+    hud.label.text = message;
     hud.margin = 10.f;
     hud.removeFromSuperViewOnHide = YES;
-    [hud hide:YES afterDelay:interval];
+    [hud hideAnimated:YES afterDelay:interval];
     return hud;
 }
 
@@ -101,11 +101,12 @@ static UITools *tools = nil;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeText;
-    hud.labelText = message;
+    hud.label.text = message;
     hud.margin = 10.f;
     hud.removeFromSuperViewOnHide = YES;
     if (autoHide) {
-        [hud hide:YES afterDelay:1.0f];
+        [hud hideAnimated:YES afterDelay:1.0f];
+
     }
     return hud;
 }
@@ -115,11 +116,11 @@ static UITools *tools = nil;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeText;
-    hud.labelText = message;
+    hud.label.text = message;
     hud.margin = 10.f;
     hud.removeFromSuperViewOnHide = YES;
     if (autoHide) {
-        [hud hide:YES afterDelay:1.0f];
+        [hud hideAnimated:YES afterDelay:1.0f];
     }
     return hud;
 }
@@ -129,10 +130,10 @@ static UITools *tools = nil;
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.margin = 10.f;
     hud.removeFromSuperViewOnHide = YES;
-     hud.labelText = message;
+     hud.label.text = message;
     
     if (autoHide) {
-        [hud hide:YES afterDelay:1.5f];
+        [hud hideAnimated:YES afterDelay:1.5f];
     }
     return hud;
 }

@@ -382,19 +382,15 @@ class MeetDetailViewController: UIViewController {
     
     lazy var personalLabelArray:NSArray = {
         let tempArray = NSMutableArray()
-        if self.otherUserModel.personal_label != nil {
-            tempArray.addObjectsFromArray(self.otherUserModel.personal_label!.componentsSeparatedByString(","))
-        }
+        tempArray.addObjectsFromArray(self.otherUserModel.personal_label.componentsSeparatedByString(","))
         return tempArray
     }()
     
     lazy var dataArray:NSArray = {
         var tempArray = NSMutableArray()
-        if self.otherUserModel.user_info!.detail != nil {
-            let descriptions = self.otherUserModel.user_info!.highlight
-            let array = descriptions!.componentsSeparatedByString("\n")
-            tempArray.addObjectsFromArray(array)
-        }
+        let descriptions = self.otherUserModel.user_info!.highlight
+        let array = descriptions.componentsSeparatedByString("\n")
+        tempArray.addObjectsFromArray(array)
         return tempArray
     }()
     
@@ -413,11 +409,7 @@ class MeetDetailViewController: UIViewController {
     
     lazy var personalArray:NSArray = {
         var tempArray = NSArray()
-        if self.otherUserModel.personal_label == nil {
-            
-        }else{
-            tempArray = (self.otherUserModel.personal_label?.componentsSeparatedByString(","))!
-        }
+        tempArray = (self.otherUserModel.personal_label.componentsSeparatedByString(","))
         return tempArray
     }()
     
@@ -445,10 +437,8 @@ class MeetDetailViewController: UIViewController {
     
     func meetInfoCellHeight(model:HomeDetailModel) -> CGFloat{
         var height:CGFloat = 62;
-        if model.job_label != nil {
-            if model.job_label != "" {
-               height = height + 47
-            }
+        if model.job_label != "" {
+            height = height + 47
         }
         height = height + 24;
         if self.personalArray.count > 0 {
@@ -462,9 +452,9 @@ class MeetDetailViewController: UIViewController {
     func configCell(cell:MeetInfoTableViewCell, indxPath:NSIndexPath)
     {
         if self.otherUserModel.distance == "" {
-            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)", interestCollectArray: self.personalArray as [AnyObject],autotnInfo: self.otherUserModel.user_info?.auth_info)
+            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location as String)", interestCollectArray: self.personalArray as [AnyObject],autotnInfo: self.otherUserModel.user_info?.auth_info)
         }else{
-            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location! as String)    和你相隔 \(self.otherUserModel.distance as String)", interestCollectArray: self.personalArray as [AnyObject], autotnInfo: self.otherUserModel.user_info?.auth_info)
+            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location as String)    和你相隔 \(self.otherUserModel.distance as String)", interestCollectArray: self.personalArray as [AnyObject], autotnInfo: self.otherUserModel.user_info?.auth_info)
         }
     }
     
@@ -475,7 +465,7 @@ class MeetDetailViewController: UIViewController {
     
     func configAboutCell(cell:AboutUsInfoTableViewCell, indxPath:NSIndexPath)
     {
-        cell.configCell("不会讲鬼故事的演员就不是长得好看的策划", info: self.otherUserModel.user_info?.highlight, imageArray: nil, withUrl: self.otherUserModel.web_url)
+        cell.configCell(self.otherUserModel.user_info?.experience, info: self.otherUserModel.user_info?.highlight, imageArray: nil, withUrl: self.otherUserModel.web_url)
     }
 }
 
@@ -509,7 +499,7 @@ extension MeetDetailViewController : UITableViewDataSource {
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if self.otherUserModel.user_info!.highlight == "" || self.otherUserModel.user_info?.highlight == nil {
+        if self.otherUserModel.user_info!.highlight == "" || self.otherUserModel.user_info?.experience == "" {
             return 2
         }else{
             return 3
@@ -526,7 +516,7 @@ extension MeetDetailViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if self.otherUserModel.user_info?.highlight == "" || self.otherUserModel.user_info?.highlight == nil {
+        if self.otherUserModel.user_info?.highlight == "" || self.otherUserModel.user_info?.experience == "" {
             switch indexPath.section {
             case 0:
                 switch indexPath.row {
@@ -592,7 +582,7 @@ extension MeetDetailViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if self.otherUserModel.user_info?.highlight == "" || self.otherUserModel.user_info?.highlight  == nil {
+        if self.otherUserModel.user_info?.highlight == "" || self.otherUserModel.user_info?.experience  == "" {
             switch indexPath.section {
             case 0:
                 switch indexPath.row {
@@ -666,7 +656,7 @@ extension MeetDetailViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.otherUserModel.user_info?.highlight == "" || self.otherUserModel.user_info?.highlight  == nil {
+        if self.otherUserModel.user_info?.highlight == "" || self.otherUserModel.user_info?.experience  == "" {
             switch indexPath.section {
             case 0:
                 switch indexPath.row {
