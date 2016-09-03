@@ -38,7 +38,6 @@ class MeInfoTableViewCell: UITableViewCell {
         self.backgroundColor = UIColor.clearColor()
         self.lineLabel.backgroundColor = UIColor(hexString:"E7E7E7")
         infoDetailLabel.textColor = UIColor.whiteColor()
-        infoDetailLabel.layer.cornerRadius = 10.0
         infoDetailLabel.layer.masksToBounds = true
         
         self.contentView.addSubview(self.lineLabel)
@@ -129,7 +128,7 @@ class MeInfoTableViewCell: UITableViewCell {
     
     func setInfoButtonBackGroudColor(color:String){
         infoDetailLabel.backgroundColor = UIColor.init(hexString: color)
-        infoDetailLabel.layer.cornerRadius = 10.0
+        infoDetailLabel.layer.cornerRadius = 12.0
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

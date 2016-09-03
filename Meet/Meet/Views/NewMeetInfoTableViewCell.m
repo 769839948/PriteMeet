@@ -90,7 +90,7 @@
         }];
     }
     [self.contentView bringSubviewToFront:_interestView];
-    [self updateFocusIfNeeded];
+    [self updateConstraintsIfNeeded];
     [self updateConstraints];
 }
 

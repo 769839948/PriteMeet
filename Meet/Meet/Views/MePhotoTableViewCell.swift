@@ -36,7 +36,7 @@ class MePhotoTableViewCell: UITableViewCell {
         super.awakeFromNib()
         avatarImageView.image = UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSizeZero)
         avatarImageView.layer.masksToBounds = true
-        
+        placImageView.layer.masksToBounds = true
         completeInfoView.layer.cornerRadius = 14.0
         completeInfoView.layer.masksToBounds = true
         completeInfoView.backgroundColor = UIColor.init(hexString:MeProfileCollectViewItemSelect)
@@ -79,11 +79,10 @@ class MePhotoTableViewCell: UITableViewCell {
         self.contentView.layer.cornerRadius = 5.0
         let maskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, avatarImageView.frame.size.width, avatarImageView.frame.size.height), byRoundingCorners: [.TopLeft,.TopRight], cornerRadii: CGSizeMake(5, 0))
         let maskLayer = CAShapeLayer()
-        
-        maskLayer.frame = CGRectMake(0, 0, ScreenWidth - 10, avatarImageView.frame.size.height)
+        maskLayer.frame = CGRectMake(0, 0, ScreenWidth - 20, avatarImageView.frame.size.height)
         maskLayer.path = maskPath.CGPath
-        avatarImageView.layer.mask = maskLayer
-        //        ManListCell.homeNameLabelColor(nameLabel)
+        placImageView.layer.mask = maskLayer
+//        avatarImageView.layer.mask = maskLayer
     }
     
     func singerTapPress(tap:UITapGestureRecognizer) {

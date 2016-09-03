@@ -44,7 +44,7 @@
                                     <constraint firstAttribute="width" constant="16" id="mFP-5U-A2I"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info_next" translatesAutoresizingMaskIntoConstraints="NO" id="9br-Tr-rKL">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="info_next" translatesAutoresizingMaskIntoConstraints="NO" id="9br-Tr-rKL">
                                 <rect key="frame" x="293" y="18" width="7" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="7" id="B40-0S-iQQ"/>

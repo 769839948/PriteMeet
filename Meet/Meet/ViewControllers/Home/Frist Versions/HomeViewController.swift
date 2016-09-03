@@ -476,7 +476,8 @@ extension HomeViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return tableView.fd_heightForCellWithIdentifier("MainTableViewCell", configuration: { (cell) in
+        let model = homeModelArray[indexPath.section] as! HomeModel
+        return tableView.fd_heightForCellWithIdentifier("MainTableViewCell", cacheByKey: "\(model.uid)", configuration: { (cell) in
             self .configureCell(cell as! ManListCell, indexPath: indexPath)
         })
     }

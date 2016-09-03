@@ -67,7 +67,8 @@ extension PhotoBrowser{
         navigaitonBar.addSubview(deleteButton)
 
         let photoImage = UIImageView()
-        photoImage.sd_setImageWithURL(NSURL.init(string: avatar), placeholderImage: UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSizeMake(24, 24)), options: .RetryFailed)
+        let imageArray = avatar.componentsSeparatedByString("?")
+        photoImage.sd_setImageWithURL(NSURL.init(string: imageArray[0].stringByAppendingString(AvatarImageSize)), placeholderImage: UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSizeMake(24, 24)), options: .RetryFailed)
         photoImage.layer.cornerRadius = 12.0
         navigaitonBar.addSubview(photoImage)
         

@@ -131,14 +131,14 @@
     if (model.cover_photo != nil || model.cover_photo != NULL) {
         Cover_photo *coverPhoto = [Cover_photo mj_objectWithKeyValues:model.cover_photo];
         //http://7xsatk.com1.z0.glb.clouddn.com/o_1aqc2rujd1vbc11ten5s12tj115fc.jpg?imageView2/1/w/1065/h/600
-//        NSArray *imageArray = [coverPhoto.photo componentsSeparatedByString:@"?"];
+        //        NSArray *imageArray = [coverPhoto.photo componentsSeparatedByString:@"?"];
         [_photoImage sd_setImageWithURL:[NSURL URLWithString:coverPhoto.photo] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-
+            
         }];
     }else{
         _photoImage.backgroundColor = [UIColor colorWithHexString:@"e7e7e7"];
     }
-
+    
     if (model.gender == 1) {
         _ageNumber.backgroundColor = [UIColor colorWithHexString:HomeViewManColor];
         [_ageNumber setImage:[UIImage imageNamed:@"home_man"] forState:UIControlStateNormal];
@@ -158,10 +158,10 @@
     
     if ([model.job_label isEqualToString:@" "]) {
         _nameLabel.text = [model.real_name stringByAppendingString:[NSString stringWithFormat:@" 他还没填写职业标签%@", model.job_label]];
-
+        
     }else{
         _nameLabel.text = [model.real_name stringByAppendingString:[NSString stringWithFormat:@" %@", model.job_label]];
-
+        
     }
     float titleHeight = [_nameLabel.text heightWithFont:HomeViewNameFont constrainedToWidth:ScreenWidth - 40];
     [_nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -170,11 +170,10 @@
     _numberOfLike = model.liked_count;
     _distance = model.distance;
     [self setUpMeetNumber:model.liked_count distance:model.distance];
-
+    
     if ([interstArray[0] isEqualToString:@""]) {
         [_interestView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_offset(0.001);
-            make.bottom.mas_equalTo(weakSelf.personalView.mas_bottom).offset(0.0001);
         }];
     }else{
         [_interestView setCollectViewData:interstArray style:ItemBlackAndWhiteLabelText];
@@ -195,7 +194,7 @@
 
 - (void)setUpMeetNumber:(NSInteger)number distance:(NSString *)distance
 {
-     dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         NSString *str = @"";
         if (number != 0) {
             str = [str stringByAppendingString:[NSString stringWithFormat:@"%ld人想见   ", (long)number]];
@@ -203,25 +202,9 @@
         if (![distance isEqualToString:@""]) {
             str = [str stringByAppendingString:[NSString stringWithFormat:@"和你相隔 %@", distance]];
         }
-//         __weak typeof(self) weakSelf = self;
         if ([str isEqualToString:@""]) {
-            _meetNumber.hidden = YES;
-//            [_nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.top.mas_equalTo(weakSelf.photoImage.mas_bottom).offset(14);
-//                make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(14);
-//                make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-14);
-//                make.bottom.mas_equalTo(weakSelf.interestView.mas_top).offset(-17);
-//
-//            }];
-//            
-//            [_interestView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(17);
-//                make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(15);
-//                make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-15);
-//                make.bottom.mas_equalTo(weakSelf.personalView.mas_bottom).offset(-17);
-//            }];
             [_meetNumber mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.height.mas_offset(20);
+                make.height.mas_offset(0.00001);
             }];
         }else{
             [_meetNumber mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -230,7 +213,6 @@
             _meetNumber.text = str;
         }
     });
-    [self updateConstraints];
 }
 
 + (void)homeNameLabelColor:(UILabel *)nameLable
@@ -343,7 +325,7 @@
             make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(14);
             make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-14);
             make.bottom.mas_equalTo(weakSelf.interestView.mas_top).offset(-17);
-            make.height.mas_offset(20);
+            //            make.height.mas_offset(20);
         }];
         
         [_interestView mas_makeConstraints:^(MASConstraintMaker *make) {

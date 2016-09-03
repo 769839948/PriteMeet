@@ -445,6 +445,9 @@ extension MeViewController : UITableViewDelegate{
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 1 {
+            return 20
+        }
         return 0.0001
         
         
@@ -453,19 +456,19 @@ extension MeViewController : UITableViewDelegate{
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath,animated:true)
         if (!UserInfo.isLoggedIn()) {
-            UserInfo.sharedInstance().uid = "153"
-            UserInfo.sharedInstance().avatar = ""
-            let modelv = LoginViewModel()
-            modelv.getUserInfo("153", success: { (dic) in
-                UserInfo.synchronizeWithDic(dic)
-                UserInfo.synchronize()
-                self.viewWillAppear(true)
-                }, fail: { (dic) in
-                    
-                }, loadingString: { (msg) in
-                    
-            })
-            
+//            UserInfo.sharedInstance().uid = "153"
+//            UserInfo.sharedInstance().avatar = ""
+//            let modelv = LoginViewModel()
+//            modelv.getUserInfo("153", success: { (dic) in
+//                UserInfo.synchronizeWithDic(dic)
+//                UserInfo.synchronize()
+//                self.viewWillAppear(true)
+//                }, fail: { (dic) in
+//                    
+//                }, loadingString: { (msg) in
+//                    
+//            })
+            self.presentViewLoginViewController()
             return ;
         }
         switch indexPath.section {

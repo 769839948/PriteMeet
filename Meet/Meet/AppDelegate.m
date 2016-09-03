@@ -40,7 +40,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self logUser];
-    [UserInfo logout];
+//    [UserInfo logout];
     if ([UserInfo sharedInstance].uid == nil) {
         [UserInfo logout];
     }

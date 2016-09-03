@@ -58,6 +58,7 @@ class OrderPageViewController: TYTabButtonPagerController {
     override func viewWillAppear(animated: Bool) {
         self.navigationItemWhiteColorAndNotLine()
         self.removeBottomLine()
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     func setUpPageViewControllerStyle(){
