@@ -29,6 +29,8 @@ extension PhotoBrowser{
         if showType == PhotoBrowser.ShowType.ZoomAndDismissWithSingleTap && hideMsgForZoomAndDismissWithSingleTap{
         
             pagecontrol.currentPage = page
+        }else if showType == PhotoBrowser.ShowType.Push {
+            pagecontrol.currentPage = page
         }
     }
 }

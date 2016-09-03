@@ -44,6 +44,7 @@ class ItemCell: UICollectionViewCell {
     
     @IBOutlet weak var imgVLMC: NSLayoutConstraint!
     
+    @IBOutlet weak var bottomView: UIView!
     
     
     

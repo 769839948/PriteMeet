@@ -34,7 +34,13 @@ class PhotoBrowser: UIViewController {
     var isTabBarHidden: Bool!
     var isStatusBarHidden: Bool!
     
+    var realName:String = ""
+    var jobName:String = ""
+    var avatar:String = ""
+    
     var showIndex: Int = 0
+    
+    var navigaitonBar:UIView!
     
     var dismissBtn,saveBtn: UIButton!
     var isHiddenBar: Bool = false

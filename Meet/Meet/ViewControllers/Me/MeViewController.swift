@@ -371,7 +371,7 @@ class MeViewController: UIViewController {
     
     func presentImageBrowse(index:NSInteger, imageArray:NSMutableArray,  disPalyViews:NSMutableArray) {
         let pbVC = PhotoBrowser()
-//        pbVC.isNavBarHidden = false
+        pbVC.isNavBarHidden = true
 //        pbVC.isStatusBarHidden = false
         /**  设置相册展示样式  */
         pbVC.showType = PhotoBrowser.ShowType.Push
@@ -379,12 +379,14 @@ class MeViewController: UIViewController {
         pbVC.photoType = PhotoBrowser.PhotoType.Local
         
         //强制关闭显示一切信息
-        pbVC.hideMsgForZoomAndDismissWithSingleTap = false
+        pbVC.hideMsgForZoomAndDismissWithSingleTap = true
         
         var models: [PhotoBrowser.PhotoModel] = []
         
-//        let title = ""
-//        let desc = ""
+        pbVC.avatar = UserInfo.sharedInstance().avatar
+        pbVC.realName = UserInfo.sharedInstance().real_name
+        pbVC.jobName = UserInfo.sharedInstance().job_label
+
         for image in imageArray {
             models.append(PhotoBrowser.PhotoModel(localImg: image as! UIImage, titleStr: nil, descStr: nil, sourceView: disPalyViews[index] as! UIView))
         }

@@ -71,6 +71,7 @@ class MeetDetailViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.setUpNavigationBar()
+
         self.navigationController?.navigationBar.translucent = false;
     }
     

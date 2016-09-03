@@ -17,6 +17,9 @@ extension PhotoBrowser: UICollectionViewDataSource,UICollectionViewDelegate{
         super.viewWillAppear(animated)
         
         handleRotation(false)
+        self.navigationController?.navigationBarHidden = true
+        UIApplication.sharedApplication().statusBarHidden = false
+        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -45,13 +48,14 @@ extension PhotoBrowser: UICollectionViewDataSource,UICollectionViewDelegate{
         
         //添加
         self.view.addSubview(collectionView)
-        collectionView.make_4Inset(UIEdgeInsetsMake(0, 0, 0, -CFPBExtraWidth))
+        collectionView.make_4Inset(UIEdgeInsetsMake(20, 0, 0, -CFPBExtraWidth))
 
         //注册cell
         collectionView.registerNib(UINib(nibName: cellID, bundle: nil), forCellWithReuseIdentifier: cellID)
         collectionView.pagingEnabled = true
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
         collectionView.showsHorizontalScrollIndicator = false
         
         let isZoomType = self.showType == PhotoBrowser.ShowType.ZoomAndDismissWithCancelBtnClick || self.showType == PhotoBrowser.ShowType.ZoomAndDismissWithSingleTap
@@ -60,7 +64,7 @@ extension PhotoBrowser: UICollectionViewDataSource,UICollectionViewDelegate{
             collectionView.hidden = true
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleRotation:", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PhotoBrowser.handleRotation(_:)), name: UIDeviceOrientationDidChangeNotification, object: nil)
     }
 
     
@@ -87,7 +91,8 @@ extension PhotoBrowser: UICollectionViewDataSource,UICollectionViewDelegate{
         
         itemCell.photoModel = photoModel
         
-        itemCell.countLabel.text = "\(indexPath.row + 1) / \(photoModels.count)"
+        itemCell.bottomContentView.hidden = true
+//        itemCell.countLabel.text = "\(indexPath.row + 1) / \(photoModels.count)"
         
         if hideMsgForZoomAndDismissWithSingleTap && showType == .ZoomAndDismissWithSingleTap {itemCell.toggleDisplayBottomBar(true)}
         

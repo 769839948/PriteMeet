@@ -23,29 +23,98 @@ extension PhotoBrowser{
         
         self.edgesForExtendedLayout = UIRectEdge.None
         view.backgroundColor = UIColor.blackColor()
+
     }
     
     /**  控制器准备  */
     func vcPrepare(){
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "singleTapAction", name: CFPBSingleTapNofi, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PhotoBrowser.singleTapAction), name: CFPBSingleTapNofi, object: nil)
     
         if showType != PhotoBrowser.ShowType.ZoomAndDismissWithSingleTap {
             
-            dismissBtn = UIButton(frame: CGRectMake(0, 0, 40, 40))
-            dismissBtn.setBackgroundImage(UIImage(named: "pic.bundle/cancel"), forState: UIControlState.Normal)
-            dismissBtn.addTarget(self, action: "dismissPrepare", forControlEvents: UIControlEvents.TouchUpInside)
-            self.view.addSubview(dismissBtn)
-        
-            //保存按钮
-            saveBtn = UIButton()
-            saveBtn.setBackgroundImage(UIImage(named: "pic.bundle/save"), forState: UIControlState.Normal)
-            saveBtn.addTarget(self, action: "saveAction", forControlEvents: UIControlEvents.TouchUpInside)
-            self.view.addSubview(saveBtn)
-            saveBtn.make_rightTop_WH(top: 0, right: 0, rightWidth: 40, topHeight: 40)
+            self.setUpCustomNavigationBar()
+            
+//            dismissBtn = UIButton(frame: CGRectMake(0, 0, 40, 40))
+//            dismissBtn.setBackgroundImage(UIImage(named: "pic.bundle/cancel"), forState: UIControlState.Normal)
+//            dismissBtn.addTarget(self, action: #selector(PhotoBrowser.dismissPrepare), forControlEvents: UIControlEvents.TouchUpInside)
+//            self.view.addSubview(dismissBtn)
+//        
+//            //保存按钮
+//            saveBtn = UIButton()
+//            saveBtn.setBackgroundImage(UIImage(named: "pic.bundle/save"), forState: UIControlState.Normal)
+//            saveBtn.addTarget(self, action: #selector(PhotoBrowser.saveAction), forControlEvents: UIControlEvents.TouchUpInside)
+//            self.view.addSubview(saveBtn)
+//            saveBtn.make_rightTop_WH(top: 0, right: 0, rightWidth: 40, topHeight: 40)
         }
     }
     
+    func setUpCustomNavigationBar(){
+        navigaitonBar = UIView()
+        navigaitonBar.backgroundColor = UIColor.whiteColor()
+        let line = UILabel()
+        line.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
+        navigaitonBar.addSubview(line)
+        
+        let backButton = UIButton(type: .Custom)
+        backButton.setImage(UIImage.init(named: "navigationbar_back"), forState: .Normal)
+        backButton.addTarget(self, action: #selector(PhotoBrowser.dismissPrepare), forControlEvents: .TouchUpInside)
+        navigaitonBar.addSubview(backButton)
+        
+        let deleteButton = UIButton(type: .Custom)
+        deleteButton.setImage(UIImage.init(named: "navigation_delete"), forState: .Normal)
+        deleteButton.addTarget(self, action: #selector(PhotoBrowser.deleteImage), forControlEvents: .TouchUpInside)
+        navigaitonBar.addSubview(deleteButton)
+
+        let photoImage = UIImageView()
+        photoImage.sd_setImageWithURL(NSURL.init(string: avatar), placeholderImage: UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSizeMake(24, 24)), options: .RetryFailed)
+        photoImage.layer.cornerRadius = 12.0
+        navigaitonBar.addSubview(photoImage)
+        
+        let positionLabel = UILabel()
+        let positionString = "\(realName) \(jobName)"
+        let attributedString = NSMutableAttributedString(string: positionString)
+        attributedString.addAttributes([NSFontAttributeName:AppointRealNameLabelFont!], range: NSRange.init(location: 0, length: realName.length))
+        attributedString.addAttributes([NSFontAttributeName:AppointPositionLabelFont!], range: NSRange.init(location: realName.length + 1, length: jobName.length))
+        attributedString.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: HomeDetailViewNameColor)], range: NSRange.init(location: 0, length: positionString.length))
+        positionLabel.attributedText = attributedString
+        positionLabel.textAlignment = .Center        
+        navigaitonBar.addSubview(positionLabel)
+        
+        let stringWidth = positionString.stringWidth(positionString, font: AppointRealNameLabelFont!, height: 20.0) > ScreenWidth - 200 ? ScreenWidth - 200 : positionString.stringWidth(positionString, font: AppointRealNameLabelFont!, height: 20.0)
+        self.view.addSubview(navigaitonBar)
+        navigaitonBar.snp_makeConstraints { (make) in
+            make.top.equalTo(self.view.snp_top).offset(0)
+            make.left.equalTo(self.view.snp_left).offset(0)
+            make.right.equalTo(self.view.snp_right).offset(0)
+            make.height.equalTo(64)
+        }
+        backButton.snp_makeConstraints { (make) in
+            make.bottom.equalTo(navigaitonBar.snp_bottom).offset(-3)
+            make.left.equalTo(navigaitonBar.snp_left).offset(0)
+            make.size.equalTo(CGSizeMake(40, 40))
+            
+        }
+        
+        deleteButton.snp_makeConstraints { (make) in
+            make.bottom.equalTo(navigaitonBar.snp_bottom).offset(-3)
+            make.right.equalTo(navigaitonBar.snp_right).offset(-10)
+            make.size.equalTo(CGSizeMake(40, 40))
+        }
+        
+        positionLabel.snp_makeConstraints { (make) in
+            make.centerX.equalTo(navigaitonBar.snp_centerX).offset(20)
+            make.bottom.equalTo(navigaitonBar.snp_bottom).offset(-14)
+            make.width.equalTo(stringWidth + 10)
+        }
+        
+        photoImage.snp_makeConstraints { (make) in
+            make.bottom.equalTo(navigaitonBar.snp_bottom).offset(-10)
+            make.right.equalTo(positionLabel.snp_left).offset(-12)
+            make.size.equalTo(CGSizeMake(24, 24))
+        }
+    
+    }
     
     /** 保存 */
     func saveAction(){
@@ -60,7 +129,7 @@ extension PhotoBrowser{
         
         showHUD("保存中", autoDismiss: -1)
     
-        UIImageWriteToSavedPhotosAlbum(itemCell.imageV.image!, self, Selector("image:didFinishSavingWithError:contextInfo:"), nil)
+        UIImageWriteToSavedPhotosAlbum(itemCell.imageV.image!, self, #selector(PhotoBrowser.image(_:didFinishSavingWithError:contextInfo:)), nil)
         
         self.view.userInteractionEnabled = false
     }
@@ -81,21 +150,31 @@ extension PhotoBrowser{
         }
     }
     
+    func deleteImage() {
+        
+    }
     
     /**  单击事件  */
     func singleTapAction(){
         
         if showType != PhotoBrowser.ShowType.ZoomAndDismissWithSingleTap {
         
-            isHiddenBar = !isHiddenBar
+//            isHiddenBar = !isHiddenBar
             
-            dismissBtn.hidden = isHiddenBar
-            saveBtn.hidden = isHiddenBar
-            
+//            dismissBtn.hidden = isHiddenBar
+//            saveBtn.hidden = isHiddenBar
+            if navigaitonBar.hidden{
+                navigaitonBar.hidden = false
+                collectionView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
+            }else{
+                navigaitonBar.hidden = true
+                collectionView.backgroundColor = UIColor.blackColor()
+
+            }
             //取出cell
             let cell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: page, inSection: 0)) as! ItemCell
             cell.toggleDisplayBottomBar(isHiddenBar)
-            
+            cell.bottomContentView.hidden = true
         }else{
            
             dismissPrepare()
@@ -173,8 +252,12 @@ extension PhotoBrowser{
         vc.tabBarController?.tabBar.hidden = true
         
         if showType == .Push{//push
-            
             vc.hidesBottomBarWhenPushed = true
+            
+            /** pagecontrol准备 */
+            pagecontrolPrepare()
+            pagecontrol.currentPage = index
+            
             vc.navigationController?.pushViewController(self, animated: true)
             
         }else if showType == .Modal{
