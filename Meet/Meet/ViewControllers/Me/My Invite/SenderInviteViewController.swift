@@ -157,6 +157,7 @@ class SenderInviteViewController: UIViewController {
     func setUpTableView(){
         self.tableView.registerClass(InviteItemsTableViewCell.self, forCellReuseIdentifier: "InviteItemsTableViewCell")
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
+        self.tableView.keyboardDismissMode = .OnDrag
         self.tableView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
         self.tableView.snp_makeConstraints { (make) in
             make.top.equalTo(self.view.snp_top).offset(0)

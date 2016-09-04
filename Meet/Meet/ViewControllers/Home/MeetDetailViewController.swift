@@ -358,11 +358,7 @@ class MeetDetailViewController: UIViewController {
     
     lazy var imageArray:NSArray = {
         let tempArray = NSMutableArray()
-        if self.otherUserModel.cover_photo != nil {
-            if self.otherUserModel.cover_photo!.photo != "" {
-                tempArray.addObject(self.otherUserModel.cover_photo!.photo)
-            }
-        }
+        
         if self.otherUserModel.user_info!.detail != nil {
             let details = self.otherUserModel.user_info!.detail
             let dtailArray = Detail.mj_objectArrayWithKeyValuesArray(details)
@@ -372,7 +368,8 @@ class MeetDetailViewController: UIViewController {
                 let photosModel = Photos.mj_objectArrayWithKeyValuesArray(photos)
                 for model in photosModel {
                     if model.photo != "" {
-                        tempArray.addObject(model.photo!)
+                        let imageArray = model.photo!.componentsSeparatedByString("?")
+                        tempArray.addObject(imageArray[0].stringByAppendingString(HomeDetailMoreInfoImageSize))
                     }
                 }
             }
@@ -465,14 +462,59 @@ class MeetDetailViewController: UIViewController {
     
     func configAboutCell(cell:AboutUsInfoTableViewCell, indxPath:NSIndexPath)
     {
-        cell.configCell(self.otherUserModel.user_info?.experience, info: self.otherUserModel.user_info?.highlight, imageArray: nil, withUrl: self.otherUserModel.web_url)
+        cell.configCell(self.otherUserModel.user_info?.experience, info: self.otherUserModel.user_info?.highlight, imageArray: self.images as [AnyObject], withUrl: self.otherUserModel.web_url)
+    }
+    
+    
+    func headerListImages() -> NSArray {
+        let imageArray = NSMutableArray()
+        if self.otherUserModel.cover_photo != nil {
+            if self.otherUserModel.cover_photo!.photo != "" {
+                let imageStrArray = self.otherUserModel.cover_photo!.photo.componentsSeparatedByString("?")
+                imageArray.addObject(imageStrArray[0].stringByAppendingString(HomeDetailCovertImageSize))
+            }
+        }
+        let headArray = Head_Photo_List.mj_objectArrayWithKeyValuesArray(self.otherUserModel.head_photo_list)
+        for model in headArray {
+            let photoModel = model as! Head_Photo_List
+            let imageStr = photoModel.photo.stringByAppendingString(HomeDetailCovertImageSize)
+            imageArray.addObject(imageStr)
+        }
+        return imageArray
+    }
+    
+    func presentImageBrowse(index:NSInteger) {
+        let pbVC = PhotoBrowser()
+        pbVC.isNavBarHidden = true
+        //        pbVC.isStatusBarHidden = false
+        /**  设置相册展示样式  */
+        pbVC.showType = PhotoBrowser.ShowType.ZoomAndDismissWithSingleTap
+        /**  设置相册类型  */
+        pbVC.photoType = PhotoBrowser.PhotoType.Host
+        
+        //强制关闭显示一切信息
+        pbVC.hideMsgForZoomAndDismissWithSingleTap = true
+        
+        var models: [PhotoBrowser.PhotoModel] = []
+        
+        pbVC.avatar = UserInfo.sharedInstance().avatar
+        pbVC.realName = UserInfo.sharedInstance().real_name
+        pbVC.jobName = UserInfo.sharedInstance().job_label
+        let imageArray = UserExtenModel.shareInstance().head_photo_list
+        for image in imageArray {
+            models.append(PhotoBrowser.PhotoModel(hostHDImgURL: image.photo, hostThumbnailImg: nil, titleStr: nil, descStr: nil, sourceView: nil))
+        }
+        /**  设置数据  */
+        pbVC.photoModels = models
+        
+        pbVC.show(inVC: self,index: index)
     }
 }
 
 extension MeetDetailViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        if indexPath.section == 0 && indexPath.row == 3 {
+        if indexPath.section == 0 && indexPath.row == 2 {
             let otherInfo =  Stroyboard("Main", viewControllerId: "OtherViewController") as! OtherViewController
             otherInfo.uid = user_id
             self.navigationController?.pushViewController(otherInfo, animated: true)
@@ -662,7 +704,10 @@ extension MeetDetailViewController : UITableViewDataSource {
                 switch indexPath.row {
                 case 0:
                     let cell = tableView.dequeueReusableCellWithIdentifier(photoTableViewCell, forIndexPath: indexPath) as! PhotoTableViewCell
-                    cell.configCell(self.images as [AnyObject], gender: self.otherUserModel.gender , age: self.otherUserModel.age)
+                    cell.configCell(self.headerListImages() as [AnyObject], gender: self.otherUserModel.gender , age: self.otherUserModel.age)
+                    cell.clickBlock = { index in
+                        self.presentImageBrowse(index)
+                    }
                     return cell
                 case 1:
                     let cell = tableView.dequeueReusableCellWithIdentifier(meetInfoTableViewCell, forIndexPath: indexPath) as! MeetInfoTableViewCell
@@ -692,6 +737,7 @@ extension MeetDetailViewController : UITableViewDataSource {
                     self.configNewMeetCell(cell, indxPath: indexPath)
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
                     cell.userInteractionEnabled = false
+                    cell.isHaveShadowColor(true)
                     return cell
                 }
             default:
@@ -713,7 +759,10 @@ extension MeetDetailViewController : UITableViewDataSource {
                 switch indexPath.row {
                 case 0:
                     let cell = tableView.dequeueReusableCellWithIdentifier(photoTableViewCell, forIndexPath: indexPath) as! PhotoTableViewCell
-                    cell.configCell(self.images as [AnyObject], gender: self.otherUserModel.gender , age: self.otherUserModel.age)
+                    cell.configCell(self.headerListImages() as [AnyObject], gender: self.otherUserModel.gender , age: self.otherUserModel.age)
+                    cell.clickBlock = { index in
+                        self.presentImageBrowse(index)
+                    }
                     return cell
                 case 1:
                     let cell = tableView.dequeueReusableCellWithIdentifier(meetInfoTableViewCell, forIndexPath: indexPath) as! MeetInfoTableViewCell

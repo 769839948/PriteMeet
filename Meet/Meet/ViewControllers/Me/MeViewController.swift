@@ -122,6 +122,7 @@ class MeViewController: UIViewController {
     func loadExtenInfo(){
         userInfoModel.getMoreExtInfo("", success: { (dic) in
             UserExtenModel.synchronizeWithDic(dic)
+            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 1, inSection: 0)], withRowAnimation: .Automatic)
             }, fail: { (dic) in
                 
             }, loadingString: { (msg) in
@@ -270,7 +271,6 @@ class MeViewController: UIViewController {
     
     func configNewMeetCell(cell:NewMeetInfoTableViewCell, indxPath:NSIndexPath)
     {
-//        cell.fd_enforceFrameLayout = false;
         cell.configCell(self.descriptionString(), array: self.instrestArray() as [AnyObject], andStyle: .ItemWhiteColorAndBlackBoard)
     }
     
@@ -350,6 +350,13 @@ class MeViewController: UIViewController {
         self.navigationController?.pushViewController(orderPageVC, animated: true)
     }
     
+    func uploadImages(images:NSArray) {
+        userInfoModel.uploadHeaderList(images as [AnyObject], successBlock: { (dic) in
+            self.loadExtenInfo()
+            }) { (dic) in
+                MainThreadAlertShow("上传失败", view: self.view)
+        }
+    }
     
     func presentImagePicker() {
         let imagePickerVC = TZImagePickerController(maxImagesCount: 8, delegate: self)
@@ -361,7 +368,7 @@ class MeViewController: UIViewController {
         imagePickerVC.oKButtonTitleColorDisabled = UIColor.init(hexString: lineLabelBackgroundColor)
         imagePickerVC.allowPickingOriginalPhoto = true
         imagePickerVC.didFinishPickingPhotosHandle = { photos,assets,isSelectOriginalPhoto in
-            
+            self.uploadImages(photos)
         }
         
         self.presentViewController(imagePickerVC, animated: true) { 
@@ -369,14 +376,14 @@ class MeViewController: UIViewController {
         }
     }
     
-    func presentImageBrowse(index:NSInteger, imageArray:NSMutableArray,  disPalyViews:NSMutableArray) {
+    func presentImageBrowse(index:NSInteger) {
         let pbVC = PhotoBrowser()
         pbVC.isNavBarHidden = true
 //        pbVC.isStatusBarHidden = false
         /**  设置相册展示样式  */
         pbVC.showType = PhotoBrowser.ShowType.Push
         /**  设置相册类型  */
-        pbVC.photoType = PhotoBrowser.PhotoType.Local
+        pbVC.photoType = PhotoBrowser.PhotoType.Host
         
         //强制关闭显示一切信息
         pbVC.hideMsgForZoomAndDismissWithSingleTap = true
@@ -386,10 +393,21 @@ class MeViewController: UIViewController {
         pbVC.avatar = UserInfo.sharedInstance().avatar
         pbVC.realName = UserInfo.sharedInstance().real_name
         pbVC.jobName = UserInfo.sharedInstance().job_label
-
+        let imageArray = UserExtenModel.shareInstance().head_photo_list
         for image in imageArray {
-            models.append(PhotoBrowser.PhotoModel(localImg: image as! UIImage, titleStr: nil, descStr: nil, sourceView: disPalyViews[index] as! UIView))
+            models.append(PhotoBrowser.PhotoModel(hostHDImgURL: image.photo, hostThumbnailImg: nil, titleStr: nil, descStr: nil, sourceView: nil))
         }
+
+        pbVC.deletePhoto = { index,deleteSuccess in
+            let model = imageArray[index]
+            self.userInfoModel.deleteImage(("\(model.photo_id)"), successBlock: { (dic) in
+                deleteSuccess(success: true)
+                self.loadExtenInfo()
+                }, failBlock: { (dic) in
+                deleteSuccess(success: false)
+            })
+        }
+        
         /**  设置数据  */
         pbVC.photoModels = models
         
@@ -446,7 +464,7 @@ extension MeViewController : UITableViewDelegate{
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 1 {
-            return 20
+            return 23
         }
         return 0.0001
         
@@ -477,6 +495,10 @@ extension MeViewController : UITableViewDelegate{
             case 0:
                 self.pushProfileViewControllr()
             default:
+                
+                if  UserExtenModel.shareInstance().head_photo_list != nil && UserExtenModel.shareInstance().head_photo_list.count == 0 {
+                    self.presentImagePicker()
+                }
                 break;
             }
         default:
@@ -521,6 +543,8 @@ extension MeViewController : UITableViewDelegate{
                     return tableView.fd_heightForCellWithIdentifier(newMeetInfoTableViewCell, configuration: { (cell) in
                         self.configNewMeetCell((cell as! NewMeetInfoTableViewCell), indxPath: indexPath)
                     })
+                case 6:
+                    return 61
                 default:
                     return 50
                 }
@@ -564,31 +588,17 @@ extension MeViewController : UITableViewDataSource {
                 if indexPath.row == 0 {
                     let cell = tableView.dequeueReusableCellWithIdentifier(mePhotoTableViewCell, forIndexPath: indexPath) as! MePhotoTableViewCell
                     cell.avatarImageView.backgroundColor = UIColor.init(hexString: "e7e7e7")
-                    if UserExtenModel.shareInstance().cover_photo != nil {
-                        let cover_photo:Cover_photo = Cover_photo.mj_objectWithKeyValues(UserExtenModel.shareInstance().cover_photo)
-                        if cover_photo.photo != "" {
-                            //http://7xsatk.com1.z0.glb.clouddn.com/o_1aqc2rujd1vbc11ten5s12tj115fc.jpg?imageView2/1/w/1125/h/816
-                            cell.avatarImageView .sd_setImageWithURL(NSURL.init(string:cover_photo.photo ), placeholderImage: nil, completed: { (image, error, type, url) in
-                                UserExtenModel.saveCacheImage(image, withName: "cover_photo.jpg")
-                            })
-                        }else{
-                            //                        if UserInfo.imageForName("headImage.jpg") != nil {
-                            //                            cell.avatarImageView.image = UserInfo.imageForName("headImage.jpg");
-                            //                        }else{
-                            cell.avatarImageView.sd_setImageWithURL(NSURL.init(string: UserInfo.sharedInstance().avatar), placeholderImage: nil, completed: { (image
-                                , error, type, url) in
-                                UserInfo.saveCacheImage(image, withName: "headImage.jpg")
-                            })
-                            //                        }
-                        }
-                    }
-                    
+                    cell.avatarImageView.sd_setImageWithURL(NSURL.init(string: UserInfo.sharedInstance().avatar), placeholderImage: nil, completed: { (image
+                        , error, type, url) in
+                        UserInfo.saveCacheImage(image, withName: "headImage.jpg")
+                    })
                     cell.avatarImageView.autoresizingMask = UIViewAutoresizing.FlexibleTopMargin;
                     if UserExtenModel.shareInstance().completeness != nil {
                         cell.cofigLoginCell(UserInfo.sharedInstance().real_name, infoCom: UserInfo.sharedInstance().job_label,compass: UserExtenModel.shareInstance().completeness)
                         
                     }else{
-                        //                    cell.cofigLoginCell(UserInfo.sharedInstance().real_name, infoCom: UserInfo.sharedInstance().job_label,compass: UserExtenModel.shareInstance().completeness)
+
+//                        cell.cofigLoginCell(UserInfo.sharedInstance().real_name, infoCom: UserInfo.sharedInstance().job_label,compass: nil)
                         
                     }
                     frame = cell.avatarImageView.frame;
@@ -600,12 +610,18 @@ extension MeViewController : UITableViewDataSource {
                     return cell
                 }else{
                     let cell = tableView.dequeueReusableCellWithIdentifier(photoDetailTableViewCell, forIndexPath: indexPath) as! PhotoDetailTableViewCell
-                    cell.configCell(UserExtenModel.allImageUrl())
+                    while cell.contentView.subviews.last != nil {
+                        cell.contentView.subviews.last?.removeFromSuperview()
+                    }
+                    cell.setUpView()
+                    if (UserExtenModel.shareInstance().head_photo_list != nil) {
+                        cell.configCell(UserExtenModel.shareInstance().head_photo_list)
+                    }
                     cell.closure = { () in
                         self.presentImagePicker()
                     }
-                    cell.cellImageArray = { (index,imageArray,disPalyViews) in
-                        self.presentImageBrowse(index, imageArray: imageArray, disPalyViews:disPalyViews)
+                    cell.cellImageArray = { (index) in
+                        self.presentImageBrowse(index)
                     }
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
                     cell.backgroundColor = UIColor.clearColor()
@@ -626,9 +642,10 @@ extension MeViewController : UITableViewDataSource {
                     return cell
                 }else if indexPath.row == 2 {
                     let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
-                    cell.configCell("me_newmeet", infoString: "最新邀约", infoDetail: "", shadowColor: false,cornerRadiusType: .None)
+                    cell.configCell("me_newmeet", infoString: "我的邀约", infoDetail: "", shadowColor: false,cornerRadiusType: .None)
+                    cell.infoDetailLabel.text =  (UserInviteModel.shareInstance().results[0]).is_active ? "":"未开启       "
+                    cell.setInfoButtonBackGroudColor(lineLabelBackgroundColor)
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
-                    cell.setInfoButtonBackGroudColor(MeProfileCollectViewItemSelect)
                     return cell
                 }else if indexPath.row == 3 {
                     let cell = tableView.dequeueReusableCellWithIdentifier(newMeetInfoTableViewCell, forIndexPath: indexPath) as! NewMeetInfoTableViewCell

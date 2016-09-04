@@ -73,7 +73,7 @@ let NavigationBarRightItemFont  = version >= 9.0 ? UIFont.init(name: "PingFangSC
 let HomeDetailCenterLabelFont  = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 13.0):UIFont.systemFontOfSize(13)
 
 let AboutUsTitleFont  = version >= 9.0 ? UIFont.init(name: "PingFangSC-Thin", size: 24.0):UIFont.systemFontOfSize(24)
-let AboutUsInfoFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 13.0):UIFont.systemFontOfSize(13)
+let AboutUsInfoFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 14.0):UIFont.systemFontOfSize(14)
 
 let HightLightTitleFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 24.0):UIFont.systemFontOfSize(24)
 let HightLightInfoFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 16):UIFont.systemFontOfSize(16)
@@ -120,4 +120,6 @@ let NavigaitonAvatarImageSize = ScreenWidth > 375.0 ? "?imageView2/1/w/102/h/102
 //let HomeCovertImageSize = ScreenWidth > 375.0 ? "?imageView2/1/w/1065/h/600":"?imageView2/1/w/750/h/422"
 
 let HomeDetailCovertImageSize = ScreenWidth > 375.0 ? "?imageView2/1/w/1065/h/600":"?imageView2/1/w/750/h/422"
+
+let HomeDetailMoreInfoImageSize = ScreenWidth > 375.0 ? "?imageView2/1/w/177/h/177":"?imageView2/1/w/118/h/118"
 

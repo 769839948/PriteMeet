@@ -83,7 +83,7 @@
     [_backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width - 100)/2, 33, 100, 18)];
-    _titleLabel.text = @"浏览";
+    _titleLabel.text = @"预览";
     _titleLabel.textAlignment = NSTextAlignmentCenter;
     _titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:18.0];
     [_naviBar addSubview:_titleLabel];

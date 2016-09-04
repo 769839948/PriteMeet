@@ -18,7 +18,11 @@ extension PhotoBrowser: UICollectionViewDataSource,UICollectionViewDelegate{
         
         handleRotation(false)
         self.navigationController?.navigationBarHidden = true
-        UIApplication.sharedApplication().statusBarHidden = false
+        if self.navigaitonBar.hidden {
+            UIApplication.sharedApplication().statusBarHidden = true
+        }else{
+            UIApplication.sharedApplication().statusBarHidden = false
+        }
         UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
     }
     
@@ -48,7 +52,7 @@ extension PhotoBrowser: UICollectionViewDataSource,UICollectionViewDelegate{
         
         //添加
         self.view.addSubview(collectionView)
-        collectionView.make_4Inset(UIEdgeInsetsMake(20, 0, 0, -CFPBExtraWidth))
+        collectionView.make_4Inset(UIEdgeInsetsMake(0, 0, 0, -CFPBExtraWidth))
 
         //注册cell
         collectionView.registerNib(UINib(nibName: cellID, bundle: nil), forCellWithReuseIdentifier: cellID)

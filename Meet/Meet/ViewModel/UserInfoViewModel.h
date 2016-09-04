@@ -275,6 +275,29 @@ typedef void (^returnImage)(UIImage *image);
 - (void)lastModifield:(void (^)(NSString *time))lastBlock failBlock:(Fail)failBock;
 
 /**
+ *  上传多张图片
+ *
+ *  @param images
+ *  @param successBlock
+ *  @param failBlock
+ */
+- (void)uploadHeaderList:(NSArray *)images
+            successBlock:(Success)successBlock
+               failBlock:(Fail)failBlock;
+
+
+/**
+ *  删除照片
+ *
+ *  @param photoId      照片id
+ *  @param successBlock successBlock description
+ *  @param failBlock    failBlock description
+ */
+- (void)deleteImage:(NSString *)photoId
+       successBlock:(Success)successBlock
+          failBlock:(Fail)failBlock;
+
+/**
  *  保存图片
  *
  *  @param url             图片地址
@@ -284,5 +307,7 @@ typedef void (^returnImage)(UIImage *image);
        completionBlock:(void (^)(BOOL succeeded, UIImage *image))completionBlock
                   fail:(Fail)failBlock
          loadingString:(LoadingView)loading;
+
+
 
 @end

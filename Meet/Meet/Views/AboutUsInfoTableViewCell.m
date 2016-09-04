@@ -9,6 +9,10 @@
 #import "AboutUsInfoTableViewCell.h"
 #import "NSString+StringSize.h"
 #import "Masonry.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+
+
+
 
 @interface CustomLabel : UILabel
 
@@ -96,29 +100,23 @@
     
     _titleLabel.text = title;
     _textlabel.text = info;
-    
-//    float maxHeight = 10.0;
-//    if (_isFirstLoad && stringArray != _stringArray) {
-//        for (NSInteger i = 0; i < stringArray.count; i ++) {
-//            if (![[stringArray objectAtIndex:i] isEqualToString:@""]) {
-//                CustomLabel *customLabel = [CustomLabel setUpLabel:CGRectMake(19, (maxHeight) + 10, ScreenWidth - 38, 0) text:[stringArray objectAtIndex:i]];
-//                [self.contentView addSubview:customLabel];
-//                maxHeight = CGRectGetMaxY(customLabel.frame);
-//            }
-//            
-//        }
-//        _stringArray = [stringArray mutableCopy];
-//        _isFirstLoad = NO;
-//    }
     if (![web_url isEqualToString:@""]) {
         for (NSInteger i = 0; i < images.count; i ++) {
-            UIImageView *imageView = [[UIImageView alloc] initWithImage:[images objectAtIndex:i]];
+            UIImageView *imageView = [[UIImageView alloc] init];
+            NSArray *imageArray = [[images objectAtIndex:i] componentsSeparatedByString:@"?"];
+            [imageView sd_setImageWithURL:[NSURL URLWithString:[imageArray[0] stringByAppendingString:HomeDetailMoreInfoImageSize]] placeholderImage:PlaceholderImage options:SDWebImageRetryFailed];
             imageView.frame = CGRectMake(i * 64, 0, 59, 59);
-            [_imageContent addSubview:imageView];
+            if (CGRectGetMaxX(imageView.frame) < ScreenWidth - 50) {
+                [_imageContent addSubview:imageView];
+            }else{
+                UIImageView *detailImage = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imageView.frame) - 120, 0, 78, 59)];
+                NSLog(@"%f",detailImage.frame.origin.x);
+                detailImage.image  = [UIImage imageNamed:@"photo_detail"];
+                [_imageContent addSubview:detailImage];
+                break;
+            }
         }
-        UIImageView *detailImage = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth - 40 - 78, 0, 78, 59)];
-        detailImage.image  = [UIImage imageNamed:@"photo_detail"];
-        [_imageContent addSubview:detailImage];
+        
         
         UIImageView *detailNextImage = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth - 47, 24, 7, 12)];
         detailNextImage.image  = [UIImage imageNamed:@"info_next"];

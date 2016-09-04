@@ -67,9 +67,7 @@
 
     [Crashlytics sharedInstance].debugMode = YES;
     [Fabric with:@[[Crashlytics class]]];//
-    
-    
-    [UserInfo sharedInstance].avatar = @"";
+        
     return YES;
 }
 

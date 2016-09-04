@@ -35,11 +35,14 @@ class MePhotoTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         avatarImageView.image = UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSizeZero)
+        placImageView.layer.cornerRadius = 5.0
+        placImageView.hidden = true
         avatarImageView.layer.masksToBounds = true
         placImageView.layer.masksToBounds = true
         completeInfoView.layer.cornerRadius = 14.0
         completeInfoView.layer.masksToBounds = true
         completeInfoView.backgroundColor = UIColor.init(hexString:MeProfileCollectViewItemSelect)
+        self.contentView.backgroundColor = UIColor.clearColor()
         // Initialization code
     }
     
@@ -62,7 +65,6 @@ class MePhotoTableViewCell: UITableViewCell {
         self.loginView.backgroundColor = UIColor.whiteColor()
         if compass.next_page != 4 {
             completeInfoView.hidden = false
-            infoCompleLabel.hidden = true
             let compassString = "\(compass.completeness)% \(compass.msg)"
             completeInfoLabel.text = compassString;
             completeInfoView.tag = compass.next_page
@@ -70,6 +72,7 @@ class MePhotoTableViewCell: UITableViewCell {
             singerTap.numberOfTouchesRequired = 1
             singerTap.numberOfTapsRequired = 1
             completeInfoView.addGestureRecognizer(singerTap)
+            infoCompleLabel.text = infoCom;
             
         }else{
             completeInfoView.hidden = true
@@ -77,12 +80,11 @@ class MePhotoTableViewCell: UITableViewCell {
             self.infoCompleLabel.hidden = false
         }
         self.contentView.layer.cornerRadius = 5.0
-        let maskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, avatarImageView.frame.size.width, avatarImageView.frame.size.height), byRoundingCorners: [.TopLeft,.TopRight], cornerRadii: CGSizeMake(5, 0))
+        let maskPath = UIBezierPath.init(roundedRect: CGRectMake(-10, 0, ScreenWidth - 20, ScreenWidth*236/355), byRoundingCorners: [.TopLeft,.TopRight], cornerRadii: CGSizeMake(5, 0))
         let maskLayer = CAShapeLayer()
-        maskLayer.frame = CGRectMake(0, 0, ScreenWidth - 20, avatarImageView.frame.size.height)
+        maskLayer.frame = CGRectMake(-10, 0, ScreenWidth - 20, ScreenWidth*236/355)
         maskLayer.path = maskPath.CGPath
-        placImageView.layer.mask = maskLayer
-//        avatarImageView.layer.mask = maskLayer
+        avatarImageView.layer.mask = maskLayer
     }
     
     func singerTapPress(tap:UITapGestureRecognizer) {

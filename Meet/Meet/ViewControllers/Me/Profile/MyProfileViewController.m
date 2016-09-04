@@ -1740,6 +1740,10 @@ typedef NS_ENUM(NSUInteger, RowType) {
         [EMAlertView showAlertWithTitle:nil message:@"请输入正确的手机号" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
             
         } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
+    }else if([[UserInfo sharedInstance].job_label isEqualToString:@""]){
+        [EMAlertView showAlertWithTitle:nil message:@"职业信息为必填内容哦" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+            
+        } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
     }else{
         ret = YES;
     }

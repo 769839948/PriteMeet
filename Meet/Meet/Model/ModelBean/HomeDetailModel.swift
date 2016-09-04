@@ -75,4 +75,18 @@ class HomeDetailModel: NSObject {
     var cur_user_liked : Bool = false
     
     var liked_count : NSInteger = 0
+    
+    var head_photo_list: [Head_Photo_List]?
+
 }
+
+
+
+class Head_Photo_List: NSObject {
+
+    var photo: String = ""
+
+    var photo_id: Int = 0
+
+}
+

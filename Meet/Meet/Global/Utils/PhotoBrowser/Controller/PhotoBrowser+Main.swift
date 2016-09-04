@@ -70,6 +70,7 @@ extension PhotoBrowser{
         let imageArray = avatar.componentsSeparatedByString("?")
         photoImage.sd_setImageWithURL(NSURL.init(string: imageArray[0].stringByAppendingString(AvatarImageSize)), placeholderImage: UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSizeMake(24, 24)), options: .RetryFailed)
         photoImage.layer.cornerRadius = 12.0
+        photoImage.layer.masksToBounds = true
         navigaitonBar.addSubview(photoImage)
         
         let positionLabel = UILabel()
@@ -153,24 +154,51 @@ extension PhotoBrowser{
     
     func deleteImage() {
         
+        let alertControl = UIAlertController(title: "确定删除此照片吗？", message: "", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .Destructive) { (cancelAction) in
+            
+        }
+        let confirmAction = UIAlertAction(title: "删除", style: .Default) { (doneAction) in
+            if self.deletePhoto != nil {
+                var deleteSucess:DeleteSuccess!
+                deleteSucess = { sucess -> Void in
+                    dispatch_async(dispatch_get_main_queue(), {
+                        if sucess {
+                            self.photoModels.removeAtIndex(self.page)
+                            self.pagecontrol.numberOfPages = self.photoModels.count
+                            self.collectionView.reloadData()
+                        }else{
+                            self.showHUD("删除失败", autoDismiss: 2)
+                            
+                        }
+                    })
+                }
+                if self.photoModels.count > 0 {
+                    self.deletePhoto(index: self.page,deleteSucess: deleteSucess)
+                }
+            }
+        }
+        alertControl.addAction(cancelAction)
+        alertControl.addAction(confirmAction)
+        self.presentViewController(alertControl, animated: true) { 
+            
+        }
+        
     }
     
     /**  单击事件  */
     func singleTapAction(){
         
         if showType != PhotoBrowser.ShowType.ZoomAndDismissWithSingleTap {
-        
-//            isHiddenBar = !isHiddenBar
-            
-//            dismissBtn.hidden = isHiddenBar
-//            saveBtn.hidden = isHiddenBar
+
             if navigaitonBar.hidden{
                 navigaitonBar.hidden = false
+                UIApplication.sharedApplication().statusBarHidden = false
                 collectionView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
             }else{
                 navigaitonBar.hidden = true
+                UIApplication.sharedApplication().statusBarHidden = true
                 collectionView.backgroundColor = UIColor.blackColor()
-
             }
             //取出cell
             let cell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: page, inSection: 0)) as! ItemCell

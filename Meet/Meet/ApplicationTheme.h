@@ -55,7 +55,7 @@
 
 #define MeViewProfileLabelFont          (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:14.0f]:[UIFont systemFontOfSize:14]
 
-#define AboutUsLabelFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:14.0f]:[UIFont systemFontOfSize:14]
+#define AboutUsLabelFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Thin" size:14.0f]:[UIFont systemFontOfSize:14]
 
 
 #define HomeDetailAboutUsTitleLabelFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Medium" size:19.0f]:[UIFont systemFontOfSize:19]
@@ -140,6 +140,10 @@
 #define EMAlertViewCancelTitle  @"取消"
 
 #define EMAlertViewConfirmTitle  @"朕知道了"
+
+
+#define HomeDetailMoreInfoImageSize ScreenWidth > 375.0 ? @"?imageView2/1/w/177/h/177":@"?imageView2/1/w/118/h/118"
+#define HomeCoverImageSize ScreenWidth > 375.0 ? @"?imageView2/1/w/1065/h/600":@"?imageView2/1/w/710/h/400"
 
 
 //IQKeyboardManager Color

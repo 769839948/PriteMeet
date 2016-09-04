@@ -8,6 +8,7 @@
 
 #import "UserExtenModel.h"
 #import "MJExtension.h"
+#import "Meet-Swift.h"
 @class Photos;
 //文件地址名称
 #define kEncodedObjectPath_UserExten ([[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"UserExtenModel"])
@@ -134,6 +135,16 @@ static UserExtenModel *userExten = nil;
         [details addObject:detail];
     }
     [UserExtenModel shareInstance].detail  = [details copy];
+    
+    NSMutableArray *headPhotoListArray = [NSMutableArray array];
+    NSArray *headPhotoList = dic[@"head_photo_list"];
+    for (int i = 0 ; i < headPhotoList.count; i ++) {
+        Head_Photo_List *headPhoto = [[Head_Photo_List alloc] init];
+        headPhoto.photo_id = [[[headPhotoList objectAtIndex:i] objectForKey:@"photo_id"] integerValue];
+        headPhoto.photo = [[headPhotoList objectAtIndex:i] objectForKey:@"photo"];
+        [headPhotoListArray addObject:headPhoto];
+    }
+    [UserExtenModel shareInstance].head_photo_list  = [headPhotoListArray copy];
     return [UserExtenModel synchronize];
 }
 
@@ -172,4 +183,6 @@ static UserExtenModel *userExten = nil;
 }
 
 @end
+
+
 

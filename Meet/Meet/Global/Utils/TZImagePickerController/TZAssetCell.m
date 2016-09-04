@@ -18,6 +18,7 @@
 @property (weak, nonatomic) UIView *bottomView;
 @property (weak, nonatomic) UILabel *timeLength;
 
+
 @property (nonatomic, weak) UIImageView *viewImgView;
 
 @end
@@ -172,6 +173,8 @@
 @property (weak, nonatomic) UIImageView *posterImageView;
 @property (weak, nonatomic) UILabel *titleLable;
 @property (weak, nonatomic) UIImageView *arrowImageView;
+@property (weak, nonatomic) UILabel *numberPhoto;
+
 @end
 
 @implementation TZAlbumCell
@@ -186,9 +189,9 @@
     _model = model;
     
     NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:model.name attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor blackColor]}];
-    NSAttributedString *countString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"  (%zd)",model.count] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
-    [nameString appendAttributedString:countString];
+    NSAttributedString *countString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"  %zd",model.count] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor blackColor]}];
     self.titleLable.attributedText = nameString;
+    self.numberPhoto.attributedText = countString;
     [[TZImageManager manager] getPostImageWithAlbumModel:model completion:^(UIImage *postImage) {
         self.posterImageView.image = postImage;
     }];
@@ -217,7 +220,7 @@
         UIImageView *posterImageView = [[UIImageView alloc] init];
         posterImageView.contentMode = UIViewContentModeScaleAspectFill;
         posterImageView.clipsToBounds = YES;
-        posterImageView.frame = CGRectMake(0, 0, 70, 70);
+        posterImageView.frame = CGRectMake(20, 10, 70, 70);
         [self.contentView addSubview:posterImageView];
         _posterImageView = posterImageView;
     }
@@ -228,7 +231,7 @@
     if (_titleLable == nil) {
         UILabel *titleLable = [[UILabel alloc] init];
         titleLable.font = [UIFont boldSystemFontOfSize:17];
-        titleLable.frame = CGRectMake(80, 0, self.tz_width - 80 - 50, self.tz_height);
+        titleLable.frame = CGRectMake(105, 20, self.tz_width - 80 - 50, 20);
         titleLable.textColor = [UIColor blackColor];
         titleLable.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:titleLable];
@@ -236,6 +239,20 @@
     }
     return _titleLable;
 }
+
+- (UILabel *)numberPhoto {
+    if (_numberPhoto == nil) {
+        UILabel *numberPhoto = [[UILabel alloc] init];
+        numberPhoto.font = [UIFont boldSystemFontOfSize:17];
+        numberPhoto.frame = CGRectMake(100, 50, self.tz_width - 80 - 50, 13);
+        numberPhoto.textColor = [UIColor blackColor];
+        numberPhoto.textAlignment = NSTextAlignmentLeft;
+        [self.contentView addSubview:numberPhoto];
+        _numberPhoto = numberPhoto;
+    }
+    return _numberPhoto;
+}
+
 
 - (UIImageView *)arrowImageView {
     if (_arrowImageView == nil) {
@@ -260,6 +277,7 @@
         [self.contentView addSubview:selectedCountButton];
         _selectedCountButton = selectedCountButton;
     }
+    _selectedCountButton.hidden = YES;
     return _selectedCountButton;
 }
 

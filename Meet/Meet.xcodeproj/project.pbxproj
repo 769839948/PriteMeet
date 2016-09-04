@@ -2536,7 +2536,7 @@
 					"$(PROJECT_DIR)/Meet/3rd/SDKExport",
 					"$(PROJECT_DIR)/Meet/3rd/libWeiboSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.meet.meet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meet.testmeet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Meet/Meet-Bridging-Header.h";
@@ -2566,7 +2566,7 @@
 					"$(PROJECT_DIR)/Meet/3rd/SDKExport",
 					"$(PROJECT_DIR)/Meet/3rd/libWeiboSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.meet.meet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meet.testmeet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Meet/Meet-Bridging-Header.h";

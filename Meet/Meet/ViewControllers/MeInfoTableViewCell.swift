@@ -46,6 +46,9 @@ class MeInfoTableViewCell: UITableViewCell {
     }
     
     func configCell(image:String, infoString:String, infoDetail:String, shadowColor:Bool,cornerRadiusType:CornerRadiusType){
+        
+        
+        
         infoImageView.image = UIImage(named: image)
         infoLabel.text = infoString
         infoDetailLabel.text = infoDetail
@@ -57,16 +60,16 @@ class MeInfoTableViewCell: UITableViewCell {
             maskLayer.path = maskPath.CGPath
             infoView.layer.mask = maskLayer
         }else if cornerRadiusType == .Bottom {
-            let maskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, ScreenWidth - 20, 50), byRoundingCorners: [.BottomLeft,.BottomRight], cornerRadii: CGSizeMake(5, 0))
+            let maskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, ScreenWidth - 20, 58), byRoundingCorners: [.BottomLeft,.BottomRight], cornerRadii: CGSizeMake(5, 0))
             let maskLayer = CAShapeLayer()
-            maskLayer.frame = CGRectMake(0, 0, ScreenWidth - 10, 50)
+            maskLayer.frame = CGRectMake(0, 0, ScreenWidth - 10, 58)
             maskLayer.path = maskPath.CGPath
             infoView.layer.mask = maskLayer
         }
         
         let offset = shadowColor ? -3:0
         infoView.snp_updateConstraints { (make) in
-            make.bottom.equalTo(self.contentView.snp_bottom).offset(offset)
+            make.bottom.equalTo(self.shadownView.snp_bottom).offset(offset)
         }
         if !shadowColor {
             shadownView.hidden = true
@@ -94,6 +97,7 @@ class MeInfoTableViewCell: UITableViewCell {
                 make.top.equalTo(self.contentView.snp_top).offset(0)
                 make.left.equalTo(self.contentView.snp_left).offset(10)
                 make.right.equalTo(self.contentView.snp_right).offset(-10)
+                
             })
             
             infoImageView.snp_makeConstraints(closure: { (make) in

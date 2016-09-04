@@ -34,15 +34,17 @@ class HightLightViewController: UIViewController {
     }
     
     func setUpNavigationItem() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "提交", style: .Plain, target: self, action: #selector(HightLightViewController.sublimTitle(_:)))
+        let str = (titleStr != "" && infoStr == "") ? "提交":"保存"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: str, style: .Plain, target: self, action: #selector(HightLightViewController.sublimTitle(_:)))
         self.changeNavigationBarItemColor()
     }
 
     func changeNavigationTitleColor() -> Bool {
+        
+        titleHeight = ((PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000007") as! String).heightWithConstrainedWidth(ScreenWidth - 40, font: HightLightTitleFont!) + 75
         if titleStr == "" || infoStr == "" || titleStr.length == 0 || infoStr.length == 0  {
             return false
         }else{
-            titleHeight = titleStr.heightWithConstrainedWidth(ScreenWidth - 40, font: HightLightTitleFont!) + 75
             return true
         }
     }
@@ -52,8 +54,10 @@ class HightLightViewController: UIViewController {
     }
     
     func sublimTitle(sender:UIBarButtonItem) {
-        if titleStr == "" || infoStr == "" {
-            MainThreadAlertShow("请输入资料", view: self.view)
+        if titleStr == "" {
+            MainThreadAlertShow("您未填写破冰话题哦", view: self.view)
+        }else if infoStr == "" {
+            MainThreadAlertShow("您未填写详细个人介绍哦", view: self.view)
         }else{
             viewModel.addStar(infoStr, experience: titleStr, success: { (dic) in
                 UserExtenModel.shareInstance().highlight = self.infoStr
@@ -132,13 +136,14 @@ extension HightLightViewController : UITableViewDataSource {
             
             titleText = UITextView()
             
-            titleText.placeholder = "先写一个破冰的标题吧，可以是特殊的经历、话题、故事，例：金融圈最会讲鬼故事的萌妹子"
+            titleText.placeholder = (PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000007") as! String
             if titleStr != "" {
                 titleText.text = titleStr
             }
-            titleText.tintColor = UIColor.blackColor()
+            titleText.tintColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
             titleText.delegate = self
             titleText.tag = 1
+            titleText.returnKeyType = .Done
             titleText.placeholderColor = UIColor.init(hexString: MeViewProfileContentLabelColorLight)
             titleText.font = HightLightTitleFont
             cell?.contentView.addSubview(titleText)
@@ -148,7 +153,7 @@ extension HightLightViewController : UITableViewDataSource {
                 make.right.equalTo((cell?.contentView.snp_right)!).offset(-15)
                 make.bottom.equalTo((cell?.contentView.snp_bottom)!).offset(-30)
             })
-            
+
             cell?.selectionStyle = .None
             let line = UILabel()
             line.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
@@ -169,10 +174,11 @@ extension HightLightViewController : UITableViewDataSource {
             }
             
             infoText = UITextView()
-            infoText.placeholder = "详细的说说关于你的一切，可以从工作经历、生活、兴趣爱好等方面简单扼要的介绍你自己，3-4条概括性描述即可"
+            infoText.placeholder = (PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000008") as! String
             if infoText != "" {
                 infoText.text = infoStr
             }
+            
             infoText.font = HightLightInfoFont
             infoText.delegate = self
             infoText.tag = 2
@@ -187,6 +193,7 @@ extension HightLightViewController : UITableViewDataSource {
                 make.bottom.equalTo((cell?.contentView.snp_bottom)!).offset(-20)
             })
             cell?.selectionStyle = .None
+
             return cell!
         }
     }
@@ -194,19 +201,32 @@ extension HightLightViewController : UITableViewDataSource {
 
 extension HightLightViewController : UITextViewDelegate {
     func textViewDidBeginEditing(textView: UITextView) {
-        if titleHeight != 192 {
-            titleHeight = 192
-            self.tableView.reloadData()
+        if titleStr == "" && textView.tag == 1 {
+            textView.text = "我是\(UserInfo.sharedInstance().real_name)"
         }
-        textView.becomeFirstResponder()
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         
+        if text == "\n" && textView.tag == 1 {
+            textView.resignFirstResponder()
+            return false
+        }
+        
         if textView.tag == 1 {
             titleStr = textView.text
+            if text == "" && titleStr.length == 1 {
+                titleStr = ""
+            }else if titleStr.length == 0{
+                titleStr = ""
+            }
         }else{
             infoStr = textView.text
+            if text == "" && infoStr.length == 1 {
+                infoStr = ""
+            }else if titleStr.length == 0{
+                infoStr = ""
+            }
         }
         self.changeNavigationBarItemColor()
         return true

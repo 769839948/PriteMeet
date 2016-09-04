@@ -128,11 +128,14 @@
     
     NSArray *authArray = [autnInfo componentsSeparatedByString:@","];
     if (authArray.count == 3) {
+        _authentication.hidden = NO;
+        _unAuthentication.hidden = YES;
         _authentication.image = [UIImage imageNamed:@"home_detail_verifie_select"];
-        _unAuthentication.image = [UIImage imageNamed:@"home_detail_uverifie_unselect"];
     }else{
-        _authentication.image = [UIImage imageNamed:@"home_detail_verifie_unselect"];
-        _unAuthentication.image = [UIImage imageNamed:@"home_detail_uverifie_select"];
+        _authentication.hidden = YES;
+        _unAuthentication.hidden = NO;
+        _unAuthentication.image = [UIImage imageNamed:@"home_detail_uverifie_unselect"];
+
     }
     
     [self updateConstraintsIfNeeded];

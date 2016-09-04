@@ -363,6 +363,7 @@
             _tableView.tableFooterView = [[UIView alloc] init];
             _tableView.dataSource = self;
             _tableView.delegate = self;
+            _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
             [_tableView registerClass:[TZAlbumCell class] forCellReuseIdentifier:@"TZAlbumCell"];
             [self.view addSubview:_tableView];
         } else {
@@ -387,6 +388,11 @@
 }
 
 #pragma mark - UITableViewDataSource && Delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 90;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _albumArr.count;

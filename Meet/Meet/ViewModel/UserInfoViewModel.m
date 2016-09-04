@@ -467,6 +467,66 @@
     }];
 }
 
+- (void)uploadHeaderList:(NSArray *)images
+            successBlock:(Success)successBlock
+               failBlock:(Fail)failBlock
+{
+    [self uploadMutliImage:images successBlock:^(NSDictionary *responseObject) {
+        NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestHeadPhoto];
+        NSDictionary *parameters = @{@"photos":responseObject[@"data"],
+                                     @"cur_user":[UserInfo sharedInstance].uid
+                                     };
+        [self putWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+            if ([responseObject[@"success"] boolValue]) {
+                successBlock(responseObject[@"content"][@"data"]);
+            }else{
+                failBlock(@{@"error":@"请求错误"});
+            }
+        } failure:^(NSDictionary *responseObject) {
+            failBlock(@{@"error":@"网络错误"});
+        }];
+    } failBlock:^(NSDictionary *responseObject) {
+        failBlock(@{@"error":@"网络错误"});
+    }];
+}
+
+- (void)deleteImage:(NSString *)photoId
+       successBlock:(Success)successBlock
+          failBlock:(Fail)failBlock
+{
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestHeadPhoto];
+    NSDictionary *parameters = @{@"photo_id":photoId,
+                                 @"cur_user":[UserInfo sharedInstance].uid
+                                 };
+    [self deleteWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+        if ([responseObject[@"success"] boolValue]) {
+            successBlock(@{@"success":@"删除成功"});
+        }else{
+            failBlock(@{@"error":@"请求错误"});
+        }
+    } failure:^(NSDictionary *responseObject) {
+        failBlock(@{@"error":@"请求错误"});
+    }];
+}
+
+- (void)uploadMutliImage:(NSArray *)images
+            successBlock:(Success)successBlock
+               failBlock:(Fail)failBlock
+{
+    NSMutableArray *imageUrls = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0; i < images.count; i ++) {
+//        NSString *timeNow = [self getTimeNow];
+        [self uploadQiNiuServers:[images objectAtIndex:i] success:^(NSDictionary *responseObject) {
+            [imageUrls addObject:[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",responseObject[@"parameters"][@"key"]]];
+            if (imageUrls.count == images.count) {
+                successBlock(@{@"data":imageUrls});
+            }
+        } failBlock:^(NSDictionary *responseObject) {
+            failBlock(@{@"error":@"上传出错"});
+        }];
+    }
+}
+
 - (void)makeBlackList:(NSString *)otherUid
                succes:(Success)successBlock
                  fail:(Fail)faileBlock

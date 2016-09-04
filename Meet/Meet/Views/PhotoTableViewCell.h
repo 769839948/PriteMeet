@@ -8,7 +8,11 @@
 
 #import "BaseTableViewCell.h"
 
+typedef void (^ClickImageIndex)(NSInteger index);
+
 @interface PhotoTableViewCell : BaseTableViewCell
+
+@property (nonatomic, strong) ClickImageIndex clickBlock;
 
 - (void)configCell:(NSArray *)imageArray gender:(NSInteger)gender age:(NSInteger)age;
 

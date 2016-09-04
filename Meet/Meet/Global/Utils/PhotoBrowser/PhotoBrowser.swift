@@ -8,6 +8,10 @@
 
 import UIKit
 
+typealias DeletePhoto = (index:NSInteger, deleteSucess:DeleteSuccess) -> Void
+
+typealias DeleteSuccess = (success:Bool) -> Void
+
 class PhotoBrowser: UIViewController {
     
     lazy var collectionView: UICollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: Layout())
@@ -44,6 +48,8 @@ class PhotoBrowser: UIViewController {
     
     var dismissBtn,saveBtn: UIButton!
     var isHiddenBar: Bool = false
+    
+    var deletePhoto:DeletePhoto!
     
     lazy var photoArchiverArr: [Int] = []
 

@@ -27,15 +27,15 @@ extension UIImage : DataConvertible, DataRepresentable {
     public typealias Result = UIImage
 
     // HACK: UIImage data initializer is no longer thread safe. See: https://github.com/AFNetworking/AFNetworking/issues/2572#issuecomment-115854482
-//    static func safeImageWithData(data:NSData) -> Result? {
-//        imageSync.lock()
-//        let image = UIImage(data:data)
-//        imageSync.unlock()
-//        return image
-//    }
+    static func pb_safeImageWithData(data:NSData) -> Result? {
+        imageSync.lock()
+        let image = UIImage(data:data)
+        imageSync.unlock()
+        return image
+    }
     
     public class func convertFromData(data: NSData) -> Result? {
-        let image = UIImage.safeImageWithData(data)
+        let image = UIImage.pb_safeImageWithData(data)
         return image
     }
     
