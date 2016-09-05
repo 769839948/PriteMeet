@@ -59,6 +59,7 @@
 
 
 #define HomeDetailAboutUsTitleLabelFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Medium" size:19.0f]:[UIFont systemFontOfSize:19]
+
 #define HomeDetailAboutUsLabelFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Thin" size:14.0f]:[UIFont systemFontOfSize:14]
 
 
@@ -144,6 +145,8 @@
 
 #define HomeDetailMoreInfoImageSize ScreenWidth > 375.0 ? @"?imageView2/1/w/177/h/177":@"?imageView2/1/w/118/h/118"
 #define HomeCoverImageSize ScreenWidth > 375.0 ? @"?imageView2/1/w/1065/h/600":@"?imageView2/1/w/710/h/400"
+
+#define ImageThum ScreenWidth > 375.0 ? @"?imageView2/1/w/177/h/177":@"?imageView2/1/w/118/h/118"
 
 
 //IQKeyboardManager Color

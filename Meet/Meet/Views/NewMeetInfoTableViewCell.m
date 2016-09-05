@@ -55,7 +55,7 @@
     [self.contentView addSubview:_interestView];
     
     _meetLabel = [[UILabel alloc] init];
-    _meetLabel.textColor = [UIColor colorWithHexString:AboutUsLabelColor];
+    _meetLabel.textColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
     _meetLabel.numberOfLines = 0;
     _meetLabel.font = AboutUsLabelFont;
     [self.contentView addSubview:_meetLabel];

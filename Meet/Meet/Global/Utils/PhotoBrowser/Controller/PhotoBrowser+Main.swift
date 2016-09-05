@@ -155,11 +155,11 @@ extension PhotoBrowser{
     func deleteImage() {
         
         let alertControl = UIAlertController(title: "确定删除此照片吗？", message: "", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "取消", style: .Destructive) { (cancelAction) in
+        let cancelAction = UIAlertAction(title: "取消", style: .Default) { (cancelAction) in
             
         }
-        let confirmAction = UIAlertAction(title: "删除", style: .Default) { (doneAction) in
-            if self.deletePhoto != nil {
+        let confirmAction = UIAlertAction(title: "删除", style: .Destructive) { (doneAction) in
+            if self.deletePhoto != nil && self.photoModels.count > 0{
                 var deleteSucess:DeleteSuccess!
                 deleteSucess = { sucess -> Void in
                     dispatch_async(dispatch_get_main_queue(), {
@@ -205,7 +205,7 @@ extension PhotoBrowser{
             cell.toggleDisplayBottomBar(isHiddenBar)
             cell.bottomContentView.hidden = true
         }else{
-           
+            
             dismissPrepare()
         }
         

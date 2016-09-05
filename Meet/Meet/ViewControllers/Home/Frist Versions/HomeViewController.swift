@@ -193,34 +193,6 @@ class HomeViewController: UIViewController {
     func rightItemClick(sender:UIBarButtonItem) {
         self.presentViewController(UINavigationController(rootViewController: MeViewController()) , animated: true) {
         }
-//        let pbVC = PhotoBrowser()
-//        pbVC.isNavBarHidden = true
-//        //        pbVC.isStatusBarHidden = false
-//        pbVC.photoType = PhotoBrowser.PhotoType.Local
-//        /**  设置相册展示样式  */
-//        pbVC.showType = PhotoBrowser.ShowType.Push
-//        /**  设置相册类型  */
-//        pbVC.photoType = PhotoBrowser.PhotoType.Local
-//        //强制关闭显示一切信息
-//        pbVC.hideMsgForZoomAndDismissWithSingleTap = true
-//        
-//        
-//        pbVC.avatar = ""
-//        pbVC.realName = "赖玥"
-//        pbVC.jobName = "COSMOPOLITAN 策划总监COSMOPOLITAN 策划总监"
-//        
-//        var models: [PhotoBrowser.PhotoModel] = []
-//        
-//        //        let title = ""
-//        //        let desc = ""
-//        let imageArray = [UIImage.init(named: "about_logo"),UIImage.init(named: "about_logo"),UIImage.init(named: "about_logo")]
-//        for image in imageArray {
-//            models.append(PhotoBrowser.PhotoModel(localImg: image, titleStr: "", descStr: "", sourceView: self.view))
-//        }
-//        /**  设置数据  */
-//        pbVC.photoModels = models
-//        
-//        pbVC.show(inVC: self,index: 0)
     }
     
     func meetButton(frame:CGRect) -> UIButton {

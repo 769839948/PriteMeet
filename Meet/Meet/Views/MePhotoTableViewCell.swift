@@ -25,7 +25,6 @@ class MePhotoTableViewCell: UITableViewCell {
     @IBOutlet weak var logoutBtn: UIButton!
     @IBOutlet weak var loginView: UIView!
     @IBOutlet weak var avatarImageView: UIImageView!
-    @IBOutlet weak var placImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var infoCompleLabel: UILabel!
     @IBOutlet weak var completeInfoView: UIView!
@@ -35,14 +34,11 @@ class MePhotoTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         avatarImageView.image = UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSizeZero)
-        placImageView.layer.cornerRadius = 5.0
-        placImageView.hidden = true
         avatarImageView.layer.masksToBounds = true
-        placImageView.layer.masksToBounds = true
+        loginView.clipsToBounds = true
         completeInfoView.layer.cornerRadius = 14.0
         completeInfoView.layer.masksToBounds = true
         completeInfoView.backgroundColor = UIColor.init(hexString:MeProfileCollectViewItemSelect)
-        self.contentView.backgroundColor = UIColor.clearColor()
         // Initialization code
     }
     
@@ -79,12 +75,17 @@ class MePhotoTableViewCell: UITableViewCell {
             infoCompleLabel.text = infoCom;
             self.infoCompleLabel.hidden = false
         }
-        self.contentView.layer.cornerRadius = 5.0
-        let maskPath = UIBezierPath.init(roundedRect: CGRectMake(-10, 0, ScreenWidth - 20, ScreenWidth*236/355), byRoundingCorners: [.TopLeft,.TopRight], cornerRadii: CGSizeMake(5, 0))
+        let maskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355), byRoundingCorners: [.TopLeft,.TopRight], cornerRadii: CGSizeMake(5, 0))
         let maskLayer = CAShapeLayer()
-        maskLayer.frame = CGRectMake(-10, 0, ScreenWidth - 20, ScreenWidth*236/355)
+        maskLayer.frame = CGRectMake(0, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355)
         maskLayer.path = maskPath.CGPath
         avatarImageView.layer.mask = maskLayer
+        
+        let loginMaskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355 + 136), byRoundingCorners: [.TopLeft,.TopRight], cornerRadii: CGSizeMake(5, 0))
+        let loginMaskLayer = CAShapeLayer()
+        loginMaskLayer.frame = CGRectMake(0, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355 + 136)
+        loginMaskLayer.path = loginMaskPath.CGPath
+        loginView.layer.mask = loginMaskLayer
     }
     
     func singerTapPress(tap:UITapGestureRecognizer) {

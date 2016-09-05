@@ -17,13 +17,16 @@ extension PhotoBrowser: UICollectionViewDataSource,UICollectionViewDelegate{
         super.viewWillAppear(animated)
         
         handleRotation(false)
-        self.navigationController?.navigationBarHidden = true
-        if self.navigaitonBar.hidden {
+        if self.showType != PhotoBrowser.ShowType.ZoomAndDismissWithSingleTap {
+            self.navigationController?.navigationBarHidden = true
+            if self.navigaitonBar.hidden {
+                UIApplication.sharedApplication().statusBarHidden = true
+            }else{
+                UIApplication.sharedApplication().statusBarHidden = false
+            }
+            UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
             UIApplication.sharedApplication().statusBarHidden = true
-        }else{
-            UIApplication.sharedApplication().statusBarHidden = false
         }
-        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -59,7 +62,9 @@ extension PhotoBrowser: UICollectionViewDataSource,UICollectionViewDelegate{
         collectionView.pagingEnabled = true
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
+        if self.showType != PhotoBrowser.ShowType.ZoomAndDismissWithSingleTap {
+            collectionView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
+        }
         collectionView.showsHorizontalScrollIndicator = false
         
         let isZoomType = self.showType == PhotoBrowser.ShowType.ZoomAndDismissWithCancelBtnClick || self.showType == PhotoBrowser.ShowType.ZoomAndDismissWithSingleTap

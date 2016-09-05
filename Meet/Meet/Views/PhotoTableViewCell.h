@@ -8,7 +8,7 @@
 
 #import "BaseTableViewCell.h"
 
-typedef void (^ClickImageIndex)(NSInteger index);
+typedef void (^ClickImageIndex)(NSInteger index, NSArray *imageArray, UIView *scourceView);
 
 @interface PhotoTableViewCell : BaseTableViewCell
 

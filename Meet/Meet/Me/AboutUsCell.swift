@@ -41,7 +41,7 @@ class AboutUsCell: UITableViewCell {
         infoLabel.numberOfLines = 0
         infoLabel.sizeToFit()
         infoLabel.lineBreakMode = .ByWordWrapping
-        infoLabel.textColor = UIColor.init(hexString: HomeDetailViewPositionColor)
+        infoLabel.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         infoView.addSubview(infoLabel)
         
         infoView.addSubview(lineLabel)

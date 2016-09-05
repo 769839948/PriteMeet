@@ -483,7 +483,7 @@ class MeetDetailViewController: UIViewController {
         return imageArray
     }
     
-    func presentImageBrowse(index:NSInteger) {
+    func presentImageBrowse(index:NSInteger,images:NSArray, sourceView:UIView) {
         let pbVC = PhotoBrowser()
         pbVC.isNavBarHidden = true
         //        pbVC.isStatusBarHidden = false
@@ -491,23 +491,27 @@ class MeetDetailViewController: UIViewController {
         pbVC.showType = PhotoBrowser.ShowType.ZoomAndDismissWithSingleTap
         /**  设置相册类型  */
         pbVC.photoType = PhotoBrowser.PhotoType.Host
-        
         //强制关闭显示一切信息
         pbVC.hideMsgForZoomAndDismissWithSingleTap = true
         
         var models: [PhotoBrowser.PhotoModel] = []
-        
-        pbVC.avatar = UserInfo.sharedInstance().avatar
-        pbVC.realName = UserInfo.sharedInstance().real_name
-        pbVC.jobName = UserInfo.sharedInstance().job_label
-        let imageArray = UserExtenModel.shareInstance().head_photo_list
-        for image in imageArray {
-            models.append(PhotoBrowser.PhotoModel(hostHDImgURL: image.photo, hostThumbnailImg: nil, titleStr: nil, descStr: nil, sourceView: nil))
+     
+        let coverPhoto = self.otherUserModel.cover_photo?.photo.componentsSeparatedByString("?")
+        models.append(PhotoBrowser.PhotoModel(hostHDImgURL: coverPhoto![0], hostThumbnailImg: images[0] as! UIImage, titleStr: "", descStr: "", sourceView: sourceView))
+        var currentImage:NSInteger = 1
+        if UserExtenModel.shareInstance().head_photo_list != nil {
+            let imageArray = UserExtenModel.shareInstance().head_photo_list
+            for image in imageArray {
+
+                models.append(PhotoBrowser.PhotoModel(hostHDImgURL: image.photo, hostThumbnailImg: images[currentImage] as! UIImage, titleStr: "", descStr: "", sourceView: self.view))
+                currentImage = currentImage + 1
+            }
+            /**  设置数据  */
         }
-        /**  设置数据  */
         pbVC.photoModels = models
         
         pbVC.show(inVC: self,index: index)
+
     }
 }
 
@@ -705,8 +709,8 @@ extension MeetDetailViewController : UITableViewDataSource {
                 case 0:
                     let cell = tableView.dequeueReusableCellWithIdentifier(photoTableViewCell, forIndexPath: indexPath) as! PhotoTableViewCell
                     cell.configCell(self.headerListImages() as [AnyObject], gender: self.otherUserModel.gender , age: self.otherUserModel.age)
-                    cell.clickBlock = { index in
-                        self.presentImageBrowse(index)
+                    cell.clickBlock = { index,imageArray,scourceView in
+                        self.presentImageBrowse(index,images: imageArray, sourceView: scourceView)
                     }
                     return cell
                 case 1:
@@ -760,8 +764,8 @@ extension MeetDetailViewController : UITableViewDataSource {
                 case 0:
                     let cell = tableView.dequeueReusableCellWithIdentifier(photoTableViewCell, forIndexPath: indexPath) as! PhotoTableViewCell
                     cell.configCell(self.headerListImages() as [AnyObject], gender: self.otherUserModel.gender , age: self.otherUserModel.age)
-                    cell.clickBlock = { index in
-                        self.presentImageBrowse(index)
+                    cell.clickBlock = { index,imageArray,scourceView in
+                        self.presentImageBrowse(index,images: imageArray, sourceView: scourceView)
                     }
                     return cell
                 case 1:

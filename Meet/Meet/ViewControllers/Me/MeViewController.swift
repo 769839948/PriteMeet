@@ -643,7 +643,9 @@ extension MeViewController : UITableViewDataSource {
                 }else if indexPath.row == 2 {
                     let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
                     cell.configCell("me_newmeet", infoString: "我的邀约", infoDetail: "", shadowColor: false,cornerRadiusType: .None)
-                    cell.infoDetailLabel.text =  (UserInviteModel.shareInstance().results[0]).is_active ? "":"未开启       "
+                    if UserInviteModel.shareInstance().results != nil {
+                        cell.infoDetailLabel.text =  (UserInviteModel.shareInstance().results[0]).is_active ? "":"未开启       "
+                    }
                     cell.setInfoButtonBackGroudColor(lineLabelBackgroundColor)
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
                     return cell

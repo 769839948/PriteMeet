@@ -68,13 +68,6 @@
                                     <constraint firstAttribute="width" secondItem="5oa-oQ-tw7" secondAttribute="height" multiplier="355:236" id="dgm-U7-hDY"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dds-nI-IPo">
-                                <rect key="frame" x="0.0" y="0.0" width="355" height="236"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="dds-nI-IPo" secondAttribute="height" multiplier="355:236" id="6wR-Gu-QAp"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="个人姓名" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xlf-JC-8Uf">
                                 <rect key="frame" x="121" y="246" width="112" height="40"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="28"/>
@@ -124,16 +117,11 @@
                             <constraint firstAttribute="bottom" secondItem="wcF-hf-C98" secondAttribute="bottom" constant="24" id="8GE-p1-M1o"/>
                             <constraint firstItem="4Lu-1W-ZH4" firstAttribute="centerX" secondItem="Kte-W0-vYa" secondAttribute="centerX" id="8aD-Au-nS7"/>
                             <constraint firstItem="5oa-oQ-tw7" firstAttribute="top" secondItem="Kte-W0-vYa" secondAttribute="top" id="AcS-pW-sNS"/>
-                            <constraint firstItem="dds-nI-IPo" firstAttribute="top" secondItem="5oa-oQ-tw7" secondAttribute="top" id="DQo-9w-3y0"/>
                             <constraint firstAttribute="trailing" secondItem="5oa-oQ-tw7" secondAttribute="trailing" id="I1m-7G-ucB"/>
-                            <constraint firstItem="xlf-JC-8Uf" firstAttribute="top" secondItem="dds-nI-IPo" secondAttribute="bottom" constant="10" id="LQ4-TZ-anf"/>
                             <constraint firstItem="xlf-JC-8Uf" firstAttribute="top" secondItem="4Lu-1W-ZH4" secondAttribute="bottom" constant="47" id="XY5-TS-ak6"/>
                             <constraint firstItem="xlf-JC-8Uf" firstAttribute="centerX" secondItem="Kte-W0-vYa" secondAttribute="centerX" id="ayK-fL-IGB"/>
                             <constraint firstItem="wcF-hf-C98" firstAttribute="centerX" secondItem="Kte-W0-vYa" secondAttribute="centerX" id="jhY-6s-ip1"/>
-                            <constraint firstItem="dds-nI-IPo" firstAttribute="trailing" secondItem="5oa-oQ-tw7" secondAttribute="trailing" id="s0g-wm-akt"/>
                             <constraint firstAttribute="bottom" secondItem="xlf-JC-8Uf" secondAttribute="bottom" constant="55" id="uxx-am-drN"/>
-                            <constraint firstItem="dds-nI-IPo" firstAttribute="bottom" secondItem="5oa-oQ-tw7" secondAttribute="bottom" id="v6L-BH-dDq"/>
-                            <constraint firstItem="dds-nI-IPo" firstAttribute="leading" secondItem="5oa-oQ-tw7" secondAttribute="leading" id="vBS-Nz-hgi"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -158,7 +146,6 @@
                 <outlet property="logoutLabel" destination="Pbi-1g-GpQ" id="vx0-sj-LmL"/>
                 <outlet property="logoutView" destination="Ufv-X7-Wfh" id="YX7-wT-GZJ"/>
                 <outlet property="nameLabel" destination="xlf-JC-8Uf" id="n2F-yR-Xun"/>
-                <outlet property="placImageView" destination="dds-nI-IPo" id="r3k-n5-BAf"/>
             </connections>
             <point key="canvasLocation" x="292.5" y="161"/>
         </tableViewCell>
