@@ -67,7 +67,7 @@ class OrderApplyIntroductionCell: UITableViewCell {
     
     
     func setData(plachText:String){
-        textView.placeholderColor = UIColor.init(hexString: MeViewProfileContentLabelColorLight)
+        textView.placeholderColor = UIColor.init(hexString: PlaceholderTextViewColor)
         textView.placeholder = plachText
     }
     

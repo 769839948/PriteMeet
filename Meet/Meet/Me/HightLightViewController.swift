@@ -25,7 +25,7 @@ class HightLightViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setNavigationItemBack()
-        self.title = "编辑个人简介"
+        self.title = "编辑个人介绍"
         self.setUpNavigationItem()
         self.setupForDismissKeyboard()
         self.setUpTableView()
@@ -144,7 +144,7 @@ extension HightLightViewController : UITableViewDataSource {
             titleText.delegate = self
             titleText.tag = 1
             titleText.returnKeyType = .Done
-            titleText.placeholderColor = UIColor.init(hexString: MeViewProfileContentLabelColorLight)
+            titleText.placeholderColor = UIColor.init(hexString: PlaceholderTextViewColor)
             titleText.font = HightLightTitleFont
             cell?.contentView.addSubview(titleText)
             titleText.snp_makeConstraints(closure: { (make) in
@@ -184,7 +184,7 @@ extension HightLightViewController : UITableViewDataSource {
             infoText.tag = 2
             infoText.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
             infoText.tintColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
-            infoText.placeholderColor = UIColor.init(hexString: MeViewProfileContentLabelColorLight)
+            infoText.placeholderColor = UIColor.init(hexString: PlaceholderTextViewColor)
             cell?.contentView.addSubview(infoText)
             infoText.snp_makeConstraints(closure: { (make) in
                 make.top.equalTo((cell?.contentView.snp_top)!).offset(30.5)

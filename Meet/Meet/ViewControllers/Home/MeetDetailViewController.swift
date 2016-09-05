@@ -223,7 +223,6 @@ class MeetDetailViewController: UIViewController {
     }
     
     func reportAction() {
-        
         if !UserInfo.isLoggedIn(){
             self.presentLoginView()
         }else{
@@ -474,8 +473,8 @@ class MeetDetailViewController: UIViewController {
                 imageArray.addObject(imageStrArray[0].stringByAppendingString(HomeDetailCovertImageSize))
             }
         }
-        let headArray = Head_Photo_List.mj_objectArrayWithKeyValuesArray(self.otherUserModel.head_photo_list)
-        for model in headArray {
+        let models = Head_Photo_List.mj_objectArrayWithKeyValuesArray(self.otherUserModel.head_photo_list!)
+        for model in models {
             let photoModel = model as! Head_Photo_List
             let imageStr = photoModel.photo.stringByAppendingString(HomeDetailCovertImageSize)
             imageArray.addObject(imageStr)
@@ -498,15 +497,14 @@ class MeetDetailViewController: UIViewController {
      
         let coverPhoto = self.otherUserModel.cover_photo?.photo.componentsSeparatedByString("?")
         models.append(PhotoBrowser.PhotoModel(hostHDImgURL: coverPhoto![0], hostThumbnailImg: images[0] as! UIImage, titleStr: "", descStr: "", sourceView: sourceView))
-        var currentImage:NSInteger = 1
-        if UserExtenModel.shareInstance().head_photo_list != nil {
-            let imageArray = UserExtenModel.shareInstance().head_photo_list
-            for image in imageArray {
-
-                models.append(PhotoBrowser.PhotoModel(hostHDImgURL: image.photo, hostThumbnailImg: images[currentImage] as! UIImage, titleStr: "", descStr: "", sourceView: self.view))
+        if self.otherUserModel.head_photo_list != nil {
+            var currentImage:NSInteger = 1
+            let photoModels = Head_Photo_List.mj_objectArrayWithKeyValuesArray(self.otherUserModel.head_photo_list!)
+            for model in photoModels {
+                let photoModel = model as! Head_Photo_List
+                models.append(PhotoBrowser.PhotoModel(hostHDImgURL: photoModel.photo, hostThumbnailImg: images[currentImage] as! UIImage, titleStr: "", descStr: "", sourceView: sourceView))
                 currentImage = currentImage + 1
             }
-            /**  设置数据  */
         }
         pbVC.photoModels = models
         
@@ -545,7 +543,7 @@ extension MeetDetailViewController : UITableViewDataSource {
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if self.otherUserModel.user_info!.highlight == "" || self.otherUserModel.user_info?.experience == "" {
+        if self.otherUserModel.user_info!.highlight == ""{
             return 2
         }else{
             return 3
@@ -562,7 +560,7 @@ extension MeetDetailViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if self.otherUserModel.user_info?.highlight == "" || self.otherUserModel.user_info?.experience == "" {
+        if self.otherUserModel.user_info?.highlight == ""{
             switch indexPath.section {
             case 0:
                 switch indexPath.row {
@@ -628,7 +626,7 @@ extension MeetDetailViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if self.otherUserModel.user_info?.highlight == "" || self.otherUserModel.user_info?.experience  == "" {
+        if self.otherUserModel.user_info?.highlight == "" {
             switch indexPath.section {
             case 0:
                 switch indexPath.row {
@@ -702,7 +700,7 @@ extension MeetDetailViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.otherUserModel.user_info?.highlight == "" || self.otherUserModel.user_info?.experience  == "" {
+        if self.otherUserModel.user_info?.highlight == "" {
             switch indexPath.section {
             case 0:
                 switch indexPath.row {

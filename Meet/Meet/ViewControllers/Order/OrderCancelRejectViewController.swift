@@ -216,7 +216,7 @@ extension OrderCancelRejectViewController : UITableViewDataSource {
             }
             textView = UITextView(frame: CGRectMake(10, 20, ScreenWidth - 40, 200))
             textView.font = LoginCodeLabelFont
-            textView.placeholderColor = UIColor.init(hexString: MeViewProfileContentLabelColorLight)
+            textView.placeholderColor = UIColor.init(hexString: PlaceholderTextViewColor)
             if self.resonType == .Cancel {
                 textView.placeholder = (PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000004") as! String
 

@@ -25,7 +25,6 @@ extension PhotoBrowser: UICollectionViewDataSource,UICollectionViewDelegate{
                 UIApplication.sharedApplication().statusBarHidden = false
             }
             UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
-            UIApplication.sharedApplication().statusBarHidden = true
         }
     }
     

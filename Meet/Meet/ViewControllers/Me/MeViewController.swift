@@ -48,7 +48,7 @@ class MeViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.addLineNavigationBottom()
-
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         self.setNavigationBar()
         if UserInfo.isLoggedIn() {
             if self.tableView.style == .Plain {
@@ -351,11 +351,31 @@ class MeViewController: UIViewController {
     }
     
     func uploadImages(images:NSArray) {
-        userInfoModel.uploadHeaderList(images as [AnyObject], successBlock: { (dic) in
-            self.loadExtenInfo()
-            }) { (dic) in
-                MainThreadAlertShow("上传失败", view: self.view)
+        var currentIndex = 1
+        let centerView = UploadImages(frame: (KeyWindown?.frame)!)
+        centerView.updateLabelText("\(currentIndex)", allnumber: "\(images.count)")
+        KeyWindown?.addSubview(centerView)
+        for image in images {
+            
+            userInfoModel.uploadHeaderList(image as! UIImage, successBlock: { (dic) in
+                centerView.updateLabelText("\(currentIndex)", allnumber: "\(images.count)")
+                if currentIndex == images.count {
+                    centerView.removeFromSuperview()
+                    self.loadExtenInfo()
+                    self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 1, inSection: 0)], withRowAnimation: .Automatic)
+                }else{
+                    currentIndex = currentIndex + 1
+                }
+                }, failBlock: { (dic) in
+                    centerView.removeFromSuperview()
+                    MainThreadAlertShow("上传失败", view: self.view)
+            })
         }
+//        userInfoModel.uploadHeaderList(images as [AnyObject], successBlock: { (dic) in
+//            self.loadExtenInfo()
+//            }) { (dic) in
+//                MainThreadAlertShow("上传失败", view: self.view)
+//        }
     }
     
     func presentImagePicker() {
@@ -376,7 +396,7 @@ class MeViewController: UIViewController {
         }
     }
     
-    func presentImageBrowse(index:NSInteger) {
+    func presentImageBrowse(index:NSInteger, images:NSArray) {
         let pbVC = PhotoBrowser()
         pbVC.isNavBarHidden = true
 //        pbVC.isStatusBarHidden = false
@@ -394,13 +414,15 @@ class MeViewController: UIViewController {
         pbVC.realName = UserInfo.sharedInstance().real_name
         pbVC.jobName = UserInfo.sharedInstance().job_label
         let imageArray = UserExtenModel.shareInstance().head_photo_list
+        var imageCount:NSInteger = 0
         for image in imageArray {
-            models.append(PhotoBrowser.PhotoModel(hostHDImgURL: image.photo, hostThumbnailImg: nil, titleStr: nil, descStr: nil, sourceView: nil))
+            
+            models.append(PhotoBrowser.PhotoModel(hostHDImgURL: image.photo, hostThumbnailImg: images[imageCount] as! UIImage, titleStr: ("\(image.photo_id)"), descStr: nil, sourceView: nil))
+            imageCount = imageCount + 1
         }
 
-        pbVC.deletePhoto = { index,deleteSuccess in
-            let model = imageArray[index]
-            self.userInfoModel.deleteImage(("\(model.photo_id)"), successBlock: { (dic) in
+        pbVC.deletePhoto = { index,photoid,deleteSuccess in
+            self.userInfoModel.deleteImage(photoid, successBlock: { (dic) in
                 deleteSuccess(success: true)
                 self.loadExtenInfo()
                 }, failBlock: { (dic) in
@@ -559,6 +581,14 @@ extension MeViewController : UITableViewDelegate{
         }
     }
     
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if scrollView.contentOffset.y < -140 {
+            self.dismissViewControllerAnimated(true, completion: { 
+                
+            })
+        }
+    }
+    
 }
 
 extension MeViewController : UITableViewDataSource {
@@ -620,8 +650,8 @@ extension MeViewController : UITableViewDataSource {
                     cell.closure = { () in
                         self.presentImagePicker()
                     }
-                    cell.cellImageArray = { (index) in
-                        self.presentImageBrowse(index)
+                    cell.cellImageArray = { (index, images) in
+                        self.presentImageBrowse(index,images: images)
                     }
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
                     cell.backgroundColor = UIColor.clearColor()

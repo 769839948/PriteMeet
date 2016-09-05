@@ -193,6 +193,8 @@ class HomeViewController: UIViewController {
     func rightItemClick(sender:UIBarButtonItem) {
         self.presentViewController(UINavigationController(rootViewController: MeViewController()) , animated: true) {
         }
+        
+        
     }
     
     func meetButton(frame:CGRect) -> UIButton {
@@ -448,8 +450,7 @@ extension HomeViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let model = homeModelArray[indexPath.section] as! HomeModel
-        return tableView.fd_heightForCellWithIdentifier("MainTableViewCell", cacheByKey: "\(model.uid)", configuration: { (cell) in
+        return tableView.fd_heightForCellWithIdentifier("MainTableViewCell", configuration: { (cell) in
             self .configureCell(cell as! ManListCell, indexPath: indexPath)
         })
     }
@@ -498,10 +499,10 @@ extension HomeViewController : UITableViewDelegate {
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         lastContentOffset = scrollView.contentOffset.y;
-        self.showBottomView()
+        if self.bottomView != nil {
+            self.showBottomView()
+        }
     }
-    
-    
 }
 
 extension HomeViewController : UITableViewDataSource {

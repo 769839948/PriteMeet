@@ -106,11 +106,11 @@ class LoginView: UIView {
     func setUpLoginCodeView() {
         
         self.setUpBackImageView(loginCodeView)
-        let titleLable = self.setUpTitleLabel("你好朋友")
+        let titleLable = self.setUpTitleLabel("立即登录")
         loginCodeView.addSubview(titleLable)
         
         codeLabel = UILabel(frame: CGRectZero)
-        codeLabel.text = "使用邀请码或登录已有账号"
+        codeLabel.text = "通过邀请码或已有账号登录"
         codeLabel.font = LoginCodeLabelFont
         codeLabel.textColor = UIColor.init(hexString: HomeMeetNumberColor)
         loginCodeView.addSubview(codeLabel)

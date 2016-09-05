@@ -97,9 +97,11 @@
 
 - (void)configCell:(NSString *)title info:(NSString *)info imageArray:(NSArray *)images withUrl:(NSString *)web_url
 {
-    
+    __weak typeof(self) weakSelf = self;
+
     _titleLabel.text = title;
     _textlabel.text = info;
+    
     if (![web_url isEqualToString:@""]) {
         for (NSInteger i = 0; i < images.count; i ++) {
             UIImageView *imageView = [[UIImageView alloc] init];
@@ -117,14 +119,19 @@
             }
         }
         
-        
         UIImageView *detailNextImage = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth - 47, 24, 7, 12)];
         detailNextImage.image  = [UIImage imageNamed:@"info_next"];
         [_imageContent addSubview:detailNextImage];
     }else{
-         __weak typeof(self) weakSelf = self;
+        
         [_textlabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(weakSelf.contentView.mas_bottom).offset(-30);
+        }];
+    }
+    
+    if ([title isEqualToString:@""]) {
+        [_textlabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(weakSelf.contentView.mas_top).offset(20);
         }];
     }
 }

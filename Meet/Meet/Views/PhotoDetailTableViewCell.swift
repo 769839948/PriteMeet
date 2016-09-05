@@ -11,7 +11,7 @@ import SnapKit
 import SDWebImage
 
 typealias ImageClick = ()->Void
-typealias CellImageArray = (index:NSInteger) ->Void
+typealias CellImageArray = (index:NSInteger,images:NSArray) ->Void
 
 class PhotoDetailTableViewCell: UITableViewCell {
 
@@ -21,7 +21,8 @@ class PhotoDetailTableViewCell: UITableViewCell {
     var infoView:UIView!
     var shadowView:UIView!
     var cellImageArray:CellImageArray!
-
+    var thumbnailImgArray:NSMutableArray = NSMutableArray()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -81,9 +82,15 @@ class PhotoDetailTableViewCell: UITableViewCell {
     func configCell(imageArray:[Head_Photo_List]) {
         logoutView.hidden = false
         addImageView.hidden = false
+        self.thumbnailImgArray.removeAllObjects()
         var width:CGFloat = 0
         let headPhotos = Head_Photo_List.mj_objectArrayWithKeyValuesArray(imageArray)
         if headPhotos.count > 0 {
+            var originX:CGFloat = 72
+            if headPhotos.count >= 8 {
+               addImageView.hidden = true
+                originX = 0
+            }
             for index in 0...headPhotos.count - 1 {
                 let model = headPhotos.objectAtIndex(index) as! Head_Photo_List
                 let qiniuString = HomeDetailMoreInfoImageSize
@@ -91,8 +98,9 @@ class PhotoDetailTableViewCell: UITableViewCell {
                 let photoImage = UIImageView()
                 photoImage.tag = index
                 photoImage.userInteractionEnabled = true
-                photoImage.frame = CGRectMake(72 + width, 26, 59, 59)
+                photoImage.frame = CGRectMake(originX + width, 26, 59, 59)
                 photoImage.sd_setImageWithURL(NSURL.init(string: urlString), placeholderImage: UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSizeZero), options: SDWebImageOptions.RetryFailed, completed: { (image, error, type, url) in
+                    self.thumbnailImgArray.addObject(image)
                 })
                 if CGRectGetMaxX(photoImage.frame) < ScreenWidth - 50 {
                     
@@ -151,7 +159,7 @@ class PhotoDetailTableViewCell: UITableViewCell {
     
     func imageTap(tap:UITapGestureRecognizer) {
         if self.cellImageArray != nil {
-            self.cellImageArray(index: (tap.view?.tag)!)
+            self.cellImageArray(index: (tap.view?.tag)!,images: self.thumbnailImgArray)
         }
     }
     override func setSelected(selected: Bool, animated: Bool) {

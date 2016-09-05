@@ -281,7 +281,7 @@ typedef void (^returnImage)(UIImage *image);
  *  @param successBlock
  *  @param failBlock
  */
-- (void)uploadHeaderList:(NSArray *)images
+- (void)uploadHeaderList:(UIImage *)image
             successBlock:(Success)successBlock
                failBlock:(Fail)failBlock;
 

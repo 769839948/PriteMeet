@@ -49,6 +49,13 @@ class AboutUsCell: UITableViewCell {
     }
     
     func configCell(title:String, info:String) {
+        if title == "" {
+            titleLabel.hidden = true
+           infoLabel.snp_updateConstraints(closure: { (make) in
+                make.top.equalTo(self.contentView.snp_top).offset(22)
+           })
+        }else{
+        }
         titleLabel.text = title
         infoLabel.text = info
         self.updateConstraintsIfNeeded()

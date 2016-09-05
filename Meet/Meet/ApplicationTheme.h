@@ -109,6 +109,8 @@
 
 #define EmptyDataTitleColor                  @"C9C9C9"
 
+#define PlaceholderTextViewColor             @"C9C9C9"
+
 
 #define MeViewProfileBackGroundColor         @"F2F2F2"
 
@@ -147,6 +149,8 @@
 #define HomeCoverImageSize ScreenWidth > 375.0 ? @"?imageView2/1/w/1065/h/600":@"?imageView2/1/w/710/h/400"
 
 #define ImageThum ScreenWidth > 375.0 ? @"?imageView2/1/w/177/h/177":@"?imageView2/1/w/118/h/118"
+
+
 
 
 //IQKeyboardManager Color

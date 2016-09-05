@@ -144,6 +144,7 @@
 		1FBAE32B1D2526BD00D7D039 /* WorkeAndEduTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBAE3291D2526BD00D7D039 /* WorkeAndEduTableViewCell.xib */; };
 		1FBBC3211D3A09A2005D4175 /* PSWView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBBC3201D3A09A2005D4175 /* PSWView.m */; };
 		1FBBC3231D3CA9D7005D4175 /* ApplyMeetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBBC3221D3CA9D7005D4175 /* ApplyMeetViewController.swift */; };
+		1FBEE4AF1D7D27CF00AA9B3F /* UploadImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBEE4AE1D7D27CE00AA9B3F /* UploadImages.swift */; };
 		1FBF3FC21D1BD1AC005DB46F /* AppDelegate+AMapLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF3FC11D1BD1AC005DB46F /* AppDelegate+AMapLocation.m */; };
 		1FBF3FC41D1BEB22005DB46F /* MeetWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF3FC31D1BEB22005DB46F /* MeetWebViewController.swift */; };
 		1FBF408C1D1E5BF8005DB46F /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF408A1D1E5BF8005DB46F /* ProfileTableViewCell.swift */; };
@@ -559,6 +560,7 @@
 		1FBBC31F1D3A09A2005D4175 /* PSWView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWView.h; sourceTree = "<group>"; };
 		1FBBC3201D3A09A2005D4175 /* PSWView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWView.m; sourceTree = "<group>"; };
 		1FBBC3221D3CA9D7005D4175 /* ApplyMeetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApplyMeetViewController.swift; path = ../ViewControllers/Order/ApplyMeetViewController.swift; sourceTree = "<group>"; };
+		1FBEE4AE1D7D27CE00AA9B3F /* UploadImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadImages.swift; sourceTree = "<group>"; };
 		1FBF3FC01D1BD1AC005DB46F /* AppDelegate+AMapLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+AMapLocation.h"; sourceTree = "<group>"; };
 		1FBF3FC11D1BD1AC005DB46F /* AppDelegate+AMapLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+AMapLocation.m"; sourceTree = "<group>"; };
 		1FBF3FC31D1BEB22005DB46F /* MeetWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeetWebViewController.swift; path = ../ViewControllers/Home/MeetWebViewController.swift; sourceTree = "<group>"; };
@@ -1292,6 +1294,7 @@
 				1F2059251D2BBD6F001FF99C /* SetInviteCollectView.m */,
 				1FFEE34A1D7805D600EEC61F /* AboutUsCell.swift */,
 				1FFEE34E1D798B7000EEC61F /* logoutTableView.swift */,
+				1FBEE4AE1D7D27CE00AA9B3F /* UploadImages.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -2165,6 +2168,7 @@
 				DA018F4E1CD4C03B0051D2D7 /* MyPhotoItem.m in Sources */,
 				1F1FB4881D0FFBAE00794881 /* UserInviteModel.m in Sources */,
 				DAF5C8201CE0D0ED00DA7901 /* WXAccessModel.m in Sources */,
+				1FBEE4AF1D7D27CF00AA9B3F /* UploadImages.swift in Sources */,
 				1FAA07961D3D05B00017F3E3 /* String+Class.swift in Sources */,
 				1F9DCF0A1D4C50C2001467E6 /* TYTabButtonPagerController.m in Sources */,
 				1F3DC3321D0D0B890075B7BA /* MePhotoTableViewCell.swift in Sources */,
@@ -2536,7 +2540,7 @@
 					"$(PROJECT_DIR)/Meet/3rd/SDKExport",
 					"$(PROJECT_DIR)/Meet/3rd/libWeiboSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.meet.testmeet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meet.meet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Meet/Meet-Bridging-Header.h";
@@ -2566,7 +2570,7 @@
 					"$(PROJECT_DIR)/Meet/3rd/SDKExport",
 					"$(PROJECT_DIR)/Meet/3rd/libWeiboSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.meet.testmeet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meet.meet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Meet/Meet-Bridging-Header.h";

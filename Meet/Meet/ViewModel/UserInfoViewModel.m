@@ -467,13 +467,14 @@
     }];
 }
 
-- (void)uploadHeaderList:(NSArray *)images
+- (void)uploadHeaderList:(UIImage *)image
             successBlock:(Success)successBlock
                failBlock:(Fail)failBlock
 {
-    [self uploadMutliImage:images successBlock:^(NSDictionary *responseObject) {
+    [self uploadQiNiuServers:image success:^(NSDictionary *responseObject) {
         NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestHeadPhoto];
-        NSDictionary *parameters = @{@"photos":responseObject[@"data"],
+        NSArray *photoArray = [NSArray arrayWithObject:[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",responseObject[@"parameters"][@"key"]]];
+        NSDictionary *parameters = @{@"photos":photoArray,
                                      @"cur_user":[UserInfo sharedInstance].uid
                                      };
         [self putWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
@@ -486,7 +487,7 @@
             failBlock(@{@"error":@"网络错误"});
         }];
     } failBlock:^(NSDictionary *responseObject) {
-        failBlock(@{@"error":@"网络错误"});
+        failBlock(@{@"error":@"上传出错"});
     }];
 }
 

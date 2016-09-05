@@ -131,8 +131,8 @@
     if (model.cover_photo != nil || model.cover_photo != NULL) {
         Cover_photo *coverPhoto = [Cover_photo mj_objectWithKeyValues:model.cover_photo];
         //http://7xsatk.com1.z0.glb.clouddn.com/o_1aqc2rujd1vbc11ten5s12tj115fc.jpg?imageView2/1/w/1065/h/600
-        NSArray *imageArray = [coverPhoto.photo componentsSeparatedByString:@"?"];
-        [_photoImage sd_setImageWithURL:[NSURL URLWithString:[imageArray[0] stringByAppendingString:HomeCoverImageSize]] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        //        NSArray *imageArray = [coverPhoto.photo componentsSeparatedByString:@"?"];
+        [_photoImage sd_setImageWithURL:[NSURL URLWithString:coverPhoto.photo] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
         }];
     }else{
@@ -302,7 +302,6 @@
             make.top.mas_equalTo(weakSelf.personalView.mas_top).offset(0);
             make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(0);
             make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(0);
-            make.bottom.mas_equalTo(weakSelf.nameLabel.mas_top).offset(-14);
             make.height.mas_offset((ScreenWidth - 20)*200/355);
         }];
         

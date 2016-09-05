@@ -80,7 +80,7 @@ extension PhotoBrowser{
         attributedString.addAttributes([NSFontAttributeName:AppointPositionLabelFont!], range: NSRange.init(location: realName.length + 1, length: jobName.length))
         attributedString.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: HomeDetailViewNameColor)], range: NSRange.init(location: 0, length: positionString.length))
         positionLabel.attributedText = attributedString
-        positionLabel.textAlignment = .Center        
+        positionLabel.textAlignment = .Left
         navigaitonBar.addSubview(positionLabel)
         
         let stringWidth = positionString.stringWidth(positionString, font: AppointRealNameLabelFont!, height: 20.0) > ScreenWidth - 200 ? ScreenWidth - 200 : positionString.stringWidth(positionString, font: AppointRealNameLabelFont!, height: 20.0)
@@ -107,12 +107,12 @@ extension PhotoBrowser{
         positionLabel.snp_makeConstraints { (make) in
             make.centerX.equalTo(navigaitonBar.snp_centerX).offset(20)
             make.bottom.equalTo(navigaitonBar.snp_bottom).offset(-14)
-            make.width.equalTo(stringWidth + 10)
+            make.width.equalTo(stringWidth + 2)
         }
         
         photoImage.snp_makeConstraints { (make) in
-            make.bottom.equalTo(navigaitonBar.snp_bottom).offset(-10)
-            make.right.equalTo(positionLabel.snp_left).offset(-12)
+            make.bottom.equalTo(navigaitonBar.snp_bottom).offset(-11)
+            make.right.equalTo(positionLabel.snp_left).offset(-10)
             make.size.equalTo(CGSizeMake(24, 24))
         }
     
@@ -164,9 +164,14 @@ extension PhotoBrowser{
                 deleteSucess = { sucess -> Void in
                     dispatch_async(dispatch_get_main_queue(), {
                         if sucess {
+                            
                             self.photoModels.removeAtIndex(self.page)
                             self.pagecontrol.numberOfPages = self.photoModels.count
-                            self.collectionView.reloadData()
+                            if self.photoModels.count == 0 {
+                                self.navigationController?.popViewControllerAnimated(true)
+                            }else{
+                                self.collectionView.reloadData()
+                            }
                         }else{
                             self.showHUD("删除失败", autoDismiss: 2)
                             
@@ -174,7 +179,8 @@ extension PhotoBrowser{
                     })
                 }
                 if self.photoModels.count > 0 {
-                    self.deletePhoto(index: self.page,deleteSucess: deleteSucess)
+                    let photoModel = self.photoModels[self.page]
+                    self.deletePhoto(index: self.page,photoid: photoModel.titleStr,deleteSucess: deleteSucess)
                 }
             }
         }
