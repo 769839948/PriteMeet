@@ -73,10 +73,15 @@
 
 #define KeyBoardToobarTitleFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:14.0f]:[UIFont systemFontOfSize:14]
 
+#define ImagePickerVCOKButtonFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:16.0f]:[UIFont systemFontOfSize:16]
+
+
 #define HomeViewWomenColor       @"FF8161"
 #define HomeViewManColor         @"4ED6C4"
 
 #define HomeMeetNumberColor      @"C9C9C9"
+
+#define AboutUsCellTitleColor    @"4D4D4D"
 
 #define HomeDetailViewNameColor        @"202020"
 #define HomeDetailViewPositionColor    @"999999"
@@ -115,6 +120,7 @@
 #define MeViewProfileBackGroundColor         @"F2F2F2"
 
 #define MeetDetailLineColor [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1.0]
+
 #define lineLabelBackgroundColor @"E7E7E7"
 #define MeInvateFriendsColor     @"FC5154"
 

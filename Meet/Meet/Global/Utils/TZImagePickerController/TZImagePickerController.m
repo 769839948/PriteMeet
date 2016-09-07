@@ -329,8 +329,10 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = [NSBundle tz_localizedStringForKey:@"Photos"];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSBundle tz_localizedStringForKey:@"Cancle"] style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
-    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSFontAttributeName:NavigationBarRightItemFont} forState:UIControlStateNormal];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"me_dismissBlack"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+    //这里修改过
+//    [[UIBarButtonItem alloc] initWithTitle:[NSBundle tz_localizedStringForKey:@"Cancle"] style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+//    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSFontAttributeName:NavigationBarRightItemFont} forState:UIControlStateNormal];
     [self configTableView];
 }
 

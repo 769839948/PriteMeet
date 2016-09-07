@@ -99,10 +99,10 @@
 }
 
 - (void)configBottomToolBar {
-    _toolBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.tz_height - 44, self.view.tz_width, 44)];
-    CGFloat rgb = 34 / 255.0;
-    _toolBar.backgroundColor = [UIColor whiteColor];
-    _toolBar.alpha = 0.7;
+    _toolBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.tz_height - 64, self.view.tz_width, 64)];
+    CGFloat rgb = 255 / 255.0;
+    _toolBar.backgroundColor = [UIColor colorWithRed:rgb green:rgb blue:rgb alpha:1.0];
+    _toolBar.alpha = 1;
     
     TZImagePickerController *_tzImagePickerVc = (TZImagePickerController *)self.navigationController;
 //    if (_tzImagePickerVc.allowPickingOriginalPhoto) {
@@ -129,21 +129,21 @@
 //        _originalPhotoLable.backgroundColor = [UIColor clearColor];
 //        if (_isSelectOriginalPhoto) [self showPhotoBytes];
 //    }
-    _selectButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 42, 42)];
+    _selectButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 44, 44)];
     [_selectButton setImage:[UIImage imageNamedFromMyBundle:_tzImagePickerVc.photoDefImageName] forState:UIControlStateNormal];
     [_selectButton setImage:[UIImage imageNamedFromMyBundle:_tzImagePickerVc.photoSelImageName] forState:UIControlStateSelected];
     [_selectButton addTarget:self action:@selector(select:) forControlEvents:UIControlEventTouchUpInside];
     [_toolBar addSubview:_selectButton];
     
     _okButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _okButton.frame = CGRectMake(self.view.tz_width - 44 - 12, 0, 44, 44);
-    _okButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    _okButton.frame = CGRectMake(self.view.tz_width - 44 - 12, 10, 44, 44);
+    _okButton.titleLabel.font = ImagePickerVCOKButtonFont;
     [_okButton addTarget:self action:@selector(okButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [_okButton setTitle:[NSBundle tz_localizedStringForKey:@"Done"] forState:UIControlStateNormal];
     [_okButton setTitleColor:_tzImagePickerVc.oKButtonTitleColorNormal forState:UIControlStateNormal];
     
     _numberImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamedFromMyBundle:_tzImagePickerVc.photoNumberIconImageName]];
-    _numberImageView.frame = CGRectMake(self.view.tz_width - 56 - 24, 13, 26, 17);
+    _numberImageView.frame = CGRectMake(self.view.tz_width - 56 - 29, 23.5, 26, 17);
     _numberImageView.hidden = _tzImagePickerVc.selectedModels.count <= 0;
     _numberImageView.backgroundColor = [UIColor clearColor];
     

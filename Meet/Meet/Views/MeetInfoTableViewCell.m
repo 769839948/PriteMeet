@@ -20,7 +20,6 @@
 @property (nonatomic, strong) UILabel *meetNumber;
 
 @property (nonatomic, strong) UIImageView *authentication;
-@property (nonatomic, strong) UIImageView *unAuthentication;
 
 @property (nonatomic, strong) CenterlabelView *centerLabelView;
 
@@ -68,9 +67,6 @@
     _authentication = [[UIImageView alloc] init];
     [self.contentView addSubview:_authentication];
     
-    _unAuthentication = [[UIImageView alloc] init];
-    [self.contentView addSubview:_unAuthentication];
-    
     [self updateConstraints];
 }
 
@@ -85,7 +81,7 @@
         [self updateConstraints];
     }else{
         _positionLabel.text = position;
-        float positionHeight = [position heightWithFont:HomeViewDetailPositionFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 160];
+        float positionHeight = [position heightWithFont:HomeViewDetailPositionFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 90];
         if (positionHeight > 32){
             [_positionLabel mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.mas_offset(positionHeight);
@@ -128,13 +124,9 @@
     
     NSArray *authArray = [autnInfo componentsSeparatedByString:@","];
     if (authArray.count == 3) {
-        _authentication.hidden = NO;
-        _unAuthentication.hidden = YES;
         _authentication.image = [UIImage imageNamed:@"home_detail_verifie_select"];
     }else{
-        _authentication.hidden = YES;
-        _unAuthentication.hidden = NO;
-        _unAuthentication.image = [UIImage imageNamed:@"home_detail_uverifie_unselect"];
+        _authentication.image = [UIImage imageNamed:@"home_detail_uverifie_unselect"];
 
     }
     
@@ -153,8 +145,8 @@
         }];
         [_positionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(5);
-            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(80);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-80);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(45);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-45);
             make.bottom.mas_equalTo(weakSelf.meetNumber.mas_top).offset(-8);
             make.height.offset(30);
         }];
@@ -173,13 +165,7 @@
         
         [_authentication mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(20);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
-            make.size.mas_offset(CGSizeMake(68, 30));
-        }];
-        
-        [_unAuthentication mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.authentication.mas_bottom).offset(10);
-            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-8);
             make.size.mas_offset(CGSizeMake(68, 30));
         }];
         

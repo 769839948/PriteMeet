@@ -19,20 +19,21 @@ class PhotoDetailTableViewCell: UITableViewCell {
     var addImageView:UIImageView! = nil
     var closure:ImageClick?
     var infoView:UIView!
+    var detailImageView:UIView!
     var shadowView:UIView!
     var cellImageArray:CellImageArray!
     var thumbnailImgArray:NSMutableArray = NSMutableArray()
     
+    var lineLable:UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        
-        self.setUpView()
-        
+//        self.setUpView()
     }
     
     func setUpView() {
         logoutView = UIView(frame: CGRectMake(0,0,ScreenWidth,self.bounds.height))
+        logoutView.hidden = true
         logoutView.backgroundColor = UIColor.whiteColor()
         
         self.addImageView = UIImageView()
@@ -41,7 +42,7 @@ class PhotoDetailTableViewCell: UITableViewCell {
         let singerTap = UITapGestureRecognizer(target: self, action: #selector(PhotoDetailTableViewCell.singerTap))
         singerTap.numberOfTapsRequired = 1
         singerTap.numberOfTouchesRequired = 1
-        self.addImageView.frame = CGRectMake(10, 26, 59, 59)
+        self.addImageView.frame = CGRectMake(0, 26, 59, 59)
         self.addImageView.addGestureRecognizer(singerTap)
         
         
@@ -52,10 +53,28 @@ class PhotoDetailTableViewCell: UITableViewCell {
         
         infoView = UIView()
         infoView.backgroundColor = UIColor.whiteColor()
-        self.contentView.addSubview(infoView)
         
+        detailImageView = UIView()
+        detailImageView.clipsToBounds = true
+        detailImageView.addSubview(self.addImageView)
+        
+        infoView.addSubview(detailImageView)
         infoView.addSubview(logoutView)
-        infoView.addSubview(self.addImageView)
+        
+        self.contentView.addSubview(infoView)
+
+        
+        lineLable = UILabel()
+        lineLable.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
+        infoView.addSubview(lineLable)
+        
+        
+        lineLable.snp_makeConstraints { (make) in
+            make.top.equalTo(self.infoView.snp_top).offset(10)
+            make.left.equalTo(self.infoView.snp_left).offset(10)
+            make.right.equalTo(self.infoView.snp_right).offset(-10)
+            make.height.equalTo(0.5)
+        }
         
         shadowView.snp_makeConstraints { (make) in
             make.top.equalTo(self.contentView.snp_top).offset(0)
@@ -71,22 +90,29 @@ class PhotoDetailTableViewCell: UITableViewCell {
             make.bottom.equalTo(self.shadowView.snp_bottom).offset(-3)
             make.height.equalTo(112)
         }
+        
+        detailImageView.snp_makeConstraints { (make) in
+            make.top.equalTo(self.infoView.snp_top).offset(0)
+            make.left.equalTo(self.infoView.snp_left).offset(10)
+            make.right.equalTo(self.infoView.snp_right).offset(-20)
+            make.bottom.equalTo(self.infoView.snp_bottom).offset(0)
+        }
     }
 
     func configLogoutView(){
         self.backgroundColor = UIColor.whiteColor()
-        logoutView.hidden = true
+        logoutView.hidden = false
         addImageView.hidden = true
     }
     
     func configCell(imageArray:[Head_Photo_List]) {
-        logoutView.hidden = false
+        logoutView.hidden = true
         addImageView.hidden = false
         self.thumbnailImgArray.removeAllObjects()
         var width:CGFloat = 0
         let headPhotos = Head_Photo_List.mj_objectArrayWithKeyValuesArray(imageArray)
         if headPhotos.count > 0 {
-            var originX:CGFloat = 72
+            var originX:CGFloat = 62
             if headPhotos.count >= 8 {
                addImageView.hidden = true
                 originX = 0
@@ -100,44 +126,43 @@ class PhotoDetailTableViewCell: UITableViewCell {
                 photoImage.userInteractionEnabled = true
                 photoImage.frame = CGRectMake(originX + width, 26, 59, 59)
                 photoImage.sd_setImageWithURL(NSURL.init(string: urlString), placeholderImage: UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSizeZero), options: SDWebImageOptions.RetryFailed, completed: { (image, error, type, url) in
-                    self.thumbnailImgArray.addObject(image)
+                    if error != nil {
+                        return
+                    }
+                    if image != nil {
+                        self.thumbnailImgArray.addObject(image)
+                    }
                 })
-                if CGRectGetMaxX(photoImage.frame) < ScreenWidth - 50 {
-                    
-                    infoView.addSubview(photoImage)
-                    width = width + 62
-                    let imageTap = UITapGestureRecognizer(target: self, action:#selector(PhotoDetailTableViewCell.imageTap(_:)))
-                    imageTap.numberOfTapsRequired = 1
-                    imageTap.numberOfTouchesRequired = 1
-                    photoImage.addGestureRecognizer(imageTap)
-                }else{
-                    let detailImage = UIImageView(frame: CGRectMake(CGRectGetMaxX(photoImage.frame)  - 120 , 26, 78, 59))
-                    detailImage.image = UIImage.init(named: "photo_detail")
-                    infoView.addSubview(detailImage)
-                    break;
-                }
-                
+                detailImageView.addSubview(photoImage)
+                width = width + 62
+                let imageTap = UITapGestureRecognizer(target: self, action:#selector(PhotoDetailTableViewCell.imageTap(_:)))
+                imageTap.numberOfTapsRequired = 1
+                imageTap.numberOfTouchesRequired = 1
+                photoImage.addGestureRecognizer(imageTap)
             }
-           
+            let image = UIImage.init(named: "photo_detail")
+            let detailImage = UIImageView(frame: CGRectMake(ScreenWidth - 40  - (image?.size.width)! , 26, (image?.size.width)!, (image?.size.height)!))
+            detailImage.image = UIImage.init(named: "photo_detail")
+            detailImageView.addSubview(detailImage)
             
-            let detailNextImage = UIImageView(frame: CGRectMake(ScreenWidth - 47, 49.5, 7, 12))
+            let detailNextImage = UIImageView(frame: CGRectMake(ScreenWidth - 20 - 27, 49.5, 7, 12))
             detailNextImage.image = UIImage.init(named: "info_next")
             infoView.addSubview(detailNextImage)
         }else{
-            let photoImage = UIImageView()
-            let singerTap = UITapGestureRecognizer(target: self, action: #selector(PhotoDetailTableViewCell.singerTap))
-            singerTap.numberOfTapsRequired = 1
-            singerTap.numberOfTouchesRequired = 1
-            photoImage.frame = CGRectMake(72, 26, 59, 59)
-            photoImage.addGestureRecognizer(singerTap)
-            photoImage.image = UIImage.init(named: "me_detail_image")
-            infoView.addSubview(photoImage)
-            
-            let detailImage = UIImageView(frame: CGRectMake(infoView.frame.size.width - 78, 26, 78, 59))
+//            let photoImage = UIImageView()
+//            let singerTap = UITapGestureRecognizer(target: self, action: #selector(PhotoDetailTableViewCell.singerTap))
+//            singerTap.numberOfTapsRequired = 1
+//            singerTap.numberOfTouchesRequired = 1
+//            photoImage.frame = CGRectMake(72, 26, 59, 59)
+//            photoImage.addGestureRecognizer(singerTap)
+//            photoImage.image = UIImage.init(named: "me_detail_image")
+//            infoView.addSubview(photoImage)
+            let image = UIImage.init(named: "photo_detail")
+            let detailImage = UIImageView(frame: CGRectMake(ScreenWidth - 40 - (image?.size.width)! , 26, (image?.size.width)!, (image?.size.height)!))
             detailImage.image = UIImage.init(named: "photo_detail")
-            infoView.addSubview(detailImage)
+            detailImageView.addSubview(detailImage)
             
-            let detailNextImage = UIImageView(frame: CGRectMake(ScreenWidth - 47, 49.5, 7, 12))
+            let detailNextImage = UIImageView(frame: CGRectMake(ScreenWidth - 20 - 27, 49.5, 7, 12))
             detailNextImage.image = UIImage.init(named: "info_next")
             infoView.addSubview(detailNextImage)
         }

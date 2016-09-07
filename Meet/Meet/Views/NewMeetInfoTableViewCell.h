@@ -28,6 +28,8 @@ typedef void (^tableCellHeight)(CGFloat height);
 
 - (void)isHaveShadowColor:(BOOL)isShadowColor;
 
+- (void)setUpView;
+
 - (void)hidderLine;
 
 @end

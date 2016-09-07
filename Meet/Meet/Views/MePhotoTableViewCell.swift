@@ -39,6 +39,7 @@ class MePhotoTableViewCell: UITableViewCell {
         completeInfoView.layer.cornerRadius = 14.0
         completeInfoView.layer.masksToBounds = true
         completeInfoView.backgroundColor = UIColor.init(hexString:MeProfileCollectViewItemSelect)
+        
         // Initialization code
     }
     
@@ -59,7 +60,7 @@ class MePhotoTableViewCell: UITableViewCell {
         logoutView.hidden = true
         self.loginView.hidden = false
         self.loginView.backgroundColor = UIColor.whiteColor()
-        if compass.next_page != 4 {
+        if compass.next_page != 100 {
             completeInfoView.hidden = false
             let compassString = "\(compass.completeness)% \(compass.msg)"
             completeInfoLabel.text = compassString;
@@ -81,9 +82,9 @@ class MePhotoTableViewCell: UITableViewCell {
         maskLayer.path = maskPath.CGPath
         avatarImageView.layer.mask = maskLayer
         
-        let loginMaskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355 + 136), byRoundingCorners: [.TopLeft,.TopRight], cornerRadii: CGSizeMake(5, 0))
+        let loginMaskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355 + 137), byRoundingCorners: [.TopLeft,.TopRight], cornerRadii: CGSizeMake(5, 0))
         let loginMaskLayer = CAShapeLayer()
-        loginMaskLayer.frame = CGRectMake(0, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355 + 136)
+        loginMaskLayer.frame = CGRectMake(0, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355 + 137)
         loginMaskLayer.path = loginMaskPath.CGPath
         loginView.layer.mask = loginMaskLayer
     }

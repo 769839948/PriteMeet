@@ -79,7 +79,7 @@
     _titleLabel.numberOfLines = 0;
     _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _titleLabel.font = HomeDetailAboutUsTitleLabelFont;
-    _titleLabel.textColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
+    _titleLabel.textColor = [UIColor colorWithHexString:AboutUsCellTitleColor];
     [self.contentView addSubview:_titleLabel];
     
     _textlabel = [[UILabel alloc] init];
@@ -91,6 +91,7 @@
     
     
     _imageContent = [[UIView alloc] init];
+    _imageContent.clipsToBounds = YES;
     [self.contentView addSubview:_imageContent];
     
 }
@@ -108,17 +109,13 @@
             NSArray *imageArray = [[images objectAtIndex:i] componentsSeparatedByString:@"?"];
             [imageView sd_setImageWithURL:[NSURL URLWithString:[imageArray[0] stringByAppendingString:HomeDetailMoreInfoImageSize]] placeholderImage:PlaceholderImage options:SDWebImageRetryFailed];
             imageView.frame = CGRectMake(i * 64, 0, 59, 59);
-            if (CGRectGetMaxX(imageView.frame) < ScreenWidth - 50) {
-                [_imageContent addSubview:imageView];
-            }else{
-                UIImageView *detailImage = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imageView.frame) - 120, 0, 78, 59)];
-                NSLog(@"%f",detailImage.frame.origin.x);
-                detailImage.image  = [UIImage imageNamed:@"photo_detail"];
-                [_imageContent addSubview:detailImage];
-                break;
-            }
+            [_imageContent addSubview:imageView];
         }
-        
+        UIImage *image = [UIImage imageNamed:@"photo_detail"];
+        UIImageView *detailImage = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth - 40 - image.size.width, 0, image.size.width, image.size.height)];
+        NSLog(@"%f",detailImage.frame.origin.x);
+        detailImage.image  = image;
+        [_imageContent addSubview:detailImage];
         UIImageView *detailNextImage = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth - 47, 24, 7, 12)];
         detailNextImage.image  = [UIImage imageNamed:@"info_next"];
         [_imageContent addSubview:detailNextImage];

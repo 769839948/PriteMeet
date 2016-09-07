@@ -292,7 +292,8 @@ extension PhotoBrowser{
             /** pagecontrol准备 */
             pagecontrolPrepare()
             pagecontrol.currentPage = index
-            
+            self.pageControlPageChanged(index)
+            self.collectionView.selectItemAtIndexPath(NSIndexPath.init(forRow: 0, inSection: 0), animated: true, scrollPosition: .None)
             vc.navigationController?.pushViewController(self, animated: true)
             
         }else if showType == .Modal{

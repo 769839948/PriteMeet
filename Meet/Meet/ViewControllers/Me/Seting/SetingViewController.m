@@ -119,6 +119,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
         UILabel *logOut = [[UILabel alloc] initWithFrame:CGRectMake(15, 54, 56, 20)];
         logOut.text = _contentArray[indexPath.row];
         logOut.font = MeetSectionTitleNameFont;
+        cell.textLabel.text = @"";
         logOut.textColor = [UIColor colorWithHexString:TableViewTextColor];
         [cell.contentView addSubview:logOut];
     }else{
@@ -136,8 +137,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
         }else{
             cell.detailTextLabel.text = [self cacheSize];
         }
+    }else{
+        cell.detailTextLabel.text = @"";
     }
-    
     UILabel *cellLineLabel = [[UILabel alloc] init];
     if (indexPath.row == RowLogOut) {
         cellLineLabel.frame = CGRectMake(15, 89, ScreenWidth - 30, 0.5);

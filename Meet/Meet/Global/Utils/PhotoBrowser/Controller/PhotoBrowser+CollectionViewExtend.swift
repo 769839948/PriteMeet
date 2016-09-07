@@ -54,6 +54,7 @@ extension PhotoBrowser: UICollectionViewDataSource,UICollectionViewDelegate{
         
         //添加
         self.view.addSubview(collectionView)
+        
         collectionView.make_4Inset(UIEdgeInsetsMake(0, 0, 0, -CFPBExtraWidth))
 
         //注册cell
@@ -71,8 +72,9 @@ extension PhotoBrowser: UICollectionViewDataSource,UICollectionViewDelegate{
         if isZoomType {
             collectionView.hidden = true
         }
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PhotoBrowser.handleRotation(_:)), name: UIDeviceOrientationDidChangeNotification, object: nil)
+        self.collectionView.scrollToItemAtIndexPath(NSIndexPath(forItem: self.showIndex, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.Left, animated: !isZoomType)
+
     }
 
     

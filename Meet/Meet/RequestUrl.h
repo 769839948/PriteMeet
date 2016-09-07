@@ -12,7 +12,7 @@
 /**
  *  后台请求数据URL存放处
  */
-#define  RequestBaseUrl              @"http://test.momeet.cn"   //http://django.senzapps.cc/
+#define  RequestBaseUrl              @"http://momeet.cn"   //http://django.senzapps.cc/
 #define  RequestCreateUser           @"/api/user/signup/"
 #define  RequestCheckUser            @"/api/user/check/"
 #define  RequestCheckCodeBindUser    @"/api/code/is_bound_user/"
@@ -30,8 +30,8 @@
 
 #define  RequestLikeList             @"/api/liked_list/"
 
-
 #define  RequestUploadMoreProfile    @"/api/user_detail/"
+
 #define  RequestUploadCoverPhoto     @"/api/user_cover_photo/"
 
 #define  RequestSenderLocation       @"/api/push_geo_location"

@@ -60,7 +60,8 @@
     }
     self.imageRequestID = imageRequestID;
     self.selectPhotoButton.selected = model.isSelected;
-    self.selectImageView.image = self.selectPhotoButton.isSelected ? [UIImage imageNamedFromMyBundle:self.photoSelImageName] : [UIImage imageNamedFromMyBundle:self.photoDefImageName];
+   
+    self.selectImageView.image = self.selectPhotoButton.isSelected ? [UIImage imageWithColor:[UIColor colorWithWhite:1 alpha:0.700] size:CGSizeMake(self.tz_width, self.tz_width)] : [UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(self.tz_width, self.tz_width)];;
     self.type = TZAssetCellTypePhoto;
     if (model.type == TZAssetModelMediaTypeLivePhoto)      self.type = TZAssetCellTypeLivePhoto;
     else if (model.type == TZAssetModelMediaTypeAudio)     self.type = TZAssetCellTypeAudio;
@@ -87,7 +88,7 @@
     if (self.didSelectPhotoBlock) {
         self.didSelectPhotoBlock(sender.isSelected);
     }
-    self.selectImageView.image = sender.isSelected ? [UIImage imageNamedFromMyBundle:self.photoSelImageName] : [UIImage imageNamedFromMyBundle:self.photoDefImageName];
+    self.selectImageView.image = sender.isSelected ? [UIImage imageWithColor:[UIColor colorWithWhite:1 alpha:0.700] size:CGSizeMake(self.tz_width, self.tz_width)] : [UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(self.tz_width, self.tz_width)];
     if (sender.isSelected) {
         [UIView showOscillatoryAnimationWithLayer:_selectImageView.layer type:TZOscillatoryAnimationToBigger];
     }
@@ -98,7 +99,7 @@
 - (UIButton *)selectPhotoButton {
     if (_selectImageView == nil) {
         UIButton *selectImageView = [[UIButton alloc] init];
-        selectImageView.frame = CGRectMake(self.tz_width - 44, 0, 44, 44);
+        selectImageView.frame = CGRectMake(0, 0, self.tz_width, self.tz_width);
         [selectImageView addTarget:self action:@selector(selectPhotoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:selectImageView];
         _selectPhotoButton = selectImageView;
@@ -124,7 +125,7 @@
 - (UIImageView *)selectImageView {
     if (_selectImageView == nil) {
         UIImageView *selectImageView = [[UIImageView alloc] init];
-        selectImageView.frame = CGRectMake(self.tz_width - 27, 0, 27, 27);
+        selectImageView.frame = CGRectMake(0, 0, self.tz_width, self.tz_width);
         [self.contentView addSubview:selectImageView];
         _selectImageView = selectImageView;
     }
@@ -206,7 +207,7 @@
 /// For fitting iOS6
 - (void)layoutSubviews {
     if (iOS7Later) [super layoutSubviews];
-    _selectedCountButton.frame = CGRectMake(self.tz_width - 24 - 30, 23, 24, 24);
+    _selectedCountButton.frame = CGRectMake(0, 0, self.tz_width, self.tz_width);
 }
 
 - (void)layoutSublayersOfLayer:(CALayer *)layer {

@@ -220,6 +220,8 @@
                 } failure:^(NSDictionary *responseObject) {
                     failBlock(@{@"error":@"上传服务器出错"});
                 }];
+                NSString *imageUrl = [NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",parameters[@"key"]];
+                [self uploadCoverPhoto:imageUrl];
             }else{
                 successBlock(@{@"success":@"1",@"avatar":[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",timeNow]});
             }
@@ -372,20 +374,12 @@
     }];
 }
 
-- (void)uploadCoverPhoto:(UIImage *)image
-                 success:(Success)successBlock
-                    fail:(Fail)failBlock
-           loadingString:(LoadingView)loading
+- (void)uploadCoverPhoto:(NSString *)imageUrl
 {
-    [self uploadQiNiuServers:image success:^(NSDictionary *responseObject) {
-        NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUploadCoverPhoto,[UserInfo sharedInstance].uid];
-        [self postWithURLString:url parameters:responseObject[@"parameters"] success:^(NSDictionary *responseObject) {
-            NSLog(@"%@",responseObject);
-        } failure:^(NSDictionary *responseObject) {
-            failBlock(responseObject);
-        }];
-    } failBlock:^(NSDictionary *responseObject) {
-        failBlock(@{@"error":@"网络错误"});
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUploadCoverPhoto,[UserInfo sharedInstance].uid];
+    NSDictionary *parameters = @{@"photo":imageUrl};
+    [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+    } failure:^(NSDictionary *responseObject) {
     }];
 }
 
@@ -471,7 +465,9 @@
             successBlock:(Success)successBlock
                failBlock:(Fail)failBlock
 {
-    [self uploadQiNiuServers:image success:^(NSDictionary *responseObject) {
+    NSData *smallData =  UIImageJPEGRepresentation(image, 0.85);
+    UIImage *smallImage = [UIImage imageWithData:smallData];
+    [self uploadQiNiuServers:smallImage success:^(NSDictionary *responseObject) {
         NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestHeadPhoto];
         NSArray *photoArray = [NSArray arrayWithObject:[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",responseObject[@"parameters"][@"key"]]];
         NSDictionary *parameters = @{@"photos":photoArray,

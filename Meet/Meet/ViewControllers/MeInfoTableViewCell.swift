@@ -54,9 +54,9 @@ class MeInfoTableViewCell: UITableViewCell {
         infoDetailLabel.text = infoDetail
         
         if cornerRadiusType == .Top {
-            let maskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, ScreenWidth - 20, 50), byRoundingCorners: [.TopRight,.TopLeft], cornerRadii: CGSizeMake(5, 0))
+            let maskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, ScreenWidth - 20, 61), byRoundingCorners: [.TopRight,.TopLeft], cornerRadii: CGSizeMake(5, 0))
             let maskLayer = CAShapeLayer()
-            maskLayer.frame = CGRectMake(0, 0, ScreenWidth - 10, 50)
+            maskLayer.frame = CGRectMake(0, 0, ScreenWidth - 10, 61)
             maskLayer.path = maskPath.CGPath
             infoView.layer.mask = maskLayer
         }else if cornerRadiusType == .Bottom {

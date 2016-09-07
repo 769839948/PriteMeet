@@ -81,7 +81,9 @@
     }else{
         float titleHeight = [meetstring heightWithFont:AboutUsLabelFont constrainedToWidth:[[UIScreen mainScreen] bounds].size.width - 40];
         __weak typeof(self) weakSelf = self;
+        
         [weakSelf.interestView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(weakSelf.meetLabel.mas_top).offset(-18);
             make.height.mas_offset([weakSelf cellHeight:array]);
         }];
         
@@ -89,6 +91,7 @@
             make.height.offset(titleHeight);
         }];
     }
+    [self.contentView addSubview:_interestView];
     [self.contentView bringSubviewToFront:_interestView];
     [self updateConstraintsIfNeeded];
     [self updateConstraints];
@@ -116,10 +119,10 @@
             make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(20);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
-            make.bottom.mas_equalTo(weakSelf.meetLabel.mas_top).offset(-20);
+            make.bottom.mas_equalTo(weakSelf.meetLabel.mas_top).offset(-18);
         }];
         [_meetLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.interestView.mas_bottom).offset(20);
+            make.top.mas_equalTo(weakSelf.interestView.mas_bottom).offset(18);
             make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(20);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-20);
             make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-30);

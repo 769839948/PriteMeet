@@ -42,7 +42,7 @@ class HightLightViewController: UIViewController {
     func changeNavigationTitleColor() -> Bool {
         
         titleHeight = ((PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000007") as! String).heightWithConstrainedWidth(ScreenWidth - 40, font: HightLightTitleFont!) + 75
-        if titleStr == "" || infoStr == "" || titleStr.length == 0 || infoStr.length == 0  {
+        if titleStr == "" || infoStr == "" {
             return false
         }else{
             return true
@@ -54,14 +54,14 @@ class HightLightViewController: UIViewController {
     }
     
     func sublimTitle(sender:UIBarButtonItem) {
-        if titleStr == "" {
+        if titleText.text == "" {
             MainThreadAlertShow("您未填写破冰话题哦", view: self.view)
-        }else if infoStr == "" {
+        }else if infoText.text == "" {
             MainThreadAlertShow("您未填写详细个人介绍哦", view: self.view)
         }else{
-            viewModel.addStar(infoStr, experience: titleStr, success: { (dic) in
-                UserExtenModel.shareInstance().highlight = self.infoStr
-                UserExtenModel.shareInstance().experience = self.titleStr
+            viewModel.addStar(infoText.text, experience: titleText.text, success: { (dic) in
+                UserExtenModel.shareInstance().highlight = self.infoText.text
+                UserExtenModel.shareInstance().experience = self.titleText.text
                 self.navigationController?.popViewControllerAnimated(true)
                 }, fail: { (dic) in
                     MainThreadAlertShow("添加失败", view: self.view)
@@ -121,7 +121,7 @@ extension HightLightViewController : UITableViewDataSource {
         case 0:
             return titleHeight
         default:
-            return 220
+            return ScreenHeight - titleHeight
         }
     }
     
@@ -201,8 +201,8 @@ extension HightLightViewController : UITableViewDataSource {
 
 extension HightLightViewController : UITextViewDelegate {
     func textViewDidBeginEditing(textView: UITextView) {
-        if titleStr == "" && textView.tag == 1 {
-            textView.text = "我是\(UserInfo.sharedInstance().real_name)"
+        if infoStr == "" && textView.tag == 2 {
+            textView.text = "我是\(UserInfo.sharedInstance().real_name)，"
         }
     }
     

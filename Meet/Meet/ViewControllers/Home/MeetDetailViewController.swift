@@ -8,6 +8,7 @@
 
 import UIKit
 import MJExtension
+import SDWebImage
 
 func meetHeight(meetString:String, instrestArray:NSArray) -> CGFloat
 {
@@ -50,6 +51,10 @@ class MeetDetailViewController: UIViewController {
     var meetCellHeight:CGFloat = 159
     var images = NSMutableArray()
     let userInfoViewModel = UserInfoViewModel()
+    
+    let imageUrls = NSMutableArray()
+    
+    var plachImages = NSMutableArray()
     
     var actionSheetSelect:NSInteger! = 0
     
@@ -107,6 +112,7 @@ class MeetDetailViewController: UIViewController {
     
     func setUpBottomView(){
         self.bottomView = UIView(frame: CGRectMake(0,ScreenHeight - 49, ScreenWidth, 49))
+        self.bottomView.backgroundColor = UIColor.init(hexString: HomeViewWomenColor)
         self.setPersonType(self.personType)
         let singerTap = UITapGestureRecognizer(target: self, action: #selector(MeetDetailViewController.meetImmediately))
         singerTap.numberOfTouchesRequired = 1
@@ -174,10 +180,8 @@ class MeetDetailViewController: UIViewController {
     
     func setPersonType(personType:PersonType){
         if personType == .Man {
-            self.bottomView.backgroundColor = UIColor.init(hexString: HomeViewManColor)
             personTypeString = "他"
         }else{
-            self.bottomView.backgroundColor = UIColor.init(hexString: HomeViewWomenColor)
             personTypeString = "她"
         }
     }
@@ -337,6 +341,19 @@ class MeetDetailViewController: UIViewController {
     func getHomeDetailModel(){
         viewModel.getOtherUserInfo(user_id, successBlock: { (dic) in
             self.otherUserModel = HomeDetailModel.mj_objectWithKeyValues(dic)
+            let coverPhoto = self.otherUserModel.cover_photo?.photo.componentsSeparatedByString("?")
+            self.imageUrls.addObject(coverPhoto![0])
+            if self.otherUserModel.head_photo_list != nil {
+                var currentImage:NSInteger = 1
+                let photoModels = Head_Photo_List.mj_objectArrayWithKeyValuesArray(self.otherUserModel.head_photo_list!)
+                for model in photoModels {
+                    let photoModel = model as! Head_Photo_List
+                    self.imageUrls.addObject(photoModel.photo)
+                    currentImage = currentImage + 1
+                }
+                self.getPlachImage()
+            }
+
             if !self.isOrderViewPush {
                 self.setUpBottomView()
                 if self.otherUserModel.gender == 1 {
@@ -464,6 +481,23 @@ class MeetDetailViewController: UIViewController {
         cell.configCell(self.otherUserModel.user_info?.experience, info: self.otherUserModel.user_info?.highlight, imageArray: self.images as [AnyObject], withUrl: self.otherUserModel.web_url)
     }
     
+    func getPlachImage() {
+//        let manage = SDWebImageManager()
+        let image = UIImage.init(color: UIColor.clearColor(), size: CGSizeMake(100, 100))
+//        var index = 0
+        for _ in self.imageUrls {
+            plachImages.addObject(image)
+//            let urlStr = NSURL.init(string: url.stringByAppendingString("?imageView2/1/w/177/h/177"))
+//            manage.downloadWithURL(urlStr, options: .RetryFailed, progress: { (star, end) in
+//                
+//                }, completed: { (image, error, catchs, finist) in
+//                    self.plachImages.replaceObjectAtIndex(index, withObject: image)
+//                    index = index + 1
+//            })
+           
+        }
+        
+    }
     
     func headerListImages() -> NSArray {
         let imageArray = NSMutableArray()
@@ -482,33 +516,17 @@ class MeetDetailViewController: UIViewController {
         return imageArray
     }
     
-    func presentImageBrowse(index:NSInteger,images:NSArray, sourceView:UIView) {
-        let pbVC = PhotoBrowser()
-        pbVC.isNavBarHidden = true
-        //        pbVC.isStatusBarHidden = false
-        /**  设置相册展示样式  */
-        pbVC.showType = PhotoBrowser.ShowType.ZoomAndDismissWithSingleTap
-        /**  设置相册类型  */
-        pbVC.photoType = PhotoBrowser.PhotoType.Host
-        //强制关闭显示一切信息
-        pbVC.hideMsgForZoomAndDismissWithSingleTap = true
-        
-        var models: [PhotoBrowser.PhotoModel] = []
-     
-        let coverPhoto = self.otherUserModel.cover_photo?.photo.componentsSeparatedByString("?")
-        models.append(PhotoBrowser.PhotoModel(hostHDImgURL: coverPhoto![0], hostThumbnailImg: images[0] as! UIImage, titleStr: "", descStr: "", sourceView: sourceView))
-        if self.otherUserModel.head_photo_list != nil {
-            var currentImage:NSInteger = 1
-            let photoModels = Head_Photo_List.mj_objectArrayWithKeyValuesArray(self.otherUserModel.head_photo_list!)
-            for model in photoModels {
-                let photoModel = model as! Head_Photo_List
-                models.append(PhotoBrowser.PhotoModel(hostHDImgURL: photoModel.photo, hostThumbnailImg: images[currentImage] as! UIImage, titleStr: "", descStr: "", sourceView: sourceView))
-                currentImage = currentImage + 1
-            }
+    func presentImageBrowse(index:NSInteger, sourceView:UIView) {
+
+        let photoBrowser = SDPhotoBrowser()
+        photoBrowser.delegate = self
+        photoBrowser.currentImageIndex = index
+        photoBrowser.imageCount = self.imageUrls.count
+        photoBrowser.sourceImagesContainerView = sourceView
+        photoBrowser.imageBlock = { index in
+                
         }
-        pbVC.photoModels = models
-        
-        pbVC.show(inVC: self,index: index)
+        photoBrowser.show()
 
     }
 }
@@ -556,7 +574,7 @@ extension MeetDetailViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
+        return 7
     }
     
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -637,7 +655,7 @@ extension MeetDetailViewController : UITableViewDataSource {
                         self.configCell(cell as! MeetInfoTableViewCell, indxPath: indexPath)
                     })
                 default:
-                    return 53
+                    return 50
                 }
             case 1:
                 switch indexPath.row {
@@ -668,7 +686,7 @@ extension MeetDetailViewController : UITableViewDataSource {
                         self.configCell(cell as! MeetInfoTableViewCell, indxPath: indexPath)
                     })
                 default:
-                    return 49
+                    return 50
                 }
             case 1:
                 switch indexPath.row {
@@ -707,8 +725,8 @@ extension MeetDetailViewController : UITableViewDataSource {
                 case 0:
                     let cell = tableView.dequeueReusableCellWithIdentifier(photoTableViewCell, forIndexPath: indexPath) as! PhotoTableViewCell
                     cell.configCell(self.headerListImages() as [AnyObject], gender: self.otherUserModel.gender , age: self.otherUserModel.age)
-                    cell.clickBlock = { index,imageArray,scourceView in
-                        self.presentImageBrowse(index,images: imageArray, sourceView: scourceView)
+                    cell.clickBlock = { index,scourceView in
+                        self.presentImageBrowse(index, sourceView: scourceView)
                     }
                     return cell
                 case 1:
@@ -762,8 +780,8 @@ extension MeetDetailViewController : UITableViewDataSource {
                 case 0:
                     let cell = tableView.dequeueReusableCellWithIdentifier(photoTableViewCell, forIndexPath: indexPath) as! PhotoTableViewCell
                     cell.configCell(self.headerListImages() as [AnyObject], gender: self.otherUserModel.gender , age: self.otherUserModel.age)
-                    cell.clickBlock = { index,imageArray,scourceView in
-                        self.presentImageBrowse(index,images: imageArray, sourceView: scourceView)
+                    cell.clickBlock = { index,scourceView in
+                        self.presentImageBrowse(index, sourceView: scourceView)
                     }
                     return cell
                 case 1:
@@ -869,3 +887,14 @@ extension MeetDetailViewController : UIActionSheetDelegate {
         }
     }
 }
+
+extension MeetDetailViewController : SDPhotoBrowserDelegate {
+    func photoBrowser(browser: SDPhotoBrowser!, highQualityImageURLForIndex index: Int) -> NSURL! {
+        return NSURL.init(string: self.imageUrls[index] as! String)
+    }
+    
+    func photoBrowser(browser: SDPhotoBrowser!, placeholderImageForIndex index: Int) -> UIImage! {
+        return plachImages[index] as! UIImage
+    }
+}
+

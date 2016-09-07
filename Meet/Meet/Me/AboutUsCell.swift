@@ -33,7 +33,7 @@ class AboutUsCell: UITableViewCell {
         titleLabel.numberOfLines = 0
         titleLabel.sizeToFit()
         titleLabel.lineBreakMode = .ByWordWrapping
-        titleLabel.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
+        titleLabel.textColor = UIColor.init(hexString: AboutUsCellTitleColor)
         infoView.addSubview(titleLabel)
         
         infoLabel = UILabel()
@@ -50,15 +50,21 @@ class AboutUsCell: UITableViewCell {
     
     func configCell(title:String, info:String) {
         if title == "" {
-            titleLabel.hidden = true
-           infoLabel.snp_updateConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(22)
+           titleLabel.snp_updateConstraints(closure: { (make) in
+                make.top.equalTo(self.contentView.snp_top).offset(0.01)
            })
         }else{
+            titleLabel.snp_updateConstraints(closure: { (make) in
+                make.top.equalTo(self.contentView.snp_top).offset(22)
+            })
+            infoLabel.snp_updateConstraints(closure: { (make) in
+                make.top.equalTo(self.titleLabel.snp_bottom).offset(22)
+            })
         }
-        titleLabel.text = title
         infoLabel.text = info
+        titleLabel.text = title
         self.updateConstraintsIfNeeded()
+        self.updateConstraints()
     }
     
     override func updateConstraints() {

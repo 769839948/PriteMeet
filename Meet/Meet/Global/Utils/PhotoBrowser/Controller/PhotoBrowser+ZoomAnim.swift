@@ -11,7 +11,6 @@ import UIKit
 /** 力求用最简单的方式实现 */
 extension PhotoBrowser{
     
-    
     /** 展示动画: 妈妈，这里好复杂~~ */
     func zoomInWithAnim(page: Int){
         

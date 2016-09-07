@@ -88,7 +88,7 @@
     _likeBtn.layer.shadowOffset = CGSizeMake(0, 4);
     _likeBtn.layer.shadowOpacity = 0.5;
     _likeBtn.adjustsImageWhenHighlighted = NO;
-    _likeBtn.layer.shadowColor = [[UIColor colorWithWhite:0.938 alpha:1.000] CGColor];
+    _likeBtn.layer.shadowColor = [[UIColor colorWithWhite:0.000 alpha:0.080] CGColor];
     [_likeBtn addTarget:self action:@selector(likeButtonPress:) forControlEvents:UIControlEventTouchUpInside];
     _likeBtn.backgroundColor = [UIColor clearColor];
     [_personalView addSubview:_likeBtn];

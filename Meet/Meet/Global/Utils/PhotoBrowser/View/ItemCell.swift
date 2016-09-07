@@ -103,7 +103,7 @@ extension ItemCell: UIScrollViewDelegate{
         asHUD.layer.cornerRadius = 40
 //        scrollView.layer.borderColor = UIColor.redColor().CGColor
 //        scrollView.layer.borderWidth = 5
-        asHUD.type = NVActivityIndicatorType.BallTrianglePath
+        asHUD.type = NVActivityIndicatorType.BallScaleRipple
         
         //更新约束:默认居中
         self.imgVLMC.constant = (self.screenW - 120)/2

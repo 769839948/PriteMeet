@@ -18,8 +18,6 @@
 
 @property (nonatomic, strong) UIButton *ageNumber;
 
-@property (nonatomic, copy) NSMutableArray *images;
-
 @end
 
 @implementation PhotoTableViewCell
@@ -38,6 +36,8 @@
 {
     //http://7xsatk.com1.z0.glb.clouddn.com/o_1aqc2rujd1vbc11ten5s12tj115fc.jpg?imageView2/1/w/1065/h/708
     //http://7xsatk.com1.z0.glb.clouddn.com/o_1apsial4q1lca41q17vccc81sice.jpg?imageView2/1/w/1065/h/708
+   
+    
     __weak typeof(self) weakSelf = self;
     if (_cycleScrollView == nil) {
         _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(10, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355) delegate:self placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(ScreenWidth - 20, (ScreenWidth - 20)*236/355)]];
@@ -53,23 +53,7 @@
         });
 
     }
-    SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    self.images = [[NSMutableArray array] init];
-    NSMutableArray *imagesArray = [[NSMutableArray alloc] init];
-    for (NSInteger i = 0; i < imageArray.count; i ++) {
-        NSArray *urls = [[imageArray objectAtIndex:i] componentsSeparatedByString:@"?"];
-        [manager downloadImageWithURL:[NSURL URLWithString:[urls[0] stringByAppendingString:ImageThum]] options:SDWebImageDownloaderContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-            
-        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-            [imagesArray addObject:image];
-            if (imagesArray.count == imageArray.count
-                ) {
-                weakSelf.images = imagesArray.copy;
-            }
-        }];
-        
-    }
-//    if (_ageNumber == nil) {
+    //    if (_ageNumber == nil) {
 //        _ageNumber = [UIButton buttonWithType:UIButtonTypeCustom];
 //        _ageNumber.layer.cornerRadius = 12;
 //        _ageNumber.titleLabel.font = HomeViewAgeFont;
@@ -107,7 +91,7 @@
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     if (self.clickBlock != nil) {
-        self.clickBlock(index,_images.copy,_cycleScrollView);
+        self.clickBlock(index,_cycleScrollView);
     }
 }
 

@@ -70,8 +70,9 @@ static CGSize AssetGridThumbnailSize;
     _shouldScrollToBottom = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = _model.name;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSBundle tz_localizedStringForKey:@"Cancle"] style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
-    
+    //    [[UIBarButtonItem alloc] initWithTitle:[NSBundle tz_localizedStringForKey:@"Cancle"] style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+    //    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSFontAttributeName:NavigationBarRightItemFont} forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSBundle tz_localizedStringForKey:@"Preview"] style:UIBarButtonItemStylePlain target:self action:@selector(previewButtonClick)];
     [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSFontAttributeName:NavigationBarRightItemFont} forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftItemPress:)];
     _showTakePhotoBtn = (([_model.name isEqualToString:@"相机胶卷"] || [_model.name isEqualToString:@"Camera Roll"] ||  [_model.name isEqualToString:@"所有照片"] || [_model.name isEqualToString:@"All Photos"]) && tzImagePickerVc.allowTakePicture);
@@ -116,7 +117,7 @@ static CGSize AssetGridThumbnailSize;
 
 - (void)configCollectionView {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    CGFloat margin = 4;
+    CGFloat margin = 0.5;
     CGFloat itemWH = (self.view.tz_width - 2 * margin - 4) / 4 - margin;
     layout.itemSize = CGSizeMake(itemWH, itemWH);
     layout.minimumInteritemSpacing = margin;
@@ -126,7 +127,7 @@ static CGSize AssetGridThumbnailSize;
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(margin, top, self.view.tz_width - 2 * margin, self.view.tz_height - 50 - top) collectionViewLayout:layout];
     _collectionView.dataSource = self;
     _collectionView.delegate = self;
-    _collectionView.backgroundColor = [UIColor whiteColor];
+    _collectionView.backgroundColor = [UIColor colorWithHexString:TableViewBackGroundColor];
     _collectionView.alwaysBounceHorizontal = NO;
     if (iOS7Later) _collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 2);
     _collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, -2);
@@ -163,21 +164,21 @@ static CGSize AssetGridThumbnailSize;
 
 - (void)configBottomToolBar {
     TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
-    UIView *bottomToolBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.tz_height - 50, self.view.tz_width, 50)];
-    CGFloat rgb = 253 / 255.0;
+    UIView *bottomToolBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.tz_height - 64, self.view.tz_width, 64)];
+    CGFloat rgb = 255 / 255.0;
     bottomToolBar.backgroundColor = [UIColor colorWithRed:rgb green:rgb blue:rgb alpha:1.0];
     
-    NSString *previewText = [NSBundle tz_localizedStringForKey:@"Preview"];
-    CGFloat previewWidth = [previewText boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil].size.width;
-    _previewButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _previewButton.frame = CGRectMake(10, 3, previewWidth + 2, 44);
-    [_previewButton addTarget:self action:@selector(previewButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    _previewButton.titleLabel.font = [UIFont systemFontOfSize:16];
-    [_previewButton setTitle:previewText forState:UIControlStateNormal];
-    [_previewButton setTitle:previewText forState:UIControlStateDisabled];
-    [_previewButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [_previewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-    _previewButton.enabled = tzImagePickerVc.selectedModels.count;
+//    NSString *previewText = [NSBundle tz_localizedStringForKey:@"Preview"];
+//    CGFloat previewWidth = [previewText boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil].size.width;
+//    _previewButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    _previewButton.frame = CGRectMake(10, 3, previewWidth + 2, 44);
+//    [_previewButton addTarget:self action:@selector(previewButtonClick) forControlEvents:UIControlEventTouchUpInside];
+//    _previewButton.titleLabel.font = [UIFont systemFontOfSize:16];
+//    [_previewButton setTitle:previewText forState:UIControlStateNormal];
+//    [_previewButton setTitle:previewText forState:UIControlStateDisabled];
+//    [_previewButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [_previewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+//    _previewButton.enabled = tzImagePickerVc.selectedModels.count;
     
 //    if (tzImagePickerVc.allowPickingOriginalPhoto) {
 //        NSString *fullImageText = [NSBundle tz_localizedStringForKey:@"Full image"];
@@ -205,8 +206,8 @@ static CGSize AssetGridThumbnailSize;
 //    }
     
     _okButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _okButton.frame = CGRectMake(self.view.tz_width - 44 - 12, 3, 44, 44);
-    _okButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    _okButton.frame = CGRectMake(self.view.tz_width - 44 - 10, 10, 44, 44);
+    _okButton.titleLabel.font = ImagePickerVCOKButtonFont;
     [_okButton addTarget:self action:@selector(okButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [_okButton setTitle:[NSBundle tz_localizedStringForKey:@"Done"] forState:UIControlStateNormal];
     [_okButton setTitle:[NSBundle tz_localizedStringForKey:@"Done"] forState:UIControlStateDisabled];
@@ -215,7 +216,7 @@ static CGSize AssetGridThumbnailSize;
     _okButton.enabled = tzImagePickerVc.selectedModels.count;
     
     _numberImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamedFromMyBundle:tzImagePickerVc.photoNumberIconImageName]];
-    _numberImageView.frame = CGRectMake(self.view.tz_width - 56 - 24, 16, 26, 17);
+    _numberImageView.frame = CGRectMake(self.view.tz_width - 56 - 24, 23.5, 24, 17);
     _numberImageView.hidden = tzImagePickerVc.selectedModels.count <= 0;
     _numberImageView.backgroundColor = [UIColor clearColor];
     
@@ -228,12 +229,12 @@ static CGSize AssetGridThumbnailSize;
     _numberLable.hidden = tzImagePickerVc.selectedModels.count <= 0;
     _numberLable.backgroundColor = [UIColor clearColor];
     
-    UIView *divide = [[UIView alloc] init];
-    CGFloat rgb2 = 222 / 255.0;
-    divide.backgroundColor = [UIColor colorWithRed:rgb2 green:rgb2 blue:rgb2 alpha:1.0];
-    divide.frame = CGRectMake(0, 0, self.view.tz_width, 1);
+//    UIView *divide = [[UIView alloc] init];
+//    CGFloat rgb2 = 222 / 255.0;
+//    divide.backgroundColor = [UIColor colorWithRed:rgb2 green:rgb2 blue:rgb2 alpha:1.0];
+//    divide.frame = CGRectMake(0, 0, self.view.tz_width, 1);
 
-    [bottomToolBar addSubview:divide];
+//    [bottomToolBar addSubview:divide];
     [bottomToolBar addSubview:_previewButton];
     [bottomToolBar addSubview:_okButton];
     [bottomToolBar addSubview:_numberImageView];
@@ -380,32 +381,32 @@ static CGSize AssetGridThumbnailSize;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    // take a photo / 去拍照
-    TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
-    if (((tzImagePickerVc.sortAscendingByModificationDate && indexPath.row >= _models.count) || (!tzImagePickerVc.sortAscendingByModificationDate && indexPath.row == 0)) && _showTakePhotoBtn)  {
-        [self takePhoto]; return;
-    }
-    // preview phote or video / 预览照片或视频
-    NSInteger index = indexPath.row;
-    if (!tzImagePickerVc.sortAscendingByModificationDate && _showTakePhotoBtn) {
-        index = indexPath.row - 1;
-    }
-    TZAssetModel *model = _models[index];
-    if (model.type == TZAssetModelMediaTypeVideo) {
-        if (tzImagePickerVc.selectedModels.count > 0) {
-            TZImagePickerController *imagePickerVc = (TZImagePickerController *)self.navigationController;
-            [imagePickerVc showAlertWithTitle:[NSBundle tz_localizedStringForKey:@"Can not choose both video and photo"]];
-        } else {
-            TZVideoPlayerController *videoPlayerVc = [[TZVideoPlayerController alloc] init];
-            videoPlayerVc.model = model;
-            [self.navigationController pushViewController:videoPlayerVc animated:YES];
-        }
-    } else {
-        TZPhotoPreviewController *photoPreviewVc = [[TZPhotoPreviewController alloc] init];
-        photoPreviewVc.currentIndex = index;
-        photoPreviewVc.models = _models;
-        [self pushPhotoPrevireViewController:photoPreviewVc];
-    }
+//    // take a photo / 去拍照
+//    TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
+//    if (((tzImagePickerVc.sortAscendingByModificationDate && indexPath.row >= _models.count) || (!tzImagePickerVc.sortAscendingByModificationDate && indexPath.row == 0)) && _showTakePhotoBtn)  {
+//        [self takePhoto]; return;
+//    }
+//    // preview phote or video / 预览照片或视频
+//    NSInteger index = indexPath.row;
+//    if (!tzImagePickerVc.sortAscendingByModificationDate && _showTakePhotoBtn) {
+//        index = indexPath.row - 1;
+//    }
+//    TZAssetModel *model = _models[index];
+//    if (model.type == TZAssetModelMediaTypeVideo) {
+//        if (tzImagePickerVc.selectedModels.count > 0) {
+//            TZImagePickerController *imagePickerVc = (TZImagePickerController *)self.navigationController;
+//            [imagePickerVc showAlertWithTitle:[NSBundle tz_localizedStringForKey:@"Can not choose both video and photo"]];
+//        } else {
+//            TZVideoPlayerController *videoPlayerVc = [[TZVideoPlayerController alloc] init];
+//            videoPlayerVc.model = model;
+//            [self.navigationController pushViewController:videoPlayerVc animated:YES];
+//        }
+//    } else {
+//        TZPhotoPreviewController *photoPreviewVc = [[TZPhotoPreviewController alloc] init];
+//        photoPreviewVc.currentIndex = index;
+//        photoPreviewVc.models = _models;
+//        [self pushPhotoPrevireViewController:photoPreviewVc];
+//    }
 }
 
 #pragma mark - UIScrollViewDelegate

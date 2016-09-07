@@ -65,3 +65,6 @@
 #import "ManListCell.h"
 #import "PlaceholderText.h"
 #import "TZImagePickerController.h"
+#import "SDPhotoBrowser.h"
+
+

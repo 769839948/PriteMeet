@@ -10,6 +10,9 @@ import UIKit
 import SnapKit
 import MBProgressHUD
 
+
+let aboutUsStr = "您的个人介绍空空如也，完善后可大大提高约见成功率哦。"
+
 class MeViewController: UIViewController {
 
     var tableView:UITableView!
@@ -48,6 +51,7 @@ class MeViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.addLineNavigationBottom()
+        self.navigationController?.navigationBar.translucent = false
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         self.setNavigationBar()
         if UserInfo.isLoggedIn() {
@@ -123,6 +127,7 @@ class MeViewController: UIViewController {
         userInfoModel.getMoreExtInfo("", success: { (dic) in
             UserExtenModel.synchronizeWithDic(dic)
             self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 1, inSection: 0)], withRowAnimation: .Automatic)
+            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 1, inSection: 1)], withRowAnimation: .Automatic)
             }, fail: { (dic) in
                 
             }, loadingString: { (msg) in
@@ -133,6 +138,7 @@ class MeViewController: UIViewController {
     func loadInviteInfo(){
         userInfoModel.getInvite({ (dic) in
             UserInviteModel.synchronizeWithDic(dic)
+            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 3, inSection: 1)], withRowAnimation: .Automatic)
             dispatch_async(dispatch_get_main_queue(), {
                 self.tableView.reloadData()
 
@@ -205,13 +211,13 @@ class MeViewController: UIViewController {
             self.pushProfileViewControllr()
             break
         case 2:
-            self.pushProfileViewControllr()
+            self.pushHightLightVC()
+//            self.pushProfileViewControllr()
             break
         case 3:
-            self.presentAddStarViewController()
+            self.pushHightLightVC()
             break
         case 4:
-            self.presentMoreProfileViewController()
             break
         default: break
             
@@ -226,28 +232,6 @@ class MeViewController: UIViewController {
             self.tableView.reloadData()
         }
         self.navigationController!.pushViewController(myProfileVC, animated:true)
-    }
-    /**
-     添加个人亮点
-     */
-    func presentAddStarViewController(){
-        let addStarVC =  Stroyboard("Me", viewControllerId: "AddStarViewController") as!  AddStarViewController
-        let controller = BaseNavigaitonController(rootViewController: addStarVC)
-        self.navigationController!.presentViewController(controller, animated: true, completion: {
-            
-        })
-
-    }
-    /**
-     展示更多个人信息
-     */
-    func presentMoreProfileViewController(){
-        let moreProfileView = Stroyboard("Me", viewControllerId: "MoreProfileViewController") as!  MoreProfileViewController
-        let controller = BaseNavigaitonController(rootViewController: moreProfileView)
-        self.navigationController!.presentViewController(controller, animated: true, completion: {
-            
-        })
-        
     }
     /**
      邀约collectionView高度
@@ -271,7 +255,9 @@ class MeViewController: UIViewController {
     
     func configNewMeetCell(cell:NewMeetInfoTableViewCell, indxPath:NSIndexPath)
     {
-        cell.configCell(self.descriptionString(), array: self.instrestArray() as [AnyObject], andStyle: .ItemWhiteColorAndBlackBoard)
+        if self.instrestArray().count != 0 {
+            cell.configCell(self.descriptionString(), array: self.instrestArray() as [AnyObject], andStyle: .ItemWhiteColorAndBlackBoard)
+        }
     }
     
     func presentViewLoginViewController(){
@@ -370,6 +356,7 @@ class MeViewController: UIViewController {
                     centerView.removeFromSuperview()
                     MainThreadAlertShow("上传失败", view: self.view)
             })
+//            centerView.removeFromSuperview()
         }
 //        userInfoModel.uploadHeaderList(images as [AnyObject], successBlock: { (dic) in
 //            self.loadExtenInfo()
@@ -379,7 +366,11 @@ class MeViewController: UIViewController {
     }
     
     func presentImagePicker() {
-        let imagePickerVC = TZImagePickerController(maxImagesCount: 8, delegate: self)
+        var maxCount = 8
+        if UserExtenModel.shareInstance().head_photo_list != nil {
+            maxCount = maxCount - UserExtenModel.shareInstance().head_photo_list.count
+        }
+        let imagePickerVC = TZImagePickerController(maxImagesCount: maxCount, delegate: self)
         imagePickerVC.navigationBar.barTintColor = UIColor.whiteColor()
         imagePickerVC.navigationBar.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
         imagePickerVC.allowPickingVideo = false
@@ -414,10 +405,12 @@ class MeViewController: UIViewController {
         pbVC.realName = UserInfo.sharedInstance().real_name
         pbVC.jobName = UserInfo.sharedInstance().job_label
         let imageArray = UserExtenModel.shareInstance().head_photo_list
+        let plachImage = UIImage.init(color: UIColor.clearColor(), size: CGSizeMake(100, 100))
+
         var imageCount:NSInteger = 0
         for image in imageArray {
             
-            models.append(PhotoBrowser.PhotoModel(hostHDImgURL: image.photo, hostThumbnailImg: images[imageCount] as! UIImage, titleStr: ("\(image.photo_id)"), descStr: nil, sourceView: nil))
+            models.append(PhotoBrowser.PhotoModel(hostHDImgURL: image.photo, hostThumbnailImg: plachImage, titleStr: ("\(image.photo_id)"), descStr: nil, sourceView: nil))
             imageCount = imageCount + 1
         }
 
@@ -433,7 +426,7 @@ class MeViewController: UIViewController {
         /**  设置数据  */
         pbVC.photoModels = models
         
-        pbVC.show(inVC: self,index: index)
+        pbVC.show(inVC: self,index: 0)
     }
     
     func pushLikeView() {
@@ -469,7 +462,12 @@ class MeViewController: UIViewController {
     
     func configAboutUsCell(cell:AboutUsCell, indexPath:NSIndexPath) {
         if UserExtenModel.shareInstance().experience != nil {
-            cell.configCell(UserExtenModel.shareInstance().experience, info: UserExtenModel.shareInstance().highlight)
+            if UserExtenModel.shareInstance().experience != "" && UserExtenModel.shareInstance().highlight != ""{
+                cell.configCell(UserExtenModel.shareInstance().experience, info: UserExtenModel.shareInstance().highlight)
+            }else {
+                cell.configCell(UserExtenModel.shareInstance().experience, info:                 (PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000009") as! String)
+                
+            }
         }
     }
 
@@ -479,7 +477,7 @@ extension MeViewController : UITableViewDelegate{
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if UserInfo.isLoggedIn() {
-            return 10
+            return 7
         }
         return 0.001
     }
@@ -496,10 +494,9 @@ extension MeViewController : UITableViewDelegate{
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath,animated:true)
         if (!UserInfo.isLoggedIn()) {
-//            UserInfo.sharedInstance().uid = "153"
-//            UserInfo.sharedInstance().avatar = ""
+//            UserInfo.sharedInstance().uid = "247"
 //            let modelv = LoginViewModel()
-//            modelv.getUserInfo("153", success: { (dic) in
+//            modelv.getUserInfo("247", success: { (dic) in
 //                UserInfo.synchronizeWithDic(dic)
 //                UserInfo.synchronize()
 //                self.viewWillAppear(true)
@@ -565,7 +562,7 @@ extension MeViewController : UITableViewDelegate{
                     return tableView.fd_heightForCellWithIdentifier(newMeetInfoTableViewCell, configuration: { (cell) in
                         self.configNewMeetCell((cell as! NewMeetInfoTableViewCell), indxPath: indexPath)
                     })
-                case 6:
+                case 0,2,6:
                     return 61
                 default:
                     return 50
@@ -667,7 +664,9 @@ extension MeViewController : UITableViewDataSource {
                     return cell
                 }else if indexPath.row == 1 {
                     let cell = tableView.dequeueReusableCellWithIdentifier("AboutUsCell", forIndexPath: indexPath) as! AboutUsCell
-                    self.configAboutUsCell(cell, indexPath: indexPath)
+                    if UserExtenModel.shareInstance().experience != nil {
+                        self.configAboutUsCell(cell, indexPath: indexPath)
+                    }
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
                     return cell
                 }else if indexPath.row == 2 {
@@ -684,6 +683,7 @@ extension MeViewController : UITableViewDataSource {
                     self.configNewMeetCell(cell, indxPath: indexPath)
                     cell.isHaveShadowColor(false)
                     cell.hidderLine()
+                    
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
                     return cell
                 }else if (indexPath.row == 4){

@@ -45,10 +45,7 @@ typedef void (^returnImage)(UIImage *image);
  *  @param failBlock    failBlock description
  *  @param loading      loading description
  */
-- (void)uploadCoverPhoto:(UIImage *)image
-                 success:(Success)successBlock
-                    fail:(Fail)failBlock
-           loadingString:(LoadingView)loading;
+- (void)uploadCoverPhoto:(NSString *)imageUrl;
 
 /**
  *  更多个人介绍

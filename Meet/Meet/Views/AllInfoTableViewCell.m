@@ -31,7 +31,7 @@
 
 - (void)setUpView
 {
-    _allInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 49)];
+    _allInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 50)];
     _allInfoLabel.text = @"查看全部资料";
     _allInfoLabel.font = AllInfoLabelFont;
     _allInfoLabel.textColor = [UIColor colorWithHexString:allInfoLabelColor];

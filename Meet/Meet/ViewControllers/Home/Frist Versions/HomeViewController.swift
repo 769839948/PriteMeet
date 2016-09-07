@@ -456,7 +456,7 @@ extension HomeViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
+        return 7
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
