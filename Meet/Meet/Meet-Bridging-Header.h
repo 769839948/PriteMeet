@@ -16,7 +16,6 @@
 #import "UIViewController+NavigationItemColor.h"
 #import "UIColor+Hex.h"
 #import "UITools.h"
-#import "EMAlertView.h"
 #import "UserInfoViewModel.h"
 #import "MyProfileViewController.h"
 #import "SetingViewController.h"

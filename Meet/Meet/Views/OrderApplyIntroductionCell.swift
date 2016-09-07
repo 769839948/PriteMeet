@@ -36,6 +36,7 @@ class OrderApplyIntroductionCell: UITableViewCell {
         textView.tintColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
         textView.font = LoginCodeLabelFont
         textView.maxHeight = 100
+        textView.returnKeyType = .Done
         self.contentView.addSubview(textView)
         
         numberText = UILabel()

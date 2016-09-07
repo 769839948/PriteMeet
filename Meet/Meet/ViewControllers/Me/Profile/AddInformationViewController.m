@@ -15,6 +15,7 @@
 #import "Masonry.h"
 #import "UITools.h"
 #import "Masonry.h"
+#import "Meet-Swift.h"
 
 @interface AddInformationViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIActionSheetDelegate,ZHPickViewDelegate> {
     NSMutableDictionary *_dicValues;
@@ -280,18 +281,15 @@
         }else{
             message = @"确定删除此教育背景吗？";
         }
-        [EMAlertView showAlertWithTitle:nil message:message completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
-            switch (buttonIndex) {
-                case 0:
-                    break;
-                default:
-                    if (self.block) {
-                        self.block(_indexPath,@"",ViewTypeDelete);
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }
-                    break;
+        
+        [UIAlertController shwoAlertControl:self title:nil message:message cancel:@"取消" doneTitle:@"确定" cancelAction:^{
+            
+        } doneAction:^{
+            if (self.block) {
+                self.block(_indexPath,@"",ViewTypeDelete);
+                [self.navigationController popViewControllerAnimated:YES];
             }
-        } cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+        }];
     }
     if (_indexPath.section == 3 && indexPath.row == 2) {
         [self.view endEditing:YES];

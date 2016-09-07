@@ -297,7 +297,7 @@ extension SenderInviteViewController : UITableViewDataSource {
                     }
                 }
                 
-                textView.tintColor = UIColor.blackColor()
+                textView.tintColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
                 textView.delegate = self
                 textView.placeholderColor = UIColor.init(hexString: PlaceholderTextViewColor)
                 IQKeyboardManager.sharedManager().enable = true

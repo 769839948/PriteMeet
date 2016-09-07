@@ -15,7 +15,6 @@ typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 #import <UIKit/UIKit.h>
 #import "UserInfoViewModel.h"
 #import "MeetBaseViewController.h"
-#import "EMAlertView.h"
 
 @interface MyProfileViewController : MeetBaseViewController<UITableViewDelegate,UITableViewDataSource>
 {

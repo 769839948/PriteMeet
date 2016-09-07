@@ -227,7 +227,7 @@ extension OrderCancelRejectViewController : UITableViewDataSource {
             textView.returnKeyType = .Done
             textView.delegate = self
             textView.text = reject_reson
-            textView.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
+            textView.tintColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
             cell?.contentView.addSubview(textView)
             return cell!
         }

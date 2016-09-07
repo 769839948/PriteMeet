@@ -1334,6 +1334,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
         }
         cell.profilePhoto.imageView.image = [UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)];
     }
+    ProfileTableViewCell  *cell = (ProfileTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    cell.profilePhoto.imageView.image = [info valueForKey:UIImagePickerControllerEditedImage];
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         ///头像上传后再保存到本地 刷新
         [_viewModel uploadImage:[info valueForKey:UIImagePickerControllerEditedImage]  isApplyCode:self.isApplyCode success:^(NSDictionary *object) {
@@ -1384,9 +1387,11 @@ typedef NS_ENUM(NSUInteger, RowType) {
     if (_isBaseView) {
         if (textField.tag == RowJobLabel) {
             if ([NSString isHaveSpecialCharacters:textField.text]){
-                [EMAlertView showAlertWithTitle:nil message:@"多个职业身份请用空格分隔" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+                [UIAlertController shwoAlertControl:self title:nil message:@"多个职业身份请用空格分隔"  cancel:EMAlertViewConfirmTitle doneTitle:nil cancelAction:^{
                     
-                } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
+                } doneAction:^{
+                    
+                }];
             }else{
                 [self.view endEditing:YES];
 //                LabelAndTextFieldCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:RowPhoneNumber  inSection:0]];
@@ -1394,9 +1399,11 @@ typedef NS_ENUM(NSUInteger, RowType) {
             }
         }else if (textField.tag == RowPhoneNumber) {
             if (![NSString isPureInt:textField.text]) {
-                [EMAlertView showAlertWithTitle:nil message:@"请输入正确的手机号" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+                [UIAlertController shwoAlertControl:self title:nil message:@"请输入正确的手机号"  cancel:EMAlertViewConfirmTitle doneTitle:nil cancelAction:^{
                     
-                } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
+                } doneAction:^{
+                    
+                }];
             }else{
                 LabelAndTextFieldCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:RowWX_Id  inSection:0]];
                 [cell.textField becomeFirstResponder];
@@ -1405,9 +1412,11 @@ typedef NS_ENUM(NSUInteger, RowType) {
             [self.view endEditing:YES];
         }else if (textField.tag == RowWX_Id){
             if (![NSString isWeixinNum:textField.text] && ![textField.text isEqualToString:@""]) {
-                [EMAlertView showAlertWithTitle:nil message:@"请输入正确的微信号" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+                [UIAlertController shwoAlertControl:self title:nil message:@"请输入正确的微信号"  cancel:EMAlertViewConfirmTitle doneTitle:nil cancelAction:^{
                     
-                } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
+                } doneAction:^{
+                    
+                }];
             }else{
                 [self.view endEditing:YES];
             }
@@ -1418,17 +1427,23 @@ typedef NS_ENUM(NSUInteger, RowType) {
     else{
         if (textField.tag == RowJobLabel) {
             if ([NSString isHaveSpecialCharacters:textField.text]){
-                [EMAlertView showAlertWithTitle:nil message:@"多个职业身份请用空格分隔" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+                [UIAlertController shwoAlertControl:self title:nil message:@"多个职业身份请用空格分隔"  cancel:EMAlertViewConfirmTitle doneTitle:nil cancelAction:^{
                     
-                } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
+                } doneAction:^{
+                    
+                }];
+                
             }else{
                 [self.view endEditing:YES];
             }
         }else if (textField.tag == RowPhoneNumber) {
             if (![NSString isPureInt:textField.text]) {
-                [EMAlertView showAlertWithTitle:nil message:@"请输入正确的手机号" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+                [UIAlertController shwoAlertControl:self title:nil message:@"请输入正确的手机号"  cancel:EMAlertViewConfirmTitle doneTitle:nil cancelAction:^{
                     
-                } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
+                } doneAction:^{
+                    
+                }];
+                
             }else{
                 LabelAndTextFieldCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:7  inSection:0]];
                 [cell.textField becomeFirstResponder];
@@ -1437,9 +1452,11 @@ typedef NS_ENUM(NSUInteger, RowType) {
             [self.view endEditing:YES];
         }else if (textField.tag == RowWX_Id){
             if (![NSString isWeixinNum:textField.text] && ![textField.text isEqualToString:@""]) {
-                [EMAlertView showAlertWithTitle:nil message:@"请输入正确的微信号" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+                [UIAlertController shwoAlertControl:self title:nil message:@"请输入正确的微信号"  cancel:EMAlertViewConfirmTitle doneTitle:nil cancelAction:^{
                     
-                } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
+                } doneAction:^{
+                    
+                }];
             }else{
                 [self.view endEditing:YES];
             }
@@ -1717,33 +1734,53 @@ typedef NS_ENUM(NSUInteger, RowType) {
     BOOL ret = NO;
     NSLog(@"%@",[UserInfo sharedInstance].real_name);
     if ([[UserInfo sharedInstance].avatar isEqualToString:@""] || [UserInfo sharedInstance].avatar == nil) {
-        [EMAlertView showAlertWithTitle:nil message:@"头像为必填内容哦" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+        [UIAlertController shwoAlertControl:self title:nil message:@"头像为必填内容哦" cancel:EMAlertViewConfirmTitle doneTitle:nil cancelAction:^{
             
-        } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
+        } doneAction:^{
+            
+        }];
+        
     }else if([[UserInfo sharedInstance].real_name isEqualToString:@""]){
-        [EMAlertView showAlertWithTitle:nil message:@"真实姓名为必填内容哦" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+        [UIAlertController shwoAlertControl:self title:nil message:@"真实姓名为必填内容哦" cancel:EMAlertViewConfirmTitle doneTitle:nil cancelAction:^{
             
-        } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
+        } doneAction:^{
+            
+        }];
+        
     }else if([[UserInfo sharedInstance].birthday isEqualToString:@""] || [[UserInfo sharedInstance].birthday isEqualToString:@"未选择"]){
-        [EMAlertView showAlertWithTitle:nil message:@"生日为必填内容哦" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+        [UIAlertController shwoAlertControl:self title:nil message:@"生日为必填内容哦" cancel:EMAlertViewConfirmTitle doneTitle:nil cancelAction:^{
             
-        } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
+        } doneAction:^{
+            
+        }];
+        
     }else if([[UserInfo sharedInstance].location isEqualToString:@"0,0"] || [[UserInfo sharedInstance].location isEqualToString:@""]){
-        [EMAlertView showAlertWithTitle:nil message:@"工作生活城市为必填内容哦" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+        [UIAlertController shwoAlertControl:self title:nil message:@"工作生活城市为必填内容哦" cancel:EMAlertViewConfirmTitle doneTitle:nil cancelAction:^{
             
-        } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
+        } doneAction:^{
+            
+        }];
+        
     }else if([[NSString stringWithFormat:@"%@",[UserInfo sharedInstance].mobile_num] isEqualToString:@""]){
-        [EMAlertView showAlertWithTitle:nil message:@"手机号为必填内容哦" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+        [UIAlertController shwoAlertControl:self title:nil message:@"手机号为必填内容哦" cancel:EMAlertViewConfirmTitle doneTitle:nil cancelAction:^{
             
-        } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
+        } doneAction:^{
+            
+        }];
+        
     }else if(![NSString isPureInt:[NSString stringWithFormat:@"%@",[UserInfo sharedInstance].mobile_num]]){
-        [EMAlertView showAlertWithTitle:nil message:@"请输入正确的手机号" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+        [UIAlertController shwoAlertControl:self title:nil message:@"请输入正确的手机号" cancel:EMAlertViewConfirmTitle doneTitle:nil cancelAction:^{
             
-        } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
+        } doneAction:^{
+            
+        }];
+        
     }else if([[UserInfo sharedInstance].job_label isEqualToString:@""]){
-        [EMAlertView showAlertWithTitle:nil message:@"职业信息为必填内容哦" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+        [UIAlertController shwoAlertControl:self title:nil message:@"职业信息为必填内容哦" cancel:EMAlertViewConfirmTitle doneTitle:nil cancelAction:^{
             
-        } cancelButtonTitle:EMAlertViewConfirmTitle otherButtonTitles:nil];
+        } doneAction:^{
+            
+        }];
     }else{
         ret = YES;
     }

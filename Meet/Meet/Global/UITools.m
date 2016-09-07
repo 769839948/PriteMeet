@@ -8,6 +8,7 @@
 
 #import "UITools.h"
 #import "MBProgressHUD.h"
+#import "NSString+StringSize.h"
 #include <ifaddrs.h>
 #include <arpa/inet.h>
 #include <net/if.h>
@@ -17,6 +18,50 @@
 #define IOS_VPN         @"utun0"
 #define IP_ADDR_IPv4    @"ipv4"
 #define IP_ADDR_IPv6    @"ipv6"
+
+#define IOS_9LAST ([[[UIDevice currentDevice] systemVersion] floatValue]>=9.0)?1:0
+#define CustomViewWidth 190
+#define CustomViewFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Medium" size:14.0f]:[UIFont systemFontOfSize:14]
+#define TextLabelMarger 20
+@interface HUDCustomView : UIView
+
++ (id)customViewWidthMessage:(NSString *)message;
+
+@end
+
+@implementation HUDCustomView
+
++ (id)customViewWidthMessage:(NSString *)message
+{
+    UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width - CustomViewWidth) / 2, ([[UIScreen mainScreen] bounds].size.height - 60) / 2, CustomViewWidth, 60)];
+
+    CGFloat messageHeight = [message heightWithFont:CustomViewFont constrainedToWidth:CustomViewWidth - TextLabelMarger * 2];
+    CGRect frame = customView.frame;
+    if (messageHeight > 60) {
+        frame.size.height = messageHeight;
+        frame.origin.y = ([[UIScreen mainScreen] bounds].size.height - messageHeight) / 2;
+    }else{
+        frame.size.height = 60;
+    }
+    customView.frame = frame;
+    customView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+    [customView addSubview:[HUDCustomView setUpLabel:frame text:message]];
+    return customView;
+}
+
++ (UILabel *)setUpLabel:(CGRect)frame text:(NSString *)text
+{
+    UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CustomViewWidth - TextLabelMarger * 2, frame.size.height)];
+    textLabel.font = CustomViewFont;
+    textLabel.numberOfLines = 0;
+    textLabel.textColor = [UIColor whiteColor];
+    textLabel.textAlignment = NSTextAlignmentCenter;
+    textLabel.text = text;
+    return textLabel;
+}
+
+@end
+
 
 @implementation UITools
 
@@ -89,8 +134,8 @@ static UITools *tools = nil;
 - (MBProgressHUD *)showMessageToView:(UIView *)view message:(NSString *)message autoHideTime:(NSTimeInterval )interval {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     
-    hud.mode = MBProgressHUDModeText;
-    hud.label.text = message;
+    hud.mode = MBProgressHUDModeCustomView;
+    hud.customView = [HUDCustomView customViewWidthMessage:message];
     hud.margin = 10.f;
     hud.removeFromSuperViewOnHide = YES;
     [hud hideAnimated:YES afterDelay:interval];
@@ -100,9 +145,12 @@ static UITools *tools = nil;
 - (MBProgressHUD *)showMessageToView:(UIView *)view message:(NSString *)message autoHide:(BOOL)autoHide {
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    hud.mode = MBProgressHUDModeText;
+    hud.mode = MBProgressHUDModeCustomView;
+    hud.bezelView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+    hud.label.numberOfLines = 0;
+    hud.label.textColor = [UIColor whiteColor];
+    hud.label.font = CustomViewFont;
     hud.label.text = message;
-    hud.margin = 10.f;
     hud.removeFromSuperViewOnHide = YES;
     if (autoHide) {
         [hud hideAnimated:YES afterDelay:1.0f];
@@ -115,9 +163,12 @@ static UITools *tools = nil;
 {
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    hud.mode = MBProgressHUDModeText;
+    hud.mode = MBProgressHUDModeCustomView;
+    hud.bezelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+    hud.label.numberOfLines = 0;
+    hud.label.font = CustomViewFont;
     hud.label.text = message;
-    hud.margin = 10.f;
+//    hud.margin = 10.f;
     hud.removeFromSuperViewOnHide = YES;
     if (autoHide) {
         [hud hideAnimated:YES afterDelay:1.0f];

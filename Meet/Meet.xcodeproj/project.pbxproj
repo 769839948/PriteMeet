@@ -114,6 +114,7 @@
 		1FA8847D1D7ED6560010F508 /* SDBrowserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA884771D7ED6560010F508 /* SDBrowserImageView.m */; };
 		1FA8847E1D7ED6560010F508 /* SDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA884791D7ED6560010F508 /* SDPhotoBrowser.m */; };
 		1FA8847F1D7ED6560010F508 /* SDWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8847C1D7ED6560010F508 /* SDWaitingView.m */; };
+		1FA884A21D800F5D0010F508 /* AlertControl+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA884A11D800F5D0010F508 /* AlertControl+Tools.swift */; };
 		1FAA077F1D3CBE600017F3E3 /* ApplyMeetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA077E1D3CBE600017F3E3 /* ApplyMeetModel.m */; };
 		1FAA07881D3CE64A0017F3E3 /* OrderProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA07861D3CE64A0017F3E3 /* OrderProfileTableViewCell.swift */; };
 		1FAA07891D3CE64A0017F3E3 /* OrderProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FAA07871D3CE64A0017F3E3 /* OrderProfileTableViewCell.xib */; };
@@ -161,7 +162,6 @@
 		1FC69D6F1D2D053200BF0B95 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC69D6E1D2D053200BF0B95 /* SplashView.swift */; };
 		1FCAFFCC1D012B6900BF53A1 /* UIViewController+NavigationItemColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFCB1D012B6900BF53A1 /* UIViewController+NavigationItemColor.m */; };
 		1FCAFFD31D01517A00BF53A1 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFD21D01517A00BF53A1 /* LoginViewModel.m */; };
-		1FCAFFD81D0181AA00BF53A1 /* EMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFD71D0181AA00BF53A1 /* EMAlertView.m */; };
 		1FCAFFDB1D01983B00BF53A1 /* UserInfoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFDA1D01983B00BF53A1 /* UserInfoViewModel.m */; };
 		1FCC44441D37A4B100287EC5 /* Order.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FCC44431D37A4B100287EC5 /* Order.storyboard */; };
 		1FCC444A1D37A66C00287EC5 /* OrderUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC44481D37A66C00287EC5 /* OrderUserTableViewCell.swift */; };
@@ -266,7 +266,6 @@
 		1FFEE56B1D7A683200EEC61F /* NVActivityIndicatorAnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5271D7A683200EEC61F /* NVActivityIndicatorAnimationDelegate.swift */; };
 		1FFEE56C1D7A683200EEC61F /* NVActivityIndicatorShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5281D7A683200EEC61F /* NVActivityIndicatorShape.swift */; };
 		1FFEE56D1D7A683200EEC61F /* NVActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE52A1D7A683200EEC61F /* NVActivityIndicatorView.swift */; };
-		1FFEE57B1D7AA92300EEC61F /* PhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE57A1D7AA92300EEC61F /* PhotoBrowserViewController.swift */; };
 		1FFEE5B91D7AAEB300EEC61F /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5A51D7AAEB300EEC61F /* NSBundle+TZImagePicker.m */; };
 		1FFEE5BA1D7AAEB300EEC61F /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5A71D7AAEB300EEC61F /* TZAssetCell.m */; };
 		1FFEE5BB1D7AAEB300EEC61F /* TZAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5A91D7AAEB300EEC61F /* TZAssetModel.m */; };
@@ -516,6 +515,7 @@
 		1FA8847A1D7ED6560010F508 /* SDPhotoBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowserConfig.h; sourceTree = "<group>"; };
 		1FA8847B1D7ED6560010F508 /* SDWaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWaitingView.h; sourceTree = "<group>"; };
 		1FA8847C1D7ED6560010F508 /* SDWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWaitingView.m; sourceTree = "<group>"; };
+		1FA884A11D800F5D0010F508 /* AlertControl+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AlertControl+Tools.swift"; sourceTree = "<group>"; };
 		1FAA077D1D3CBE600017F3E3 /* ApplyMeetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplyMeetModel.h; path = ../Model/ModelBean/ApplyMeetModel.h; sourceTree = "<group>"; };
 		1FAA077E1D3CBE600017F3E3 /* ApplyMeetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ApplyMeetModel.m; path = ../Model/ModelBean/ApplyMeetModel.m; sourceTree = "<group>"; };
 		1FAA07861D3CE64A0017F3E3 /* OrderProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderProfileTableViewCell.swift; path = ../Views/OrderProfileTableViewCell.swift; sourceTree = "<group>"; };
@@ -593,8 +593,6 @@
 		1FCAFFD11D01517A00BF53A1 /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewModel.h; path = ../ViewModel/LoginViewModel.h; sourceTree = "<group>"; };
 		1FCAFFD21D01517A00BF53A1 /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewModel.m; path = ../ViewModel/LoginViewModel.m; sourceTree = "<group>"; };
 		1FCAFFD41D01532000BF53A1 /* RequestUrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestUrl.h; sourceTree = "<group>"; };
-		1FCAFFD61D0181AA00BF53A1 /* EMAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMAlertView.h; sourceTree = "<group>"; };
-		1FCAFFD71D0181AA00BF53A1 /* EMAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMAlertView.m; sourceTree = "<group>"; };
 		1FCAFFD91D01983B00BF53A1 /* UserInfoViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoViewModel.h; path = ../ViewModel/UserInfoViewModel.h; sourceTree = "<group>"; };
 		1FCAFFDA1D01983B00BF53A1 /* UserInfoViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfoViewModel.m; path = ../ViewModel/UserInfoViewModel.m; sourceTree = "<group>"; };
 		1FCC44431D37A4B100287EC5 /* Order.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Order.storyboard; sourceTree = "<group>"; };
@@ -710,7 +708,6 @@
 		1FFEE5281D7A683200EEC61F /* NVActivityIndicatorShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorShape.swift; sourceTree = "<group>"; };
 		1FFEE5291D7A683200EEC61F /* NVActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVActivityIndicatorView.h; sourceTree = "<group>"; };
 		1FFEE52A1D7A683200EEC61F /* NVActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorView.swift; sourceTree = "<group>"; };
-		1FFEE57A1D7AA92300EEC61F /* PhotoBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoBrowserViewController.swift; sourceTree = "<group>"; };
 		1FFEE5A41D7AAEB300EEC61F /* NSBundle+TZImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+TZImagePicker.h"; sourceTree = "<group>"; };
 		1FFEE5A51D7AAEB300EEC61F /* NSBundle+TZImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+TZImagePicker.m"; sourceTree = "<group>"; };
 		1FFEE5A61D7AAEB300EEC61F /* TZAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZAssetCell.h; sourceTree = "<group>"; };
@@ -909,6 +906,7 @@
 		1F293D7D1D12CB7F0063A9DA /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
+				1FA884A11D800F5D0010F508 /* AlertControl+Tools.swift */,
 				1F293D7E1D12CBB10063A9DA /* String+Size.swift */,
 				1F3868451D2617FD00569032 /* UIViewController+NavigationBar.swift */,
 				1FAA07951D3D05B00017F3E3 /* String+Class.swift */,
@@ -1009,7 +1007,6 @@
 				1F293D801D12D1300063A9DA /* UITableView-FDTempleateLayoutCell */,
 				1F293D6F1D11A4AD0063A9DA /* TransparentView */,
 				1F79BAE01D09248500814DED /* ZHPickView */,
-				1FCAFFD51D0181AA00BF53A1 /* EMAlertView */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1343,7 +1340,6 @@
 				1FC4C08A1D0D590E00E4BB33 /* MeViewController.swift */,
 				1FF3C50A1D2B842400BE89A9 /* SenderInviteViewController.swift */,
 				1F8FF7711D6ECE8B00C7A5B9 /* LikeManViewController.swift */,
-				1FFEE57A1D7AA92300EEC61F /* PhotoBrowserViewController.swift */,
 				DA6CEF0D1CDAF33300EEABFF /* MyProfileViewController.h */,
 				DA6CEF0E1CDAF33300EEABFF /* MyProfileViewController.m */,
 				DA6CEF111CDAF42300EEABFF /* AddInformationViewController.h */,
@@ -1462,15 +1458,6 @@
 			);
 			name = SplashView;
 			path = ../Views;
-			sourceTree = "<group>";
-		};
-		1FCAFFD51D0181AA00BF53A1 /* EMAlertView */ = {
-			isa = PBXGroup;
-			children = (
-				1FCAFFD61D0181AA00BF53A1 /* EMAlertView.h */,
-				1FCAFFD71D0181AA00BF53A1 /* EMAlertView.m */,
-			);
-			path = EMAlertView;
 			sourceTree = "<group>";
 		};
 		1FF30A2E1D31ECF40051333F /* AMScrollingNavbar */ = {
@@ -2136,7 +2123,6 @@
 				1FFEE4DB1D7A682B00EEC61F /* CollectionView.swift in Sources */,
 				1FCAFFDB1D01983B00BF53A1 /* UserInfoViewModel.m in Sources */,
 				1FFEE53D1D7A683200EEC61F /* DiskCache.swift in Sources */,
-				1FFEE57B1D7AA92300EEC61F /* PhotoBrowserViewController.swift in Sources */,
 				1FFEE5C11D7AAEB300EEC61F /* TZPhotoPreviewController.m in Sources */,
 				1FAA077F1D3CBE600017F3E3 /* ApplyMeetModel.m in Sources */,
 				1F293D901D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m in Sources */,
@@ -2217,6 +2203,7 @@
 				DAF5C89D1CE6191000DA7901 /* MHFacebookImageViewer.m in Sources */,
 				1FBAE32A1D2526BD00D7D039 /* WorkeAndEduTableViewCell.swift in Sources */,
 				1FFEE5471D7A683200EEC61F /* NSURLResponse+Haneke.swift in Sources */,
+				1FA884A21D800F5D0010F508 /* AlertControl+Tools.swift in Sources */,
 				1FFEE5C01D7AAEB300EEC61F /* TZPhotoPreviewCell.m in Sources */,
 				1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */,
 				1FCDE2B61D65D2140029EF9E /* PlaceholderText.m in Sources */,
@@ -2260,7 +2247,6 @@
 				DABF8AEF1CE9B83300CA2A1D /* AllMeetViewController.m in Sources */,
 				1FFEE4DC1D7A682B00EEC61F /* ItemCell.swift in Sources */,
 				1FAA085A1D45FEE20017F3E3 /* Detail.m in Sources */,
-				1FCAFFD81D0181AA00BF53A1 /* EMAlertView.m in Sources */,
 				1F85D9AB1D7536F6004DEAFE /* HomeModel.swift in Sources */,
 				1F293D761D11A4B90063A9DA /* UINavigationBar+Transparent.m in Sources */,
 				1F85D99F1D73FD27004DEAFE /* BaseOrderViewController.swift in Sources */,

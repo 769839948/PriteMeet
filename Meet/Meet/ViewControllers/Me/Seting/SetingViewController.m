@@ -17,6 +17,7 @@
 #import "ServiceViewModel.h"
 #import "AboutViewController.h"
 #import "Masonry.h"
+#import "Meet-Swift.h"
 
 typedef NS_ENUM(NSUInteger, RowType) {
     RowBlackList,
@@ -163,6 +164,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == RowBlackList) {
         if (![UserInfo isLoggedIn]) {
+            
             [[UITools shareInstance] showMessageToView:self.view message:@"请登录后在查看" autoHide:YES];
         }else{
             [self performSegueWithIdentifier:@"BlackListViewController" sender:self];
@@ -170,12 +172,12 @@ typedef NS_ENUM(NSUInteger, RowType) {
     }else if (indexPath.row == RowNotification) {
         [[UITools shareInstance] showMessageToView:self.view message:@"敬请期待" autoHide:YES];
     }else if (indexPath.row == RowApplicationCarsh){
-        [EMAlertView showAlertWithTitle:nil message:@"确定清除缓存？" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
-            if (buttonIndex == 1) {
-                [NSFileManager clearCache:[NSFileManager jk_cachesPath]];
-                [self.tableView reloadData];
-            }
-        } cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+        [UIAlertController shwoAlertControl:self title:nil message:@"确定清除缓存？" cancel:@"取消" doneTitle:@"确定" cancelAction:^{
+            
+        } doneAction:^{
+            [NSFileManager clearCache:[NSFileManager jk_cachesPath]];
+            [self.tableView reloadData];
+        }];
     }else if (indexPath.row == RowAboutUs){
         [self performSegueWithIdentifier:@"PushToAboutViewController" sender:self];
 
@@ -213,22 +215,29 @@ typedef NS_ENUM(NSUInteger, RowType) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
     }else{
         __weak typeof(self) weakSelf = self;
-        [EMAlertView showAlertWithTitle:nil message:@"确定退出登录？" completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
-            if (buttonIndex == 1) {
-                [UserInfo logout];
-                [NSFileManager clearCache:[NSFileManager jk_cachesPath]];
-                [AppData shareInstance].isLogin = NO;
-                if (weakSelf.logoutBlock) {
-                    weakSelf.logoutBlock();
-                }
-                [weakSelf dismissViewControllerAnimated:YES completion:^{
-                    
-                }];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"确定退出登录？" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [UserInfo logout];
+            [NSFileManager clearCache:[NSFileManager jk_cachesPath]];
+            [AppData shareInstance].isLogin = NO;
+            if (weakSelf.logoutBlock) {
+                weakSelf.logoutBlock();
             }
-        } cancelButtonTitle:@"取消" otherButtonTitles:@"退出",nil];
-
+            [weakSelf dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        }];
+        
+        [alertController addAction:cancelAction];
+        [alertController addAction:doneAction];
+        [self presentViewController:alertController animated:YES completion:^{
+            
+        }];
+        
     }
-    
 }
 
 #pragma mark - 

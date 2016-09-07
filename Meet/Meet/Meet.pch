@@ -21,7 +21,6 @@
 #import "UIView+frameAdjust.h"
 #import "UIColor+Hex.h"
 #import "RequestUrl.h"
-#import "EMAlertView.h"
 #import "NSObject+PerformSelector.h"
 #import "UINavigationController+FDFullscreenPopGesture.h"
 #import "UIImage+PureColor.h"

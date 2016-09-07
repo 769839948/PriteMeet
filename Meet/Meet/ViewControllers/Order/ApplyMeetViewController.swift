@@ -347,7 +347,6 @@ extension ApplyMeetViewController : UITableViewDataSource {
                 let cellId = "OrderApplyInfoTableViewCell"
                 let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! OrderApplyInfoTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
-                (PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000003")
                 cell.setData("\((PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000003")!)")
                 return cell
             }
@@ -370,6 +369,11 @@ extension ApplyMeetViewController : UITextViewDelegate {
         }else{
             introductionCell.numberText.hidden = true
         }
+        
+        if text == "\n" {
+            textView.resignFirstResponder()
+        }
+        
         return true
     }
     

@@ -46,7 +46,7 @@
                                  NSParagraphStyleAttributeName:paragraphStyle
                                  };
     versionInfo.attributedText  = [[NSAttributedString alloc]
-                                   initWithString:@"founder & pm - rancan\ndevelopment - zhiyi & dequan\ndesign - da363\nmarketing - jiajia" attributes:attributes];
+                                   initWithString:@"founder & pm - rancan\ndevelopment - dequan & liuqiang\ndesign - da363\nmarketing - jiajia" attributes:attributes];
 }
 
 - (void)setUpNavigationBarItem
