@@ -58,6 +58,7 @@ class OrderPageViewController: TYTabButtonPagerController {
     override func viewWillAppear(animated: Bool) {
         self.navigationItemWhiteColorAndNotLine()
         self.removeBottomLine()
+        self.reloadPageNumber()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
@@ -84,8 +85,6 @@ class OrderPageViewController: TYTabButtonPagerController {
         self.normalTextColor = UIColor.init(hexString: HomeDetailViewPositionColor)
         self.selectedTextColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
         self.selectedTextFont = LoginCodeSelectLabelFont
-        
-        
     }
 
     
@@ -99,24 +98,52 @@ class OrderPageViewController: TYTabButtonPagerController {
         
     }
     
-    func reloadOtherCollectView(notification:NSNotification) {
-        if notification.object as! String != "1" {
-            orderPayViewController.reloaCollectViewData()
-            orderMeetViewController.reloaCollectViewData()
-            orderAllViewController.reloaCollectViewData()
-        }else if notification.object as! String != "4" {
-            orderConfimViewController.reloaCollectViewData()
-            orderMeetViewController.reloaCollectViewData()
-            orderAllViewController.reloaCollectViewData()
-        }else if notification.object as! String != "6" {
-            orderPayViewController.reloaCollectViewData()
-            orderConfimViewController.reloaCollectViewData()
-            orderAllViewController.reloaCollectViewData()
-        }else{
-            orderPayViewController.reloaCollectViewData()
-            orderMeetViewController.reloaCollectViewData()
-            orderConfimViewController.reloaCollectViewData()
+    func reloadPageNumber(){
+        let orderViewModel = OrderViewModel()
+        orderViewModel.orderNumberOrder(UserInfo.sharedInstance().uid, successBlock: { (dic) in
+            let countDic = dic as NSDictionary
+            self.numberArray.removeAllObjects()
+            self.numberArray.addObject("\(countDic["1"]!)")
+            self.numberArray.addObject("\(countDic["4"]!)")
+            self.numberArray.addObject("\(countDic["6"]!)")
+            self.numberArray.addObject("0")
+            dispatch_async(dispatch_get_main_queue(), { 
+                self.reloadNumberOfPageIndex(self.numberArray as [AnyObject])
+            })
+        }) { (dic) in
+            
         }
+    }
+    
+    func reloadOtherCollectView(notification:NSNotification) {
+//        if notification.object as! String == "2" || notification.object as! String == "3"{
+//            orderConfimViewController.reloaCollectViewData()
+//            orderAllViewController.reloaCollectViewData()
+//        }else if notification.object as! String == "4" || notification.object as! String == "1" || notification.object as! String == "6"{
+//            orderConfimViewController.reloaCollectViewData()
+//            orderPayViewController.reloaCollectViewData()
+//            orderMeetViewController.reloaCollectViewData()
+//            orderAllViewController.reloaCollectViewData()
+//        }else if notification.object as! String == "11" {
+//            orderMeetViewController.reloaCollectViewData()
+//            orderAllViewController.reloaCollectViewData()
+//        }else if notification.object as! String == "13" || notification.object as! String == "12"{
+//            orderPayViewController.reloaCollectViewData()
+//            orderAllViewController.reloaCollectViewData()
+//        }else if notification.object as! String == "7" || notification.object as! String == "9"{
+//            orderMeetViewController.reloaCollectViewData()
+//            orderAllViewController.reloaCollectViewData()
+//        }else {
+            orderConfimViewController.reloaCollectViewData()
+            orderMeetViewController.reloaCollectViewData()
+            orderPayViewController.reloaCollectViewData()
+            orderAllViewController.reloaCollectViewData()
+//        }
+    }
+    
+    
+    func reloadNumberOfMeet(indexController:NSInteger){
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -152,7 +179,21 @@ class OrderPageViewController: TYTabButtonPagerController {
     }
     
     override func pagerController(pagerController: TYPagerController!, controllerForIndex index: Int) -> UIViewController! {
-        return pageViewControllers[index] as! UIViewController
+        let controller = pageViewControllers[index] as! BaseOrderPageViewController
+        controller.allMeetOrder = { allNumber, statues in
+            var page:NSInteger = 0
+            if statues == "1" {
+                page = 0
+                self.setNumberOfControllerBar(allNumber, controller: page)
+            }else if statues == "4" {
+                page = 1
+                self.setNumberOfControllerBar(allNumber, controller: page)
+            }else if statues == "6" {
+                page = 2
+                self.setNumberOfControllerBar(allNumber, controller: page)
+            }
+        }
+        return controller
     }
     
     override func pagerController(pagerController: TYPagerController!, numberForIndex index: Int) -> String! {

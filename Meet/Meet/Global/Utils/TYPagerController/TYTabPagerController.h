@@ -47,6 +47,8 @@ typedef NS_ENUM(NSUInteger, TYPagerBarStyle) {
 @property (nonatomic, weak) id<TYTabPagerControllerDelegate> delegate;
 #pragma clang diagnostic pop
 
+//@property (nonatomic, strong) UICollectionViewCell *cell;
+
 // view ,don't change frame
 @property (nonatomic, weak, readonly) UIView *pagerBarView; // pagerBarView height is contentTopEdging
 @property (nonatomic, weak, readonly) UICollectionView *collectionViewBar;
@@ -77,6 +79,8 @@ typedef NS_ENUM(NSUInteger, TYPagerBarStyle) {
 
 // if you custom cell ,you must register cell
 - (void)registerCellClass:(Class)cellClass isContainXib:(BOOL)isContainXib;
+
+- (UICollectionViewCell *)cellForIndex:(NSInteger)index;
 
 @end
 

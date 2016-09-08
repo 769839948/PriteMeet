@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class OrderConfirmViewController: BaseOrderPageViewController {
 
     override func viewDidLoad() {
@@ -36,9 +37,9 @@ class OrderConfirmViewController: BaseOrderPageViewController {
         applyDetailView.uid = self.guest
         let orderModel = (orderList[indexPath.row])
         applyDetailView.myClouse = { status in
-            self.orderList.removeAtIndex(indexPath.row)
-            NSNotificationCenter.defaultCenter().postNotificationName(ReloadOrderCollectionView, object: self.orderState)
-            self.collectionView.reloadData()
+//            self.orderList.removeAtIndex(indexPath.row)
+//            NSNotificationCenter.defaultCenter().postNotificationName(ReloadOrderCollectionView, object: self.orderState)
+//            self.collectionView.reloadData()
         }
         applyDetailView.orderModel = orderModel
         self.navigationController?.pushViewController(applyDetailView, animated: true)

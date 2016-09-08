@@ -27,6 +27,11 @@
 @property (nonatomic, strong) UIColor *normalTextColor;
 @property (nonatomic, strong) UIColor *selectedTextColor;
 
+//@property (nonatomic, copy) NSMutableArray *numberOfTitle;
+
+- (void)reloadNumberOfPageIndex:(NSArray *)numberOfTitle;
+
+- (void)setNumberOfControllerBar:(NSString *)number controller:(NSInteger)controller;
 
 - (void)setBarStyle:(TYPagerBarStyle)barStyle;
 

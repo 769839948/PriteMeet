@@ -11,6 +11,7 @@
 @protocol TYTabTitleCellProtocol <NSObject>
 
 @property (nonatomic, weak,readonly) UILabel *titleLabel;
+
 @property (nonatomic, weak,readonly) UILabel *numberLabel;
 
 @end

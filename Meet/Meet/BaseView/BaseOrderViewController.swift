@@ -122,8 +122,9 @@ class BaseOrderViewController: UIViewController {
                     self.myClouse(status:(self.orderModel.status?.order_status)!)
                 }
                 self.reloadData()
+                NSNotificationCenter.defaultCenter().postNotificationName(ReloadOrderCollectionView, object: self.orderModel.status?.status_code)
                 }, failBlock: { (dic) in
-                    UITools.showMessageToView(self.view, message: "确认失败", autoHide: true)
+                    MainThreadAlertShow("确认失败", view: self.view)
             })
         }
         let rejectAction = UIAlertAction(title: "拒绝约见", style: .Destructive) { (reportAction) in
@@ -214,7 +215,7 @@ class BaseOrderViewController: UIViewController {
             self.reloadData()
         }
         payCompleteVC.orderModel = self.orderModel
-        
+        NSNotificationCenter.defaultCenter().postNotificationName(ReloadOrderCollectionView, object: (self.orderModel.status?.order_status)!)
         self.navigationController?.pushViewController(payCompleteVC, animated: true)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: WeiXinPayStatues, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: AliPayStatues, object: nil)
@@ -382,7 +383,6 @@ class BaseOrderViewController: UIViewController {
                 }
             }
             self.cancelView.reloadOrderStatusChang = { _ in
-                
                 self.reloadData()
             }
             self.navigationController?.pushViewController(self.cancelView, animated: true)
@@ -398,9 +398,10 @@ class BaseOrderViewController: UIViewController {
     
     func changeShtatues(statues:String) {
         viewModel.switchOrderStatus(orderModel.order_id, status: statues,rejectType: "0",rejectReason: "", succeccBlock: { (dic) in
+            NSNotificationCenter.defaultCenter().postNotificationName(ReloadOrderCollectionView, object: statues)
             self.reloadData()
             }) { (dic) in
-                UITools.showMessageToView(self.view, message: (dic as NSDictionary).objectForKey("error") as! String, autoHide: true)
+                MainThreadAlertShow((dic as NSDictionary).objectForKey("error") as! String, view: self.view)
         }
     }
     

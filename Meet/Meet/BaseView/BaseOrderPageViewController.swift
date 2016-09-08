@@ -9,6 +9,9 @@
 import UIKit
 import DZNEmptyDataSet
 
+
+typealias AllMeetOrder = (allNumber:String, statues:String) -> Void
+
 class BaseOrderPageViewController: UIViewController {
 
     let viewModel = OrderViewModel()
@@ -17,6 +20,8 @@ class BaseOrderPageViewController: UIViewController {
     var orderState:String = "1"
     var collectionView:UICollectionView!
     var guest:String = ""
+    var allMeetOrder:AllMeetOrder!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpCollectionView()
@@ -58,6 +63,9 @@ class BaseOrderPageViewController: UIViewController {
                 self.orderList.append(orderModel)
             }
             self.orderList.sortInPlace({ $0.order_id > $1.order_id })
+            if self.allMeetOrder != nil {
+                self.allMeetOrder(allNumber: "\(self.orderList.count)", statues: state)
+            }
             if self.collectionView != nil {
                 self.collectionView.reloadData()
             }

@@ -48,6 +48,32 @@
     [self configureSubViews];
 }
 
+
+- (void)reloadNumberOfPageIndex:(NSArray *)numberOfTitle
+{
+    for (NSInteger i = 0; i < numberOfTitle.count; i ++ ) {
+        TYTabTitleViewCell *titleCell = (TYTabTitleViewCell *)[self cellForIndex:i];
+        if (![numberOfTitle[i] isEqualToString:@"0"]) {
+            titleCell.numberLabel.hidden = NO;
+            titleCell.numberLabel.text = numberOfTitle[i];
+        }else{
+            titleCell.numberLabel.hidden = YES;
+        }
+    }
+}
+
+
+- (void)setNumberOfControllerBar:(NSString *)number controller:(NSInteger)controller
+{
+    TYTabTitleViewCell *titleCell = (TYTabTitleViewCell *)[self cellForIndex:controller];
+    if (![number isEqualToString:@"0"]) {
+        titleCell.numberLabel.hidden = NO;
+        titleCell.numberLabel.text = number;
+    }else{
+        titleCell.numberLabel.hidden = YES;
+    }
+}
+
 - (void)configureSubViews
 {
     // progress

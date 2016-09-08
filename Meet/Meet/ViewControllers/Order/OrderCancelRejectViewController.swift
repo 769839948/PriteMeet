@@ -124,7 +124,7 @@ class OrderCancelRejectViewController: UIViewController {
             }else{
                 rejectType = "请填写拒绝原因哦"
             }
-            UITools.showMessageToView(self.view, message: rejectType, autoHide: true)
+            MainThreadAlertShow(rejectType, view: self.view)
             return
         }
         if reject_reson == "" {
@@ -133,17 +133,18 @@ class OrderCancelRejectViewController: UIViewController {
             }else{
                 rejectReson = "请填写拒绝理由哦"
             }
-            UITools.showMessageToView(self.view, message: rejectReson, autoHide: true)
+            MainThreadAlertShow(rejectReson, view: self.view)
             return
         }
        viewModel.switchOrderStatus(orderModel.order_id, status: changeOrderStatus, rejectType: reject_type, rejectReason: textView.text, succeccBlock: { (dic) in
             if self.reloadOrderStatusChang != nil{
                 self.reloadOrderStatusChang()
+                NSNotificationCenter.defaultCenter().postNotificationName(ReloadOrderCollectionView, object: self.changeOrderStatus)
                 self.navigationController?.popViewControllerAnimated(true)
             }
 
         }) { (dic) in
-            UITools.showMessageToView(self.view, message: (dic as NSDictionary).objectForKey("error") as! String, autoHide: true)
+            MainThreadAlertShow((dic as NSDictionary).objectForKey("error") as! String, view: self.view)
         }
     }
     
