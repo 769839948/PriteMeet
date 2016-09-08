@@ -1325,18 +1325,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     self.complyApplyCodeSuccess = YES;
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isNewUser"]) {
-        ProfileTableViewCell  *cell = (ProfileTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        if (cell == nil) {
-            NSArray *nibs = [[NSBundle mainBundle]loadNibNamed:@"ProfileTableViewCell" owner:nil options:nil];
-            cell = [nibs lastObject];
-            
-        }
-        cell.profilePhoto.imageView.image = [UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)];
-    }
-    ProfileTableViewCell  *cell = (ProfileTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    cell.profilePhoto.imageView.image = [info valueForKey:UIImagePickerControllerEditedImage];
-    
+    NSArray *nibs = [[NSBundle mainBundle]loadNibNamed:@"ProfileTableViewCell" owner:nil options:nil];
+    ProfileTableViewCell *cell = [nibs lastObject];
+    [cell.profilePhoto setImage:[info valueForKey:UIImagePickerControllerEditedImage] forState:UIControlStateNormal];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         ///头像上传后再保存到本地 刷新
         [_viewModel uploadImage:[info valueForKey:UIImagePickerControllerEditedImage]  isApplyCode:self.isApplyCode success:^(NSDictionary *object) {
@@ -1349,12 +1340,13 @@ typedef NS_ENUM(NSUInteger, RowType) {
                     NSString *avatar = [[object objectForKey:@"avatar"] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/750/h/544"]];
                     [UserInfo sharedInstance].avatar = avatar;
                 }
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
                 [UserInfo synchronize];
             }else{
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
                 [[UITools shareInstance] showMessageToView:self.view message:@"上传失败" autoHide:YES];
             }
         } fail:^(NSDictionary *object) {
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             [[UITools shareInstance] showMessageToView:self.view message:@"上传失败" autoHide:YES];
         } loadingString:^(NSString *str) {
             
