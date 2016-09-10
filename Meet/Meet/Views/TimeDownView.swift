@@ -21,17 +21,16 @@ class TimeDownView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setUpTimeLabel()
+        self.clipsToBounds = true
         tapLabel = UITapGestureRecognizer(target: self, action: #selector(TimeDownView.timeDownAgaint))
         self.addGestureRecognizer(tapLabel)
-        if time == nil {
-            self.setUpTime()
-        }
+        self.setUpTime()
     }
     
     func setUpTime(){
         if time == nil {
             time = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(TimeDownView.timeDown(_:)), userInfo: nil, repeats: true)
-            let str = "如未收到可在 60 秒后重新获取"
+            let str = "获取验证码"
             timeLabel.text = str
             NSRunLoop.currentRunLoop().addTimer(time, forMode: "NSRunLoopDefault")
         }
@@ -40,26 +39,51 @@ class TimeDownView: UIView {
     func setUpTimeLabel(){
         timeLabel = UILabel()
         timeLabel.textAlignment = .Center
-        timeLabel.frame = CGRectMake(0, 0, 196, 20)
-        timeLabel.font = LoginCodeLabelFont
-        timeLabel.textColor = UIColor.init(hexString: "C9C9C9")
+        timeLabel.frame = CGRectMake(0, 0, 70, 30)
+        timeLabel.layer.cornerRadius = 14.0
+        timeLabel.text = "获取验证码"
+        timeLabel.layer.masksToBounds = true
+        timeLabel.font = LoginButtonTitleFont
+        timeLabel.textColor = UIColor.whiteColor()
         self.addSubview(timeLabel)
     }
     
     func timeDown(sender:NSTimer) {
         if timeCount != 0 {
+            if timeLabel.frame.size.width == 70 {
+                self.zoomSmsLabel()
+            }
+            self.timeLabel.backgroundColor = UIColor.init(hexString: PlaceholderImageColor)
             timeCount  = timeCount - 1
-            timeLabel.text = "如未收到可在 \(timeCount) 秒后重新获取"
+            timeLabel.text = "\(timeCount)s"
         }
         if timeCount == 0 {
             if time != nil {
                 time.invalidate()
             }
+            if timeLabel.frame.size.width == 44 {
+                self.inSmsLabel()
+            }
             time = nil
-            let str = "如未收到可以 重新获取"
-            let stringAttribute = NSMutableAttributedString(string: str)
-            stringAttribute.addAttribute(NSForegroundColorAttributeName, value:UIColor.init(hexString: MeProfileCollectViewItemSelect), range: NSRange.init(location: 7, length: 4))
-            timeLabel.attributedText = stringAttribute
+            self.timeLabel.backgroundColor = UIColor.init(hexString: HomeDetailViewNameColor)
+            let str = "获取验证码"
+            timeLabel.text = str
+        }
+    }
+    
+    func zoomSmsLabel() {
+        UIView.animateWithDuration(0.25, animations: { 
+            self.timeLabel.frame = CGRectMake(26, 0, 44, 30)
+            }) { (finish) in
+                
+        }
+    }
+    
+    func inSmsLabel() {
+        UIView.animateWithDuration(0.25, animations: {
+            self.timeLabel.frame = CGRectMake(0, 0, 70, 30)
+        }) { (finish) in
+            
         }
     }
     

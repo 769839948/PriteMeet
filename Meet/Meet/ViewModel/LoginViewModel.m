@@ -114,10 +114,10 @@
         if ([[responseObject objectForKey:@"success"] boolValue]) {
             successBlock(responseObject[@"content"]);
         }else{
-            failBlock(responseObject[@"content"]);
+            failBlock(@{@"error":@"服务器错误"});
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(@{@"msg":@"网络错误"});
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 

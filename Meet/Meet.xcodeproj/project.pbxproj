@@ -115,6 +115,7 @@
 		1FA8847E1D7ED6560010F508 /* SDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA884791D7ED6560010F508 /* SDPhotoBrowser.m */; };
 		1FA8847F1D7ED6560010F508 /* SDWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8847C1D7ED6560010F508 /* SDWaitingView.m */; };
 		1FA884A21D800F5D0010F508 /* AlertControl+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA884A11D800F5D0010F508 /* AlertControl+Tools.swift */; };
+		1FA884A61D8245660010F508 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA884A51D8245660010F508 /* LoginViewController.swift */; };
 		1FAA077F1D3CBE600017F3E3 /* ApplyMeetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA077E1D3CBE600017F3E3 /* ApplyMeetModel.m */; };
 		1FAA07881D3CE64A0017F3E3 /* OrderProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA07861D3CE64A0017F3E3 /* OrderProfileTableViewCell.swift */; };
 		1FAA07891D3CE64A0017F3E3 /* OrderProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FAA07871D3CE64A0017F3E3 /* OrderProfileTableViewCell.xib */; };
@@ -516,6 +517,7 @@
 		1FA8847B1D7ED6560010F508 /* SDWaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWaitingView.h; sourceTree = "<group>"; };
 		1FA8847C1D7ED6560010F508 /* SDWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWaitingView.m; sourceTree = "<group>"; };
 		1FA884A11D800F5D0010F508 /* AlertControl+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AlertControl+Tools.swift"; sourceTree = "<group>"; };
+		1FA884A51D8245660010F508 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1FAA077D1D3CBE600017F3E3 /* ApplyMeetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplyMeetModel.h; path = ../Model/ModelBean/ApplyMeetModel.h; sourceTree = "<group>"; };
 		1FAA077E1D3CBE600017F3E3 /* ApplyMeetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ApplyMeetModel.m; path = ../Model/ModelBean/ApplyMeetModel.m; sourceTree = "<group>"; };
 		1FAA07861D3CE64A0017F3E3 /* OrderProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderProfileTableViewCell.swift; path = ../Views/OrderProfileTableViewCell.swift; sourceTree = "<group>"; };
@@ -1057,6 +1059,8 @@
 		1F85D98C1D73FC54004DEAFE /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				1FA884A41D8245420010F508 /* Model */,
+				1FA884A31D8245260010F508 /* Controller */,
 				1F8FF79A1D70198100C7A5B9 /* ViewModel */,
 				1F8FF7991D70184600C7A5B9 /* View */,
 			);
@@ -1408,6 +1412,21 @@
 				1FA8847C1D7ED6560010F508 /* SDWaitingView.m */,
 			);
 			path = SDPhotoBrowser;
+			sourceTree = "<group>";
+		};
+		1FA884A31D8245260010F508 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1FA884A51D8245660010F508 /* LoginViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		1FA884A41D8245420010F508 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		1FAA07C11D3E25110017F3E3 /* libWeiboSDK */ = {
@@ -2193,6 +2212,7 @@
 				1FFEE4D01D7A682A00EEC61F /* PhotoBrowser+Common.swift in Sources */,
 				DA36265C1CD1A75C00A8AE39 /* AppDelegate.m in Sources */,
 				1F8FF7851D6EDD0000C7A5B9 /* LikeListCollectionViewCell.swift in Sources */,
+				1FA884A61D8245660010F508 /* LoginViewController.swift in Sources */,
 				1FF30A2D1D3131720051333F /* SettingTableViewCell.m in Sources */,
 				1F6850291CFFD443007F3C07 /* CompayTableViewCell.m in Sources */,
 				DA6CEF021CDA402C00EEABFF /* TextViewCell.m in Sources */,

@@ -9,19 +9,19 @@
 import UIKit
 import SnapKit
 
-let LoginViewWidth:CGFloat = 270
-let LoginViewHeight:CGFloat = 320
-
-typealias ApplyCodeClouse = () -> Void
-typealias ProtocolClouse = () -> Void
-typealias NewUserLoginClouse = () -> Void
-typealias ReloadMeViewClouse = () ->Void
-typealias LoginWithDetailClouse = () ->Void
-typealias LoginWithOrderListClouse = () ->Void
-typealias OrderListShorOrderButton = () ->Void
+//let LoginViewWidth:CGFloat = 270
+//let LoginViewHeight:CGFloat = 320
+//
+//typealias ApplyCodeClouse = () -> Void
+//typealias ProtocolClouse = () -> Void
+//typealias NewUserLoginClouse = () -> Void
+//typealias ReloadMeViewClouse = () ->Void
+//typealias LoginWithDetailClouse = () ->Void
+//typealias LoginWithOrderListClouse = () ->Void
+//typealias OrderListShorOrderButton = () ->Void
 
 class LoginView: UIView {
-
+/*
     var backView:UIView!
     
     var loginView:UIView!
@@ -581,48 +581,48 @@ class LoginView: UIView {
             }
         }
         
-    }
+    }*/
 }
 
-extension LoginView : DelegatePSW {
-    func pwdNum(pwdNum: String!) {
-        if fontViewTag == 1 {
-            if pwdNum.characters.count == 4 {
-                self.checkCode(pwdNum)
-            }
-            self.checkCodeNomalColor()
-        }else{
-            if pwdNum.characters.count == 4 {
-                self.loginWithCode(phoneLabel.text!, smsCode: pwdNum, applyCode: applyCode)
-            }
-            checkCodeCallBack.hidden = true
-        }
-    }
-}
-
-extension LoginView : UITextFieldDelegate {
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if String.isValidateMobile(textField.text) || textField.text?.characters.count == 11 {
-            viewModel.senderSms(textField.text, success: { (dic) in
-                self.showViewWithTage(3)
-                self.timeDownLabel.setUpTime()
-                self.phoneLabel.text = textField.text
-                self.phoneLabel.updateConstraintsIfNeeded()
-                }, fail: { (dic) in
-                  self.shwoTools(dic["msg"] as! String)
-            })
-        }else{
-             MainThreadAlertShow( "手机号码不正确", view: self)
-        }
-        return true
-    }
-    
-    func textFieldDidEndEditing(textField: UITextField) {
-       
-    }
-    
-    
-}
+//extension LoginView : DelegatePSW {
+//    func pwdNum(pwdNum: String!) {
+//        if fontViewTag == 1 {
+//            if pwdNum.characters.count == 4 {
+//                self.checkCode(pwdNum)
+//            }
+//            self.checkCodeNomalColor()
+//        }else{
+//            if pwdNum.characters.count == 4 {
+//                self.loginWithCode(phoneLabel.text!, smsCode: pwdNum, applyCode: applyCode)
+//            }
+//            checkCodeCallBack.hidden = true
+//        }
+//    }
+//}
+//
+//extension LoginView : UITextFieldDelegate {
+//    func textFieldShouldReturn(textField: UITextField) -> Bool {
+//        if String.isValidateMobile(textField.text) || textField.text?.characters.count == 11 {
+//            viewModel.senderSms(textField.text, success: { (dic) in
+//                self.showViewWithTage(3)
+//                self.timeDownLabel.setUpTime()
+//                self.phoneLabel.text = textField.text
+//                self.phoneLabel.updateConstraintsIfNeeded()
+//                }, fail: { (dic) in
+//                  self.shwoTools(dic["msg"] as! String)
+//            })
+//        }else{
+//             MainThreadAlertShow( "手机号码不正确", view: self)
+//        }
+//        return true
+//    }
+//    
+//    func textFieldDidEndEditing(textField: UITextField) {
+//       
+//    }
+//    
+//    
+//}
 
 
 

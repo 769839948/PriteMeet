@@ -264,36 +264,8 @@ class MeetDetailViewController: UIViewController {
     }
     
     func presentLoginView(){
-        
-        loginView = LoginView(frame: CGRectMake(0,0,ScreenWidth,ScreenHeight))
-        let windown = UIApplication.sharedApplication().keyWindow
-        windown!.addSubview(loginView)
-        loginView.applyCodeClouse = { _ in
-            let applyCode = Stroyboard("Login", viewControllerId: "ApplyCodeViewController") as! ApplyCodeViewController
-            applyCode.isApplyCode = true
-            applyCode.showToolsBlock = { _ in
-                MainThreadAlertShow("申请成功，请耐心等待审核结果^_^", view: self.view)
-                self.loginView.removeFromSuperview()
-                UserInfo.logout()
-            }
-            applyCode.loginViewBlock = { _ in
-                self.loginView.showViewWithTage(1)
-                UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
-            }
-            UIApplication.sharedApplication().keyWindow?.sendSubviewToBack(self.loginView)
-            self.navigationController?.pushViewController(applyCode, animated: true)
-        }
-        
-        loginView.protocolClouse = { _ in
-            let userProtocol = Stroyboard("Seting", viewControllerId: "UserProtocolViewController") as! UserProtocolViewController
-            userProtocol.block = { _ in
-                self.loginView.mobileTextField.becomeFirstResponder()
-                UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
-            }
-            self.navigationController?.pushViewController(userProtocol, animated: true)
-            UIApplication.sharedApplication().keyWindow?.sendSubviewToBack(self.loginView)
-        }
-        
+        let loginView = LoginViewController()
+        let controller = UINavigationController(rootViewController: loginView)
         loginView.newUserLoginClouse = { _ in
             let baseUserInfo =  Stroyboard("Me", viewControllerId: "BaseInfoViewController") as! BaseUserInfoViewController
             baseUserInfo.user_id = self.user_id
@@ -308,6 +280,10 @@ class MeetDetailViewController: UIViewController {
             }else{
                 self.blackListAction()
             }
+        }
+        
+        self.presentViewController(controller, animated: true) { 
+            
         }
         
     }

@@ -199,33 +199,18 @@ class ApplyMeetViewController: UIViewController {
     }
     
     func persenterLoginView() {
-        loginView = LoginView(frame: CGRectMake(0,0,ScreenWidth,ScreenHeight))
-        let windown = UIApplication.sharedApplication().keyWindow
-        windown!.addSubview(loginView)
-        loginView.applyCodeClouse = { _ in
-            let applyCode = Stroyboard("Login", viewControllerId: "ApplyCodeViewController") as! ApplyCodeViewController
-            applyCode.isApplyCode = true
-            applyCode.showToolsBlock = { _ in
-                self.loginView.removeFromSuperview()
-                UserInfo.logout()
-            }
-            applyCode.loginViewBlock = { _ in
-                self.loginView.showViewWithTage(1)
-                UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
-            }
-            UIApplication.sharedApplication().keyWindow?.sendSubviewToBack(self.loginView)
-            self.navigationController?.pushViewController(applyCode, animated: true)
-        }
         
-        loginView.protocolClouse = { _ in
-            let userProtocol = Stroyboard("Seting", viewControllerId: "UserProtocolViewController") as! UserProtocolViewController
-            userProtocol.block = { _ in
-                self.loginView.mobileTextField.becomeFirstResponder()
-                UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
-            }
-            self.navigationController?.pushViewController(userProtocol, animated: true)
-            UIApplication.sharedApplication().keyWindow?.sendSubviewToBack(self.loginView)
-        }
+        let loginView = LoginViewController()
+        
+//        loginView.protocolClouse = { _ in
+//            let userProtocol = Stroyboard("Seting", viewControllerId: "UserProtocolViewController") as! UserProtocolViewController
+//            userProtocol.block = { _ in
+//                self.loginView.mobileTextField.becomeFirstResponder()
+//                UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.loginView)
+//            }
+//            self.navigationController?.pushViewController(userProtocol, animated: true)
+//            UIApplication.sharedApplication().keyWindow?.sendSubviewToBack(self.loginView)
+//        }
         
         loginView.newUserLoginClouse = { _ in
             let baseUserInfo =  Stroyboard("Me", viewControllerId: "BaseInfoViewController") as! BaseUserInfoViewController
@@ -238,6 +223,9 @@ class ApplyMeetViewController: UIViewController {
         
         loginView.loginWithOrderListClouse = { _ in
             self.applyMeet()
+        }
+        self.presentViewController(loginView, animated: true) {
+            
         }
     }
     

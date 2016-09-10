@@ -79,6 +79,12 @@ let HightLightTitleFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light
 let HightLightInfoFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 16):UIFont.systemFontOfSize(16)
 
 
+let LoginViewLabelFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Medium", size: 30):UIFont.systemFontOfSize(30)
+
+let LoginInfoLabelFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Medium", size: 11):UIFont.systemFontOfSize(11)
+
+let LoginButtonTitleFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Medium", size: 9):UIFont.systemFontOfSize(9)
+
 let ReloadOrderCollectionView = "ReloadOrderCollectionView"
 
 func Stroyboard(storyName:String, viewControllerId:String) -> UIViewController {
