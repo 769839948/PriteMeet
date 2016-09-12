@@ -883,30 +883,15 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 cell = [nibs lastObject];
                 
             }
-            if (self.isApplyCode) {
-                [cell showapplyCodeLabel];
-                if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] != nil) {
-                    NSArray *photoArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] componentsSeparatedByString:@"?"];
-                    NSString *photoUrl = [photoArray[0] stringByAppendingString:MyProfilePhotoSize];
-                    [UserInfo sharedInstance].avatar = photoUrl;
-                    [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:photoUrl] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                    }];
-                }else{
-                    [cell.profilePhoto setImage:[UIImage imageNamed:@"me_profile_photo"]];
-                }
+            if ([UserInfo sharedInstance].avatar != nil){
+                NSArray *photoArray = [[UserInfo sharedInstance].avatar componentsSeparatedByString:@"?"];
+                NSString *photoUrl = [photoArray[0] stringByAppendingString:MyProfilePhotoSize];
+                [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:photoUrl] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
+                }];
             }else{
-                [cell hidderapplyCodeLabel];
-                if ([UserInfo sharedInstance].avatar != nil){
-                    NSArray *photoArray = [[UserInfo sharedInstance].avatar componentsSeparatedByString:@"?"];
-                    NSString *photoUrl = [photoArray[0] stringByAppendingString:MyProfilePhotoSize];
-                    [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:photoUrl] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                        [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
-                    }];
-                }else{
-                    [cell.profilePhoto setImage:[UIImage imageNamed:@"me_profile_photo"]];
-                }
+                [cell.profilePhoto setImage:[UIImage imageNamed:@"me_profile_photo"]];
             }
-            
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
@@ -937,12 +922,12 @@ typedef NS_ENUM(NSUInteger, RowType) {
             cell.textField.indexPath = indexPath;
             if (row == RowPhoneNumber || row == RowWX_Id){
                  cell.textField.text = [NSString stringWithFormat:@"%@",_dicValues[_titleContentArray[row]]];
-                if (row == RowPhoneNumber && !self.isApplyCode) {
+                if (row == RowPhoneNumber) {
                     cell.textField.enabled = NO;
                 }
                 
             }else{
-                if (row == RowJobLabel && !self.isApplyCode) {
+                if (row == RowJobLabel) {
                     cell.textField.enabled = NO;
                 }
                 cell.textField.text = _dicValues[_titleContentArray[row]];
@@ -1118,7 +1103,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
             if (iPhone6Plus){
                 if (height > 330) {
                 }else{
-                    if (_isBaseView || _isApplyCode) {
+                    if (_isBaseView) {
                         insterHeight = 309 - height;
                     }else{
                         insterHeight = 369 - height;
@@ -1129,7 +1114,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 if (height > 337) {
                 }else{
                     
-                    if (_isBaseView || _isApplyCode) {
+                    if (_isBaseView) {
                         if (IS_IPHONE_5){
                             insterHeight = 309 - height;
                         }else{
@@ -1225,19 +1210,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
             }
         }
     }else if(section == 2 && indexPath.row != _arrayWorkExper.count + 1) {
-        if (self.isApplyCode) {
-            [self performSegueWithIdentifier:@"AddInformationVC" sender:indexPath];
-        }else{
-            [self performSegueWithIdentifier:@"pushToAddInformationVC" sender:indexPath];
-
-        }
+        [self performSegueWithIdentifier:@"pushToAddInformationVC" sender:indexPath];
     }else if(section == 3){
-        if (self.isApplyCode) {
-            [self performSegueWithIdentifier:@"AddInformationVC" sender:indexPath];
-        }else{
-            [self performSegueWithIdentifier:@"pushToAddInformationVC" sender:indexPath];
-            
-        }
+        [self performSegueWithIdentifier:@"pushToAddInformationVC" sender:indexPath];
     }
 }
 
@@ -1265,16 +1240,10 @@ typedef NS_ENUM(NSUInteger, RowType) {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         ///头像上传后再保存到本地 刷新
-        [_viewModel uploadImage:image  isApplyCode:self.isApplyCode success:^(NSDictionary *object) {
+        [_viewModel uploadImage:image  isApplyCode:NO success:^(NSDictionary *object) {
             if ([[object objectForKey:@"success"] boolValue]) {
-                if (self.isApplyCode) {
-                    NSString *avatar = [[object objectForKey:@"avatar"] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/750/h/544"]];
-                    [[NSUserDefaults standardUserDefaults] setObject:avatar forKey:@"ApplyCodeAvatar"];
-                    [[NSUserDefaults standardUserDefaults] setObject:avatar forKey:@"TempAvatar"];
-                }else{
-                    NSString *avatar = [[object objectForKey:@"avatar"] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/750/h/544"]];
-                    [UserInfo sharedInstance].avatar = avatar;
-                }
+                NSString *avatar = [[object objectForKey:@"avatar"] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/750/h/544"]];
+                [UserInfo sharedInstance].avatar = avatar;
                 [UserInfo synchronize];
             }else{
                 [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];

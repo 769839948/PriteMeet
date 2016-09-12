@@ -53,7 +53,6 @@
 		1F3DC3391D0D0F5A0075B7BA /* PhotoDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F3DC3371D0D0F5A0075B7BA /* PhotoDetailTableViewCell.xib */; };
 		1F457B541D179C4A00C1D8EC /* CenterlabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F457B531D179C4A00C1D8EC /* CenterlabelView.swift */; };
 		1F4E43701CFC57F900730DEA /* ThemeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E436F1CFC57F900730DEA /* ThemeTools.m */; };
-		1F508D4B1D2FA308001EB676 /* ApplyCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F508D4A1D2FA308001EB676 /* ApplyCodeViewController.m */; };
 		1F508D4E1D2FA791001EB676 /* ProfilePhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F508D4C1D2FA791001EB676 /* ProfilePhotoTableViewCell.swift */; };
 		1F508D4F1D2FA791001EB676 /* ProfilePhotoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F508D4D1D2FA791001EB676 /* ProfilePhotoTableViewCell.xib */; };
 		1F55157E1CFEEFE5005B82FA /* InterestCollectViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F55157D1CFEEFE5005B82FA /* InterestCollectViewCell.m */; };
@@ -432,8 +431,6 @@
 		1F4E43641CFC470F00730DEA /* ApplicationTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationTheme.h; sourceTree = "<group>"; };
 		1F4E436E1CFC57F900730DEA /* ThemeTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeTools.h; sourceTree = "<group>"; };
 		1F4E436F1CFC57F900730DEA /* ThemeTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeTools.m; sourceTree = "<group>"; };
-		1F508D491D2FA308001EB676 /* ApplyCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplyCodeViewController.h; path = ../ViewControllers/Me/Login/ApplyCodeViewController.h; sourceTree = "<group>"; };
-		1F508D4A1D2FA308001EB676 /* ApplyCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ApplyCodeViewController.m; path = ../ViewControllers/Me/Login/ApplyCodeViewController.m; sourceTree = "<group>"; };
 		1F508D4C1D2FA791001EB676 /* ProfilePhotoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfilePhotoTableViewCell.swift; path = ../Views/ProfilePhotoTableViewCell.swift; sourceTree = "<group>"; };
 		1F508D4D1D2FA791001EB676 /* ProfilePhotoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfilePhotoTableViewCell.xib; path = ../Views/ProfilePhotoTableViewCell.xib; sourceTree = "<group>"; };
 		1F55157C1CFEEFE5005B82FA /* InterestCollectViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InterestCollectViewCell.h; path = ../Views/InterestCollectViewCell.h; sourceTree = "<group>"; };
@@ -1384,8 +1381,6 @@
 				DABF8B091CEB22A100CA2A1D /* UserProtocolViewController.m */,
 				DABF8AF91CEAE71100CA2A1D /* SendEmailViewController.h */,
 				DABF8AFA1CEAE71100CA2A1D /* SendEmailViewController.m */,
-				1F508D491D2FA308001EB676 /* ApplyCodeViewController.h */,
-				1F508D4A1D2FA308001EB676 /* ApplyCodeViewController.m */,
 				1FAA08081D41CEE80017F3E3 /* BlackListViewController.swift */,
 				1FFEE34C1D7827B600EEC61F /* HightLightViewController.swift */,
 			);
@@ -2224,7 +2219,6 @@
 				1F2F56C11D3621F7005AEBC8 /* OrderViewModel.m in Sources */,
 				1FBAE3221D25153900D7D039 /* ProfileSectionTitleTableViewCell.swift in Sources */,
 				1F2881321D2F7EEC00713E9B /* UINavigationBar+Awesome.m in Sources */,
-				1F508D4B1D2FA308001EB676 /* ApplyCodeViewController.m in Sources */,
 				1FFEE5661D7A683200EEC61F /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift in Sources */,
 				1FAA08541D45F3F50017F3E3 /* TimeDownView.swift in Sources */,
 				1FFB5F3B1D056D9600021F77 /* MoreInfoViewController.m in Sources */,
@@ -2626,7 +2620,7 @@
 					"$(PROJECT_DIR)/Meet/3rd/SDKExport",
 					"$(PROJECT_DIR)/Meet/3rd/libWeiboSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.meet.meet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meet.testmeet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Meet/Meet-Bridging-Header.h";
@@ -2656,7 +2650,7 @@
 					"$(PROJECT_DIR)/Meet/3rd/SDKExport",
 					"$(PROJECT_DIR)/Meet/3rd/libWeiboSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.meet.meet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meet.testmeet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Meet/Meet-Bridging-Header.h";

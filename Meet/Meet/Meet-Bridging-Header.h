@@ -48,7 +48,6 @@
 #import "LoginViewModel.h"
 #import "NSString+StringType.h"
 #import "ApplicationTheme.h"
-#import "ApplyCodeViewController.h"
 #import "UserProtocolViewController.h"
 #import "Detail.h"
 #import "Theme.h"

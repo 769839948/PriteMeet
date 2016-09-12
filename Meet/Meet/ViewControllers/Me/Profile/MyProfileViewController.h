@@ -50,8 +50,6 @@ typedef void(^needReloadMeViewBlock)(BOOL updateInfo);
 
 @property (copy, nonatomic) NSString *hightLight;
 
-@property (nonatomic, assign) BOOL isApplyCode;
-
 @property (nonatomic, copy) NSMutableArray *arrayWorkExper;///工作经历
 
 @property (nonatomic, copy) NSMutableArray *arrayOccupationLable;///职业标签

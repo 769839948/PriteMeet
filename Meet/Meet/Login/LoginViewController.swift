@@ -8,7 +8,6 @@
 
 import UIKit
 
-typealias ApplyCodeClouse = () -> Void
 typealias ProtocolClouse = () -> Void
 typealias NewUserLoginClouse = () -> Void
 typealias ReloadMeViewClouse = () ->Void
@@ -33,7 +32,6 @@ class LoginViewController: UIViewController {
     var originFrame:CGRect!
     
     var reloadMeViewClouse:ReloadMeViewClouse!
-    var applyCodeClouse:ApplyCodeClouse!
     var protocolClouse:ProtocolClouse!
     var newUserLoginClouse:NewUserLoginClouse!
     var loginWithDetailClouse:LoginWithDetailClouse!

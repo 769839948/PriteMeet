@@ -11,22 +11,12 @@ import UIKit
 class ProfilePhotoTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profilePhoto: UIImageView!
-    @IBOutlet weak var applyCodeLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         profilePhoto.layer.masksToBounds = true
         // Initialization code
     }
 
-    
-    func hidderapplyCodeLabel() {
-        applyCodeLabel.hidden = true
-    }
-    
-    func showapplyCodeLabel(){
-        applyCodeLabel.hidden = false
-    }
-    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
