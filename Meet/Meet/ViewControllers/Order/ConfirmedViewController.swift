@@ -16,7 +16,7 @@ class ConfirmedViewController: BaseOrderViewController {
         super.viewDidLoad()
         self.changeBottomBtnTitle()
         if isAppliViewPush {
-            MainThreadAlertShow("申请成功，请耐心等待审核结果^_^", view: self.view)
+            MainThreadAlertShow("提交申请成功，请等待对方确认...", view: self.view)
         }
         self.talKingDataPageName = "Order-OrderList-Confirm"
 

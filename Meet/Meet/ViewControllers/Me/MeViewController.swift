@@ -592,7 +592,8 @@ extension MeViewController : UITableViewDataSource {
                 if indexPath.row == 0 {
                     let cell = tableView.dequeueReusableCellWithIdentifier(mePhotoTableViewCell, forIndexPath: indexPath) as! MePhotoTableViewCell
                     cell.avatarImageView.backgroundColor = UIColor.init(hexString: "e7e7e7")
-                    cell.avatarImageView.sd_setImageWithURL(NSURL.init(string: UserInfo.sharedInstance().avatar), placeholderImage: nil, completed: { (image
+                    let imageArray = UserInfo.sharedInstance().avatar.componentsSeparatedByString("?")
+                     cell.avatarImageView.sd_setImageWithURL(NSURL.init(string: imageArray[0].stringByAppendingString(HomeDetailCovertImageSize)), placeholderImage: nil, completed: { (image
                         , error, type, url) in
                         UserInfo.saveCacheImage(image, withName: "headImage.jpg")
                     })
@@ -711,12 +712,14 @@ extension MeViewController : UITableViewDataSource {
                     }else{
                         cell.configCell("me_mymeet", infoString: "我的约见", infoDetail: "共 \(allOrderNumber) 个进行中     ", shadowColor: false,cornerRadiusType: .None)
                     }
+                    cell.showLine()
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
                     cell.setInfoButtonBackGroudColor(MeProfileCollectViewItemSelect)
                     return cell
                 }else{
                     let cell = tableView.dequeueReusableCellWithIdentifier(meInfoTableViewCell, forIndexPath: indexPath) as! MeInfoTableViewCell
                     cell.configCell("me_wantmeet", infoString: "想见的人", infoDetail: "", shadowColor: true,cornerRadiusType: .Bottom)
+                    cell.showLine()
                     cell.selectionStyle = UITableViewCellSelectionStyle.None
                     cell.setInfoButtonBackGroudColor(MeProfileCollectViewItemSelect)
                     return cell

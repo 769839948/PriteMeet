@@ -39,7 +39,7 @@ class AboutUsCell: UITableViewCell {
         infoLabel = UILabel()
         infoLabel.font = AboutUsInfoFont
         infoLabel.numberOfLines = 0
-        infoLabel.sizeToFit()
+//        infoLabel.sizeToFit()
         infoLabel.lineBreakMode = .ByWordWrapping
         infoLabel.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         infoView.addSubview(infoLabel)
@@ -86,6 +86,7 @@ class AboutUsCell: UITableViewCell {
                 make.left.equalTo(self.infoView.snp_left).offset(10)
                 make.right.equalTo(self.infoView.snp_right).offset(-10)
                 make.bottom.equalTo(self.infoView.snp_bottom).offset(-34)
+                make.height.lessThanOrEqualTo(100);
             })
             
             lineLabel.snp_makeConstraints(closure: { (make) in

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -32,7 +32,7 @@
                                                     <rect key="frame" x="15" y="13" width="31.5" height="19.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UfO-Va-6BQ">
@@ -136,19 +136,16 @@
                                     <action selector="useProtocolAction:" destination="jBC-aJ-gmZ" eventType="touchUpInside" id="cQ4-qV-7PW"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MEET 0.1.0 BETA" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKR-ER-Oc0">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="MEET 0.1.0 BETA" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKR-ER-Oc0">
                                 <rect key="frame" x="133" y="242" width="109" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="Eh4-B0-cRG"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COPYRIGHTS © 2016 MEET. ALL RIGHTS RESERVED." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oH8-FQ-BYS">
-                                <rect key="frame" x="59" y="591" width="256.5" height="12"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PRK-hA-xeP">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PRK-hA-xeP">
                                 <rect key="frame" x="55" y="291" width="264" height="110"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -162,6 +159,12 @@ marketing - jiajia</string>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COPYRIGHTS © 2016 MEET. ALL RIGHTS RESERVED." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oH8-FQ-BYS">
+                                <rect key="frame" x="59" y="591" width="256.5" height="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -169,9 +172,10 @@ marketing - jiajia</string>
                             <constraint firstItem="wb9-cm-sq5" firstAttribute="centerX" secondItem="3gW-VK-M5b" secondAttribute="centerX" id="4uX-Ph-Y7e"/>
                             <constraint firstItem="PRK-hA-xeP" firstAttribute="centerX" secondItem="3gW-VK-M5b" secondAttribute="centerX" id="6T5-vQ-6kZ"/>
                             <constraint firstItem="PRK-hA-xeP" firstAttribute="top" secondItem="fKR-ER-Oc0" secondAttribute="bottom" constant="32" id="Ni0-sE-YqH"/>
-                            <constraint firstItem="fKR-ER-Oc0" firstAttribute="top" secondItem="wb9-cm-sq5" secondAttribute="bottom" constant="62" id="OOR-kd-Epx"/>
+                            <constraint firstItem="fKR-ER-Oc0" firstAttribute="top" relation="greaterThanOrEqual" secondItem="wb9-cm-sq5" secondAttribute="bottom" constant="12" id="OOR-kd-Epx"/>
                             <constraint firstItem="fKR-ER-Oc0" firstAttribute="centerX" secondItem="3gW-VK-M5b" secondAttribute="centerX" id="SVo-Ef-ZUi"/>
                             <constraint firstItem="oH8-FQ-BYS" firstAttribute="top" secondItem="YV8-T6-uw9" secondAttribute="bottom" constant="32" id="ZTv-xO-BhS"/>
+                            <constraint firstItem="YV8-T6-uw9" firstAttribute="top" relation="greaterThanOrEqual" secondItem="PRK-hA-xeP" secondAttribute="bottom" constant="2" id="adC-fX-1wx"/>
                             <constraint firstItem="YV8-T6-uw9" firstAttribute="centerX" secondItem="3gW-VK-M5b" secondAttribute="centerX" id="dFd-T8-JSf"/>
                             <constraint firstItem="Xz9-hV-flG" firstAttribute="top" secondItem="oH8-FQ-BYS" secondAttribute="bottom" constant="64" id="pjf-Ij-fbM"/>
                             <constraint firstItem="wb9-cm-sq5" firstAttribute="top" secondItem="hwa-vl-Rj2" secondAttribute="bottom" constant="80" id="qKS-hi-MLk"/>

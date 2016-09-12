@@ -54,7 +54,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     RowConstellation,
 };
 
-@interface MyProfileViewController () <UIPickerViewDataSource, UIPickerViewDelegate,UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UISheetViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate, TZImagePickerControllerDelegate> {
+@interface MyProfileViewController () <UIPickerViewDataSource, UIPickerViewDelegate,UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UISheetViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate, TZImagePickerControllerDelegate,FusumaDelegate> {
     
     __weak IBOutlet UIView *_bottomPickerView;
     __weak IBOutlet UIDatePicker *_datePicker;
@@ -83,7 +83,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
     NSMutableArray *_arrayOccupationLable;///职业标签
     NSMutableArray *_arrayEducateExper;///教育背景
     
-    UISheetView *_sheetView;
     UIAlertView *_sexAlertView;
     BOOL _isNotSelectHeight;
     
@@ -862,9 +861,11 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 cell = [nibs lastObject];
                 
             }
+            
+            
             if ([UserInfo sharedInstance].avatar != nil && ![[UserInfo sharedInstance].avatar isEqualToString:@""]) {
                 NSArray *photoArray = [[UserInfo sharedInstance].avatar componentsSeparatedByString:@"?"];
-                NSString *photoUrl = [photoArray[0] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/500/h/500"]];
+                NSString *photoUrl = [photoArray[0] stringByAppendingString:MyProfilePhotoSize];
                 [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:photoUrl] forState:UIControlStateNormal completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     _dicValues[_titleContentArray[0]] = image;
                     [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
@@ -886,7 +887,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 [cell showapplyCodeLabel];
                 if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] != nil) {
                     NSArray *photoArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"ApplyCodeAvatar"] componentsSeparatedByString:@"?"];
-                    NSString *photoUrl = [photoArray[0] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/500/h/500"]];
+                    NSString *photoUrl = [photoArray[0] stringByAppendingString:MyProfilePhotoSize];
                     [UserInfo sharedInstance].avatar = photoUrl;
                     [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:photoUrl] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     }];
@@ -897,7 +898,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 [cell hidderapplyCodeLabel];
                 if ([UserInfo sharedInstance].avatar != nil){
                     NSArray *photoArray = [[UserInfo sharedInstance].avatar componentsSeparatedByString:@"?"];
-                    NSString *photoUrl = [photoArray[0] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/500/h/500"]];
+                    NSString *photoUrl = [photoArray[0] stringByAppendingString:MyProfilePhotoSize];
                     [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:photoUrl] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                         [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
                     }];
@@ -920,6 +921,10 @@ typedef NS_ENUM(NSUInteger, RowType) {
             cell.tag = row;
             cell.titelLabel.text = _titleContentArray[row];
             if (row == RowName) {
+                if ([[UserExtenModel shareInstance].auth_info rangeOfString:@"2"].location == NSNotFound) {
+                }else{
+                    cell.textField.enabled = NO;
+                }
                 cell.textField.placeholder = @"真实姓名";
             }else if (row == RowPhoneNumber){
                 cell.textField.placeholder = @"接受约见后对方可见";
@@ -933,10 +938,13 @@ typedef NS_ENUM(NSUInteger, RowType) {
             if (row == RowPhoneNumber || row == RowWX_Id){
                  cell.textField.text = [NSString stringWithFormat:@"%@",_dicValues[_titleContentArray[row]]];
                 if (row == RowPhoneNumber && !self.isApplyCode) {
-//                    cell.textField.textColor = [UIColor colorWithHexString:MeViewProfileTitleLabelColor];
                     cell.textField.enabled = NO;
                 }
+                
             }else{
+                if (row == RowJobLabel && !self.isApplyCode) {
+                    cell.textField.enabled = NO;
+                }
                 cell.textField.text = _dicValues[_titleContentArray[row]];
             }
             cell.textField.tag = indexPath.row;
@@ -1089,6 +1097,20 @@ typedef NS_ENUM(NSUInteger, RowType) {
 #pragma mark - tableView Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if ((indexPath.section == 0) && (indexPath.row == RowJobLabel)) {
+        if ([[UserExtenModel shareInstance].auth_info rangeOfString:@"1"].location != NSNotFound) {
+            [UIAlertController shwoAlertControl:self title:nil message:@"职业信息变更后须重新认证哦" cancel:@"取消" doneTitle:@"确定" cancelAction:^{
+                
+            } doneAction:^{
+                LabelAndTextFieldCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                cell.textField.enabled = YES;
+                [cell.textField becomeFirstResponder];
+            }];
+        }
+        return;
+    }
+    
     if (indexPath.section == 0 || indexPath.section == 1) {
         if ((indexPath.section == 0 && indexPath.row != RowPhoneNumber)|| indexPath.section == 1) {
             CGRect rectInTableView = [tableView rectForRowAtIndexPath:indexPath];
@@ -1099,7 +1121,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                     if (_isBaseView || _isApplyCode) {
                         insterHeight = 309 - height;
                     }else{
-                        insterHeight = 309 - height;
+                        insterHeight = 369 - height;
                     }
                     [tableView setContentOffset:CGPointMake(0, insterHeight) animated:YES];
                 }
@@ -1143,11 +1165,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
             [self hiddenDatePicker:YES];
             [self showChooseViewAnimation:NO];
         }else if (row == 0) {
-            if ( !_sheetView) {
-                _sheetView = [[UISheetView alloc] initWithContenArray:@[@"拍照",@"相册选择",@"取消"]];
-                _sheetView.delegate = self;
-            }
-            [_sheetView show];
+            [self selectPhotoImage];
             [self.view endEditing:YES];
         } else if (row == RowBirthday) {//date picker
             [self.view endEditing:YES];
@@ -1223,6 +1241,78 @@ typedef NS_ENUM(NSUInteger, RowType) {
     }
 }
 
+- (void)selectPhotoImage
+{
+    FusumaViewController *imagePicker = [[FusumaViewController alloc] init];
+    imagePicker.delegate = self;
+    [self presentViewController:imagePicker animated:YES completion:^{
+        
+    }];
+}
+
+#pragma mark - FusumaDelegate
+- (void)fusumaImageSelected:(UIImage * _Nonnull)image
+{
+    self.complyApplyCodeSuccess = YES;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isNewUser"])
+    {
+        ProfileTableViewCell  *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        [cell.profilePhoto setImage:image forState:UIControlStateNormal];
+    }else {
+        ProfilePhotoTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        cell.profilePhoto.image = image;
+    }
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        ///头像上传后再保存到本地 刷新
+        [_viewModel uploadImage:image  isApplyCode:self.isApplyCode success:^(NSDictionary *object) {
+            if ([[object objectForKey:@"success"] boolValue]) {
+                if (self.isApplyCode) {
+                    NSString *avatar = [[object objectForKey:@"avatar"] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/750/h/544"]];
+                    [[NSUserDefaults standardUserDefaults] setObject:avatar forKey:@"ApplyCodeAvatar"];
+                    [[NSUserDefaults standardUserDefaults] setObject:avatar forKey:@"TempAvatar"];
+                }else{
+                    NSString *avatar = [[object objectForKey:@"avatar"] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/750/h/544"]];
+                    [UserInfo sharedInstance].avatar = avatar;
+                }
+                [UserInfo synchronize];
+            }else{
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                [[UITools shareInstance] showMessageToView:self.view message:@"上传失败" autoHide:YES];
+            }
+        } fail:^(NSDictionary *object) {
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            [[UITools shareInstance] showMessageToView:self.view message:@"上传失败" autoHide:YES];
+        } loadingString:^(NSString *str) {
+            
+        }];
+    });
+    
+    [self.navigationController dismissViewControllerAnimated: YES completion:^{
+    }];
+}
+
+- (void)fusumaDismissedWithImage:(UIImage * _Nonnull)image
+{
+    
+}
+
+- (void)fusumaVideoCompletedWithFileURL:(NSURL * _Nonnull)fileURL
+{
+    
+}
+
+- (void)fusumaCameraRollUnauthorized
+{
+    
+}
+
+- (void)fusumaClosed
+{
+    
+}
+
+
 ///身高第一次显示时出现中间位置
 - (void)setPickView:(NSInteger)pickType inRowAtValue:(NSInteger)value inTableViewRow:(NSInteger)tableRow {
     if (tableRow == pickType && value == 0 && !_isNotSelectHeight) {//
@@ -1231,60 +1321,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
         [_dicPickSelectValues setObject:[NSNumber numberWithInt:value] forKey:_titleContentArray[_selectRow]];
         _isNotSelectHeight = YES;
     }
-}
-
-#pragma mark - UISheetViewDelegate
-- (void)sheetView:(UISheetView *)sheet didSelectRowAtIndex:(NSInteger)index {
-    switch (index) {
-        case 0: //照相机
-        {
-            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-            imagePicker.delegate = self;
-            imagePicker.allowsEditing = YES;
-            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
-            [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
-            imagePicker.mediaTypes = mediaTypes;
-            [self presentViewController:imagePicker animated:YES completion:nil];
-            break;
-        }
-        case 1: //相簿
-        {
-//            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-//            TZImagePickerController *imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
-//            imagePickerVC.navigationBar.barTintColor = [UIColor whiteColor];
-//            imagePickerVC.navigationBar.tintColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
-//            imagePickerVC.allowPickingVideo = NO;
-//            imagePickerVC.allowTakePicture = NO;
-//            imagePickerVC.barItemTextFont = NavigationBarRightItemFont;
-//            imagePickerVC.oKButtonTitleColorNormal = [UIColor colorWithHexString:HomeDetailViewNameColor];
-//            imagePickerVC.oKButtonTitleColorDisabled = [UIColor colorWithHexString:lineLabelBackgroundColor];
-//            imagePickerVC.allowPickingOriginalPhoto = YES;
-//            imagePickerVC.didFinishPickingPhotosHandle = ^(NSArray<UIImage *> *photos,NSArray *assets,BOOL isSelectOriginalPhoto){
-//                
-//            };
-//            [self presentViewController:imagePickerVC animated:YES completion:^{
-//                
-//            }];
-            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-            imagePicker.delegate = self;
-            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
-            [imagePicker.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(ScreenWidth, 64)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-            [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
-            imagePicker.mediaTypes = mediaTypes;
-            imagePicker.allowsEditing = YES;
-            imagePicker.navigationBar.tintColor = [UIColor blackColor];
-            imagePicker.navigationBar.barTintColor = self.navigationController.navigationBar.barTintColor;
-            [imagePicker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
-            [self presentViewController:imagePicker animated:YES completion:nil];
-            break;
-        }
-            
-        default:
-            break;
-    }
-    [_sheetView hidden];
 }
 
 #pragma mark - TZImagePickerControllerDelegate
@@ -1320,43 +1356,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
 {
     
 }
-
-#pragma mark - UIImagePickerControllerDelegate
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    self.complyApplyCodeSuccess = YES;
-    NSArray *nibs = [[NSBundle mainBundle]loadNibNamed:@"ProfileTableViewCell" owner:nil options:nil];
-    ProfileTableViewCell *cell = [nibs lastObject];
-    [cell.profilePhoto setImage:[info valueForKey:UIImagePickerControllerEditedImage] forState:UIControlStateNormal];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        ///头像上传后再保存到本地 刷新
-        [_viewModel uploadImage:[info valueForKey:UIImagePickerControllerEditedImage]  isApplyCode:self.isApplyCode success:^(NSDictionary *object) {
-            if ([[object objectForKey:@"success"] boolValue]) {
-                if (self.isApplyCode) {
-                    NSString *avatar = [[object objectForKey:@"avatar"] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/750/h/544"]];
-                    [[NSUserDefaults standardUserDefaults] setObject:avatar forKey:@"ApplyCodeAvatar"];
-                    [[NSUserDefaults standardUserDefaults] setObject:avatar forKey:@"TempAvatar"];
-                }else{
-                    NSString *avatar = [[object objectForKey:@"avatar"] stringByAppendingString:[NSString stringWithFormat:@"?imageView2/1/w/750/h/544"]];
-                    [UserInfo sharedInstance].avatar = avatar;
-                }
-                [UserInfo synchronize];
-            }else{
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-                [[UITools shareInstance] showMessageToView:self.view message:@"上传失败" autoHide:YES];
-            }
-        } fail:^(NSDictionary *object) {
-            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-            [[UITools shareInstance] showMessageToView:self.view message:@"上传失败" autoHide:YES];
-        } loadingString:^(NSString *str) {
-            
-        }];
-    });
-    
-    [self.navigationController dismissViewControllerAnimated: YES completion:^{
-    }];
-}
-
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {

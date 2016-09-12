@@ -28,6 +28,7 @@
 		1F293D901D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D8F1D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m */; };
 		1F293D941D13CB290063A9DA /* AboutDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D931D13CB290063A9DA /* AboutDetailViewController.swift */; };
 		1F2DA9BB1D394B0B0008C434 /* WeiboModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DA9BA1D394B0B0008C434 /* WeiboModel.m */; };
+		1F2F43711D83CDBD00C370BA /* IPhoneDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2F43701D83CDBD00C370BA /* IPhoneDevice.swift */; };
 		1F2F56AE1D361C27005AEBC8 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F2F56AC1D361C27005AEBC8 /* AlipaySDK.bundle */; };
 		1F2F56AF1D361C27005AEBC8 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F2F56AD1D361C27005AEBC8 /* AlipaySDK.framework */; };
 		1F2F56B11D361C63005AEBC8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F2F56B01D361C63005AEBC8 /* QuartzCore.framework */; };
@@ -169,6 +170,18 @@
 		1FCC444B1D37A66C00287EC5 /* OrderUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FCC44491D37A66C00287EC5 /* OrderUserTableViewCell.xib */; };
 		1FCC444F1D37A96A00287EC5 /* OrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC444E1D37A96A00287EC5 /* OrderModel.swift */; };
 		1FCDE2B61D65D2140029EF9E /* PlaceholderText.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDE2B51D65D2140029EF9E /* PlaceholderText.m */; };
+		1FD13B281D869DEB0035760D /* FSAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD13B181D869DEB0035760D /* FSAlbumView.swift */; };
+		1FD13B291D869DEB0035760D /* FSAlbumView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FD13B191D869DEB0035760D /* FSAlbumView.xib */; };
+		1FD13B2A1D869DEB0035760D /* FSAlbumViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD13B1A1D869DEB0035760D /* FSAlbumViewCell.swift */; };
+		1FD13B2B1D869DEB0035760D /* FSAlbumViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FD13B1B1D869DEB0035760D /* FSAlbumViewCell.xib */; };
+		1FD13B2C1D869DEB0035760D /* FSCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD13B1C1D869DEB0035760D /* FSCameraView.swift */; };
+		1FD13B2D1D869DEB0035760D /* FSCameraView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FD13B1D1D869DEB0035760D /* FSCameraView.xib */; };
+		1FD13B2E1D869DEB0035760D /* FSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD13B1E1D869DEB0035760D /* FSConstants.swift */; };
+		1FD13B2F1D869DEB0035760D /* FSImageCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD13B1F1D869DEB0035760D /* FSImageCropView.swift */; };
+		1FD13B301D869DEB0035760D /* FSVideoCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD13B201D869DEB0035760D /* FSVideoCameraView.swift */; };
+		1FD13B311D869DEB0035760D /* FSVideoCameraView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FD13B211D869DEB0035760D /* FSVideoCameraView.xib */; };
+		1FD13B321D869DEB0035760D /* FusumaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD13B221D869DEB0035760D /* FusumaViewController.swift */; };
+		1FD13B341D869DEB0035760D /* FusumaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FD13B241D869DEB0035760D /* FusumaViewController.xib */; };
 		1FD97BBA1D55DBF300556568 /* OrderApplyMeetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BB91D55DBF300556568 /* OrderApplyMeetTableViewCell.swift */; };
 		1FD97BBC1D55E1A900556568 /* OrderApplyIntroductionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BBB1D55E1A900556568 /* OrderApplyIntroductionCell.swift */; };
 		1FD97BBF1D55E41700556568 /* OrderApplyInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BBD1D55E41700556568 /* OrderApplyInfoTableViewCell.swift */; };
@@ -271,7 +284,6 @@
 		1FFEE5BA1D7AAEB300EEC61F /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5A71D7AAEB300EEC61F /* TZAssetCell.m */; };
 		1FFEE5BB1D7AAEB300EEC61F /* TZAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5A91D7AAEB300EEC61F /* TZAssetModel.m */; };
 		1FFEE5BC1D7AAEB300EEC61F /* TZImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5AB1D7AAEB300EEC61F /* TZImageManager.m */; };
-		1FFEE5BD1D7AAEB300EEC61F /* TZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1FFEE5AC1D7AAEB300EEC61F /* TZImagePickerController.bundle */; };
 		1FFEE5BE1D7AAEB300EEC61F /* TZImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5AE1D7AAEB300EEC61F /* TZImagePickerController.m */; };
 		1FFEE5BF1D7AAEB300EEC61F /* TZPhotoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5B01D7AAEB300EEC61F /* TZPhotoPickerController.m */; };
 		1FFEE5C01D7AAEB300EEC61F /* TZPhotoPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEE5B21D7AAEB300EEC61F /* TZPhotoPreviewCell.m */; };
@@ -389,6 +401,7 @@
 		1F293D931D13CB290063A9DA /* AboutDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AboutDetailViewController.swift; path = ../ViewControllers/Home/AboutDetailViewController.swift; sourceTree = "<group>"; };
 		1F2DA9B91D394B0B0008C434 /* WeiboModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboModel.h; path = ../Model/ModelBean/WeiboModel.h; sourceTree = "<group>"; };
 		1F2DA9BA1D394B0B0008C434 /* WeiboModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeiboModel.m; path = ../Model/ModelBean/WeiboModel.m; sourceTree = "<group>"; };
+		1F2F43701D83CDBD00C370BA /* IPhoneDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPhoneDevice.swift; sourceTree = "<group>"; };
 		1F2F56AC1D361C27005AEBC8 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		1F2F56AD1D361C27005AEBC8 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		1F2F56B01D361C63005AEBC8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -603,6 +616,18 @@
 		1FCC444E1D37A96A00287EC5 /* OrderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderModel.swift; path = ../Model/ModelBean/OrderModel.swift; sourceTree = "<group>"; };
 		1FCDE2B41D65D2140029EF9E /* PlaceholderText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderText.h; sourceTree = "<group>"; };
 		1FCDE2B51D65D2140029EF9E /* PlaceholderText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderText.m; sourceTree = "<group>"; };
+		1FD13B181D869DEB0035760D /* FSAlbumView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSAlbumView.swift; sourceTree = "<group>"; };
+		1FD13B191D869DEB0035760D /* FSAlbumView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FSAlbumView.xib; sourceTree = "<group>"; };
+		1FD13B1A1D869DEB0035760D /* FSAlbumViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSAlbumViewCell.swift; sourceTree = "<group>"; };
+		1FD13B1B1D869DEB0035760D /* FSAlbumViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FSAlbumViewCell.xib; sourceTree = "<group>"; };
+		1FD13B1C1D869DEB0035760D /* FSCameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSCameraView.swift; sourceTree = "<group>"; };
+		1FD13B1D1D869DEB0035760D /* FSCameraView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FSCameraView.xib; sourceTree = "<group>"; };
+		1FD13B1E1D869DEB0035760D /* FSConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSConstants.swift; sourceTree = "<group>"; };
+		1FD13B1F1D869DEB0035760D /* FSImageCropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSImageCropView.swift; sourceTree = "<group>"; };
+		1FD13B201D869DEB0035760D /* FSVideoCameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSVideoCameraView.swift; sourceTree = "<group>"; };
+		1FD13B211D869DEB0035760D /* FSVideoCameraView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FSVideoCameraView.xib; sourceTree = "<group>"; };
+		1FD13B221D869DEB0035760D /* FusumaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FusumaViewController.swift; sourceTree = "<group>"; };
+		1FD13B241D869DEB0035760D /* FusumaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FusumaViewController.xib; sourceTree = "<group>"; };
 		1FD97BB91D55DBF300556568 /* OrderApplyMeetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderApplyMeetTableViewCell.swift; path = ../Views/OrderApplyMeetTableViewCell.swift; sourceTree = "<group>"; };
 		1FD97BBB1D55E1A900556568 /* OrderApplyIntroductionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderApplyIntroductionCell.swift; path = ../Views/OrderApplyIntroductionCell.swift; sourceTree = "<group>"; };
 		1FD97BBD1D55E41700556568 /* OrderApplyInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderApplyInfoTableViewCell.swift; path = ../Views/OrderApplyInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -718,7 +743,6 @@
 		1FFEE5A91D7AAEB300EEC61F /* TZAssetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZAssetModel.m; sourceTree = "<group>"; };
 		1FFEE5AA1D7AAEB300EEC61F /* TZImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZImageManager.h; sourceTree = "<group>"; };
 		1FFEE5AB1D7AAEB300EEC61F /* TZImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageManager.m; sourceTree = "<group>"; };
-		1FFEE5AC1D7AAEB300EEC61F /* TZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TZImagePickerController.bundle; sourceTree = "<group>"; };
 		1FFEE5AD1D7AAEB300EEC61F /* TZImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZImagePickerController.h; sourceTree = "<group>"; };
 		1FFEE5AE1D7AAEB300EEC61F /* TZImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImagePickerController.m; sourceTree = "<group>"; };
 		1FFEE5AF1D7AAEB300EEC61F /* TZPhotoPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPickerController.h; sourceTree = "<group>"; };
@@ -912,6 +936,7 @@
 				1F293D7E1D12CBB10063A9DA /* String+Size.swift */,
 				1F3868451D2617FD00569032 /* UIViewController+NavigationBar.swift */,
 				1FAA07951D3D05B00017F3E3 /* String+Class.swift */,
+				1F2F43701D83CDBD00C370BA /* IPhoneDevice.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -999,6 +1024,7 @@
 		1F6850171CFFD30E007F3C07 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1FD13B131D869DEB0035760D /* Fusuma */,
 				1FA884751D7ED6560010F508 /* SDPhotoBrowser */,
 				1FFEE5A31D7AAEB300EEC61F /* TZImagePickerController */,
 				1FFEE4BB1D7A682A00EEC61F /* PhotoBrowser */,
@@ -1479,6 +1505,33 @@
 			path = ../Views;
 			sourceTree = "<group>";
 		};
+		1FD13B131D869DEB0035760D /* Fusuma */ = {
+			isa = PBXGroup;
+			children = (
+				1FD13B161D869DEB0035760D /* Sources */,
+			);
+			path = Fusuma;
+			sourceTree = "<group>";
+		};
+		1FD13B161D869DEB0035760D /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				1FD13B181D869DEB0035760D /* FSAlbumView.swift */,
+				1FD13B191D869DEB0035760D /* FSAlbumView.xib */,
+				1FD13B1A1D869DEB0035760D /* FSAlbumViewCell.swift */,
+				1FD13B1B1D869DEB0035760D /* FSAlbumViewCell.xib */,
+				1FD13B1C1D869DEB0035760D /* FSCameraView.swift */,
+				1FD13B1D1D869DEB0035760D /* FSCameraView.xib */,
+				1FD13B1E1D869DEB0035760D /* FSConstants.swift */,
+				1FD13B1F1D869DEB0035760D /* FSImageCropView.swift */,
+				1FD13B201D869DEB0035760D /* FSVideoCameraView.swift */,
+				1FD13B211D869DEB0035760D /* FSVideoCameraView.xib */,
+				1FD13B221D869DEB0035760D /* FusumaViewController.swift */,
+				1FD13B241D869DEB0035760D /* FusumaViewController.xib */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
 		1FF30A2E1D31ECF40051333F /* AMScrollingNavbar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1659,7 +1712,6 @@
 				1FFEE5A91D7AAEB300EEC61F /* TZAssetModel.m */,
 				1FFEE5AA1D7AAEB300EEC61F /* TZImageManager.h */,
 				1FFEE5AB1D7AAEB300EEC61F /* TZImageManager.m */,
-				1FFEE5AC1D7AAEB300EEC61F /* TZImagePickerController.bundle */,
 				1FFEE5AD1D7AAEB300EEC61F /* TZImagePickerController.h */,
 				1FFEE5AE1D7AAEB300EEC61F /* TZImagePickerController.m */,
 				1FFEE5AF1D7AAEB300EEC61F /* TZPhotoPickerController.h */,
@@ -2032,9 +2084,13 @@
 			files = (
 				1F508D4F1D2FA791001EB676 /* ProfilePhotoTableViewCell.xib in Resources */,
 				1FBAE3231D25153900D7D039 /* ProfileSectionTitleTableViewCell.xib in Resources */,
+				1FD13B311D869DEB0035760D /* FSVideoCameraView.xib in Resources */,
 				DA4A89021CDC388B00649983 /* Login.storyboard in Resources */,
+				1FD13B291D869DEB0035760D /* FSAlbumView.xib in Resources */,
 				1FAA081E1D43160D0017F3E3 /* BlackListCollectCell.xib in Resources */,
 				1FD97BC01D55E41700556568 /* OrderApplyInfoTableViewCell.xib in Resources */,
+				1FD13B2D1D869DEB0035760D /* FSCameraView.xib in Resources */,
+				1FD13B2B1D869DEB0035760D /* FSAlbumViewCell.xib in Resources */,
 				1F85D9A91D7413E2004DEAFE /* MeetOrderInfoTableViewCell.xib in Resources */,
 				DA018F521CD4DAFB0051D2D7 /* Localizable.strings in Resources */,
 				1FCC44441D37A4B100287EC5 /* Order.storyboard in Resources */,
@@ -2044,6 +2100,7 @@
 				1FAA07D01D3E25110017F3E3 /* WeiboSDK.bundle in Resources */,
 				1F1BA9481D682AFE00BDD665 /* OrderCollectionViewCell.xib in Resources */,
 				DA1A67EC1CEF107C00F9CC9D /* area.plist in Resources */,
+				1FD13B341D869DEB0035760D /* FusumaViewController.xib in Resources */,
 				1F2F56AE1D361C27005AEBC8 /* AlipaySDK.bundle in Resources */,
 				DA3626671CD1A75C00A8AE39 /* LaunchScreen.storyboard in Resources */,
 				1FFB5F351D054BD900021F77 /* Assets.xcassets in Resources */,
@@ -2062,7 +2119,6 @@
 				1F3DC32B1D0D06ED0075B7BA /* MeInfoTableViewCell.xib in Resources */,
 				1F3DC3391D0D0F5A0075B7BA /* PhotoDetailTableViewCell.xib in Resources */,
 				DA3626621CD1A75C00A8AE39 /* Main.storyboard in Resources */,
-				1FFEE5BD1D7AAEB300EEC61F /* TZImagePickerController.bundle in Resources */,
 				1FAA07DD1D3E285C0017F3E3 /* read_me.txt in Resources */,
 				1FCC444B1D37A66C00287EC5 /* OrderUserTableViewCell.xib in Resources */,
 			);
@@ -2138,6 +2194,7 @@
 			files = (
 				1FFEE53F1D7A683200EEC61F /* Fetch.swift in Sources */,
 				1FF3C5101D2B8A3300BE89A9 /* InviteItemsTableViewCell.swift in Sources */,
+				1FD13B281D869DEB0035760D /* FSAlbumView.swift in Sources */,
 				1FF3C5121D2B8A5000BE89A9 /* InviteDetailInfoTableViewCell.swift in Sources */,
 				1FFEE4DB1D7A682B00EEC61F /* CollectionView.swift in Sources */,
 				1FCAFFDB1D01983B00BF53A1 /* UserInfoViewModel.m in Sources */,
@@ -2147,6 +2204,7 @@
 				1F293D901D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m in Sources */,
 				1FAA078C1D3CE6850017F3E3 /* AppointMentTableViewCell.swift in Sources */,
 				1F9DCF101D4C52EA001467E6 /* OrderConfirmViewController.swift in Sources */,
+				1F2F43711D83CDBD00C370BA /* IPhoneDevice.swift in Sources */,
 				DA6CEF131CDAF42300EEABFF /* AddInformationViewController.m in Sources */,
 				1FFEE54E1D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotate.swift in Sources */,
 				1FBF40BD1D221267005DB46F /* NSString+StringType.m in Sources */,
@@ -2193,6 +2251,7 @@
 				1F3DC3321D0D0B890075B7BA /* MePhotoTableViewCell.swift in Sources */,
 				1F293D7F1D12CBB10063A9DA /* String+Size.swift in Sources */,
 				1FFEE5651D7A683200EEC61F /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift in Sources */,
+				1FD13B2A1D869DEB0035760D /* FSAlbumViewCell.swift in Sources */,
 				DAF5C8BC1CE6D6AD00DA7901 /* NSObject+RMArchivable.m in Sources */,
 				1FFB5F3E1D069A8800021F77 /* ProfileKeyAndValue.m in Sources */,
 				DAF5C8541CE5A5C100DA7901 /* UIView+frameAdjust.m in Sources */,
@@ -2232,6 +2291,7 @@
 				1F810EC11D507399008A5EF1 /* ZDQFlowViewItem.swift in Sources */,
 				DA3626591CD1A75C00A8AE39 /* main.m in Sources */,
 				1F68502F1CFFD46B007F3C07 /* AboutUsInfoTableViewCell.m in Sources */,
+				1FD13B321D869DEB0035760D /* FusumaViewController.swift in Sources */,
 				1FFEE4D71D7A682A00EEC61F /* PhotoBrowser+ZoomAnim.swift in Sources */,
 				DAF5C8211CE0D0ED00DA7901 /* WXUserInfo.m in Sources */,
 				DABF8AF21CE9D41100CA2A1D /* BaseMeetViewController.m in Sources */,
@@ -2246,6 +2306,7 @@
 				1FFEE5491D7A683200EEC61F /* UIButton+Haneke.swift in Sources */,
 				1F9ED87F1D66DFEE00DCB06A /* OrderTips.swift in Sources */,
 				1FFEE53B1D7A683200EEC61F /* CryptoSwiftMD5.swift in Sources */,
+				1FD13B2C1D869DEB0035760D /* FSCameraView.swift in Sources */,
 				DAF5C7F91CDF479C00DA7901 /* NetWorkObject.m in Sources */,
 				1FFEE5511D7A683200EEC61F /* NVActivityIndicatorAnimationBallGridBeat.swift in Sources */,
 				1F2059261D2BBD6F001FF99C /* SetInviteCollectView.m in Sources */,
@@ -2280,6 +2341,7 @@
 				1FAA081A1D42442D0017F3E3 /* BlackListModel.swift in Sources */,
 				1F3DC3381D0D0F5A0075B7BA /* PhotoDetailTableViewCell.swift in Sources */,
 				1F293D781D11A4B90063A9DA /* UIView+Size.m in Sources */,
+				1FD13B301D869DEB0035760D /* FSVideoCameraView.swift in Sources */,
 				1FFEE55E1D7A683200EEC61F /* NVActivityIndicatorAnimationBallZigZag.swift in Sources */,
 				1FFEE4DE1D7A682B00EEC61F /* ShowImageView.swift in Sources */,
 				1FC2C14F1CFD362B001D6D10 /* UIViewController+hideExcessLine.m in Sources */,
@@ -2289,6 +2351,7 @@
 				1FAA07DF1D3F17810017F3E3 /* WaitPayViewController.swift in Sources */,
 				1FFEE4D91D7A682B00EEC61F /* PhotoBrowser+Model.swift in Sources */,
 				DA6CEEF61CD9EFA800EEABFF /* CellTextField.m in Sources */,
+				1FD13B2F1D869DEB0035760D /* FSImageCropView.swift in Sources */,
 				1F38683D1D260E2900569032 /* OtherProfileTableViewCell.swift in Sources */,
 				DA018F5E1CD79D4A0051D2D7 /* RemindImageCell.m in Sources */,
 				1FFEE4D41D7A682A00EEC61F /* PhotoBrowser+Indicator.swift in Sources */,
@@ -2409,6 +2472,7 @@
 				1FD97BC21D5892BA00556568 /* HomeViewController.swift in Sources */,
 				1F9DCF0B1D4C50C2001467E6 /* TYTabPagerController.m in Sources */,
 				DAF5C8911CE5C0EE00DA7901 /* MyDisplayViewController.m in Sources */,
+				1FD13B2E1D869DEB0035760D /* FSConstants.swift in Sources */,
 				1FFEE5451D7A683200EEC61F /* NSFileManager+Haneke.swift in Sources */,
 				1FFEE5BF1D7AAEB300EEC61F /* TZPhotoPickerController.m in Sources */,
 				1F85D9A81D7413E2004DEAFE /* MeetOrderInfoTableViewCell.swift in Sources */,

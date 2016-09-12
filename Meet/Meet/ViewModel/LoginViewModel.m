@@ -121,7 +121,68 @@
     }];
 }
 
+- (void)loginSms:(NSString *)mobile
+            code:(NSString *)code
+         success:(Success)successBlock
+            fail:(Fail)failBlock
+{
+    NSDictionary *parameters = @{@"mobile_num":mobile};
+    NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestCheckUser];
+    [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+        if ([responseObject[@"success"] boolValue]) {
+            NSString *url = [RequestBaseUrl stringByAppendingString:RequsetMobileLogin];
+            NSDictionary *parameters = @{@"mobile_num":mobile,
+                                         @"sms_code":code};
+            [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+                if ([[responseObject objectForKey:@"success"] boolValue]) {
+                    failBlock(@{@"error":@"oldUser"});
+                }
+            } failure:^(NSDictionary *responseObject) {
+                failBlock(@{@"error":@"网络错误"});
+            }];
+        }else{
+            NSDictionary *parameters = @{@"mobile_num":mobile,
+                                         @"sms_code":code
+                                         };
+            NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestCreateUser];
+            [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+                if ([[responseObject objectForKey:@"success"] boolValue]) {
+                    NSString *url = [RequestBaseUrl stringByAppendingString:RequsetMobileLogin];
+                     NSDictionary *parameters = @{@"mobile_num":mobile,
+                                                  @"sms_code":code};
+                     [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+                        if ([[responseObject objectForKey:@"success"] boolValue]) {
+                            failBlock(@{@"error":@"newUser"});
+                        }
+                    } failure:^(NSDictionary *responseObject) {
+                        failBlock(@{@"error":@"网络错误"});
+                    }];
+                }else{
+                    failBlock(@{@"error":@"上传失败"});
+                }
+            } failure:^(NSDictionary *responseObject) {
+                NSString *url = [RequestBaseUrl stringByAppendingString:RequsetMobileLogin];
+                NSDictionary *parameters = @{@"mobile_num":mobile,
+                                             @"sms_code":code};
+                [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+                    if ([[responseObject objectForKey:@"success"] boolValue]) {
+                        failBlock(@{@"error":@"newUser"});
+                    }
+                } failure:^(NSDictionary *responseObject) {
+                    failBlock(@{@"error":@"网络错误"});
+                }];
+//                failBlock(@{@"error":@"网络错误"});
+            }];
+        }
+        
+    } failure:^(NSDictionary *responseObject) {
+        failBlock(@{@"error":@"net error"});
+    }];
+    
+}
 
+
+#pragma mark - 带邀请码登录
 - (void)loginSms:(NSString *)mobile
             code:(NSString *)code
        applyCode:(NSString *)applyCode

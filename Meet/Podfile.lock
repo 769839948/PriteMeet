@@ -17,7 +17,7 @@ PODS:
   - AMapFoundation (1.2.0)
   - AMapLocation (2.1.1):
     - AMapFoundation (~> 1.2)
-  - Crashlytics (3.8.0):
+  - Crashlytics (3.8.1):
     - Fabric (~> 1.6.3)
   - DZNEmptyDataSet (1.8.1)
   - Fabric (1.6.8)
@@ -42,9 +42,9 @@ PODS:
     - HappyDNS (~> 0.3)
   - SDCycleScrollView (1.65):
     - SDWebImage (~> 3.7)
-  - SDWebImage (3.8.1):
-    - SDWebImage/Core (= 3.8.1)
-  - SDWebImage/Core (3.8.1)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
   - SnapKit (0.22.0)
   - SQLCipher (3.3.1):
     - SQLCipher/standard (= 3.3.1)
@@ -87,7 +87,7 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AMapFoundation: 8acc2bf4eed79aab4d21002ddb8b24a6f3f3621c
   AMapLocation: dd203f76b034ef5cb546600f4e1ffad2a3a14072
-  Crashlytics: 8601d9c74a4c4d28f3e7f408bf4c0e490c70e8b4
+  Crashlytics: 4391d8df0b125345e9f209c5db6e7f40a6a8435d
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
@@ -102,10 +102,10 @@ SPEC CHECKSUMS:
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Qiniu: 4dbf1e6acb3236c4d7251046a17d08b16d21fcfe
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
-  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SnapKit: 0dd2fd157330f1ea11fd84da13e6be8a7a22bae0
   SQLCipher: d490d2effe735895d2204d25a154b1e722278421
 
-PODFILE CHECKSUM: 9070baf3029259f9b3a5213980b2a96802a149ef
+PODFILE CHECKSUM: cf33be68da6c218af20d3da4db12ce323c908b74
 
 COCOAPODS: 1.0.0

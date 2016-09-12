@@ -193,6 +193,8 @@ class HomeViewController: UIViewController {
     func rightItemClick(sender:UIBarButtonItem) {
         self.presentViewController(UINavigationController(rootViewController: MeViewController()) , animated: true) {
         }
+        
+        
 //        self.presentViewController(UINavigationController(rootViewController: LoginViewController()) , animated: true) {
 //        }
     }
@@ -576,22 +578,3 @@ extension HomeViewController: ScrollingNavigationControllerDelegate {
     }
 }
 
-extension HomeViewController : TZImagePickerControllerDelegate {
-    func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool)
-    {
-        
-    }
-    func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool, infos: [[NSObject : AnyObject]]!) {
-        
-    }
-    func imagePickerControllerDidCancel(picker: TZImagePickerController!) {
-        
-    }
-    // If user picking a video, this callback will be called.
-    // If system version > iOS8,asset is kind of PHAsset class, else is ALAsset class.
-    // 如果用户选择了一个视频，下面的handle会被执行
-    // 如果系统版本大于iOS8，asset是PHAsset类的对象，否则是ALAsset类的对象
-    func imagePickerController(picker: TZImagePickerController!, didFinishPickingVideo coverImage: UIImage!, sourceAssets asset: AnyObject!) {
-        
-    }
-}

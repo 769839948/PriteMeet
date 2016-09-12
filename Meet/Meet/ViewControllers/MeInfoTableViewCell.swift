@@ -35,11 +35,13 @@ class MeInfoTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.lineLabel = UILabel()
-        self.backgroundColor = UIColor.clearColor()
-        self.lineLabel.backgroundColor = UIColor(hexString:"E7E7E7")
+        
+        
         infoDetailLabel.textColor = UIColor.whiteColor()
         infoDetailLabel.layer.masksToBounds = true
         
+        self.backgroundColor = UIColor.clearColor()
+        self.lineLabel.backgroundColor = UIColor(hexString:"E7E7E7")
         self.contentView.addSubview(self.lineLabel)
         shadownView.layer.cornerRadius = 5.0
         // Initialization code
@@ -128,6 +130,10 @@ class MeInfoTableViewCell: UITableViewCell {
     
     func hidderLine() {
         self.lineLabel.hidden = true
+    }
+    
+    func showLine(){
+        self.lineLabel.hidden = false
     }
     
     func setInfoButtonBackGroudColor(color:String){

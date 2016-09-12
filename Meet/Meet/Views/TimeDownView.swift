@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias SmsCodeClouse = () ->Void
+typealias SmsCodeClouse = () ->Bool
 
 class TimeDownView: UIView {
 
@@ -48,7 +48,21 @@ class TimeDownView: UIView {
         self.addSubview(timeLabel)
     }
     
+    func phoneError() {
+        if time != nil {
+            time.invalidate()
+        }
+        if timeLabel.frame.size.width == 44 {
+            self.inSmsLabel()
+        }
+        time = nil
+        self.timeLabel.backgroundColor = UIColor.init(hexString: HomeDetailViewNameColor)
+        let str = "获取验证码"
+        timeLabel.text = str
+    }
+    
     func timeDown(sender:NSTimer) {
+        
         if timeCount != 0 {
             if timeLabel.frame.size.width == 70 {
                 self.zoomSmsLabel()
@@ -89,9 +103,10 @@ class TimeDownView: UIView {
     
     func timeDownAgaint() {
         if timeCount == 0 {
-            timeCount = 60
             if self.smsCodeClouse != nil {
-                self.smsCodeClouse()
+                if self.smsCodeClouse() {
+                     timeCount = 60
+                }
             }
             if time == nil {
                 self.setUpTime()

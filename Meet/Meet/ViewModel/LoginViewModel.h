@@ -58,6 +58,20 @@
           success:(Success)successBlock
              Fail:(Fail)failBlock;
 
+
+/**
+ *  新接口登录
+ *
+ *  @param mobile       mobile description
+ *  @param code         code description
+ *  @param successBlock successBlock description
+ *  @param failBlock    failBlock description
+ */
+- (void)loginSms:(NSString *)mobile
+            code:(NSString *)code
+         success:(Success)successBlock
+            fail:(Fail)failBlock;
+
 /**
  *  手机号登录
  *

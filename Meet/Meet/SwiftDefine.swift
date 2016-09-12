@@ -116,6 +116,8 @@ func TableViewRegisterNib(cell:String, idef:String, tableView:UITableView){
 let ScreenWidth = UIScreen.mainScreen().bounds.size.width
 let ScreenHeight = UIScreen.mainScreen().bounds.size.height
 
+let IPHONE_5_Height = ScreenHeight > 570.0 ? true : false
+
 
 let KeyWindown = UIApplication.sharedApplication().keyWindow
 

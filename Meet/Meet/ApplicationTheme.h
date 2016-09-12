@@ -156,6 +156,7 @@
 
 #define ImageThum ScreenWidth > 375.0 ? @"?imageView2/1/w/177/h/177":@"?imageView2/1/w/118/h/118"
 
+#define MyProfilePhotoSize ScreenWidth > 375.0 ? @"?imageView2/1/w/300/h/300":@"?imageView2/1/w/200/h/200"
 
 
 

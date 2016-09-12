@@ -21,5 +21,4 @@ target "Meet" do
     pod 'NJKWebViewProgress'
     pod 'FDFullscreenPopGesture', '1.1'
     pod 'DZNEmptyDataSet'
-
 end
