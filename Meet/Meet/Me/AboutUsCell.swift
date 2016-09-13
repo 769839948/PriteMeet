@@ -76,7 +76,6 @@ class AboutUsCell: UITableViewCell {
                 make.top.equalTo(self.infoView.snp_top).offset(22)
                 make.left.equalTo(self.infoView.snp_left).offset(10)
                 make.right.equalTo(self.infoView.snp_right).offset(-10)
-                make.bottom.equalTo(self.infoLabel.snp_top).offset(-12)
             })
             infoLabel.snp_makeConstraints(closure: { (make) in
                 make.top.equalTo(self.titleLabel.snp_bottom).offset(12)

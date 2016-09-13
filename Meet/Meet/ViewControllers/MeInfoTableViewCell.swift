@@ -77,6 +77,7 @@ class MeInfoTableViewCell: UITableViewCell {
             shadownView.hidden = true
         }
         self.updateConstraintsIfNeeded()
+        
     }
     
     override func updateConstraints() {
@@ -99,7 +100,7 @@ class MeInfoTableViewCell: UITableViewCell {
                 make.top.equalTo(self.contentView.snp_top).offset(0)
                 make.left.equalTo(self.contentView.snp_left).offset(10)
                 make.right.equalTo(self.contentView.snp_right).offset(-10)
-                
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(0)
             })
             
             infoImageView.snp_makeConstraints(closure: { (make) in
@@ -119,7 +120,7 @@ class MeInfoTableViewCell: UITableViewCell {
             })
             
             info_next.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.infoView.snp_right).offset(-10)
+                make.right.equalTo(self.infoView.snp_right).offset(-20)
                 make.centerY.equalTo(self.infoView.snp_centerY).offset(0)
                 make.size.equalTo(CGSizeMake(7, 12))
             })

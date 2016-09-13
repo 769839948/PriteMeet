@@ -458,19 +458,26 @@ class MeetDetailViewController: UIViewController {
     }
     
     func getPlachImage() {
-//        let manage = SDWebImageManager()
-        let image = UIImage.init(color: UIColor.clearColor(), size: CGSizeMake(100, 100))
-//        var index = 0
-        for _ in self.imageUrls {
+        let manage = SDWebImageManager()
+        let plachImageSize = CGSizeMake(ScreenWidth - 20, (ScreenWidth - 20)*236/355)
+        let plachImageWidth = Int(plachImageSize.width)
+        let plachImageHeight = Int(plachImageSize.height)
+        let image = UIImage.init(color: UIColor.clearColor(), size: plachImageSize)
+        for url in self.imageUrls {
             plachImages.addObject(image)
-//            let urlStr = NSURL.init(string: url.stringByAppendingString("?imageView2/1/w/177/h/177"))
-//            manage.downloadWithURL(urlStr, options: .RetryFailed, progress: { (star, end) in
-//                
-//                }, completed: { (image, error, catchs, finist) in
-//                    self.plachImages.replaceObjectAtIndex(index, withObject: image)
-//                    index = index + 1
-//            })
-           
+            let urlStr = NSURL.init(string: url.stringByAppendingString("?imageView2/1/w/\(plachImageWidth)/h/\(plachImageHeight)"))
+            manage.downloadImageWithURL(urlStr, options: .RetryFailed, progress: { (start, end) in
+                
+                }, completed: { (image, error, cache, finist, url) in
+                    if image != nil {
+                        let urlString = url.absoluteString.componentsSeparatedByString("?")
+                        for urlIndex in  0...self.imageUrls.count - 1 {
+                            if urlString[0] == self.imageUrls[urlIndex] as! String {
+                                self.plachImages.replaceObjectAtIndex(urlIndex, withObject: image)
+                            }
+                        }
+                    }
+            })
         }
         
     }
@@ -625,7 +632,7 @@ extension MeetDetailViewController : UITableViewDataSource {
             case 0:
                 switch indexPath.row {
                 case 0:
-                    return (UIScreen.mainScreen().bounds.size.width - 20)*236/355
+                    return (ScreenWidth - 20)*236/355
                 case 1:
                     return tableView.fd_heightForCellWithIdentifier(meetInfoTableViewCell, configuration: { (cell) in
                         self.configCell(cell as! MeetInfoTableViewCell, indxPath: indexPath)

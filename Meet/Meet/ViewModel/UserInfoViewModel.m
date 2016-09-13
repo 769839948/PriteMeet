@@ -56,6 +56,7 @@
                                  @"constellation":[NSString stringWithFormat:@"%ld",(long)userInfo.constellation],
                                  @"industry":[NSString stringWithFormat:@"%ld",(long)userInfo.industry],
                                  @"job_label":userInfo.job_label};
+    NSLog(@"=================================================================================%@===========================================================",[NSString stringWithFormat:@"%ld",(long)userInfo.industry]);
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUpdateUser,userInfo.uid];
     [self putWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {

@@ -286,17 +286,12 @@
         }];
         
         [_personalView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.showdowView.mas_top).offset(0);
-            make.left.mas_equalTo(weakSelf.showdowView.mas_left).offset(0);
-            make.right.mas_equalTo(weakSelf.showdowView.mas_right).offset(0);
-            make.bottom.mas_equalTo(weakSelf.showdowView.mas_bottom).offset(-3);
+            make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(0);
+            make.left.mas_equalTo(weakSelf.contentView.mas_left).offset(10);
+            make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-10);
+            make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-3);
         }];
         
-        [_likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(weakSelf.nameLabel.mas_top).offset(-4);
-            make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-23);
-            make.size.mas_offset(CGSizeMake(48, 48));
-        }];
         
         [_photoImage mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.personalView.mas_top).offset(0);
@@ -309,22 +304,12 @@
             make.top.mas_equalTo(weakSelf.photoImage.mas_bottom).offset(14);
             make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(14);
             make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-14);
-            make.bottom.mas_equalTo(weakSelf.meetNumber.mas_top).offset(-3);
-        }];
-        
-        [_ageNumber mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.personalView.mas_top).offset(18);
-            make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-24);
-            make.height.offset(24);
-            make.width.offset(46);
         }];
         
         [_meetNumber mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(3);
             make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(14);
             make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-14);
-            make.bottom.mas_equalTo(weakSelf.interestView.mas_top).offset(-17);
-            //            make.height.mas_offset(20);
         }];
         
         [_interestView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -332,6 +317,20 @@
             make.left.mas_equalTo(weakSelf.personalView.mas_left).offset(15);
             make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-15);
             make.bottom.mas_equalTo(weakSelf.personalView.mas_bottom).offset(-17);
+        }];
+        
+        [_likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(weakSelf.nameLabel.mas_top).offset(-4);
+            make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-23);
+            make.size.mas_offset(CGSizeMake(48, 48));
+        }];
+        
+        
+        [_ageNumber mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.personalView.mas_top).offset(18);
+            make.right.mas_equalTo(weakSelf.personalView.mas_right).offset(-24);
+            make.height.offset(24);
+            make.width.offset(46);
         }];
         
         self.didSetupConstraints = YES;
