@@ -592,11 +592,20 @@ extension MeViewController : UITableViewDataSource {
                 if indexPath.row == 0 {
                     let cell = tableView.dequeueReusableCellWithIdentifier(mePhotoTableViewCell, forIndexPath: indexPath) as! MePhotoTableViewCell
                     cell.avatarImageView.backgroundColor = UIColor.init(hexString: "e7e7e7")
-                    let imageArray = UserInfo.sharedInstance().avatar.componentsSeparatedByString("?")
-                     cell.avatarImageView.sd_setImageWithURL(NSURL.init(string: imageArray[0].stringByAppendingString(HomeDetailCovertImageSize)), placeholderImage: nil, completed: { (image
-                        , error, type, url) in
-                        UserInfo.saveCacheImage(image, withName: "headImage.jpg")
-                    })
+                    
+                    if (UserInfo.imageForName("coverPhoto") != nil) {
+                        let coverImage = UserInfo.imageForName("coverPhoto")
+                        let sizeImage = coverImage.resizeImage(coverImage, newSize: CGSizeMake(1065, 1065))
+                        let image = UIImage.getImageFromImage(sizeImage, subImageSize: CGSizeMake(1065, 708), subImageRect: CGRectMake(0, 0, 1065, 708))
+                        
+                        cell.avatarImageView.image = image
+                    }else{
+                        let imageArray = UserInfo.sharedInstance().avatar.componentsSeparatedByString("?")
+                        cell.avatarImageView.sd_setImageWithURL(NSURL.init(string: imageArray[0].stringByAppendingString(HomeDetailCovertImageSize)), placeholderImage: nil, completed: { (image
+                            , error, type, url) in
+                            UserInfo.saveCacheImage(image, withName: "coverPhoto")
+                        })
+                    }
                     cell.avatarImageView.autoresizingMask = UIViewAutoresizing.FlexibleTopMargin;
                     if UserExtenModel.shareInstance().completeness != nil {
                         cell.cofigLoginCell(UserInfo.sharedInstance().real_name, infoCom: UserInfo.sharedInstance().job_label,compass: UserExtenModel.shareInstance().completeness)

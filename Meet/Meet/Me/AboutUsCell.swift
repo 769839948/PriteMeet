@@ -32,15 +32,12 @@ class AboutUsCell: UITableViewCell {
         titleLabel.font = AboutUsTitleFont
         titleLabel.numberOfLines = 0
         titleLabel.sizeToFit()
-        titleLabel.lineBreakMode = .ByWordWrapping
         titleLabel.textColor = UIColor.init(hexString: AboutUsCellTitleColor)
         infoView.addSubview(titleLabel)
         
         infoLabel = UILabel()
         infoLabel.font = AboutUsInfoFont
         infoLabel.numberOfLines = 0
-//        infoLabel.sizeToFit()
-        infoLabel.lineBreakMode = .ByWordWrapping
         infoLabel.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         infoView.addSubview(infoLabel)
         

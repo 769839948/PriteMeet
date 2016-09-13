@@ -38,7 +38,6 @@
     //http://7xsatk.com1.z0.glb.clouddn.com/o_1apsial4q1lca41q17vccc81sice.jpg?imageView2/1/w/1065/h/708
    
     
-    __weak typeof(self) weakSelf = self;
     if (_cycleScrollView == nil) {
         _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(10, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355) delegate:self placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(ScreenWidth - 20, (ScreenWidth - 20)*236/355)]];
         _cycleScrollView.layer.cornerRadius = 5.0;

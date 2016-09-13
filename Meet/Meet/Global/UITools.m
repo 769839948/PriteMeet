@@ -164,11 +164,11 @@ static UITools *tools = nil;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeCustomView;
-    hud.bezelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+    hud.bezelView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
     hud.label.numberOfLines = 0;
+    hud.label.textColor = [UIColor whiteColor];
     hud.label.font = CustomViewFont;
     hud.label.text = message;
-//    hud.margin = 10.f;
     hud.removeFromSuperViewOnHide = YES;
     if (autoHide) {
         [hud hideAnimated:YES afterDelay:1.0f];

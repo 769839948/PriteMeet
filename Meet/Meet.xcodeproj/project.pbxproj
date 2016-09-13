@@ -181,6 +181,9 @@
 		1FD13B311D869DEB0035760D /* FSVideoCameraView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FD13B211D869DEB0035760D /* FSVideoCameraView.xib */; };
 		1FD13B321D869DEB0035760D /* FusumaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD13B221D869DEB0035760D /* FusumaViewController.swift */; };
 		1FD13B341D869DEB0035760D /* FusumaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FD13B241D869DEB0035760D /* FusumaViewController.xib */; };
+		1FD13B371D86D88A0035760D /* UIImage+Crop.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD13B361D86D88A0035760D /* UIImage+Crop.m */; };
+		1FD13B391D879CE30035760D /* PhotosAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD13B381D879CE30035760D /* PhotosAlbumViewController.swift */; };
+		1FD13B3B1D87D0340035760D /* UIImage+Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD13B3A1D87D0340035760D /* UIImage+Crop.swift */; };
 		1FD97BBA1D55DBF300556568 /* OrderApplyMeetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BB91D55DBF300556568 /* OrderApplyMeetTableViewCell.swift */; };
 		1FD97BBC1D55E1A900556568 /* OrderApplyIntroductionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BBB1D55E1A900556568 /* OrderApplyIntroductionCell.swift */; };
 		1FD97BBF1D55E41700556568 /* OrderApplyInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BBD1D55E41700556568 /* OrderApplyInfoTableViewCell.swift */; };
@@ -625,6 +628,10 @@
 		1FD13B211D869DEB0035760D /* FSVideoCameraView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FSVideoCameraView.xib; sourceTree = "<group>"; };
 		1FD13B221D869DEB0035760D /* FusumaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FusumaViewController.swift; sourceTree = "<group>"; };
 		1FD13B241D869DEB0035760D /* FusumaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FusumaViewController.xib; sourceTree = "<group>"; };
+		1FD13B351D86D88A0035760D /* UIImage+Crop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Crop.h"; sourceTree = "<group>"; };
+		1FD13B361D86D88A0035760D /* UIImage+Crop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Crop.m"; sourceTree = "<group>"; };
+		1FD13B381D879CE30035760D /* PhotosAlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosAlbumViewController.swift; sourceTree = "<group>"; };
+		1FD13B3A1D87D0340035760D /* UIImage+Crop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Crop.swift"; sourceTree = "<group>"; };
 		1FD97BB91D55DBF300556568 /* OrderApplyMeetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderApplyMeetTableViewCell.swift; path = ../Views/OrderApplyMeetTableViewCell.swift; sourceTree = "<group>"; };
 		1FD97BBB1D55E1A900556568 /* OrderApplyIntroductionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderApplyIntroductionCell.swift; path = ../Views/OrderApplyIntroductionCell.swift; sourceTree = "<group>"; };
 		1FD97BBD1D55E41700556568 /* OrderApplyInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderApplyInfoTableViewCell.swift; path = ../Views/OrderApplyInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -934,6 +941,7 @@
 				1F3868451D2617FD00569032 /* UIViewController+NavigationBar.swift */,
 				1FAA07951D3D05B00017F3E3 /* String+Class.swift */,
 				1F2F43701D83CDBD00C370BA /* IPhoneDevice.swift */,
+				1FD13B3A1D87D0340035760D /* UIImage+Crop.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -1005,6 +1013,8 @@
 				1F810E8C1D4F01EE008A5EF1 /* UIView+DottedLineView.m */,
 				1F810EC81D51F5D0008A5EF1 /* UIViewController+TalKingData.h */,
 				1F810EC91D51F5D0008A5EF1 /* UIViewController+TalKingData.m */,
+				1FD13B351D86D88A0035760D /* UIImage+Crop.h */,
+				1FD13B361D86D88A0035760D /* UIImage+Crop.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1382,6 +1392,7 @@
 				DABF8AF91CEAE71100CA2A1D /* SendEmailViewController.h */,
 				DABF8AFA1CEAE71100CA2A1D /* SendEmailViewController.m */,
 				1FAA08081D41CEE80017F3E3 /* BlackListViewController.swift */,
+				1FD13B381D879CE30035760D /* PhotosAlbumViewController.swift */,
 				1FFEE34C1D7827B600EEC61F /* HightLightViewController.swift */,
 			);
 			name = ViewController;
@@ -2356,6 +2367,7 @@
 				1F810ECA1D51F5D0008A5EF1 /* UIViewController+TalKingData.m in Sources */,
 				1FFEE5391D7A683200EEC61F /* Cache.swift in Sources */,
 				1FC4C08B1D0D590E00E4BB33 /* MeViewController.swift in Sources */,
+				1FD13B391D879CE30035760D /* PhotosAlbumViewController.swift in Sources */,
 				DAF5C8821CE5B95000DA7901 /* CoreTextData.m in Sources */,
 				1FFEE5521D7A683200EEC61F /* NVActivityIndicatorAnimationBallGridPulse.swift in Sources */,
 				1F6850361CFFD77A007F3C07 /* BaseTableViewCell.m in Sources */,
@@ -2400,6 +2412,7 @@
 				1FF30A331D31ECF40051333F /* ScrollingNavbar+Sizes.swift in Sources */,
 				1FFEE5501D7A683200EEC61F /* NVActivityIndicatorAnimationBallClipRotatePulse.swift in Sources */,
 				1F28812D1D2E5E9A00713E9B /* ServiceViewModel.m in Sources */,
+				1FD13B371D86D88A0035760D /* UIImage+Crop.m in Sources */,
 				1F9E93171D0D8B4D003ED7AF /* SwiftDefine.swift in Sources */,
 				1FFEE5641D7A683200EEC61F /* NVActivityIndicatorAnimationLineScalePulseOut.swift in Sources */,
 				1F68502C1CFFD458007F3C07 /* SectionInfoTableViewCell.m in Sources */,
@@ -2438,6 +2451,7 @@
 				1F79BAE31D09248B00814DED /* ZHPickView.m in Sources */,
 				1FFEE56A1D7A683200EEC61F /* NVActivityIndicatorAnimationTriangleSkewSpin.swift in Sources */,
 				1FA4E5941CFDF931002345C1 /* NSString+StringSize.m in Sources */,
+				1FD13B3B1D87D0340035760D /* UIImage+Crop.swift in Sources */,
 				1F293D941D13CB290063A9DA /* AboutDetailViewController.swift in Sources */,
 				1FF3C50E1D2B8A0E00BE89A9 /* InviteTitleTableViewCell.swift in Sources */,
 				1FFEE4D61D7A682A00EEC61F /* PhotoBrowser+PBType.swift in Sources */,

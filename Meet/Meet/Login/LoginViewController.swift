@@ -120,6 +120,7 @@ class LoginViewController: UIViewController {
         }else{
             loginButton.frame = CGRectMake(36, (ScreenHeight - 200 - 96)/2 + 200, 70, 46)
         }
+        originFrame = self.loginButton.frame
         contentView.addSubview(loginButton)
         
         let comfigLabel = UILabel()
@@ -216,7 +217,6 @@ class LoginViewController: UIViewController {
         // 获取键盘信息
         let keyboardinfo = notification.userInfo![UIKeyboardFrameBeginUserInfoKey]
         keyboardHeight = (keyboardinfo?.CGRectValue.size.height)!
-        originFrame = self.loginButton.frame
         let frame = self.loginButton.frame
         UIView.animateWithDuration(0.25, animations: {
             if IPHONE_5_Height {

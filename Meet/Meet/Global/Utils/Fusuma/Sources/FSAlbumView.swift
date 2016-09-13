@@ -38,11 +38,11 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
         case Up
         case Down
     }
-    let imageCropViewOriginalConstraintTop: CGFloat = 50
+    let imageCropViewOriginalConstraintTop: CGFloat = 0
     let imageCropViewMinimalVisibleHeight: CGFloat  = 100
     var dragDirection = Direction.Up
     var imaginaryCollectionViewOffsetStartPosY: CGFloat = 0.0
-    
+
     var cropBottomY: CGFloat  = 0.0
     var dragStartPos: CGPoint = CGPointZero
     let dragDiff: CGFloat     = 20.0
@@ -54,10 +54,10 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
     
     func initialize() {
         
-        if images != nil {
-            
-            return
-        }
+//        if images != nil {
+//            
+//            return
+//        }
 		
 		self.hidden = false
         
@@ -66,13 +66,13 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
         self.addGestureRecognizer(panGesture)
         
         collectionViewConstraintHeight.constant = self.frame.height - imageCropView.frame.height - imageCropViewOriginalConstraintTop
-        imageCropViewConstraintTop.constant = 50
+        imageCropViewConstraintTop.constant = 0
         dragDirection = Direction.Up
         
-        imageCropViewContainer.layer.shadowColor   = UIColor.blackColor().CGColor
-        imageCropViewContainer.layer.shadowRadius  = 30.0
-        imageCropViewContainer.layer.shadowOpacity = 0.9
-        imageCropViewContainer.layer.shadowOffset  = CGSizeZero
+//        imageCropViewContainer.layer.shadowColor   = UIColor.blackColor().CGColor
+//        imageCropViewContainer.layer.shadowRadius  = 30.0
+//        imageCropViewContainer.layer.shadowOpacity = 0.9
+//        imageCropViewContainer.layer.shadowOffset  = CGSizeZero
         
         collectionView.registerNib(UINib(nibName: "FSAlbumViewCell", bundle: NSBundle(forClass: self.classForCoder)), forCellWithReuseIdentifier: "FSAlbumViewCell")
 		collectionView.backgroundColor = fusumaBackgroundColor
@@ -81,15 +81,14 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
         checkPhotoAuth()
         
         // Sorting condition
-        let options = PHFetchOptions()
-        options.sortDescriptors = [
-            NSSortDescriptor(key: "creationDate", ascending: false)
-        ]
+//        let options = PHFetchOptions()
+//        options.sortDescriptors = [
+//            NSSortDescriptor(key: "creationDate", ascending: false)
+//        ]
         
-        images = PHAsset.fetchAssetsWithMediaType(.Image, options: options)
+//        images = PHAsset.fetchAssetsWithMediaType(.Image, options: options)
         
         if images.count > 0 {
-            
             changeImage(images[0] as! PHAsset)
             collectionView.reloadData()
             collectionView.selectItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.None)

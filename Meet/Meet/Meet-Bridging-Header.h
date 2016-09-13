@@ -64,5 +64,8 @@
 #import "PlaceholderText.h"
 #import "TZImagePickerController.h"
 #import "SDPhotoBrowser.h"
-
+#import "TZImageManager.h"
+#import "TZAssetModel.h"
+#import "TZAssetCell.h"
+#import "UIImage+Crop.h"
 

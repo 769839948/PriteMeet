@@ -29,6 +29,7 @@
 #import <SDWebImage/UIButton+WebCache.h>
 #import "IQKeyboardManager.h"
 #import "TZImagePickerController.h"
+#import "UIImage+Crop.h"
 
 typedef NS_ENUM(NSUInteger, SectonContentType) {
     SectionProfile,
@@ -54,7 +55,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     RowConstellation,
 };
 
-@interface MyProfileViewController () <UIPickerViewDataSource, UIPickerViewDelegate,UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UISheetViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate, TZImagePickerControllerDelegate,FusumaDelegate> {
+@interface MyProfileViewController () <UIPickerViewDataSource, UIPickerViewDelegate,UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate, TZImagePickerControllerDelegate,PhotosAlbumViewControllerDelegate> {
     
     __weak IBOutlet UIView *_bottomPickerView;
     __weak IBOutlet UIDatePicker *_datePicker;
@@ -861,8 +862,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 cell = [nibs lastObject];
                 
             }
-            
-            
             if ([UserInfo sharedInstance].avatar != nil && ![[UserInfo sharedInstance].avatar isEqualToString:@""]) {
                 NSArray *photoArray = [[UserInfo sharedInstance].avatar componentsSeparatedByString:@"?"];
                 NSString *photoUrl = [photoArray[0] stringByAppendingString:MyProfilePhotoSize];
@@ -1083,9 +1082,16 @@ typedef NS_ENUM(NSUInteger, RowType) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    if ((indexPath.section == 0) && (indexPath.row == RowName)) {
+        if ([[UserExtenModel shareInstance].auth_info rangeOfString:@"2"].location != NSNotFound) {
+            [UITools showMessageToView:self.view message:@"实名认证后姓名不可再更改哦" autoHide:YES];
+        }
+        return;
+    }
+    
     if ((indexPath.section == 0) && (indexPath.row == RowJobLabel)) {
         if ([[UserExtenModel shareInstance].auth_info rangeOfString:@"1"].location != NSNotFound) {
-            [UIAlertController shwoAlertControl:self title:nil message:@"职业信息变更后须重新认证哦" cancel:@"取消" doneTitle:@"确定" cancelAction:^{
+            [UIAlertController shwoAlertControl:self title:nil message:@"职业信息变更后须重新认证哦" cancel:@"取消" doneTitle:@"确认修改" cancelAction:^{
                 
             } doneAction:^{
                 LabelAndTextFieldCell *cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -1095,6 +1101,8 @@ typedef NS_ENUM(NSUInteger, RowType) {
         }
         return;
     }
+    
+    
     
     if (indexPath.section == 0 || indexPath.section == 1) {
         if ((indexPath.section == 0 && indexPath.row != RowPhoneNumber)|| indexPath.section == 1) {
@@ -1218,15 +1226,16 @@ typedef NS_ENUM(NSUInteger, RowType) {
 
 - (void)selectPhotoImage
 {
-    FusumaViewController *imagePicker = [[FusumaViewController alloc] init];
-    imagePicker.delegate = self;
-    [self presentViewController:imagePicker animated:YES completion:^{
+    PhotosAlbumViewController *photosAlbum = [[PhotosAlbumViewController alloc] init];
+    UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:photosAlbum];
+    photosAlbum.delegate = self;
+    [self presentViewController:controller animated:YES completion:^{
         
     }];
 }
 
-#pragma mark - FusumaDelegate
-- (void)fusumaImageSelected:(UIImage * _Nonnull)image
+#pragma mark - PhotosAlbumControllerDelegate
+- (void)albumImageSelected:(UIImage * _Nonnull)image
 {
     self.complyApplyCodeSuccess = YES;
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isNewUser"])
@@ -1237,7 +1246,10 @@ typedef NS_ENUM(NSUInteger, RowType) {
         ProfilePhotoTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         cell.profilePhoto.image = image;
     }
-    
+//    CGSize imageSize = image.size;
+    UIImage *originImage = [UserInfo imageForName:@"coverPhoto"];
+    UIImage *cropImage = [UIImage resizeImage:image withWidth:1065 withHeight:768];
+    [UserInfo saveCacheImage:cropImage withName:@"coverPhoto"];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         ///头像上传后再保存到本地 刷新
         [_viewModel uploadImage:image  isApplyCode:NO success:^(NSDictionary *object) {
@@ -1247,10 +1259,12 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 [UserInfo synchronize];
             }else{
                 [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                [UserInfo saveCacheImage:originImage withName:@"coverPhoto"];
                 [[UITools shareInstance] showMessageToView:self.view message:@"上传失败" autoHide:YES];
             }
         } fail:^(NSDictionary *object) {
             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            [UserInfo saveCacheImage:originImage withName:@"coverPhoto"];
             [[UITools shareInstance] showMessageToView:self.view message:@"上传失败" autoHide:YES];
         } loadingString:^(NSString *str) {
             
@@ -1261,22 +1275,22 @@ typedef NS_ENUM(NSUInteger, RowType) {
     }];
 }
 
-- (void)fusumaDismissedWithImage:(UIImage * _Nonnull)image
+- (void)albumImageDismissedWithImage:(UIImage * _Nonnull)image
 {
     
 }
 
-- (void)fusumaVideoCompletedWithFileURL:(NSURL * _Nonnull)fileURL
+- (void)albumImageVideoCompletedWithFileURL:(NSURL * _Nonnull)fileURL
 {
     
 }
 
-- (void)fusumaCameraRollUnauthorized
+- (void)albumImageCameraRollUnauthorized
 {
     
 }
 
-- (void)fusumaClosed
+- (void)albumImageClosed
 {
     
 }
