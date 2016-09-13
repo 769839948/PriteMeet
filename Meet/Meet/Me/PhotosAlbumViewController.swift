@@ -48,27 +48,9 @@ class PhotosAlbumViewController: UIViewController {
         }
     }
     
-    
-//    func getAllAlbum() {
-//        let allPhotosOptions = PHFetchOptions()
-//        allPhotosOptions.sortDescriptors = [NSSortDescriptor.init(key: "creationDate", ascending: true)]
-//        let allPhotos = PHAsset.fetchAssetsWithOptions(allPhotosOptions)
-//        let smartAlbums = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .AlbumRegular, options: nil)
-//        let smart = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .SmartAlbumFavorites, options: nil)
-//        listArray.addObject(allPhotos.objectAtIndex(0))
-//        for album in 0...smartAlbums.count - 1 {
-//            listArray.addObject(smartAlbums.objectAtIndex(album))
-//        }
-//        
-//        for album in 0...smart.count - 1 {
-//            listArray.addObject(smart.objectAtIndex(album))
-//        }
-//        PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
-//    }
-    
     func setUpTableView() {
         if tableView == nil {
-            tableView = UITableView(frame: CGRectMake(0, 0, ScreenWidth, ScreenHeight), style: .Plain)
+            tableView = UITableView(frame: CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64), style: .Plain)
             tableView.delegate = self
             tableView.dataSource = self
             tableView.rowHeight = 90

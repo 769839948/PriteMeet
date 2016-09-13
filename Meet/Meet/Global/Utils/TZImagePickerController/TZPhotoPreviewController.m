@@ -12,6 +12,7 @@
 #import "UIView+Layout.h"
 #import "TZImagePickerController.h"
 #import "TZImageManager.h"
+#import "UIImage+PureColor.h"
 
 @interface TZPhotoPreviewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate> {
     UICollectionView *_collectionView;
@@ -130,8 +131,8 @@
 //        if (_isSelectOriginalPhoto) [self showPhotoBytes];
 //    }
     _selectButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 44, 44)];
-    [_selectButton setImage:[UIImage imageNamedFromMyBundle:_tzImagePickerVc.photoDefImageName] forState:UIControlStateNormal];
-    [_selectButton setImage:[UIImage imageNamedFromMyBundle:_tzImagePickerVc.photoSelImageName] forState:UIControlStateSelected];
+    [_selectButton setImage:[UIImage imageNamed:@"photo_def_previewVc"] forState:UIControlStateNormal];
+    [_selectButton setImage:[UIImage imageNamed:@"photo_sel_previewVc"] forState:UIControlStateSelected];
     [_selectButton addTarget:self action:@selector(select:) forControlEvents:UIControlEventTouchUpInside];
     [_toolBar addSubview:_selectButton];
     
@@ -142,7 +143,9 @@
     [_okButton setTitle:@"完成" forState:UIControlStateNormal];
     [_okButton setTitleColor:_tzImagePickerVc.oKButtonTitleColorNormal forState:UIControlStateNormal];
     
-    _numberImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamedFromMyBundle:_tzImagePickerVc.photoNumberIconImageName]];
+    _numberImageView = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:[UIColor colorWithHexString:MeProfileCollectViewItemSelect] size:CGSizeMake(26, 17)]];
+    _numberImageView.layer.cornerRadius = 9.0;
+    _numberImageView.layer.masksToBounds = YES;
     _numberImageView.frame = CGRectMake(self.view.tz_width - 56 - 29, 23.5, 26, 17);
     _numberImageView.hidden = _tzImagePickerVc.selectedModels.count <= 0;
     _numberImageView.backgroundColor = [UIColor clearColor];

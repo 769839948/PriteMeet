@@ -14,6 +14,7 @@
 #import "UIView+Layout.h"
 #import "TZImageManager.h"
 #import "TZVideoPlayerController.h"
+#import "UIImage+PureColor.h"
 
 
 @interface TZPhotoPickerController ()<UICollectionViewDataSource,UICollectionViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIAlertViewDelegate> {
@@ -215,7 +216,9 @@ static CGSize AssetGridThumbnailSize;
     [_okButton setTitleColor:tzImagePickerVc.oKButtonTitleColorDisabled forState:UIControlStateDisabled];
     _okButton.enabled = tzImagePickerVc.selectedModels.count;
     
-    _numberImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamedFromMyBundle:tzImagePickerVc.photoNumberIconImageName]];
+    _numberImageView = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:[UIColor colorWithHexString:MeProfileCollectViewItemSelect] size:CGSizeMake(24, 17)]];
+    _numberImageView.layer.cornerRadius = 9.0;
+    _numberImageView.layer.masksToBounds = YES;
     _numberImageView.frame = CGRectMake(self.view.tz_width - 56 - 24, 23.5, 24, 17);
     _numberImageView.hidden = tzImagePickerVc.selectedModels.count <= 0;
     _numberImageView.backgroundColor = [UIColor clearColor];

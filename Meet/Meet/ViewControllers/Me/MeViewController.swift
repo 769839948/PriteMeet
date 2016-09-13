@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 import MBProgressHUD
-
+import SDWebImage
 
 let aboutUsStr = "您的个人介绍空空如也，完善后可大大提高约见成功率哦。"
 
@@ -36,6 +36,8 @@ class MeViewController: UIViewController {
     
     var hightImagesArray:NSMutableArray = NSMutableArray()
     
+    var plachImageList:NSMutableArray = NSMutableArray()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpTableView()
@@ -52,7 +54,6 @@ class MeViewController: UIViewController {
         super.viewWillAppear(animated)
         self.addLineNavigationBottom()
         self.navigationController?.navigationBar.translucent = false
-        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         self.setNavigationBar()
         if UserInfo.isLoggedIn() {
             if self.tableView.style == .Plain {
@@ -128,6 +129,7 @@ class MeViewController: UIViewController {
             UserExtenModel.synchronizeWithDic(dic)
             self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 1, inSection: 0)], withRowAnimation: .Automatic)
             self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 1, inSection: 1)], withRowAnimation: .Automatic)
+            self.plachImageListDownLoad()
             }, fail: { (dic) in
                 
             }, loadingString: { (msg) in
@@ -183,6 +185,32 @@ class MeViewController: UIViewController {
         self.navigationController!.pushViewController(settingVC, animated:true)
     }
     
+    
+    func plachImageListDownLoad(){
+        let manage = SDWebImageManager()
+        let plachImageSize = CGSizeMake(ScreenWidth - 20, (ScreenWidth - 20)*236/355)
+        let plachImageWidth = Int(plachImageSize.width)
+        let plachImageHeight = Int(plachImageSize.height)
+        let image = UIImage.init(color: UIColor.clearColor(), size: plachImageSize)
+        for model in UserExtenModel.shareInstance().head_photo_list {
+            let url = Head_Photo_List.mj_objectWithKeyValues(model) as Head_Photo_List
+            plachImageList.addObject(image)
+            let urlStr = NSURL.init(string: url.photo.stringByAppendingString("?imageView2/1/w/\(plachImageWidth)/h/\(plachImageHeight)"))
+            manage.downloadImageWithURL(urlStr, options: .RetryFailed, progress: { (start, end) in
+                
+                }, completed: { (image, error, cache, finist, url) in
+                    if image != nil {
+                        let urlString = url.absoluteString.componentsSeparatedByString("?")
+                        for urlIndex in  0...UserExtenModel.shareInstance().head_photo_list.count - 1 {
+                            let headModel = Head_Photo_List.mj_objectWithKeyValues(UserExtenModel.shareInstance().head_photo_list[urlIndex])
+                            if urlString[0] == headModel.photo {
+                                self.plachImageList.replaceObjectAtIndex(urlIndex, withObject: image)
+                            }
+                        }
+                    }
+            })
+        }
+    }
     
     func downLoadUserWeChatImage(){
         NetWorkObject.downloadTask(UserInfo.sharedInstance().avatar, progress: { (Progress) in
@@ -382,12 +410,9 @@ class MeViewController: UIViewController {
         pbVC.realName = UserInfo.sharedInstance().real_name
         pbVC.jobName = UserInfo.sharedInstance().job_label
         let imageArray = UserExtenModel.shareInstance().head_photo_list
-        let plachImage = UIImage.init(color: UIColor.clearColor(), size: CGSizeMake(100, 100))
-
         var imageCount:NSInteger = 0
         for image in imageArray {
-            
-            models.append(PhotoBrowser.PhotoModel(hostHDImgURL: image.photo, hostThumbnailImg: plachImage, titleStr: ("\(image.photo_id)"), descStr: nil, sourceView: nil))
+            models.append(PhotoBrowser.PhotoModel(hostHDImgURL: image.photo, hostThumbnailImg: plachImageList[imageCount] as! UIImage, titleStr: ("\(image.photo_id)"), descStr: nil, sourceView: nil))
             imageCount = imageCount + 1
         }
 

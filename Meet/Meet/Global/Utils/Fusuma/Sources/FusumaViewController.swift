@@ -111,6 +111,7 @@ public final class FusumaViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "完成", style: .Plain, target: self, action: #selector(FusumaViewController.doneButtonPressed(_:)))
         let bundle = NSBundle(forClass: self.classForCoder)
         
+        self.navigationController!.fd_fullscreenPopGestureRecognizer.enabled = false
         // Get the custom button images if they're set
         let albumImage = fusumaAlbumImage != nil ? fusumaAlbumImage : UIImage(named: "ic_insert_photo", inBundle: bundle, compatibleWithTraitCollection: nil)
         let cameraImage = fusumaCameraImage != nil ? fusumaCameraImage : UIImage(named: "ic_photo_camera", inBundle: bundle, compatibleWithTraitCollection: nil)
