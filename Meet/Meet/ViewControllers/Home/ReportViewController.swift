@@ -33,38 +33,38 @@ class ReportViewController: UIViewController {
     }
 
     func setUpTableView(){
-        self.tableView = UITableView(frame: CGRectZero, style: UITableViewStyle.Plain)
+        self.tableView = UITableView(frame: CGRect.zero, style: UITableViewStyle.plain)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.view.addSubview(self.tableView)
         self.hideExcessLine(tableView)
-        self.tableView.separatorStyle = .None
-        self.tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+        self.tableView.separatorStyle = .none
+        self.tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
         }
     }
     
     func setUpNavigationItem(){
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "navigationbar_back")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(ReportViewController.leftItemPress))
-        self.navigationItem.rightBarButtonItem  = UIBarButtonItem(title: "提交", style: .Plain, target: self, action: #selector(ReportViewController.reportBtnPress(_:)))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "navigationbar_back")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(ReportViewController.leftItemPress))
+        self.navigationItem.rightBarButtonItem  = UIBarButtonItem(title: "提交", style: .plain, target: self, action: #selector(ReportViewController.reportBtnPress(_:)))
         self.navigationController?.navigationBar.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
     }
     
     func leftItemPress(){
-        let viewControllers:NSArray = (self.navigationController?.viewControllers)!
-        self.navigationController?.popToViewController(viewControllers.objectAtIndex(1) as! UIViewController, animated: true)
+        let viewControllers:NSArray = (self.navigationController?.viewControllers)! as NSArray
+        _ = self.navigationController?.popToViewController(viewControllers.object(at: 1) as! UIViewController, animated: true)
     }
     
-    func reportBtnPress(sender:UIBarButtonItem) {
+    func reportBtnPress(_ sender:UIBarButtonItem) {
 
         var reportString = ""
         for index in 0...reportArray.count - 1 {
             if self.selectIndexPaths[index] as! Bool  {
-                reportString = reportString.stringByAppendingString((ProfileKeyAndValue.shareInstance().appDic as NSDictionary).objectForKey("report")?.objectForKey(reportArray[index] as! String) as! String)
-                reportString = reportString.stringByAppendingString(",")
+                reportString = reportString + (((ProfileKeyAndValue.shareInstance().appDic as NSDictionary).object(forKey: "report") as AnyObject).object(forKey: reportArray[index] as! String) as! String)
+                reportString = reportString + ","
             }
         }
         viewModel.makeReport(uid, report: reportString, succes: { (dic) in
@@ -73,7 +73,7 @@ class ReportViewController: UIViewController {
             }
             self.leftItemPress()
             }) { (dic) in
-            UITools.showMessageToView(self.view, message: "投诉失败", autoHide: true)
+            UITools.showMessage(to: self.view, message: "投诉失败", autoHide: true)
         }
     }
     
@@ -96,12 +96,12 @@ class ReportViewController: UIViewController {
 }
 
 extension ReportViewController : UITableViewDelegate {
-    func  tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if  selectIndexPaths[indexPath.row] as! Bool{
-            selectIndexPaths[indexPath.row] = false
+    func  tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if  selectIndexPaths[(indexPath as NSIndexPath).row] as! Bool{
+            selectIndexPaths[(indexPath as NSIndexPath).row] = false
         }else{
             for index in 0...selectIndexPaths.count - 1 {
-                if index == indexPath.row {
+                if index == (indexPath as NSIndexPath).row {
                     selectIndexPaths[index] = true
                 }else{
                     selectIndexPaths[index] = false
@@ -111,24 +111,24 @@ extension ReportViewController : UITableViewDelegate {
         }
         self.tableView.reloadData()
     }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
 }
 
 extension ReportViewController : UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return reportArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdf = "ReportTableViewCell"
-        var cell = tableView.dequeueReusableCellWithIdentifier(cellIdf)
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdf)
         if  cell == nil {
-            cell = UITableViewCell.init(style: .Default, reuseIdentifier: cellIdf)
+            cell = UITableViewCell.init(style: .default, reuseIdentifier: cellIdf)
         }else{
             while cell?.contentView.subviews.last != nil {
                 cell?.contentView.subviews.last?.removeFromSuperview()
@@ -136,27 +136,27 @@ extension ReportViewController : UITableViewDataSource {
         }
         let checkImage = UIImageView()
         checkImage.image = UIImage.init(named: "report_select")
-        checkImage.frame = CGRectMake(ScreenWidth - 45, 15, 19, 19)
+        checkImage.frame = CGRect(x: ScreenWidth - 45, y: 15, width: 19, height: 19)
         cell?.contentView.addSubview(checkImage)
-        if selectIndexPaths[indexPath.row] as! Bool {
-            checkImage.hidden = false
+        if selectIndexPaths[(indexPath as NSIndexPath).row] as! Bool {
+            checkImage.isHidden = false
             cell?.textLabel?.textColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
         }else{
-            checkImage.hidden = true
+            checkImage.isHidden = true
             cell?.textLabel?.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         }
         let lineLabel = UILabel()
         lineLabel.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
         cell?.contentView.addSubview(lineLabel)
-        lineLabel.snp_makeConstraints { (make) in
-            make.left.equalTo((cell?.contentView.snp_left)!).offset(20)
-            make.right.equalTo((cell?.contentView.snp_right)!).offset(-20)
-            make.bottom.equalTo((cell?.contentView.snp_bottom)!).offset(0)
+        lineLabel.snp.makeConstraints { (make) in
+            make.left.equalTo((cell?.contentView.snp.left)!).offset(20)
+            make.right.equalTo((cell?.contentView.snp.right)!).offset(-20)
+            make.bottom.equalTo((cell?.contentView.snp.bottom)!).offset(0)
             make.height.equalTo(0.5)
         }
-        cell?.textLabel?.text = reportArray[indexPath.row] as? String
+        cell?.textLabel?.text = reportArray[(indexPath as NSIndexPath).row] as? String
         cell?.textLabel?.font = LoginCodeLabelFont
-        cell?.selectionStyle = .None
+        cell?.selectionStyle = .none
         return cell!
     }
 }

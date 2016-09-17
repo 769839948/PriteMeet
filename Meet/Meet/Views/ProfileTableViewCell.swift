@@ -13,13 +13,13 @@ class ProfileTableViewCell: UITableViewCell {
     @IBOutlet weak var profilePhoto: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
-        profilePhoto.userInteractionEnabled = false;
+        profilePhoto.isUserInteractionEnabled = false;
         profilePhoto.layer.masksToBounds = true;
         profilePhoto.layer.cornerRadius = 44.5;
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

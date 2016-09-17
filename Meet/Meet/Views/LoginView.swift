@@ -143,46 +143,46 @@ class LoginView: UIView {
         rightBtn.addTarget(self, action: #selector(LoginView.dismissView), forControlEvents: .TouchUpInside)
         loginCodeView.addSubview(rightBtn)
         
-        titleLable.snp_makeConstraints { (make) in
-            make.centerX.equalTo(loginCodeView.snp_centerX).offset(0)
-            make.top.equalTo(loginCodeView.snp_top).offset(51)
+        titleLable.snp.makeConstraints { (make) in
+            make.centerX.equalTo(loginCodeView.snp.centerX).offset(0)
+            make.top.equalTo(loginCodeView.snp.top).offset(51)
             make.height.equalTo(28)
         }
         
-        codeLabel.snp_makeConstraints { (make) in
-            make.centerX.equalTo(loginCodeView.snp_centerX).offset(0)
-            make.top.equalTo(titleLable.snp_bottom).offset(5)
+        codeLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(loginCodeView.snp.centerX).offset(0)
+            make.top.equalTo(titleLable.snp.bottom).offset(5)
             make.height.equalTo(20)
         }
         
-        checkLabel.snp_makeConstraints { (make) in
-            make.centerX.equalTo(loginCodeView.snp_centerX).offset(0)
-            make.top.equalTo(codeLabel.snp_bottom).offset(22)
+        checkLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(loginCodeView.snp.centerX).offset(0)
+            make.top.equalTo(codeLabel.snp.bottom).offset(22)
             make.size.equalTo(CGSizeMake(199, 50))
         }
         
-        applyCodeBtn.snp_makeConstraints { (make) in
-            make.top.equalTo(checkLabel.snp_bottom).offset(32)
-            make.centerX.equalTo(loginCodeView.snp_centerX).offset(0)
+        applyCodeBtn.snp.makeConstraints { (make) in
+            make.top.equalTo(checkLabel.snp.bottom).offset(32)
+            make.centerX.equalTo(loginCodeView.snp.centerX).offset(0)
             make.size.equalTo(CGSizeMake(96, 37))
         }
         
-        loginOldUser.snp_makeConstraints { (make) in
-            make.top.equalTo(applyCodeBtn.snp_bottom).offset(24)
-            make.centerX.equalTo(loginCodeView.snp_centerX).offset(0)
+        loginOldUser.snp.makeConstraints { (make) in
+            make.top.equalTo(applyCodeBtn.snp.bottom).offset(24)
+            make.centerX.equalTo(loginCodeView.snp.centerX).offset(0)
             make.height.equalTo(17)
         }
         
-        lineLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(loginOldUser.snp_bottom).offset(3)
-            make.centerX.equalTo(loginCodeView.snp_centerX).offset(0)
-            make.width.equalTo(loginOldUser.snp_width).offset(0)
+        lineLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(loginOldUser.snp.bottom).offset(3)
+            make.centerX.equalTo(loginCodeView.snp.centerX).offset(0)
+            make.width.equalTo(loginOldUser.snp.width).offset(0)
             make.height.equalTo(1)
         }
         
-        rightBtn.snp_makeConstraints { (make) in
-            make.right.equalTo(loginCodeView.snp_right).offset(-10)
-            make.top.equalTo(loginCodeView.snp_top).offset(9)
+        rightBtn.snp.makeConstraints { (make) in
+            make.right.equalTo(loginCodeView.snp.right).offset(-10)
+            make.top.equalTo(loginCodeView.snp.top).offset(9)
             make.size.equalTo(CGSizeMake(40, 40))
         }
 
@@ -225,33 +225,33 @@ class LoginView: UIView {
         proBtn.addTarget(self, action: #selector(LoginView.proBtnPress(_:)), forControlEvents: .TouchUpInside)
         loginOldUser.addSubview(proBtn)
 
-        label.snp_makeConstraints { (make) in
-            make.centerX.equalTo(loginOldUser.snp_centerX).offset(0)
-            make.top.equalTo(loginOldUser.snp_top).offset(60)
+        label.snp.makeConstraints { (make) in
+            make.centerX.equalTo(loginOldUser.snp.centerX).offset(0)
+            make.top.equalTo(loginOldUser.snp.top).offset(60)
             make.height.equalTo(25)
         }
         
-        mobileTextField.snp_makeConstraints { (make) in
-            make.centerX.equalTo(loginOldUser.snp_centerX).offset(0)
-            make.top.equalTo(label.snp_bottom).offset(29)
+        mobileTextField.snp.makeConstraints { (make) in
+            make.centerX.equalTo(loginOldUser.snp.centerX).offset(0)
+            make.top.equalTo(label.snp.bottom).offset(29)
             make.size.equalTo(CGSizeMake(199, 50))
         }
         
-        applyCodeBtn.snp_makeConstraints { (make) in
-            make.centerX.equalTo(loginOldUser.snp_centerX).offset(0)
-            make.top.equalTo(mobileTextField.snp_bottom).offset(42)
+        applyCodeBtn.snp.makeConstraints { (make) in
+            make.centerX.equalTo(loginOldUser.snp.centerX).offset(0)
+            make.top.equalTo(mobileTextField.snp.bottom).offset(42)
             make.size.equalTo(CGSizeMake(96, 37))
         }
         
-        comfigLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(loginOldUser.snp_left).offset(61)
-            make.top.equalTo(applyCodeBtn.snp_bottom).offset(26)
+        comfigLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(loginOldUser.snp.left).offset(61)
+            make.top.equalTo(applyCodeBtn.snp.bottom).offset(26)
             make.height.equalTo(17)
         }
         
-        proBtn.snp_makeConstraints { (make) in
-            make.left.equalTo(comfigLabel.snp_right).offset(10)
-            make.top.equalTo(applyCodeBtn.snp_bottom).offset(26)
+        proBtn.snp.makeConstraints { (make) in
+            make.left.equalTo(comfigLabel.snp.right).offset(10)
+            make.top.equalTo(applyCodeBtn.snp.bottom).offset(26)
             make.height.equalTo(17)
         }
         
@@ -305,33 +305,33 @@ class LoginView: UIView {
         
 
         
-        titleLabel.snp_makeConstraints { (make) in
-            make.centerX.equalTo(smsCodeView.snp_centerX).offset(0)
-            make.top.equalTo(smsCodeView.snp_top).offset(51)
+        titleLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(smsCodeView.snp.centerX).offset(0)
+            make.top.equalTo(smsCodeView.snp.top).offset(51)
             make.height.equalTo(28)
         }
         
-        smsCode.snp_makeConstraints { (make) in
-            make.centerX.equalTo(smsCodeView.snp_centerX).offset(0)
-            make.top.equalTo(titleLabel.snp_bottom).offset(30)
+        smsCode.snp.makeConstraints { (make) in
+            make.centerX.equalTo(smsCodeView.snp.centerX).offset(0)
+            make.top.equalTo(titleLabel.snp.bottom).offset(30)
             make.height.equalTo(20)
         }
         
-        phoneLabel.snp_makeConstraints { (make) in
-            make.centerX.equalTo(smsCodeView.snp_centerX).offset(0)
-            make.top.equalTo(smsCode.snp_bottom).offset(4)
+        phoneLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(smsCodeView.snp.centerX).offset(0)
+            make.top.equalTo(smsCode.snp.bottom).offset(4)
             make.height.equalTo(24)
         }
         
-        checkLabelSms.snp_makeConstraints { (make) in
-            make.centerX.equalTo(smsCodeView.snp_centerX).offset(0)
-            make.top.equalTo(phoneLabel.snp_bottom).offset(49)
+        checkLabelSms.snp.makeConstraints { (make) in
+            make.centerX.equalTo(smsCodeView.snp.centerX).offset(0)
+            make.top.equalTo(phoneLabel.snp.bottom).offset(49)
             make.size.equalTo(CGSizeMake(199, 50))
         }
         
-        checkCodeCallBack.snp_makeConstraints { (make) in
-            make.centerX.equalTo(smsCodeView.snp_centerX).offset(0)
-            make.top.equalTo(checkLabelSms.snp_bottom).offset(27)
+        checkCodeCallBack.snp.makeConstraints { (make) in
+            make.centerX.equalTo(smsCodeView.snp.centerX).offset(0)
+            make.top.equalTo(checkLabelSms.snp.bottom).offset(27)
             make.height.equalTo(20)
         }
     }
@@ -368,15 +368,15 @@ class LoginView: UIView {
         
         view.addSubview(navigationView)
         view.userInteractionEnabled = true
-        leftBtn.snp_makeConstraints { (make) in
-            make.left.equalTo(view.snp_left).offset(10)
-            make.top.equalTo(view.snp_top).offset(9)
+        leftBtn.snp.makeConstraints { (make) in
+            make.left.equalTo(view.snp.left).offset(10)
+            make.top.equalTo(view.snp.top).offset(9)
             make.size.equalTo(CGSizeMake(40, 40))
         }
         
-        rightBtn.snp_makeConstraints { (make) in
-            make.right.equalTo(view.snp_right).offset(-10)
-            make.top.equalTo(view.snp_top).offset(9)
+        rightBtn.snp.makeConstraints { (make) in
+            make.right.equalTo(view.snp.right).offset(-10)
+            make.top.equalTo(view.snp.top).offset(9)
             make.size.equalTo(CGSizeMake(40, 40))
         }
         

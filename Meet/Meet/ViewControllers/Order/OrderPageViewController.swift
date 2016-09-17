@@ -14,8 +14,8 @@ let kCellSpacing:CGFloat = 10
 typealias ReloadOrderNumber = () ->Void
 
 enum LoadType {
-    case Present
-    case Push
+    case present
+    case push
 }
 
 class OrderPageViewController: TYTabButtonPagerController {
@@ -38,9 +38,9 @@ class OrderPageViewController: TYTabButtonPagerController {
         self.title = "我的约见"
         pageViewControllers = [orderConfimViewController,orderPayViewController,orderMeetViewController,orderAllViewController]
         self.setUpPageViewControllerStyle()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(OrderPageViewController.reloadOtherCollectView(_:)), name: ReloadOrderCollectionView, object: nil)
-        if loadType == .Present {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "me_dismissBlack")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(OrderPageViewController.leftBtnPress(_:)))
+        NotificationCenter.default.addObserver(self, selector: #selector(OrderPageViewController.reloadOtherCollectView(_:)), name: NSNotification.Name(rawValue: ReloadOrderCollectionView), object: nil)
+        if loadType == .present {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "me_dismissBlack")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(OrderPageViewController.leftBtnPress(_:)))
         }else{
              self.setNavigationItemBack()
         }
@@ -49,13 +49,13 @@ class OrderPageViewController: TYTabButtonPagerController {
         // Do any additional setup after loading the view.
     }
     
-    func disMisstView(sendre:UINavigationItem) {
-        self.dismissViewControllerAnimated(true) { 
+    func disMisstView(_ sendre:UINavigationItem) {
+        self.dismiss(animated: true) { 
             
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationItemWhiteColorAndNotLine()
         self.removeBottomLine()
         self.reloadPageNumber()
@@ -70,16 +70,17 @@ class OrderPageViewController: TYTabButtonPagerController {
             stringSize = stringSize + width
         }
         self.adjustStatusBarHeight = true
-        let count = (viewModel.orderPageControllerTitle() as NSArray).count - 1
-        let cellEdging = (ScreenWidth - kCollectionLayoutEdging * 2 - stringSize - CGFloat(count) * kCellSpacing)/8
+        _ = (viewModel.orderPageControllerTitle() as NSArray).count - 1
+//        let cellEdging = (ScreenWidth - kCollectionLayoutEdging * 2 - stringSize - CGFloat(count) * kCellSpacing) / 8
+        let cellEdging:CGFloat = 10;
         self.collectionLayoutEdging = kCollectionLayoutEdging
-        self.pagerBarColor = UIColor.redColor()
+        self.pagerBarColor = UIColor.red
         self.cellSpacing = kCellSpacing
         self.cellEdging = cellEdging
         self.progressHeight = 0.5
         self.progressEdging = 0
         self.contentTopEdging = 49
-        self.collectionViewBar.scrollEnabled = false
+        self.collectionViewBar.isScrollEnabled = false
         self.normalTextFont = LoginCodeLabelFont
         self.selectedTextFont = LoginCodeLabelFont
         self.normalTextColor = UIColor.init(hexString: HomeDetailViewPositionColor)
@@ -88,10 +89,10 @@ class OrderPageViewController: TYTabButtonPagerController {
     }
 
     
-    func leftBtnPress(sender:UIBarButtonItem) {
+    func leftBtnPress(_ sender:UIBarButtonItem) {
         if self.reloadOrderNumber != nil {
             self.reloadOrderNumber()
-            self.navigationController?.dismissViewControllerAnimated(true, completion: {
+            self.navigationController?.dismiss(animated: true, completion: {
                 
             })
         }
@@ -101,21 +102,20 @@ class OrderPageViewController: TYTabButtonPagerController {
     func reloadPageNumber(){
         let orderViewModel = OrderViewModel()
         orderViewModel.orderNumberOrder(UserInfo.sharedInstance().uid, successBlock: { (dic) in
-            let countDic = dic as NSDictionary
             self.numberArray.removeAllObjects()
-            self.numberArray.addObject("\(countDic["1"]!)")
-            self.numberArray.addObject("\(countDic["4"]!)")
-            self.numberArray.addObject("\(countDic["6"]!)")
-            self.numberArray.addObject("0")
-            dispatch_async(dispatch_get_main_queue(), { 
-                self.reloadNumberOfPageIndex(self.numberArray as [AnyObject])
+            self.numberArray.add("\(dic?["1"]!)")
+            self.numberArray.add("\(dic?["4"]!)")
+            self.numberArray.add("\(dic?["6"]!)")
+            self.numberArray.add("0")
+            DispatchQueue.main.async(execute: { 
+                self.reloadNumber(ofPageIndex: self.numberArray as [AnyObject])
             })
         }) { (dic) in
             
         }
     }
     
-    func reloadOtherCollectView(notification:NSNotification) {
+    func reloadOtherCollectView(_ notification:Notification) {
 //        if notification.object as! String == "2" || notification.object as! String == "3"{
 //            orderConfimViewController.reloaCollectViewData()
 //            orderAllViewController.reloaCollectViewData()
@@ -142,7 +142,7 @@ class OrderPageViewController: TYTabButtonPagerController {
     }
     
     
-    func reloadNumberOfMeet(indexController:NSInteger){
+    func reloadNumberOfMeet(_ indexController:NSInteger){
         
     }
     
@@ -151,20 +151,20 @@ class OrderPageViewController: TYTabButtonPagerController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func setBarStyle(barStyle: TYPagerBarStyle) {
+    override func setBarStyle(_ barStyle: TYPagerBarStyle) {
         super.setBarStyle(barStyle)
     }
     
     // MARK: - TYTabButtonDelegate
-    override func pagerController(pagerController: TYTabPagerController!, configreCell cell: UICollectionViewCell!, forItemTitle title: String!, atIndexPath indexPath: NSIndexPath!) {
-        super.pagerController(pagerController, configreCell: cell, forItemTitle: title, atIndexPath: indexPath)
+    override func pagerController(_ pagerController: TYTabPagerController!, configreCell cell: UICollectionViewCell!, forItemTitle title: String!, at indexPath: IndexPath!) {
+        super.pagerController(pagerController, configreCell: cell, forItemTitle: title, at: indexPath)
     }
     
-    override func pagerController(pagerController: TYTabPagerController!, didSelectAtIndexPath indexPath: NSIndexPath!) {
+    override func pagerController(_ pagerController: TYTabPagerController!, didSelectAt indexPath: IndexPath!) {
         
     }
     
-    override func pagerController(pagerController: TYTabPagerController!, didScrollToTabPageIndex index: Int) {
+    override func pagerController(_ pagerController: TYTabPagerController!, didScrollToTabPageIndex index: Int) {
         
     }
     
@@ -173,12 +173,12 @@ class OrderPageViewController: TYTabButtonPagerController {
         return 4
     }
     
-    override func pagerController(pagerController: TYPagerController!, titleForIndex index: Int) -> String! {
-        return  (viewModel.orderPageControllerTitle() as NSArray).objectAtIndex(index) as! String
+    override func pagerController(_ pagerController: TYPagerController!, titleFor index: Int) -> String! {
+        return  (viewModel.orderPageControllerTitle() as NSArray).object(at: index) as! String
         
     }
     
-    override func pagerController(pagerController: TYPagerController!, controllerForIndex index: Int) -> UIViewController! {
+    override func pagerController(_ pagerController: TYPagerController!, controllerFor index: Int) -> UIViewController! {
         let controller = pageViewControllers[index] as! BaseOrderPageViewController
         controller.allMeetOrder = { allNumber, statues in
             var page:NSInteger = 0
@@ -196,7 +196,7 @@ class OrderPageViewController: TYTabButtonPagerController {
         return controller
     }
     
-    override func pagerController(pagerController: TYPagerController!, numberForIndex index: Int) -> String! {
+    override func pagerController(_ pagerController: TYPagerController!, numberFor index: Int) -> String! {
         return numberArray[index] as! String
     }
 }

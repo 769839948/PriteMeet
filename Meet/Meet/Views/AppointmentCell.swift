@@ -19,8 +19,8 @@ class AppointmentCell: UICollectionViewCell {
         titleLable = UILabel()
         titleLable.frame = frame
         titleLable.font = OrderAppointThemeTypeFont
-        titleLable.textAlignment = .Center
-        titleLable.textColor = UIColor.whiteColor()
+        titleLable.textAlignment = .center
+        titleLable.textColor = UIColor.white
         self.contentView.addSubview(titleLable)
     }
     
@@ -28,15 +28,15 @@ class AppointmentCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func fillCellWidthFeed(text:String){
+    func fillCellWidthFeed(_ text:String){
         self.titleLable.text = text
     }
     
-    override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         if !self.isHeightCaculated {
             self.setNeedsLayout()
             self.layoutIfNeeded()
-            let size = self.contentView.systemLayoutSizeFittingSize(layoutAttributes.size)
+            let size = self.contentView.systemLayoutSizeFitting(layoutAttributes.size)
             var newSize:CGRect = layoutAttributes.frame
             newSize.size.width = size.width
             newSize.size.height = size.height

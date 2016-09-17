@@ -11,21 +11,21 @@ import UIKit
 class CustomLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.redColor()
+        self.backgroundColor = UIColor.red
     }
     
     
-    func setUpCustomLabel(text:String, font:UIFont, textColor:UIColor, backColor:UIColor) -> CGSize{
+    func setUpCustomLabel(_ text:String, font:UIFont, textColor:UIColor, backColor:UIColor) -> CGSize{
         self.text = text
         self.font = font
         self.textColor = textColor
         self.backgroundColor = backColor
-        self.textAlignment = NSTextAlignment.Center
+        self.textAlignment = NSTextAlignment.center
         let itemSize = self.sizeThatFits(self.frame.size)
         self.layer.cornerRadius = 2.0
-        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, itemSize.width + 20, 28)
+        self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: itemSize.width + 20, height: 28)
         self.layer.masksToBounds = true
-        return CGSizeMake(itemSize.width + 20, 28)
+        return CGSize(width: itemSize.width + 20, height: 28)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,7 +39,7 @@ class CenterlabelView: UIView {
         super.init(frame: frame)
     }
     
-    func setUpCustomLabelArray(titleArray:NSArray) -> CGFloat {
+    func setUpCustomLabelArray(_ titleArray:NSArray) -> CGFloat {
         var xOffset:CGFloat = 0
         var yOffset:CGFloat = 0
         var layoutItem:NSInteger = 0
@@ -48,8 +48,8 @@ class CenterlabelView: UIView {
         var isScreenWidth = false
         for idx in 0...titleArray.count - 1 {
             if titleArray.count > 1 {
-                let label = CustomLabel(frame: CGRectMake(0,0,0,0))
-                let itemSize = label.setUpCustomLabel(titleArray[idx] as! String, font:HomeDetailCenterLabelFont! , textColor: UIColor.whiteColor(), backColor: UIColor.blackColor())
+                let label = CustomLabel(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
+                let itemSize = label.setUpCustomLabel(titleArray[idx] as! String, font:HomeDetailCenterLabelFont! , textColor: UIColor.white, backColor: UIColor.black)
                 allItemSize = allItemSize + itemSize.width + 10
                 if allItemSize > ScreenWidth - 20 {
                     allItemSize = allItemSize - itemSize.width - 10
@@ -61,8 +61,8 @@ class CenterlabelView: UIView {
                 if isScreenWidth || idx == titleArray.count - 1 {
                     xOffset = (ScreenWidth - allItemSize - 40 + 10)/2
                     for index in layoutItem...idx - 1 {
-                        let label = CustomLabel(frame: CGRectMake(xOffset,yOffset,0,0))
-                        let itemSize = label.setUpCustomLabel(titleArray[index] as! String, font:HomeDetailCenterLabelFont! , textColor: UIColor.whiteColor(), backColor: UIColor.blackColor())
+                        let label = CustomLabel(frame: CGRect(x: xOffset,y: yOffset,width: 0,height: 0))
+                        let itemSize = label.setUpCustomLabel(titleArray[index] as! String, font:HomeDetailCenterLabelFont! , textColor: UIColor.white, backColor: UIColor.black)
                         xOffset = xOffset + itemSize.width + 10
                         self.addSubview(label)
                     }
@@ -70,14 +70,14 @@ class CenterlabelView: UIView {
                     if idx == titleArray.count - 1 {
                         if !isScreenWidth {
                             yOffset = yOffset - itemSize.height - 10
-                            let label = CustomLabel(frame: CGRectMake(xOffset,yOffset,0,0))
-                            let itemSize = label.setUpCustomLabel(titleArray[idx] as! String, font:HomeDetailCenterLabelFont! , textColor: UIColor.whiteColor(), backColor: UIColor.blackColor())
-                            label.frame = CGRectMake(xOffset, yOffset, itemSize.width, itemSize.height)
+                            let label = CustomLabel(frame: CGRect(x: xOffset,y: yOffset,width: 0,height: 0))
+                            let itemSize = label.setUpCustomLabel(titleArray[idx] as! String, font:HomeDetailCenterLabelFont! , textColor: UIColor.white, backColor: UIColor.black)
+                            label.frame = CGRect(x: xOffset, y: yOffset, width: itemSize.width, height: itemSize.height)
                             self.addSubview(label)
                         }else{
-                            let label = CustomLabel(frame: CGRectMake(xOffset,yOffset,0,0))
-                            let itemSize = label.setUpCustomLabel(titleArray[idx] as! String, font:HomeDetailCenterLabelFont! , textColor: UIColor.whiteColor(), backColor: UIColor.blackColor())
-                            label.frame = CGRectMake((ScreenWidth - itemSize.width - 40)/2, yOffset, itemSize.width, itemSize.height)
+                            let label = CustomLabel(frame: CGRect(x: xOffset,y: yOffset,width: 0,height: 0))
+                            let itemSize = label.setUpCustomLabel(titleArray[idx] as! String, font:HomeDetailCenterLabelFont! , textColor: UIColor.white, backColor: UIColor.black)
+                            label.frame = CGRect(x: (ScreenWidth - itemSize.width - 40)/2, y: yOffset, width: itemSize.width, height: itemSize.height)
                             self.addSubview(label)
                         }
                         
@@ -88,9 +88,9 @@ class CenterlabelView: UIView {
                     layoutItem = idx
                 }
             }else{
-                let label = CustomLabel(frame: CGRectMake(0,0,0,0))
-                let itemSize = label.setUpCustomLabel(titleArray[idx] as! String, font:HomeDetailCenterLabelFont! , textColor: UIColor.whiteColor(), backColor: UIColor.blackColor())
-                label.frame = CGRectMake((ScreenWidth - itemSize.width - 40)/2, 0, itemSize.width, 28)
+                let label = CustomLabel(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
+                let itemSize = label.setUpCustomLabel(titleArray[idx] as! String, font:HomeDetailCenterLabelFont! , textColor: UIColor.white, backColor: UIColor.black)
+                label.frame = CGRect(x: (ScreenWidth - itemSize.width - 40)/2, y: 0, width: itemSize.width, height: 28)
                 self.addSubview(label)
             }
         }

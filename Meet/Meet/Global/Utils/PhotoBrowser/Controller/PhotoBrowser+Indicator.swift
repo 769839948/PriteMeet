@@ -19,20 +19,20 @@ extension PhotoBrowser{
         pagecontrol.make_bottomInsets_bottomHeight(left: 0, bottom: 0, right: 0, bottomHeight: 37)
         pagecontrol.numberOfPages = photoModels.count
         pagecontrol.pageIndicatorTintColor = UIColor.init(white: 0.88, alpha: 0.7)
-        pagecontrol.currentPageIndicatorTintColor = UIColor.whiteColor()
+        pagecontrol.currentPageIndicatorTintColor = UIColor.white
     
-        pagecontrol.enabled = false
+        pagecontrol.isEnabled = false
     }
     
     /** pageControl页面变动 */
-    func pageControlPageChanged(page: Int){
+    func pageControlPageChanged(_ page: Int){
         
         if page<0 || page>=photoModels.count {return}
         
-        if showType == PhotoBrowser.ShowType.ZoomAndDismissWithSingleTap && hideMsgForZoomAndDismissWithSingleTap{
+        if showType == PhotoBrowser.ShowType.zoomAndDismissWithSingleTap && hideMsgForZoomAndDismissWithSingleTap{
         
             pagecontrol.currentPage = page
-        }else if showType == PhotoBrowser.ShowType.Push {
+        }else if showType == PhotoBrowser.ShowType.push {
             pagecontrol.currentPage = page
         }
     }

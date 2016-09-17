@@ -28,12 +28,12 @@ class AboutDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    func setUpWebView(url: String){
+    func setUpWebView(_ url: String){
         webView = UIWebView()
         progressProxy = NJKWebViewProgress() // instance variable
         webView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor);
-        let url = NSURL.init(string: url)
-        let request = NSURLRequest.init(URL: url!)
+        let url = URL.init(string: url)
+        let request = URLRequest.init(url: url!)
         webView.loadRequest(request)
 //        progressProxy = NJKWebViewProgress()
         webView.delegate = self
@@ -49,21 +49,21 @@ class AboutDetailViewController: UIViewController {
         
         self.view.addSubview(webView)
         
-        webView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+        webView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
         }
     }
     
     func setUpNavigationBar(){
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_back"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MeetWebViewController.leftItemClick(_:)))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_back"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(MeetWebViewController.leftItemClick(_:)))
         self.navigaitonItemColor(UIColor.init(hexString: "202020"))
     }
     
-    func leftItemClick(sender:UIBarButtonItem){
-        self.navigationController?.popViewControllerAnimated(true)
+    func leftItemClick(_ sender:UIBarButtonItem){
+        _ = self.navigationController?.popViewController(animated: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,17 +74,17 @@ class AboutDetailViewController: UIViewController {
 }
 
 extension AboutDetailViewController : UIWebViewDelegate {
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        let title = webView.stringByEvaluatingJavaScriptFromString("document.title");
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        let title = webView.stringByEvaluatingJavaScript(from: "document.title");
         self.navigationItem.title = title
         return true
     }
     
     
     
-    func webViewDidFinishLoad(webView: UIWebView) {
-        webView.stringByEvaluatingJavaScriptFromString("document.getElementsByTagName('body')[0].style.webkitTextFillColor= '202020'")
-        let title = webView.stringByEvaluatingJavaScriptFromString("document.title");
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('body')[0].style.webkitTextFillColor= '202020'")
+        let title = webView.stringByEvaluatingJavaScript(from: "document.title");
         self.navigationItem.title = title
     }
 }

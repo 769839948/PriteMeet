@@ -59,10 +59,12 @@
     
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error{
-     NSLog(@"error :%@",error.localizedDescription);
-}
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+        NSLog(@"error :%@",error.localizedDescription);
 
+}
+    
 /*
 #pragma mark - Navigation
 

@@ -246,6 +246,8 @@
     [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
             successBlock(responseObject[@"content"]);
+        }else{
+            failBlock(@{@"error":responseObject[@"content"][@"msg"]});
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(@{@"error":@"网络错误"});
@@ -379,8 +381,10 @@
 {
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUploadCoverPhoto,[UserInfo sharedInstance].uid];
     NSDictionary *parameters = @{@"photo":imageUrl};
-    [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+    [self putWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+        
     } failure:^(NSDictionary *responseObject) {
+        
     }];
 }
 

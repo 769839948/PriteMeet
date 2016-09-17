@@ -22,20 +22,20 @@ class UploadImages: UIView {
     }
     
     func setUpCenterView(){
-        centerView = UIView(frame: CGRectMake((ScreenWidth - CenterViewWidtht)/2,ScreenHeight / 2 * 0.76,CenterViewWidtht,CenterViewHeight))
-        centerView.backgroundColor = UIColor.whiteColor()
+        centerView = UIView(frame: CGRect(x: (ScreenWidth - CenterViewWidtht)/2,y: ScreenHeight / 2 * 0.76,width: CenterViewWidtht,height: CenterViewHeight))
+        centerView.backgroundColor = UIColor.white
         centerView.layer.cornerRadius = 10.0
         self.addSubview(centerView)
         
-        centerLabel = UILabel(frame: CGRectMake(0,0,CenterViewWidtht,CenterViewHeight))
-        centerLabel.textAlignment = .Center
+        centerLabel = UILabel(frame: CGRect(x: 0,y: 0,width: CenterViewWidtht,height: CenterViewHeight))
+        centerLabel.textAlignment = .center
         centerLabel.font = OrderApplyTitleFont!
         centerLabel.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         centerView.addSubview(centerLabel)
         
     }
     
-    func updateLabelText(number:String, allnumber:String) {
+    func updateLabelText(_ number:String, allnumber:String) {
         centerLabel.text = "正在上传 \(number) of \(allnumber) ..."
     }
     

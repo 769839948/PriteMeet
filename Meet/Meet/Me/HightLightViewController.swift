@@ -35,13 +35,13 @@ class HightLightViewController: UIViewController {
     
     func setUpNavigationItem() {
         let str = (titleStr != "" && infoStr == "") ? "提交":"保存"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: str, style: .Plain, target: self, action: #selector(HightLightViewController.sublimTitle(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: str, style: .plain, target: self, action: #selector(HightLightViewController.sublimTitle(_:)))
         self.changeNavigationBarItemColor()
     }
 
     func changeNavigationTitleColor() -> Bool {
         
-        titleHeight = ((PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000007") as! String).heightWithConstrainedWidth(ScreenWidth - 40, font: HightLightTitleFont!) + 75
+        titleHeight = ((PlaceholderText.shareInstance().appDic as NSDictionary).object(forKey: "1000007") as! String).heightWithConstrainedWidth(ScreenWidth - 40, font: HightLightTitleFont!) + 75
         if titleStr == "" || infoStr == "" {
             return false
         }else{
@@ -53,7 +53,7 @@ class HightLightViewController: UIViewController {
         self.navigationItem.rightBarButtonItem?.tintColor = self.changeNavigationTitleColor() ? UIColor.init(hexString:NavigationBarTintColorCustome) : UIColor.init(hexString:NavigationBarTintDisColorCustom)
     }
     
-    func sublimTitle(sender:UIBarButtonItem) {
+    func sublimTitle(_ sender:UIBarButtonItem) {
         if titleText.text == "" {
             MainThreadAlertShow("您未填写破冰话题哦", view: self.view)
         }else if infoText.text == "" {
@@ -62,9 +62,9 @@ class HightLightViewController: UIViewController {
             viewModel.addStar(infoText.text, experience: titleText.text, success: { (dic) in
                 UserExtenModel.shareInstance().highlight = self.infoText.text
                 UserExtenModel.shareInstance().experience = self.titleText.text
-                self.navigationController?.popViewControllerAnimated(true)
+                _ = self.navigationController?.popViewController(animated: true)
                 }, fail: { (dic) in
-                    MainThreadAlertShow("添加失败", view: self.view)
+                    MainThreadAlertShow((dic?["error"] as! String), view: self.view)
                 }, loadingString: { (msg) in
                     
             })
@@ -72,17 +72,17 @@ class HightLightViewController: UIViewController {
     }
     
     func setUpTableView() {
-        tableView = UITableView(frame: CGRectZero, style: .Plain)
+        tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.separatorStyle = .None
-        tableView.keyboardDismissMode = .OnDrag
+        tableView.separatorStyle = .none
+        tableView.keyboardDismissMode = .onDrag
         self.view.addSubview(tableView)
-        tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+        tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
         }
     }
     
@@ -109,15 +109,15 @@ extension HightLightViewController: UITableViewDelegate {
 }
 
 extension HightLightViewController : UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        switch indexPath.row {
+    @objc(tableView:heightForRowAtIndexPath:) func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch (indexPath as NSIndexPath).row {
         case 0:
             return titleHeight
         default:
@@ -125,57 +125,57 @@ extension HightLightViewController : UITableViewDataSource {
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        switch indexPath.row {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch (indexPath as NSIndexPath).row {
         case 0:
             let cellIndef = "titleCellIndf"
-            var cell = tableView.dequeueReusableCellWithIdentifier(cellIndef)
+            var cell = tableView.dequeueReusableCell(withIdentifier: cellIndef)
             if cell == nil {
-                cell = UITableViewCell.init(style: .Default, reuseIdentifier: cellIndef)
+                cell = UITableViewCell.init(style: .default, reuseIdentifier: cellIndef)
             }
             
             titleText = UITextView()
             
-            titleText.placeholder = (PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000007") as! String
+            titleText.placeholder = (PlaceholderText.shareInstance().appDic as NSDictionary).object(forKey: "1000007") as! String
             if titleStr != "" {
                 titleText.text = titleStr
             }
             titleText.tintColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
             titleText.delegate = self
             titleText.tag = 1
-            titleText.returnKeyType = .Done
+            titleText.returnKeyType = .done
             titleText.placeholderColor = UIColor.init(hexString: PlaceholderTextViewColor)
             titleText.font = HightLightTitleFont
             cell?.contentView.addSubview(titleText)
-            titleText.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo((cell?.contentView.snp_top)!).offset(30)
-                make.left.equalTo((cell?.contentView.snp_left)!).offset(15)
-                make.right.equalTo((cell?.contentView.snp_right)!).offset(-15)
-                make.bottom.equalTo((cell?.contentView.snp_bottom)!).offset(-30)
+            titleText.snp.makeConstraints({ (make) in
+                make.top.equalTo((cell?.contentView.snp.top)!).offset(30)
+                make.left.equalTo((cell?.contentView.snp.left)!).offset(15)
+                make.right.equalTo((cell?.contentView.snp.right)!).offset(-15)
+                make.bottom.equalTo((cell?.contentView.snp.bottom)!).offset(-30)
             })
 
-            cell?.selectionStyle = .None
+            cell?.selectionStyle = .none
             let line = UILabel()
             line.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
             cell?.contentView.addSubview(line)
-            line.snp_makeConstraints(closure: { (make) in
+            line.snp.makeConstraints({ (make) in
                 make.height.equalTo(0.5)
-                make.left.equalTo((cell?.contentView.snp_left)!).offset(15)
-                make.right.equalTo((cell?.contentView.snp_right)!).offset(-15)
-                make.bottom.equalTo((cell?.contentView.snp_bottom)!).offset(0)
+                make.left.equalTo((cell?.contentView.snp.left)!).offset(15)
+                make.right.equalTo((cell?.contentView.snp.right)!).offset(-15)
+                make.bottom.equalTo((cell?.contentView.snp.bottom)!).offset(0)
 
             })
             return cell!
         default:
             let cellIndef = "infoCellIndf"
-            var cell = tableView.dequeueReusableCellWithIdentifier(cellIndef)
+            var cell = tableView.dequeueReusableCell(withIdentifier: cellIndef)
             if cell == nil {
-                cell = UITableViewCell.init(style: .Default, reuseIdentifier: cellIndef)
+                cell = UITableViewCell.init(style: .default, reuseIdentifier: cellIndef)
             }
             
             infoText = UITextView()
-            infoText.placeholder = (PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000008") as! String
-            if infoText != "" {
+            infoText.placeholder = (PlaceholderText.shareInstance().appDic as NSDictionary).object(forKey: "1000008") as! String
+            if infoStr != "" {
                 infoText.text = infoStr
             }
             
@@ -186,13 +186,13 @@ extension HightLightViewController : UITableViewDataSource {
             infoText.tintColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
             infoText.placeholderColor = UIColor.init(hexString: PlaceholderTextViewColor)
             cell?.contentView.addSubview(infoText)
-            infoText.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo((cell?.contentView.snp_top)!).offset(30.5)
-                make.left.equalTo((cell?.contentView.snp_left)!).offset(15)
-                make.right.equalTo((cell?.contentView.snp_right)!).offset(-15)
-                make.bottom.equalTo((cell?.contentView.snp_bottom)!).offset(-20)
+            infoText.snp.makeConstraints({ (make) in
+                make.top.equalTo((cell?.contentView.snp.top)!).offset(30.5)
+                make.left.equalTo((cell?.contentView.snp.left)!).offset(15)
+                make.right.equalTo((cell?.contentView.snp.right)!).offset(-15)
+                make.bottom.equalTo((cell?.contentView.snp.bottom)!).offset(-20)
             })
-            cell?.selectionStyle = .None
+            cell?.selectionStyle = .none
 
             return cell!
         }
@@ -200,13 +200,13 @@ extension HightLightViewController : UITableViewDataSource {
 }
 
 extension HightLightViewController : UITextViewDelegate {
-    func textViewDidBeginEditing(textView: UITextView) {
+    func textViewDidBeginEditing(_ textView: UITextView) {
         if infoStr == "" && textView.tag == 2 {
-            textView.text = "我是\(UserInfo.sharedInstance().real_name)，"
+            textView.text = "我是\(UserInfo.sharedInstance().real_name!)，"
         }
     }
     
-    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         if text == "\n" && textView.tag == 1 {
             textView.resignFirstResponder()

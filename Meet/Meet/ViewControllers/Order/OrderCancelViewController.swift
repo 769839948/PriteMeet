@@ -13,7 +13,7 @@ class OrderCancelViewController: BaseOrderViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.updataConstraints()
-        bottomBtn.hidden = true
+        bottomBtn.isHidden = true
         
         self.talKingDataPageName = "Order-OrderList-Cancel"
 

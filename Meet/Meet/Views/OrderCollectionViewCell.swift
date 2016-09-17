@@ -27,56 +27,56 @@ class OrderCollectionViewCell: UICollectionViewCell {
         splashView = UIView()
         splashView.backgroundColor = UIColor.init(red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0, alpha: 1.0)
         self.contentView.addSubview(splashView)
-        self.contentView.sendSubviewToBack(splashView)
+        self.contentView.sendSubview(toBack: splashView)
         splashView.layer.cornerRadius = 5.0
-        splashView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.contentView.snp_top).offset(0)
-            make.left.equalTo(self.contentView.snp_left).offset(0)
-            make.right.equalTo(self.contentView.snp_right).offset(0)
-            make.bottom.equalTo(self.contentView.snp_bottom).offset(3)
+        splashView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.contentView.snp.top).offset(0)
+            make.left.equalTo(self.contentView.snp.left).offset(0)
+            make.right.equalTo(self.contentView.snp.right).offset(0)
+            make.bottom.equalTo(self.contentView.snp.bottom).offset(3)
         }
         
     }
     
-    func setOrderModel(model:OrderModel) {
-        let orderModel = OrderModel.mj_objectWithKeyValues(model)
+    func setOrderModel(_ model:OrderModel) {
+        let orderModel = OrderModel.mj_object(withKeyValues: model)
         //"http://7xsatk.com1.z0.glb.clouddn.com/35acc8bd7b176b21ec2c1019468617f8.jpg?imageView2/1/w/1125/h/816"
-        let imageArray = orderModel.order_user_info!.avatar.componentsSeparatedByString("?")
+        let imageArray = orderModel?.order_user_info!.avatar.components(separatedBy: "?")
         //        print(ScreenWidth)
-        photoImageView.sd_setImageWithURL(NSURL.init(string: imageArray[0].stringByAppendingString(AvatarImageSize))) { (image, error, cache, url) in
+        photoImageView.sd_setImage(with: URL.init(string: (imageArray?[0])! + AvatarImageSize)) { (image, error, cache, url) in
         }
-        userName.text = orderModel.order_user_info!.real_name
-        jobLabel.text = orderModel.order_user_info!.job_label
-        reportBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        userName.text = orderModel?.order_user_info!.real_name
+        jobLabel.text = orderModel?.order_user_info!.job_label
+        reportBtn.setTitleColor(UIColor.white, for: UIControlState())
         reportBtn.titleLabel?.font = OrderConfirmBtnFont
         if model.status?.status_type == "apply_order" {
             if model.status?.status_code == "6" || model.status?.status_code == "4" {
-                reportBtn.setTitle(orderModel.status?.order_status, forState: .Normal)
+                reportBtn.setTitle(orderModel?.status?.order_status, for: UIControlState())
                 reportBtn.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
             }else{
-                reportBtn.setTitle(orderModel.status?.order_status, forState: .Normal)
+                reportBtn.setTitle(orderModel?.status?.order_status, for: UIControlState())
                 reportBtn.backgroundColor = UIColor.init(hexString: MeViewProfileContentLabelColorLight)
             }
         }else{
             if  model.status?.status_code == "1" || model.status?.status_code == "6" {
-                reportBtn.setTitle(orderModel.status?.order_status, forState: .Normal)
+                reportBtn.setTitle(orderModel?.status?.order_status, for: UIControlState())
                 reportBtn.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
             }else{
-                reportBtn.setTitle(orderModel.status?.order_status, forState: .Normal)
+                reportBtn.setTitle(orderModel?.status?.order_status, for: UIControlState())
                 reportBtn.backgroundColor = UIColor.init(hexString: MeViewProfileContentLabelColorLight)
             }
         }
     }
     
-    func setData(model:BlackListModel) {
-        reportBtn.layer.borderColor = UIColor.blackColor().CGColor
+    func setData(_ model:BlackListModel) {
+        reportBtn.layer.borderColor = UIColor.black.cgColor
         reportBtn.layer.borderWidth = 1
-        let blackModel = BlackListModel.mj_objectWithKeyValues(model)
-        photoImageView.sd_setImageWithURL(NSURL.init(string: blackModel.avatar!)) { (image, error, cache, url) in
+        let blackModel = BlackListModel.mj_object(withKeyValues: model)
+        photoImageView.sd_setImage(with: URL.init(string: (blackModel?.avatar!)!)) { (image, error, cache, url) in
         }
         reportBtn.tag = model.id
-        userName.text = blackModel.real_name
-        jobLabel.text = blackModel.job_label
+        userName.text = blackModel?.real_name
+        jobLabel.text = blackModel?.job_label
     }
     
 }

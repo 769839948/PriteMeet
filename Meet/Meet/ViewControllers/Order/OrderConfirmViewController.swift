@@ -32,10 +32,10 @@ class OrderConfirmViewController: BaseOrderPageViewController {
     
     //MARK:重写父类方法
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let applyDetailView = ConfirmedViewController()
         applyDetailView.uid = self.guest
-        let orderModel = (orderList[indexPath.row])
+        let orderModel = (orderList[(indexPath as NSIndexPath).row])
         applyDetailView.myClouse = { status in
 //            self.orderList.removeAtIndex(indexPath.row)
 //            NSNotificationCenter.defaultCenter().postNotificationName(ReloadOrderCollectionView, object: self.orderState)

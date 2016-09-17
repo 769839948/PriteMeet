@@ -9,16 +9,16 @@
 import UIKit
 
 protocol ZDQFlowViewDelegate {
-    func flowViewDidSelectItem(flowView:ZDQFlowView, selectItem:NSInteger) -> Void
+    func flowViewDidSelectItem(_ flowView:ZDQFlowView, selectItem:NSInteger) -> Void
 }
 
 protocol ZDQFlowViewDataSource {
     
-    func numberOfFlowViewItemCount(flowView:ZDQFlowView) -> NSInteger
+    func numberOfFlowViewItemCount(_ flowView:ZDQFlowView) -> NSInteger
     
-    func numberOfFlowViewItem(flowView:ZDQFlowView, index:NSInteger) -> ZDQFlowViewItem
+    func numberOfFlowViewItem(_ flowView:ZDQFlowView, index:NSInteger) -> ZDQFlowViewItem
     
-    func flowViewItemSize(flowView:ZDQFlowView) -> CGSize
+    func flowViewItemSize(_ flowView:ZDQFlowView) -> CGSize
 }
 
 
@@ -38,7 +38,7 @@ class ZDQFlowView: UIView {
         
     }
     //MARK: ===============
-    func setDataSource(dataSource:ZDQFlowViewDataSource) {
+    func setDataSource(_ dataSource:ZDQFlowViewDataSource) {
         self.dataSource = dataSource
         self.reloadData()
     }
@@ -58,10 +58,10 @@ class ZDQFlowView: UIView {
         }
         for index in 0...number - 1 {
             let item = self.dataSource.numberOfFlowViewItem(self, index: index) 
-            item.frame = CGRectMake((size.width + spaceWidthX) * CGFloat(index), 0, size.width, size.height)
+            item.frame = CGRect(x: (size.width + spaceWidthX) * CGFloat(index), y: 0, width: size.width, height: size.height)
             let label = UILabel()
-            label.frame = CGRectMake(CGRectGetMaxX(item.frame) + 2, 14, spaceWidthX - 4, 1)
-            if item.itemType == ZDQFlowViewItemType.ItemSelect {
+            label.frame = CGRect(x: item.frame.maxX + 2, y: 14, width: spaceWidthX - 4, height: 1)
+            if item.itemType == ZDQFlowViewItemType.itemSelect {
                 label.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
             }else{
                 label.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)

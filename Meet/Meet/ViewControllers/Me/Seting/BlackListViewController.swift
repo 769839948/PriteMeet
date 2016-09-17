@@ -29,26 +29,26 @@ class BlackListViewController: UIViewController {
     
     func setUpCollectionView(){
         let followLayout = UICollectionViewFlowLayout()
-        followLayout.scrollDirection = .Vertical
-        collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: followLayout)
+        followLayout.scrollDirection = .vertical
+        collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: followLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = UIColor.init(colorLiteralRed: 251.0/255.0, green: 251.0/255.0, blue: 251.0/255.0, alpha: 1.0)
-        collectionView.registerNib(UINib.init(nibName: "BlackListCollectCell", bundle:nil), forCellWithReuseIdentifier: "BlackListCollectCell")
+        collectionView.register(UINib.init(nibName: "BlackListCollectCell", bundle:nil), forCellWithReuseIdentifier: "BlackListCollectCell")
         self.view.addSubview(collectionView)
         
-        collectionView.snp_makeConstraints { (make) in
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+        collectionView.snp.makeConstraints { (make) in
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
         }
     }
 
     func setUpBlackListData() {
         self.blackList.removeAllObjects()
         viewModel.getBlackList({ (dic) in
-            self.blackList = BlackListModel.mj_objectArrayWithKeyValuesArray(dic)
+            self.blackList = BlackListModel.mj_objectArray(withKeyValuesArray: dic)
             self.collectionView.reloadData()
             }) { (dic) in
             
@@ -71,7 +71,7 @@ class BlackListViewController: UIViewController {
     }
     */
     
-    func reportBtnPress(sender:UIButton){
+    func reportBtnPress(_ sender:UIButton){
         viewModel.deleteBlackList("\(sender.tag)", success: { (dic) in
             self.setUpBlackListData()
             }) { (dic) in
@@ -82,52 +82,52 @@ class BlackListViewController: UIViewController {
 }
 
 extension BlackListViewController: UICollectionViewDelegate {
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
     }
 
 }
 
 extension BlackListViewController: UICollectionViewDataSource {
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return blackList.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellIdef = "BlackListCollectCell"
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdef, forIndexPath: indexPath) as! BlackListCollectCell
-        cell.reportBtn.addTarget(self, action: #selector(BlackListViewController.reportBtnPress(_:)), forControlEvents: .TouchUpInside)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdef, for: indexPath) as! BlackListCollectCell
+        cell.reportBtn.addTarget(self, action: #selector(BlackListViewController.reportBtnPress(_:)), for: .touchUpInside)
         cell.layer.cornerRadius = 5.0
-        cell.setData(blackList[indexPath.row] as! BlackListModel)
-        cell.backgroundColor = UIColor.whiteColor()
+        cell.setData(blackList[(indexPath as NSIndexPath).row] as! BlackListModel)
+        cell.backgroundColor = UIColor.white
         return cell
     }
 }
 
 extension BlackListViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake((UIScreen.mainScreen().bounds.size.width - 27)/2, 223)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (UIScreen.main.bounds.size.width - 27)/2, height: 223)
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 7
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 7
     }
     
     //返回HeadView的宽高
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
         
         return CGSize(width: 0, height: 0)
     }
     //返回cell 上下左右的间距
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
         return UIEdgeInsetsMake(10, 10, 10, 10)
     }
 }

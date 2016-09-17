@@ -21,16 +21,16 @@ let CFPBCacheKey = "CFPBCacheKey"
 
 extension CGSize{
     
-    var sizeWithExtraWidth: CGSize {return CGSizeMake(self.width + CFPBExtraWidth, self.height)}
+    var sizeWithExtraWidth: CGSize {return CGSize(width: self.width + CFPBExtraWidth, height: self.height)}
     
-    var sizeMinusExtraWidth: CGSize {return CGSizeMake(self.width - CFPBExtraWidth, self.height)}
+    var sizeMinusExtraWidth: CGSize {return CGSize(width: self.width - CFPBExtraWidth, height: self.height)}
     
     /** 按比例缩放 */
-    func ratioSize(ratio: CGFloat) -> CGSize{
+    func ratioSize(_ ratio: CGFloat) -> CGSize{
     
-        return CGSizeMake(self.width / ratio, self.height / ratio) }
+        return CGSize(width: self.width / ratio, height: self.height / ratio) }
     
-    static func decisionShowSize(imgSize: CGSize, contentSize: CGSize) ->CGSize{
+    static func decisionShowSize(_ imgSize: CGSize, contentSize: CGSize) ->CGSize{
         
         let heightRatio = imgSize.height / contentSize.height
         let widthRatio = imgSize.width / contentSize.width
@@ -50,8 +50,8 @@ extension CGSize{
 extension UIView{
     
     /** Debug */
-    func debug(color: UIColor = UIColor.redColor(), borderWidth: CGFloat = 5){
-        self.layer.borderColor = color.CGColor
+    func debug(_ color: UIColor = UIColor.red, borderWidth: CGFloat = 5){
+        self.layer.borderColor = color.cgColor
         self.layer.borderWidth = borderWidth
     }
 

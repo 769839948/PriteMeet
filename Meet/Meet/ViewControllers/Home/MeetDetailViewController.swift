@@ -10,27 +10,30 @@ import UIKit
 import MJExtension
 import SDWebImage
 
-func meetHeight(meetString:String, instrestArray:NSArray) -> CGFloat
+func meetHeight(_ meetString:String, instrestArray:NSArray) -> CGFloat
 {
     var instresTitleString = "  ";
     for string in instrestArray {
-        instresTitleString = instresTitleString.stringByAppendingString(string as! String)
-        instresTitleString = instresTitleString.stringByAppendingString("    ")
+        instresTitleString = instresTitleString + (string as! String)
+        instresTitleString = instresTitleString + "    "
     }
     
-    let instrestHeight = instresTitleString.heightWithFont(MeetDetailInterFont, constrainedToWidth: UIScreen.mainScreen().bounds.size.width - 40) + 10
-    let titleHeight = meetString.heightWithFont(LoginCodeLabelFont, constrainedToWidth: UIScreen.mainScreen().bounds.size.width - 38)
+    let instrestHeight = instresTitleString.height(with: MeetDetailInterFont, constrainedToWidth: UIScreen.main.bounds.size.width - 40) + 10
+    let titleHeight = meetString.height(with: LoginCodeLabelFont, constrainedToWidth: UIScreen.main.bounds.size.width - 38)
     return titleHeight + instrestHeight + 60
 }
 
 enum PersonType {
-    case Man
-    case Women
-    case Other
+    case man
+    case women
+    case other
 }
 
 
-typealias ReloadHomeListLike = (isLike:Bool, number:NSInteger) -> Void
+typealias ReloadHomeListLike = (_ isLike:Bool, _ number:NSInteger) -> Void
+
+//typealias ReloadHomeListLike = (_ isLike:NSInteger, _ number:String) -> Void
+
 
 class MeetDetailViewController: UIViewController {
 
@@ -45,7 +48,7 @@ class MeetDetailViewController: UIViewController {
     let compayTableViewCell = "CompayTableViewCell"
     let viewModel = HomeViewModel()
     var otherUserModel = HomeDetailModel()
-    var personType = PersonType.Women
+    var personType = PersonType.women
     internal var user_id:String = ""
     var personTypeString:String = "她"
     var meetCellHeight:CGFloat = 159
@@ -63,7 +66,7 @@ class MeetDetailViewController: UIViewController {
     
     var likeButton:UIButton!
     
-    var reloadHomeListLike:ReloadHomeListLike!
+    var reloadHomeListLike:ReloadHomeListLike! = nil
     
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
@@ -73,45 +76,45 @@ class MeetDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setUpNavigationBar()
 
-        self.navigationController?.navigationBar.translucent = false;
+        self.navigationController?.navigationBar.isTranslucent = false;
     }
     
     func setUpTableView() {
-        self.tableView = UITableView(frame: CGRectZero, style: .Grouped)
+        self.tableView = UITableView(frame: CGRect.zero, style: .grouped)
         self.tableView.backgroundColor = UIColor.init(colorLiteralRed: 251.0/255.0, green: 251.0/255.0, blue: 251.0/255.0, alpha: 1.0)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.rowHeight = UITableViewAutomaticDimension;
-        self.tableView.registerClass(PhotoTableViewCell.self, forCellReuseIdentifier: photoTableViewCell)
-        self.tableView.registerClass(CompayTableViewCell.self, forCellReuseIdentifier: compayTableViewCell)
-        self.tableView.registerClass(MeetInfoTableViewCell.self, forCellReuseIdentifier: meetInfoTableViewCell)
-        self.tableView.registerClass(AboutUsInfoTableViewCell.self, forCellReuseIdentifier: aboutUsInfoTableViewCell)
-        self.tableView.registerClass(SectionInfoTableViewCell.self, forCellReuseIdentifier: sectionInfoTableViewCell)
-        self.tableView.registerClass(NewMeetInfoTableViewCell.self, forCellReuseIdentifier: newMeetInfoTableViewCell)
-        self.tableView.registerClass(WantMeetTableViewCell.self, forCellReuseIdentifier: wantMeetTableViewCell)
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
+        self.tableView.register(PhotoTableViewCell.self, forCellReuseIdentifier: photoTableViewCell)
+        self.tableView.register(CompayTableViewCell.self, forCellReuseIdentifier: compayTableViewCell)
+        self.tableView.register(MeetInfoTableViewCell.self, forCellReuseIdentifier: meetInfoTableViewCell)
+        self.tableView.register(AboutUsInfoTableViewCell.self, forCellReuseIdentifier: aboutUsInfoTableViewCell)
+        self.tableView.register(SectionInfoTableViewCell.self, forCellReuseIdentifier: sectionInfoTableViewCell)
+        self.tableView.register(NewMeetInfoTableViewCell.self, forCellReuseIdentifier: newMeetInfoTableViewCell)
+        self.tableView.register(WantMeetTableViewCell.self, forCellReuseIdentifier: wantMeetTableViewCell)
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none;
         self.tableView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
         self.view.addSubview(self.tableView)
         
         
-        tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
+        tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
             if self.bottomView != nil {
-                make.bottom.equalTo(self.bottomView.snp_top).offset(0)
+                make.bottom.equalTo(self.bottomView.snp.top).offset(0)
             }else{
-                make.bottom.equalTo(self.view.snp_bottom).offset(0)
+                make.bottom.equalTo(self.view.snp.bottom).offset(0)
             }
         }
     }
     
     func setUpBottomView(){
-        self.bottomView = UIView(frame: CGRectMake(0,ScreenHeight - 49, ScreenWidth, 49))
+        self.bottomView = UIView(frame: CGRect(x: 0,y: ScreenHeight - 49, width: ScreenWidth, height: 49))
         self.bottomView.backgroundColor = UIColor.init(hexString: HomeViewWomenColor)
         self.setPersonType(self.personType)
         let singerTap = UITapGestureRecognizer(target: self, action: #selector(MeetDetailViewController.meetImmediately))
@@ -120,17 +123,17 @@ class MeetDetailViewController: UIViewController {
         self.bottomView.addGestureRecognizer(singerTap)
         let label = UILabel(frame: self.bottomView.bounds)
         label.text = "立即约见"
-        label.textAlignment = NSTextAlignment.Center
+        label.textAlignment = NSTextAlignment.center
         label.textColor = UIColor.init(hexString: "FFFFFF")
         label.font = MeetDetailImmitdtFont
         self.bottomView.addSubview(label)
         self.view.addSubview(self.bottomView)
         
-        self.bottomView.snp_makeConstraints { (make) in
+        self.bottomView.snp.makeConstraints { (make) in
             make.height.equalTo(49)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
         }
     }
     
@@ -151,7 +154,7 @@ class MeetDetailViewController: UIViewController {
     }
     
     func setUpNavigationBar(){
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
+        UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.default, animated: false)
         self.setNavigationItemBack()
         self.navigationItemWithLineAndWihteColor()
         /**
@@ -166,27 +169,27 @@ class MeetDetailViewController: UIViewController {
 //        uploadBt.frame = CGRectMake(0, 0, 40, 40);
 //        let uploadItem = UIBarButtonItem(customView: uploadBt)
         
-        let moreBtn = UIBarButtonItem(image: UIImage.init(named: "navigationbar_more")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(MeetDetailViewController.rigthItemClick(_:)))
+        let moreBtn = UIBarButtonItem(image: UIImage.init(named: "navigationbar_more")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(MeetDetailViewController.rigthItemClick(_:)))
         
         
-        likeButton = UIButton(type: UIButtonType.Custom)
-        likeButton.addTarget(self, action: #selector(MeetDetailViewController.likeButtonPress(_:)), forControlEvents: .TouchUpInside)
-        likeButton.frame = CGRectMake(0, 0, 20, 40)
-        likeButton.titleLabel?.font = UIFont.systemFontOfSize(14)
-        likeButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        likeButton = UIButton(type: UIButtonType.custom)
+        likeButton.addTarget(self, action: #selector(MeetDetailViewController.likeButtonPress(_:)), for: .touchUpInside)
+        likeButton.frame = CGRect(x: 0, y: 0, width: 20, height: 40)
+        likeButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        likeButton.setTitleColor(UIColor.black, for: UIControlState())
         let likeItem = UIBarButtonItem(customView: likeButton)
         self.navigationItem.rightBarButtonItems = [moreBtn,likeItem]
     }
     
-    func setPersonType(personType:PersonType){
-        if personType == .Man {
+    func setPersonType(_ personType:PersonType){
+        if personType == .man {
             personTypeString = "他"
         }else{
             personTypeString = "她"
         }
     }
     
-    func likeButtonPress(sender:UIButton) {
+    func likeButtonPress(_ sender:UIButton) {
         if sender.tag == 0 {
             self.otherUserModel.liked_count = self.otherUserModel.liked_count + 1
             self.otherUserModel.cur_user_liked = true
@@ -199,21 +202,21 @@ class MeetDetailViewController: UIViewController {
         self.changeLikeButton(self.otherUserModel.cur_user_liked)
     }
     
-    func leftItemClick(sender:UIBarButtonItem){
-        self.navigationController?.popViewControllerAnimated(true)
+    func leftItemClick(_ sender:UIBarButtonItem){
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
-    func rigthItemClick(sender:UIBarButtonItem){
-        let alertControl = UIAlertController(title: "选择您要进行的操作", message: nil, preferredStyle: .ActionSheet)
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel) { (cancel) in
+    func rigthItemClick(_ sender:UIBarButtonItem){
+        let alertControl = UIAlertController(title: "选择您要进行的操作", message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (cancel) in
             
         }
-        let reportAction = UIAlertAction(title: "投诉", style: .Default) { (reportAction) in
+        let reportAction = UIAlertAction(title: "投诉", style: .default) { (reportAction) in
             self.actionSheetSelect = 1
             self.reportAction()
         }
         
-        let blackListAction = UIAlertAction(title: "加入黑名单", style: .Destructive) { (blackList) in
+        let blackListAction = UIAlertAction(title: "加入黑名单", style: .destructive) { (blackList) in
             self.actionSheetSelect = 2
             self.blackListAction()
         }
@@ -221,7 +224,7 @@ class MeetDetailViewController: UIViewController {
         alertControl.addAction(cancelAction)
         alertControl.addAction(reportAction)
         alertControl.addAction(blackListAction)
-        self.presentViewController(alertControl, animated: true) { 
+        self.present(alertControl, animated: true) { 
             
         }
     }
@@ -243,12 +246,12 @@ class MeetDetailViewController: UIViewController {
         if !UserInfo.isLoggedIn(){
             self.presentLoginView()
         }else{
-            let aletControl = UIAlertController.init(title: nil, message: "加入黑名单后，对方将不能再申请约见您；在 “设置-黑名单” 中可撤销此操作。", preferredStyle: UIAlertControllerStyle.Alert)
-            let cancleAction = UIAlertAction.init(title: "暂不", style: UIAlertActionStyle.Cancel, handler: { (canCel) in
+            let aletControl = UIAlertController.init(title: nil, message: "加入黑名单后，对方将不能再申请约见您；在 “设置-黑名单” 中可撤销此操作。", preferredStyle: UIAlertControllerStyle.alert)
+            let cancleAction = UIAlertAction.init(title: "暂不", style: UIAlertActionStyle.cancel, handler: { (canCel) in
                 (UserInviteModel.shareInstance().results[0]).is_active = true
-                self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 2)], withRowAnimation: UITableViewRowAnimation.Automatic)
+                self.tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: UITableViewRowAnimation.automatic)
             })
-            let doneAction = UIAlertAction.init(title: "拉黑", style: UIAlertActionStyle.Default, handler: { (canCel) in
+            let doneAction = UIAlertAction.init(title: "拉黑", style: UIAlertActionStyle.default, handler: { (canCel) in
                 self.userInfoViewModel.makeBlackList(self.user_id, succes: { (dic) in
                     MainThreadAlertShow("拉入黑名单成功", view: self.view)
                     }, fail: { (dic) in
@@ -257,7 +260,7 @@ class MeetDetailViewController: UIViewController {
             })
             aletControl.addAction(cancleAction)
             aletControl.addAction(doneAction)
-            self.presentViewController(aletControl, animated: true) {
+            self.present(aletControl, animated: true) {
             }
         }
         
@@ -282,13 +285,13 @@ class MeetDetailViewController: UIViewController {
             }
         }
         
-        self.presentViewController(controller, animated: true) { 
+        self.present(controller, animated: true) { 
             
         }
         
     }
     
-    func changeLikeButton(isLike:Bool) {
+    func changeLikeButton(_ isLike:Bool) {
         self.otherUserModel.cur_user_liked = isLike
         let image = self.otherUserModel.cur_user_liked ? UIImage.init(named: "detail_liked_normal"):UIImage.init(named: "detail_like_normal")
         var number = ""
@@ -299,32 +302,31 @@ class MeetDetailViewController: UIViewController {
 
         }
         likeButton.tag = isLike ? 1:0
-        likeButton.setTitle(number, forState: .Normal)
-        likeButton.setImage(image, forState: .Normal)
+        likeButton.setTitle(number, for: UIControlState())
+        likeButton.setImage(image, for: UIControlState())
         var frame = likeButton.frame
-        frame.size.width = number.stringWidth(number, font: UIFont.systemFontOfSize(14.0), height: 20) + 20
+        frame.size.width = number.stringWidth(number, font: UIFont.systemFont(ofSize: 14.0), height: 20) + 20
         likeButton.frame = frame
         
         let imageHight = self.otherUserModel.cur_user_liked ? UIImage.init(named: "detail_liked_pressed") : UIImage.init(named: "detail_like_pressed")
-        likeButton.setImage(imageHight, forState: .Highlighted)
+        likeButton.setImage(imageHight, for: .highlighted)
         
         if self.reloadHomeListLike != nil {
-            self.reloadHomeListLike(isLike: isLike,number: self.otherUserModel.liked_count)
+            self.reloadHomeListLike(isLike,self.otherUserModel.liked_count)
         }
-        
     }
     
     func getHomeDetailModel(){
         viewModel.getOtherUserInfo(user_id, successBlock: { (dic) in
-            self.otherUserModel = HomeDetailModel.mj_objectWithKeyValues(dic)
-            let coverPhoto = self.otherUserModel.cover_photo?.photo.componentsSeparatedByString("?")
-            self.imageUrls.addObject(coverPhoto![0])
+            self.otherUserModel = HomeDetailModel.mj_object(withKeyValues: dic)
+            let coverPhoto = self.otherUserModel.cover_photo?.photo.components(separatedBy: "?")
+            self.imageUrls.add(coverPhoto![0])
             if self.otherUserModel.head_photo_list != nil {
                 var currentImage:NSInteger = 1
-                let photoModels = Head_Photo_List.mj_objectArrayWithKeyValuesArray(self.otherUserModel.head_photo_list!)
-                for model in photoModels {
+                let photoModels = Head_Photo_List.mj_objectArray(withKeyValuesArray: self.otherUserModel.head_photo_list!)
+                for model in photoModels! {
                     let photoModel = model as! Head_Photo_List
-                    self.imageUrls.addObject(photoModel.photo)
+                    self.imageUrls.add(photoModel.photo)
                     currentImage = currentImage + 1
                 }
                 self.getPlachImage()
@@ -333,15 +335,15 @@ class MeetDetailViewController: UIViewController {
             if !self.isOrderViewPush {
                 self.setUpBottomView()
                 if self.otherUserModel.gender == 1 {
-                    self.personType = .Man
+                    self.personType = .man
                     self.setPersonType(self.personType)
                 }
             }
-            self.personalArray = self.personalLabelArray
-            self.images.addObjectsFromArray(self.imageArray.copy() as! [AnyObject])
+            self.personalArray = self.personalLabelArray as! [String]
+            self.images.addObjects(from: self.imageArray.copy() as! [AnyObject])
             self.setUpTableView()
             self.changeLikeButton(self.otherUserModel.cur_user_liked)
-            }, failBlock: { (dic) in
+            }, fail: { (dic) in
                 self.getHomeDetailModel()
         }) { (msg) in
             
@@ -353,15 +355,15 @@ class MeetDetailViewController: UIViewController {
         
         if self.otherUserModel.user_info!.detail != nil {
             let details = self.otherUserModel.user_info!.detail
-            let dtailArray = Detail.mj_objectArrayWithKeyValuesArray(details)
-            for detailModel in dtailArray {
+            let dtailArray = Detail.mj_objectArray(withKeyValuesArray: details)
+            for detailModel in dtailArray! {
                 
                 let photos = (detailModel as! Detail).photo
-                let photosModel = Photos.mj_objectArrayWithKeyValuesArray(photos)
-                for model in photosModel {
-                    if model.photo != "" {
-                        let imageArray = model.photo!.componentsSeparatedByString("?")
-                        tempArray.addObject(imageArray[0].stringByAppendingString(HomeDetailMoreInfoImageSize))
+                let photosModel = Photos.mj_objectArray(withKeyValuesArray: photos)
+                for model in photosModel! {
+                    if (model as AnyObject).photo != "" {
+                        let imageArray = (model as AnyObject).photo!.components(separatedBy: "?")
+                        tempArray.add(imageArray[0] + HomeDetailMoreInfoImageSize)
                     }
                 }
             }
@@ -371,40 +373,40 @@ class MeetDetailViewController: UIViewController {
     
     lazy var personalLabelArray:NSArray = {
         let tempArray = NSMutableArray()
-        tempArray.addObjectsFromArray(self.otherUserModel.personal_label.componentsSeparatedByString(","))
+        tempArray.addObjects(from: self.otherUserModel.personal_label.components(separatedBy: ","))
         return tempArray
     }()
     
     lazy var dataArray:NSArray = {
         var tempArray = NSMutableArray()
         let descriptions = self.otherUserModel.user_info!.highlight
-        let array = descriptions.componentsSeparatedByString("\n")
-        tempArray.addObjectsFromArray(array)
+        let array = descriptions.components(separatedBy: "\n")
+        tempArray.addObjects(from: array)
         return tempArray
     }()
     
     lazy var inviteArray:NSArray = {
         let tempArray = NSMutableArray()
-        let dic = (ProfileKeyAndValue.shareInstance().appDic as NSDictionary).objectForKey("invitation") as! NSDictionary
+        let dic = (ProfileKeyAndValue.shareInstance().appDic as NSDictionary).object(forKey: "invitation") as! NSDictionary
         if self.otherUserModel.engagement!.theme != nil {
             let themes = self.otherUserModel.engagement!.theme!
-            let themesArray = Theme.mj_objectArrayWithKeyValuesArray(themes)
-            for theme in themesArray {
-                tempArray.addObject(dic.objectForKey(theme.theme!)!)
+            let themesArray = Theme.mj_objectArray(withKeyValuesArray: themes)
+            for theme in themesArray! {
+                tempArray.add(dic.object(forKey: (theme as! Theme).theme!)!)
             }
         }
         return tempArray
     }()
     
-    lazy var personalArray:NSArray = {
-        var tempArray = NSArray()
-        tempArray = (self.otherUserModel.personal_label.componentsSeparatedByString(","))
+    lazy var personalArray:[String] = {
+        var tempArray:[String] = []
+        tempArray = (self.otherUserModel.personal_label.components(separatedBy: ","))
         return tempArray
     }()
     
     lazy var engagement:Engagement = {
-        let engagement = Engagement.mj_objectWithKeyValues(self.otherUserModel.engagement)
-        return engagement
+        let engagement = Engagement.mj_object(withKeyValues: self.otherUserModel.engagement)
+        return engagement!
     }()
     
     override func didReceiveMemoryWarning() {
@@ -412,19 +414,19 @@ class MeetDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func aboutUsHeight(stringArray:NSArray) -> CGFloat {
+    func aboutUsHeight(_ stringArray:NSArray) -> CGFloat {
         var height:CGFloat = 10.0
         for item in stringArray {
             let string = item as! String
             if string != "" {
-                height = height + item.heightWithFont(LoginCodeLabelFont, constrainedToWidth: UIScreen.mainScreen().bounds.size.width - 38) + 10
+                height = height + (item as AnyObject).height(with: LoginCodeLabelFont, constrainedToWidth: UIScreen.main.bounds.size.width - 38) + 10
             }
         }
         
         return height
     }
     
-    func meetInfoCellHeight(model:HomeDetailModel) -> CGFloat{
+    func meetInfoCellHeight(_ model:HomeDetailModel) -> CGFloat{
         var height:CGFloat = 62;
         if model.job_label != "" {
             height = height + 47
@@ -438,42 +440,42 @@ class MeetDetailViewController: UIViewController {
         return height;
     }
 
-    func configCell(cell:MeetInfoTableViewCell, indxPath:NSIndexPath)
+    func configCell(_ cell:MeetInfoTableViewCell, indxPath:IndexPath)
     {
         if self.otherUserModel.distance == "" {
-            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location as String)", interestCollectArray: self.personalArray as [AnyObject],autotnInfo: self.otherUserModel.user_info?.auth_info)
+            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location as String)", interestCollect: self.personalArray as [AnyObject],autotnInfo: self.otherUserModel.user_info?.auth_info)
         }else{
-            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location as String)    和你相隔 \(self.otherUserModel.distance as String)", interestCollectArray: self.personalArray as [AnyObject], autotnInfo: self.otherUserModel.user_info?.auth_info)
+            cell.configCell(self.otherUserModel.real_name, position: self.otherUserModel.job_label, meetNumber: "\(self.otherUserModel.location as String)    和你相隔 \(self.otherUserModel.distance as String)", interestCollect: self.personalArray as [AnyObject], autotnInfo: self.otherUserModel.user_info?.auth_info)
         }
     }
     
-    func configNewMeetCell(cell:NewMeetInfoTableViewCell, indxPath:NSIndexPath)
+    func configNewMeetCell(_ cell:NewMeetInfoTableViewCell, indxPath:IndexPath)
     {
         cell.configCell(self.otherUserModel.engagement?.introduction_other, array: self.inviteArray as [AnyObject], andStyle: .ItemWhiteColorAndBlackBoard)
     }
     
-    func configAboutCell(cell:AboutUsInfoTableViewCell, indxPath:NSIndexPath)
+    func configAboutCell(_ cell:AboutUsInfoTableViewCell, indxPath:IndexPath)
     {
-        cell.configCell(self.otherUserModel.user_info?.experience, info: self.otherUserModel.user_info?.highlight, imageArray: self.images as [AnyObject], withUrl: self.otherUserModel.web_url)
+        cell.configCell(((self.otherUserModel.user_info?.experience)! as String), info: self.otherUserModel.user_info?.highlight, imageArray: self.images as [AnyObject], withUrl: self.otherUserModel.web_url)
     }
     
     func getPlachImage() {
         let manage = SDWebImageManager()
-        let plachImageSize = CGSizeMake(ScreenWidth - 20, (ScreenWidth - 20)*236/355)
+        let plachImageSize = CGSize(width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355)
         let plachImageWidth = Int(plachImageSize.width)
         let plachImageHeight = Int(plachImageSize.height)
-        let image = UIImage.init(color: UIColor.clearColor(), size: plachImageSize)
+        let image = UIImage.init(color: UIColor.clear, size: plachImageSize)
         for url in self.imageUrls {
-            plachImages.addObject(image)
-            let urlStr = NSURL.init(string: url.stringByAppendingString("?imageView2/1/w/\(plachImageWidth)/h/\(plachImageHeight)"))
-            manage.downloadImageWithURL(urlStr, options: .RetryFailed, progress: { (start, end) in
+            plachImages.add(image)
+            let urlStr = URL.init(string: ((url as! String).appending("?imageView2/1/w/\(plachImageWidth)/h/\(plachImageHeight)")))
+            manage.downloadImage(with: urlStr, options: .retryFailed, progress: { (start, end) in
                 
                 }, completed: { (image, error, cache, finist, url) in
                     if image != nil {
-                        let urlString = url.absoluteString.componentsSeparatedByString("?")
+                        let urlString = url?.absoluteString.components(separatedBy: "?")
                         for urlIndex in  0...self.imageUrls.count - 1 {
-                            if urlString[0] == self.imageUrls[urlIndex] as! String {
-                                self.plachImages.replaceObjectAtIndex(urlIndex, withObject: image)
+                            if urlString?[0] == self.imageUrls[urlIndex] as? String {
+                                self.plachImages.replaceObject(at: urlIndex, with: image)
                             }
                         }
                     }
@@ -486,20 +488,20 @@ class MeetDetailViewController: UIViewController {
         let imageArray = NSMutableArray()
         if self.otherUserModel.cover_photo != nil {
             if self.otherUserModel.cover_photo!.photo != "" {
-                let imageStrArray = self.otherUserModel.cover_photo!.photo.componentsSeparatedByString("?")
-                imageArray.addObject(imageStrArray[0].stringByAppendingString(HomeDetailCovertImageSize))
+                let imageStrArray = self.otherUserModel.cover_photo!.photo.components(separatedBy: "?")
+                imageArray.add(imageStrArray[0] + HomeDetailCovertImageSize)
             }
         }
-        let models = Head_Photo_List.mj_objectArrayWithKeyValuesArray(self.otherUserModel.head_photo_list!)
-        for model in models {
+        let models = Head_Photo_List.mj_objectArray(withKeyValuesArray: self.otherUserModel.head_photo_list!)
+        for model in models! {
             let photoModel = model as! Head_Photo_List
-            let imageStr = photoModel.photo.stringByAppendingString(HomeDetailCovertImageSize)
-            imageArray.addObject(imageStr)
+            let imageStr = photoModel.photo + HomeDetailCovertImageSize
+            imageArray.add(imageStr)
         }
         return imageArray
     }
     
-    func presentImageBrowse(index:NSInteger, sourceView:UIView) {
+    func presentImageBrowse(_ index:NSInteger, sourceView:UIView) {
 
         let photoBrowser = SDPhotoBrowser()
         photoBrowser.delegate = self
@@ -515,22 +517,170 @@ class MeetDetailViewController: UIViewController {
 }
 
 extension MeetDetailViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        if indexPath.section == 0 && indexPath.row == 2 {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if self.otherUserModel.user_info?.highlight == "" {
+            switch (indexPath as NSIndexPath).section {
+            case 0:
+                switch (indexPath as NSIndexPath).row {
+                case 0:
+                    return (ScreenWidth - 20)*236/355
+                case 1:
+                    return tableView.fd_heightForCell(withIdentifier: meetInfoTableViewCell, configuration: { (cell) in
+                        self.configCell(cell as! MeetInfoTableViewCell, indxPath: indexPath)
+                    })
+                default:
+                    return 50
+                }
+            case 1:
+                switch (indexPath as NSIndexPath).row {
+                case 0:
+                    return 49
+                default:
+                    return tableView.fd_heightForCell(withIdentifier: newMeetInfoTableViewCell, cacheByKey: self.user_id as NSCopying!, configuration: { (cell) in
+                        self.configNewMeetCell(cell as! NewMeetInfoTableViewCell, indxPath: indexPath)
+                        
+                    })
+                }
+            default:
+                switch (indexPath as NSIndexPath).row {
+                case 0:
+                    return 49
+                default:
+                    return 123
+                }
+            }
+        }else{
+            switch (indexPath as NSIndexPath).section {
+            case 0:
+                switch (indexPath as NSIndexPath).row {
+                case 0:
+                    return (UIScreen.main.bounds.size.width - 20)*236/355
+                case 1:
+                    return tableView.fd_heightForCell(withIdentifier: meetInfoTableViewCell, configuration: { (cell) in
+                        self.configCell(cell as! MeetInfoTableViewCell, indxPath: indexPath)
+                    })
+                default:
+                    return 50
+                }
+            case 1:
+                switch (indexPath as NSIndexPath).row {
+                case 0:
+                    return 49
+                default:
+                    return tableView.fd_heightForCell(withIdentifier: aboutUsInfoTableViewCell, configuration: { (cell) in
+                        self.configAboutCell(cell as! AboutUsInfoTableViewCell, indxPath: indexPath)
+                    })
+                }
+            case 2:
+                switch (indexPath as NSIndexPath).row {
+                case 0:
+                    return 49
+                default:
+                    return tableView.fd_heightForCell(withIdentifier: newMeetInfoTableViewCell, cacheByKey: self.user_id as NSCopying!, configuration: { (cell) in
+                        self.configNewMeetCell(cell as! NewMeetInfoTableViewCell, indxPath: indexPath)
+                    })
+                }
+            default:
+                switch (indexPath as NSIndexPath).row {
+                case 0:
+                    return 49
+                default:
+                    return 123
+                }
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        if self.otherUserModel.user_info?.highlight == ""{
+            switch (indexPath as NSIndexPath).section {
+            case 0:
+                switch (indexPath as NSIndexPath).row {
+                case 0:
+                    return (UIScreen.main.bounds.size.width - 20)*236/355
+                case 1:
+                    return 195
+                default:
+                    return 49
+                }
+            case 1:
+                switch (indexPath as NSIndexPath).row {
+                case 0:
+                    return 49
+                default:
+                    
+                    return 223
+                }
+            default:
+                switch (indexPath as NSIndexPath).row {
+                case 0:
+                    return 49
+                default:
+                    return 123
+                }
+            }
+        }else {
+            switch (indexPath as NSIndexPath).section {
+            case 0:
+                switch (indexPath as NSIndexPath).row {
+                case 0:
+                    return (UIScreen.main.bounds.size.width - 20)*236/355
+                case 1:
+                    return 195
+                default:
+                    return 49
+                }
+            case 1:
+                switch (indexPath as NSIndexPath).row {
+                case 0:
+                    return 49
+                default:
+                    return 210;
+                }
+            case 2:
+                switch (indexPath as NSIndexPath).row {
+                case 0:
+                    return 49
+                default:
+                    
+                    return 223
+                }
+            default:
+                switch (indexPath as NSIndexPath).row {
+                case 0:
+                    return 49
+                default:
+                    return 123
+                }
+            }
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
+        if (indexPath as NSIndexPath).section == 0 && (indexPath as NSIndexPath).row == 2 {
             let otherInfo =  Stroyboard("Main", viewControllerId: "OtherViewController") as! OtherViewController
             otherInfo.uid = user_id
             self.navigationController?.pushViewController(otherInfo, animated: true)
-        }else if indexPath.section == 1 && indexPath.row == 1 && self.otherUserModel.user_info!.highlight != ""  && self.otherUserModel.web_url != ""{
+        }else if (indexPath as NSIndexPath).section == 1 && (indexPath as NSIndexPath).row == 1 && self.otherUserModel.user_info!.highlight != ""  && self.otherUserModel.web_url != ""{
             let meetWebView = AboutDetailViewController()
             meetWebView.url = "\(RequestBaseUrl)\(self.otherUserModel.web_url)"
             self.navigationController?.pushViewController(meetWebView, animated: true)
         }
     }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.00001
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 7
+    }
 }
 
 extension MeetDetailViewController : UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return 3
@@ -543,7 +693,7 @@ extension MeetDetailViewController : UITableViewDataSource {
         }
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         if self.otherUserModel.user_info!.highlight == ""{
             return 2
         }else{
@@ -552,274 +702,126 @@ extension MeetDetailViewController : UITableViewDataSource {
         }
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.00001
-    }
-    
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 7
-    }
-    
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if self.otherUserModel.user_info?.highlight == ""{
-            switch indexPath.section {
-            case 0:
-                switch indexPath.row {
-                case 0:
-                    return (UIScreen.mainScreen().bounds.size.width - 20)*236/355
-                case 1:
-                    return 195
-                default:
-                    return 49
-                }
-            case 1:
-                switch indexPath.row {
-                case 0:
-                    return 49
-                default:
-                    
-                    return 223
-                }
-            default:
-                switch indexPath.row {
-                case 0:
-                    return 49
-                default:
-                    return 123
-                }
-            }
-        }else {
-            switch indexPath.section {
-            case 0:
-                switch indexPath.row {
-                case 0:
-                    return (UIScreen.mainScreen().bounds.size.width - 20)*236/355
-                case 1:
-                    return 195
-                default:
-                    return 49
-                }
-            case 1:
-                switch indexPath.row {
-                case 0:
-                    return 49
-                default:
-                    return 210;
-                }
-            case 2:
-                switch indexPath.row {
-                case 0:
-                    return 49
-                default:
-                    
-                    return 223
-                }
-            default:
-                switch indexPath.row {
-                case 0:
-                    return 49
-                default:
-                    return 123
-                }
-            }
-        }
-        
-    }
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if self.otherUserModel.user_info?.highlight == "" {
-            switch indexPath.section {
+            switch (indexPath as NSIndexPath).section {
             case 0:
-                switch indexPath.row {
+                switch (indexPath as NSIndexPath).row {
                 case 0:
-                    return (ScreenWidth - 20)*236/355
-                case 1:
-                    return tableView.fd_heightForCellWithIdentifier(meetInfoTableViewCell, configuration: { (cell) in
-                        self.configCell(cell as! MeetInfoTableViewCell, indxPath: indexPath)
-                    })
-                default:
-                    return 50
-                }
-            case 1:
-                switch indexPath.row {
-                case 0:
-                    return 49
-                default:
-                    return tableView.fd_heightForCellWithIdentifier(newMeetInfoTableViewCell, cacheByKey: self.user_id, configuration: { (cell) in
-                        self.configNewMeetCell(cell as! NewMeetInfoTableViewCell, indxPath: indexPath)
-
-                    })
-                }
-            default:
-                switch indexPath.row {
-                case 0:
-                    return 49
-                default:
-                    return 123
-                }
-            }
-        }else{
-            switch indexPath.section {
-            case 0:
-                switch indexPath.row {
-                case 0:
-                    return (UIScreen.mainScreen().bounds.size.width - 20)*236/355
-                case 1:
-                    return tableView.fd_heightForCellWithIdentifier(meetInfoTableViewCell, configuration: { (cell) in
-                        self.configCell(cell as! MeetInfoTableViewCell, indxPath: indexPath)
-                    })
-                default:
-                    return 50
-                }
-            case 1:
-                switch indexPath.row {
-                case 0:
-                    return 49
-                default:
-                    return tableView.fd_heightForCellWithIdentifier(aboutUsInfoTableViewCell, configuration: { (cell) in
-                        self.configAboutCell(cell as! AboutUsInfoTableViewCell, indxPath: indexPath)
-                    })
-                }
-            case 2:
-                switch indexPath.row {
-                case 0:
-                    return 49
-                default:
-                    return tableView.fd_heightForCellWithIdentifier(newMeetInfoTableViewCell, cacheByKey: self.user_id, configuration: { (cell) in
-                        self.configNewMeetCell(cell as! NewMeetInfoTableViewCell, indxPath: indexPath)
-                    })
-                }
-            default:
-                switch indexPath.row {
-                case 0:
-                    return 49
-                default:
-                    return 123
-                }
-            }
-        }
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.otherUserModel.user_info?.highlight == "" {
-            switch indexPath.section {
-            case 0:
-                switch indexPath.row {
-                case 0:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(photoTableViewCell, forIndexPath: indexPath) as! PhotoTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: photoTableViewCell, for: indexPath) as! PhotoTableViewCell
                     cell.configCell(self.headerListImages() as [AnyObject], gender: self.otherUserModel.gender , age: self.otherUserModel.age)
                     cell.clickBlock = { index,scourceView in
-                        self.presentImageBrowse(index, sourceView: scourceView)
+                        self.presentImageBrowse(index, sourceView: scourceView!)
                     }
                     return cell
                 case 1:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(meetInfoTableViewCell, forIndexPath: indexPath) as! MeetInfoTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: meetInfoTableViewCell, for: indexPath) as! MeetInfoTableViewCell
                     self.configCell(cell, indxPath: indexPath)
-                    cell.selectionStyle = UITableViewCellSelectionStyle.None
-                    cell.userInteractionEnabled = false
+                    cell.selectionStyle = UITableViewCellSelectionStyle.none
+                    cell.isUserInteractionEnabled = false
                     return cell
                 default:
                     let identifier = "MoreTableViewCell"
-                    var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
+                    var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
                     if cell == nil{
-                        cell = AllInfoTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: identifier)
+                        cell = AllInfoTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
                     }
-                    cell?.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell?.selectionStyle = UITableViewCellSelectionStyle.none
                     return cell!
                 }
             case 1:
-                switch indexPath.row {
+                switch (indexPath as NSIndexPath).row {
                 case 0:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
-                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    let cell = tableView.dequeueReusableCell(withIdentifier: sectionInfoTableViewCell, for: indexPath) as! SectionInfoTableViewCell
+                    cell.selectionStyle = UITableViewCellSelectionStyle.none
                     cell.configCell("meetdetail_newmeet", titleString: "\(personTypeString)的邀约")
-                    cell.userInteractionEnabled = false
+                    cell.isUserInteractionEnabled = false
                     return cell
                 default:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(newMeetInfoTableViewCell, forIndexPath: indexPath) as! NewMeetInfoTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: newMeetInfoTableViewCell, for: indexPath) as! NewMeetInfoTableViewCell
                     self.configNewMeetCell(cell, indxPath: indexPath)
-                    cell.selectionStyle = UITableViewCellSelectionStyle.None
-                    cell.userInteractionEnabled = false
+                    cell.selectionStyle = UITableViewCellSelectionStyle.none
+                    cell.isUserInteractionEnabled = false
                     cell.isHaveShadowColor(true)
                     return cell
                 }
             default:
-                switch indexPath.row {
+                switch (indexPath as NSIndexPath).row {
                 case 0:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
-                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    let cell = tableView.dequeueReusableCell(withIdentifier: sectionInfoTableViewCell, for: indexPath) as! SectionInfoTableViewCell
+                    cell.selectionStyle = UITableViewCellSelectionStyle.none
                     cell.configCell("meetdetail_wantmeet", titleString: "更多想见的人")
                     return cell
                 default:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(wantMeetTableViewCell, forIndexPath: indexPath) as! WantMeetTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: wantMeetTableViewCell, for: indexPath) as! WantMeetTableViewCell
                     cell.textLabel?.text = "更多想见的人"
                     return cell
                 }
             }
         }else{
-            switch indexPath.section {
+            switch (indexPath as NSIndexPath).section {
             case 0:
-                switch indexPath.row {
+                switch (indexPath as NSIndexPath).row {
                 case 0:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(photoTableViewCell, forIndexPath: indexPath) as! PhotoTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: photoTableViewCell, for: indexPath) as! PhotoTableViewCell
                     cell.configCell(self.headerListImages() as [AnyObject], gender: self.otherUserModel.gender , age: self.otherUserModel.age)
                     cell.clickBlock = { index,scourceView in
-                        self.presentImageBrowse(index, sourceView: scourceView)
+                        self.presentImageBrowse(index, sourceView: scourceView!)
                     }
                     return cell
                 case 1:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(meetInfoTableViewCell, forIndexPath: indexPath) as! MeetInfoTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: meetInfoTableViewCell, for: indexPath) as! MeetInfoTableViewCell
                     self.configCell(cell, indxPath: indexPath)
-                    cell.selectionStyle = UITableViewCellSelectionStyle.None
-                    cell.userInteractionEnabled = false
+                    cell.selectionStyle = UITableViewCellSelectionStyle.none
+                    cell.isUserInteractionEnabled = false
                     return cell
                 default:
                     let identifier = "MoreTableViewCell"
-                    var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
+                    var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
                     if cell == nil{
-                        cell = AllInfoTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: identifier)
+                        cell = AllInfoTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
                     }
-                    cell?.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell?.selectionStyle = UITableViewCellSelectionStyle.none
                     return cell!
                 }
             case 1:
-                switch indexPath.row {
+                switch (indexPath as NSIndexPath).row {
                 case 0:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: sectionInfoTableViewCell, for: indexPath) as! SectionInfoTableViewCell
                     cell.configCell("meetdetail_aboutus", titleString: "关于\(personTypeString)")
-                    cell.userInteractionEnabled = false
-                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell.isUserInteractionEnabled = false
+                    cell.selectionStyle = UITableViewCellSelectionStyle.none
                     return cell
                 default:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(aboutUsInfoTableViewCell, forIndexPath: indexPath) as! AboutUsInfoTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: aboutUsInfoTableViewCell, for: indexPath) as! AboutUsInfoTableViewCell
                     self.configAboutCell(cell, indxPath: indexPath)
-                    cell.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell.selectionStyle = UITableViewCellSelectionStyle.none
                     return cell
                 }
                 
             case 2:
-                switch indexPath.row {
+                switch (indexPath as NSIndexPath).row {
                 case 0:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: sectionInfoTableViewCell, for: indexPath) as! SectionInfoTableViewCell
                     cell.configCell("meetdetail_newmeet", titleString: "\(personTypeString)的邀约")
-                    cell.userInteractionEnabled = false
+                    cell.isUserInteractionEnabled = false
                     return cell
                 default:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(newMeetInfoTableViewCell, forIndexPath: indexPath) as! NewMeetInfoTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: newMeetInfoTableViewCell, for: indexPath) as! NewMeetInfoTableViewCell
                     self.configNewMeetCell(cell, indxPath: indexPath)
                     cell.isHaveShadowColor(true)
-                    cell.selectionStyle = UITableViewCellSelectionStyle.None
-                    cell.userInteractionEnabled = false
+                    cell.selectionStyle = UITableViewCellSelectionStyle.none
+                    cell.isUserInteractionEnabled = false
                     return cell
                 }
             default:
-                switch indexPath.row {
+                switch (indexPath as NSIndexPath).row {
                 case 0:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(sectionInfoTableViewCell, forIndexPath: indexPath) as! SectionInfoTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: sectionInfoTableViewCell, for: indexPath) as! SectionInfoTableViewCell
                     cell.configCell("meetdetail_wantmeet", titleString: "更多想见的人")
                     return cell
                 default:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(wantMeetTableViewCell, forIndexPath: indexPath) as! WantMeetTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: wantMeetTableViewCell, for: indexPath) as! WantMeetTableViewCell
                     cell.textLabel?.text = "更多想见的人"
                     return cell
                 }
@@ -831,16 +833,16 @@ extension MeetDetailViewController : UITableViewDataSource {
 }
 
 extension MeetDetailViewController : UIActionSheetDelegate {
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
         switch buttonIndex {
         case 0:break
         case 1:
-            let aletControl = UIAlertController.init(title: nil, message: "加入黑名单后，对方将不能再申请约见您；在 “设置-黑名单” 中可撤销此操作。", preferredStyle: UIAlertControllerStyle.Alert)
-            let cancleAction = UIAlertAction.init(title: "暂不", style: UIAlertActionStyle.Cancel, handler: { (canCel) in
+            let aletControl = UIAlertController.init(title: nil, message: "加入黑名单后，对方将不能再申请约见您；在 “设置-黑名单” 中可撤销此操作。", preferredStyle: UIAlertControllerStyle.alert)
+            let cancleAction = UIAlertAction.init(title: "暂不", style: UIAlertActionStyle.cancel, handler: { (canCel) in
                 (UserInviteModel.shareInstance().results[0]).is_active = true
-                self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 2)], withRowAnimation: UITableViewRowAnimation.Automatic)
+                self.tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: UITableViewRowAnimation.automatic)
             })
-            let doneAction = UIAlertAction.init(title: "拉黑", style: UIAlertActionStyle.Default, handler: { (canCel) in
+            let doneAction = UIAlertAction.init(title: "拉黑", style: UIAlertActionStyle.default, handler: { (canCel) in
                 self.userInfoViewModel.makeBlackList(self.user_id, succes: { (dic) in
                     MainThreadAlertShow("拉入黑名单成功", view: self.view)
                     }, fail: { (dic) in
@@ -849,7 +851,7 @@ extension MeetDetailViewController : UIActionSheetDelegate {
             })
             aletControl.addAction(cancleAction)
             aletControl.addAction(doneAction)
-            self.presentViewController(aletControl, animated: true) {
+            self.present(aletControl, animated: true) {
                 
             }
         default:
@@ -859,12 +861,12 @@ extension MeetDetailViewController : UIActionSheetDelegate {
         }
     }
     
-    func willPresentActionSheet(actionSheet: UIActionSheet) {
+    func willPresent(_ actionSheet: UIActionSheet) {
         for subView in actionSheet.subviews {
-            if subView.isKindOfClass(UIButton.self) {
+            if subView.isKind(of: UIButton.self) {
                 let button = subView as! UIButton
                 if button.tag == 1 {
-                    button.setTitleColor(UIColor.redColor(), forState: .Normal)
+                    button.setTitleColor(UIColor.red, for: UIControlState())
                 }
             }
         }
@@ -872,11 +874,11 @@ extension MeetDetailViewController : UIActionSheetDelegate {
 }
 
 extension MeetDetailViewController : SDPhotoBrowserDelegate {
-    func photoBrowser(browser: SDPhotoBrowser!, highQualityImageURLForIndex index: Int) -> NSURL! {
-        return NSURL.init(string: self.imageUrls[index] as! String)
+    func photoBrowser(_ browser: SDPhotoBrowser!, highQualityImageURLFor index: Int) -> URL! {
+        return URL.init(string: self.imageUrls[index] as! String)
     }
     
-    func photoBrowser(browser: SDPhotoBrowser!, placeholderImageForIndex index: Int) -> UIImage! {
+    func photoBrowser(_ browser: SDPhotoBrowser!, placeholderImageFor index: Int) -> UIImage! {
         return plachImages[index] as! UIImage
     }
 }

@@ -14,35 +14,35 @@ extension String{
     //MARK:获得string内容高度
      var length: Int { return self.characters.count }
     
-    func stringHeight(font:UIFont,width:CGFloat)->CGFloat{
+    func stringHeight(_ font:UIFont,width:CGFloat)->CGFloat{
                 
-        let size = CGSizeMake(width,CGFloat.max)
+        let size = CGSize(width: width,height: CGFloat.greatestFiniteMagnitude)
         
         let paragraphStyle = NSMutableParagraphStyle()
         
-        paragraphStyle.lineBreakMode = .ByWordWrapping;
+        paragraphStyle.lineBreakMode = .byWordWrapping;
         
         let attributes = [NSFontAttributeName:font, NSParagraphStyleAttributeName:paragraphStyle.copy()]
         
         let text = self as NSString
         
-        let rect = text.boundingRectWithSize(size, options:.UsesLineFragmentOrigin, attributes: attributes, context:nil)
+        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: attributes, context:nil)
         
         return rect.size.height
         
     }//funcstringHeightWith
     
-    func heightWithConstrainedWidth(width: CGFloat, font: UIFont) -> CGFloat {
-        let constraintRect = CGSize(width: width, height: CGFloat.max)
-        let boundingBox = self.boundingRectWithSize(constraintRect, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+    func heightWithConstrainedWidth(_ width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
         return boundingBox.height
     }
     
-    func stringWidth(labelStr:String,font:UIFont,height:CGFloat) -> CGFloat {
-        let statusLabelText: NSString = labelStr
-        let size = CGSizeMake(900, height)
-        let dic = NSDictionary(object: font, forKey: NSFontAttributeName)
-        let strSize = statusLabelText.boundingRectWithSize(size, options: .UsesLineFragmentOrigin, attributes: dic as? [String : AnyObject], context: nil).size
+    func stringWidth(_ labelStr:String,font:UIFont,height:CGFloat) -> CGFloat {
+        let statusLabelText: NSString = labelStr as NSString
+        let size = CGSize(width: 900, height: height)
+        let dic = NSDictionary(object: font, forKey: NSFontAttributeName as NSCopying)
+        let strSize = statusLabelText.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: dic as? [String : AnyObject], context: nil).size
         return strSize.width
     }
     

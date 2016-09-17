@@ -9,8 +9,8 @@
 import UIKit
 
 enum MeetInfoType {
-    case PayDas
-    case Normal
+    case payDas
+    case normal
 }
 
 
@@ -37,18 +37,18 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    func setData(model:OrderModel,type:MeetInfoType){
+    func setData(_ model:OrderModel,type:MeetInfoType){
         if model.status?.status_code == "6" || model.status?.status_code == "11"  {
             weChatNum.text = model.order_user_info?.weixin_num
             phoneNum.text = model.order_user_info?.mobile_num
             weChatNum.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
             phoneNum.textColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
             phoneNum.font = UIFont.init(name: "HelveticaNeue-Bold", size: 12.0)
-            phoneNum.userInteractionEnabled = true
+            phoneNum.isUserInteractionEnabled = true
             phoneimageView = UIImageView()
-            phoneimageView.hidden = false
+            phoneimageView.isHidden = false
             phoneimageView.image = UIImage.init(named: "order_phone")
-            phoneimageView.frame = CGRectMake(ScreenWidth - 120, phoneNum.frame.origin.y, 9, 13)
+            phoneimageView.frame = CGRect(x: ScreenWidth - 120, y: phoneNum.frame.origin.y, width: 9, height: 13)
             self.contentView.addSubview(phoneimageView)
             
             let panTap = UITapGestureRecognizer(target: self, action: #selector(MeetOrderInfoTableViewCell.callbuttonClick(_:)))
@@ -57,7 +57,7 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
             phoneNum.addGestureRecognizer(panTap)
         }else {
             if phoneimageView != nil {
-                phoneimageView.hidden = true
+                phoneimageView.isHidden = true
             }
             var str = ""
             if model.status?.status_type == "apply_order" {
@@ -85,9 +85,9 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
             weChatNum.text = str
         }
         var time = model.created_at
-        time = time.stringByReplacingOccurrencesOfString("T", withString: " ")
-        time = time.stringByReplacingOccurrencesOfString("Z", withString: "")
-        time = time.stringByReplacingOccurrencesOfString("-", withString: "-")
+        time = time.replacingOccurrences(of: "T", with: " ")
+        time = time.replacingOccurrences(of: "Z", with: "")
+        time = time.replacingOccurrences(of: "-", with: "-")
         orderCreateTime.attributedText = self.setStringAttribute("预约时间：\(time)")
         order_id.attributedText = self.setStringAttribute("预约单号：\(model.order_id)")
         UIView.drawDashLine(line, lineLength: 1, lineSpacing: 3, lineColor: UIColor.init(hexString: lineLabelBackgroundColor))
@@ -97,25 +97,25 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(MeetOrderInfoTableViewCell.panTapClick(_:)))
         tapGesture.numberOfTapsRequired = 1
         tapGesture.numberOfTouchesRequired = 1
-        if type == .PayDas {
+        if type == .payDas {
             let str = "你们已认识 \(model.meeted_days) 天了哦，聊得不错就赶快线下约见吧\n约见前别忘了先了解 约见贴士"
             let stringAttribute = NSMutableAttributedString(string: str)
             stringAttribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: MeProfileCollectViewItemSelect)], range: NSRange.init(location: str.length - 4, length: 4))
              stringAttribute.addAttributes([NSFontAttributeName:OrderMeetTipFont!], range: NSRange.init(location: str.length - 4, length: 4))
             meetTip.attributedText = stringAttribute
-            meetTip.userInteractionEnabled = true
-            meetTip.hidden = false
-            line2.hidden = false
+            meetTip.isUserInteractionEnabled = true
+            meetTip.isHidden = false
+            line2.isHidden = false
             meetTip.addGestureRecognizer(tapGesture)
-        }else if type == .Normal {
+        }else if type == .normal {
             let str = "约见前别忘了先了解 约见贴士"
             let stringAttribute = NSMutableAttributedString(string: str)
             stringAttribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: MeProfileCollectViewItemSelect)], range: NSRange.init(location: str.length - 4, length: 4))
             stringAttribute.addAttributes([NSFontAttributeName:OrderMeetTipFont!], range: NSRange.init(location: str.length - 4, length: 4))
             meetTip.attributedText = stringAttribute
-            line2.hidden = false
-            meetTip.hidden = false
-            meetTip.userInteractionEnabled = true
+            line2.isHidden = false
+            meetTip.isHidden = false
+            meetTip.isUserInteractionEnabled = true
             meetTip.addGestureRecognizer(tapGesture)
         }
         
@@ -127,26 +127,26 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
     }
     
     
-    func setStringAttribute(string:String) -> NSMutableAttributedString {
+    func setStringAttribute(_ string:String) -> NSMutableAttributedString {
         let attribute = NSMutableAttributedString(string: string)
         attribute.addAttributes([NSFontAttributeName:OrderPayViewPayInfoFont!], range: NSRange.init(location: 0, length: 5))
         return attribute
     }
     
-    func callbuttonClick(tap:UITapGestureRecognizer) {
+    func callbuttonClick(_ tap:UITapGestureRecognizer) {
         let str = "tel:\((phoneNum.text)!)"
         let callWebView = UIWebView()
-        callWebView.loadRequest(NSURLRequest.init(URL: NSURL.init(string: str)!))
+        callWebView.loadRequest(URLRequest.init(url: URL.init(string: str)!))
         self.addSubview(callWebView)
     }
     
-    func panTapClick(tap:UIPanGestureRecognizer) {
-        let tips:String = (PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000006") as! String
-        let orderTips = OrderTips(frame: CGRectMake(0, 0, ScreenWidth, ScreenHeight), tips: tips.componentsSeparatedByString("\n"))
+    func panTapClick(_ tap:UIPanGestureRecognizer) {
+        let tips:String = (PlaceholderText.shareInstance().appDic as NSDictionary).object(forKey: "1000006") as! String
+        let orderTips = OrderTips(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight), tips: tips.components(separatedBy: "\n"))
         KeyWindown?.addSubview(orderTips)
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

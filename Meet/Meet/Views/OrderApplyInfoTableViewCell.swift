@@ -18,8 +18,8 @@ class OrderApplyInfoTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    func setData(detailInfo:String){
-        let strArray = detailInfo.componentsSeparatedByString(" ")
+    func setData(_ detailInfo:String){
+        let strArray = detailInfo.components(separatedBy: " ")
         let stringAttribute = NSMutableAttributedString(string: detailInfo)
         stringAttribute.addAttributes([NSFontAttributeName:OrderInfoViewMuchFont!], range: NSRange.init(location: (strArray[0]).length + 1, length: strArray[1].length))
         detailInfoLabel.attributedText = stringAttribute
@@ -27,7 +27,7 @@ class OrderApplyInfoTableViewCell: UITableViewCell {
 
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

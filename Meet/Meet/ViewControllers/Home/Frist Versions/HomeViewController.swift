@@ -10,12 +10,12 @@ import UIKit
 import MJRefresh
 import MJExtension
 
-typealias successBlock = (success:Bool) ->Void
+typealias successBlock = (_ success:Bool) ->Void
 
 enum FillterName {
-    case NomalList
-    case LocationList
-    case ReconmondList
+    case nomalList
+    case locationList
+    case reconmondList
 }
 
 class HomeViewController: UIViewController {
@@ -35,7 +35,7 @@ class HomeViewController: UIViewController {
     var locationManager:AMapLocationManager!
     var logtitude:Double = 0.0
     var latitude:Double = 0.0
-    var fillterName:FillterName = .ReconmondList
+    var fillterName:FillterName = .reconmondList
     
     var orderNumberArray = NSMutableArray()
     var allOrderNumber:NSInteger = 0
@@ -55,7 +55,7 @@ class HomeViewController: UIViewController {
         self.setUpHomeData()
         self.getOrderNumber()
         if isFirstShow {
-            NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(HomeViewController.addBottomView), userInfo: nil, repeats: false)
+            Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(HomeViewController.addBottomView), userInfo: nil, repeats: false)
             self.isFirstShow = false
         }else{
             if self.loginView == nil {
@@ -69,10 +69,10 @@ class HomeViewController: UIViewController {
     func setUpTableView() {
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.separatorStyle = .None
+        self.tableView.separatorStyle = .none
         self.view.addSubview(self.tableView)
         self.tableView.backgroundColor = UIColor.init(hexString: HomeTableViewBackGroundColor)
-        self.tableView.registerClass(ManListCell.self, forCellReuseIdentifier: "MainTableViewCell")
+        self.tableView.register(ManListCell.self, forCellReuseIdentifier: "MainTableViewCell")
     }
     
     func getProfileKeyAndValues() {
@@ -99,12 +99,12 @@ class HomeViewController: UIViewController {
     
     func setUpHomeData() {
         if bottomView != nil {
-            bottomView.hidden = true
+            bottomView.isHidden = true
         }
         
         self.page = self.page + 1
         var fillter = ""
-        if (fillterName == .LocationList) {
+        if (fillterName == .locationList) {
             fillter = "location"
         }else{
             fillter = "recommend"
@@ -112,11 +112,11 @@ class HomeViewController: UIViewController {
         viewModel.getHomeFilterList("\(self.page)", latitude: latitude, longitude: logtitude, filter: fillter, successBlock: { (dic) in
             
             if self.bottomView != nil {
-                self.bottomView.hidden = false
+                self.bottomView.isHidden = false
             }
             
-            let tempArray = HomeModel.mj_objectArrayWithKeyValuesArray(dic)
-            if tempArray.count == 0 {
+            let tempArray = HomeModel.mj_objectArray(withKeyValuesArray: dic?["data"])
+            if tempArray?.count == 0 {
                 self.page = self.page - 1
                 self.tableView.mj_footer.endRefreshing()
                 return
@@ -124,18 +124,19 @@ class HomeViewController: UIViewController {
             if self.page == 1 {
                 self.homeModelArray.removeAllObjects()
             }
-            self.homeModelArray.addObjectsFromArray(tempArray as [AnyObject])
-
+            for obj in tempArray! {
+                self.homeModelArray.add(obj)
+            }
             self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
             
 
-            }, failBlock: { (dic) in
+            }, fail: { (dic) in
                 self.page = self.page - 1
                 self.setUpHomeData()
                 self.tableView.mj_footer.endRefreshing()
                 if self.bottomView != nil {
-                    self.bottomView.hidden = false
+                    self.bottomView.isHidden = false
                 }
 
             }) { (msg) in
@@ -143,15 +144,15 @@ class HomeViewController: UIViewController {
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         (self.navigationController as! ScrollingNavigationController).followScrollView(self.tableView, delay: 50.0)
         self.navigationItemCleanColorWithNotLine()
-        self.navigationController?.navigationBar.barStyle = .Default
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
+        self.navigationController?.navigationBar.barStyle = .default
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSize(width: ScreenWidth, height: 64)), for: .default)
         let navigationController = self.navigationController as! ScrollingNavigationController
         navigationController.scrollingNavbarDelegate = self
-        self.navigationController!.navigationBar.translucent = false
+        self.navigationController!.navigationBar.isTranslucent = false
 
         self.setUpNavigationBar()
     }
@@ -160,21 +161,21 @@ class HomeViewController: UIViewController {
         self.setUpBottomView()
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         (self.navigationController as! ScrollingNavigationController).showNavbar(animated: false)
     }
     
     func setUpBottomView() {
-        bottomView = UIView(frame:CGRectMake(ScreenWidth  - 84,ScreenHeight - 88 - self.view.frame.origin.y,56,54))
-        bottomView.layer.shadowOffset = CGSizeMake(0, 4)
+        bottomView = UIView(frame:CGRect(x: ScreenWidth  - 84,y: ScreenHeight - 88 - self.view.frame.origin.y,width: 56,height: 54))
+        bottomView.layer.shadowOffset = CGSize(width: 0, height: 4)
         bottomView.layer.shadowOpacity = 0.2
-        bottomView.addSubview(self.meetButton(CGRectMake(0, 0, 54, 54)))
-        bottomView.addSubview(self.meetNumber(CGRectMake(bottomView.frame.size.width - 18, 0, 18, 18)))
+        bottomView.addSubview(self.meetButton(CGRect(x: 0, y: 0, width: 54, height: 54)))
+        bottomView.addSubview(self.meetNumber(CGRect(x: bottomView.frame.size.width - 18, y: 0, width: 18, height: 18)))
         if self.allOrderNumber == 0 {
-            self.numberMeet.hidden = true
+            self.numberMeet.isHidden = true
         }else{
-            self.numberMeet.hidden = false
+            self.numberMeet.isHidden = false
         }
         self.view.addSubview(bottomView)
         
@@ -182,16 +183,16 @@ class HomeViewController: UIViewController {
     
     func setUpNavigationBar() {
         self.navigationItem.titleView = self.titleView()
-        let navigationSpace = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
+        let navigationSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         navigationSpace.width = 5
         
-        self.navigationItem.leftBarButtonItems = [navigationSpace,UIBarButtonItem(image: UIImage.init(named: "navigationbar_fittle")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(HomeViewController.leftItemClick(_:)))]
+        self.navigationItem.leftBarButtonItems = [navigationSpace,UIBarButtonItem(image: UIImage.init(named: "navigationbar_fittle")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(HomeViewController.leftItemClick(_:)))]
         
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage.init(named: "navigationbar_user")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(HomeViewController.rightItemClick(_:))),navigationSpace]
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage.init(named: "navigationbar_user")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(HomeViewController.rightItemClick(_:))),navigationSpace]
     }
     
-    func rightItemClick(sender:UIBarButtonItem) {
-        self.presentViewController(UINavigationController(rootViewController: MeViewController()) , animated: true) {
+    func rightItemClick(_ sender:UIBarButtonItem) {
+        self.present(UINavigationController(rootViewController: MeViewController()) , animated: true) {
         }
         
         
@@ -200,30 +201,30 @@ class HomeViewController: UIViewController {
 //        }
     }
     
-    func meetButton(frame:CGRect) -> UIButton {
-        let meetButton = UIButton(type: .Custom)
+    func meetButton(_ frame:CGRect) -> UIButton {
+        let meetButton = UIButton(type: .custom)
         meetButton.frame = frame
         meetButton.layer.cornerRadius = frame.size.width/2
-        meetButton.setImage(UIImage.init(named: "meet_order"), forState: .Normal)
+        meetButton.setImage(UIImage.init(named: "meet_order"), for: UIControlState())
         meetButton.backgroundColor = UIColor.init(hexString: HomeDetailViewNameColor)
-        meetButton.addTarget(self, action: #selector(HomeViewController.myOrderMeetClick(_:)), forControlEvents: .TouchUpInside)
+        meetButton.addTarget(self, action: #selector(HomeViewController.myOrderMeetClick(_:)), for: .touchUpInside)
         
         return meetButton
     }
     
-    func meetNumber(frame:CGRect) -> UILabel {
+    func meetNumber(_ frame:CGRect) -> UILabel {
         numberMeet = UILabel(frame: frame)
         numberMeet.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
         numberMeet.text = "\(allOrderNumber)"
-        numberMeet.font = UIFont.systemFontOfSize(9)
-        numberMeet.textAlignment = .Center
-        numberMeet.textColor = UIColor.whiteColor()
+        numberMeet.font = UIFont.systemFont(ofSize: 9)
+        numberMeet.textAlignment = .center
+        numberMeet.textColor = UIColor.white
         numberMeet.layer.cornerRadius = 9
         numberMeet.layer.masksToBounds = true
         return numberMeet
     }
     
-    func myOrderMeetClick(sender:UIButton) {
+    func myOrderMeetClick(_ sender:UIButton) {
         if !UserInfo.isLoggedIn() {
             
             self.presentLoginView()
@@ -234,15 +235,23 @@ class HomeViewController: UIViewController {
     
     func verificationOrderView(){
         if orderNumberArray.count == 0 {
-            let queue = dispatch_queue_create("com.meet.order-queue",
-                                              dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INITIATED, 0))
+            if #available(iOS 10.0, *) {
+                let queue = DispatchQueue(label: "com.meet.order-queue", qos: .default, attributes: .concurrent, autoreleaseFrequency: .workItem, target: nil)
+                queue.async {
+                    self.getOrderNumber()
+                }
+                queue.async {
+                    self.presentOrderView()
+                }
+            } else {
+//                let queue = DispatchQueue(label: "com.meet.order-queue",
+//                                                        attributes: dispatch_queue_attr_make_with_qos_class(DispatchQueue.Attributes(), DispatchQoS.QoSClass.userInitiated, 0))
+                // Fallback on earlier versions
+            }
+//            let queue = DispatchQueue(label: "com.meet.order-queue",
+//                                              attributes: dispatch_queue_attr_make_with_qos_class(DispatchQueue.Attributes(), DispatchQoS.QoSClass.userInitiated, 0))
             
-            dispatch_async(queue) {
-                self.getOrderNumber()
-            }
-            dispatch_async(queue) {
-                self.presentOrderView()
-            }
+            
         }else{
             self.presentOrderView()
         }
@@ -250,7 +259,7 @@ class HomeViewController: UIViewController {
     
     func presentOrderView(){
         let orderPageVC = OrderPageViewController()
-        orderPageVC.loadType = .Present
+        orderPageVC.loadType = .present
         
         orderPageVC.reloadOrderNumber = { _ in
             self.getOrderNumber()
@@ -258,13 +267,13 @@ class HomeViewController: UIViewController {
         if orderNumberArray.count != 0 {
             orderPageVC.numberArray = orderNumberArray
         }
-        orderPageVC.setBarStyle(.ProgressBounceView)
+        orderPageVC.setBarStyle(.progressBounceView)
         orderPageVC.progressHeight = 0
         orderPageVC.progressWidth = 0
         orderPageVC.adjustStatusBarHeight = true
         orderPageVC.progressColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
         let navigationController = UINavigationController(rootViewController: orderPageVC)
-        self.presentViewController(navigationController, animated: true, completion: {
+        self.present(navigationController, animated: true, completion: {
             
         })
         
@@ -274,7 +283,7 @@ class HomeViewController: UIViewController {
         let orderViewModel = OrderViewModel()
         self.orderNumberArray.removeAllObjects()
         orderViewModel.orderNumberOrder(UserInfo.sharedInstance().uid, successBlock: { (dic) in
-            let countDic = dic as NSDictionary
+            let countDic = dic! as [AnyHashable:Any] as NSDictionary
             self.allOrderNumber = 0
             for value in countDic.allValues {
                 self.allOrderNumber = self.allOrderNumber + Int(value as! NSNumber)
@@ -282,10 +291,10 @@ class HomeViewController: UIViewController {
             if self.numberMeet != nil && self.allOrderNumber != 0 {
                 self.numberMeet.text = "\(self.allOrderNumber)"
             }
-            self.orderNumberArray.addObject("\(countDic["1"]!)")
-            self.orderNumberArray.addObject("\(countDic["4"]!)")
-            self.orderNumberArray.addObject("\(countDic["6"]!)")
-            self.orderNumberArray.addObject("0")
+            self.orderNumberArray.add("\(countDic["1"]!)")
+            self.orderNumberArray.add("\(countDic["4"]!)")
+            self.orderNumberArray.add("\(countDic["6"]!)")
+            self.orderNumberArray.add("0")
         }) { (dic) in
             
         }
@@ -293,33 +302,33 @@ class HomeViewController: UIViewController {
     
     func titleView() ->UIView {
         let image = UIImage.init(named: "navigationbar_title")
-        let titleView = UIView(frame: CGRectMake(0,-2,(image?.size.width)!,(image?.size.height)!))
+        let titleView = UIView(frame: CGRect(x: 0,y: -2,width: (image?.size.width)!,height: (image?.size.height)!))
         let imageView = UIImageView(frame: titleView.frame)
         imageView.image = image
         titleView.addSubview(imageView)
         return titleView
     }
     
-    func leftItemClick(sender:UIBarButtonItem) {
-        let leftAlerController = UIAlertController(title: "筛选", message: nil, preferredStyle: .ActionSheet)
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel) { (cancelAction) in
+    func leftItemClick(_ sender:UIBarButtonItem) {
+        let leftAlerController = UIAlertController(title: "筛选", message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (cancelAction) in
         }
-        let commdListAction = UIAlertAction(title: "智能推荐", style: .Default) { (commdListAction) in
+        let commdListAction = UIAlertAction(title: "智能推荐", style: .default) { (commdListAction) in
             self.page = 0
-            self.fillterName = .ReconmondList
-            self.tableView.setContentOffset(CGPointMake(0, 0), animated: true)
+            self.fillterName = .reconmondList
+            self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
             self.setUpHomeData()
         }
-        let locationAction = UIAlertAction(title: "离我最近", style: .Default) { (locationAction) in
+        let locationAction = UIAlertAction(title: "离我最近", style: .default) { (locationAction) in
             self.page = 0
-            self.fillterName = .LocationList
-            self.tableView.setContentOffset(CGPointMake(0, 0), animated: true)
+            self.fillterName = .locationList
+            self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
             self.setUpHomeData()
         }
         leftAlerController.addAction(cancelAction)
         leftAlerController.addAction(commdListAction)
         leftAlerController.addAction(locationAction)
-        self.presentViewController(leftAlerController, animated: true) { 
+        self.present(leftAlerController, animated: true) { 
             
         }
     }
@@ -334,9 +343,9 @@ class HomeViewController: UIViewController {
     }
     
 
-    func configureCell(cell:ManListCell, indexPath:NSIndexPath) {
-        let model = self.homeModelArray[indexPath.section] as! HomeModel
-        cell.configCell(model, interstArray: model.personal_label.componentsSeparatedByString(","))
+    func configureCell(_ cell:ManListCell, indexPath:IndexPath) {
+        let model = self.homeModelArray[(indexPath as NSIndexPath).section] as! HomeModel
+        cell.configCell(model, interstArray: model.personal_label.components(separatedBy: ","))
     }
     
     func presentLoginView(){
@@ -358,41 +367,41 @@ class HomeViewController: UIViewController {
         loginView.orderListShorOrderButton = { _ in
 //            self.setUpBottomView()
         }
-        self.navigationController?.presentViewController(controller, animated: true, completion: {
+        self.navigationController?.present(controller, animated: true, completion: {
             
         })
     }
     
-    func createLikeUser(user_id:String,block:successBlock) {
+    func createLikeUser(_ user_id:String,block:@escaping successBlock) {
         userInfoViewMode.likeUser(user_id, successBlock: { (dic) in
-            block(success: true)
+            block(true)
             }) { (dic) in
-            MainThreadAlertShow(dic["error"] as! String, view: self.view)
+            MainThreadAlertShow(dic?["error"] as! String, view: self.view)
 
         }
     }
     
-    func deleteLikeUser(user_id:String, block:successBlock) {
+    func deleteLikeUser(_ user_id:String, block:@escaping successBlock) {
         userInfoViewMode.deleteLikeUser(user_id, successBlock: { (dic) in
-            block(success: true)
+            block(true)
         }) { (dic) in
-            MainThreadAlertShow(dic["error"] as! String, view: self.view)
+            MainThreadAlertShow(dic?["error"] as! String, view: self.view)
             
         }
     }
     
     func hiderBottomView() {
-        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: {
             let frame = self.bottomView.frame
-            self.bottomView.frame = CGRectMake(frame.origin.x, ScreenHeight + self.view.frame.origin.y, frame.size.width, frame.size.height)
+            self.bottomView.frame = CGRect(x: frame.origin.x, y: ScreenHeight + self.view.frame.origin.y, width: frame.size.width, height: frame.size.height)
         }) { (finish) in
             
         }
     }
     func showBottomView() {
-        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: {
             let frame = self.bottomView.frame
-            self.bottomView.frame = CGRectMake(frame.origin.x, ScreenHeight - 88 - self.view.frame.origin.y, frame.size.width, frame.size.height)
+            self.bottomView.frame = CGRect(x: frame.origin.x, y: ScreenHeight - 88 - self.view.frame.origin.y, width: frame.size.width, height: frame.size.height)
         }) { (finish) in
             
         }
@@ -400,20 +409,20 @@ class HomeViewController: UIViewController {
     
     
     func showLoacationAlert(){
-        let alertAction = UIAlertController(title: "定位服务未开启", message: "请在手机设置中开启定位服务可以看到用户据您多远", preferredStyle: .Alert)
-        let canCelAction = UIAlertAction.init(title: "知道了", style: .Default) { (cancelAction) in
+        let alertAction = UIAlertController(title: "定位服务未开启", message: "请在手机设置中开启定位服务可以看到用户据您多远", preferredStyle: .alert)
+        let canCelAction = UIAlertAction.init(title: "知道了", style: .default) { (cancelAction) in
             self.setUpHomeData()
         }
         
-        let openAction = UIAlertAction.init(title: "开启定位", style: .Default) { (openAction) in
-            let url = NSURL.init(string: "prefs:root=LOCATION_SERVICES")
-            if UIApplication.sharedApplication().canOpenURL(url!){
-                UIApplication.sharedApplication().openURL(url!)
+        let openAction = UIAlertAction.init(title: "开启定位", style: .default) { (openAction) in
+            let url = URL.init(string: "prefs:root=LOCATION_SERVICES")
+            if UIApplication.shared.canOpenURL(url!){
+                UIApplication.shared.openURL(url!)
             }
         }
         alertAction.addAction(canCelAction)
         alertAction.addAction(openAction)
-        self.presentViewController(alertAction, animated: true) {
+        self.present(alertAction, animated: true) {
             
         }
     }
@@ -422,41 +431,41 @@ class HomeViewController: UIViewController {
 
 
 extension HomeViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 320
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return tableView.fd_heightForCellWithIdentifier("MainTableViewCell", configuration: { (cell) in
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.fd_heightForCell(withIdentifier: "MainTableViewCell", configuration: { (cell) in
             self .configureCell(cell as! ManListCell, indexPath: indexPath)
         })
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 7
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0000001
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         (self.navigationController as! ScrollingNavigationController).showNavbar(animated: false)
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
         let meetDetailVC = MeetDetailViewController()
-        let model = homeModelArray[indexPath.section] as! HomeModel
+        let model = homeModelArray[(indexPath as NSIndexPath).section] as! HomeModel
         meetDetailVC.user_id = "\(model.uid)"
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as! ManListCell
+        let cell = tableView.cellForRow(at: indexPath) as! ManListCell
         meetDetailVC.reloadHomeListLike = { isLike, number in
             if isLike {
                 cell.likeBtn.tag = 1
                 model.liked_count = number
-                cell.reloadNumberOfMeet(isLike, number: number)
+                cell.reloadNumber(ofMeet: isLike, number: number)
                 cell.reloadLikeBtnImage(true)
             }else{
                 cell.likeBtn.tag = 0
                 model.liked_count = number
-                cell.reloadNumberOfMeet(isLike, number: number)
+                cell.reloadNumber(ofMeet: isLike, number: number)
                 cell.reloadLikeBtnImage(false)
             }
             
@@ -464,7 +473,7 @@ extension HomeViewController : UITableViewDelegate {
         self.navigationController?.pushViewController(meetDetailVC, animated: true)
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if self.bottomView != nil {
             if (lastContentOffset < scrollView.contentOffset.y) {
                 self.hiderBottomView()
@@ -474,7 +483,7 @@ extension HomeViewController : UITableViewDelegate {
         }
     }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         lastContentOffset = scrollView.contentOffset.y;
         if self.bottomView != nil {
             self.showBottomView()
@@ -483,37 +492,37 @@ extension HomeViewController : UITableViewDelegate {
 }
 
 extension HomeViewController : UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return homeModelArray.count
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIndef = "MainTableViewCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIndef, forIndexPath: indexPath) as! ManListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIndef, for: indexPath) as! ManListCell
         self.configureCell(cell, indexPath: indexPath)
-        cell.selectionStyle = .None
-        let model = homeModelArray[indexPath.section] as! HomeModel
+        cell.selectionStyle = .none
+        let model = homeModelArray[(indexPath as NSIndexPath).section] as! HomeModel
         cell.block = { isLike, user_id in
             if UserInfo.isLoggedIn() {
                 if isLike {
-                    self.deleteLikeUser(user_id, block: { (success) in
+                    self.deleteLikeUser(user_id!, block: { (success) in
                         cell.likeBtn.tag = 0
                         model.liked = false
                         cell.reloadLikeBtnImage(false)
                         model.liked_count = model.liked_count - 1
-                        cell.reloadNumberOfMeet(isLike,number: model.liked_count)
+                        cell.reloadNumber(ofMeet: isLike,number: model.liked_count)
                     })
                 }else{
-                    self.createLikeUser(user_id, block: { (success) in
+                    self.createLikeUser(user_id!, block: { (success) in
                         cell.likeBtn.tag = 1
                         model.liked = true
                         model.liked_count = model.liked_count + 1
                         cell.reloadLikeBtnImage(true)
-                        cell.reloadNumberOfMeet(isLike,number: model.liked_count)
+                        cell.reloadNumber(ofMeet: isLike,number: model.liked_count)
                     })
                 }
             }else{
@@ -528,32 +537,32 @@ extension HomeViewController : UITableViewDataSource {
 
 extension HomeViewController : AMapLocationManagerDelegate {
     
-    func amapLocationManager(manager: AMapLocationManager!, didStartMonitoringForRegion region: AMapLocationRegion!) {
+    func amapLocationManager(_ manager: AMapLocationManager!, didStartMonitoringFor region: AMapLocationRegion!) {
         
     }
     
-    func amapLocationManager(manager: AMapLocationManager!, didEnterRegion region: AMapLocationRegion!) {
+    func amapLocationManager(_ manager: AMapLocationManager!, didEnter region: AMapLocationRegion!) {
         
     }
     
-    func amapLocationManager(manager: AMapLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .NotDetermined {
+    func amapLocationManager(_ manager: AMapLocationManager!, didChange status: CLAuthorizationStatus) {
+        if status == .notDetermined {
             self.page = 0
             self.showLoacationAlert()
-        }else if status == .Denied {
+        }else if status == .denied {
             self.page = 0
             self.showLoacationAlert()
-        }else if status == .AuthorizedWhenInUse || status == .AuthorizedAlways
+        }else if status == .authorizedWhenInUse || status == .authorizedAlways
         {
             self.page = 0
-            locationManager.requestLocationWithReGeocode(false) { (location, geocode, error) in
-                if error != nil && error == 2{
+            locationManager.requestLocation(withReGeocode: false) { (location, geocode, error) in
+                if error != nil{
                     self.showLoacationAlert()
                     return
                 }
                 if location != nil{
-                    self.latitude = location.coordinate.latitude
-                    self.logtitude = location.coordinate.longitude
+                    self.latitude = (location?.coordinate.latitude)!
+                    self.logtitude = (location?.coordinate.longitude)!
                     self.setUpHomeData()
                     if UserInfo.isLoggedIn() {
                         self.viewModel .senderLocation(self.latitude, longitude: self.logtitude)
@@ -567,13 +576,13 @@ extension HomeViewController : AMapLocationManagerDelegate {
 }
 
 extension HomeViewController: ScrollingNavigationControllerDelegate {
-    func scrollingNavigationController(controller: ScrollingNavigationController, didChangeState state: NavigationBarState) {
-        if state == .Expanded {
-            UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
-        }else if state == .Collapsed {
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeDetailViewNameColor), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
-            UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+    func scrollingNavigationController(_ controller: ScrollingNavigationController, didChangeState state: NavigationBarState) {
+        if state == .expanded {
+            UIApplication.shared.setStatusBarStyle(.default, animated: true)
+            self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSize(width: ScreenWidth, height: 64)), for: .default)
+        }else if state == .collapsed {
+            self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeDetailViewNameColor), size: CGSize(width: ScreenWidth, height: 64)), for: .default)
+            UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
         }else{
         }
     }

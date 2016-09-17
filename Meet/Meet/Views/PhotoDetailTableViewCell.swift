@@ -11,7 +11,7 @@ import SnapKit
 import SDWebImage
 
 typealias ImageClick = ()->Void
-typealias CellImageArray = (index:NSInteger,images:NSArray) ->Void
+typealias CellImageArray = (_ index:NSInteger,_ images:NSArray) ->Void
 
 class PhotoDetailTableViewCell: UITableViewCell {
 
@@ -32,17 +32,17 @@ class PhotoDetailTableViewCell: UITableViewCell {
     }
     
     func setUpView() {
-        logoutView = UIView(frame: CGRectMake(0,0,ScreenWidth,self.bounds.height))
-        logoutView.hidden = true
-        logoutView.backgroundColor = UIColor.whiteColor()
+        logoutView = UIView(frame: CGRect(x: 0,y: 0,width: ScreenWidth,height: self.bounds.height))
+        logoutView.isHidden = true
+        logoutView.backgroundColor = UIColor.white
         
         self.addImageView = UIImageView()
         self.addImageView.image = UIImage(named: "me_addbtn")
-        self.addImageView.userInteractionEnabled = true
+        self.addImageView.isUserInteractionEnabled = true
         let singerTap = UITapGestureRecognizer(target: self, action: #selector(PhotoDetailTableViewCell.singerTap))
         singerTap.numberOfTapsRequired = 1
         singerTap.numberOfTouchesRequired = 1
-        self.addImageView.frame = CGRectMake(0, 26, 59, 59)
+        self.addImageView.frame = CGRect(x: 0, y: 26, width: 59, height: 59)
         self.addImageView.addGestureRecognizer(singerTap)
         
         
@@ -52,7 +52,7 @@ class PhotoDetailTableViewCell: UITableViewCell {
         self.contentView.addSubview(shadowView)
         
         infoView = UIView()
-        infoView.backgroundColor = UIColor.whiteColor()
+        infoView.backgroundColor = UIColor.white
         
         detailImageView = UIView()
         detailImageView.clipsToBounds = true
@@ -69,68 +69,68 @@ class PhotoDetailTableViewCell: UITableViewCell {
         infoView.addSubview(lineLable)
         
         
-        lineLable.snp_makeConstraints { (make) in
-            make.top.equalTo(self.infoView.snp_top).offset(10)
-            make.left.equalTo(self.infoView.snp_left).offset(10)
-            make.right.equalTo(self.infoView.snp_right).offset(-10)
+        lineLable.snp.makeConstraints { (make) in
+            make.top.equalTo(self.infoView.snp.top).offset(10)
+            make.left.equalTo(self.infoView.snp.left).offset(10)
+            make.right.equalTo(self.infoView.snp.right).offset(-10)
             make.height.equalTo(0.5)
         }
         
-        shadowView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.contentView.snp_top).offset(0)
-            make.left.equalTo(self.contentView.snp_left).offset(10)
-            make.right.equalTo(self.contentView.snp_right).offset(-10)
-            make.bottom.equalTo(self.contentView.snp_bottom).offset(0)
+        shadowView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.contentView.snp.top).offset(0)
+            make.left.equalTo(self.contentView.snp.left).offset(10)
+            make.right.equalTo(self.contentView.snp.right).offset(-10)
+            make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
         }
         
-        infoView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.shadowView.snp_top).offset(0)
-            make.left.equalTo(self.shadowView.snp_left).offset(0)
-            make.right.equalTo(self.shadowView.snp_right).offset(0)
-            make.bottom.equalTo(self.shadowView.snp_bottom).offset(-3)
+        infoView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.shadowView.snp.top).offset(0)
+            make.left.equalTo(self.shadowView.snp.left).offset(0)
+            make.right.equalTo(self.shadowView.snp.right).offset(0)
+            make.bottom.equalTo(self.shadowView.snp.bottom).offset(-3)
             make.height.equalTo(112)
         }
         
-        detailImageView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.infoView.snp_top).offset(0)
-            make.left.equalTo(self.infoView.snp_left).offset(10)
-            make.right.equalTo(self.infoView.snp_right).offset(-20)
-            make.bottom.equalTo(self.infoView.snp_bottom).offset(0)
+        detailImageView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.infoView.snp.top).offset(0)
+            make.left.equalTo(self.infoView.snp.left).offset(10)
+            make.right.equalTo(self.infoView.snp.right).offset(-20)
+            make.bottom.equalTo(self.infoView.snp.bottom).offset(0)
         }
     }
 
     func configLogoutView(){
-        self.backgroundColor = UIColor.whiteColor()
-        logoutView.hidden = false
-        addImageView.hidden = true
+        self.backgroundColor = UIColor.white
+        logoutView.isHidden = false
+        addImageView.isHidden = true
     }
     
-    func configCell(imageArray:[Head_Photo_List]) {
-        logoutView.hidden = true
-        addImageView.hidden = false
+    func configCell(_ imageArray:[Head_Photo_List]) {
+        logoutView.isHidden = true
+        addImageView.isHidden = false
         self.thumbnailImgArray.removeAllObjects()
         var width:CGFloat = 0
-        let headPhotos = Head_Photo_List.mj_objectArrayWithKeyValuesArray(imageArray)
-        if headPhotos.count > 0 {
+        let headPhotos = Head_Photo_List.mj_objectArray(withKeyValuesArray: imageArray)
+        if (headPhotos?.count)! > 0 {
             var originX:CGFloat = 62
-            if headPhotos.count >= 8 {
-               addImageView.hidden = true
+            if (headPhotos?.count)! >= 8 {
+               addImageView.isHidden = true
                 originX = 0
             }
-            for index in 0...headPhotos.count - 1 {
-                let model = headPhotos.objectAtIndex(index) as! Head_Photo_List
+            for index in 0...(headPhotos?.count)! - 1 {
+                let model = headPhotos?.object(at: index) as! Head_Photo_List
                 let qiniuString = HomeDetailMoreInfoImageSize
                 let urlString = "\(model.photo)\(qiniuString)"
                 let photoImage = UIImageView()
                 photoImage.tag = index
-                photoImage.userInteractionEnabled = true
-                photoImage.frame = CGRectMake(originX + width, 26, 59, 59)
-                photoImage.sd_setImageWithURL(NSURL.init(string: urlString), placeholderImage: UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSizeZero), options: SDWebImageOptions.RetryFailed, completed: { (image, error, type, url) in
+                photoImage.isUserInteractionEnabled = true
+                photoImage.frame = CGRect(x: originX + width, y: 26, width: 59, height: 59)
+                photoImage.sd_setImage(with: URL.init(string: urlString), placeholderImage: UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSize.zero), options: SDWebImageOptions.retryFailed, completed: { (image, error, type, url) in
                     if error != nil {
                         return
                     }
                     if image != nil {
-                        self.thumbnailImgArray.addObject(image)
+                        self.thumbnailImgArray.add(image)
                     }
                 })
                 detailImageView.addSubview(photoImage)
@@ -141,11 +141,11 @@ class PhotoDetailTableViewCell: UITableViewCell {
                 photoImage.addGestureRecognizer(imageTap)
             }
             let image = UIImage.init(named: "photo_detail")
-            let detailImage = UIImageView(frame: CGRectMake(ScreenWidth - 40  - (image?.size.width)! , 26, (image?.size.width)!, (image?.size.height)!))
+            let detailImage = UIImageView(frame: CGRect(x: ScreenWidth - 40  - (image?.size.width)! , y: 26, width: (image?.size.width)!, height: (image?.size.height)!))
             detailImage.image = UIImage.init(named: "photo_detail")
             detailImageView.addSubview(detailImage)
             
-            let detailNextImage = UIImageView(frame: CGRectMake(ScreenWidth - 20 - 27, 49.5, 7, 12))
+            let detailNextImage = UIImageView(frame: CGRect(x: ScreenWidth - 20 - 27, y: 49.5, width: 7, height: 12))
             detailNextImage.image = UIImage.init(named: "info_next")
             infoView.addSubview(detailNextImage)
         }else{
@@ -158,21 +158,21 @@ class PhotoDetailTableViewCell: UITableViewCell {
 //            photoImage.image = UIImage.init(named: "me_detail_image")
 //            infoView.addSubview(photoImage)
             let image = UIImage.init(named: "photo_detail")
-            let detailImage = UIImageView(frame: CGRectMake(ScreenWidth - 40 - (image?.size.width)! , 26, (image?.size.width)!, (image?.size.height)!))
+            let detailImage = UIImageView(frame: CGRect(x: ScreenWidth - 40 - (image?.size.width)! , y: 26, width: (image?.size.width)!, height: (image?.size.height)!))
             detailImage.image = UIImage.init(named: "photo_detail")
             detailImageView.addSubview(detailImage)
             
-            let detailNextImage = UIImageView(frame: CGRectMake(ScreenWidth - 20 - 27, 49.5, 7, 12))
+            let detailNextImage = UIImageView(frame: CGRect(x: ScreenWidth - 20 - 27, y: 49.5, width: 7, height: 12))
             detailNextImage.image = UIImage.init(named: "info_next")
             infoView.addSubview(detailNextImage)
         }
-        let maskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, ScreenWidth - 20, 112), byRoundingCorners: [.BottomLeft,.BottomRight], cornerRadii: CGSizeMake(5, 0))
+        let maskPath = UIBezierPath.init(roundedRect: CGRect(x: 0, y: 0, width: ScreenWidth - 20, height: 112), byRoundingCorners: [.bottomLeft,.bottomRight], cornerRadii: CGSize(width: 5, height: 0))
         let maskLayer = CAShapeLayer()
-        maskLayer.frame = CGRectMake(0, 0, ScreenWidth - 20, 112)
-        maskLayer.path = maskPath.CGPath
+        maskLayer.frame = CGRect(x: 0, y: 0, width: ScreenWidth - 20, height: 112)
+        maskLayer.path = maskPath.cgPath
         infoView.layer.mask = maskLayer
-        self.contentView.sendSubviewToBack(shadowView)
-        self.contentView.bringSubviewToFront(infoView)
+        self.contentView.sendSubview(toBack: shadowView)
+        self.contentView.bringSubview(toFront: infoView)
         
     }
     
@@ -182,12 +182,12 @@ class PhotoDetailTableViewCell: UITableViewCell {
         }
     }
     
-    func imageTap(tap:UITapGestureRecognizer) {
+    func imageTap(_ tap:UITapGestureRecognizer) {
         if self.cellImageArray != nil {
-            self.cellImageArray(index: (tap.view?.tag)!,images: self.thumbnailImgArray)
+            self.cellImageArray((tap.view?.tag)!,self.thumbnailImgArray)
         }
     }
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

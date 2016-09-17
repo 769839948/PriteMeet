@@ -18,14 +18,16 @@ class AboutUsCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpView()
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         self.lineLabel.backgroundColor = UIColor(hexString:"E7E7E7")
+        self.updateConstraints()
+
     }
     
     func setUpView() {
         
         infoView = UIView()
-        infoView.backgroundColor = UIColor.whiteColor()
+        infoView.backgroundColor = UIColor.white
         self.contentView.addSubview(infoView)
         
         titleLabel = UILabel()
@@ -42,54 +44,47 @@ class AboutUsCell: UITableViewCell {
         infoView.addSubview(infoLabel)
         
         infoView.addSubview(lineLabel)
-        self.updateConstraints()
     }
     
-    func configCell(title:String, info:String) {
+    func configCell(_ title:String, info:String) {
         if title == "" {
-           titleLabel.snp_updateConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(0.01)
+           titleLabel.snp.updateConstraints({ (make) in
+            make.top.equalTo(self.contentView.snp.top).offset(0.001)
            })
-        }else{
-            titleLabel.snp_updateConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(22)
-            })
-            infoLabel.snp_updateConstraints(closure: { (make) in
-                make.top.equalTo(self.titleLabel.snp_bottom).offset(22)
-            })
         }
+        
         infoLabel.text = info
         titleLabel.text = title
         self.updateConstraintsIfNeeded()
-        self.updateConstraints()
+
     }
     
     override func updateConstraints() {
         if !self.didSetUpContraints {
-            infoView.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(0)
-                make.left.equalTo(self.contentView.snp_left).offset(10)
-                make.right.equalTo(self.contentView.snp_right).offset(-10)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(0)
+            infoView.snp.makeConstraints( { (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.left.equalTo(self.contentView.snp.left).offset(10)
+                make.right.equalTo(self.contentView.snp.right).offset(-10)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
             })
-            titleLabel.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.infoView.snp_top).offset(22)
-                make.left.equalTo(self.infoView.snp_left).offset(10)
-                make.right.equalTo(self.infoView.snp_right).offset(-10)
+            titleLabel.snp.makeConstraints( { (make) in
+                make.top.equalTo(self.infoView.snp.top).offset(22)
+                make.left.equalTo(self.infoView.snp.left).offset(10)
+                make.right.equalTo(self.infoView.snp.right).offset(-10)
             })
-            infoLabel.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.titleLabel.snp_bottom).offset(12)
-                make.left.equalTo(self.infoView.snp_left).offset(10)
-                make.right.equalTo(self.infoView.snp_right).offset(-10)
-                make.bottom.equalTo(self.infoView.snp_bottom).offset(-34)
+            infoLabel.snp.makeConstraints( { (make) in
+                make.top.equalTo(self.titleLabel.snp.bottom).offset(12)
+                make.left.equalTo(self.infoView.snp.left).offset(10)
+                make.right.equalTo(self.infoView.snp.right).offset(-10)
+                make.bottom.equalTo(self.infoView.snp.bottom).offset(-34)
                 make.height.lessThanOrEqualTo(100);
             })
             
-            lineLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.infoView.snp_left).offset(10)
-                make.right.equalTo(self.infoView.snp_right).offset(-10)
+            lineLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.infoView.snp.left).offset(10)
+                make.right.equalTo(self.infoView.snp.right).offset(-10)
                 make.height.equalTo(0.5)
-                make.top.equalTo(self.infoView.snp_top).offset(0)
+                make.top.equalTo(self.infoView.snp.top).offset(0)
             })
             self.didSetUpContraints = true
         }
@@ -97,14 +92,14 @@ class AboutUsCell: UITableViewCell {
     }
     
     func hidderLine() {
-        self.lineLabel.hidden = true
+        self.lineLabel.isHidden = true
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

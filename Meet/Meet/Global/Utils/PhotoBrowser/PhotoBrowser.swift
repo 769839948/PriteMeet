@@ -8,13 +8,13 @@
 
 import UIKit
 
-typealias DeletePhoto = (index:NSInteger, photoid:String, deleteSucess:DeleteSuccess) -> Void
+typealias DeletePhoto = (_ index:NSInteger, _ photoid:String, _ deleteSucess:DeleteSuccess) -> Void
 
-typealias DeleteSuccess = (success:Bool) -> Void
+typealias DeleteSuccess = (_ success:Bool) -> Void
 
 class PhotoBrowser: UIViewController {
     
-    lazy var collectionView: UICollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: Layout())
+    lazy var collectionView: UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: Layout())
 
     /**  展示样式：请设置  */
     var showType: ShowType!
@@ -53,15 +53,15 @@ class PhotoBrowser: UIViewController {
     
     lazy var photoArchiverArr: [Int] = []
 
-    deinit{NSNotificationCenter.defaultCenter().removeObserver(self);print("deinit")}
+    deinit{NotificationCenter.default.removeObserver(self);print("deinit")}
     
     lazy var hud: UILabel = {
         
         let hud = UILabel()
         hud.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
-        hud.textColor = UIColor.whiteColor()
+        hud.textColor = UIColor.white
         hud.alpha = 0
-        hud.textAlignment = NSTextAlignment.Center
+        hud.textAlignment = NSTextAlignment.center
         hud.layer.cornerRadius = 5
         hud.layer.masksToBounds = true
         return hud

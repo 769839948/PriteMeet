@@ -48,16 +48,16 @@ class ApplyMeetViewController: UIViewController {
         self.fd_prefersNavigationBarHidden = true
         self.talKingDataPageName = "Order-ApplyMeet"
         for _ in 0...self.allItems.count - 1 {
-            self.selectItems.addObject("false")
+            self.selectItems.add("false")
         }
         // Do any additional setup after loading the view.
     }
 
     func setUpNavigationTitleView() {
-        navigationBarTitleView = UIView(frame:CGRectMake(0,0,ScreenWidth, 84))
-        navigationBarTitleView.backgroundColor = UIColor.whiteColor()
+        navigationBarTitleView = UIView(frame:CGRect(x: 0,y: 0,width: ScreenWidth, height: 84))
+        navigationBarTitleView.backgroundColor = UIColor.white
         self.setNavigationItem()
-        lineLabel = UILabel(frame: CGRectMake(0,83.5,ScreenWidth,0.5))
+        lineLabel = UILabel(frame: CGRect(x: 0,y: 83.5,width: ScreenWidth,height: 0.5))
         lineLabel.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
         navigationBarTitleView.addSubview(lineLabel)
         self.setUpTitleView()
@@ -66,36 +66,36 @@ class ApplyMeetViewController: UIViewController {
     }
     
     func setNavigationItem(){
-        leftButton = UIButton(type: .Custom)
-        leftButton.frame = CGRectMake(20, 30, 20, 20)
-        leftButton.setImage(UIImage.init(named: "navigationbar_back")?.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
-        leftButton.addTarget(self, action: #selector(ApplyMeetViewController.leftBarPress(_:)), forControlEvents: .TouchUpInside)
+        leftButton = UIButton(type: .custom)
+        leftButton.frame = CGRect(x: 20, y: 30, width: 20, height: 20)
+        leftButton.setImage(UIImage.init(named: "navigationbar_back")?.withRenderingMode(.alwaysOriginal), for: UIControlState())
+        leftButton.addTarget(self, action: #selector(ApplyMeetViewController.leftBarPress(_:)), for: .touchUpInside)
         navigationBarTitleView.addSubview(leftButton)
         
     }
 
-    func leftBarPress(sender:UIBarButtonItem) {
-        self.navigationController?.popViewControllerAnimated(true)
+    func leftBarPress(_ sender:UIBarButtonItem) {
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     func setUpTableView(){
-        self.tableView = UITableView(frame: CGRectZero, style: UITableViewStyle.Grouped)
+        self.tableView = UITableView(frame: CGRect.zero, style: UITableViewStyle.grouped)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.view.addSubview(self.tableView)
-        self.tableView.separatorStyle = .None
-        self.tableView.keyboardDismissMode = .OnDrag
+        self.tableView.separatorStyle = .none
+        self.tableView.keyboardDismissMode = .onDrag
         self.tableView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
-        self.tableView.registerClass(OrderFlowTableViewCell.self, forCellReuseIdentifier: "OrderFlowTableViewCell")
-        self.tableView.registerClass(OrderApplyMeetTableViewCell.self, forCellReuseIdentifier: "OrderApplyMeetTableViewCell")
-        self.tableView.registerClass(OrderApplyIntroductionCell.self, forCellReuseIdentifier: "OrderApplyIntroductionCell")
-        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
-        self.tableView.registerNib(UINib.init(nibName: "OrderApplyInfoTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "OrderApplyInfoTableViewCell")
-        self.tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.navigationBarTitleView.snp_bottom).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.bottomBtn.snp_top).offset(0)
+        self.tableView.register(OrderFlowTableViewCell.self, forCellReuseIdentifier: "OrderFlowTableViewCell")
+        self.tableView.register(OrderApplyMeetTableViewCell.self, forCellReuseIdentifier: "OrderApplyMeetTableViewCell")
+        self.tableView.register(OrderApplyIntroductionCell.self, forCellReuseIdentifier: "OrderApplyIntroductionCell")
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
+        self.tableView.register(UINib.init(nibName: "OrderApplyInfoTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "OrderApplyInfoTableViewCell")
+        self.tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.navigationBarTitleView.snp.bottom).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.bottomBtn.snp.top).offset(0)
         }
         self.tableView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
     }
@@ -103,22 +103,22 @@ class ApplyMeetViewController: UIViewController {
     
     func setUpTitleView(){
         
-        titleView = UIView(frame: CGRectMake(40,22,ScreenWidth - 80,63))
-        let phototView = UIImageView(frame: CGRectMake((titleView.frame.size.width - PhotoWith)/2, 2, PhotoWith, PhotoHeight))
+        titleView = UIView(frame: CGRect(x: 40,y: 22,width: ScreenWidth - 80,height: 63))
+        let phototView = UIImageView(frame: CGRect(x: (titleView.frame.size.width - PhotoWith)/2, y: 2, width: PhotoWith, height: PhotoHeight))
         phototView.layer.cornerRadius = PhotoWith/2
         phototView.layer.masksToBounds = true
-        let imageArray = avater.componentsSeparatedByString("?")
-        phototView.sd_setImageWithURL(NSURL.init(string: imageArray[0].stringByAppendingString(NavigaitonAvatarImageSize)), placeholderImage: UIImage.init(color: UIColor.init(hexString: PlaceholderImageColor), size: CGSizeMake(PhotoWith, PhotoHeight)), options: .RetryFailed)
+        let imageArray = avater.components(separatedBy: "?")
+        phototView.sd_setImage(with: URL.init(string: imageArray[0] + NavigaitonAvatarImageSize), placeholderImage: UIImage.init(color: UIColor.init(hexString: PlaceholderImageColor), size: CGSize(width: PhotoWith, height: PhotoHeight)), options: .retryFailed)
         titleView.addSubview(phototView)
         
-        let positionLabel = UILabel(frame: CGRectMake(0, CGRectGetMaxY(phototView.frame) + 3, titleView.frame.size.width, 16))
-        let positionString = "\(realName) \(jobLabel)"
+        let positionLabel = UILabel(frame: CGRect(x: 0, y: phototView.frame.maxY + 3, width: titleView.frame.size.width, height: 16))
+        let positionString = "\((realName)!) \((jobLabel)!)"
         let attributedString = NSMutableAttributedString(string: positionString)
         attributedString.addAttributes([NSFontAttributeName:AppointRealNameLabelFont!], range: NSRange.init(location: 0, length: realName.length))
         attributedString.addAttributes([NSFontAttributeName:AppointPositionLabelFont!], range: NSRange.init(location: realName.length + 1, length: jobLabel.length))
         attributedString.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: HomeDetailViewNameColor)], range: NSRange.init(location: 0, length: positionString.length))
         positionLabel.attributedText = attributedString
-        positionLabel.textAlignment = .Center
+        positionLabel.textAlignment = .center
         titleView.addSubview(positionLabel)
         navigationBarTitleView.addSubview(titleView)
     }
@@ -128,7 +128,7 @@ class ApplyMeetViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func senderApplyMeet(sender:UIButton){
+    func senderApplyMeet(_ sender:UIButton){
         if !UserInfo.isLoggedIn() {
             self.persenterLoginView()
         }else{
@@ -138,7 +138,7 @@ class ApplyMeetViewController: UIViewController {
     
     func applyMeet() {
         if isApplyOrder {
-            UITools.showMessageToView(self.view, message: "预约提交中请稍后", autoHide: true)
+            UITools.showMessage(to: self.view, message: "预约提交中请稍后", autoHide: true)
             return
         }
         viewModel = OrderViewModel()
@@ -146,8 +146,8 @@ class ApplyMeetViewController: UIViewController {
         for idx in 0...self.selectItems.count - 1 {
             let ret = self.selectItems[idx]
             if ret as! String == "true" {
-                appointment_theme = appointment_theme.stringByAppendingString(((ProfileKeyAndValue.shareInstance().appDic as NSDictionary).objectForKey("invitation")?.objectForKey("\(allItems[idx])"))! as! String)
-                appointment_theme = appointment_theme.stringByAppendingString(",")
+                appointment_theme = appointment_theme + ((((ProfileKeyAndValue.shareInstance().appDic as NSDictionary).object(forKey: "invitation") as! NSDictionary).object(forKey: "\(allItems[idx])"))! as! String)
+                appointment_theme = appointment_theme + ","
                 
             }
         }
@@ -178,10 +178,10 @@ class ApplyMeetViewController: UIViewController {
         applyModel.host = self.host
         applyModel.guest = UserInfo.sharedInstance().uid
         viewModel.applyMeetOrder(applyModel, successBlock: { (dic) in
-            let orderDic = dic as NSDictionary
-            self.viewModel.orderDetail(orderDic.objectForKey("order_id") as! String, successBlock: { (dic) in
-                let orderModel = OrderModel.mj_objectWithKeyValues(dic["order"])
-            NSUserDefaults.standardUserDefaults().setObject(dic["customer_service_number"], forKey: "customer_service_number")
+            let orderDic = dic! as [AnyHashable:Any] as NSDictionary
+            self.viewModel.orderDetail(orderDic.object(forKey: "order_id") as! String, successBlock: { (dic) in
+                let orderModel = OrderModel.mj_object(withKeyValues: dic?["order"])
+            UserDefaults.standard.set(dic?["customer_service_number"], forKey: "customer_service_number")
                 let applyDetailView = ConfirmedViewController()
                 applyDetailView.uid = self.host
                 applyDetailView.isAppliViewPush = true
@@ -192,8 +192,8 @@ class ApplyMeetViewController: UIViewController {
             })
             self.isApplyOrder = false
         }) { (dic) in
-            let failDic = dic as NSDictionary
-            MainThreadAlertShow(failDic.objectForKey("error") as! String, view: self.view)
+            let failDic = dic! as [AnyHashable:Any] as NSDictionary
+            MainThreadAlertShow(failDic.object(forKey: "error") as! String, view: self.view)
             self.isApplyOrder = false
         }
     }
@@ -224,24 +224,25 @@ class ApplyMeetViewController: UIViewController {
         loginView.loginWithOrderListClouse = { _ in
             self.applyMeet()
         }
-        self.presentViewController(loginView, animated: true) {
+        let controller = UINavigationController(rootViewController: loginView)
+        self.present(controller, animated: true) {
             
         }
     }
     
     func setUpBottomBtn() {
         bottomBtn = UIButton()
-        bottomBtn.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeViewDetailMeetButtonBack), size: CGSizeMake(ScreenWidth, 49)), forState: .Normal)
-        bottomBtn.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeViewDetailMeetButtonHightBack), size: CGSizeMake(ScreenWidth, 49)), forState: .Highlighted)
-        bottomBtn.addTarget(self, action: #selector(ApplyMeetViewController.senderApplyMeet(_:)), forControlEvents: .TouchUpInside)
-        bottomBtn.setTitle("提交申请", forState: .Normal)
+        bottomBtn.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeViewDetailMeetButtonBack), size: CGSize(width: ScreenWidth, height: 49)), for: UIControlState())
+        bottomBtn.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeViewDetailMeetButtonHightBack), size: CGSize(width: ScreenWidth, height: 49)), for: .highlighted)
+        bottomBtn.addTarget(self, action: #selector(ApplyMeetViewController.senderApplyMeet(_:)), for: .touchUpInside)
+        bottomBtn.setTitle("提交申请", for: UIControlState())
         bottomBtn.titleLabel?.font = MeetDetailImmitdtFont
         self.view.addSubview(bottomBtn)
         
-        bottomBtn.snp_makeConstraints { (make) in
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+        bottomBtn.snp.makeConstraints { (make) in
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
             make.height.equalTo(49)
         }
     }
@@ -254,7 +255,7 @@ class ApplyMeetViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    func setData(cell:OrderApplyMeetTableViewCell) {
+    func setData(_ cell:OrderApplyMeetTableViewCell) {
         if allItems.count > 0 {
             cell.setData(allItems.copy() as! NSArray, selectItems: selectItems.copy() as! NSArray)
         }
@@ -262,21 +263,21 @@ class ApplyMeetViewController: UIViewController {
 }
 
 extension ApplyMeetViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            if indexPath.row == 0 {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath as NSIndexPath).section == 0 {
+            if (indexPath as NSIndexPath).row == 0 {
                 return 108
             }else{
-                return tableView.fd_heightForCellWithIdentifier("OrderApplyMeetTableViewCell", configuration: { (cell) in
+                return tableView.fd_heightForCell(withIdentifier: "OrderApplyMeetTableViewCell", configuration: { (cell) in
                     self.setData(cell as! OrderApplyMeetTableViewCell)
                 })
             }
         }else{
-            if indexPath.row == 0 {
+            if (indexPath as NSIndexPath).row == 0 {
                 return 291
             }else{
                  return 274
@@ -284,58 +285,58 @@ extension ApplyMeetViewController : UITableViewDelegate {
         }
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    @objc(numberOfSectionsInTableView:) func numberOfSections(in tableView: UITableView) -> Int {
         return 2;
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.00001
     }
     
 }
 
 extension ApplyMeetViewController : UITableViewDataSource {
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCellWithIdentifier("OrderFlowTableViewCell", forIndexPath: indexPath) as! OrderFlowTableViewCell
-                cell.selectionStyle = .None
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath as NSIndexPath).section == 0 {
+            if (indexPath as NSIndexPath).row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "OrderFlowTableViewCell", for: indexPath) as! OrderFlowTableViewCell
+                cell.selectionStyle = .none
                 cell.setData("0", statusType: "apply_order")
                 return cell
             }else{
                 let cellId = "OrderApplyMeetTableViewCell"
-                cell = tableView.dequeueReusableCellWithIdentifier(cellId) as! OrderApplyMeetTableViewCell
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! OrderApplyMeetTableViewCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.none
                 self.setData(cell)
                 cell.clourse = { selectItem in
                     if self.selectItems[selectItem] as! String == "true" {
-                        self.selectItems.replaceObjectAtIndex(selectItem, withObject: "false")
+                        self.selectItems.replaceObject(at: selectItem, with: "false")
                     }else{
-                        self.selectItems.replaceObjectAtIndex(selectItem, withObject: "true")
+                        self.selectItems.replaceObject(at: selectItem, with: "true")
                     }
                     
                 }
                 return cell
             }
         }else{
-            if indexPath.row == 0 {
+            if (indexPath as NSIndexPath).row == 0 {
                 let cellId = "OrderApplyIntroductionCell"
-                introductionCell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! OrderApplyIntroductionCell
-                introductionCell.setData("\((PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000002")!)")
+                introductionCell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! OrderApplyIntroductionCell
+                introductionCell.setData("\((PlaceholderText.shareInstance().appDic as NSDictionary).object(forKey: "1000002")!)")
                 introductionCell.textView.delegate = self
-                introductionCell.textView.scrollEnabled = false
-                introductionCell.selectionStyle = UITableViewCellSelectionStyle.None
-                introductionCell.numberText.hidden = true
+                introductionCell.textView.isScrollEnabled = false
+                introductionCell.selectionStyle = UITableViewCellSelectionStyle.none
+                introductionCell.numberText.isHidden = true
                 return introductionCell
             }else{
                 let cellId = "OrderApplyInfoTableViewCell"
-                let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! OrderApplyInfoTableViewCell
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
-                cell.setData("\((PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000003")!)")
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! OrderApplyInfoTableViewCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.none
+                cell.setData("\((PlaceholderText.shareInstance().appDic as NSDictionary).object(forKey: "1000003")!)")
                 return cell
             }
         }
@@ -343,19 +344,19 @@ extension ApplyMeetViewController : UITableViewDataSource {
 }
 
 extension ApplyMeetViewController : UITextViewDelegate {
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
     }
     
-    func textViewDidBeginEditing(textView: UITextView) {
+    func textViewDidBeginEditing(_ textView: UITextView) {
     }
     
-    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let length = 300 - textView.text.length
         introductionCell.numberText.text = "\(length)"
         if textView.text.length > 280 {
-            introductionCell.numberText.hidden = false
+            introductionCell.numberText.isHidden = false
         }else{
-            introductionCell.numberText.hidden = true
+            introductionCell.numberText.isHidden = true
         }
         
         if text == "\n" {

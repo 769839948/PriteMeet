@@ -20,21 +20,21 @@ class WorkeAndEduTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    func setWorkerData(workeString:String){
+    func setWorkerData(_ workeString:String){
         imageDetail.image = UIImage.init(named: "me_profile_work")
-        let workArray = workeString.componentsSeparatedByString("-")
+        let workArray = workeString.components(separatedBy: "-")
         titleName.text = workArray[0]
         position.text = workArray[1]
     }
     
-    func setEduData(workeString:String){
+    func setEduData(_ workeString:String){
         imageDetail.image = UIImage.init(named: "me_profile_edu")
-        let workArray = workeString.componentsSeparatedByString("-")
+        let workArray = workeString.components(separatedBy: "-")
         titleName.text = "\(workArray[0]) \(workArray[2])"
         position.text = workArray[1]
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

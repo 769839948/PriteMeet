@@ -25,7 +25,7 @@ class LikeManViewController: UIViewController {
         super.viewDidLoad()
         self.setNavigationItemBack()
         self.title = "想见的人"
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         self.setUpCollectionView()
         self.setUpLikeListData()
         self.talKingDataPageName = "Me-LikeList"
@@ -34,19 +34,19 @@ class LikeManViewController: UIViewController {
 
     func setUpCollectionView(){
         let followLayout = UICollectionViewFlowLayout()
-        followLayout.scrollDirection = .Vertical
-        collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: followLayout)
+        followLayout.scrollDirection = .vertical
+        collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: followLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = UIColor.init(colorLiteralRed: 251.0/255.0, green: 251.0/255.0, blue: 251.0/255.0, alpha: 1.0)
-        collectionView.registerNib(UINib.init(nibName: "LikeListCollectionViewCell", bundle:nil), forCellWithReuseIdentifier: "LikeListCollectionViewCell")
+        collectionView.register(UINib.init(nibName: "LikeListCollectionViewCell", bundle:nil), forCellWithReuseIdentifier: "LikeListCollectionViewCell")
         self.view.addSubview(collectionView)
         
-        collectionView.snp_makeConstraints { (make) in
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+        collectionView.snp.makeConstraints { (make) in
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
         }
     }
     
@@ -65,23 +65,23 @@ class LikeManViewController: UIViewController {
         }
         
         viewModel.getLikeList("\(page)", successBlock: { (dic) in
-            self.hasNext = dic["has_next"] as! Bool
-            self.likeList.addObjectsFromArray(LikeListModel.mj_objectArrayWithKeyValuesArray(dic["liked_list"]) as NSMutableArray as [AnyObject])
+            self.hasNext = dic?["has_next"] as! Bool
+            self.likeList.addObjects(from: LikeListModel.mj_objectArray(withKeyValuesArray: dic?["liked_list"]) as NSMutableArray as [AnyObject])
             self.collectionView.reloadData()
             self.collectionView.mj_footer.endRefreshing()
             }, fail: { (dic) in
-                MainThreadAlertShow(dic["error"] as! String, view: self.view)
+                MainThreadAlertShow(dic?["error"] as! String, view: self.view)
                 self.page = self.page - 1
                 self.collectionView.mj_footer.endRefreshing()
         })
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
     
@@ -91,7 +91,7 @@ class LikeManViewController: UIViewController {
     }
     
 
-    func reportBtnPress(sender:UIButton){
+    func reportBtnPress(_ sender:UIButton){
         viewModel.deleteLikeUser("\(sender.tag)", successBlock: { (dic) in
             self.setUpLikeListData()
             }) { (dic) in
@@ -111,9 +111,9 @@ class LikeManViewController: UIViewController {
 }
 
 extension LikeManViewController : UICollectionViewDelegate {
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let meetDetailVC = MeetDetailViewController()
-        let model = likeList[indexPath.row] as! LikeListModel
+        let model = likeList[(indexPath as NSIndexPath).row] as! LikeListModel
         meetDetailVC.user_id = "\(model.uid)"
         self.navigationController?.pushViewController(meetDetailVC, animated: true)
 
@@ -121,45 +121,45 @@ extension LikeManViewController : UICollectionViewDelegate {
 }
 
 extension LikeManViewController: UICollectionViewDataSource {
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return likeList.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellIdef = "LikeListCollectionViewCell"
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdef, forIndexPath: indexPath) as! LikeListCollectionViewCell
-        cell.reportBtn.addTarget(self, action: #selector(LikeManViewController.reportBtnPress(_:)), forControlEvents: .TouchUpInside)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdef, for: indexPath) as! LikeListCollectionViewCell
+        cell.reportBtn.addTarget(self, action: #selector(LikeManViewController.reportBtnPress(_:)), for: .touchUpInside)
         cell.layer.cornerRadius = 5.0
-        cell.setData(likeList[indexPath.row] as! LikeListModel)
-        cell.backgroundColor = UIColor.whiteColor()
+        cell.setData(likeList[(indexPath as NSIndexPath).row] as! LikeListModel)
+        cell.backgroundColor = UIColor.white
         return cell
     }
 }
 
 extension LikeManViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake((UIScreen.mainScreen().bounds.size.width - 27)/2, 223)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (UIScreen.main.bounds.size.width - 27)/2, height: 223)
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 7
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 7
     }
     
     //返回HeadView的宽高
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
         
         return CGSize(width: 0, height: 0)
     }
     //返回cell 上下左右的间距
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
         return UIEdgeInsetsMake(10, 10, 10, 10)
     }
 }

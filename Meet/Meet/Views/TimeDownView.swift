@@ -15,7 +15,7 @@ class TimeDownView: UIView {
     var timeLabel:UILabel!
     var timeCount = 0
     var tapLabel:UITapGestureRecognizer!
-    var time:NSTimer!
+    var time:Timer!
     var smsCodeClouse:SmsCodeClouse!
     
     override init(frame: CGRect) {
@@ -29,22 +29,22 @@ class TimeDownView: UIView {
     
     func setUpTime(){
         if time == nil {
-            time = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(TimeDownView.timeDown(_:)), userInfo: nil, repeats: true)
+            time = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(TimeDownView.timeDown(_:)), userInfo: nil, repeats: true)
             let str = "获取验证码"
             timeLabel.text = str
-            NSRunLoop.currentRunLoop().addTimer(time, forMode: "NSRunLoopDefault")
+            RunLoop.current.add(time, forMode: RunLoopMode.defaultRunLoopMode)
         }
     }
     
     func setUpTimeLabel(){
         timeLabel = UILabel()
-        timeLabel.textAlignment = .Center
-        timeLabel.frame = CGRectMake(0, 0, 70, 30)
+        timeLabel.textAlignment = .center
+        timeLabel.frame = CGRect(x: 0, y: 0, width: 70, height: 30)
         timeLabel.layer.cornerRadius = 14.0
         timeLabel.text = "获取验证码"
         timeLabel.layer.masksToBounds = true
         timeLabel.font = LoginButtonTitleFont
-        timeLabel.textColor = UIColor.whiteColor()
+        timeLabel.textColor = UIColor.white
         self.addSubview(timeLabel)
     }
     
@@ -61,7 +61,7 @@ class TimeDownView: UIView {
         timeLabel.text = str
     }
     
-    func timeDown(sender:NSTimer) {
+    func timeDown(_ sender:Timer) {
         
         if timeCount != 0 {
             if timeLabel.frame.size.width == 70 {
@@ -86,19 +86,19 @@ class TimeDownView: UIView {
     }
     
     func zoomSmsLabel() {
-        UIView.animateWithDuration(0.25, animations: { 
-            self.timeLabel.frame = CGRectMake(26, 0, 44, 30)
-            }) { (finish) in
+        UIView.animate(withDuration: 0.25, animations: { 
+            self.timeLabel.frame = CGRect(x: 26, y: 0, width: 44, height: 30)
+            }, completion: { (finish) in
                 
-        }
+        }) 
     }
     
     func inSmsLabel() {
-        UIView.animateWithDuration(0.25, animations: {
-            self.timeLabel.frame = CGRectMake(0, 0, 70, 30)
-        }) { (finish) in
+        UIView.animate(withDuration: 0.25, animations: {
+            self.timeLabel.frame = CGRect(x: 0, y: 0, width: 70, height: 30)
+        }, completion: { (finish) in
             
-        }
+        }) 
     }
     
     func timeDownAgaint() {

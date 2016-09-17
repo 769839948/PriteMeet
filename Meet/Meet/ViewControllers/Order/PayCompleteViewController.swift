@@ -34,33 +34,33 @@ class PayCompleteViewController: UIViewController {
     }
     
     func setUpNavigaitonItem() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "navigationbar_back")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(PayCompleteViewController.leftBarItemClick(_:)))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "navigationbar_back")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(PayCompleteViewController.leftBarItemClick(_:)))
     }
     
-    func leftBarItemClick(sender:UIBarButtonItem) {
+    func leftBarItemClick(_ sender:UIBarButtonItem) {
         if self.payCompleteClouse != nil  {
             self.payCompleteClouse()
-            self.navigationController?.popViewControllerAnimated(true)
+            _ = self.navigationController?.popViewController(animated: true)
         }
     }
     
     func setUpData() {
         orderid.text = orderModel.order_id
         var time = orderModel.created_at
-        time = time.stringByReplacingOccurrencesOfString("T", withString: " ")
-        time = time.stringByReplacingOccurrencesOfString("Z", withString: "")
+        time = time.replacingOccurrences(of: "T", with: " ")
+        time = time.replacingOccurrences(of: "Z", with: "")
         createTime.text = time
         muchLabel.text = "RMB \(orderModel.fee)"
         lookforOrder.layer.cornerRadius = 24.0
         lookforOrder.layer.masksToBounds = true
-        lookforOrder.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeViewDetailMeetButtonBack), size: CGSizeMake(180, 45)), forState: .Normal)
-        lookforOrder.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeViewDetailMeetButtonHightBack), size: CGSizeMake(180, 45)), forState: .Highlighted)
+        lookforOrder.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeViewDetailMeetButtonBack), size: CGSize(width: 180, height: 45)), for: UIControlState())
+        lookforOrder.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeViewDetailMeetButtonHightBack), size: CGSize(width: 180, height: 45)), for: .highlighted)
     }
     
-    @IBAction func lookforOrderClick(sender: UIButton) {
+    @IBAction func lookforOrderClick(_ sender: UIButton) {
         if self.payCompleteClouse != nil  {
             self.payCompleteClouse()
-            self.navigationController?.popViewControllerAnimated(true)
+            _ = self.navigationController?.popViewController(animated: true)
         }
     }
 

@@ -19,10 +19,10 @@ class ItemCell: UICollectionViewCell {
     weak var vc: UIViewController!
     
     /**  缓存  */
-    var cache: Cache<UIImage>!
+    var cache: HNKCache!
     
     /**  format  */
-    var format: Format<UIImage>!
+    var format: HNKCacheFormat!
     
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -61,18 +61,18 @@ class ItemCell: UICollectionViewCell {
     
     var isAlive: Bool = true
     
-    private var doubleTapGesture: UITapGestureRecognizer!
+    fileprivate var doubleTapGesture: UITapGestureRecognizer!
     
-    private var singleTapGesture: UITapGestureRecognizer!
+    fileprivate var singleTapGesture: UITapGestureRecognizer!
     
-    lazy var screenH: CGFloat = UIScreen.mainScreen().bounds.size.height
-    lazy var screenW: CGFloat = UIScreen.mainScreen().bounds.size.width
+    lazy var screenH: CGFloat = UIScreen.main.bounds.size.height
+    lazy var screenW: CGFloat = UIScreen.main.bounds.size.width
     
     deinit{
         
         cache = nil
         self.asHUD?.removeFromSuperview()
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -87,7 +87,7 @@ extension ItemCell: UIScrollViewDelegate{
         doubleTapGesture.numberOfTouchesRequired = 1
         
         singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(ItemCell.singleTap(_:)))
-        singleTapGesture.requireGestureRecognizerToFail(self.doubleTapGesture)
+        singleTapGesture.require(toFail: self.doubleTapGesture)
         singleTapGesture.numberOfTapsRequired = 1
         singleTapGesture.numberOfTouchesRequired = 1
         addGestureRecognizer(doubleTapGesture)
@@ -95,15 +95,15 @@ extension ItemCell: UIScrollViewDelegate{
         
         scrollView.delegate = self
         
-        msgContentTextView.textContainerInset = UIEdgeInsetsZero
+        msgContentTextView.textContainerInset = UIEdgeInsets.zero
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ItemCell.didRotate), name: UIDeviceOrientationDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ItemCell.didRotate), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         
         //HUD初始化
         asHUD.layer.cornerRadius = 40
 //        scrollView.layer.borderColor = UIColor.redColor().CGColor
 //        scrollView.layer.borderWidth = 5
-        asHUD.type = NVActivityIndicatorType.BallScaleRipple
+        asHUD.type = NVActivityIndicatorType.ballScaleRipple
         
         //更新约束:默认居中
         self.imgVLMC.constant = (self.screenW - 120)/2
@@ -120,30 +120,30 @@ extension ItemCell: UIScrollViewDelegate{
     
     func didRotate(){
 
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW,Int64(0.1 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {[unowned self] () -> Void in
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {[unowned self] () -> Void in
             if self.imageV.image != nil {self.imageIsLoaded(self.imageV.image!, needAnim: false)}
         })
     }
     
 
     
-    func doubleTap(tapG: UITapGestureRecognizer){
+    func doubleTap(_ tapG: UITapGestureRecognizer){
         
         if !hasHDImage {return}
         
-        let location = tapG.locationInView(tapG.view)
+        let location = tapG.location(in: tapG.view)
         
         if scrollView.zoomScale <= 1 {
             
-            if !(imageV.convertRect(imageV.bounds, toView: imageV.superview).contains(location)) {return}
+            if !(imageV.convert(imageV.bounds, to: imageV.superview).contains(location)) {return}
             
-            let location = tapG.locationInView(tapG.view)
+            let location = tapG.location(in: tapG.view)
             
-            let rect = CGRectMake(location.x, location.y, 10, 10)
+            let rect = CGRect(x: location.x, y: location.y, width: 10, height: 10)
 
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
+            UIView.animate(withDuration: 0.3, animations: { () -> Void in
                 UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: 7)!)
-                self.scrollView.zoomToRect(rect, animated: false)
+                self.scrollView.zoom(to: rect, animated: false)
                 var c = (self.screenH - self.imageV.frame.height) / 2
                 if c <= 0 {c = 0}
                 self.imgVTMC.constant = c
@@ -155,7 +155,7 @@ extension ItemCell: UIScrollViewDelegate{
             
         }else{
             
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
+            UIView.animate(withDuration: 0.3, animations: { () -> Void in
                 UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: 7)!)
                 self.scrollView.setZoomScale(1, animated: false)
                 self.imgVTMC.constant = (self.screenH - self.imageV.showSize.height) / 2
@@ -167,7 +167,7 @@ extension ItemCell: UIScrollViewDelegate{
         
     }
     
-    func singleTap(tapG: UITapGestureRecognizer){
+    func singleTap(_ tapG: UITapGestureRecognizer){
         
         if scrollView.zoomScale > 1 {
             
@@ -175,13 +175,13 @@ extension ItemCell: UIScrollViewDelegate{
             
         }else {
             
-            NSNotificationCenter.defaultCenter().postNotificationName(CFPBSingleTapNofi, object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: CFPBSingleTapNofi), object: nil)
         }
     }
     
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {return imageV}
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {return imageV}
 
-    func scrollViewDidZoom(scrollView: UIScrollView) {
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
 //        UIView.animateWithDuration(0.3, animations: { () -> Void in
 //            UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: 7)!)
             var c = (self.screenH - self.imageV.frame.height) / 2
@@ -198,13 +198,13 @@ extension ItemCell: UIScrollViewDelegate{
     func reset(){
         
         scrollView.setZoomScale(1, animated: false)
-        msgContentTextView.setContentOffset(CGPointZero, animated: false)
+        msgContentTextView.setContentOffset(CGPoint.zero, animated: false)
     }
     
     /**  数据填充  */
     func dataFill(){
         
-        if photoType == PhotoBrowser.PhotoType.Local {
+        if photoType == PhotoBrowser.PhotoType.local {
             
             /**  本地图片模式  */
             hasHDImage = true
@@ -223,74 +223,148 @@ extension ItemCell: UIScrollViewDelegate{
             
             self.imageV.image = nil
             /** 服务器图片模式 */
-            _ = NSURL(string: photoModel.hostHDImgURL)!
+            _ = URL(string: photoModel.hostHDImgURL)!
             
-            if cache == nil {cache = Cache<UIImage>(name: CFPBCacheKey)}
             
-            if format == nil{format = Format(name: photoModel.hostHDImgURL, diskCapacity: 10 * 1024 * 1024, transform: { img in
-                return img
-            })}
-
-            cache.fetch(key: photoModel.hostHDImgURL,  failure: {[unowned self] fail in
-                
-                if !self.isAlive {return}
-                
-                self.showAsHUD()
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    
-                    //更新约束:默认居中
-                    self.imgVLMC.constant = (self.screenW - 120)/2
-                    self.imgVTMC.constant = (self.screenH - 120)/2
-                })
-                self.imageV.image = self.photoModel.hostThumbnailImg
-                
-                self.cache.fetch(URL: NSURL(string: self.photoModel.hostHDImgURL)!, failure: {fail in
-                    
-                    print("失败\(fail)")
-                    
-                    }, success: {[unowned self] img in
-                    
-                    if !NSUserDefaults.standardUserDefaults().boolForKey(CFPBShowKey) {return}
-                    
-                    if !self.isAlive {return}
-                    
-                    if self.photoModel?.excetionFlag == false {return}
-                    
-                    if self.photoModel.modelCell !== self {return}
-                    
-                    self.hasHDImage = true
-                    self.dismissAsHUD(true)
-                    self.imageIsLoaded(img, needAnim: true)
-                    self.imageV.image = img
-                    
-                })
-                
-            }, success: {[unowned self] img in
-                
-                if !self.isAlive {return}
-                
-                self.dismissAsHUD(false)
-                
-                self.imageV.image = img
-
-                self.hasHDImage = true
-
-                /** 图片数据已经装载 */
-
-                if !self.isFix && self.vc.view.bounds.size.width > self.vc.view.bounds.size.height{
-
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,Int64(0.06 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {[unowned self] () -> Void in
-
-                        self.imageIsLoaded(img, needAnim: false)
-                        self.isFix = true
-                        })
-                }else{
-                    
-                    self.imageIsLoaded(img, needAnim: false)
+            
+            
+            if cache == nil {cache = HNKCache.init(name: CFPBCacheKey)}
+            if format == nil{
+                format = HNKCacheFormat(name: photoModel.hostHDImgURL)
+                format.diskCapacity = 10 * 1024 * 1024
+                format.postResizeBlock = { key,image in
+                    return image
                 }
-
+            }
+            HNKCache.shared().registerFormat(format)
+            self.imageV.hnk_setImage(from: URL(string: self.photoModel.hostHDImgURL)!, placeholder: nil, success: { (img) in
+                if !UserDefaults.standard.bool(forKey: CFPBShowKey) {return}
+                
+                if !self.isAlive {return}
+                
+                if self.photoModel?.excetionFlag == false {return}
+                
+                if self.photoModel.modelCell !== self {return}
+                
+                self.hasHDImage = true
+                self.dismissAsHUD(true)
+                self.imageIsLoaded(img!, needAnim: true)
+                self.imageV.image = img
+                }, failure: { (fail) in
+                    print("失败\(fail)")
             })
+//            cache.fetchImage(forKey: photoModel.hostHDImgURL, formatName: photoModel.hostHDImgURL, success: { (img) in
+//                if !self.isAlive {return}
+//                
+//                self.dismissAsHUD(false)
+//                
+//                self.imageV.image = img
+//                
+//                self.hasHDImage = true
+//                
+//                /** 图片数据已经装载 */
+//                
+//                if !self.isFix && self.vc.view.bounds.size.width > self.vc.view.bounds.size.height{
+//                    
+//                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.06 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {[unowned self] () -> Void in
+//                        
+//                        self.imageIsLoaded(img!, needAnim: false)
+//                        self.isFix = true
+//                        })
+//                }else{
+//                    
+//                    self.imageIsLoaded(img!, needAnim: false)
+//                }
+//                }, failure: { (error) in
+//                    if !self.isAlive {return}
+//                    
+//                    self.showAsHUD()
+//                    DispatchQueue.main.async(execute: { () -> Void in
+//                        
+//                        //更新约束:默认居中
+//                        self.imgVLMC.constant = (self.screenW - 120)/2
+//                        self.imgVTMC.constant = (self.screenH - 120)/2
+//                    })
+//                    self.imageV.image = self.photoModel.hostThumbnailImg
+//                    
+//                    self.imageV.hnk_setImage(from: URL(string: self.photoModel.hostHDImgURL)!, placeholder: nil, success: { (img) in
+//                        if !UserDefaults.standard.bool(forKey: CFPBShowKey) {return}
+//                        
+//                        if !self.isAlive {return}
+//                        
+//                        if self.photoModel?.excetionFlag == false {return}
+//                        
+//                        if self.photoModel.modelCell !== self {return}
+//                        
+//                        self.hasHDImage = true
+//                        self.dismissAsHUD(true)
+//                        self.imageIsLoaded(img!, needAnim: true)
+//                        self.imageV.image = img
+//                        }, failure: { (fail) in
+//                            print("失败\(fail)")
+//                    })
+//            })
         }
+//            cache.fetch(key: photoModel.hostHDImgURL,  failure: {[unowned self] fail in
+//                
+//                if !self.isAlive {return}
+//                
+//                self.showAsHUD()
+//                DispatchQueue.main.async(execute: { () -> Void in
+//                    
+//                    //更新约束:默认居中
+//                    self.imgVLMC.constant = (self.screenW - 120)/2
+//                    self.imgVTMC.constant = (self.screenH - 120)/2
+//                })
+//                self.imageV.image = self.photoModel.hostThumbnailImg
+//                
+//                self.cache.fetch(URL: URL(string: self.photoModel.hostHDImgURL)!, failure: {fail in
+//                    
+//                    print("失败\(fail)")
+//                    
+//                    }, success: {[unowned self] img in
+//                    
+//                    if !UserDefaults.standard.bool(forKey: CFPBShowKey) {return}
+//                    
+//                    if !self.isAlive {return}
+//                    
+//                    if self.photoModel?.excetionFlag == false {return}
+//                    
+//                    if self.photoModel.modelCell !== self {return}
+//                    
+//                    self.hasHDImage = true
+//                    self.dismissAsHUD(true)
+//                    self.imageIsLoaded(img, needAnim: true)
+//                    self.imageV.image = img
+//                    
+//                })
+//                
+//            }, success: {[unowned self] img in
+//                
+//                if !self.isAlive {return}
+//                
+//                self.dismissAsHUD(false)
+//                
+//                self.imageV.image = img
+//
+//                self.hasHDImage = true
+//
+//                /** 图片数据已经装载 */
+//
+//                if !self.isFix && self.vc.view.bounds.size.width > self.vc.view.bounds.size.height{
+//
+//                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.06 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {[unowned self] () -> Void in
+//
+//                        self.imageIsLoaded(img, needAnim: false)
+//                        self.isFix = true
+//                        })
+//                }else{
+//                    
+//                    self.imageIsLoaded(img, needAnim: false)
+//                }
+//
+//            })
+//        }
         
         /**  标题  */
         if photoModel.titleStr != nil {msgTitleLabel.text = photoModel.titleStr}
@@ -298,21 +372,20 @@ extension ItemCell: UIScrollViewDelegate{
         /**  内容  */
         if photoModel.descStr != nil {msgContentTextView.text = photoModel.descStr}
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-            Int64(0.1 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {[unowned self] () -> Void in
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {[unowned self] () -> Void in
                 
                 self.reset()
         }
     }
     
     
-    func toggleDisplayBottomBar(isHidden: Bool){
+    func toggleDisplayBottomBar(_ isHidden: Bool){
         
-        bottomContentView.hidden = isHidden
+        bottomContentView.isHidden = isHidden
     }
     
     /** 图片数据已经装载 */
-    func imageIsLoaded(img: UIImage,needAnim: Bool){
+    func imageIsLoaded(_ img: UIImage,needAnim: Bool){
         self.scrollView.setZoomScale(1, animated: true)
         if !hasHDImage {return}
         
@@ -328,7 +401,7 @@ extension ItemCell: UIScrollViewDelegate{
         
             if boundsSize.width < boundsSize.height {
             
-                boundsSize = CGSizeMake(boundsSize.height, boundsSize.width)
+                boundsSize = CGSize(width: boundsSize.height, height: boundsSize.width)
             }
         
         }
@@ -339,7 +412,7 @@ extension ItemCell: UIScrollViewDelegate{
     
         imageV.showSize = showSize
         
-        dispatch_async(dispatch_get_main_queue(), {[unowned self] () -> Void in
+        DispatchQueue.main.async(execute: {[unowned self] () -> Void in
             
             self.imgVHC.constant = showSize.height
             self.imgVWC.constant = showSize.width
@@ -349,8 +422,8 @@ extension ItemCell: UIScrollViewDelegate{
   
             if !needAnim{return}
             self.scrollView.contentSize = showSize
-            UIView.animateWithDuration(0.25, animations: {[unowned self] () -> Void in
-                UIView.setAnimationCurve(UIViewAnimationCurve.EaseOut)
+            UIView.animate(withDuration: 0.25, animations: {[unowned self] () -> Void in
+                UIView.setAnimationCurve(UIViewAnimationCurve.easeOut)
                 self.imageV.setNeedsLayout()
                 self.imageV.layoutIfNeeded()
             })
@@ -363,33 +436,33 @@ extension ItemCell: UIScrollViewDelegate{
         
         if asHUD == nil {return}
         
-        self.asHUD?.hidden = false
+        self.asHUD?.isHidden = false
         asHUD?.startAnimation()
         
-        UIView.animateWithDuration(0.25, animations: {[unowned self] () -> Void in
+        UIView.animate(withDuration: 0.25, animations: {[unowned self] () -> Void in
             self.asHUD?.alpha = 1
         })
     }
     
     
     /** 移除 */
-    func dismissAsHUD(needAnim: Bool){
+    func dismissAsHUD(_ needAnim: Bool){
         
         if asHUD == nil {return}
         
         if needAnim{
         
-            UIView.animateWithDuration(0.25, animations: {[unowned self] () -> Void in
+            UIView.animate(withDuration: 0.25, animations: {[unowned self] () -> Void in
                 self.asHUD?.alpha = 0
-                }) { (complete) -> Void in
-                    self.asHUD?.hidden = true
+                }, completion: { (complete) -> Void in
+                    self.asHUD?.isHidden = true
                     self.asHUD?.stopAnimation()
-            }
+            }) 
             
         }else{
             
             self.asHUD?.alpha = 0
-            self.asHUD?.hidden = true
+            self.asHUD?.isHidden = true
             self.asHUD?.stopAnimation()
         }
 

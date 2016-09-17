@@ -26,8 +26,8 @@ PODS:
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
   - HappyDNS (0.3.10)
-  - IQKeyboardManager (4.0.5)
-  - Masonry (1.0.1)
+  - IQKeyboardManager (4.0.6)
+  - Masonry (1.0.2)
   - MBProgressHUD (1.0.0)
   - MJExtension (3.0.13)
   - MJRefresh (3.1.12)
@@ -45,7 +45,7 @@ PODS:
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
-  - SnapKit (0.22.0)
+  - SnapKit (3.0.0)
   - SQLCipher (3.3.1):
     - SQLCipher/standard (= 3.3.1)
   - SQLCipher/common (3.3.1)
@@ -93,8 +93,8 @@ SPEC CHECKSUMS:
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
-  IQKeyboardManager: 50b62c0603308968256f8208886e206c1dcce607
-  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
+  IQKeyboardManager: c52debb1967799ae7addb98eab0cf328083a874f
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
@@ -103,9 +103,9 @@ SPEC CHECKSUMS:
   Qiniu: 4dbf1e6acb3236c4d7251046a17d08b16d21fcfe
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
-  SnapKit: 0dd2fd157330f1ea11fd84da13e6be8a7a22bae0
+  SnapKit: 98af0a4e9369d3c58f758967518081dbdc7eb1d9
   SQLCipher: d490d2effe735895d2204d25a154b1e722278421
 
-PODFILE CHECKSUM: cf33be68da6c218af20d3da4db12ce323c908b74
+PODFILE CHECKSUM: a260bac95d7e3697194a9276d977c8fd0adaeede
 
 COCOAPODS: 1.0.0

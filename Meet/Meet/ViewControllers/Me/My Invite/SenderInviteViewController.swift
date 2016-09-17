@@ -43,7 +43,7 @@ class SenderInviteViewController: UIViewController {
         self.setUpTableView()
         self.setNavigationItemBack()
         self.setNavigationBar()
-        IQKeyboardManager.sharedManager().enable = false
+        IQKeyboardManager.shared().isEnabled = false
         self.setupForDismissKeyboard()
         self.talKingDataPageName = "Me-Invite"
     }
@@ -51,11 +51,11 @@ class SenderInviteViewController: UIViewController {
     func loadNetData(){
         viewModel = UserInfoViewModel()
         viewModel.getAllInviteAllItems({ (dic) in
-            self.allItems = ((dic as NSDictionary).objectForKey("all_themes")?.copy())! as! NSMutableArray
-            self.plachString = (dic as NSDictionary).objectForKey("default_document") as! String
+            self.allItems = NSMutableArray.init(array: dic?["all_themes"] as! NSArray)
+            self.plachString = dic?["default_document"] as! String
             if UserInviteModel.isFake() {
                 for _ in 0...self.allItems.count - 1 {
-                    self.selectItems.addObject("false")
+                    self.selectItems.add("false")
 
                 }
             }else{
@@ -83,7 +83,7 @@ class SenderInviteViewController: UIViewController {
     }
     
     func setNavigationBar(){
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(SenderInviteViewController.sendreInvite))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .plain, target: self, action: #selector(SenderInviteViewController.sendreInvite))
         self.changeNavigationBarItemColor()
     }
     
@@ -96,16 +96,16 @@ class SenderInviteViewController: UIViewController {
         for idx in 0...cell.interestView.selectItems.count - 1 {
             let ret = cell.interestView.selectItems[idx]
             if ret as! String == "true" {
-                arrayItems.addObject(allItems[idx])
+                arrayItems.add(allItems[idx])
             }
         }
         
         if arrayItems.count == 0 {
-            UITools.showMessageToView(self.view, message: "邀约说明是必填内容哦", autoHide: true)
+            UITools.showMessage(to: self.view, message: "邀约说明是必填内容哦", autoHide: true)
             return
         }
         if textView.text == "" {
-            UITools.showMessageToView(self.view, message: "邀约说明是必填内容哦", autoHide: true)
+            UITools.showMessage(to: self.view, message: "邀约说明是必填内容哦", autoHide: true)
             return
         }
         
@@ -121,25 +121,25 @@ class SenderInviteViewController: UIViewController {
                     let reportVC = ReportViewController()
                     reportVC.uid = self.user_id
                     reportVC.myClouse = { _ in
-                        UITools.showMessageToView(self.view, message: "投诉成功", autoHide: true)
+                        UITools.showMessage(to: self.view, message: "投诉成功", autoHide: true)
                     }
                     self.navigationController?.pushViewController(reportVC, animated: true)
                 }else{
-                    let viewControllers:NSArray = (self.navigationController?.viewControllers)!
-                    self.navigationController?.popToViewController(viewControllers.objectAtIndex(1) as! UIViewController, animated: true)
+                    let viewControllers:NSArray = (self.navigationController?.viewControllers)! as NSArray
+                    _ = self.navigationController?.popToViewController(viewControllers.object(at: 1) as! UIViewController, animated: true)
                 }
             }else if self.isHomeListLogin{
-                self.navigationController?.popToRootViewControllerAnimated(true)
+                 _ = self.navigationController?.popToRootViewController(animated: true)
             }else if self.isNewLogin {
-                self.navigationController?.popToRootViewControllerAnimated(true)
+                _ = self.navigationController?.popToRootViewController(animated: true)
             }else if self.isApplyMeetLogin {
-                let viewControllers:NSArray = (self.navigationController?.viewControllers)!
-                self.navigationController?.popToViewController(viewControllers.objectAtIndex(2) as! UIViewController, animated: true)
+                let viewControllers:NSArray = (self.navigationController?.viewControllers)! as NSArray
+                _ = self.navigationController?.popToViewController(viewControllers.object(at: 2) as! UIViewController, animated: true)
             }else{
                 if !UserInviteModel.shareInstance().results[0].is_active {
                     UserInviteModel.shareInstance().results[0].is_active = true
                 }
-                self.navigationController?.popViewControllerAnimated(true)
+                _ = self.navigationController?.popViewController(animated: true)
             }
             }, fail: { (dic) in
                 
@@ -149,21 +149,21 @@ class SenderInviteViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     func setUpTableView(){
-        self.tableView.registerClass(InviteItemsTableViewCell.self, forCellReuseIdentifier: "InviteItemsTableViewCell")
-        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
-        self.tableView.keyboardDismissMode = .OnDrag
+        self.tableView.register(InviteItemsTableViewCell.self, forCellReuseIdentifier: "InviteItemsTableViewCell")
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
+        self.tableView.keyboardDismissMode = .onDrag
         self.tableView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
-        self.tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+        self.tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
         }
     }
     
@@ -172,25 +172,25 @@ class SenderInviteViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func setData(cell:InviteItemsTableViewCell){
+    func setData(_ cell:InviteItemsTableViewCell){
         if allItems.count > 0 {
             cell.setData(allItems.copy() as! NSArray, selectItems: selectItems.copy() as! NSArray)
         }
     }
     
     func setUpAlertContol(){
-        let aletControl = UIAlertController.init(title: "确定关闭邀约？", message: "邀约关闭后，您将不会出现在首页了哦。", preferredStyle: UIAlertControllerStyle.Alert)
-        let cancleAction = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.Cancel, handler: { (canCel) in
+        let aletControl = UIAlertController.init(title: "确定关闭邀约？", message: "邀约关闭后，您将不会出现在首页了哦。", preferredStyle: UIAlertControllerStyle.alert)
+        let cancleAction = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.cancel, handler: { (canCel) in
             (UserInviteModel.shareInstance().results[0]).is_active = true
-            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 2)], withRowAnimation: UITableViewRowAnimation.Automatic)
+            self.tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: UITableViewRowAnimation.automatic)
         })
-        let doneAction = UIAlertAction.init(title: "关闭", style: UIAlertActionStyle.Default, handler: { (canCel) in
+        let doneAction = UIAlertAction.init(title: "关闭", style: UIAlertActionStyle.default, handler: { (canCel) in
             (UserInviteModel.shareInstance().results[0]).is_active = false
             self.sendreInvite()
         })
         aletControl.addAction(cancleAction)
         aletControl.addAction(doneAction)
-        self.presentViewController(aletControl, animated: true) { 
+        self.present(aletControl, animated: true) { 
             
         }
     }
@@ -198,12 +198,12 @@ class SenderInviteViewController: UIViewController {
 
 extension SenderInviteViewController : UITableViewDelegate {
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    @objc(numberOfSectionsInTableView:) func numberOfSections(in tableView: UITableView) -> Int {
         if isNewLogin || UserInviteModel.shareInstance().results[0].is_fake {
             return 2
         }else{
@@ -211,7 +211,7 @@ extension SenderInviteViewController : UITableViewDelegate {
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 2 {
             return 1
         }else{
@@ -219,28 +219,28 @@ extension SenderInviteViewController : UITableViewDelegate {
         }
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.001
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            if indexPath.row == 0 {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath as NSIndexPath).section == 0 {
+            if (indexPath as NSIndexPath).row == 0 {
                 return 77
             }else{
-                return tableView.fd_heightForCellWithIdentifier("InviteItemsTableViewCell", configuration: { (cell) in
+                return tableView.fd_heightForCell(withIdentifier: "InviteItemsTableViewCell", configuration: { (cell) in
                     self.setData(cell as! InviteItemsTableViewCell)
                 })
             }
-        }else if (indexPath.section == 1){
-            if indexPath.row == 0 {
+        }else if ((indexPath as NSIndexPath).section == 1){
+            if (indexPath as NSIndexPath).row == 0 {
                 return 60
             }else{
-                return ScreenHeight - (tableView.fd_heightForCellWithIdentifier("InviteItemsTableViewCell", configuration: { (cell) in
+                return ScreenHeight - (tableView.fd_heightForCell(withIdentifier: "InviteItemsTableViewCell", configuration: { (cell) in
                     self.setData(cell as! InviteItemsTableViewCell)
                 })) - 77 - 77 - 66 - 10 - 64
             }
@@ -251,40 +251,40 @@ extension SenderInviteViewController : UITableViewDelegate {
 }
 
 extension SenderInviteViewController : UITableViewDataSource {
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            if indexPath.row == 0 {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath as NSIndexPath).section == 0 {
+            if (indexPath as NSIndexPath).row == 0 {
                 let cellId = "InviteTitleTableViewCell"
-                let cell = tableView.dequeueReusableCellWithIdentifier(cellId) as! InviteTitleTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! InviteTitleTableViewCell
                 cell.setData("设置邀约主题", isSwitch: false, isShowSwitch: false)
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                cell.selectionStyle = UITableViewCellSelectionStyle.none
                 return cell
             }else{
                 let cellId = "InviteItemsTableViewCell"
-                cell = tableView.dequeueReusableCellWithIdentifier(cellId) as! InviteItemsTableViewCell
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! InviteItemsTableViewCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.none
                 cell.clourse = { selectItem in
                     self.changeNavigationBarItemColor()
                     if !self.isNewLogin {
                         if !UserInviteModel.shareInstance().results[0].is_active && !UserInviteModel.shareInstance().results[0].is_fake {
                             UserInviteModel.shareInstance().results[0].is_active = true
-                            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 2)], withRowAnimation: UITableViewRowAnimation.Automatic)
+                            self.tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: UITableViewRowAnimation.automatic)
                         }
                     }
                 }
                 self.setData(cell)
                 return cell
             }
-        }else if (indexPath.section == 1) {
-            if indexPath.row == 0 {
+        }else if ((indexPath as NSIndexPath).section == 1) {
+            if (indexPath as NSIndexPath).row == 0 {
                 let cellId = "InviteDetailTitleTableViewCell"
-                let cell = tableView.dequeueReusableCellWithIdentifier(cellId) as! InviteDetailTitleTableViewCell
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! InviteDetailTitleTableViewCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.none
 
                 return cell
             }else{
                 let cellId = "TableViewCell"
-                let cell = tableView.dequeueReusableCellWithIdentifier(cellId)
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellId)
                 textView = UITextView()
                 
                 textView.placeholder = self.plachString
@@ -300,36 +300,36 @@ extension SenderInviteViewController : UITableViewDataSource {
                 textView.tintColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
                 textView.delegate = self
                 textView.placeholderColor = UIColor.init(hexString: PlaceholderTextViewColor)
-                IQKeyboardManager.sharedManager().enable = true
+                IQKeyboardManager.shared().isEnabled = true
                 textView.font = LoginCodeLabelFont
                 cell?.contentView.addSubview(textView)
-                textView.snp_makeConstraints(closure: { (make) in
-                    make.top.equalTo((cell?.contentView.snp_top)!).offset(0)
-                    make.left.equalTo((cell?.contentView.snp_left)!).offset(15)
-                    make.right.equalTo((cell?.contentView.snp_right)!).offset(-15)
-                    make.bottom.equalTo((cell?.contentView.snp_bottom)!).offset(-20)
+                textView.snp.makeConstraints({ (make) in
+                    make.top.equalTo((cell?.contentView.snp.top)!).offset(0)
+                    make.left.equalTo((cell?.contentView.snp.left)!).offset(15)
+                    make.right.equalTo((cell?.contentView.snp.right)!).offset(-15)
+                    make.bottom.equalTo((cell?.contentView.snp.bottom)!).offset(-20)
                 })
-                cell!.selectionStyle = UITableViewCellSelectionStyle.None
+                cell!.selectionStyle = UITableViewCellSelectionStyle.none
                 return cell!
             }
         }else{
             let cellId = "InviteTitleTableViewCell"
-            let cell = tableView.dequeueReusableCellWithIdentifier(cellId) as! InviteTitleTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! InviteTitleTableViewCell
             cell.setData("邀约已开启", isSwitch: (UserInviteModel.shareInstance().results[0]).is_active,isShowSwitch:true )
             cell.myCourse = { _ in
                 self.setUpAlertContol()
             }
-            cell.selectionStyle = UITableViewCellSelectionStyle.None
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
             return cell
         }
     }
 }
 extension SenderInviteViewController : UITextViewDelegate {
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         if !isNewLogin {
             if !UserInviteModel.shareInstance().results[0].is_active && !UserInviteModel.shareInstance().results[0].is_fake {
                 UserInviteModel.shareInstance().results[0].is_active = true
-                self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 2)], withRowAnimation: UITableViewRowAnimation.Automatic)
+                self.tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: UITableViewRowAnimation.automatic)
             }
         }
         self.changeNavigationBarItemColor()

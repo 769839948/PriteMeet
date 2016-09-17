@@ -9,12 +9,12 @@
 import UIKit
 
 enum ZDQFlowViewItemType {
-    case ItemSelect
-    case ItemUnSelect
-    case ItemWaitSelect
-    case ItemCancel
-    case ItemNext
-    case ItemCancelDone
+    case itemSelect
+    case itemUnSelect
+    case itemWaitSelect
+    case itemCancel
+    case itemNext
+    case itemCancelDone
 }
 
 class ZDQFlowViewItem: UIView {
@@ -26,13 +26,13 @@ class ZDQFlowViewItem: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         imageView = UIImageView()
-        imageView.frame = CGRectMake(8, 0, 29, 29)
+        imageView.frame = CGRect(x: 8, y: 0, width: 29, height: 29)
         self.addSubview(imageView)
         
         titleLabel = UILabel()
-        titleLabel.font = UIFont.systemFontOfSize(11.0)
-        titleLabel.textAlignment = .Center
-        titleLabel.frame = CGRectMake(-6, CGRectGetMaxY(imageView.frame) + 6, 57, 16)
+        titleLabel.font = UIFont.systemFont(ofSize: 11.0)
+        titleLabel.textAlignment = .center
+        titleLabel.frame = CGRect(x: -6, y: imageView.frame.maxY + 6, width: 57, height: 16)
         self.addSubview(titleLabel)
 
     }
@@ -41,22 +41,22 @@ class ZDQFlowViewItem: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setData(title:String, type:ZDQFlowViewItemType){
+    func setData(_ title:String, type:ZDQFlowViewItemType){
         itemType = type
         switch type {
-        case .ItemSelect:
+        case .itemSelect:
             imageView.image = UIImage.init(named: "item_select")
             titleLabel.textColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
-        case .ItemUnSelect:
+        case .itemUnSelect:
             imageView.image = UIImage.init(named: "item_unselect")
             titleLabel.textColor = UIColor.init(hexString: OrderApplyMeetTitleColor)
-        case .ItemWaitSelect:
+        case .itemWaitSelect:
             imageView.image = UIImage.init(named: "item_wait_select")
             titleLabel.textColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
-        case .ItemNext:
+        case .itemNext:
             imageView.image = UIImage.init(named: "item_next")
             titleLabel.textColor = UIColor.init(hexString: OrderApplyMeetTitleColor)
-        case .ItemCancelDone:
+        case .itemCancelDone:
             imageView.image = UIImage.init(named: "item_unselect")
             titleLabel.textColor = UIColor.init(hexString: OrderApplyMeetTitleColor)
         default:

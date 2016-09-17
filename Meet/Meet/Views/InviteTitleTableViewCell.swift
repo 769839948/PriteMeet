@@ -23,19 +23,19 @@ class InviteTitleTableViewCell: UITableViewCell {
     }
     
     
-    func setData(title:String, isSwitch:Bool, isShowSwitch:Bool) {
+    func setData(_ title:String, isSwitch:Bool, isShowSwitch:Bool) {
         titleLabel.text = title;
-        switchControl.addTarget(self, action: #selector(InviteTitleTableViewCell.switchChangeValue(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        switchControl.addTarget(self, action: #selector(InviteTitleTableViewCell.switchChangeValue(_:)), for: UIControlEvents.valueChanged)
         if isShowSwitch {
-            switchControl.hidden = false
+            switchControl.isHidden = false
         }else{
-            switchControl.hidden = true
+            switchControl.isHidden = true
         }
         switchControl.setOn(isSwitch, animated: true)
     }
     
-    func switchChangeValue(switchCol:UISwitch){
-        if switchCol.on {
+    func switchChangeValue(_ switchCol:UISwitch){
+        if switchCol.isOn {
             UserInviteModel.shareInstance().results[0].is_active = true
         }else{
             if (self.myCourse != nil) {
@@ -45,7 +45,7 @@ class InviteTitleTableViewCell: UITableViewCell {
         }
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

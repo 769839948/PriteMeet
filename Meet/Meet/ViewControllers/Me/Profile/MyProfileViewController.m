@@ -881,15 +881,20 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 cell = [nibs lastObject];
                 
             }
-            if ([UserInfo sharedInstance].avatar != nil){
-                NSArray *photoArray = [[UserInfo sharedInstance].avatar componentsSeparatedByString:@"?"];
-                NSString *photoUrl = [photoArray[0] stringByAppendingString:MyProfilePhotoSize];
-                [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:photoUrl] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                    [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
-                }];
+            if ([UserInfo imageForName:@"postImage"] != nil) {
+                [cell.profilePhoto setImage:[UserInfo imageForName:@"postImage"]];
             }else{
-                [cell.profilePhoto setImage:[UIImage imageNamed:@"me_profile_photo"]];
+                if ([UserInfo sharedInstance].avatar != nil){
+                    NSArray *photoArray = [[UserInfo sharedInstance].avatar componentsSeparatedByString:@"?"];
+                    NSString *photoUrl = [photoArray[0] stringByAppendingString:MyProfilePhotoSize];
+                    [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:photoUrl] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                        [UserInfo saveCacheImage:image withName:@"postImage"];
+                    }];
+                }else{
+                    [cell.profilePhoto setImage:[UIImage imageNamed:@"me_profile_photo"]];
+                }
             }
+            
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
@@ -1249,6 +1254,10 @@ typedef NS_ENUM(NSUInteger, RowType) {
     UIImage *originImage = [UserInfo imageForName:@"coverPhoto"];
     UIImage *cropImage = [UIImage resizeImage:image withWidth:1065 withHeight:768];
     [UserInfo saveCacheImage:cropImage withName:@"coverPhoto"];
+    
+    UIImage *postImage = [UIImage resizeImage:image withWidth:500 withHeight:500];
+    [UserInfo saveCacheImage:postImage withName:@"postImage"];
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         ///头像上传后再保存到本地 刷新
         [_viewModel uploadImage:image  isApplyCode:NO success:^(NSDictionary *object) {

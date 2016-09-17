@@ -16,7 +16,7 @@ uibutton默认是左图片，右文字。并且在设置edge insets之前，位�
 
 import UIKit
 
-typealias completeInfoBt = (tag:NSInteger) -> Void
+typealias completeInfoBt = (_ tag:NSInteger) -> Void
 
 class MePhotoTableViewCell: UITableViewCell {
 
@@ -33,7 +33,7 @@ class MePhotoTableViewCell: UITableViewCell {
     let editImage = UIImage(named: "me_buttonedit")
     override func awakeFromNib() {
         super.awakeFromNib()
-        avatarImageView.image = UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSizeZero)
+        avatarImageView.image = UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSize.zero)
         avatarImageView.layer.masksToBounds = true
         loginView.clipsToBounds = true
         completeInfoView.layer.cornerRadius = 14.0
@@ -45,24 +45,24 @@ class MePhotoTableViewCell: UITableViewCell {
     
     
     func configlogoutView(){
-        loginView.hidden = true
-        logoutView.backgroundColor = UIColor.clearColor()
-        logoutView.hidden = false
+        loginView.isHidden = true
+        logoutView.backgroundColor = UIColor.clear
+        logoutView.isHidden = false
         
     }
 
-    func cofigLoginCell(name:String, infoCom:String, compass:Completeness){
+    func cofigLoginCell(_ name:String, infoCom:String, compass:Completeness){
         if name == "" {
             nameLabel.text = "无名氏"
         }else{
             nameLabel.text = name
         }
-        logoutView.hidden = true
-        self.loginView.hidden = false
-        self.loginView.backgroundColor = UIColor.whiteColor()
+        logoutView.isHidden = true
+        self.loginView.isHidden = false
+        self.loginView.backgroundColor = UIColor.white
         if compass.next_page != 100 {
-            completeInfoView.hidden = false
-            let compassString = "\(compass.completeness)% \(compass.msg)"
+            completeInfoView.isHidden = false
+            let compassString = "\(compass.completeness)% \(compass.msg!)"
             completeInfoLabel.text = compassString;
             completeInfoView.tag = compass.next_page
             let singerTap = UITapGestureRecognizer(target: self, action: #selector(MePhotoTableViewCell.singerTapPress(_:)))
@@ -72,38 +72,38 @@ class MePhotoTableViewCell: UITableViewCell {
             infoCompleLabel.text = infoCom;
             
         }else{
-            completeInfoView.hidden = true
+            completeInfoView.isHidden = true
             infoCompleLabel.text = infoCom;
-            self.infoCompleLabel.hidden = false
+            self.infoCompleLabel.isHidden = false
         }
-        let maskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355), byRoundingCorners: [.TopLeft,.TopRight], cornerRadii: CGSizeMake(5, 0))
+        let maskPath = UIBezierPath.init(roundedRect: CGRect(x: 0, y: 0, width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355), byRoundingCorners: [.topLeft,.topRight], cornerRadii: CGSize(width: 5, height: 0))
         let maskLayer = CAShapeLayer()
-        maskLayer.frame = CGRectMake(0, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355)
-        maskLayer.path = maskPath.CGPath
+        maskLayer.frame = CGRect(x: 0, y: 0, width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355)
+        maskLayer.path = maskPath.cgPath
         avatarImageView.layer.mask = maskLayer
         
-        let loginMaskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355 + 137), byRoundingCorners: [.TopLeft,.TopRight], cornerRadii: CGSizeMake(5, 0))
+        let loginMaskPath = UIBezierPath.init(roundedRect: CGRect(x: 0, y: 0, width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355 + 137), byRoundingCorners: [.topLeft,.topRight], cornerRadii: CGSize(width: 5, height: 0))
         let loginMaskLayer = CAShapeLayer()
-        loginMaskLayer.frame = CGRectMake(0, 0, ScreenWidth - 20, (ScreenWidth - 20)*236/355 + 137)
-        loginMaskLayer.path = loginMaskPath.CGPath
+        loginMaskLayer.frame = CGRect(x: 0, y: 0, width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355 + 137)
+        loginMaskLayer.path = loginMaskPath.cgPath
         loginView.layer.mask = loginMaskLayer
     }
     
-    func singerTapPress(tap:UITapGestureRecognizer) {
+    func singerTapPress(_ tap:UITapGestureRecognizer) {
         if (self.block != nil) {
-            block(tag: tap.view!.tag)
+            self.block(0)
         }
     }
     
-    func labelSize(text:String ,attributes : [NSObject : AnyObject]) -> CGRect{
+    func labelSize(_ text:String ,attributes : [AnyHashable: Any]) -> CGRect{
         var size = CGRect();
         let size2 = CGSize(width: 100, height: 0);//设置label的最大宽度
-        size = text.boundingRectWithSize(size2, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: nil , context: nil);
+        size = text.boundingRect(with: size2, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: nil , context: nil);
         return size
     }
 
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

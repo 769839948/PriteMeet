@@ -22,12 +22,12 @@ final class FSAlbumViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.selected = false
+        self.isSelected = false
     }
     
-    override var selected : Bool {
+    override var isSelected : Bool {
         didSet {
-            selectImageView.image = selected ? UIImage.init(color: UIColor.init(white: 1, alpha: 0.700), size: CGSizeMake(self.bounds.size.width, self.bounds.size.height)) : UIImage.init(color: UIColor.clearColor(), size: CGSizeMake(self.bounds.size.width, self.bounds.size.height))
+            selectImageView.image = isSelected ? UIImage.init(color: UIColor.init(white: 1, alpha: 0.700), size: CGSize(width: self.bounds.size.width, height: self.bounds.size.height)) : UIImage.init(color: UIColor.clear, size: CGSize(width: self.bounds.size.width, height: self.bounds.size.height))
         }
     }
 }

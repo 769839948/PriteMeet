@@ -9,15 +9,15 @@
 import UIKit
 import SnapKit
 
-let SwiftScreenWidth = UIScreen.mainScreen().bounds.size.width
-let SwiftScreenHeight = UIScreen.mainScreen().bounds.size.height
+let SwiftScreenWidth = UIScreen.main.bounds.size.width
+let SwiftScreenHeight = UIScreen.main.bounds.size.height
 
 enum CornerRadiusType {
-    case None
-    case Top
-    case Bottom
-    case Left
-    case Right
+    case none
+    case top
+    case bottom
+    case left
+    case right
 }
 
 
@@ -37,17 +37,17 @@ class MeInfoTableViewCell: UITableViewCell {
         self.lineLabel = UILabel()
         
         
-        infoDetailLabel.textColor = UIColor.whiteColor()
+        infoDetailLabel.textColor = UIColor.white
         infoDetailLabel.layer.masksToBounds = true
         
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         self.lineLabel.backgroundColor = UIColor(hexString:"E7E7E7")
         self.contentView.addSubview(self.lineLabel)
         shadownView.layer.cornerRadius = 5.0
         // Initialization code
     }
     
-    func configCell(image:String, infoString:String, infoDetail:String, shadowColor:Bool,cornerRadiusType:CornerRadiusType){
+    func configCell(_ image:String, infoString:String, infoDetail:String, shadowColor:Bool,cornerRadiusType:CornerRadiusType){
         
         
         
@@ -55,26 +55,26 @@ class MeInfoTableViewCell: UITableViewCell {
         infoLabel.text = infoString
         infoDetailLabel.text = infoDetail
         
-        if cornerRadiusType == .Top {
-            let maskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, ScreenWidth - 20, 61), byRoundingCorners: [.TopRight,.TopLeft], cornerRadii: CGSizeMake(5, 0))
+        if cornerRadiusType == .top {
+            let maskPath = UIBezierPath.init(roundedRect: CGRect(x: 0, y: 0, width: ScreenWidth - 20, height: 61), byRoundingCorners: [.topRight,.topLeft], cornerRadii: CGSize(width: 5, height: 0))
             let maskLayer = CAShapeLayer()
-            maskLayer.frame = CGRectMake(0, 0, ScreenWidth - 10, 61)
-            maskLayer.path = maskPath.CGPath
+            maskLayer.frame = CGRect(x: 0, y: 0, width: ScreenWidth - 10, height: 61)
+            maskLayer.path = maskPath.cgPath
             infoView.layer.mask = maskLayer
-        }else if cornerRadiusType == .Bottom {
-            let maskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, ScreenWidth - 20, 58), byRoundingCorners: [.BottomLeft,.BottomRight], cornerRadii: CGSizeMake(5, 0))
+        }else if cornerRadiusType == .bottom {
+            let maskPath = UIBezierPath.init(roundedRect: CGRect(x: 0, y: 0, width: ScreenWidth - 20, height: 58), byRoundingCorners: [.bottomLeft,.bottomRight], cornerRadii: CGSize(width: 5, height: 0))
             let maskLayer = CAShapeLayer()
-            maskLayer.frame = CGRectMake(0, 0, ScreenWidth - 10, 58)
-            maskLayer.path = maskPath.CGPath
+            maskLayer.frame = CGRect(x: 0, y: 0, width: ScreenWidth - 10, height: 58)
+            maskLayer.path = maskPath.cgPath
             infoView.layer.mask = maskLayer
         }
         
         let offset = shadowColor ? -3:0
-        infoView.snp_updateConstraints { (make) in
-            make.bottom.equalTo(self.shadownView.snp_bottom).offset(offset)
+        infoView.snp.updateConstraints { (make) in
+            make.bottom.equalTo(self.shadownView.snp.bottom).offset(offset)
         }
         if !shadowColor {
-            shadownView.hidden = true
+            shadownView.isHidden = true
         }
         self.updateConstraintsIfNeeded()
         
@@ -82,47 +82,47 @@ class MeInfoTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didSetUpConstraints {
-            self.lineLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(20)
-                make.right.equalTo(self.contentView.snp_right).offset(-20)
+            self.lineLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(20)
+                make.right.equalTo(self.contentView.snp.right).offset(-20)
                 make.height.equalTo(0.5)
-                make.top.equalTo(self.contentView.snp_top).offset(0)
+                make.top.equalTo(self.contentView.snp.top).offset(0)
             })
             
-            shadownView.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(0)
-                make.left.equalTo(self.contentView.snp_left).offset(10)
-                make.right.equalTo(self.contentView.snp_right).offset(-10)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(0)
+            shadownView.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.left.equalTo(self.contentView.snp.left).offset(10)
+                make.right.equalTo(self.contentView.snp.right).offset(-10)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
             })
             
-            infoView.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(0)
-                make.left.equalTo(self.contentView.snp_left).offset(10)
-                make.right.equalTo(self.contentView.snp_right).offset(-10)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(0)
+            infoView.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.left.equalTo(self.contentView.snp.left).offset(10)
+                make.right.equalTo(self.contentView.snp.right).offset(-10)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
             })
             
-            infoImageView.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.infoView.snp_left).offset(10)
-                make.centerY.equalTo(self.infoView.snp_centerY).offset(0)
-                make.size.equalTo(CGSizeMake(16, 16))
+            infoImageView.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.infoView.snp.left).offset(10)
+                make.centerY.equalTo(self.infoView.snp.centerY).offset(0)
+                make.size.equalTo(CGSize(width: 16, height: 16))
             })
             
-            infoLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.infoImageView.snp_right).offset(10)
-                make.centerY.equalTo(self.infoView.snp_centerY).offset(0)
+            infoLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.infoImageView.snp.right).offset(10)
+                make.centerY.equalTo(self.infoView.snp.centerY).offset(0)
             })
             
-            infoDetailLabel.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.info_next.snp_left).offset(-10)
-                make.centerY.equalTo(self.infoView.snp_centerY).offset(0)
+            infoDetailLabel.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.info_next.snp.left).offset(-10)
+                make.centerY.equalTo(self.infoView.snp.centerY).offset(0)
             })
             
-            info_next.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.infoView.snp_right).offset(-20)
-                make.centerY.equalTo(self.infoView.snp_centerY).offset(0)
-                make.size.equalTo(CGSizeMake(7, 12))
+            info_next.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.infoView.snp.right).offset(-20)
+                make.centerY.equalTo(self.infoView.snp.centerY).offset(0)
+                make.size.equalTo(CGSize(width: 7, height: 12))
             })
             self.didSetUpConstraints = true
         }
@@ -130,19 +130,19 @@ class MeInfoTableViewCell: UITableViewCell {
     }
     
     func hidderLine() {
-        self.lineLabel.hidden = true
+        self.lineLabel.isHidden = true
     }
     
     func showLine(){
-        self.lineLabel.hidden = false
+        self.lineLabel.isHidden = false
     }
     
-    func setInfoButtonBackGroudColor(color:String){
+    func setInfoButtonBackGroudColor(_ color:String){
         infoDetailLabel.backgroundColor = UIColor.init(hexString: color)
         infoDetailLabel.layer.cornerRadius = 12.0
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

@@ -12,16 +12,16 @@ import UIKit
 extension UIViewController {
     func setNavigationItemBack(){
         let leftImage = UIImage.init(named: "navigationbar_back")
-        let spacBarButton = UIBarButtonItem.init(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
-        self.navigationItem.leftBarButtonItems = [spacBarButton,UIBarButtonItem(image: leftImage?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(UIViewController.backBtnPress(_:)))]
+        let spacBarButton = UIBarButtonItem.init(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
+        self.navigationItem.leftBarButtonItems = [spacBarButton,UIBarButtonItem(image: leftImage?.withRenderingMode(UIImageRenderingMode.alwaysOriginal), style: UIBarButtonItemStyle.plain, target: self, action: #selector(UIViewController.backBtnPress(_:)))]
     }
     
-    func backBtnPress(sender:UIButton){
-        self.navigationController?.popViewControllerAnimated(true)
+    func backBtnPress(_ sender:UIButton){
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     func setNavigationItemTinteColor() {
-        self.navigationController?.navigationBar.tintColor = UIColor.blackColor()
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.blackColor(),NSFontAttributeName:UIFont.systemFontOfSize(18.0)]
+        self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.black,NSFontAttributeName:UIFont.systemFont(ofSize: 18.0)]
     }
 }

@@ -26,27 +26,27 @@ class LikeListCollectionViewCell: UICollectionViewCell {
         splashView = UIView()
         splashView.backgroundColor = UIColor.init(red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0, alpha: 1.0)
         self.contentView.addSubview(splashView)
-        self.contentView.sendSubviewToBack(splashView)
+        self.contentView.sendSubview(toBack: splashView)
         splashView.layer.cornerRadius = 5.0
-        splashView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.contentView.snp_top).offset(0)
-            make.left.equalTo(self.contentView.snp_left).offset(0)
-            make.right.equalTo(self.contentView.snp_right).offset(0)
-            make.bottom.equalTo(self.contentView.snp_bottom).offset(3)
+        splashView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.contentView.snp.top).offset(0)
+            make.left.equalTo(self.contentView.snp.left).offset(0)
+            make.right.equalTo(self.contentView.snp.right).offset(0)
+            make.bottom.equalTo(self.contentView.snp.bottom).offset(3)
         }
         
     }
     
-    func setData(model:LikeListModel) {
+    func setData(_ model:LikeListModel) {
         reportBtn.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
-        reportBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        let likeModel = LikeListModel.mj_objectWithKeyValues(model)
-        let imageArray = likeModel.avatar.componentsSeparatedByString("?")
-        photoImageView.sd_setImageWithURL(NSURL.init(string: imageArray[0].stringByAppendingString(AvatarImageSize))) { (image, error, cache, url) in
+        reportBtn.setTitleColor(UIColor.white, for: UIControlState())
+        let likeModel = LikeListModel.mj_object(withKeyValues: model)
+        let imageArray = likeModel?.avatar.components(separatedBy: "?")
+        photoImageView.sd_setImage(with: URL.init(string: (imageArray?[0])! + AvatarImageSize)) { (image, error, cache, url) in
         }
         reportBtn.tag = model.uid
-        userName.text = likeModel.real_name
-        jobLabel.text = likeModel.job_label
+        userName.text = likeModel?.real_name
+        jobLabel.text = likeModel?.job_label
     }
 
 }

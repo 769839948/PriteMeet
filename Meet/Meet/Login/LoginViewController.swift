@@ -58,33 +58,34 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         self.setUpNavigationBar()
         if ScreenHeight == 480.0 {
-            scllocView = UIScrollView(frame: CGRectMake(0,0,ScreenWidth,ScreenHeight))
-            scllocView.contentSize = CGSizeMake(ScreenWidth, 634)
+            scllocView = UIScrollView(frame: CGRect(x: 0,y: 0,width: ScreenWidth,height: ScreenHeight))
+            scllocView.contentSize = CGSize(width: ScreenWidth, height: 634)
             self.view.addSubview(scllocView)
         }
         contentView = ScreenHeight == 480.0 ? scllocView : self.view
         self.setUpView()
         self.setupForDismissKeyboard()
         self.changeLoginButtonColor()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillAppear(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillDisappear(_:)), name:UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillAppear(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillDisappear(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+        self.talKingDataPageName = "LoginView"
         // Do any additional setup after loading the view.
     }
     
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.removeBottomLine()
     }
     
     func setUpView() {
-        loginInfoView = UIView(frame: CGRectMake(0,0,ScreenWidth,200))
+        loginInfoView = UIView(frame: CGRect(x: 0,y: 0,width: ScreenWidth,height: 200))
 //        loginInfoView.backgroundColor = UIColor.redColor()
         contentView.addSubview(loginInfoView)
         
-        loginLabel = UILabel(frame: CGRectMake(40, 41, ScreenWidth, 42))
+        loginLabel = UILabel(frame: CGRect(x: 40, y: 41, width: ScreenWidth, height: 42))
         loginLabel.text = "立即登录"
         loginLabel.font = LoginViewLabelFont
         loginLabel.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
@@ -98,14 +99,14 @@ class LoginViewController: UIViewController {
         
         mobileField = self.setUpTextField()
         mobileField.tag = 1
-        mobileField.returnKeyType = .Next
-        mobileField.keyboardType = .PhonePad
+        mobileField.returnKeyType = .next
+        mobileField.keyboardType = .phonePad
         loginInfoView.addSubview(mobileField)
         
         smsCodeField = self.setUpTextField()
         smsCodeField.tag = 2
-        smsCodeField.returnKeyType = .Done
-        smsCodeField.keyboardType = .NumberPad
+        smsCodeField.returnKeyType = .done
+        smsCodeField.keyboardType = .numberPad
         loginInfoView.addSubview(smsCodeField)
         
         let lineLabel1 = self.setUpLineLabel()
@@ -116,9 +117,9 @@ class LoginViewController: UIViewController {
         
         loginButton = self.setUpLoginButton()
         if ScreenHeight == 480 {
-            loginButton.frame = CGRectMake(36, (634 - 200 - 96)/2 + 200, 70, 46)
+            loginButton.frame = CGRect(x: 36, y: (634 - 200 - 96)/2 + 200, width: 70, height: 46)
         }else{
-            loginButton.frame = CGRectMake(36, (ScreenHeight - 200 - 96)/2 + 200, 70, 46)
+            loginButton.frame = CGRect(x: 36, y: (ScreenHeight - 200 - 96)/2 + 200, width: 70, height: 46)
         }
         originFrame = self.loginButton.frame
         contentView.addSubview(loginButton)
@@ -128,16 +129,16 @@ class LoginViewController: UIViewController {
         comfigLabel.font = LoginOldUserBtnFont
         contentView.addSubview(comfigLabel)
         
-        proBtn = UIButton(type: .Custom)
-        proBtn.setTitle("用户协议", forState: .Normal)
-        proBtn.setTitleColor(UIColor.init(hexString: HomeDetailViewNameColor), forState: .Normal)
+        proBtn = UIButton(type: .custom)
+        proBtn.setTitle("用户协议", for: UIControlState())
+        proBtn.setTitleColor(UIColor.init(hexString: HomeDetailViewNameColor), for: UIControlState())
         proBtn.titleLabel?.font = LoginUserPropoclFont
-        proBtn.addTarget(self, action: #selector(LoginViewController.proBtnPress(_:)), forControlEvents: .TouchUpInside)
+        proBtn.addTarget(self, action: #selector(LoginViewController.proBtnPress(_:)), for: .touchUpInside)
         contentView.addSubview(proBtn)
         
         timeDownLabel = TimeDownView()
         timeDownLabel.layer.cornerRadius = 15.0
-        timeDownLabel.backgroundColor = UIColor.clearColor()
+        timeDownLabel.backgroundColor = UIColor.clear
         timeDownLabel.smsCodeClouse = { _ in
             self.smsButtonClick()
             if String.isValidateMobile(self.phoneStr) || self.phoneStr!.length == 11  {
@@ -148,102 +149,105 @@ class LoginViewController: UIViewController {
         
         loginInfoView.addSubview(timeDownLabel)
         
-        mobileLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(loginInfoView.snp_top).offset(141)
-            make.left.equalTo(loginInfoView.snp_left).offset(40)
-            make.size.equalTo(CGSizeMake(44, 16))
+        mobileLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(loginInfoView.snp.top).offset(141)
+            make.left.equalTo(loginInfoView.snp.left).offset(40)
+            make.size.equalTo(CGSize(width: 44, height: 16))
         }
         
-        mobileField.snp_makeConstraints { (make) in
-            make.top.equalTo(mobileLabel.snp_bottom).offset(8)
-            make.left.equalTo(loginInfoView.snp_left).offset(39)
-            make.right.equalTo(loginInfoView.snp_right).offset(-120)
+        mobileField.snp.makeConstraints { (make) in
+            make.top.equalTo(mobileLabel.snp.bottom).offset(8)
+            make.left.equalTo(loginInfoView.snp.left).offset(39)
+            make.right.equalTo(loginInfoView.snp.right).offset(-120)
             make.height.equalTo(29)
         }
         
-        timeDownLabel.snp_makeConstraints { (make) in
-            make.right.equalTo(loginInfoView.snp_right).offset(-40)
-            make.bottom.equalTo(lineLabel1.snp_bottom).offset(-15)
-            make.size.equalTo(CGSizeMake(70, 30))
+        timeDownLabel.snp.makeConstraints { (make) in
+            make.right.equalTo(loginInfoView.snp.right).offset(-40)
+            make.bottom.equalTo(lineLabel1.snp.bottom).offset(-15)
+            make.size.equalTo(CGSize(width: 70, height: 30))
         }
         
-        lineLabel1.snp_makeConstraints { (make) in
-            make.top.equalTo(mobileField.snp_bottom).offset(15)
-            make.right.equalTo(self.loginInfoView.snp_right).offset(-40)
-            make.left.equalTo(self.loginInfoView.snp_left).offset(40)
+        lineLabel1.snp.makeConstraints { (make) in
+            make.top.equalTo(mobileField.snp.bottom).offset(15)
+            make.right.equalTo(self.loginInfoView.snp.right).offset(-40)
+            make.left.equalTo(self.loginInfoView.snp.left).offset(40)
             make.height.equalTo(1)
         }
         
-        smsCode.snp_makeConstraints { (make) in
-            make.top.equalTo(lineLabel1.snp_bottom).offset(19)
-            make.left.equalTo(self.loginInfoView.snp_left).offset(40)
-            make.size.equalTo(CGSizeMake(55, 16))
+        smsCode.snp.makeConstraints { (make) in
+            make.top.equalTo(lineLabel1.snp.bottom).offset(19)
+            make.left.equalTo(self.loginInfoView.snp.left).offset(40)
+            make.size.equalTo(CGSize(width: 55, height: 16))
         }
         
-        smsCodeField.snp_makeConstraints { (make) in
-            make.top.equalTo(smsCode.snp_bottom).offset(8)
-            make.left.equalTo(self.loginInfoView.snp_left).offset(39)
-            make.right.equalTo(self.loginInfoView.snp_right).offset(-40)
+        smsCodeField.snp.makeConstraints { (make) in
+            make.top.equalTo(smsCode.snp.bottom).offset(8)
+            make.left.equalTo(self.loginInfoView.snp.left).offset(39)
+            make.right.equalTo(self.loginInfoView.snp.right).offset(-40)
             make.height.equalTo(29)
         }
         
-        lineLabel2.snp_makeConstraints { (make) in
-            make.top.equalTo(smsCodeField.snp_bottom).offset(15)
-            make.right.equalTo(self.loginInfoView.snp_right).offset(-40)
-            make.left.equalTo(self.loginInfoView.snp_left).offset(40)
+        lineLabel2.snp.makeConstraints { (make) in
+            make.top.equalTo(smsCodeField.snp.bottom).offset(15)
+            make.right.equalTo(self.loginInfoView.snp.right).offset(-40)
+            make.left.equalTo(self.loginInfoView.snp.left).offset(40)
             make.height.equalTo(1)
         }
         
         
         if ScreenHeight == 480 {
-            comfigLabel.frame = CGRectMake(40, 500, 100, 17)
-            proBtn.frame = CGRectMake(140, 500, 60, 17)
+            comfigLabel.frame = CGRect(x: 40, y: 500, width: 100, height: 17)
+            proBtn.frame = CGRect(x: 140, y: 500, width: 60, height: 17)
         }else{
-            comfigLabel.snp_makeConstraints { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(40)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-50)
+            comfigLabel.snp.makeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(40)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-50)
                 make.height.equalTo(17)
             }
             
-            proBtn.snp_makeConstraints { (make) in
-                make.left.equalTo(comfigLabel.snp_right).offset(10)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-50)
+            proBtn.snp.makeConstraints { (make) in
+                make.left.equalTo(comfigLabel.snp.right).offset(10)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-50)
                 make.height.equalTo(17)
             }
         }
     }
     
-    func keyboardWillAppear(notification: NSNotification) {
+    func keyboardWillAppear(_ notification: Notification) {
         // 获取键盘信息
-        let keyboardinfo = notification.userInfo![UIKeyboardFrameBeginUserInfoKey]
-        keyboardHeight = (keyboardinfo?.CGRectValue.size.height)!
+        let keyboardinfo = (notification as NSNotification).userInfo![UIKeyboardFrameBeginUserInfoKey]
+        if let keyboardSize = (keyboardinfo as? NSValue)?.cgRectValue {
+            keyboardHeight = keyboardSize.height
+            // ...
+        }
         let frame = self.loginButton.frame
-        UIView.animateWithDuration(0.25, animations: {
+        UIView.animate(withDuration: 0.25, animations: {
             if IPHONE_5_Height {
-                self.loginLabel.frame = CGRectMake(40, 21, ScreenWidth, 42)
-                self.loginInfoView.frame = CGRectMake(0, -40, ScreenWidth, 300)
+                self.loginLabel.frame = CGRect(x: 40, y: 21, width: ScreenWidth, height: 42)
+                self.loginInfoView.frame = CGRect(x: 0, y: -40, width: ScreenWidth, height: 300)
             }else{
-                self.loginLabel.frame = CGRectMake(40, -80, ScreenWidth, 42)
-                self.loginInfoView.frame = CGRectMake(0, -100, ScreenWidth, 300)
+                self.loginLabel.frame = CGRect(x: 40, y: -80, width: ScreenWidth, height: 42)
+                self.loginInfoView.frame = CGRect(x: 0, y: -100, width: ScreenWidth, height: 300)
             }
             if ScreenHeight != 480 {
-                self.loginButton.frame = CGRectMake(36, ScreenHeight - self.keyboardHeight - 130, frame.size.width, frame.size.height)
+                self.loginButton.frame = CGRect(x: 36, y: ScreenHeight - self.keyboardHeight - 130, width: frame.size.width, height: frame.size.height)
             }
-            }) { (finish) in
-        }
+            }, completion: { (finish) in
+        }) 
     }
     
-    func keyboardWillDisappear(notification:NSNotification){
-        UIView.animateWithDuration(0.25, animations: {
-            self.loginLabel.frame = CGRectMake(40, 41, ScreenWidth, 42)
-            self.loginInfoView.frame = CGRectMake(0, 0, ScreenWidth, 300)
-            self.loginButton.frame = CGRectMake(36, self.originFrame.origin.y, 70, 46)
-        }) { (finish) in
+    func keyboardWillDisappear(_ notification:Notification){
+        UIView.animate(withDuration: 0.25, animations: {
+            self.loginLabel.frame = CGRect(x: 40, y: 41, width: ScreenWidth, height: 42)
+            self.loginInfoView.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: 300)
+            self.loginButton.frame = CGRect(x: 36, y: self.originFrame.origin.y, width: 70, height: 46)
+        }, completion: { (finish) in
             
-        }
+        }) 
     }
     
-    func proBtnPress(sender:UIButton) {
+    func proBtnPress(_ sender:UIButton) {
         let userProtocolVC = UserProtocolViewController()
         self.navigationController?.pushViewController(userProtocolVC, animated: true)
     }
@@ -256,7 +260,7 @@ class LoginViewController: UIViewController {
         return textField
     }
     
-    func setUpLabel(str:String) -> UILabel {
+    func setUpLabel(_ str:String) -> UILabel {
         let label = UILabel()
         label.text = str
         label.font = LoginInfoLabelFont
@@ -283,39 +287,40 @@ class LoginViewController: UIViewController {
         self.loginClickSelectChangeColor()
         
         viewModel.loginSms(phoneStr, code: smsCodeStr, success: { (dic) in
-            UserInfo.synchronizeWithDic(dic)
-            UserInfo.sharedInstance().uid = (dic as NSDictionary).objectForKey("uid")?.stringValue
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isNewUser")
+            UserInfo.synchronize(withDic: dic)
+            UserInfo.sharedInstance().uid = ((dic! as [AnyHashable:Any] as NSDictionary).object(forKey: "uid") as AnyObject).stringValue
+            UserDefaults.standard.set(true, forKey: "isNewUser")
             UserInfo.sharedInstance().mobile_num = self.mobileField.text
             if self.newUserLoginClouse != nil{
                 self.newUserLoginClouse()
             }
             }, fail: { (dic) in
-                if ((dic as NSDictionary).objectForKey("error") as! String) == "oldUser" {
+                let hasDic = dic! as [AnyHashable:Any]
+                if ((hasDic as NSDictionary).object(forKey: "error") as! String) == "oldUser" {
                     self.viewModel.getUserInfo(self.phoneStr, success: { (dic) in
-                        UserInfo.synchronizeWithDic(dic)
+                        UserInfo.synchronize(withDic: hasDic)
                         UserInfo.sharedInstance().isFirstLogin = true
                         if self.reloadMeViewClouse != nil{
                             self.reloadMeViewClouse()
-                            self.dismissViewControllerAnimated(true, completion: {
+                            self.dismiss(animated: true, completion: {
                                 
                             })
                         }
                         
                         if self.loginWithDetailClouse != nil {
                             self.loginWithDetailClouse()
-                            self.dismissViewControllerAnimated(true, completion: {
+                            self.dismiss(animated: true, completion: {
                                 
                             })
                         }
                         
                         if self.loginWithOrderListClouse != nil {
                             self.loginWithOrderListClouse()
-                            self.dismissViewControllerAnimated(true, completion: {
+                            self.dismiss(animated: true, completion: {
                                 
                             })
                         }
-                        self.dismissViewControllerAnimated(true, completion: {
+                        self.dismiss(animated: true, completion: {
                             
                         })
                         }, fail: { (dic) in
@@ -324,7 +329,7 @@ class LoginViewController: UIViewController {
                         }, loadingString: { (msg) in
                             
                     })
-                }else if ((dic as NSDictionary).objectForKey("error") as! String) == "noneuser"{
+                }else if ((dic! as [AnyHashable:Any] as NSDictionary).object(forKey: "error") as! String) == "noneuser"{
                     MainThreadAlertShow("该手机号用户不存在", view: self.view)
                     self.loginLabel.text = "重试"
                     self.loginClickNomalChangeColor()
@@ -394,9 +399,9 @@ class LoginViewController: UIViewController {
     func changeLoginButtonColor() {
         smsCodeField.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         if phoneStr!.length == 11 && smsCodeStr!.length == 4 {
-            loginButton.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeDetailViewNameColor), size: CGSizeMake(70, 46)), forState: .Normal)
+            loginButton.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeDetailViewNameColor), size: CGSize(width: 70, height: 46)), for: UIControlState())
         }else{
-            loginButton.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: PlaceholderImageColor), size: CGSizeMake(70, 46)), forState: .Normal)
+            loginButton.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: PlaceholderImageColor), size: CGSize(width: 70, height: 46)), for: UIControlState())
         }
     }
     
@@ -405,9 +410,9 @@ class LoginViewController: UIViewController {
         mobileLabel.textColor = UIColor.init(hexString: PlaceholderImageColor)
         smsCodeField.textColor = UIColor.init(hexString: PlaceholderImageColor)
         mobileField.textColor = UIColor.init(hexString: PlaceholderImageColor)
-        proBtn.setTitleColor(UIColor.init(hexString: PlaceholderImageColor), forState: .Normal)
-        timeDownLabel.hidden = true
-        loginButton.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: PlaceholderImageColor), size: CGSizeMake(70, 46)), forState: .Normal)
+        proBtn.setTitleColor(UIColor.init(hexString: PlaceholderImageColor), for: UIControlState())
+        timeDownLabel.isHidden = true
+        loginButton.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: PlaceholderImageColor), size: CGSize(width: 70, height: 46)), for: UIControlState())
     }
     
     func loginClickNomalChangeColor() {
@@ -415,17 +420,17 @@ class LoginViewController: UIViewController {
         mobileLabel.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         smsCodeField.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         mobileField.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
-        proBtn.setTitleColor(UIColor.init(hexString: HomeDetailViewNameColor), forState: .Normal)
-        timeDownLabel.hidden = false
+        proBtn.setTitleColor(UIColor.init(hexString: HomeDetailViewNameColor), for: UIControlState())
+        timeDownLabel.isHidden = false
         self.changeLoginButtonColor()
     }
     
     func setUpLoginButton() -> UIButton{
-        let loginButton = UIButton(type: .Custom)
+        let loginButton = UIButton(type: .custom)
         loginButton.clipsToBounds = true
-        loginButton.setImage(UIImage.init(named: "login_next"), forState: .Normal)
+        loginButton.setImage(UIImage.init(named: "login_next"), for: UIControlState())
         loginButton.layer.cornerRadius = 24
-        loginButton.addTarget(self, action: #selector(LoginViewController.loginButtonClick), forControlEvents: .TouchUpInside)
+        loginButton.addTarget(self, action: #selector(LoginViewController.loginButtonClick), for: .touchUpInside)
         return loginButton
     }
     
@@ -433,7 +438,7 @@ class LoginViewController: UIViewController {
         if String.isValidateMobile(phoneStr) || phoneStr!.length == 11 {
             viewModel.senderSms(phoneStr, success: { (dic) in
                 }, fail: { (dic) in
-                    MainThreadAlertShow((dic as NSDictionary).objectForKey("error") as! String, view: self.view)
+                    MainThreadAlertShow((dic! as [AnyHashable:Any] as NSDictionary).object(forKey: "error") as! String, view: self.view)
             })
         }else{
             MainThreadAlertShow("手机号错误", view: self.view)
@@ -441,13 +446,13 @@ class LoginViewController: UIViewController {
     }
     
     func setUpNavigationBar() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "me_dismissBlack")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(LoginViewController.disMissView))
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.whiteColor(), size: CGSizeMake(ScreenWidth, 64)), forBarMetrics: .Default)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "me_dismissBlack")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(LoginViewController.disMissView))
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.white, size: CGSize(width: ScreenWidth, height: 64)), for: .default)
         self.navigationItemWhiteColorAndNotLine()
     }
     
     func disMissView() {
-        self.dismissViewControllerAnimated(true) { 
+        self.dismiss(animated: true) { 
             
         }
     }
@@ -459,13 +464,13 @@ class LoginViewController: UIViewController {
 }
 
 extension LoginViewController : UITextFieldDelegate {
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if string != "" {
             if textField.tag == 1 {
-                phoneStr = (textField.text?.stringByAppendingString(string))!
+                phoneStr = ((textField.text)! + string)
             }else if textField.tag == 2 {
-                smsCodeStr = (textField.text?.stringByAppendingString(string))!
+                smsCodeStr = ((textField.text)! + string)
             }
         }else{
             if textField.tag == 1 {

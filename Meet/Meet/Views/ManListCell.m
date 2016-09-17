@@ -183,7 +183,6 @@
         
     }
     [ManListCell homeNameLabelColor:_nameLabel];
-    [self updateConstraints];
     [self updateConstraintsIfNeeded];
 }
 

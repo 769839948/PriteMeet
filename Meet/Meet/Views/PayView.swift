@@ -10,14 +10,14 @@ import UIKit
 import pop
 
 enum PayType {
-    case WeiChat
-    case AliPay
+    case weiChat
+    case aliPay
 }
 
 let PayViewHeight:CGFloat = (WXApi.isWXAppInstalled()) ? 400:340
 
-typealias PayViewTypeChange = (tag:NSInteger) ->Void
-typealias PaySelectItem = (payType:String) ->Void
+typealias PayViewTypeChange = (_ tag:NSInteger) ->Void
+typealias PaySelectItem = (_ payType:String) ->Void
 
 class PayViewType: UIView {
     
@@ -27,7 +27,7 @@ class PayViewType: UIView {
     var paySelect:UIImageView!
     var lineLabel:UIView!
     var panTap:UITapGestureRecognizer!
-    var payViewTypeChange:PayViewTypeChange!
+    var payViewTypeChange:PayViewTypeChange! = nil
     var selectImage:UIImageView!
     
     init(frame:CGRect,type:PayType){
@@ -39,31 +39,31 @@ class PayViewType: UIView {
         self.addGestureRecognizer(panTap)
     }
     
-    func setUpView(type:PayType) {
-        imageView = UIImageView(frame: CGRectMake(20, 18, 32, 32))
+    func setUpView(_ type:PayType) {
+        imageView = UIImageView(frame: CGRect(x: 20, y: 18, width: 32, height: 32))
         self.addSubview(imageView)
         
-        selectImage = UIImageView(frame: CGRectMake(ScreenWidth - 44, 20, 24, 24))
+        selectImage = UIImageView(frame: CGRect(x: ScreenWidth - 44, y: 20, width: 24, height: 24))
         self.selectImage.image = UIImage.init(named: "pay_unselect")
         self.addSubview(selectImage)
         
-        payTypeLabel = UILabel(frame: CGRectMake(63,16,100,20))
+        payTypeLabel = UILabel(frame: CGRect(x: 63,y: 16,width: 100,height: 20))
         payTypeLabel.font = OrderPayViewPayTitleFont
         payTypeLabel.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         self.addSubview(payTypeLabel)
         
-        payTypeDetail = UILabel(frame: CGRectMake(63,35,ScreenWidth - 63 * 2,20))
+        payTypeDetail = UILabel(frame: CGRect(x: 63,y: 35,width: ScreenWidth - 63 * 2,height: 20))
         payTypeDetail.font = OrderPayViewPayDetailFont
         payTypeDetail.textColor = UIColor.init(hexString: HomeDetailViewMeetNumberColor)
         self.addSubview(payTypeDetail)
         
-        lineLabel = UILabel(frame: CGRectMake(20,64,ScreenWidth - 40,0.5))
+        lineLabel = UILabel(frame: CGRect(x: 20,y: 64,width: ScreenWidth - 40,height: 0.5))
         self.addSubview(lineLabel)
         
         UIView.drawDashLine(lineLabel, lineLength: 1, lineSpacing: 3, lineColor: UIColor.init(hexString: lineLabelBackgroundColor))
 
         switch type {
-        case .WeiChat:
+        case .weiChat:
             imageView.image = UIImage.init(named: "pay_Wechat")
             payTypeLabel.text = "微信支付"
             payTypeDetail.text = "亿万用户的选择，更快更安全"
@@ -76,11 +76,11 @@ class PayViewType: UIView {
         }
     }
     
-    func panTapClick(sender:UITapGestureRecognizer) {
+    func panTapClick(_ sender:UITapGestureRecognizer) {
         let tag = sender.view?.tag
         self.selectImage.image = UIImage.init(named: "pay_select")
         if self.payViewTypeChange != nil {
-            self.payViewTypeChange(tag: tag!)
+            self.payViewTypeChange(tag!)
         }
     }
     
@@ -121,74 +121,74 @@ class PayView: UIView {
     }
     
     func setUpView() {
-        backView = UIView(frame: CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,UIScreen.mainScreen().bounds.size.height))
+        backView = UIView(frame: CGRect(x: 0,y: 0,width: UIScreen.main.bounds.size.width,height: UIScreen.main.bounds.size.height))
         backView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.5)
         self.addSubview(backView)
         
-        payView = UIView(frame: CGRectMake(0,ScreenHeight,ScreenWidth,PayViewHeight))
-        payView.backgroundColor = UIColor.whiteColor()
+        payView = UIView(frame: CGRect(x: 0,y: ScreenHeight,width: ScreenWidth,height: PayViewHeight))
+        payView.backgroundColor = UIColor.white
         self.configPayView()
-        payView.addSubview(self.payViewTitleView(CGRectMake(0, 0, ScreenWidth, 66)))
-        payView.addSubview(self.orderInfoView(CGRectMake(0,PayViewHeight - 200,ScreenWidth,120)))
+        payView.addSubview(self.payViewTitleView(CGRect(x: 0, y: 0, width: ScreenWidth, height: 66)))
+        payView.addSubview(self.orderInfoView(CGRect(x: 0,y: PayViewHeight - 200,width: ScreenWidth,height: 120)))
         payView.addSubview(self.payButton())
         self.addSubview(payView)
         
-        payInfoView = UIView(frame: CGRectMake(ScreenWidth,ScreenHeight - PayViewHeight + 4,ScreenWidth,PayViewHeight - 100))
-        payInfoView.backgroundColor = UIColor.whiteColor()
-        payInfoView.addSubview(self.payInfoViewTitleView(CGRectMake(0, 0, ScreenWidth, 66)))
-        payInfoView.addSubview(self.payOrderInfoView(CGRectMake(0, 66, ScreenWidth, 66)))
+        payInfoView = UIView(frame: CGRect(x: ScreenWidth,y: ScreenHeight - PayViewHeight + 4,width: ScreenWidth,height: PayViewHeight - 100))
+        payInfoView.backgroundColor = UIColor.white
+        payInfoView.addSubview(self.payInfoViewTitleView(CGRect(x: 0, y: 0, width: ScreenWidth, height: 66)))
+        payInfoView.addSubview(self.payOrderInfoView(CGRect(x: 0, y: 66, width: ScreenWidth, height: 66)))
         self.addSubview(payInfoView)
 
-        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
-            self.payView.frame = CGRectMake(0, ScreenHeight - PayViewHeight, ScreenWidth, PayViewHeight)
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: {
+            self.payView.frame = CGRect(x: 0, y: ScreenHeight - PayViewHeight, width: ScreenWidth, height: PayViewHeight)
             }) { (finish) in
                 
         }
     }
 
-    func setUpData(name:String, themes:NSString, much:String) {
+    func setUpData(_ name:String, themes:NSString, much:String) {
         nameLabel.text = "约见人: \(name)"
         infoLabel.text = "约见形式: \(themes)"
         muchLabel.text = "￥\(much)"
     }
     
-    func payInfoViewTitleView(frame:CGRect) ->UIView {
+    func payInfoViewTitleView(_ frame:CGRect) ->UIView {
         let payInfoViewTitle = UIView(frame: frame)
-        let titleLabel = UILabel(frame: CGRectMake((ScreenWidth - 56)/2,26,56,20))
+        let titleLabel = UILabel(frame: CGRect(x: (ScreenWidth - 56)/2,y: 26,width: 56,height: 20))
         titleLabel.text = "费用说明"
         titleLabel.textColor = UIColor.init(hexString: HomeDetailViewPositionColor)
         titleLabel.font = OrderPayViewTitleFont
         payInfoViewTitle.addSubview(titleLabel)
         
         
-        let disMissBtn = UIButton(type: .Custom)
-        disMissBtn.addTarget(self, action: #selector(PayView.dismissView), forControlEvents: .TouchUpInside)
-        disMissBtn.setImage(UIImage.init(named: "pay_dismiss"), forState: .Normal)
-        disMissBtn.frame = CGRectMake(UIScreen.mainScreen().bounds.size.width - 40, 26, 20, 20)
+        let disMissBtn = UIButton(type: .custom)
+        disMissBtn.addTarget(self, action: #selector(PayView.dismissView), for: .touchUpInside)
+        disMissBtn.setImage(UIImage.init(named: "pay_dismiss"), for: UIControlState())
+        disMissBtn.frame = CGRect(x: UIScreen.main.bounds.size.width - 40, y: 26, width: 20, height: 20)
         payInfoViewTitle.addSubview(disMissBtn)
         
-        let backBtn = UIButton(type: .Custom)
-        backBtn.addTarget(self, action: #selector(PayView.backBtnClick), forControlEvents: .TouchUpInside)
-        backBtn.setImage(UIImage.init(named: "pay_back"), forState: .Normal)
-        backBtn.frame = CGRectMake(20, 26, 20, 20)
+        let backBtn = UIButton(type: .custom)
+        backBtn.addTarget(self, action: #selector(PayView.backBtnClick), for: .touchUpInside)
+        backBtn.setImage(UIImage.init(named: "pay_back"), for: UIControlState())
+        backBtn.frame = CGRect(x: 20, y: 26, width: 20, height: 20)
         payInfoViewTitle.addSubview(backBtn)
         
-        let lineLabel = UILabel(frame: CGRectMake(20,64,UIScreen.mainScreen().bounds.size.width - 40,2))
+        let lineLabel = UILabel(frame: CGRect(x: 20,y: 64,width: UIScreen.main.bounds.size.width - 40,height: 2))
         lineLabel.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
         payInfoViewTitle.addSubview(lineLabel)
         
         return payInfoViewTitle
     }
     
-    func payOrderInfoView(frame:CGRect) -> UIView{
+    func payOrderInfoView(_ frame:CGRect) -> UIView{
         let payOrderInfoView = UIView(frame: frame)
-        let infoLabel = UILabel(frame:CGRectMake(20,26,ScreenWidth - 20,100))
+        let infoLabel = UILabel(frame:CGRect(x: 20,y: 26,width: ScreenWidth - 20,height: 100))
         let str = "约见成功，Meet 将收取 48 元平台费用。\n对方接受约见后，您才需付款。\n付款成功后，双方可互见联系电话及微信。\n见面前，任何一方放弃约见，约见费用立即全额退还。"
         infoLabel.numberOfLines = 0
         let attributeString = NSMutableAttributedString(string: str)
         let paragraph = NSMutableParagraphStyle()
-        paragraph.lineBreakMode = .ByWordWrapping
-        paragraph.alignment = .Left
+        paragraph.lineBreakMode = .byWordWrapping
+        paragraph.alignment = .left
         paragraph.lineSpacing = 5.0
         attributeString.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: HomeDetailViewPositionColor)], range: NSRange.init(location: 0, length: str.length))
         attributeString.addAttributes([NSParagraphStyleAttributeName:paragraph], range: NSRange.init(location: 0, length: str.length))
@@ -198,9 +198,9 @@ class PayView: UIView {
         return payOrderInfoView
     }
     
-    func backBtnClick(sender:UIButton) {
-        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
-            self.payInfoView.frame = CGRectMake(ScreenWidth, ScreenHeight - PayViewHeight, ScreenWidth, PayViewHeight - 100)
+    func backBtnClick(_ sender:UIButton) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: {
+            self.payInfoView.frame = CGRect(x: ScreenWidth, y: ScreenHeight - PayViewHeight, width: ScreenWidth, height: PayViewHeight - 100)
         }) { (finish) in
             
         }
@@ -208,11 +208,11 @@ class PayView: UIView {
     
     func configPayView() {
         if WXApi.isWXAppInstalled() {
-            let weChatPay = PayViewType.init(frame: CGRectMake(0, 66, UIScreen.mainScreen().bounds.size.width, 60), type: .WeiChat)
+            let weChatPay = PayViewType.init(frame: CGRect(x: 0, y: 66, width: UIScreen.main.bounds.size.width, height: 60), type: .weiChat)
             weChatPay.selectImage.image = UIImage.init(named: "pay_select")
             payView.addSubview(weChatPay)
             
-            let aliPay = PayViewType.init(frame: CGRectMake(0, CGRectGetMaxY(weChatPay.frame), UIScreen.mainScreen().bounds.size.width, 60), type: .AliPay)
+            let aliPay = PayViewType.init(frame: CGRect(x: 0, y: weChatPay.frame.maxY, width: UIScreen.main.bounds.size.width, height: 60), type: .aliPay)
             weChatPay.payViewTypeChange = { tag in
                 aliPay.selectImage.image = UIImage.init(named: "pay_unselect")
                 self.payString = "weiChat"
@@ -223,7 +223,7 @@ class PayView: UIView {
             }
              payView.addSubview(aliPay)
         }else{
-            let aliPay = PayViewType.init(frame: CGRectMake(0, 66, UIScreen.mainScreen().bounds.size.width, 60), type: .AliPay)
+            let aliPay = PayViewType.init(frame: CGRect(x: 0, y: 66, width: UIScreen.main.bounds.size.width, height: 60), type: .aliPay)
             aliPay.selectImage.image = UIImage.init(named: "pay_select")
             aliPay.payViewTypeChange = { tag in
                 self.payString = "aliPay"
@@ -232,97 +232,97 @@ class PayView: UIView {
         }
     }
     
-    func payViewTitleView(frame:CGRect) ->UIView {
+    func payViewTitleView(_ frame:CGRect) ->UIView {
         let payViewTitle = UIView(frame: frame)
-        let titleLabel = UILabel(frame: CGRectMake(20,26,56,20))
+        let titleLabel = UILabel(frame: CGRect(x: 20,y: 26,width: 56,height: 20))
         titleLabel.text = "付款详情"
         titleLabel.textColor = UIColor.init(hexString: HomeDetailViewPositionColor)
         titleLabel.font = OrderPayViewTitleFont
         payViewTitle.addSubview(titleLabel)
         
         
-        let disMissBtn = UIButton(type: .Custom)
-        disMissBtn.addTarget(self, action: #selector(PayView.dismissView), forControlEvents: .TouchUpInside)
-        disMissBtn.setImage(UIImage.init(named: "pay_dismiss"), forState: .Normal)
-        disMissBtn.frame = CGRectMake(UIScreen.mainScreen().bounds.size.width - 40, 26, 20, 20)
+        let disMissBtn = UIButton(type: .custom)
+        disMissBtn.addTarget(self, action: #selector(PayView.dismissView), for: .touchUpInside)
+        disMissBtn.setImage(UIImage.init(named: "pay_dismiss"), for: UIControlState())
+        disMissBtn.frame = CGRect(x: UIScreen.main.bounds.size.width - 40, y: 26, width: 20, height: 20)
         payViewTitle.addSubview(disMissBtn)
         
         
-        let lineLabel = UILabel(frame: CGRectMake(20,64,UIScreen.mainScreen().bounds.size.width - 40,2))
+        let lineLabel = UILabel(frame: CGRect(x: 20,y: 64,width: UIScreen.main.bounds.size.width - 40,height: 2))
         lineLabel.backgroundColor = UIColor.init(hexString: MeViewProfileBackGroundColor)
         payViewTitle.addSubview(lineLabel)
         
         return payViewTitle
     }
     
-    func orderInfoView(frame:CGRect) -> UIView{
+    func orderInfoView(_ frame:CGRect) -> UIView{
         let orderInfoView = UIView(frame:frame)
-        nameLabel = UILabel(frame: CGRectMake(20,14,ScreenWidth,16))
+        nameLabel = UILabel(frame: CGRect(x: 20,y: 14,width: ScreenWidth,height: 16))
         nameLabel.text = "约见人:换 订单"
         nameLabel.textColor = UIColor.init(hexString: HomeDetailViewPositionColor)
         nameLabel.font = OrderPayViewPayInfoFont
         orderInfoView.addSubview(nameLabel)
         
-        infoLabel = UILabel(frame: CGRectMake(20,CGRectGetMaxY(nameLabel.frame),UIScreen.mainScreen().bounds.size.width,16))
+        infoLabel = UILabel(frame: CGRect(x: 20,y: nameLabel.frame.maxY,width: UIScreen.main.bounds.size.width,height: 16))
         infoLabel.textColor = UIColor.init(hexString: HomeDetailViewPositionColor)
         infoLabel.text = "约见形式:喝咖啡、看定影"
         infoLabel.font = OrderPayViewPayInfoFont
         orderInfoView.addSubview(infoLabel)
         
-        let numberOfMuch = UILabel(frame: CGRectMake(20,80,48,17))
+        let numberOfMuch = UILabel(frame: CGRect(x: 20,y: 80,width: 48,height: 17))
         numberOfMuch.text = "付款总额"
         numberOfMuch.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         numberOfMuch.font = OrderPayViewPayAllNumFont
         orderInfoView.addSubview(numberOfMuch)
 
-        muchLabel = UILabel(frame: CGRectMake(ScreenWidth - 200,73,150,29))
+        muchLabel = UILabel(frame: CGRect(x: ScreenWidth - 200,y: 73,width: 150,height: 29))
         muchLabel.text = "￥50.00"
-        muchLabel.textAlignment = .Right
+        muchLabel.textAlignment = .right
         muchLabel.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         muchLabel.font = OrderPayViewPayMuchFont
         orderInfoView.addSubview(muchLabel)
         
-        let payImage = UIImageView(frame: CGRectMake(CGRectGetMaxX(muchLabel.frame) + 12, 80, 14, 14))
+        let payImage = UIImageView(frame: CGRect(x: muchLabel.frame.maxX + 12, y: 80, width: 14, height: 14))
         payImage.image = UIImage.init(named: "pay_info")
         
         let panTap = UITapGestureRecognizer(target: self, action: #selector(PayView.showPayDetail(_:)))
         panTap.numberOfTapsRequired = 1
         panTap.numberOfTouchesRequired = 1
-        payImage.userInteractionEnabled = true
+        payImage.isUserInteractionEnabled = true
         payImage.addGestureRecognizer(panTap)
         orderInfoView.addSubview(payImage)
         
         return orderInfoView
     }
     
-    func showPayDetail(sender:UITapGestureRecognizer) {
+    func showPayDetail(_ sender:UITapGestureRecognizer) {
         
-        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
-            self.payInfoView.frame = CGRectMake(0, ScreenHeight - PayViewHeight, ScreenWidth, PayViewHeight - 100)
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: {
+            self.payInfoView.frame = CGRect(x: 0, y: ScreenHeight - PayViewHeight, width: ScreenWidth, height: PayViewHeight - 100)
         }) { (finish) in
             
         }
     }
     
     func payButton() ->UIButton{
-        let payButton = UIButton(type: .Custom)
-        payButton.frame = CGRectMake(20, payView.frame.size.height - 75, ScreenWidth - 40, 45)
+        let payButton = UIButton(type: .custom)
+        payButton.frame = CGRect(x: 20, y: payView.frame.size.height - 75, width: ScreenWidth - 40, height: 45)
         payButton.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
-        payButton.setTitle("立即支付", forState: .Normal)
+        payButton.setTitle("立即支付", for: UIControlState())
         payButton.layer.cornerRadius = 24.0
         payButton.titleLabel?.font = MeetDetailImmitdtFont
-        payButton.addTarget(self, action: #selector(PayView.payButtonClick(_:)), forControlEvents: .TouchUpInside)
+        payButton.addTarget(self, action: #selector(PayView.payButtonClick(_:)), for: .touchUpInside)
         return payButton
     }
     
-    func payButtonClick(sender:UIButton) {
+    func payButtonClick(_ sender:UIButton) {
         if self.paySelectItem != nil {
-            self.paySelectItem(payType:self.payString)
+            self.paySelectItem(self.payString)
             self.dismissView()
         }
     }
     
-    func singPan(sender:UITapGestureRecognizer) {
+    func singPan(_ sender:UITapGestureRecognizer) {
         self.dismissView()
     }
 

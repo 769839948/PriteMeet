@@ -68,4 +68,4 @@
 #import "TZAssetModel.h"
 #import "TZAssetCell.h"
 #import "UIImage+Crop.h"
-
+#import "Haneke.h"

@@ -19,14 +19,14 @@ class OrderUserTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    func setData(model:OrderModel){
+    func setData(_ model:OrderModel){
         name.text = model.order_user_info?.real_name
         distance.text = model.distance
         job_label.text = model.order_user_info?.job_label
-        avatar.sd_setImageWithURL(NSURL.init(string: (model.order_user_info?.avatar)!), placeholderImage: nil)
+        avatar.sd_setImage(with: URL.init(string: (model.order_user_info?.avatar)!), placeholderImage: nil)
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

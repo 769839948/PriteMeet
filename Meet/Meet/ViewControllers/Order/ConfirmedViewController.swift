@@ -23,12 +23,12 @@ class ConfirmedViewController: BaseOrderViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func leftBarPress(sender:UIBarButtonItem) {
+    override func leftBarPress(_ sender:UIBarButtonItem) {
         if isAppliViewPush {
-            let viewControllers:NSArray = (self.navigationController?.viewControllers)!
-            self.navigationController?.popToViewController(viewControllers.objectAtIndex(1) as! UIViewController, animated: true)
+            let viewControllers:NSArray = (self.navigationController?.viewControllers)! as NSArray
+            _ = _ = self.navigationController?.popToViewController(viewControllers.object(at: 1) as! UIViewController, animated: true)
         }else{
-            self.navigationController?.popViewControllerAnimated(true)
+            _ = self.navigationController?.popViewController(animated: true)
 
         }
     }

@@ -39,12 +39,12 @@ class OtherViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItemWithLineAndWihteColor()
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.navigationItemWhiteColorAndNotLine()
     }
@@ -53,25 +53,25 @@ class OtherViewController: UIViewController {
         
         viewModel = HomeViewModel()
         viewModel.getOtherUserInfoProfile(uid, successBlock: { (dic) in
-            self.otherProfileModel = OhterProfileModel.mj_objectWithKeyValues(dic)
+            self.otherProfileModel = OhterProfileModel.mj_object(withKeyValues: dic)
             
-            self.baseInfo.addObject((self.otherProfileModel.base_info?.real_name)!)
+            self.baseInfo.add((self.otherProfileModel.base_info?.real_name)!)
             if self.otherProfileModel.base_info?.gender == 1 {
-                self.baseInfo.addObject("男")
+                self.baseInfo.add("男")
             }else{
-                self.baseInfo.addObject("女")
+                self.baseInfo.add("女")
             }
-            self.baseInfo.addObject(String.init(format: "%d", (self.otherProfileModel.base_info?.age)!))
-            self.baseInfo.addObject((self.otherProfileModel.base_info?.location)!)
-            self.baseInfo.addObject((self.otherProfileModel.base_info?.job_label)!)
-            self.tableViewData.addObject(self.baseInfo)
+            self.baseInfo.add(String.init(format: "%d", (self.otherProfileModel.base_info?.age)!))
+            self.baseInfo.add((self.otherProfileModel.base_info?.location)!)
+            self.baseInfo.add((self.otherProfileModel.base_info?.job_label)!)
+            self.tableViewData.add(self.baseInfo)
             self.setMoreData()
             self.setWorkeData()
             self.setEduData()
             if self.tableViewData.count > 0 {
                 self.tableView.reloadData()
             }
-            }, failBlock: { (dic) in
+            }, fail: { (dic) in
                 
             }) { (msg) in
                 
@@ -83,90 +83,91 @@ class OtherViewController: UIViewController {
         let dicKey = ProfileKeyAndValue.shareInstance().appDic as NSDictionary
             
         if moreinfo?.industry != nil {
-            let dic = dicKey.objectForKey("industry") as! NSDictionary
+            let dic = dicKey.object(forKey: "industry") as! NSDictionary
             let industry = String.init(format: "%d", (moreinfo?.industry)!)
             if industry != "0" {
-                moreInfo.addObject(dic.objectForKey(industry)!)
-                moreInfoTitle.addObject("行业")
+                moreInfo.add(dic.object(forKey: industry)!)
+                moreInfoTitle.add("行业")
             }
             
         }
         if moreinfo?.income != nil {
-            let dic = dicKey.objectForKey("income") as! NSDictionary
+            let dic = dicKey.object(forKey: "income") as! NSDictionary
             let income = String.init(format: "%d", (moreinfo?.income)!)
             if income != "0" {
-                moreInfo.addObject(dic.objectForKey(income)!)
-                moreInfoTitle.addObject("年收入")
+                moreInfo.add(dic.object(forKey: income)!)
+                moreInfoTitle.add("年收入")
             }
         }
         
         if moreinfo?.affection != nil {
-            let dic = dicKey.objectForKey("affection") as! NSDictionary
+            let dic = dicKey.object(forKey: "affection") as! NSDictionary
             let affection = String.init(format: "%d", (moreinfo?.affection)!)
             if affection != "0" {
-                moreInfo.addObject(dic.objectForKey(affection)!)
-                moreInfoTitle.addObject("情感状态")
+                moreInfo.add(dic.object(forKey: affection)!)
+                moreInfoTitle.add("情感状态")
             }
         }
         
         if moreinfo?.constellation != nil {
-            let dic = dicKey.objectForKey("constellation") as! NSDictionary
+            let dic = dicKey.object(forKey: "constellation") as! NSDictionary
             let constellation = String.init(format: "%d", (moreinfo?.constellation)!)
             if constellation != "0" {
-                moreInfo.addObject(dic.objectForKey(constellation)!)
-                moreInfoTitle.addObject("星座")
+                moreInfo.add(dic.object(forKey: constellation)!)
+                moreInfoTitle.add("星座")
             }
         }
         if moreInfo.count > 0 {
-            sectionTitle.addObject("更多信息")
-            self.tableViewData.addObject(moreInfo)
+            sectionTitle.add("更多信息")
+            self.tableViewData.add(moreInfo)
         }
     }
     
     func setWorkeData(){
         if self.otherProfileModel.work != nil{
-            let workArray = Work.mj_objectArrayWithKeyValuesArray(self.otherProfileModel.work)
+            let workArray = Work.mj_objectArray(withKeyValuesArray: self.otherProfileModel.work)
             for workeModel in workArray! {
-                let workString = "\(workeModel.company_name)-\(workeModel.profession)"
-                workInfo.addObject(workString)
+                let workString = "\((workeModel as AnyObject).company_name)-\((workeModel as AnyObject).profession)"
+                workInfo.add(workString)
             }
         }
         if workInfo.count > 0 {
-            sectionTitle.addObject("工作经历")
-            self.tableViewData.addObject(workInfo)
+            sectionTitle.add("工作经历")
+            self.tableViewData.add(workInfo)
         }
     }
     
     func setEduData(){
         if self.otherProfileModel.edu != nil{
-            let eduArray = Edu.mj_objectArrayWithKeyValuesArray(self.otherProfileModel.edu)
+            let eduArray = Edu.mj_objectArray(withKeyValuesArray: self.otherProfileModel.edu)
             for eduModel in eduArray! {
-                let education = (ProfileKeyAndValue.shareInstance().appDic as NSDictionary).objectForKey("education")?.objectForKey("\(eduModel.education)") as! String
-                let model = Edu.mj_objectWithKeyValues(eduModel) as Edu
+                let dic = ProfileKeyAndValue.shareInstance().appDic?["education"] as! NSDictionary
+                let education = dic["\((eduModel as AnyObject).education)"] as! String
+                let model = Edu.mj_object(withKeyValues: eduModel) as Edu
                 let eduString = "\(model.graduated)-\(model.major)-\(education)"
-                eduInfo.addObject(eduString)
+                eduInfo.add(eduString)
             }
         }
         if eduInfo.count > 0 {
-            sectionTitle.addObject("教育背景")
-            self.tableViewData.addObject(eduInfo)
+            sectionTitle.add("教育背景")
+            self.tableViewData.add(eduInfo)
         }
     }
     
     func setUpTableView(){
-        self.tableView.backgroundColor = UIColor.whiteColor()
-        self.tableView.registerNib(UINib.init(nibName: "WorkeAndEduTableViewCell", bundle: nil), forCellReuseIdentifier: "WorkeAndEduTableViewCell")
+        self.tableView.backgroundColor = UIColor.white
+        self.tableView.register(UINib.init(nibName: "WorkeAndEduTableViewCell", bundle: nil), forCellReuseIdentifier: "WorkeAndEduTableViewCell")
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.shadowImage = UIImage.init(color: UIColor.clearColor(), size: CGSizeMake(ScreenWidth, 0.5))
+        self.navigationController?.navigationBar.shadowImage = UIImage.init(color: UIColor.clear, size: CGSize(width: ScreenWidth, height: 0.5))
 
     }
     
     func setNavigationBar() {
         self.setNavigationItemBack()
-        self.navigationController?.navigationBar.shadowImage = UIImage.init(color: UIColor.lightGrayColor(), size: CGSizeMake(ScreenWidth, 0.5))
+        self.navigationController?.navigationBar.shadowImage = UIImage.init(color: UIColor.lightGray, size: CGSize(width: ScreenWidth, height: 0.5))
     }
     
     override func didReceiveMemoryWarning() {
@@ -178,101 +179,101 @@ class OtherViewController: UIViewController {
 
 
 extension OtherViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return tableViewData[section].count
+            return (tableViewData[section] as AnyObject).count
         }else{
-            return tableViewData[section].count + 1
+            return (tableViewData[section] as AnyObject).count + 1
          }
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section > 0 {
-            if indexPath.row == 0 {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath as NSIndexPath).section > 0 {
+            if (indexPath as NSIndexPath).row == 0 {
                 return 65
             }
-            if (sectionTitle[indexPath.section - 1] as! String == "工作经历" || sectionTitle[indexPath.section - 1] as! String == "教育背景" && indexPath.row != 0){
+            if (sectionTitle[(indexPath as NSIndexPath).section - 1] as! String == "工作经历" || sectionTitle[(indexPath as NSIndexPath).section - 1] as! String == "教育背景" && (indexPath as NSIndexPath).row != 0){
                 return 112
             }
         }
         return 50
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    @objc(numberOfSectionsInTableView:) func numberOfSections(in tableView: UITableView) -> Int {
         return tableViewData.count
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.000001
     }
 }
 
 extension OtherViewController : UITableViewDataSource {
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier(otherProfileDetailCell, forIndexPath: indexPath) as! OtherProfileInfoTableViewCell
-            let stringArray = tableViewData.objectAtIndex(indexPath.section)
-            let string = String.init(format: "%@", stringArray.objectAtIndex(indexPath.row) as! String)
-            cell.setData(viewModel.baseInfoTitle()[indexPath.row] as! String , info: string )
-            cell.userInteractionEnabled = false
-            if baseInfo.count - 1 == indexPath.row {
-                cell.lineLabel.hidden = true
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath as NSIndexPath).section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: otherProfileDetailCell, for: indexPath) as! OtherProfileInfoTableViewCell
+            let stringArray = tableViewData.object(at: (indexPath as NSIndexPath).section)
+            let string = String.init(format: "%@", (stringArray as AnyObject).object(at: (indexPath as NSIndexPath).row) as! String)
+            cell.setData(viewModel.baseInfoTitle()[(indexPath as NSIndexPath).row] as! String , info: string )
+            cell.isUserInteractionEnabled = false
+            if baseInfo.count - 1 == (indexPath as NSIndexPath).row {
+                cell.lineLabel.isHidden = true
             }
             return cell
         }else{
-            if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCellWithIdentifier(otherProfileCell, forIndexPath: indexPath) as! OtherProfileTableViewCell
-                cell.setData(sectionTitle[indexPath.section - 1] as! String)
-                cell.userInteractionEnabled = false
+            if (indexPath as NSIndexPath).row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: otherProfileCell, for: indexPath) as! OtherProfileTableViewCell
+                cell.setData(sectionTitle[(indexPath as NSIndexPath).section - 1] as! String)
+                cell.isUserInteractionEnabled = false
                 return cell
             }else{
-                if sectionTitle[indexPath.section - 1] as! String == "更多信息" {
-                    let cell = tableView.dequeueReusableCellWithIdentifier(otherProfileDetailCell, forIndexPath: indexPath) as! OtherProfileInfoTableViewCell
-                    let stringArray = tableViewData.objectAtIndex(indexPath.section)
-                    let string = String.init(format: "%@", stringArray.objectAtIndex(indexPath.row - 1) as! String)
-                    cell.setData(self.moreInfoTitle[indexPath.row - 1] as! String , info: string )
-                    if moreInfo.count == indexPath.row {
-                        cell.lineLabel.hidden = true
+                if sectionTitle[(indexPath as NSIndexPath).section - 1] as! String == "更多信息" {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: otherProfileDetailCell, for: indexPath) as! OtherProfileInfoTableViewCell
+                    let stringArray = tableViewData.object(at: (indexPath as NSIndexPath).section)
+                    let string = String.init(format: "%@", (stringArray as AnyObject).object(at: (indexPath as NSIndexPath).row - 1) as! String)
+                    cell.setData(self.moreInfoTitle[(indexPath as NSIndexPath).row - 1] as! String , info: string )
+                    if moreInfo.count == (indexPath as NSIndexPath).row {
+                        cell.lineLabel.isHidden = true
                     }
-                    cell.userInteractionEnabled = false
+                    cell.isUserInteractionEnabled = false
                     return cell
-                }else if sectionTitle[indexPath.section - 1] as! String == "工作经历"{
+                }else if sectionTitle[(indexPath as NSIndexPath).section - 1] as! String == "工作经历"{
                     let CellIdentiferId = "WorkeAndEduTableViewCell"
-                    var cell = tableView.dequeueReusableCellWithIdentifier(CellIdentiferId)
+                    var cell = tableView.dequeueReusableCell(withIdentifier: CellIdentiferId)
                     if (cell == nil) {
-                        let nibs = NSBundle.mainBundle().loadNibNamed("WorkeAndEduTableViewCell", owner: nil, options: nil) as NSArray
-                        cell = nibs.lastObject as! WorkeAndEduTableViewCell
+                        let nibs = Bundle.main.loadNibNamed("WorkeAndEduTableViewCell", owner: nil, options: nil)! as [Any]
+                        cell = nibs.last as! WorkeAndEduTableViewCell
                         
                     }
                     if (workInfo.count > 0) {
-                        (cell as! WorkeAndEduTableViewCell).setWorkerData(workInfo[indexPath.row - 1] as! String)
+                        (cell as! WorkeAndEduTableViewCell).setWorkerData(workInfo[(indexPath as NSIndexPath).row - 1] as! String)
                     }
-                    if (workInfo.count == indexPath.row) {
-                        (cell as! WorkeAndEduTableViewCell).lineLabel.hidden = true
+                    if (workInfo.count == (indexPath as NSIndexPath).row) {
+                        (cell as! WorkeAndEduTableViewCell).lineLabel.isHidden = true
                     }
-                    (cell as! WorkeAndEduTableViewCell).eidtImage.hidden = true
-                    cell!.userInteractionEnabled = false
+                    (cell as! WorkeAndEduTableViewCell).eidtImage.isHidden = true
+                    cell!.isUserInteractionEnabled = false
                     return cell!
                 }else {
                     let CellIdentiferId = "WorkeAndEduTableViewCell"
-                    var cell = tableView.dequeueReusableCellWithIdentifier(CellIdentiferId)
+                    var cell = tableView.dequeueReusableCell(withIdentifier: CellIdentiferId)
                     if (cell == nil) {
-                        let nibs = NSBundle.mainBundle().loadNibNamed("WorkeAndEduTableViewCell", owner: nil, options: nil) as NSArray
-                        cell = nibs.lastObject as! WorkeAndEduTableViewCell
+                        let nibs = Bundle.main.loadNibNamed("WorkeAndEduTableViewCell", owner: nil, options: nil)! as [Any]
+                        cell = nibs.last as! WorkeAndEduTableViewCell
                         
                     }
                     if (eduInfo.count > 0) {
-                        (cell as! WorkeAndEduTableViewCell).setEduData(eduInfo[indexPath.row - 1] as! String)
+                        (cell as! WorkeAndEduTableViewCell).setEduData(eduInfo[(indexPath as NSIndexPath).row - 1] as! String)
                     }
-                    if (eduInfo.count == indexPath.row) {
-                        (cell as! WorkeAndEduTableViewCell).lineLabel.hidden = true
+                    if (eduInfo.count == (indexPath as NSIndexPath).row) {
+                        (cell as! WorkeAndEduTableViewCell).lineLabel.isHidden = true
                     }
-                    (cell as! WorkeAndEduTableViewCell).eidtImage.hidden = true
-                    cell!.userInteractionEnabled = false
+                    (cell as! WorkeAndEduTableViewCell).eidtImage.isHidden = true
+                    cell!.isUserInteractionEnabled = false
                     return cell!
                 }
                 

@@ -31,12 +31,12 @@ class OrderPayViewController: BaseOrderPageViewController {
     
     //MARK:
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let applyDetailView = WaitPayViewController()
         applyDetailView.uid = self.guest
-        let orderModel = (orderList[indexPath.row] )
+        let orderModel = (orderList[(indexPath as NSIndexPath).row] )
         applyDetailView.myClouse = { status in
-            self.orderList.removeAtIndex(indexPath.row)
+            self.orderList.remove(at: (indexPath as NSIndexPath).row)
             self.collectionView.reloadData()
         }
         applyDetailView.orderModel = orderModel

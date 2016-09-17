@@ -77,7 +77,6 @@
     
     _titleLabel = [[UILabel alloc] init];
     _titleLabel.numberOfLines = 0;
-    _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _titleLabel.font = HomeDetailAboutUsTitleLabelFont;
     _titleLabel.textColor = [UIColor colorWithHexString:AboutUsCellTitleColor];
     [self.contentView addSubview:_titleLabel];
@@ -125,12 +124,12 @@
             make.bottom.equalTo(weakSelf.contentView.mas_bottom).offset(-30);
         }];
     }
-    
     if ([title isEqualToString:@""]) {
         [_textlabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(weakSelf.contentView.mas_top).offset(20);
         }];
     }
+    [self updateConstraintsIfNeeded];
 }
 
 - (void)updateConstraints

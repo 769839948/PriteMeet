@@ -24,11 +24,11 @@ class MeetWebViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    func setUpWebView(url: String){
+    func setUpWebView(_ url: String){
         webView = UIWebView()
         webView.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor);
-        let url = NSURL.init(string: url)
-        let request = NSURLRequest.init(URL: url!)
+        let url = URL.init(string: url)
+        let request = URLRequest.init(url: url!)
 //        progressProxy = NJKWebViewProgress()
         webView.delegate = self
 //        progressProxy.webViewProxyDelegate = self
@@ -49,21 +49,21 @@ class MeetWebViewController: UIViewController {
         
         self.view.addSubview(webView)
         
-        webView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+        webView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
         }
     }
 
     func setUpNavigationBar(){
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_back"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MeetWebViewController.leftItemClick(_:)))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_back"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(MeetWebViewController.leftItemClick(_:)))
         self.navigaitonItemColor(UIColor.init(hexString: "202020"))
     }
     
-    func leftItemClick(sender:UIBarButtonItem){
-        self.navigationController?.popViewControllerAnimated(true)
+    func leftItemClick(_ sender:UIBarButtonItem){
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     override func didReceiveMemoryWarning() {

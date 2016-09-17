@@ -15,34 +15,34 @@ typealias DoneAction = () -> Void
 extension UIAlertController {
     
     convenience init(message: String?) {
-        self.init(title: nil, message: message, preferredStyle: .Alert)
-        self.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+        self.init(title: nil, message: message, preferredStyle: .alert)
+        self.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
     }
     
-    class func shwoAlertControl(controller:UIViewController,title:String?,message:String?, cancel:String?, doneTitle:String?, cancelAction:CancelAction, doneAction:DoneAction){
+    class func shwoAlertControl(_ controller:UIViewController,title:String?,message:String?, cancel:String?, doneTitle:String?, cancelAction:@escaping CancelAction, doneAction:@escaping DoneAction){
         var alertControl = UIAlertController()
         if title == nil {
-           alertControl = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
+           alertControl = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         }else if message == nil{
-            alertControl = UIAlertController(title: title, message: nil, preferredStyle: .Alert)
+            alertControl = UIAlertController(title: title, message: nil, preferredStyle: .alert)
 
         }else{
-            alertControl = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            alertControl = UIAlertController(title: title, message: message, preferredStyle: .alert)
         }
         
         if cancel != nil {
-            let leftAction = UIAlertAction(title: cancel, style: .Default) { (action) in
+            let leftAction = UIAlertAction(title: cancel, style: .default) { (action) in
                 cancelAction()
             }
             alertControl.addAction(leftAction)
         }
         if doneTitle != nil {
-            let rightAction = UIAlertAction(title: doneTitle, style: .Default) { (action) in
+            let rightAction = UIAlertAction(title: doneTitle, style: .default) { (action) in
                 doneAction()
             }
             alertControl.addAction(rightAction)
         }
-        controller.presentViewController(alertControl, animated: true) {
+        controller.present(alertControl, animated: true) {
             
         }
     }

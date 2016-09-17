@@ -17,19 +17,19 @@ class ProfileSectionTitleTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    func setData(title:String, buttonTitle:String){
+    func setData(_ title:String, buttonTitle:String){
         titleLabel.text = title;
         if buttonTitle == "" {
-            infoBtn.hidden = true
+            infoBtn.isHidden = true
         }else{
-            infoBtn.hidden = false
-            infoBtn .setTitle(buttonTitle, forState: UIControlState.Normal)
+            infoBtn.isHidden = false
+            infoBtn .setTitle(buttonTitle, for: UIControlState())
             
         }
     }
     
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

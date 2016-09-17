@@ -9,8 +9,8 @@
 import UIKit
 
 enum CancelType {
-    case Cancel
-    case Reject
+    case cancel
+    case reject
 }
 
 typealias ReloadOrderStatusChang = () -> Void
@@ -38,13 +38,13 @@ class OrderCancelRejectViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem  = UIBarButtonItem(title: "提交", style: .Plain, target: self, action: #selector(ReportViewController.reportBtnPress(_:)))
+        self.navigationItem.rightBarButtonItem  = UIBarButtonItem(title: "提交", style: .plain, target: self, action: #selector(ReportViewController.reportBtnPress(_:)))
         self.navigationController?.navigationBar.tintColor = UIColor.init(hexString: HomeDetailViewNameColor)
         self.setUpTableView()
         self.setUpNavigationItem()
         self.fd_prefersNavigationBarHidden = false
         self.talKingDataPageName = "Home-Detail-Cancel&Reject"
-        self.view.addSubview(self.lineLabel(CGRectMake(0, 0, ScreenWidth, 0.5)))
+        self.view.addSubview(self.lineLabel(CGRect(x: 0, y: 0, width: ScreenWidth, height: 0.5)))
         self.setUpData()
         // Do any additional setup after loading the view.
     }
@@ -53,61 +53,61 @@ class OrderCancelRejectViewController: UIViewController {
         viewModel.orderCancelRejectReson({ (dic) in
             let cancelDic:NSDictionary!
             var sortedKeysAndValues:NSArray!
-            let reason = dic as NSDictionary
-            if self.resonType == .Cancel {
-                cancelDic = (reason.objectForKey("cancel") as! NSDictionary)
-                sortedKeysAndValues = (cancelDic.allKeys as! [String]).sort({ s1, s2 in
-                    return Int(s1)! < Int(s2)!
-                })
-            }else{
-                cancelDic = (reason.objectForKey("reject") as! NSDictionary)
-                sortedKeysAndValues = (cancelDic.allKeys as! [String]).sort({ s1, s2 in
-                    return Int(s1)! < Int(s2)!
-                })
-            }
-            self.reportKeys.addObjectsFromArray(sortedKeysAndValues as [AnyObject])
-            for value in sortedKeysAndValues {
-                self.reportArray.addObject(cancelDic.objectForKey(value)!)
-                self.selectIndexPaths.addObject(false)
-            }
+            let reason = dic! as [AnyHashable:Any] as NSDictionary
+//            if self.resonType == .cancel {
+//                cancelDic = (reason["cancel"] as! NSDictionary)
+//                sortedKeysAndValues = (cancelDic.allKeys as! [String]).sorted(by: { (s1, s2) -> Bool in
+//                    return Int(s1) < Int(s2)
+//                })
+//            }else{
+//                cancelDic = (reason["reject"] as! NSDictionary)
+//                sortedKeysAndValues = (cancelDic.allKeys as! [String]).sorted(by: { (s1, s2) -> Bool in
+//                    return Int(s1) < Int(s2)
+//                })
+//            }
+//            self.reportKeys.addObjects(from: sortedKeysAndValues as [AnyObject])
+//            for value in sortedKeysAndValues {
+//                self.reportArray.add(cancelDic[value]!)
+//                self.selectIndexPaths.add(false)
+//            }
             self.tableView.reloadData()
             }) { (dic) in
                 
         }
     }
     
-    func lineLabel(frame:CGRect) -> UILabel{
+    func lineLabel(_ frame:CGRect) -> UILabel{
         let lineLabel = UILabel(frame: frame)
         lineLabel.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
         return lineLabel
     }
     
     func setUpTableView(){
-        self.tableView = UITableView(frame: CGRectZero, style: UITableViewStyle.Plain)
+        self.tableView = UITableView(frame: CGRect.zero, style: UITableViewStyle.plain)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.view.addSubview(self.tableView)
         self.hideExcessLine(tableView)
-        tableView.keyboardDismissMode = .OnDrag
-        self.tableView.separatorStyle = .None
-        self.tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+        tableView.keyboardDismissMode = .onDrag
+        self.tableView.separatorStyle = .none
+        self.tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
         }
     }
     
     func setUpNavigationItem(){
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "navigationbar_back")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(ReportViewController.leftItemPress))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "navigationbar_back")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(ReportViewController.leftItemPress))
     }
     
     func leftItemPress(){
-        let viewControllers:NSArray = (self.navigationController?.viewControllers)!
-        self.navigationController?.popToViewController(viewControllers.objectAtIndex(1) as! UIViewController, animated: true)
+        let viewControllers:NSArray = (self.navigationController?.viewControllers)! as NSArray
+        _ = _ = self.navigationController?.popToViewController(viewControllers.object(at: 1) as! UIViewController, animated: true)
     }
     
-    func reportBtnPress(sender:UIBarButtonItem) {
+    func reportBtnPress(_ sender:UIBarButtonItem) {
         
         for index in 0...reportArray.count - 1 {
             if self.selectIndexPaths[index] as! Bool  {
@@ -119,7 +119,7 @@ class OrderCancelRejectViewController: UIViewController {
         var rejectReson = ""
         
         if reject_type == "0"{
-            if self.resonType == .Cancel {
+            if self.resonType == .cancel {
                 rejectType = "请填写取消原因哦"
             }else{
                 rejectType = "请填写拒绝原因哦"
@@ -128,7 +128,7 @@ class OrderCancelRejectViewController: UIViewController {
             return
         }
         if reject_reson == "" {
-            if self.resonType == .Cancel {
+            if self.resonType == .cancel {
                 rejectReson = "请填写取消理由哦"
             }else{
                 rejectReson = "请填写拒绝理由哦"
@@ -139,12 +139,12 @@ class OrderCancelRejectViewController: UIViewController {
        viewModel.switchOrderStatus(orderModel.order_id, status: changeOrderStatus, rejectType: reject_type, rejectReason: textView.text, succeccBlock: { (dic) in
             if self.reloadOrderStatusChang != nil{
                 self.reloadOrderStatusChang()
-                NSNotificationCenter.defaultCenter().postNotificationName(ReloadOrderCollectionView, object: self.changeOrderStatus)
-                self.navigationController?.popViewControllerAnimated(true)
+                NotificationCenter.default.post(name: Notification.Name(rawValue: ReloadOrderCollectionView), object: self.changeOrderStatus)
+                _ = self.navigationController?.popViewController(animated: true)
             }
 
         }) { (dic) in
-            MainThreadAlertShow((dic as NSDictionary).objectForKey("error") as! String, view: self.view)
+            MainThreadAlertShow((dic! as [AnyHashable:Any]  as NSDictionary).object(forKey: "error") as! String, view: self.view)
         }
     }
     
@@ -166,13 +166,13 @@ class OrderCancelRejectViewController: UIViewController {
 }
 
 extension OrderCancelRejectViewController : UITableViewDelegate {
-    func  tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row <= reportArray.count - 1 {
-            if  selectIndexPaths[indexPath.row] as! Bool{
-                selectIndexPaths[indexPath.row] = false
+    func  tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).row <= reportArray.count - 1 {
+            if  selectIndexPaths[(indexPath as NSIndexPath).row] as! Bool{
+                selectIndexPaths[(indexPath as NSIndexPath).row] = false
             }else{
                 for index in 0...selectIndexPaths.count - 1 {
-                    if index == indexPath.row {
+                    if index == (indexPath as NSIndexPath).row {
                         selectIndexPaths[index] = true
                     }else{
                         selectIndexPaths[index] = false
@@ -181,15 +181,15 @@ extension OrderCancelRejectViewController : UITableViewDelegate {
                 
             }
             for row in 0...reportArray.count - 1 {
-                self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: row, inSection: 0)], withRowAnimation: .Automatic)
+                self.tableView.reloadRows(at: [IndexPath.init(row: row, section: 0)], with: .automatic)
             }
         }else{
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
         
     }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == reportArray.count {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath as NSIndexPath).row == reportArray.count {
             return 200
         }
         return 50
@@ -197,35 +197,35 @@ extension OrderCancelRejectViewController : UITableViewDelegate {
 }
 
 extension OrderCancelRejectViewController : UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return reportArray.count + 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row == reportArray.count {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath as NSIndexPath).row == reportArray.count {
             let cellIdf = "OrderCanCelIdentifierText"
-            var cell = tableView.dequeueReusableCellWithIdentifier(cellIdf)
+            var cell = tableView.dequeueReusableCell(withIdentifier: cellIdf)
             if  cell == nil {
-                cell = UITableViewCell.init(style: .Default, reuseIdentifier: cellIdf)
+                cell = UITableViewCell.init(style: .default, reuseIdentifier: cellIdf)
             }else{
                 while cell?.contentView.subviews.last != nil {
                     cell?.contentView.subviews.last?.removeFromSuperview()
                 }
             }
-            textView = UITextView(frame: CGRectMake(10, 20, ScreenWidth - 40, 200))
+            textView = UITextView(frame: CGRect(x: 10, y: 20, width: ScreenWidth - 40, height: 200))
             textView.font = LoginCodeLabelFont
             textView.placeholderColor = UIColor.init(hexString: PlaceholderTextViewColor)
-            if self.resonType == .Cancel {
-                textView.placeholder = (PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000004") as! String
+            if self.resonType == .cancel {
+                textView.placeholder = (PlaceholderText.shareInstance().appDic as NSDictionary).object(forKey: "1000004") as! String
 
             }else {
-                textView.placeholder = (PlaceholderText.shareInstance().appDic as NSDictionary).objectForKey("1000005") as! String
+                textView.placeholder = (PlaceholderText.shareInstance().appDic as NSDictionary).object(forKey: "1000005") as! String
 
             }
-            textView.returnKeyType = .Done
+            textView.returnKeyType = .done
             textView.delegate = self
             textView.text = reject_reson
             textView.tintColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
@@ -233,9 +233,9 @@ extension OrderCancelRejectViewController : UITableViewDataSource {
             return cell!
         }
         let cellIdf = "OrderCanCelIdentifier"
-        var cell = tableView.dequeueReusableCellWithIdentifier(cellIdf)
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdf)
         if  cell == nil {
-            cell = UITableViewCell.init(style: .Default, reuseIdentifier: cellIdf)
+            cell = UITableViewCell.init(style: .default, reuseIdentifier: cellIdf)
         }else{
             while cell?.contentView.subviews.last != nil {
                 cell?.contentView.subviews.last?.removeFromSuperview()
@@ -243,28 +243,28 @@ extension OrderCancelRejectViewController : UITableViewDataSource {
         }
         let checkImage = UIImageView()
         checkImage.image = UIImage.init(named: "report_select")
-        checkImage.frame = CGRectMake(ScreenWidth - 45, 15, 19, 19)
+        checkImage.frame = CGRect(x: ScreenWidth - 45, y: 15, width: 19, height: 19)
         cell?.contentView.addSubview(checkImage)
-        if selectIndexPaths[indexPath.row] as! Bool {
-            checkImage.hidden = false
+        if selectIndexPaths[(indexPath as NSIndexPath).row] as! Bool {
+            checkImage.isHidden = false
             cell?.textLabel?.textColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
         }else{
-            checkImage.hidden = true
+            checkImage.isHidden = true
             cell?.textLabel?.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         }
         let lineLabel = UILabel()
         lineLabel.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
         cell?.contentView.addSubview(lineLabel)
-        lineLabel.snp_makeConstraints { (make) in
-            make.left.equalTo((cell?.contentView.snp_left)!).offset(15)
-            make.right.equalTo((cell?.contentView.snp_right)!).offset(-20)
-            make.bottom.equalTo((cell?.contentView.snp_bottom)!).offset(0)
+        lineLabel.snp.makeConstraints { (make) in
+            make.left.equalTo((cell?.contentView.snp.left)!).offset(15)
+            make.right.equalTo((cell?.contentView.snp.right)!).offset(-20)
+            make.bottom.equalTo((cell?.contentView.snp.bottom)!).offset(0)
             make.height.equalTo(0.5)
         }
-        cell?.textLabel?.text = reportArray[indexPath.row] as? String
+        cell?.textLabel?.text = reportArray[(indexPath as NSIndexPath).row] as? String
         cell?.textLabel?.font = LoginCodeLabelFont
-        cell?.selectionStyle = .None
-        cell?.tag = Int(reportKeys[indexPath.row] as! String)!
+        cell?.selectionStyle = .none
+        cell?.tag = Int(reportKeys[(indexPath as NSIndexPath).row] as! String)!
         return cell!
     }
     
@@ -272,7 +272,7 @@ extension OrderCancelRejectViewController : UITableViewDataSource {
 
 extension OrderCancelRejectViewController : UITextViewDelegate {
     
-    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         self.reject_reson = textView.text
         if text == "\n" {
             textView.resignFirstResponder()
@@ -281,7 +281,7 @@ extension OrderCancelRejectViewController : UITextViewDelegate {
         return true
     }
     
-    func textViewDidEndEditing(textView: UITextView) {
+    func textViewDidEndEditing(_ textView: UITextView) {
         self.view.endEditing(true)
     }
 }
