@@ -66,6 +66,7 @@ class BlackListCollectCell: UICollectionViewCell {
                 reportBtn.backgroundColor = UIColor.init(hexString: MeViewProfileContentLabelColorLight)
             }
         }
+        self.updateConstraintsIfNeeded()
     }
     
     func setData(_ model:BlackListModel) {

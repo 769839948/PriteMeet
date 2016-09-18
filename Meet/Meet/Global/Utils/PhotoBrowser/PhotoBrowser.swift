@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias DeletePhoto = (_ index:NSInteger, _ photoid:String, _ deleteSucess:DeleteSuccess) -> Void
+typealias DeletePhoto = (_ index:NSInteger, _ photoid:String, _ deleteSucess:@escaping DeleteSuccess) -> Void
 
 typealias DeleteSuccess = (_ success:Bool) -> Void
 

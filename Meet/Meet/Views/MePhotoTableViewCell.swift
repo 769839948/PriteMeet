@@ -87,6 +87,7 @@ class MePhotoTableViewCell: UITableViewCell {
         loginMaskLayer.frame = CGRect(x: 0, y: 0, width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355 + 137)
         loginMaskLayer.path = loginMaskPath.cgPath
         loginView.layer.mask = loginMaskLayer
+        self.updateConstraintsIfNeeded()
     }
     
     func singerTapPress(_ tap:UITapGestureRecognizer) {

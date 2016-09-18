@@ -30,6 +30,7 @@
 
 @property (nonatomic, strong) Completeness *completeness;
 
+@property (nonatomic, assign) BOOL info_is_complete;
 
 
 + (instancetype)shareInstance;

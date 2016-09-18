@@ -100,17 +100,16 @@ class AppointMentTableViewCell: UITableViewCell {
         let string = model.appointment_desc.replacingOccurrences(of: " ", with: "")
         appointmentIntroduce.text = string
         appointmentType.setCollectViewData(model.appointment_theme as [AnyObject], style: CollectionViewItemStyle.ItemWhiteBoardOrginBacground)
-        appointmentType.snp.updateConstraints { (make) in
+        appointmentType.snp.makeConstraints { (make) in
             make.height.equalTo(tableViewHeight(model.appointment_theme, width: ScreenWidth - 70))
         }
         
-        appointmentIntroduce.snp.updateConstraints { (make) in
+        appointmentIntroduce.snp.makeConstraints { (make) in
             make.height.equalTo(self.titleHeight(string, width: ScreenWidth - 70))
         }
-        
-        
-        
         gradient.frame = appointmentBackGroundView.bounds
+        
+        self.updateConstraintsIfNeeded()
     }
     
     func titleHeight(_ string:String,width:CGFloat) ->CGFloat {

@@ -74,6 +74,7 @@
             _photoAut.image = [UIImage imageNamed:@"home_phone_select"];
         }
     }
+    [self updateConstraintsIfNeeded];
 }
 
 - (void)awakeFromNib {

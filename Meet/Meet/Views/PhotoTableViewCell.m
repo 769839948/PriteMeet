@@ -74,6 +74,7 @@
 //        _ageNumber.backgroundColor = [UIColor colorWithHexString:HomeViewWomenColor];
 //    }
 //    [_ageNumber setTitle:[NSString stringWithFormat:@" %ld",age] forState:UIControlStateNormal];
+    [self updateConstraintsIfNeeded];
 }
 
 - (void)awakeFromNib {

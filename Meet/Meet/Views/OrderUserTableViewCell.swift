@@ -24,6 +24,7 @@ class OrderUserTableViewCell: UITableViewCell {
         distance.text = model.distance
         job_label.text = model.order_user_info?.job_label
         avatar.sd_setImage(with: URL.init(string: (model.order_user_info?.avatar)!), placeholderImage: nil)
+        self.updateConstraintsIfNeeded()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -63,7 +63,7 @@ class ReportViewController: UIViewController {
         var reportString = ""
         for index in 0...reportArray.count - 1 {
             if self.selectIndexPaths[index] as! Bool  {
-                reportString = reportString + (((ProfileKeyAndValue.shareInstance().appDic as NSDictionary).object(forKey: "report") as AnyObject).object(forKey: reportArray[index] as! String) as! String)
+                reportString = reportString + (((ProfileKeyAndValue.shareInstance().appDic as NSDictionary).object(forKey: "report") as! NSDictionary).object(forKey: reportArray[index] as! String) as! String)
                 reportString = reportString + ","
             }
         }

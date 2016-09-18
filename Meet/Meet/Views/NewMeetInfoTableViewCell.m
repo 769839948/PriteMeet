@@ -94,7 +94,6 @@
     [self.contentView addSubview:_interestView];
     [self.contentView bringSubviewToFront:_interestView];
     [self updateConstraintsIfNeeded];
-    [self updateConstraints];
 }
 
 - (void)isHaveShadowColor:(BOOL)isShadowColor

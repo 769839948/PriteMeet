@@ -124,6 +124,7 @@ class MeetOrderInfoTableViewCell: UITableViewCell {
         }else{
             contactInfo.text = "她的联系方式"
         }
+        self.updateConstraintsIfNeeded()
     }
     
     

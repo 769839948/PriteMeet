@@ -38,6 +38,7 @@ class OrderFlowTableViewCell: UITableViewCell {
         self.orderStatus = status
         self.statusType = statusType
         flowView.reloadData()
+        self.updateConstraintsIfNeeded()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

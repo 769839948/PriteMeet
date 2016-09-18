@@ -26,7 +26,7 @@
         if ([[responseObject objectForKey:@"success"] boolValue]) {
             successBlock(responseObject[@"content"]);
         }else{
-            failBlock(@{@"error":@"服务器出错"});
+            failBlock(@{@"error":responseObject[@"content"][@"msg"]});
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(@{@"error":@"网络出错"});

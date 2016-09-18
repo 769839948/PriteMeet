@@ -149,7 +149,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     cellLineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
     [cell.contentView addSubview:cellLineLabel];
     
-    if (indexPath.row == RowNotification || indexPath.row == RowLogOut) {
+    if (indexPath.row == RowNotification || indexPath.row == RowLogOut || indexPath.row == RowApplicationCarsh) {
         cell.accessoryType = UITableViewCellAccessoryNone;
         
     }else{

@@ -73,12 +73,13 @@ class CancelInfoTableViewCell: UITableViewCell {
         
         resonLabel.text = reson
         resonDetailLabel.text = resonDetail
-        resonLabel.snp.updateConstraints { (make) in
+        resonLabel.snp.makeConstraints { (make) in
             make.height.equalTo(reson.heightWithConstrainedWidth(ScreenWidth - 70, font: OrderCancelInfoViewFont!) + 3)
         }
-        resonDetailLabel.snp.updateConstraints { (make) in
+        resonDetailLabel.snp.makeConstraints { (make) in
             make.height.equalTo(resonDetail.heightWithConstrainedWidth(ScreenWidth - 70, font: OrderInfoPayDetailFont!))
         }
+        self.updateConstraintsIfNeeded()
     }
     
     override func updateConstraints() {

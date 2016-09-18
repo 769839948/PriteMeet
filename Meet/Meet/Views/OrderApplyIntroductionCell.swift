@@ -70,6 +70,7 @@ class OrderApplyIntroductionCell: UITableViewCell {
     func setData(_ plachText:String){
         textView.placeholderColor = UIColor.init(hexString: PlaceholderTextViewColor)
         textView.placeholder = plachText
+        self.updateConstraintsIfNeeded()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

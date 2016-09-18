@@ -88,8 +88,8 @@ class BaseOrderViewController: UIViewController {
 
     }
     
-    func updataConstraints(){
-        self.tableView.snp.updateConstraints { (make) in
+    func setUpdataTableViewConstraints(){
+        self.tableView.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.view.snp.bottom).offset(0)
         }
     }
@@ -262,13 +262,13 @@ class BaseOrderViewController: UIViewController {
             if self.orderModel.status?.status_type == "receive_order" {
                 bottomBtn.setTitle("接受/拒绝", for: UIControlState())
             }else{
-                self.updataConstraints()
+                self.setUpdataTableViewConstraints()
                 bottomBtn.isHidden = true
             }
         }else if orderModel.status?.status_code == "4" {
             if self.orderModel.status?.status_type == "receive_order" {
+                self.setUpdataTableViewConstraints()
                 bottomBtn.isHidden = true
-                self.updataConstraints()
             }else{
                 bottomBtn.setTitle("立即支付 ￥\(orderModel.fee)", for: UIControlState())
             }
@@ -276,9 +276,10 @@ class BaseOrderViewController: UIViewController {
         }else if orderModel.status?.status_code == "6" {
             bottomBtn.setTitle("确认双方已约见", for: UIControlState())
         }else{
-            self.updataConstraints()
+            self.setUpdataTableViewConstraints()
             bottomBtn.isHidden = true
         }
+        self.updateViewConstraints()
     }
     
     func rightBarPress(_ sender:UIBarButtonItem) {

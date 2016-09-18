@@ -24,7 +24,7 @@ class OrderApplyInfoTableViewCell: UITableViewCell {
         stringAttribute.addAttributes([NSFontAttributeName:OrderInfoViewMuchFont!], range: NSRange.init(location: (strArray[0]).length + 1, length: strArray[1].length))
         detailInfoLabel.attributedText = stringAttribute
         self.detailTextLabel?.attributedText = stringAttribute
-
+        self.updateConstraintsIfNeeded()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

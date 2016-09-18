@@ -25,6 +25,7 @@ class OrderProfileTableViewCell: UITableViewCell {
     
         }
         real_name.text = model.order_user_info?.real_name
+        self.updateConstraintsIfNeeded()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

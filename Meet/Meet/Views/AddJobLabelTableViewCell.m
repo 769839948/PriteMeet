@@ -76,6 +76,7 @@
 {
     _interestArray = [[NSMutableArray alloc] initWithArray:array.mutableCopy];
     [self setData:_interestArray];
+    [self updateConstraintsIfNeeded];
 }
 
 - (void)reloadData

@@ -47,6 +47,7 @@ class LikeListCollectionViewCell: UICollectionViewCell {
         reportBtn.tag = model.uid
         userName.text = likeModel?.real_name
         jobLabel.text = likeModel?.job_label
+        self.updateConstraintsIfNeeded()
     }
 
 }

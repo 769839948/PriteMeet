@@ -18,9 +18,11 @@ class InviteItemsTableViewCell: UITableViewCell {
     
     var clourse:selectItems!
     
+    var didUpdateConstraints:Bool = false
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-//        self.setUpView()
+        self.setUpView()
         // Initialization code
     }
     
@@ -38,12 +40,7 @@ class InviteItemsTableViewCell: UITableViewCell {
         }
         
         self.contentView.addSubview(interestView)
-        interestView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.contentView.snp.top).offset(2)
-            make.left.equalTo(self.contentView.snp.left).offset(20)
-            make.right.equalTo(self.contentView.snp.right).offset(-20)
-            make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
-        }
+       
     }
 
     func setData(_ array:NSArray, selectItems:NSArray){
@@ -60,15 +57,15 @@ class InviteItemsTableViewCell: UITableViewCell {
             selectItemsArray.add(ret)
         }
         interestView.setCollectViewData(array as [AnyObject], andSelect: selectItemsArray as [AnyObject])
-        interestView.snp.remakeConstraints { (make) in
+        interestView.snp.makeConstraints { (make) in
             make.top.equalTo(self.contentView.snp.top).offset(2)
             make.left.equalTo(self.contentView.snp.left).offset(20)
             make.right.equalTo(self.contentView.snp.right).offset(-20)
             make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
             make.height.equalTo(self.cellHeight(array))
+
         }
-        
-        
+        self.updateConstraintsIfNeeded()
     }
     
     func cellHeight(_ interArray:NSArray) -> CGFloat{
@@ -89,6 +86,21 @@ class InviteItemsTableViewCell: UITableViewCell {
         var cellWidth:CGFloat = 0
         cellWidth = itemString.width(with: UIFont.systemFont(ofSize: 13), constrainedToHeight: 18)
         return cellWidth + 18;
+    }
+    
+    override func updateConstraints() {
+        if (!self.didUpdateConstraints) {
+            if interestView != nil {
+                interestView.snp.makeConstraints { (make) in
+                    make.top.equalTo(self.contentView.snp.top).offset(2)
+                    make.left.equalTo(self.contentView.snp.left).offset(20)
+                    make.right.equalTo(self.contentView.snp.right).offset(-20)
+                    make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
+                }
+                self.didUpdateConstraints = true
+            }
+        }
+        super.updateConstraints()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

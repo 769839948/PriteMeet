@@ -55,7 +55,7 @@ class OrderApplyMeetTableViewCell: UITableViewCell {
     func setData(_ array:NSArray, selectItems:NSArray){
         self.setUpView()        
         interestView.setCollectViewData(array as [AnyObject], andSelect: selectItems as [AnyObject])
-        interestView.snp.updateConstraints{ (make) in
+        interestView.snp.makeConstraints{ (make) in
             make.height.equalTo(self.cellHeight(array))
         }
         self.updateConstraintsIfNeeded()

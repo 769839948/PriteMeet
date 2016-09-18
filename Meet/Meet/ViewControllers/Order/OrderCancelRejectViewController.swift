@@ -54,22 +54,18 @@ class OrderCancelRejectViewController: UIViewController {
             let cancelDic:NSDictionary!
             var sortedKeysAndValues:NSArray!
             let reason = dic! as [AnyHashable:Any] as NSDictionary
-//            if self.resonType == .cancel {
-//                cancelDic = (reason["cancel"] as! NSDictionary)
-//                sortedKeysAndValues = (cancelDic.allKeys as! [String]).sorted(by: { (s1, s2) -> Bool in
-//                    return Int(s1) < Int(s2)
-//                })
-//            }else{
-//                cancelDic = (reason["reject"] as! NSDictionary)
-//                sortedKeysAndValues = (cancelDic.allKeys as! [String]).sorted(by: { (s1, s2) -> Bool in
-//                    return Int(s1) < Int(s2)
-//                })
-//            }
-//            self.reportKeys.addObjects(from: sortedKeysAndValues as [AnyObject])
-//            for value in sortedKeysAndValues {
-//                self.reportArray.add(cancelDic[value]!)
-//                self.selectIndexPaths.add(false)
-//            }
+            if self.resonType == .cancel {
+                cancelDic = (reason["cancel"] as! NSDictionary)
+                sortedKeysAndValues = (cancelDic.allKeys as! [String]).sorted(by: >) as NSArray!
+            }else{
+                cancelDic = (reason["reject"] as! NSDictionary)
+                sortedKeysAndValues = (cancelDic.allKeys as! [String]).sorted(by: >) as NSArray!
+            }
+            self.reportKeys.addObjects(from: sortedKeysAndValues as [AnyObject])
+            for value in sortedKeysAndValues {
+                self.reportArray.add(cancelDic[value]!)
+                self.selectIndexPaths.add(false)
+            }
             self.tableView.reloadData()
             }) { (dic) in
                 

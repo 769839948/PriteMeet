@@ -102,9 +102,9 @@ class OrderPageViewController: TYTabButtonPagerController {
         let orderViewModel = OrderViewModel()
         orderViewModel.orderNumberOrder(UserInfo.sharedInstance().uid, successBlock: { (dic) in
             self.numberArray.removeAllObjects()
-            self.numberArray.add("\(dic?["1"]!)")
-            self.numberArray.add("\(dic?["4"]!)")
-            self.numberArray.add("\(dic?["6"]!)")
+            self.numberArray.add("\((dic?["1"]!)!)")
+            self.numberArray.add("\((dic?["4"]!)!)")
+            self.numberArray.add("\((dic?["6"]!)!)")
             self.numberArray.add("0")
             DispatchQueue.main.async(execute: { 
                 self.reloadNumber(ofPageIndex: self.numberArray as [AnyObject])

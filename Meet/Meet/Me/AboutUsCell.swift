@@ -40,6 +40,7 @@ class AboutUsCell: UITableViewCell {
         infoLabel = UILabel()
         infoLabel.font = AboutUsInfoFont
         infoLabel.numberOfLines = 0
+        infoLabel.sizeToFit()
         infoLabel.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         infoView.addSubview(infoLabel)
         
@@ -47,15 +48,25 @@ class AboutUsCell: UITableViewCell {
     }
     
     func configCell(_ title:String, info:String) {
+        let height:CGFloat = info.heightWithConstrainedWidth(ScreenWidth - 20, font: AboutUsInfoFont!)
+        let infoLabelHeight:CGFloat = height > 100 ? 100:height
         if title == "" {
            titleLabel.isHidden = true
-           infoLabel.snp.updateConstraints({ (make) in
+           infoLabel.snp.remakeConstraints({ (make) in
                 make.top.equalTo(self.infoView.snp.top).offset(22)
+                make.left.equalTo(self.infoView.snp.left).offset(10)
+                make.right.equalTo(self.infoView.snp.right).offset(-10)
+                make.bottom.equalTo(self.infoView.snp.bottom).offset(-34)
+                make.height.equalTo(infoLabelHeight)
            })
         }else{
             titleLabel.isHidden = false
-            infoLabel.snp.updateConstraints({ (make) in
-                make.top.equalTo(self.titleLabel.snp.bottom).offset(22)
+            infoLabel.snp.remakeConstraints({ (make) in
+                make.top.equalTo(self.titleLabel.snp.bottom).offset(12)
+                make.left.equalTo(self.infoView.snp.left).offset(10)
+                make.right.equalTo(self.infoView.snp.right).offset(-10)
+                make.bottom.equalTo(self.infoView.snp.bottom).offset(-34)
+                make.height.equalTo(infoLabelHeight)
             })
         }
         
@@ -83,7 +94,6 @@ class AboutUsCell: UITableViewCell {
                 make.left.equalTo(self.infoView.snp.left).offset(10)
                 make.right.equalTo(self.infoView.snp.right).offset(-10)
                 make.bottom.equalTo(self.infoView.snp.bottom).offset(-34)
-                make.height.lessThanOrEqualTo(100);
             })
             
             lineLabel.snp.makeConstraints({ (make) in

@@ -26,6 +26,8 @@ class PhotoDetailTableViewCell: UITableViewCell {
     
     var lineLable:UILabel!
     
+    var didUpdataConstraints:Bool = false
+    
     override func awakeFromNib() {
         super.awakeFromNib()
 //        self.setUpView()
@@ -63,11 +65,9 @@ class PhotoDetailTableViewCell: UITableViewCell {
         
         self.contentView.addSubview(infoView)
 
-        
         lineLable = UILabel()
         lineLable.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
         infoView.addSubview(lineLable)
-        
         
         lineLable.snp.makeConstraints { (make) in
             make.top.equalTo(self.infoView.snp.top).offset(10)
@@ -149,14 +149,6 @@ class PhotoDetailTableViewCell: UITableViewCell {
             detailNextImage.image = UIImage.init(named: "info_next")
             infoView.addSubview(detailNextImage)
         }else{
-//            let photoImage = UIImageView()
-//            let singerTap = UITapGestureRecognizer(target: self, action: #selector(PhotoDetailTableViewCell.singerTap))
-//            singerTap.numberOfTapsRequired = 1
-//            singerTap.numberOfTouchesRequired = 1
-//            photoImage.frame = CGRectMake(72, 26, 59, 59)
-//            photoImage.addGestureRecognizer(singerTap)
-//            photoImage.image = UIImage.init(named: "me_detail_image")
-//            infoView.addSubview(photoImage)
             let image = UIImage.init(named: "photo_detail")
             let detailImage = UIImageView(frame: CGRect(x: ScreenWidth - 40 - (image?.size.width)! , y: 26, width: (image?.size.width)!, height: (image?.size.height)!))
             detailImage.image = UIImage.init(named: "photo_detail")
@@ -173,7 +165,7 @@ class PhotoDetailTableViewCell: UITableViewCell {
         infoView.layer.mask = maskLayer
         self.contentView.sendSubview(toBack: shadowView)
         self.contentView.bringSubview(toFront: infoView)
-        
+        self.updateConstraintsIfNeeded()
     }
     
     func singerTap(){
@@ -187,6 +179,42 @@ class PhotoDetailTableViewCell: UITableViewCell {
             self.cellImageArray((tap.view?.tag)!,self.thumbnailImgArray)
         }
     }
+    
+    override func updateConstraints() {
+        if !self.didUpdataConstraints {
+            lineLable.snp.makeConstraints { (make) in
+                make.top.equalTo(self.infoView.snp.top).offset(10)
+                make.left.equalTo(self.infoView.snp.left).offset(10)
+                make.right.equalTo(self.infoView.snp.right).offset(-10)
+                make.height.equalTo(0.5)
+            }
+            
+            shadowView.snp.makeConstraints { (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.left.equalTo(self.contentView.snp.left).offset(10)
+                make.right.equalTo(self.contentView.snp.right).offset(-10)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
+            }
+            
+            infoView.snp.makeConstraints { (make) in
+                make.top.equalTo(self.shadowView.snp.top).offset(0)
+                make.left.equalTo(self.shadowView.snp.left).offset(0)
+                make.right.equalTo(self.shadowView.snp.right).offset(0)
+                make.bottom.equalTo(self.shadowView.snp.bottom).offset(-3)
+                make.height.equalTo(112)
+            }
+            
+            detailImageView.snp.makeConstraints { (make) in
+                make.top.equalTo(self.infoView.snp.top).offset(0)
+                make.left.equalTo(self.infoView.snp.left).offset(10)
+                make.right.equalTo(self.infoView.snp.right).offset(-20)
+                make.bottom.equalTo(self.infoView.snp.bottom).offset(0)
+            }
+            self.didUpdataConstraints = true
+        }
+        super.updateConstraints()
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

@@ -32,6 +32,7 @@ class InviteTitleTableViewCell: UITableViewCell {
             switchControl.isHidden = true
         }
         switchControl.setOn(isSwitch, animated: true)
+        self.updateConstraintsIfNeeded()
     }
     
     func switchChangeValue(_ switchCol:UISwitch){

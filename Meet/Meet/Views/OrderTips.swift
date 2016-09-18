@@ -137,6 +137,7 @@ class OrderTips: UIView {
         }
         
         self.setUpData(tips)
+        
     }
     
     func setUpData(_ tips:[String]) {

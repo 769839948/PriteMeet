@@ -46,6 +46,7 @@
 {
     _cellImageView.image = [UIImage imageNamed:imageName];
     _titleLabel.text = title;
+    [self updateConstraintsIfNeeded];
 }
 
 - (void)updateConstraints

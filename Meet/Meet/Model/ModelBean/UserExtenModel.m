@@ -59,6 +59,7 @@ static UserExtenModel *userExten = nil;
     [UserExtenModel shareInstance].cover_photo  = nil;
     [UserExtenModel shareInstance].highlight  = nil;
     [UserExtenModel shareInstance].detail  = nil;
+    [UserExtenModel shareInstance].info_is_complete = nil;
     
     return result;
 }
@@ -83,6 +84,7 @@ static UserExtenModel *userExten = nil;
         self.highlight = [aDecoder decodeObjectForKey:@"highlight"];
         self.detail = [aDecoder decodeObjectForKey:@"detail"];
         self.completeness = [aDecoder decodeObjectForKey:@"completeness"];
+        self.info_is_complete = [aDecoder decodeBoolForKey:@"info_is_complete"];
     }
     return self;
 }
@@ -95,6 +97,7 @@ static UserExtenModel *userExten = nil;
     [aCoder encodeObject:self.highlight forKey:@"highlight"];
     [aCoder encodeObject:self.detail forKey:@"detail"];
     [aCoder encodeObject:self.completeness forKey:@"completeness"];
+    [aCoder encodeBool:self.info_is_complete forKey:@"info_is_complete"];
 }
 
 
@@ -145,6 +148,7 @@ static UserExtenModel *userExten = nil;
         [headPhotoListArray addObject:headPhoto];
     }
     [UserExtenModel shareInstance].head_photo_list  = [headPhotoListArray copy];
+    [UserExtenModel shareInstance].info_is_complete = [[dic objectForKey:@"info_is_complete"] boolValue];
     return [UserExtenModel synchronize];
 }
 

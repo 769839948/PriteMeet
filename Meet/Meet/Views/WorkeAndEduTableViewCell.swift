@@ -32,6 +32,7 @@ class WorkeAndEduTableViewCell: UITableViewCell {
         let workArray = workeString.components(separatedBy: "-")
         titleName.text = "\(workArray[0]) \(workArray[2])"
         position.text = workArray[1]
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

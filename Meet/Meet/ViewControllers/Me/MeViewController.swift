@@ -13,7 +13,7 @@ import SDWebImage
 
 let aboutUsStr = "您的个人介绍空空如也，完善后可大大提高约见成功率哦。"
 
-class MeViewController: UIViewController {
+class MeViewController: UIViewController,TZImagePickerControllerDelegate {
 
     var tableView:UITableView!
     var imagesArray = NSMutableArray()
@@ -358,13 +358,7 @@ class MeViewController: UIViewController {
                     centerView.removeFromSuperview()
                     MainThreadAlertShow("上传失败", view: self.view)
             })
-//            centerView.removeFromSuperview()
         }
-//        userInfoModel.uploadHeaderList(images as [AnyObject], successBlock: { (dic) in
-//            self.loadExtenInfo()
-//            }) { (dic) in
-//                MainThreadAlertShow("上传失败", view: self.view)
-//        }
     }
     
     func presentImagePicker() {
@@ -380,13 +374,29 @@ class MeViewController: UIViewController {
         imagePickerVC?.oKButtonTitleColorNormal = UIColor.init(hexString: HomeDetailViewNameColor)
         imagePickerVC?.oKButtonTitleColorDisabled = UIColor.init(hexString: lineLabelBackgroundColor)
         imagePickerVC?.allowPickingOriginalPhoto = true
-//        imagePickerVC?.didFinishPickingPhotosHandle = { (photos,assets,isSelectOriginalPhoto) -> Void in
-//            self.uploadImages(photos)
-//        }
-        
         self.present(imagePickerVC!, animated: true) { 
             
         }
+    }
+    
+     func imagePickerController(_ picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool)
+    {
+        self.uploadImages(photos as NSArray)
+    }
+    
+     func imagePickerController(_ picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool, infos: [[AnyHashable: Any]]!) {
+        
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: TZImagePickerController!) {
+        
+    }
+    // If user picking a video, this callback will be called.
+    // If system version > iOS8,asset is kind of PHAsset class, else is ALAsset class.
+    // 如果用户选择了一个视频，下面的handle会被执行
+    // 如果系统版本大于iOS8，asset是PHAsset类的对象，否则是ALAsset类的对象
+    private func imagePickerController(_ picker: TZImagePickerController!, didFinishPickingVideo coverImage: UIImage!, sourceAssets asset: AnyObject!) {
+        
     }
     
     func presentImageBrowse(_ index:NSInteger, images:NSArray) {
@@ -413,14 +423,14 @@ class MeViewController: UIViewController {
             imageCount = imageCount + 1
         }
 
-//        pbVC.deletePhoto = { index,photoid,deleteSuccess in
-//            self.userInfoModel.deleteImage(photoid, successBlock: { (dic) in
-//                deleteSuccess(success: true)
-//                self.loadExtenInfo()
-//                }, fail: { (dic) in
-//                deleteSuccess(success: false)
-//            })
-//        }
+        pbVC.deletePhoto = { (_ index:NSInteger, _ photoid:String, _ deleteSucess: @escaping DeleteSuccess) -> Void in
+            self.userInfoModel.deleteImage(photoid, successBlock: { (dic) in
+                    deleteSucess(true)
+                self.loadExtenInfo()
+                }, fail: { (dic) in
+                    deleteSucess(false)
+            })
+        }
         
         /**  设置数据  */
         pbVC.photoModels = models
@@ -774,24 +784,6 @@ extension MeViewController : UITableViewDataSource {
                 return cell
             }
         }
-    }
-}
-extension MeViewController : TZImagePickerControllerDelegate {
-    func imagePickerController(_ picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool)
-    {
-    }
-    private func imagePickerController(_ picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool, infos: [[AnyHashable: Any]]!) {
-        
-    }
-    func imagePickerControllerDidCancel(_ picker: TZImagePickerController!) {
-        
-    }
-    // If user picking a video, this callback will be called.
-    // If system version > iOS8,asset is kind of PHAsset class, else is ALAsset class.
-    // 如果用户选择了一个视频，下面的handle会被执行
-    // 如果系统版本大于iOS8，asset是PHAsset类的对象，否则是ALAsset类的对象
-    func imagePickerController(_ picker: TZImagePickerController!, didFinishPickingVideo coverImage: UIImage!, sourceAssets asset: AnyObject!) {
-        
     }
 }
 

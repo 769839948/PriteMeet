@@ -283,17 +283,13 @@ class HomeViewController: UIViewController {
         let orderViewModel = OrderViewModel()
         self.orderNumberArray.removeAllObjects()
         orderViewModel.orderNumberOrder(UserInfo.sharedInstance().uid, successBlock: { (dic) in
-            let countDic = dic! as [AnyHashable:Any] as NSDictionary
             self.allOrderNumber = 0
-            for value in countDic.allValues {
+            for value in (dic?.values)! {
                 self.allOrderNumber = self.allOrderNumber + Int(value as! NSNumber)
             }
-            if self.numberMeet != nil && self.allOrderNumber != 0 {
-                self.numberMeet.text = "\(self.allOrderNumber)"
-            }
-            self.orderNumberArray.add("\(countDic["1"]!)")
-            self.orderNumberArray.add("\(countDic["4"]!)")
-            self.orderNumberArray.add("\(countDic["6"]!)")
+            self.orderNumberArray.add("\((dic?["1"]!)!)")
+            self.orderNumberArray.add("\((dic?["4"]!)!)")
+            self.orderNumberArray.add("\((dic?["6"]!)!)")
             self.orderNumberArray.add("0")
         }) { (dic) in
             
