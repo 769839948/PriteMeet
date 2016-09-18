@@ -135,30 +135,27 @@
                                          @"sms_code":code};
             [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
                 if ([[responseObject objectForKey:@"success"] boolValue]) {
-                    failBlock(@{@"error":@"oldUser"});
+                    successBlock(@{@"success":@"oldUser"});
+                }else{
+                    failBlock(@{@"error":@"errorcode"});
                 }
             } failure:^(NSDictionary *responseObject) {
-                failBlock(@{@"error":@"网络错误"});
+                failBlock(@{@"error":@"errornet"});
             }];
         }else{
-            NSDictionary *parameters = @{@"mobile_num":mobile,
-                                         @"sms_code":code
-                                         };
             NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestCreateUser];
+            NSDictionary *parameters = @{@"mobile_num":mobile,
+                                         @"sms_code":code};
             [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
                 if ([[responseObject objectForKey:@"success"] boolValue]) {
-                    NSString *url = [RequestBaseUrl stringByAppendingString:RequsetMobileLogin];
-                     NSDictionary *parameters = @{@"mobile_num":mobile,
-                                                  @"sms_code":code};
-                     [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
-                        if ([[responseObject objectForKey:@"success"] boolValue]) {
-                            failBlock(@{@"error":@"newUser"});
-                        }
-                    } failure:^(NSDictionary *responseObject) {
-                        failBlock(@{@"error":@"网络错误"});
-                    }];
+                    successBlock(@{@"success":@"newUser",@"uid":responseObject[@"content"][@"uid"]});
                 }else{
-                    failBlock(@{@"error":@"上传失败"});
+                    if ([responseObject[@"content"][@"msg"] isEqualToString:@"Invalid sms_code!"]) {
+                        failBlock(@{@"error":@"errorcode"});
+                    }else {
+                        failBlock(@{@"error":responseObject[@"content"][@"msg"]});
+
+                    }
                 }
             } failure:^(NSDictionary *responseObject) {
                 NSString *url = [RequestBaseUrl stringByAppendingString:RequsetMobileLogin];

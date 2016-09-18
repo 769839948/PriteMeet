@@ -275,6 +275,7 @@ class LoginViewController: UIViewController {
     }
     
     func loginButtonClick() {
+        
         if  phoneStr!.length != 11 {
             MainThreadAlertShow("手机号码输入有误", view: self.view)
             return
@@ -287,113 +288,69 @@ class LoginViewController: UIViewController {
         self.loginClickSelectChangeColor()
         
         viewModel.loginSms(phoneStr, code: smsCodeStr, success: { (dic) in
-            UserInfo.synchronize(withDic: dic)
-            UserInfo.sharedInstance().uid = ((dic! as [AnyHashable:Any] as NSDictionary).object(forKey: "uid") as AnyObject).stringValue
-            UserDefaults.standard.set(true, forKey: "isNewUser")
-            UserInfo.sharedInstance().mobile_num = self.mobileField.text
-            if self.newUserLoginClouse != nil{
-                self.newUserLoginClouse()
-            }
-            }, fail: { (dic) in
-                let hasDic = dic! as [AnyHashable:Any]
-                if ((hasDic as NSDictionary).object(forKey: "error") as! String) == "oldUser" {
-                    self.viewModel.getUserInfo(self.phoneStr, success: { (dic) in
-                        UserInfo.synchronize(withDic: hasDic)
-                        UserInfo.sharedInstance().isFirstLogin = true
-                        if self.reloadMeViewClouse != nil{
-                            self.reloadMeViewClouse()
-                            self.dismiss(animated: true, completion: {
-                                
-                            })
-                        }
-                        
-                        if self.loginWithDetailClouse != nil {
-                            self.loginWithDetailClouse()
-                            self.dismiss(animated: true, completion: {
-                                
-                            })
-                        }
-                        
-                        if self.loginWithOrderListClouse != nil {
-                            self.loginWithOrderListClouse()
-                            self.dismiss(animated: true, completion: {
-                                
-                            })
-                        }
+            if (dic?["success"] as! String) == "oldUser" {
+                self.viewModel.getUserInfo(self.phoneStr, success: { (dic) in
+                    UserInfo.synchronize(withDic: dic)
+                    UserInfo.sharedInstance().isFirstLogin = true
+                    if self.reloadMeViewClouse != nil{
+                        self.reloadMeViewClouse()
                         self.dismiss(animated: true, completion: {
                             
                         })
-                        }, fail: { (dic) in
-                            self.loginLabel.text = "重试"
-                            self.loginClickNomalChangeColor()
-                        }, loadingString: { (msg) in
+                    }
+                    
+                    if self.loginWithDetailClouse != nil {
+                        self.loginWithDetailClouse()
+                        self.dismiss(animated: true, completion: {
                             
+                        })
+                    }
+                    
+                    if self.loginWithOrderListClouse != nil {
+                        self.loginWithOrderListClouse()
+                        self.dismiss(animated: true, completion: {
+                            
+                        })
+                    }
+                    self.dismiss(animated: true, completion: {
+                        
                     })
-                }else if ((dic! as [AnyHashable:Any] as NSDictionary).object(forKey: "error") as! String) == "noneuser"{
-                    MainThreadAlertShow("该手机号用户不存在", view: self.view)
-                    self.loginLabel.text = "重试"
-                    self.loginClickNomalChangeColor()
-                }else{
-                    MainThreadAlertShow("验证码输入有误或已过期", view: self.view)
-                    self.smsCodeField.textColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
-                    self.loginLabel.text = "重试"
-                    self.loginClickNomalChangeColor()
-                }
+                    }, fail: { (dic) in
+                        self.loginLabel.text = "重试"
+                        self.loginClickNomalChangeColor()
+                    }, loadingString: { (msg) in
+                        
+                })
+            }else if (dic?["success"] as! String) == "newUser"{
+                UserInfo.sharedInstance().uid = "\(dic?["uid"] as! NSInteger)"
+                self.viewModel.getUserInfo(UserInfo.sharedInstance().uid, success: { (dic) in
+                    UserInfo.synchronize(withDic: dic)
+                    UserInfo.sharedInstance().isFirstLogin = true
+                    UserInfo.sharedInstance().mobile_num = self.mobileField.text
+                    let baseUserInfo = Stroyboard("Me", viewControllerId: "BaseInfoViewController") as! BaseUserInfoViewController
+                    self.navigationController?.pushViewController(baseUserInfo, animated: true)
+                    }, fail: { (dic) in
+                        MainThreadAlertShow("获取用户信息失败", view: self.view)
+                        self.loginLabel.text = "重试"
+                        self.loginClickNomalChangeColor()
+                    }, loadingString: { (msg) in
+                        
+                })
+                UserDefaults.standard.set(true, forKey: "isNewUser")
+            }
+        }, fail: { (dic) in
+            if (dic?["error"] as! String) == "errorcode" {
+                MainThreadAlertShow("验证码输入有误或已过期", view: self.view)
+                self.loginClickNomalChangeColor()
+                self.smsCodeField.textColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
+                self.loginLabel.text = "重试"
+            }else if (dic?["error"] as! String) == "errornet" {
+                MainThreadAlertShow("网络错误", view: self.view)
+                self.smsCodeField.textColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
+                self.loginLabel.text = "重试"
+                self.loginClickNomalChangeColor()
+            }
         })
-        
-//        viewModel.loginSms(phoneStr, code: smsCodeStr, applyCode:"", success: { (dic) in
-//            UserInfo.synchronizeWithDic(dic)
-//            UserInfo.sharedInstance().uid = (dic as NSDictionary).objectForKey("uid")?.stringValue
-//            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isNewUser")
-//            UserInfo.sharedInstance().mobile_num = self.mobileField.text
-//            if self.newUserLoginClouse != nil{
-//                self.newUserLoginClouse()
-//            }
-//        }) { (dic) in
-//            if ((dic as NSDictionary).objectForKey("error") as! String) == "oldUser" {
-//                self.viewModel.getUserInfo(self.phoneStr, success: { (dic) in
-//                    UserInfo.synchronizeWithDic(dic)
-//                    UserInfo.sharedInstance().isFirstLogin = true
-//                    if self.reloadMeViewClouse != nil{
-//                        self.reloadMeViewClouse()
-//                        self.dismissViewControllerAnimated(true, completion: { 
-//                            
-//                        })
-//                    }
-//                    
-//                    if self.loginWithDetailClouse != nil {
-//                        self.loginWithDetailClouse()
-//                        self.dismissViewControllerAnimated(true, completion: {
-//                            
-//                        })
-//                    }
-//                    
-//                    if self.loginWithOrderListClouse != nil {
-//                        self.loginWithOrderListClouse()
-//                        self.dismissViewControllerAnimated(true, completion: {
-//                            
-//                        })
-//                    }
-//                    self.dismissViewControllerAnimated(true, completion: {
-//                        
-//                    })
-//                    }, fail: { (dic) in
-//                        self.loginLabel.text = "重试"
-//                        self.loginClickNomalChangeColor()
-//                    }, loadingString: { (msg) in
-//                        
-//                })
-//            }else if ((dic as NSDictionary).objectForKey("error") as! String) == "noneuser"{
-//                MainThreadAlertShow("该手机号用户不存在", view: self.view)
-//                self.loginLabel.text = "重试"
-//                self.loginClickNomalChangeColor()
-//            }else{
-//                 MainThreadAlertShow("验证码输入有误或已过期", view: self.view)
-//                self.smsCodeField.textColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
-//                self.loginLabel.text = "重试"
-//                self.loginClickNomalChangeColor()
-//            }
-//        }
     }
 
     func changeLoginButtonColor() {

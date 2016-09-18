@@ -909,7 +909,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
             cell.tag = row;
             cell.titelLabel.text = _titleContentArray[row];
             if (row == RowName) {
-                if ([[UserExtenModel shareInstance].auth_info rangeOfString:@"2"].location == NSNotFound) {
+                if ([[UserExtenModel shareInstance].auth_info rangeOfString:@"2"].location == NSNotFound || _isBaseView) {
                 }else{
                     cell.textField.enabled = NO;
                 }
@@ -930,7 +930,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 }
                 
             }else{
-                if (row == RowJobLabel) {
+                if (row == RowJobLabel  && !_isBaseView) {
                     cell.textField.enabled = NO;
                 }
                 cell.textField.text = _dicValues[_titleContentArray[row]];
@@ -1087,14 +1087,13 @@ typedef NS_ENUM(NSUInteger, RowType) {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if ((indexPath.section == 0) && (indexPath.row == RowName)) {
-        if ([[UserExtenModel shareInstance].auth_info rangeOfString:@"2"].location != NSNotFound) {
+        if ([[UserExtenModel shareInstance].auth_info rangeOfString:@"2"].location != NSNotFound && !_isBaseView) {
             [UITools showMessageToView:self.view message:@"实名认证后姓名不可再更改哦" autoHide:YES];
         }
-        return;
     }
     
     if ((indexPath.section == 0) && (indexPath.row == RowJobLabel)) {
-        if ([[UserExtenModel shareInstance].auth_info rangeOfString:@"1"].location != NSNotFound) {
+        if ([[UserExtenModel shareInstance].auth_info rangeOfString:@"1"].location != NSNotFound && !_isBaseView) {
             [UIAlertController shwoAlertControl:self title:nil message:@"职业信息变更后须重新认证哦" cancel:@"取消" doneTitle:@"确认修改" cancelAction:^{
                 
             } doneAction:^{
@@ -1116,7 +1115,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 if (height > 330) {
                 }else{
                     if (_isBaseView) {
-                        insterHeight = 309 - height;
+                        insterHeight = 369 - height;
                     }else{
                         insterHeight = 369 - height;
                     }
@@ -1128,9 +1127,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
                     
                     if (_isBaseView) {
                         if (IS_IPHONE_5){
-                            insterHeight = 309 - height;
+                            insterHeight = 369 - height;
                         }else{
-                            insterHeight = 309 - height;
+                            insterHeight = 369 - height;
                         }
                     }else{
                         if (IS_IPHONE_5){

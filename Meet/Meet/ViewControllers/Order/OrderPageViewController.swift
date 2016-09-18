@@ -70,9 +70,8 @@ class OrderPageViewController: TYTabButtonPagerController {
             stringSize = stringSize + width
         }
         self.adjustStatusBarHeight = true
-        _ = (viewModel.orderPageControllerTitle() as NSArray).count - 1
-//        let cellEdging = (ScreenWidth - kCollectionLayoutEdging * 2 - stringSize - CGFloat(count) * kCellSpacing) / 8
-        let cellEdging:CGFloat = 10;
+        _ = (viewModel.orderPageControllerTitle() as NSArray).count
+        let cellEdging = ((ScreenWidth - kCollectionLayoutEdging * 2 - stringSize - CGFloat(4) * kCellSpacing) / CGFloat(8))
         self.collectionLayoutEdging = kCollectionLayoutEdging
         self.pagerBarColor = UIColor.red
         self.cellSpacing = kCellSpacing

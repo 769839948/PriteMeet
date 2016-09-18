@@ -116,33 +116,44 @@ class SenderInviteViewController: UIViewController {
             }
         }
         viewModel.uploadInvite(textView.text, themeArray: arrayItems as [AnyObject], isActive: ret,success: { (dic) in
-            if self.isDetailViewLogin {
-                if self.detailViewActionSheetSelect == 1 {
-                    let reportVC = ReportViewController()
-                    reportVC.uid = self.user_id
-                    reportVC.myClouse = { _ in
-                        UITools.showMessage(to: self.view, message: "投诉成功", autoHide: true)
-                    }
-                    self.navigationController?.pushViewController(reportVC, animated: true)
-                }else{
-                    let viewControllers:NSArray = (self.navigationController?.viewControllers)! as NSArray
-                    _ = self.navigationController?.popToViewController(viewControllers.object(at: 1) as! UIViewController, animated: true)
-                }
-            }else if self.isHomeListLogin{
-                 _ = self.navigationController?.popToRootViewController(animated: true)
-            }else if self.isNewLogin {
-                _ = self.navigationController?.popToRootViewController(animated: true)
-            }else if self.isApplyMeetLogin {
-                let viewControllers:NSArray = (self.navigationController?.viewControllers)! as NSArray
-                _ = self.navigationController?.popToViewController(viewControllers.object(at: 2) as! UIViewController, animated: true)
-            }else{
+            if self.isNewLogin {
+                self.dismiss(animated: true, completion: { 
+                    
+                })
+            }else {
                 if !UserInviteModel.shareInstance().results[0].is_active {
                     UserInviteModel.shareInstance().results[0].is_active = true
                 }
                 _ = self.navigationController?.popViewController(animated: true)
+
             }
+//            if self.isDetailViewLogin {
+//                if self.detailViewActionSheetSelect == 1 {
+//                    let reportVC = ReportViewController()
+//                    reportVC.uid = self.user_id
+//                    reportVC.myClouse = { _ in
+//                        UITools.showMessage(to: self.view, message: "投诉成功", autoHide: true)
+//                    }
+//                    self.navigationController?.pushViewController(reportVC, animated: true)
+//                }else{
+//                    let viewControllers:NSArray = (self.navigationController?.viewControllers)! as NSArray
+//                    _ = self.navigationController?.popToViewController(viewControllers.object(at: 1) as! UIViewController, animated: true)
+//                }
+//            }else if self.isHomeListLogin{
+//                 _ = self.navigationController?.popToRootViewController(animated: true)
+//            }else if self.isNewLogin {
+//                _ = self.navigationController?.popToRootViewController(animated: true)
+//            }else if self.isApplyMeetLogin {
+//                let viewControllers:NSArray = (self.navigationController?.viewControllers)! as NSArray
+//                _ = self.navigationController?.popToViewController(viewControllers.object(at: 2) as! UIViewController, animated: true)
+//            }else{
+//                if !UserInviteModel.shareInstance().results[0].is_active {
+//                    UserInviteModel.shareInstance().results[0].is_active = true
+//                }
+//                _ = self.navigationController?.popViewController(animated: true)
+//            }
             }, fail: { (dic) in
-                
+               MainThreadAlertShow("保存邀约失败", view: self.view)
         }) { (msg) in
             
         }
@@ -151,7 +162,9 @@ class SenderInviteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        if isNewLogin {
+            self.addLineNavigationBottom()
+        }
     }
     
     func setUpTableView(){

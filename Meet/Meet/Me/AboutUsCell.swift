@@ -48,9 +48,15 @@ class AboutUsCell: UITableViewCell {
     
     func configCell(_ title:String, info:String) {
         if title == "" {
-           titleLabel.snp.updateConstraints({ (make) in
-            make.top.equalTo(self.contentView.snp.top).offset(0.001)
+           titleLabel.isHidden = true
+           infoLabel.snp.updateConstraints({ (make) in
+                make.top.equalTo(self.infoView.snp.top).offset(22)
            })
+        }else{
+            titleLabel.isHidden = false
+            infoLabel.snp.updateConstraints({ (make) in
+                make.top.equalTo(self.titleLabel.snp.bottom).offset(22)
+            })
         }
         
         infoLabel.text = info

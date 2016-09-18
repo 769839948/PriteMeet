@@ -31,7 +31,6 @@
     self.tableView.backgroundColor = [UIColor whiteColor];
     [self setUpView];
     [self setNavigationItemBar];
-    [self.navigationController.navigationBar setTranslucent:YES];
     self.talKingDataPageName = @"Login-BaseUser";
 }
 
@@ -42,27 +41,15 @@
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor colorWithHexString:HomeDetailViewNameColor]];
 }
 
-
 - (void)leftItemClick:(UIBarButtonItem *)sender
 {
     
     [UIAlertController shwoAlertControl:self title:@"注意" message:@"资料未完善，确定退出编辑吗？" cancel:@"取消" doneTitle:@"确定" cancelAction:^{
         
     } doneAction:^{
-        if (_isDetailViewLogin) {
-            if (_detailViweActionSheetSelect == 1) {
-                ReportViewController *reportVC = [[ReportViewController alloc] init];
-                reportVC.uid = _user_id;
-                [self.navigationController pushViewController:reportVC animated:YES];
-            }else{
-                [self.navigationController popViewControllerAnimated:YES];
-                if (self.blackListBlock != nil) {
-                    self.blackListBlock();
-                }
-            }
-        }else{
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        }
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
     }];
 }
 
@@ -76,7 +63,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self removeBottomLine];
 }
 
 - (void)nextStep:(UIBarButtonItem *)sender
@@ -85,47 +72,45 @@
     
     if ([self chectBaseInfo]) {
         [self.viewModel updateUserInfo:[UserInfo sharedInstance] withStateArray:[self.stateArray copy] success:^(NSDictionary *object) {
-            UIImage *image = self.dicValues[self.titleContentArray[0]];
-            if ([UserInfo saveCacheImage:image withName:@"headImage.jpg"]) {
-                NSLog(@"保存成功");
-            }
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isNewUser"];
-            
             [UIAlertController shwoAlertControl:self title:@"设置您的邀约" message:@"邀约设置后，有助于他人了解您的约见说明，从而更精准的吸引志趣相投的朋友。" cancel:@"逛逛再说" doneTitle:@"设置邀约" cancelAction:^{
-                if (_isDetailViewLogin) {
-                    if (_detailViweActionSheetSelect == 1) {
-                        ReportViewController *reportVC = [[ReportViewController alloc] init];
-                        reportVC.uid = _user_id;
-                        [self.navigationController pushViewController:reportVC animated:YES];
-                    }else{
-                        [self.navigationController popViewControllerAnimated:YES];
-                        if (self.blackListBlock != nil) {
-                            self.blackListBlock();
-                        }
-                    }
-                }else if (_isHomeListViewLogin){
-                    [self.navigationController popViewControllerAnimated:YES];
-                    if (self.homeListBlock != nil) {
-                        self.homeListBlock();
-                    }
-                }else if (_isApplyMeetViewLogin){
-                    [self.navigationController popViewControllerAnimated:YES];
-                    if (self.applyMeeBlock != nil) {
-                        self.applyMeeBlock();
-                    }
-                }else{
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                }
+//                if (_isDetailViewLogin) {
+//                    if (_detailViweActionSheetSelect == 1) {
+//                        ReportViewController *reportVC = [[ReportViewController alloc] init];
+//                        reportVC.uid = _user_id;
+//                        [self.navigationController pushViewController:reportVC animated:YES];
+//                    }else{
+//                        [self.navigationController popViewControllerAnimated:YES];
+//                        if (self.blackListBlock != nil) {
+//                            self.blackListBlock();
+//                        }
+//                    }
+//                }else if (_isHomeListViewLogin){
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                    if (self.homeListBlock != nil) {
+//                        self.homeListBlock();
+//                    }
+//                }else if (_isApplyMeetViewLogin){
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                    if (self.applyMeeBlock != nil) {
+//                        self.applyMeeBlock();
+//                    }
+//                }else{
+//                    [self.navigationController popToRootViewControllerAnimated:YES];
+//                }
+                [self dismissViewControllerAnimated:YES completion:^{
+                    
+                }];
             } doneAction:^{
                 SenderInviteViewController *senderInviteVC = Storyboard(@"Me", @"SenderInviteViewController");
-                if (_isDetailViewLogin) {
-                    senderInviteVC.isDetailViewLogin = YES;
-                    senderInviteVC.detailViewActionSheetSelect = self.detailViweActionSheetSelect;
-                }else if(_isHomeListViewLogin){
-                    senderInviteVC.isHomeListLogin = YES;
-                }else if (_isApplyMeetViewLogin){
-                    senderInviteVC.isApplyMeetLogin = YES;
-                }
+//                if (_isDetailViewLogin) {
+//                    senderInviteVC.isDetailViewLogin = YES;
+//                    senderInviteVC.detailViewActionSheetSelect = self.detailViweActionSheetSelect;
+//                }else if(_isHomeListViewLogin){
+//                    senderInviteVC.isHomeListLogin = YES;
+//                }else if (_isApplyMeetViewLogin){
+//                    senderInviteVC.isApplyMeetLogin = YES;
+//                }
                 senderInviteVC.isNewLogin = YES;
                 [self.navigationController pushViewController:senderInviteVC animated:YES];
             }];

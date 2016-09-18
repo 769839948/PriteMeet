@@ -238,7 +238,7 @@ public final class FusumaViewController: UIViewController {
         albumView.images = self.images
 
         albumView.initialize()
-        cameraView.initialize()
+//        cameraView.initialize()
         
         if hasVideo {
 

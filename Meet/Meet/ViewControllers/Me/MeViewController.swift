@@ -291,10 +291,6 @@ class MeViewController: UIViewController {
     func presentViewLoginViewController(){
         let loginView = LoginViewController()
         let controller = UINavigationController(rootViewController: loginView)
-        loginView.newUserLoginClouse = { _ in
-            let baseUserInfo = Stroyboard("Me", viewControllerId: "BaseInfoViewController") as! BaseUserInfoViewController
-            self.navigationController?.pushViewController(baseUserInfo, animated: true)
-        }
         
         loginView.reloadMeViewClouse = { _ in
             self.viewWillAppear(true)
@@ -449,12 +445,12 @@ class MeViewController: UIViewController {
         self.orderNumberArray.removeAllObjects()
         orderViewModel.orderNumberOrder(UserInfo.sharedInstance().uid, successBlock: { (dic) in
             self.allOrderNumber = 0
-//            for value in (dic! as! [AnyHashable:NSDictionary]).allValues {
-//                self.allOrderNumber = self.allOrderNumber + Int(value as! NSNumber)
-//            }
-            self.orderNumberArray.add("\(dic?["1"]!)")
-            self.orderNumberArray.add("\(dic?["4"]!)")
-            self.orderNumberArray.add("\(dic?["6"]!)")
+            for value in (dic?.values)! {
+                self.allOrderNumber = self.allOrderNumber + Int(value as! NSNumber)
+            }
+            self.orderNumberArray.add("\((dic?["1"]!)!)")
+            self.orderNumberArray.add("\((dic?["4"]!)!)")
+            self.orderNumberArray.add("\((dic?["6"]!)!)")
             self.orderNumberArray.add("0")
             self.tableView.reloadRows(at: [IndexPath.init(row: 5, section: 1)], with: .automatic)
         }) { (dic) in
@@ -496,18 +492,18 @@ extension MeViewController : UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath,animated:true)
         if (!UserInfo.isLoggedIn()) {
-            UserInfo.sharedInstance().uid = "159"
-            let modelv = LoginViewModel()
-            modelv.getUserInfo("159", success: { (dic) in
-                UserInfo.synchronize(withDic: dic)
-                UserInfo.synchronize()
-                self.viewWillAppear(true)
-                }, fail: { (dic) in
-                    
-                }, loadingString: { (msg) in
-                    
-            })
-//            self.presentViewLoginViewController()
+//            UserInfo.sharedInstance().uid = "159"
+//            let modelv = LoginViewModel()
+//            modelv.getUserInfo("159", success: { (dic) in
+//                UserInfo.synchronize(withDic: dic)
+//                UserInfo.synchronize()
+//                self.viewWillAppear(true)
+//                }, fail: { (dic) in
+//                    
+//                }, loadingString: { (msg) in
+//                    
+//            })
+            self.presentViewLoginViewController()
             return ;
         }
         switch (indexPath as NSIndexPath).section {
