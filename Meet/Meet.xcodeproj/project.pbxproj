@@ -84,6 +84,9 @@
 		1F293D8C1D12D13F0063A9DA /* UITableView+FDTemplateLayoutCellDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D881D12D13F0063A9DA /* UITableView+FDTemplateLayoutCellDebug.m */; };
 		1F293D901D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D8F1D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m */; };
 		1F293D941D13CB290063A9DA /* AboutDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F293D931D13CB290063A9DA /* AboutDetailViewController.swift */; };
+		1F29FA0D1D8F8A0B00B6B130 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29FA0C1D8F8A0B00B6B130 /* FilterViewController.swift */; };
+		1F29FA0F1D8FBC3000B6B130 /* SelectItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29FA0E1D8FBC3000B6B130 /* SelectItemView.swift */; };
+		1F29FA111D8FC14100B6B130 /* SelectItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29FA101D8FC14100B6B130 /* SelectItemViewCell.swift */; };
 		1F2DA9BB1D394B0B0008C434 /* WeiboModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DA9BA1D394B0B0008C434 /* WeiboModel.m */; };
 		1F2F43711D83CDBD00C370BA /* IPhoneDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2F43701D83CDBD00C370BA /* IPhoneDevice.swift */; };
 		1F2F56AE1D361C27005AEBC8 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F2F56AC1D361C27005AEBC8 /* AlipaySDK.bundle */; };
@@ -456,6 +459,9 @@
 		1F293D8E1D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+ARDynamicCacheHeightLayoutCell.h"; sourceTree = "<group>"; };
 		1F293D8F1D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+ARDynamicCacheHeightLayoutCell.m"; sourceTree = "<group>"; };
 		1F293D931D13CB290063A9DA /* AboutDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AboutDetailViewController.swift; path = ../ViewControllers/Home/AboutDetailViewController.swift; sourceTree = "<group>"; };
+		1F29FA0C1D8F8A0B00B6B130 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		1F29FA0E1D8FBC3000B6B130 /* SelectItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectItemView.swift; sourceTree = "<group>"; };
+		1F29FA101D8FC14100B6B130 /* SelectItemViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectItemViewCell.swift; sourceTree = "<group>"; };
 		1F2DA9B91D394B0B0008C434 /* WeiboModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboModel.h; path = ../Model/ModelBean/WeiboModel.h; sourceTree = "<group>"; };
 		1F2DA9BA1D394B0B0008C434 /* WeiboModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeiboModel.m; path = ../Model/ModelBean/WeiboModel.m; sourceTree = "<group>"; };
 		1F2F43701D83CDBD00C370BA /* IPhoneDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPhoneDevice.swift; sourceTree = "<group>"; };
@@ -1281,6 +1287,7 @@
 				1F293D931D13CB290063A9DA /* AboutDetailViewController.swift */,
 				1FBF3FC31D1BEB22005DB46F /* MeetWebViewController.swift */,
 				1FAA08061D41C6D60017F3E3 /* ReportViewController.swift */,
+				1F29FA0C1D8F8A0B00B6B130 /* FilterViewController.swift */,
 				DABF8ADE1CE7509400CA2A1D /* MyMeetsViewController.h */,
 				DABF8ADF1CE7509400CA2A1D /* MyMeetsViewController.m */,
 				DABF8AF01CE9D41100CA2A1D /* BaseMeetViewController.h */,
@@ -1300,6 +1307,8 @@
 			children = (
 				1F38683C1D260E2900569032 /* OtherProfileTableViewCell.swift */,
 				1F38683E1D260E3A00569032 /* OtherProfileInfoTableViewCell.swift */,
+				1F29FA0E1D8FBC3000B6B130 /* SelectItemView.swift */,
+				1F29FA101D8FC14100B6B130 /* SelectItemViewCell.swift */,
 				DA018F2B1CD39D570051D2D7 /* ManListCell.h */,
 				DA018F2C1CD39D570051D2D7 /* ManListCell.m */,
 				1FA4E58F1CFDF91F002345C1 /* InterestCollectView.h */,
@@ -2194,6 +2203,7 @@
 				DA6CEF131CDAF42300EEABFF /* AddInformationViewController.m in Sources */,
 				1F241B971D8D4415001987F7 /* UIButton+Haneke.m in Sources */,
 				1FBF40BD1D221267005DB46F /* NSString+StringType.m in Sources */,
+				1F29FA0F1D8FBC3000B6B130 /* SelectItemView.swift in Sources */,
 				1FD97BBF1D55E41700556568 /* OrderApplyInfoTableViewCell.swift in Sources */,
 				1F241B401D8D3730001987F7 /* NVActivityIndicatorAnimationLineScaleParty.swift in Sources */,
 				DA4A88FB1CDB5CB700649983 /* UITextView+Placeholder.m in Sources */,
@@ -2340,6 +2350,7 @@
 				1FAA07DF1D3F17810017F3E3 /* WaitPayViewController.swift in Sources */,
 				DA6CEEF61CD9EFA800EEABFF /* CellTextField.m in Sources */,
 				1FD13B2F1D869DEB0035760D /* FSImageCropView.swift in Sources */,
+				1F29FA111D8FC14100B6B130 /* SelectItemViewCell.swift in Sources */,
 				1F38683D1D260E2900569032 /* OtherProfileTableViewCell.swift in Sources */,
 				DA018F5E1CD79D4A0051D2D7 /* RemindImageCell.m in Sources */,
 				DA36267D1CD1A98E00A8AE39 /* UITools.m in Sources */,
@@ -2458,6 +2469,7 @@
 				1F9DCF121D4C5305001467E6 /* OrderPayViewController.swift in Sources */,
 				1F241B931D8D4415001987F7 /* HNKDiskCache.m in Sources */,
 				1F293D691D1166490063A9DA /* HomeViewModel.m in Sources */,
+				1F29FA0D1D8F8A0B00B6B130 /* FilterViewController.swift in Sources */,
 				1FFEE5C21D7AAEB300EEC61F /* TZVideoPlayerController.m in Sources */,
 				1F6850401CFFFB02007F3C07 /* AllInfoTableViewCell.m in Sources */,
 				1FA8847F1D7ED6560010F508 /* SDWaitingView.m in Sources */,

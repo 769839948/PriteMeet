@@ -34,6 +34,12 @@
                 failBlock:(Fail)failBlock
               loadingView:(LoadingView)loadViewBlock;
 
+
+- (void)getDataFilterList:(NSString *)page
+                filterUrl:(NSString *)url
+             successBlock:(Success)successBlock
+                failBlock:(Fail)failBlock;
+
 /**
  *  获取他人用户信息
  *

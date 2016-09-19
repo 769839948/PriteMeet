@@ -69,3 +69,4 @@
 #import "TZAssetCell.h"
 #import "UIImage+Crop.h"
 #import "Haneke.h"
+#import "ZHPickView.h"

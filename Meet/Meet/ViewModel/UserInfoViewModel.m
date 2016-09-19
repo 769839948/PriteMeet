@@ -14,6 +14,8 @@
 #import "UserExtenModel.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "QiniuSDK.h"
+#import "NSString+StringType.h"
+#import "UIImage+Crop.h"
 
 @implementation UserInfoViewModel
 
@@ -203,12 +205,14 @@
                fail:(Fail)failBlock
       loadingString:(LoadingView)loading
 {
+    image = [UIImage imageCompressForWidth:image targetWidth:1080];
     NSString *urlToken = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestUploadPhotoToken];
     [self getWithURLString:urlToken parameters:nil success:^(NSDictionary *responseObject) {
         QNUploadManager *upManager = [[QNUploadManager alloc] init];
-        NSData *imageData = UIImageJPEGRepresentation(image, 1);
+        NSData *imageData = UIImageJPEGRepresentation(image, 0.85);
         NSString *timeNow = [self getTimeNow];
-        [upManager putData:imageData key:timeNow token:responseObject[@"token"] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+        NSString *fileName = [NSString stringWithFormat:@"%@.jpge",[NSString md5:timeNow]];
+        [upManager putData:imageData key:fileName token:responseObject[@"token"] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             if (!isApplyCode) {
                 NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUploadUserPhoto,[UserInfo sharedInstance].uid];
                 NSDictionary *parameters = @{@"key":resp[@"key"],
@@ -217,14 +221,14 @@
                                              @"height":resp[@"image"][@"height"]};
                 [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
                     [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
-                    successBlock(@{@"success":@"1",@"avatar":[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",timeNow]});
+                    successBlock(@{@"success":@"1",@"avatar":[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",fileName]});
                 } failure:^(NSDictionary *responseObject) {
                     failBlock(@{@"error":@"上传服务器出错"});
                 }];
-                NSString *imageUrl = [NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",parameters[@"key"]];
+                NSString *imageUrl = [NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@?imageMogr2/auto-orient/thumbnail/%@x%@",parameters[@"key"],parameters[@"width"],parameters[@"height"]];
                 [self uploadCoverPhoto:imageUrl];
             }else{
-                successBlock(@{@"success":@"1",@"avatar":[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",timeNow]});
+                successBlock(@{@"success":@"1",@"avatar":[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",fileName]});
             }
         } option:nil];
     } failure:^(NSDictionary *responseObject) {

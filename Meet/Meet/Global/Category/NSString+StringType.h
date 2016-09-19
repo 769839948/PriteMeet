@@ -68,4 +68,13 @@
  */
 + (BOOL)isHaveSpecialCharacters:(NSString *)string;
 
+/**
+ *  md5加密
+ *
+ *  @param string
+ *
+ *  @return
+ */
++ (NSString *)md5:(NSString *)str;
+
 @end

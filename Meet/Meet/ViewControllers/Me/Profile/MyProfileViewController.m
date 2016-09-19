@@ -1249,12 +1249,18 @@ typedef NS_ENUM(NSUInteger, RowType) {
         ProfilePhotoTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         cell.profilePhoto.image = image;
     }
-//    CGSize imageSize = image.size;
+    CGSize imageSize = image.size;
+    CGSize newImageSize = CGSizeMake(imageSize.width, imageSize.width * 768 / 1065);
+    CGFloat originY = imageSize.height>newImageSize.height?(imageSize.height - newImageSize.height)/2:0;
     UIImage *originImage = [UserInfo imageForName:@"coverPhoto"];
-    UIImage *cropImage = [UIImage resizeImage:image withWidth:1065 withHeight:768];
-    [UserInfo saveCacheImage:cropImage withName:@"coverPhoto"];
+//    UIImage *cropImage = [UIImage resizeImage:image withWidth:1065 withHeight:768 originX:0 originY:0];
+//    UIImage *cropImage = [image getSubImage:CGRectMake(0, originY, newImageSize.width, newImageSize.height)];
+    UIImage *saveImage = [image croppedImage:CGRectMake(0, originY, 100, 100)];
+//    [UIImage resizeImage:image withWidth:imageSize.width withHeight:imageSize.height originX:0 originY:0];
+
+    [UserInfo saveCacheImage:saveImage withName:@"coverPhoto"];
     
-    UIImage *postImage = [UIImage resizeImage:image withWidth:500 withHeight:500];
+    UIImage *postImage = [UIImage resizeImage:image withWidth:500 withHeight:500 originX:0 originY:0];
     [UserInfo saveCacheImage:postImage withName:@"postImage"];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

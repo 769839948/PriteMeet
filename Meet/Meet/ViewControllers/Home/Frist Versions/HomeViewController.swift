@@ -44,6 +44,8 @@ class HomeViewController: UIViewController {
     
     var lastContentOffset:CGFloat = 0
     
+    var filterStr:String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpTableView()
@@ -103,14 +105,53 @@ class HomeViewController: UIViewController {
         }
         
         self.page = self.page + 1
-        var fillter = ""
-        if (fillterName == .locationList) {
-            fillter = "location"
-        }else{
-            fillter = "recommend"
+//        var fillter = ""
+//        if (fillterName == .locationList) {
+//            fillter = "location"
+//        }else{
+//            fillter = "recommend"
+//        }
+//        viewModel.getHomeFilterList("\(self.page)", latitude: latitude, longitude: logtitude, filter: fillter, successBlock: { (dic) in
+//            
+//            if self.bottomView != nil {
+//                self.bottomView.isHidden = false
+//            }
+//            
+//            let tempArray = HomeModel.mj_objectArray(withKeyValuesArray: dic?["data"])
+//            if tempArray?.count == 0 {
+//                self.page = self.page - 1
+//                self.tableView.mj_footer.endRefreshing()
+//                return
+//            }
+//            if self.page == 1 {
+//                self.homeModelArray.removeAllObjects()
+//            }
+//            for obj in tempArray! {
+//                self.homeModelArray.add(obj)
+//            }
+//            self.tableView.reloadData()
+//            self.tableView.mj_footer.endRefreshing()
+//            
+//
+//            }, fail: { (dic) in
+//                self.page = self.page - 1
+//                self.setUpHomeData()
+//                self.tableView.mj_footer.endRefreshing()
+//                if self.bottomView != nil {
+//                    self.bottomView.isHidden = false
+//                }
+//
+//            }) { (msg) in
+//                
+//        }
+        if self.filterStr == "" {
+            if self.latitude == 0.0 {
+                self.filterStr = "&filter=recommend"
+            }else{
+                self.filterStr = "&filter=recommend&location=\(self.latitude),\(self.logtitude)"
+            }
         }
-        viewModel.getHomeFilterList("\(self.page)", latitude: latitude, longitude: logtitude, filter: fillter, successBlock: { (dic) in
-            
+        viewModel.getDataFilterList("\(self.page)", filterUrl: self.filterStr, successBlock: { (dic) in
             if self.bottomView != nil {
                 self.bottomView.isHidden = false
             }
@@ -129,18 +170,13 @@ class HomeViewController: UIViewController {
             }
             self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
-            
-
-            }, fail: { (dic) in
-                self.page = self.page - 1
-                self.setUpHomeData()
-                self.tableView.mj_footer.endRefreshing()
-                if self.bottomView != nil {
-                    self.bottomView.isHidden = false
-                }
-
-            }) { (msg) in
-                
+        }) { (dic) in
+            self.page = self.page - 1
+            self.setUpHomeData()
+            self.tableView.mj_footer.endRefreshing()
+            if self.bottomView != nil {
+                self.bottomView.isHidden = false
+            }
         }
     }
     
@@ -306,27 +342,41 @@ class HomeViewController: UIViewController {
     }
     
     func leftItemClick(_ sender:UIBarButtonItem) {
-        let leftAlerController = UIAlertController(title: "筛选", message: nil, preferredStyle: .actionSheet)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (cancelAction) in
-        }
-        let commdListAction = UIAlertAction(title: "智能推荐", style: .default) { (commdListAction) in
-            self.page = 0
-            self.fillterName = .reconmondList
-            self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        let filterView = FilterViewController()
+        
+        filterView.fileStringClouse = { str in
+            if self.logtitude != 0.0 {
+                self.filterStr = str.appending("&location=\(self.logtitude),\(self.latitude)")
+            }else{
+                self.filterStr = str
+            }
             self.setUpHomeData()
         }
-        let locationAction = UIAlertAction(title: "离我最近", style: .default) { (locationAction) in
-            self.page = 0
-            self.fillterName = .locationList
-            self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-            self.setUpHomeData()
-        }
-        leftAlerController.addAction(cancelAction)
-        leftAlerController.addAction(commdListAction)
-        leftAlerController.addAction(locationAction)
-        self.present(leftAlerController, animated: true) { 
+        let controller = UINavigationController(rootViewController: filterView)
+        self.present(controller, animated: true) { 
             
         }
+//        let leftAlerController = UIAlertController(title: "筛选", message: nil, preferredStyle: .actionSheet)
+//        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (cancelAction) in
+//        }
+//        let commdListAction = UIAlertAction(title: "智能推荐", style: .default) { (commdListAction) in
+//            self.page = 0
+//            self.fillterName = .reconmondList
+//            self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+//            self.setUpHomeData()
+//        }
+//        let locationAction = UIAlertAction(title: "离我最近", style: .default) { (locationAction) in
+//            self.page = 0
+//            self.fillterName = .locationList
+//            self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+//            self.setUpHomeData()
+//        }
+//        leftAlerController.addAction(cancelAction)
+//        leftAlerController.addAction(commdListAction)
+//        leftAlerController.addAction(locationAction)
+//        self.present(leftAlerController, animated: true) { 
+//            
+//        }
     }
     
     func setUpRefreshView() {
@@ -454,15 +504,18 @@ extension HomeViewController : UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath) as! ManListCell
         meetDetailVC.reloadHomeListLike = { isLike, number in
             if isLike {
+                
                 cell.likeBtn.tag = 1
                 model.liked_count = number
                 cell.reloadNumber(ofMeet: isLike, number: number)
                 cell.reloadLikeBtnImage(true)
+                self.tableView.reloadSections(NSIndexSet.init(index: indexPath.section) as IndexSet, with: .automatic)
             }else{
                 cell.likeBtn.tag = 0
                 model.liked_count = number
                 cell.reloadNumber(ofMeet: isLike, number: number)
                 cell.reloadLikeBtnImage(false)
+                self.tableView.reloadSections(NSIndexSet.init(index: indexPath.section) as IndexSet, with: .automatic)
             }
             
         }

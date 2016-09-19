@@ -85,34 +85,34 @@ extension PhotoBrowser{
         
         let stringWidth = positionString.stringWidth(positionString, font: AppointRealNameLabelFont!, height: 20.0) > ScreenWidth - 200 ? ScreenWidth - 200 : positionString.stringWidth(positionString, font: AppointRealNameLabelFont!, height: 20.0)
         self.view.addSubview(navigaitonBar)
-        navigaitonBar.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
+        navigaitonBar.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
             make.height.equalTo(64)
         }
-        backButton.snp_makeConstraints { (make) in
-            make.bottom.equalTo(navigaitonBar.snp_bottom).offset(-3)
-            make.left.equalTo(navigaitonBar.snp_left).offset(0)
+        backButton.snp.makeConstraints { (make) in
+            make.bottom.equalTo(navigaitonBar.snp.bottom).offset(-3)
+            make.left.equalTo(navigaitonBar.snp.left).offset(0)
             make.size.equalTo(CGSize(width: 40, height: 40))
             
         }
         
-        deleteButton.snp_makeConstraints { (make) in
-            make.bottom.equalTo(navigaitonBar.snp_bottom).offset(-3)
-            make.right.equalTo(navigaitonBar.snp_right).offset(-10)
+        deleteButton.snp.makeConstraints { (make) in
+            make.bottom.equalTo(navigaitonBar.snp.bottom).offset(-3)
+            make.right.equalTo(navigaitonBar.snp.right).offset(-10)
             make.size.equalTo(CGSize(width: 40, height: 40))
         }
         
-        positionLabel.snp_makeConstraints { (make) in
-            make.centerX.equalTo(navigaitonBar.snp_centerX).offset(20)
-            make.bottom.equalTo(navigaitonBar.snp_bottom).offset(-14)
+        positionLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(navigaitonBar.snp.centerX).offset(20)
+            make.bottom.equalTo(navigaitonBar.snp.bottom).offset(-14)
             make.width.equalTo(stringWidth + 2)
         }
         
-        photoImage.snp_makeConstraints { (make) in
-            make.bottom.equalTo(navigaitonBar.snp_bottom).offset(-11)
-            make.right.equalTo(positionLabel.snp_left).offset(-10)
+        photoImage.snp.makeConstraints { (make) in
+            make.bottom.equalTo(navigaitonBar.snp.bottom).offset(-11)
+            make.right.equalTo(positionLabel.snp.left).offset(-10)
             make.size.equalTo(CGSize(width: 24, height: 24))
         }
     

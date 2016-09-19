@@ -25,12 +25,31 @@ typedef NS_ENUM(NSInteger,XYCropImageStyle){
 
 - (UIImage *)imageByCroppingWithStyle:(XYCropImageStyle)style;
 
+- (UIImage*)getSubImage:(CGRect)rect;
 
-+ (UIImage *)resizeImage:(UIImage *)image withWidth:(CGFloat)width withHeight:(CGFloat)height;
-
++ (UIImage*)resizeImage:(UIImage*)image withWidth:(CGFloat)width withHeight:(CGFloat)height originX:(CGFloat)originX originY:(CGFloat)originY;
 
 + (UIImage *)getImageFromImage:(UIImage *) superImage subImageSize:(CGSize)subImageSize subImageRect:(CGRect)subImageRect;
 
 + (UIImage *)imageCompressWithSimple:(UIImage *)image scaledToSize:(CGSize)size;
+
++ (UIImage *) imageCompressForWidth:(UIImage *)sourceImage targetWidth:(CGFloat)defineWidth;
+
+
+- (UIImage *)croppedImage:(CGRect)bounds;
+//- (UIImage *)thumbnailImage:(NSInteger)thumbnailSize
+//          transparentBorder:(NSUInteger)borderSize
+//               cornerRadius:(NSUInteger)cornerRadius
+//       interpolationQuality:(CGInterpolationQuality)quality;
+- (UIImage *)resizedImage:(CGSize)newSize
+     interpolationQuality:(CGInterpolationQuality)quality;
+- (UIImage *)resizedImageWithContentMode:(UIViewContentMode)contentMode
+                                  bounds:(CGSize)bounds
+                    interpolationQuality:(CGInterpolationQuality)quality;
+- (UIImage *)resizedImage:(CGSize)newSize
+                transform:(CGAffineTransform)transform
+           drawTransposed:(BOOL)transpose
+     interpolationQuality:(CGInterpolationQuality)quality;
+- (CGAffineTransform)transformForOrientation:(CGSize)newSize;
 
 @end

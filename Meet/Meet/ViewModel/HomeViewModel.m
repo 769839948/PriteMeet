@@ -32,6 +32,31 @@
     return @[@"",@"",@""];
 }
 
+
+
+- (void)getDataFilterList:(NSString *)page
+                filterUrl:(NSString *)url
+             successBlock:(Success)successBlock
+                failBlock:(Fail)failBlock
+{
+    NSString *filterUrl = @"";
+    if ([UserInfo isLoggedIn]) {
+        filterUrl = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@%@",RequestGetFilterUserList,page,[UserInfo sharedInstance].uid,url];
+    }else{
+        filterUrl = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&%@",RequestGetFilterUserList,page,url];
+    }
+    
+    [self getWithURLString:filterUrl parameters:nil success:^(NSDictionary *responseObject) {
+        if ([[responseObject objectForKey:@"success"] boolValue]) {
+            successBlock([responseObject objectForKey:@"content"]);
+        }else{
+            failBlock(responseObject);
+        }
+    } failure:^(NSDictionary *responseObject) {
+        failBlock(responseObject);
+    }];
+}
+
 - (void)getHomeFilterList:(NSString *)page
                  latitude:(double)latitude
                 longitude:(double)longitude

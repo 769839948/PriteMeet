@@ -10,6 +10,13 @@ import Foundation
 
 let version = (UIDevice.current.systemVersion as NSString).floatValue
 
+let IQKeyboardManagerplaceholderFont = version >= 9.0 ? UIFont.init(name: "PingFangSC-Regular", size:14.0):UIFont.systemFont(ofSize: 14)
+
+let IQKeyboardManagerFont = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size:14.0):UIFont.systemFont(ofSize: 14)
+
+let KeyBoardToobarTitleFont = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size:14.0):UIFont.systemFont(ofSize: 14)
+
+
 let ApplyControllerTextFont = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 14.0):UIFont.systemFont(ofSize: 14)
 let LoginCodeLabelFont      = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 14.0):UIFont.systemFont(ofSize: 14)
 
@@ -84,6 +91,13 @@ let LoginViewLabelFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Medium
 let LoginInfoLabelFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Medium", size: 11):UIFont.systemFont(ofSize: 11)
 
 let LoginButtonTitleFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Medium", size: 9):UIFont.systemFont(ofSize: 9)
+
+let FilterViewSelectItemFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Light", size: 13):UIFont.systemFont(ofSize: 13)
+
+let FilterViewTitleInfoFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Regular", size: 16):UIFont.systemFont(ofSize: 16)
+
+let FilterViewTitleFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Medium", size: 30):UIFont.systemFont(ofSize: 30)
+
 
 let ReloadOrderCollectionView = "ReloadOrderCollectionView"
 
