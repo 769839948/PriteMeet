@@ -25,12 +25,23 @@
 #define iOS9_1Later ([UIDevice currentDevice].systemVersion.floatValue >= 9.1f)
 
 @protocol TZImagePickerControllerDelegate;
+
+@interface TZAlbumPickerController : UIViewController
+
+@property (nonatomic, copy) NSMutableArray *albumArr;
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
 @interface TZImagePickerController : UINavigationController
 
 /// Use this init method / 用这个初始化方法
 - (instancetype)initWithMaxImagesCount:(NSInteger)maxImagesCount delegate:(id<TZImagePickerControllerDelegate>)delegate;
 /// This init method just for previewing photos / 用这个初始化方法以预览图片
 - (instancetype)initWithSelectedAssets:(NSMutableArray *)selectedAssets selectedPhotos:(NSMutableArray *)selectedPhotos index:(NSInteger)index;
+
+
 
 /// Default is 9 / 默认最大可选9张图片
 @property (nonatomic, assign) NSInteger maxImagesCount;
@@ -114,6 +125,10 @@
 
 @property (nonatomic, weak) id<TZImagePickerControllerDelegate> pickerDelegate;
 
+@property (nonatomic, strong) TZAlbumPickerController *albumPickerVc;
+
+- (void)initImageAlbum;
+
 @end
 
 
@@ -140,9 +155,7 @@
 @end
 
 
-@interface TZAlbumPickerController : UIViewController
 
-@end
 
 
 @interface UIImage (MyBundle)

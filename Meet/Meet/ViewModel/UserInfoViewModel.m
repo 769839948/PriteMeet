@@ -58,7 +58,7 @@
                                  @"constellation":[NSString stringWithFormat:@"%ld",(long)userInfo.constellation],
                                  @"industry":[NSString stringWithFormat:@"%ld",(long)userInfo.industry],
                                  @"job_label":userInfo.job_label};
-    NSLog(@"=================================================================================%@===========================================================",[NSString stringWithFormat:@"%ld",(long)userInfo.industry]);
+    NSLog(@"=================================================================================%@===========================================================",parameters);
     NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@%@",RequestUpdateUser,userInfo.uid];
     [self putWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
@@ -104,6 +104,8 @@
     [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
             successBlock(responseObject[@"content"]);
+        }else{
+            failBlock(@{@"error":@"添加失败"});
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(@{@"error":@"网络错误"});
@@ -178,6 +180,8 @@
     [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
             successBlock(responseObject[@"content"]);
+        }else{
+            failBlock(@{@"error":@"添加失败"});
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(@{@"error":@"网络错误"});
@@ -570,7 +574,9 @@
     NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@%@",RequestBlackList,[UserInfo sharedInstance].uid]];
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([responseObject[@"success"] boolValue]) {
-            successBlock(responseObject[@"content"][@"black_list"]);
+            successBlock(responseObject[@"content"]);
+        }else{
+            failBlock(@{@"error":@"请求错误"});
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(@{@"error":@"网络错误"});

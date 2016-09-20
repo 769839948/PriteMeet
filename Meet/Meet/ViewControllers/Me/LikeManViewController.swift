@@ -65,10 +65,14 @@ class LikeManViewController: UIViewController {
         }
         
         viewModel.getLikeList("\(page)", successBlock: { (dic) in
-            self.hasNext = dic?["has_next"] as! Bool
-            self.likeList.addObjects(from: LikeListModel.mj_objectArray(withKeyValuesArray: dic?["liked_list"]) as NSMutableArray as [AnyObject])
-            self.collectionView.reloadData()
-            self.collectionView.mj_footer.endRefreshing()
+            if (dic?.values.count)! > 0 {
+                self.hasNext = dic?["has_next"] as! Bool
+                self.likeList.addObjects(from: LikeListModel.mj_objectArray(withKeyValuesArray: dic?["liked_list"]) as NSMutableArray as [AnyObject])
+                self.collectionView.reloadData()
+                self.collectionView.mj_footer.endRefreshing()
+            }else{
+                MainThreadAlertShow("暂时没有收藏", view: self.view)
+            }
             }, fail: { (dic) in
                 MainThreadAlertShow(dic?["error"] as! String, view: self.view)
                 self.page = self.page - 1

@@ -75,6 +75,10 @@
 
 #define ImagePickerVCOKButtonFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:16.0f]:[UIFont systemFontOfSize:16]
 
+#define TZImagePickerAlbumTitleFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Regular" size:16.0f]:[UIFont systemFontOfSize:16]
+
+#define TZImagePickerAlbumNumberFont (IOS_9LAST)?[UIFont systemFontOfSize:14]:[UIFont systemFontOfSize:14]
+
 
 #define HomeViewWomenColor       @"FF8161"
 #define HomeViewManColor         @"4ED6C4"

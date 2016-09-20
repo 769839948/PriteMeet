@@ -252,11 +252,16 @@ class MeetDetailViewController: UIViewController {
                 self.tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: UITableViewRowAnimation.automatic)
             })
             let doneAction = UIAlertAction.init(title: "拉黑", style: UIAlertActionStyle.default, handler: { (canCel) in
-                self.userInfoViewModel.makeBlackList(self.user_id, succes: { (dic) in
-                    MainThreadAlertShow("拉入黑名单成功", view: self.view)
-                    }, fail: { (dic) in
-                        MainThreadAlertShow("拉入黑名单失败", view: self.view)
-                })
+                if self.user_id != UserInfo.sharedInstance().uid {
+                    self.userInfoViewModel.makeBlackList(self.user_id, succes: { (dic) in
+                        MainThreadAlertShow("拉入黑名单成功", view: self.view)
+                        }, fail: { (dic) in
+                            MainThreadAlertShow("拉入黑名单失败", view: self.view)
+                    })
+                }else{
+                    MainThreadAlertShow("您不能拉黑自己哦", view: self.view)
+                }
+                
             })
             aletControl.addAction(cancleAction)
             aletControl.addAction(doneAction)

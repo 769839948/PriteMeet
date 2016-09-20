@@ -70,3 +70,5 @@
 #import "UIImage+Crop.h"
 #import "Haneke.h"
 #import "ZHPickView.h"
+#import "TZImagePickerController.h"
+

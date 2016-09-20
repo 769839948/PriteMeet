@@ -30,6 +30,7 @@
 #import "IQKeyboardManager.h"
 #import "TZImagePickerController.h"
 #import "UIImage+Crop.h"
+#import "PhotosAlbumViewController.h"
 
 typedef NS_ENUM(NSUInteger, SectonContentType) {
     SectionProfile,
@@ -55,7 +56,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     RowConstellation,
 };
 
-@interface MyProfileViewController () <UIPickerViewDataSource, UIPickerViewDelegate,UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate, TZImagePickerControllerDelegate,PhotosAlbumViewControllerDelegate> {
+@interface MyProfileViewController () <UIPickerViewDataSource, UIPickerViewDelegate,UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate, TZImagePickerControllerDelegate> {
     
     __weak IBOutlet UIView *_bottomPickerView;
     __weak IBOutlet UIDatePicker *_datePicker;
@@ -399,6 +400,8 @@ typedef NS_ENUM(NSUInteger, RowType) {
     }
 
     NSString *industry = [NSString stringWithFormat:@"%ld",(long)[UserInfo sharedInstance].industry];
+    NSLog(@"%ld",(long)[UserInfo sharedInstance].industry);
+
     if ([industry isEqualToString:@"(null)"] || [industry isEqualToString:@"0"]) {
         _dicValues[_moreInfoArray[RoWIndustry - _titleContentArray.count]] = @"未选择";
     }else{
@@ -462,7 +465,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     
     NSString *constellation = [[locationDic objectForKey:@"constellation"] objectForKey:_dicValues[_moreInfoArray[RowConstellation - _titleContentArray.count]]];
     
-     NSString *industry = [[locationDic objectForKey:@"industry"] objectForKey:_dicValues[_moreInfoArray[RoWIndustry - _titleContentArray.count]]];
+     NSString *industry = [[locationDic objectForKey:@"industry"] objectForKey:_dicValues[_moreInfoArray[0]]];
     
     [UserInfo sharedInstance].real_name = _dicValues[_titleContentArray[RowName]];
     [UserInfo sharedInstance].birthday = _dicValues[_titleContentArray[RowBirthday]];
@@ -474,7 +477,9 @@ typedef NS_ENUM(NSUInteger, RowType) {
     [UserInfo sharedInstance].affection = [affection integerValue];
     [UserInfo sharedInstance].hometown = hometown;
     [UserInfo sharedInstance].constellation = [constellation integerValue];
-    [UserInfo sharedInstance].industry = [industry integerValue];
+    if ([industry integerValue] != 0) {
+        [UserInfo sharedInstance].industry = [industry integerValue];
+    }
     [UserInfo sharedInstance].job_label = _dicValues[_titleContentArray[RowJobLabel]];
     NSInteger sex = 1;
     if ([_dicValues[_titleContentArray[RowSex]] isEqualToString:@"男"])
@@ -1229,10 +1234,21 @@ typedef NS_ENUM(NSUInteger, RowType) {
 
 - (void)selectPhotoImage
 {
-    PhotosAlbumViewController *photosAlbum = [[PhotosAlbumViewController alloc] init];
-    UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:photosAlbum];
+    PhotosAlbumViewController *photosAlbum = [[PhotosAlbumViewController alloc] initWithMaxImagesCount:1 delegate:self];
+    photosAlbum.navigationBar.barTintColor = [UIColor whiteColor];
+    photosAlbum.navigationBar.tintColor = [UIColor colorWithHexString: HomeDetailViewNameColor];
+    photosAlbum.allowPickingVideo = NO;
+    photosAlbum.allowTakePicture = NO;
+    photosAlbum.oKButtonTitleColorNormal = [UIColor colorWithHexString: HomeDetailViewNameColor];
+    photosAlbum.oKButtonTitleColorDisabled = [UIColor colorWithHexString:  lineLabelBackgroundColor];
+    photosAlbum.allowPickingOriginalPhoto = YES;
     photosAlbum.delegate = self;
-    [self presentViewController:controller animated:YES completion:^{
+    __weak typeof(self) weakSelf = self;
+    photosAlbum.block = ^(UIImage *image) {
+        
+        [weakSelf albumImageSelected:image];
+    };
+    [self presentViewController:photosAlbum animated:YES completion:^{
         
     }];
 }
@@ -1258,11 +1274,13 @@ typedef NS_ENUM(NSUInteger, RowType) {
     UIImage *saveImage = [image croppedImage:CGRectMake(0, originY, 100, 100)];
 //    [UIImage resizeImage:image withWidth:imageSize.width withHeight:imageSize.height originX:0 originY:0];
 
-    [UserInfo saveCacheImage:saveImage withName:@"coverPhoto"];
+    [UserInfo saveCacheImage:image withName:@"coverPhoto"];
     
     UIImage *postImage = [UIImage resizeImage:image withWidth:500 withHeight:500 originX:0 originY:0];
     [UserInfo saveCacheImage:postImage withName:@"postImage"];
-    
+    if (self.reloadMeViewBlock) {
+        self.reloadMeViewBlock(YES);
+    }
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         ///头像上传后再保存到本地 刷新
         [_viewModel uploadImage:image  isApplyCode:NO success:^(NSDictionary *object) {
@@ -1287,27 +1305,6 @@ typedef NS_ENUM(NSUInteger, RowType) {
     [self.navigationController dismissViewControllerAnimated: YES completion:^{
     }];
 }
-
-- (void)albumImageDismissedWithImage:(UIImage * _Nonnull)image
-{
-    
-}
-
-- (void)albumImageVideoCompletedWithFileURL:(NSURL * _Nonnull)fileURL
-{
-    
-}
-
-- (void)albumImageCameraRollUnauthorized
-{
-    
-}
-
-- (void)albumImageClosed
-{
-    
-}
-
 
 ///身高第一次显示时出现中间位置
 - (void)setPickView:(NSInteger)pickType inRowAtValue:(NSInteger)value inTableViewRow:(NSInteger)tableRow {
@@ -1511,7 +1508,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                         [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
                         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationAutomatic];
                     } fail:^(NSDictionary *object) {
-                        
+                        [UITools showMessageToView:self.view message:[object objectForKey:@"error"] autoHide:YES];
                     } loadingString:^(NSString *str) {
                         
                     }];
@@ -1523,7 +1520,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
                         [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
                     } fail:^(NSDictionary *object) {
-                        
+                        [UITools showMessageToView:self.view message:[object objectForKey:@"error"] autoHide:YES];
                     } loadingString:^(NSString *str) {
                         
                     }];

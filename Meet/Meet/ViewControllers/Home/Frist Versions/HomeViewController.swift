@@ -105,45 +105,6 @@ class HomeViewController: UIViewController {
         }
         
         self.page = self.page + 1
-//        var fillter = ""
-//        if (fillterName == .locationList) {
-//            fillter = "location"
-//        }else{
-//            fillter = "recommend"
-//        }
-//        viewModel.getHomeFilterList("\(self.page)", latitude: latitude, longitude: logtitude, filter: fillter, successBlock: { (dic) in
-//            
-//            if self.bottomView != nil {
-//                self.bottomView.isHidden = false
-//            }
-//            
-//            let tempArray = HomeModel.mj_objectArray(withKeyValuesArray: dic?["data"])
-//            if tempArray?.count == 0 {
-//                self.page = self.page - 1
-//                self.tableView.mj_footer.endRefreshing()
-//                return
-//            }
-//            if self.page == 1 {
-//                self.homeModelArray.removeAllObjects()
-//            }
-//            for obj in tempArray! {
-//                self.homeModelArray.add(obj)
-//            }
-//            self.tableView.reloadData()
-//            self.tableView.mj_footer.endRefreshing()
-//            
-//
-//            }, fail: { (dic) in
-//                self.page = self.page - 1
-//                self.setUpHomeData()
-//                self.tableView.mj_footer.endRefreshing()
-//                if self.bottomView != nil {
-//                    self.bottomView.isHidden = false
-//                }
-//
-//            }) { (msg) in
-//                
-//        }
         if self.filterStr == "" {
             if self.latitude == 0.0 {
                 self.filterStr = "&filter=recommend"

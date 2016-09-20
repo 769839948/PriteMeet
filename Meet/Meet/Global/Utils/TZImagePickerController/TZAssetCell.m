@@ -171,6 +171,7 @@
 @end
 
 @interface TZAlbumCell ()
+
 @property (weak, nonatomic) UIImageView *posterImageView;
 @property (weak, nonatomic) UILabel *titleLable;
 @property (weak, nonatomic) UIImageView *arrowImageView;
@@ -221,7 +222,7 @@
         UIImageView *posterImageView = [[UIImageView alloc] init];
         posterImageView.contentMode = UIViewContentModeScaleAspectFill;
         posterImageView.clipsToBounds = YES;
-        posterImageView.frame = CGRectMake(20, 10, 70, 70);
+        posterImageView.frame = CGRectMake(0, 0, (ScreenWidth - 60)/2, (ScreenWidth - 60)/2);
         [self.contentView addSubview:posterImageView];
         _posterImageView = posterImageView;
     }
@@ -231,10 +232,10 @@
 - (UILabel *)titleLable {
     if (_titleLable == nil) {
         UILabel *titleLable = [[UILabel alloc] init];
-        titleLable.font = [UIFont boldSystemFontOfSize:17];
-        titleLable.frame = CGRectMake(105, 20, self.tz_width - 80 - 50, 20);
-        titleLable.textColor = [UIColor blackColor];
+        titleLable.frame = CGRectMake(0, (ScreenWidth - 60)/2 + 8, (ScreenWidth - 60)/2, 22);
+        titleLable.textColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
         titleLable.textAlignment = NSTextAlignmentLeft;
+        titleLable.font = TZImagePickerAlbumTitleFont;
         [self.contentView addSubview:titleLable];
         _titleLable = titleLable;
     }
@@ -244,11 +245,12 @@
 - (UILabel *)numberPhoto {
     if (_numberPhoto == nil) {
         UILabel *numberPhoto = [[UILabel alloc] init];
-        numberPhoto.font = [UIFont boldSystemFontOfSize:17];
-        numberPhoto.frame = CGRectMake(100, 50, self.tz_width - 80 - 50, 13);
-        numberPhoto.textColor = [UIColor blackColor];
+        numberPhoto.frame = CGRectMake(0, (ScreenWidth - 60)/2 + 10 + 22, (ScreenWidth - 60)/2, 16);
+        numberPhoto.textColor = [UIColor colorWithHexString:HomeDetailViewPositionColor];
         numberPhoto.textAlignment = NSTextAlignmentLeft;
+        numberPhoto.font = TZImagePickerAlbumNumberFont;
         [self.contentView addSubview:numberPhoto];
+        
         _numberPhoto = numberPhoto;
     }
     return _numberPhoto;

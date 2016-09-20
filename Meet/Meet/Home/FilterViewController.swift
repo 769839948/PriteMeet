@@ -12,7 +12,7 @@ typealias FileStringClouse = (_ filterStr:String) -> Void
 
 class FilterViewController: UIViewController {
 
-    let genderArray:NSArray = ["不限","只看男神","只看女神"]
+    let genderArray:NSArray = ["不限","只看男生","只看女生"]
     let sortArray:NSArray = ["智能排序","离我最近"]
     
     var selectItemSort:SelectItemView!
@@ -131,7 +131,7 @@ class FilterViewController: UIViewController {
         textField.placeholder = "互联网"
         textField.delegate = self
         textField.font = FilterViewTitleInfoFont
-        textField.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
+        textField.textColor = UIColor.init(hexString: HomeDetailViewPositionColor)
         textField.endEditing(false)
         return textField
     }

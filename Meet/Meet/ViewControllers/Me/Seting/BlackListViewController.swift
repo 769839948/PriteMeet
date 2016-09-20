@@ -48,10 +48,10 @@ class BlackListViewController: UIViewController {
     func setUpBlackListData() {
         self.blackList.removeAllObjects()
         viewModel.getBlackList({ (dic) in
-            self.blackList = BlackListModel.mj_objectArray(withKeyValuesArray: dic)
+            self.blackList = BlackListModel.mj_objectArray(withKeyValuesArray: dic?["black_list"])
             self.collectionView.reloadData()
             }) { (dic) in
-            
+            MainThreadAlertShow(dic?["error"] as! String, view: self.view)
         }
     }
     

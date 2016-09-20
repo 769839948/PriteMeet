@@ -34,7 +34,7 @@ typedef enum : NSUInteger {
 
 @class TZAlbumModel;
 
-@interface TZAlbumCell : UITableViewCell
+@interface TZAlbumCell : UICollectionViewCell
 
 @property (nonatomic, strong) TZAlbumModel *model;
 @property (weak, nonatomic) UIButton *selectedCountButton;

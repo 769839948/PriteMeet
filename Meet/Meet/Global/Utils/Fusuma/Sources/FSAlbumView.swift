@@ -23,10 +23,14 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
     @IBOutlet weak var collectionViewConstraintHeight: NSLayoutConstraint!
     @IBOutlet weak var imageCropViewConstraintTop: NSLayoutConstraint!
     
+    @IBOutlet weak var photoSlectImage: UIImageView!
+    
     weak var delegate: FSAlbumViewDelegate? = nil
     
     var images: PHFetchResult<AnyObject>!
     var imageManager: PHCachingImageManager?
+    var photoSelectTap:UITapGestureRecognizer!
+    
     var previousPreheatRect: CGRect = CGRect.zero
     let cellSize = CGSize(width: 100, height: 100)
     var phAsset: PHAsset!
@@ -80,6 +84,9 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
         // Never load photos Unless the user allows to access to photo album
         checkPhotoAuth()
         
+        photoSelectTap = UITapGestureRecognizer(target: self, action: #selector(FSAlbumView.photoTap(_:)))
+        photoSlectImage.isUserInteractionEnabled = true
+        photoSlectImage.addGestureRecognizer(photoSelectTap)
         // Sorting condition
 //        let options = PHFetchOptions()
 //        options.sortDescriptors = [
@@ -109,6 +116,13 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         
         return true
+    }
+    
+    
+    func photoTap(_ sender:UITapGestureRecognizer) {
+        let view    = sender.view
+        
+        print("")
     }
     
     func panned(_ sender: UITapGestureRecognizer) {
@@ -150,12 +164,10 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
         } else if sender.state == UIGestureRecognizerState.changed {
             
             let currentPos = sender.location(in: self)
-            
             if dragDirection == Direction.up && currentPos.y < cropBottomY - dragDiff {
-                
-                imageCropViewConstraintTop.constant = max(imageCropViewMinimalVisibleHeight - self.imageCropViewContainer.frame.height, currentPos.y + dragDiff - imageCropViewContainer.frame.height)
-                
-                collectionViewConstraintHeight.constant = min(self.frame.height - imageCropViewMinimalVisibleHeight, self.frame.height - imageCropViewConstraintTop.constant - imageCropViewContainer.frame.height)
+                print(cropBottomY - dragDiff)
+//                imageCropViewConstraintTop.constant = max(imageCropViewMinimalVisibleHeight - self.imageCropViewContainer.frame.height, currentPos.y + dragDiff - imageCropViewContainer.frame.height)
+//                collectionViewConstraintHeight.constant = min(self.frame.height - imageCropViewMinimalVisibleHeight, self.frame.height - imageCropViewConstraintTop.constant - imageCropViewContainer.frame.height)
                 
             } else if dragDirection == Direction.down && currentPos.y > cropBottomY {
                 

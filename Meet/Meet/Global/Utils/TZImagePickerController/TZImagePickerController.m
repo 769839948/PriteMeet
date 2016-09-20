@@ -80,8 +80,8 @@
 }
 
 - (instancetype)initWithMaxImagesCount:(NSInteger)maxImagesCount delegate:(id<TZImagePickerControllerDelegate>)delegate {
-    TZAlbumPickerController *albumPickerVc = [[TZAlbumPickerController alloc] init];
-    self = [super initWithRootViewController:albumPickerVc];
+    _albumPickerVc = [[TZAlbumPickerController alloc] init];
+    self = [super initWithRootViewController:_albumPickerVc];
     if (self) {
         self.maxImagesCount = maxImagesCount > 0 ? maxImagesCount : 9; // Default is 9 / 默认最大可选9张图片
         self.pickerDelegate = delegate;
@@ -100,27 +100,32 @@
         self.autoDismiss = YES;
         self.barItemTextFont = [UIFont systemFontOfSize:15];
         self.barItemTextColor = [UIColor whiteColor];
-        [self configDefaultImageName];
-        
-        if (![[TZImageManager manager] authorizationStatusAuthorized]) {
-            _tipLable = [[UILabel alloc] init];
-            _tipLable.frame = CGRectMake(8, 0, self.view.tz_width - 16, 300);
-            _tipLable.textAlignment = NSTextAlignmentCenter;
-            _tipLable.numberOfLines = 0;
-            _tipLable.font = [UIFont systemFontOfSize:16];
-            _tipLable.textColor = [UIColor blackColor];
-            NSString *appName = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleDisplayName"];
-            if (!appName) appName = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleName"];
-            NSString *tipText = [NSString stringWithFormat:@"在设置>通用>隐私>相机中允许%@访问你的相册",appName];
-            _tipLable.text = tipText;
-            [self.view addSubview:_tipLable];
-            
-            _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(observeAuthrizationStatusChange) userInfo:nil repeats:YES];
-        } else {
-//            [self pushToPhotoPickerVc];
-        }
+        [self initImageAlbum];
     }
     return self;
+}
+
+- (void)initImageAlbum
+{
+    [self configDefaultImageName];
+    
+    if (![[TZImageManager manager] authorizationStatusAuthorized]) {
+        _tipLable = [[UILabel alloc] init];
+        _tipLable.frame = CGRectMake(8, 0, self.view.tz_width - 16, 300);
+        _tipLable.textAlignment = NSTextAlignmentCenter;
+        _tipLable.numberOfLines = 0;
+        _tipLable.font = [UIFont systemFontOfSize:16];
+        _tipLable.textColor = [UIColor blackColor];
+        NSString *appName = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleDisplayName"];
+        if (!appName) appName = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleName"];
+        NSString *tipText = [NSString stringWithFormat:@"在设置>通用>隐私>相机中允许%@访问你的相册",appName];
+        _tipLable.text = tipText;
+        [self.view addSubview:_tipLable];
+        
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(observeAuthrizationStatusChange) userInfo:nil repeats:YES];
+    } else {
+        //            [self pushToPhotoPickerVc];
+    }
 }
 
 /// This init method just for previewing photos / 用这个初始化方法以预览图片
@@ -317,10 +322,11 @@
 @end
 
 
-@interface TZAlbumPickerController ()<UITableViewDataSource,UITableViewDelegate> {
-    UITableView *_tableView;
+@interface TZAlbumPickerController ()<UICollectionViewDataSource,UICollectionViewDelegate> {
+    UICollectionView *_collectionView;
+    
 }
-@property (nonatomic, strong) NSMutableArray *albumArr;
+
 @end
 
 @implementation TZAlbumPickerController
@@ -328,7 +334,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = [NSBundle tz_localizedStringForKey:@"Photos"];
+    self.navigationItem.title = @"照片";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"me_dismissBlack"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
     //这里修改过
 //    [[UIBarButtonItem alloc] initWithTitle:[NSBundle tz_localizedStringForKey:@"Cancle"] style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
@@ -344,7 +350,7 @@
         for (TZAlbumModel *albumModel in _albumArr) {
             albumModel.selectedModels = imagePickerVc.selectedModels;
         }
-        [_tableView reloadData];
+        [_collectionView reloadData];
     } else {
         [self configTableView];
     }
@@ -357,19 +363,25 @@
         for (TZAlbumModel *albumModel in _albumArr) {
             albumModel.selectedModels = imagePickerVc.selectedModels;
         }
-        if (!_tableView) {
-            CGFloat top = 44;
+        if (!_collectionView) {
+            CGFloat top = 0;
             if (iOS7Later) top += 20;
-            _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, top, self.view.tz_width, self.view.tz_height - top) style:UITableViewStylePlain];
-            _tableView.rowHeight = 70;
-            _tableView.tableFooterView = [[UIView alloc] init];
-            _tableView.dataSource = self;
-            _tableView.delegate = self;
-            _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-            [_tableView registerClass:[TZAlbumCell class] forCellReuseIdentifier:@"TZAlbumCell"];
-            [self.view addSubview:_tableView];
+            UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+            CGFloat margin = 20;
+            CGFloat itemWH = (ScreenWidth - 3*margin)/2;
+            flowLayout.itemSize = CGSizeMake(itemWH, itemWH + 48);
+            flowLayout.minimumInteritemSpacing = margin;
+            flowLayout.minimumLineSpacing = margin - 4;
+            top = margin + 44;
+            flowLayout.sectionInset = UIEdgeInsetsMake(margin, margin, margin, margin);
+            _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, top, self.view.tz_width, self.view.tz_height - top) collectionViewLayout:flowLayout];
+            _collectionView.delegate = self;
+            _collectionView.backgroundColor = [UIColor whiteColor];
+            _collectionView.dataSource = self;
+            [_collectionView registerClass:[TZAlbumCell class] forCellWithReuseIdentifier:@"TZAlbumCell"];
+            [self.view addSubview:_collectionView];
         } else {
-            [_tableView reloadData];
+            [_collectionView reloadData];
         }
     }];
 }
@@ -388,28 +400,28 @@
         imagePickerVc.imagePickerControllerDidCancelHandle();
     }
 }
+#pragma mark - UICollectionViewDataSource && Delegate
 
-#pragma mark - UITableViewDataSource && Delegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 90;
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     return _albumArr.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TZAlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TZAlbumCell"];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    TZAlbumCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TZAlbumCell" forIndexPath:indexPath];
     TZImagePickerController *imagePickerVc = (TZImagePickerController *)self.navigationController;
     cell.selectedCountButton.backgroundColor = imagePickerVc.oKButtonTitleColorNormal;
     cell.model = _albumArr[indexPath.row];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     TZPhotoPickerController *photoPickerVc = [[TZPhotoPickerController alloc] init];
     TZAlbumModel *model = _albumArr[indexPath.row];
     photoPickerVc.model = model;
@@ -418,7 +430,8 @@
         [weakSelf.albumArr replaceObjectAtIndex:indexPath.row withObject:model];
     }];
     [self.navigationController pushViewController:photoPickerVc animated:YES];
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+
+//    [collectionView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F1012E81D90EA0700458750 /* PhotosAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1012E71D90EA0700458750 /* PhotosAlbumViewController.m */; };
 		1F1BA9471D682AFE00BDD665 /* OrderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BA9451D682AFE00BDD665 /* OrderCollectionViewCell.swift */; };
 		1F1BA9481D682AFE00BDD665 /* OrderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F1BA9461D682AFE00BDD665 /* OrderCollectionViewCell.xib */; };
 		1F1FB4851D0FD78E00794881 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1FB4841D0FD78E00794881 /* UIImage+Alpha.m */; };
@@ -242,7 +243,6 @@
 		1FD13B321D869DEB0035760D /* FusumaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD13B221D869DEB0035760D /* FusumaViewController.swift */; };
 		1FD13B341D869DEB0035760D /* FusumaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FD13B241D869DEB0035760D /* FusumaViewController.xib */; };
 		1FD13B371D86D88A0035760D /* UIImage+Crop.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD13B361D86D88A0035760D /* UIImage+Crop.m */; };
-		1FD13B391D879CE30035760D /* PhotosAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD13B381D879CE30035760D /* PhotosAlbumViewController.swift */; };
 		1FD13B3B1D87D0340035760D /* UIImage+Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD13B3A1D87D0340035760D /* UIImage+Crop.swift */; };
 		1FD97BBA1D55DBF300556568 /* OrderApplyMeetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BB91D55DBF300556568 /* OrderApplyMeetTableViewCell.swift */; };
 		1FD97BBC1D55E1A900556568 /* OrderApplyIntroductionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD97BBB1D55E1A900556568 /* OrderApplyIntroductionCell.swift */; };
@@ -358,6 +358,8 @@
 /* Begin PBXFileReference section */
 		01422377568E95CDDD430F0B /* Pods_Meet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Meet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		02C96CF04F633E7BC70CC3F6 /* Pods-Meet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Meet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Meet/Pods-Meet.debug.xcconfig"; sourceTree = "<group>"; };
+		1F1012E61D90EA0700458750 /* PhotosAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosAlbumViewController.h; sourceTree = "<group>"; };
+		1F1012E71D90EA0700458750 /* PhotosAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosAlbumViewController.m; sourceTree = "<group>"; };
 		1F1BA9451D682AFE00BDD665 /* OrderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderCollectionViewCell.swift; path = ../Views/OrderCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F1BA9461D682AFE00BDD665 /* OrderCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OrderCollectionViewCell.xib; path = ../Views/OrderCollectionViewCell.xib; sourceTree = "<group>"; };
 		1F1FB4831D0FD78E00794881 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
@@ -691,7 +693,6 @@
 		1FD13B241D869DEB0035760D /* FusumaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FusumaViewController.xib; sourceTree = "<group>"; };
 		1FD13B351D86D88A0035760D /* UIImage+Crop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Crop.h"; sourceTree = "<group>"; };
 		1FD13B361D86D88A0035760D /* UIImage+Crop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Crop.m"; sourceTree = "<group>"; };
-		1FD13B381D879CE30035760D /* PhotosAlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosAlbumViewController.swift; sourceTree = "<group>"; };
 		1FD13B3A1D87D0340035760D /* UIImage+Crop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Crop.swift"; sourceTree = "<group>"; };
 		1FD97BB91D55DBF300556568 /* OrderApplyMeetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderApplyMeetTableViewCell.swift; path = ../Views/OrderApplyMeetTableViewCell.swift; sourceTree = "<group>"; };
 		1FD97BBB1D55E1A900556568 /* OrderApplyIntroductionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderApplyIntroductionCell.swift; path = ../Views/OrderApplyIntroductionCell.swift; sourceTree = "<group>"; };
@@ -1539,7 +1540,8 @@
 				DABF8AF91CEAE71100CA2A1D /* SendEmailViewController.h */,
 				DABF8AFA1CEAE71100CA2A1D /* SendEmailViewController.m */,
 				1FAA08081D41CEE80017F3E3 /* BlackListViewController.swift */,
-				1FD13B381D879CE30035760D /* PhotosAlbumViewController.swift */,
+				1F1012E61D90EA0700458750 /* PhotosAlbumViewController.h */,
+				1F1012E71D90EA0700458750 /* PhotosAlbumViewController.m */,
 				1FFEE34C1D7827B600EEC61F /* HightLightViewController.swift */,
 			);
 			name = ViewController;
@@ -2287,6 +2289,7 @@
 				1F241B491D8D3730001987F7 /* NVActivityIndicatorShape.swift in Sources */,
 				1FFEE5C01D7AAEB300EEC61F /* TZPhotoPreviewCell.m in Sources */,
 				1FA4E5911CFDF91F002345C1 /* InterestCollectView.m in Sources */,
+				1F1012E81D90EA0700458750 /* PhotosAlbumViewController.m in Sources */,
 				1F241B2A1D8D3730001987F7 /* NVActivityIndicatorAnimationBallBeat.swift in Sources */,
 				1F241B4D1D8D3730001987F7 /* PhotoBrowser.swift in Sources */,
 				1FCDE2B61D65D2140029EF9E /* PlaceholderText.m in Sources */,
@@ -2361,7 +2364,6 @@
 				1FAA08201D4319220017F3E3 /* BlackListCollectCell.swift in Sources */,
 				1F810ECA1D51F5D0008A5EF1 /* UIViewController+TalKingData.m in Sources */,
 				1FC4C08B1D0D590E00E4BB33 /* MeViewController.swift in Sources */,
-				1FD13B391D879CE30035760D /* PhotosAlbumViewController.swift in Sources */,
 				DAF5C8821CE5B95000DA7901 /* CoreTextData.m in Sources */,
 				1F6850361CFFD77A007F3C07 /* BaseTableViewCell.m in Sources */,
 				1FBBC3231D3CA9D7005D4175 /* ApplyMeetViewController.swift in Sources */,

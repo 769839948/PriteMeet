@@ -127,6 +127,11 @@ func TableViewRegisterNib(_ cell:String, idef:String, tableView:UITableView){
 }
 
 
+func PlaceholderImage(_ size:CGSize) -> UIImage{
+    return UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: size)
+}
+
+
 let ScreenWidth = UIScreen.main.bounds.size.width
 let ScreenHeight = UIScreen.main.bounds.size.height
 

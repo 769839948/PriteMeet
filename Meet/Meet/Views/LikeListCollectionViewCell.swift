@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class LikeListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var photoImageView: UIImageView!
@@ -42,8 +43,8 @@ class LikeListCollectionViewCell: UICollectionViewCell {
         reportBtn.setTitleColor(UIColor.white, for: UIControlState())
         let likeModel = LikeListModel.mj_object(withKeyValues: model)
         let imageArray = likeModel?.avatar.components(separatedBy: "?")
-        photoImageView.sd_setImage(with: URL.init(string: (imageArray?[0])! + AvatarImageSize)) { (image, error, cache, url) in
-        }
+        
+        photoImageView.sd_setImage(with: URL.init(string: (imageArray?[0])! + AvatarImageSize), placeholderImage: PlaceholderImage(CGSize.init(width: 56, height: 56)), options: .retryFailed)
         reportBtn.tag = model.uid
         userName.text = likeModel?.real_name
         jobLabel.text = likeModel?.job_label
