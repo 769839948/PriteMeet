@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias FileStringClouse = (_ filterStr:String) -> Void
+typealias FileStringClouse = (_ filterStr:String, _ gender:String, _ sort:String) -> Void
 
 class FilterViewController: UIViewController {
 
@@ -51,7 +51,7 @@ class FilterViewController: UIViewController {
         }
         str = str.appending("&gender=\(genderStr)")
         if fileStringClouse != nil {
-            self.fileStringClouse(str)
+            self.fileStringClouse(str,genderStr,filterStr)
         }
         self.dismiss(animated: true) { 
             
@@ -70,7 +70,8 @@ class FilterViewController: UIViewController {
         
         self.view.addSubview(self.setUpLineLabel(frame: CGRect.init(x: 40, y: sort.frame.maxY + 27, width: ScreenWidth - 80, height: 0.5)))
         
-        selectItemSort = self.setUpSelectView(frame: CGRect.init(x: (ScreenWidth - 40 - 164), y: sort.frame.minY - 4, width: 164, height: 31), tag: 2)
+        let curentSelect = filterStr == "recommend" ? 1:2
+        selectItemSort = self.setUpSelectView(frame: CGRect.init(x: (ScreenWidth - 40 - 164), y: sort.frame.minY - 4, width: 164, height: 31), tag: 2,currentSelect:curentSelect)
         self.view.addSubview(selectItemSort)
         
         let industry = self.setUpInfoLabel(frame: CGRect.init(x: 40, y: sort.frame.maxY + 50, width: 64, height: 22), title: "选择行业")
@@ -90,7 +91,7 @@ class FilterViewController: UIViewController {
         let gender = self.setUpInfoLabel(frame: CGRect.init(x: 40, y: industry.frame.maxY + 50, width: 64, height: 22), title: "性别")
         self.view.addSubview(gender)
         
-        selectItemGender = self.setUpSelectView(frame: CGRect.init(x: (ScreenWidth - 40 - 222), y: gender.frame.minY - 4, width: 222, height: 31), tag: 1)
+        selectItemGender = self.setUpSelectView(frame: CGRect.init(x: (ScreenWidth - 40 - 222), y: gender.frame.minY - 4, width: 222, height: 31), tag: 1, currentSelect:Int(self.genderStr)! + 1)
         self.view.addSubview(selectItemGender)
         
 
@@ -117,9 +118,10 @@ class FilterViewController: UIViewController {
     }
 
     
-    func setUpSelectView(frame:CGRect, tag:NSInteger) -> SelectItemView {
+    func setUpSelectView(frame:CGRect, tag:NSInteger,currentSelect:NSInteger) -> SelectItemView {
         let selectItem = SelectItemView.init(frame:frame)
         selectItem.tag = tag
+        selectItem.curentSelect = currentSelect
         selectItem.delegate = self
         selectItem.dataSource = self
         selectItem.setUpView()

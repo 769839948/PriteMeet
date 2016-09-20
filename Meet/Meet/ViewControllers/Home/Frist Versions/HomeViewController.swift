@@ -46,6 +46,10 @@ class HomeViewController: UIViewController {
     
     var filterStr:String = ""
     
+    var filterGender:String = "0"
+    
+    var filterSort:String = "recommend"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpTableView()
@@ -191,11 +195,6 @@ class HomeViewController: UIViewController {
     func rightItemClick(_ sender:UIBarButtonItem) {
         self.present(UINavigationController(rootViewController: MeViewController()) , animated: true) {
         }
-        
-        
-        
-//        self.presentViewController(UINavigationController(rootViewController: LoginViewController()) , animated: true) {
-//        }
     }
     
     func meetButton(_ frame:CGRect) -> UIButton {
@@ -304,40 +303,24 @@ class HomeViewController: UIViewController {
     
     func leftItemClick(_ sender:UIBarButtonItem) {
         let filterView = FilterViewController()
+        filterView.genderStr = self.filterGender
+        filterView.filterStr = self.filterSort
         
-        filterView.fileStringClouse = { str in
+        filterView.fileStringClouse = { str,gender,sort in
             if self.logtitude != 0.0 {
                 self.filterStr = str.appending("&location=\(self.logtitude),\(self.latitude)")
             }else{
                 self.filterStr = str
             }
+            self.filterGender = gender
+            self.filterSort = sort
+            self.page = 0;
             self.setUpHomeData()
         }
         let controller = UINavigationController(rootViewController: filterView)
         self.present(controller, animated: true) { 
             
         }
-//        let leftAlerController = UIAlertController(title: "筛选", message: nil, preferredStyle: .actionSheet)
-//        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (cancelAction) in
-//        }
-//        let commdListAction = UIAlertAction(title: "智能推荐", style: .default) { (commdListAction) in
-//            self.page = 0
-//            self.fillterName = .reconmondList
-//            self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-//            self.setUpHomeData()
-//        }
-//        let locationAction = UIAlertAction(title: "离我最近", style: .default) { (locationAction) in
-//            self.page = 0
-//            self.fillterName = .locationList
-//            self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-//            self.setUpHomeData()
-//        }
-//        leftAlerController.addAction(cancelAction)
-//        leftAlerController.addAction(commdListAction)
-//        leftAlerController.addAction(locationAction)
-//        self.present(leftAlerController, animated: true) { 
-//            
-//        }
     }
     
     func setUpRefreshView() {
