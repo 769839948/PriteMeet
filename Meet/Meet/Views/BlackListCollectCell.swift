@@ -43,7 +43,10 @@ class BlackListCollectCell: UICollectionViewCell {
         let orderModel = OrderModel.mj_object(withKeyValues: model)
         //"http://7xsatk.com1.z0.glb.clouddn.com/35acc8bd7b176b21ec2c1019468617f8.jpg?imageView2/1/w/1125/h/816"
         let imageArray = orderModel?.order_user_info!.avatar.components(separatedBy: "?")
-        photoImageView.sd_setImage(with: URL.init(string: (imageArray?[0])! + UIImage.image(withUrl: imageArray?[0], newImage: CGSize.init(width: 56, height: 56))), placeholderImage: PlaceholderImage(CGSize.init(width: 56, height: 56)), options: .retryFailed)
+        UIImage.image(withUrl: imageArray?[0], newImage: CGSize.init(width: 56, height: 56),success:{ imageUrl in
+            self.photoImageView.sd_setImage(with: URL.init(string: (imageArray?[0])! + imageUrl!), placeholderImage: PlaceholderImage(CGSize.init(width: 56, height: 56)), options: .retryFailed)
+        })
+        
         userName.text = orderModel?.order_user_info!.real_name
         jobLabel.text = orderModel?.order_user_info!.job_label
         reportBtn.setTitleColor(UIColor.white, for: UIControlState())

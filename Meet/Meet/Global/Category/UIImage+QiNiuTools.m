@@ -21,6 +21,39 @@ typedef void(^Success)(NSDictionary *successDic);
     return imageStr;
 }
 
++ (void)imageWithUrl:(NSString *)url
+            newImage:(CGSize)size
+             success:(void(^)(NSString *imageUrl))successBlock
+{
+    
+    NSDictionary *headers = @{ @"cache-control": @"no-cache",
+                               @"postman-token": @"3e80cb3a-9960-a3cf-270b-a7dcfac38057" };
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?imageInfo",url]]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:10.0];
+    [request setHTTPMethod:@"GET"];
+    [request setAllHTTPHeaderFields:headers];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                    if (error) {
+                                                        NSLog(@"%@", error);
+                                                    } else {
+                                                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                                                        if (httpResponse.statusCode == 200) {
+                                                            NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&httpResponse error:&error];
+                                                            NSDictionary *imageInfo = [UIImage toArrayOrNSDictionary:responseData];
+                                                            NSString *imageStr = [UIImage imageSize:imageInfo newImageSize:size];
+                                                            successBlock(imageStr);
+                                                        }
+                                                    }
+                                                }];
+    [dataTask resume];
+}
+
+
 + (NSDictionary *)requestWithImageUrl:(NSString *)imageUrl
 {
     NSDictionary *headers = @{ @"cache-control": @"no-cache",

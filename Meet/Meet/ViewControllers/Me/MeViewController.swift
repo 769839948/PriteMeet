@@ -624,23 +624,22 @@ extension MeViewController : UITableViewDataSource {
                     let cell = tableView.dequeueReusableCell(withIdentifier: mePhotoTableViewCell, for: indexPath) as! MePhotoTableViewCell
                     cell.avatarImageView.backgroundColor = UIColor.init(hexString: "e7e7e7")
                     
-                    if (UserInfo.image(forName: "coverPhoto") != nil) {
+                    if UserInfo.sharedInstance().avatar != nil {
+                        let imageArray = UserInfo.sharedInstance().avatar.components(separatedBy: "?")
+                        
+                        UIImage.image(withUrl: imageArray[0], newImage: CGSize.init(width: ScreenWidth - 20, height: (ScreenWidth - 20)*355/236),success:{ imageUrl in
+                            cell.avatarImageView.sd_setImage(with: URL.init(string: imageArray[0] + imageUrl!), placeholderImage: UserInfo.image(forName: "coverPhoto"), options: .retryFailed, completed: { (image
+                                , error, type, url) in
+                                UserInfo.saveCacheImage(image, withName: "coverPhoto")
+                            })
+                        })
+                        
+                    }else{
                         let coverImage = UserInfo.image(forName: "coverPhoto")
                         let sizeImage = coverImage?.resizeImage(coverImage!, newSize: CGSize(width: 1065, height: 1065))
                         let image = UIImage.getImageFrom(sizeImage, subImageSize: CGSize(width: 1065, height: 708), subImageRect: CGRect(x: 0, y: 0, width: 1065, height: 708))
                         
                         cell.avatarImageView.image = image
-                    }else{
-                        if UserInfo.sharedInstance().avatar != nil {
-                            let imageArray = UserInfo.sharedInstance().avatar.components(separatedBy: "?")
-                            cell.avatarImageView.sd_setImage(with: URL.init(string: imageArray[0] + UIImage.image(withUrl: imageArray[0], newImage: CGSize.init(width: ScreenWidth - 20, height: (ScreenWidth - 20)*355/236))), placeholderImage: nil, options: .retryFailed, completed: { (image
-                                , error, type, url) in
-                                UserInfo.saveCacheImage(image, withName: "coverPhoto")
-                            })
-                        }else{
-                            //没有本地和没有网络上加载图片
-                        }
-                        
                     }
                     cell.avatarImageView.autoresizingMask = UIViewAutoresizing.flexibleTopMargin;
                     if UserExtenModel.shareInstance().completeness != nil {

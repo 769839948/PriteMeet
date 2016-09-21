@@ -31,6 +31,7 @@
 #import "TZImagePickerController.h"
 #import "UIImage+Crop.h"
 #import "PhotosAlbumViewController.h"
+#import "UIImage+QiNiuTools.h"
 
 typedef NS_ENUM(NSUInteger, SectonContentType) {
     SectionProfile,
@@ -868,7 +869,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
             }
             if ([UserInfo sharedInstance].avatar != nil && ![[UserInfo sharedInstance].avatar isEqualToString:@""]) {
                 NSArray *photoArray = [[UserInfo sharedInstance].avatar componentsSeparatedByString:@"?"];
-                NSString *photoUrl = [photoArray[0] stringByAppendingString:MyProfilePhotoSize];
+                NSString *photoUrl = [photoArray[0] stringByAppendingString:[UIImage imageWithUrl:photoArray[0] newImage:CGSizeMake(89, 89)]];
                 [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:photoUrl] forState:UIControlStateNormal completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     _dicValues[_titleContentArray[0]] = image;
                     [UserInfo saveCacheImage:image withName:@"headImage.jpg"];
@@ -891,7 +892,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
             }else{
                 if ([UserInfo sharedInstance].avatar != nil){
                     NSArray *photoArray = [[UserInfo sharedInstance].avatar componentsSeparatedByString:@"?"];
-                    NSString *photoUrl = [photoArray[0] stringByAppendingString:MyProfilePhotoSize];
+                    NSString *photoUrl = [photoArray[0] stringByAppendingString:[UIImage imageWithUrl:photoArray[0] newImage:CGSizeMake(89, 89)]];
                     [cell.profilePhoto sd_setImageWithURL:[NSURL URLWithString:photoUrl] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:CGSizeMake(89, 89)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                         [UserInfo saveCacheImage:image withName:@"postImage"];
                     }];

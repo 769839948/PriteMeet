@@ -12,4 +12,6 @@
 
 + (NSString *)imageWithUrl:(NSString *)url newImage:(CGSize)size;
 
++ (void)imageWithUrl:(NSString *)url newImage:(CGSize)size success:(void(^)(NSString *imageUrl))successBlock;
+
 @end

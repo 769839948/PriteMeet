@@ -93,7 +93,7 @@ class FilterViewController: UIViewController {
         let industry = self.setUpInfoLabel(frame: CGRect.init(x: 40, y: sort.frame.maxY + 50, width: 64, height: 22), title: "选择行业")
         self.view.addSubview(industry)
         
-        insturyTextField = self.setUpTextField(frame: CGRect.init(x: industry.frame.maxX + 18, y: industry.frame.minY + 2, width: ScreenWidth - industry.frame.maxX - 40, height: 22))
+        insturyTextField = self.setUpTextField(frame: CGRect.init(x: industry.frame.maxX + 18, y: industry.frame.minY, width: ScreenWidth - industry.frame.maxX - 40, height: 22))
         if self.instureStr != "" && self.instureStr != "0"{
             insturyTextField.text = ((((ProfileKeyAndValue.shareInstance().appDic as NSDictionary).object(forKey: "industry") as! NSDictionary).object(forKey: self.instureStr))! as! String)
         }
