@@ -624,10 +624,11 @@ extension MeViewController : UITableViewDataSource {
                     let cell = tableView.dequeueReusableCell(withIdentifier: mePhotoTableViewCell, for: indexPath) as! MePhotoTableViewCell
                     cell.avatarImageView.backgroundColor = UIColor.init(hexString: "e7e7e7")
                     
-                    if UserInfo.sharedInstance().avatar != nil {
+                   
+                    if UserInfo.sharedInstance().avatar != nil && UserInfo.image(forName: "coverPhoto") != nil {
                         let imageArray = UserInfo.sharedInstance().avatar.components(separatedBy: "?")
                         
-                        UIImage.image(withUrl: imageArray[0], newImage: CGSize.init(width: ScreenWidth - 20, height: (ScreenWidth - 20)*355/236),success:{ imageUrl in
+                        UIImage.image(withUrl: imageArray[0], newImage: CGSize.init(width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355),success:{ imageUrl in
                             cell.avatarImageView.sd_setImage(with: URL.init(string: imageArray[0] + imageUrl!), placeholderImage: UserInfo.image(forName: "coverPhoto"), options: .retryFailed, completed: { (image
                                 , error, type, url) in
                                 UserInfo.saveCacheImage(image, withName: "coverPhoto")
@@ -635,12 +636,14 @@ extension MeViewController : UITableViewDataSource {
                         })
                         
                     }else{
+                        //没有本地和没有网络上加载图片
                         let coverImage = UserInfo.image(forName: "coverPhoto")
                         let sizeImage = coverImage?.resizeImage(coverImage!, newSize: CGSize(width: 1065, height: 1065))
                         let image = UIImage.getImageFrom(sizeImage, subImageSize: CGSize(width: 1065, height: 708), subImageRect: CGRect(x: 0, y: 0, width: 1065, height: 708))
                         
                         cell.avatarImageView.image = image
                     }
+                    
                     cell.avatarImageView.autoresizingMask = UIViewAutoresizing.flexibleTopMargin;
                     if UserExtenModel.shareInstance().completeness != nil {
                         cell.cofigLoginCell(UserInfo.sharedInstance().real_name, infoCom: UserInfo.sharedInstance().job_label,compass: UserExtenModel.shareInstance().completeness)
