@@ -44,7 +44,7 @@ class LikeListCollectionViewCell: UICollectionViewCell {
         let likeModel = LikeListModel.mj_object(withKeyValues: model)
         let imageArray = likeModel?.avatar.components(separatedBy: "?")
         
-        photoImageView.sd_setImage(with: URL.init(string: (imageArray?[0])! + AvatarImageSize), placeholderImage: PlaceholderImage(CGSize.init(width: 56, height: 56)), options: .retryFailed)
+        photoImageView.sd_setImage(with: URL.init(string: (imageArray?[0])! + UIImage.image(withUrl: imageArray?[0], newImage: CGSize.init(width: 56, height: 56))), placeholderImage: PlaceholderImage(CGSize.init(width: 56, height: 56)), options: .retryFailed)
         reportBtn.tag = model.uid
         userName.text = likeModel?.real_name
         jobLabel.text = likeModel?.job_label

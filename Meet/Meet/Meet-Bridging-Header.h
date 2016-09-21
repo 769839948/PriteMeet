@@ -71,4 +71,5 @@
 #import "Haneke.h"
 #import "ZHPickView.h"
 #import "TZImagePickerController.h"
+#import "UIImage+QiNiuTools.h"
 

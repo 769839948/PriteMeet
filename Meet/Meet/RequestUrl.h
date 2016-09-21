@@ -55,6 +55,8 @@
 
 #define  RequestGetFilterUserList    @"/api/user/list_filter/"
 
+#define  RequestGetFilterIndustryList @"/api/user/index_industry_list/"
+
 #define  RequestGetInviteItems       @"/api/user_engagement_theme/"
 
 #define  RequestGetService           @"/api/customer_service/"

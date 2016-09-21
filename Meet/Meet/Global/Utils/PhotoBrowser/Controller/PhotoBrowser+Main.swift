@@ -68,7 +68,7 @@ extension PhotoBrowser{
 
         let photoImage = UIImageView()
         let imageArray = avatar.components(separatedBy: "?")
-        photoImage.sd_setImage(with: URL.init(string: imageArray[0] + AvatarImageSize), placeholderImage: UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSize(width: 24, height: 24)), options: .retryFailed)
+        photoImage.sd_setImage(with: URL.init(string: imageArray[0] + UIImage.image(withUrl: imageArray[0], newImage: CGSize.init(width: 24, height: 24))), placeholderImage: UIImage.init(color: UIColor.init(hexString: "e7e7e7"), size: CGSize(width: 24, height: 24)), options: .retryFailed)
         photoImage.layer.cornerRadius = 12.0
         photoImage.layer.masksToBounds = true
         navigaitonBar.addSubview(photoImage)

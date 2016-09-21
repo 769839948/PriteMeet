@@ -368,7 +368,7 @@ class MeetDetailViewController: UIViewController {
                 for model in photosModel! {
                     if (model as AnyObject).photo != "" {
                         let imageArray = (model as AnyObject).photo!.components(separatedBy: "?")
-                        tempArray.add(imageArray[0] + HomeDetailMoreInfoImageSize)
+                        tempArray.add(imageArray[0] + UIImage.image(withUrl: imageArray[0], newImage: CGSize.init(width: 59, height: 59)))
                     }
                 }
             }
@@ -494,13 +494,13 @@ class MeetDetailViewController: UIViewController {
         if self.otherUserModel.cover_photo != nil {
             if self.otherUserModel.cover_photo!.photo != "" {
                 let imageStrArray = self.otherUserModel.cover_photo!.photo.components(separatedBy: "?")
-                imageArray.add(imageStrArray[0] + HomeDetailCovertImageSize)
+                imageArray.add(imageStrArray[0] + UIImage.image(withUrl: imageStrArray[0], newImage: CGSize.init(width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355)))
             }
         }
         let models = Head_Photo_List.mj_objectArray(withKeyValuesArray: self.otherUserModel.head_photo_list!)
         for model in models! {
             let photoModel = model as! Head_Photo_List
-            let imageStr = photoModel.photo + HomeDetailCovertImageSize
+            let imageStr = photoModel.photo + UIImage.image(withUrl: photoModel.photo, newImage: CGSize.init(width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355))
             imageArray.add(imageStr)
         }
         return imageArray

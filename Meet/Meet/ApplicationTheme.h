@@ -155,13 +155,6 @@
 #define EMAlertViewConfirmTitle  @"朕知道了"
 
 
-#define HomeDetailMoreInfoImageSize ScreenWidth > 375.0 ? @"?imageView2/1/w/177/h/177":@"?imageView2/1/w/118/h/118"
-#define HomeCoverImageSize ScreenWidth > 375.0 ? @"?imageView2/1/w/1065/h/600":@"?imageView2/1/w/710/h/400"
-
-#define ImageThum ScreenWidth > 375.0 ? @"?imageView2/1/w/177/h/177":@"?imageView2/1/w/118/h/118"
-
-#define MyProfilePhotoSize ScreenWidth > 375.0 ? @"?imageView2/1/w/300/h/300":@"?imageView2/1/w/200/h/200"
-
 
 
 //IQKeyboardManager Color

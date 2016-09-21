@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias FileStringClouse = (_ filterStr:String, _ gender:String, _ sort:String) -> Void
+typealias FileStringClouse = (_ filterStr:String, _ gender:String, _ sort:String, _ instury:String) -> Void
 
 class FilterViewController: UIViewController {
 
@@ -30,12 +30,17 @@ class FilterViewController: UIViewController {
     
     var fileStringClouse:FileStringClouse!
     
+    var viewModel:HomeViewModel = HomeViewModel()
+    
+    var industryList:[String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         self.navigationItemWhiteColorAndNotLine()
         self.setUpNavigationItem()
         self.setUpView()
+        self.getData()
         // Do any additional setup after loading the view.
     }
     
@@ -51,12 +56,23 @@ class FilterViewController: UIViewController {
         }
         str = str.appending("&gender=\(genderStr)")
         if fileStringClouse != nil {
-            self.fileStringClouse(str,genderStr,filterStr)
+            self.fileStringClouse(str,genderStr,filterStr,instureStr)
         }
         self.dismiss(animated: true) { 
             
         }
     }
+    
+    func getData() {
+        viewModel.getindexIndustry({ (dic) in
+            let industry = dic?["data"]! as! NSDictionary
+            self.industryList = industry.allValues as! [String]
+            self.industryList.insert("不限", at: 0)
+        }) { (dic) in
+                
+        }
+    }
+    
     
     func setUpView() {
         let filterTitle = UILabel(frame: CGRect.init(x: 40, y: 71, width: 60, height: 42))
@@ -78,6 +94,9 @@ class FilterViewController: UIViewController {
         self.view.addSubview(industry)
         
         insturyTextField = self.setUpTextField(frame: CGRect.init(x: industry.frame.maxX + 18, y: industry.frame.minY + 2, width: ScreenWidth - industry.frame.maxX - 40, height: 22))
+        if self.instureStr != "" && self.instureStr != "0"{
+            insturyTextField.text = ((((ProfileKeyAndValue.shareInstance().appDic as NSDictionary).object(forKey: "industry") as! NSDictionary).object(forKey: self.instureStr))! as! String)
+        }
         self.view.addSubview(insturyTextField)
         
         let infoNext = UIImage.init(named: "info_next")
@@ -130,6 +149,7 @@ class FilterViewController: UIViewController {
     
     func setUpTextField(frame:CGRect) -> UITextField {
         let textField = UITextField(frame: frame)
+        
         textField.placeholder = "互联网"
         textField.delegate = self
         textField.font = FilterViewTitleInfoFont
@@ -147,7 +167,7 @@ class FilterViewController: UIViewController {
     }
     */
     func showPickView() {
-        pickerView = ZHPickView.init(pickviewWith: ["互联网/软件","金融","重工制造","电信","农林牧渔"], isHaveNavControler: false)
+        pickerView = ZHPickView.init(pickviewWith: self.industryList, isHaveNavControler: false)
         pickerView.delegate = self
         pickerView.setToolbarTintColor(UIColor.white)
         pickerView.setTintFont(IQKeyboardManagerFont, color: UIColor.init(hexString: IQKeyboardManagerTinColor))
@@ -201,6 +221,10 @@ extension FilterViewController : UITextFieldDelegate {
 extension FilterViewController : ZHPickViewDelegate {
     func toobarDonBtnHaveClick(_ pickView: ZHPickView!, resultString: String!) {
         insturyTextField.text = resultString
-//        instureStr = ((((ProfileKeyAndValue.shareInstance().appDic as NSDictionary).object(forKey: "industry") as! NSDictionary).object(forKey: resultString))! as! String)
+        if resultString == "不限" {
+            instureStr = ""
+        }else {
+            instureStr = ((((ProfileKeyAndValue.shareInstance().appDic as NSDictionary).object(forKey: "industry") as! NSDictionary).object(forKey: resultString))! as! String)
+        }
     }
 }

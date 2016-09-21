@@ -122,6 +122,10 @@ func UserDefaultsGetSynchronize(_ key:String) -> String {
     
 }
 
+func UserDefaultsSetSynchronize(_ value:Any, key:String) {
+    UserDefaults.standard.set(value, forKey: key)
+}
+
 func TableViewRegisterNib(_ cell:String, idef:String, tableView:UITableView){
     tableView.register(UINib.init(nibName: cell, bundle: Bundle.main), forCellReuseIdentifier: idef)
 }
@@ -140,13 +144,4 @@ let IPHONE_5_Height = ScreenHeight > 570.0 ? true : false
 
 let KeyWindown = UIApplication.shared.keyWindow
 
-let AvatarImageSize = ScreenWidth > 375.0 ? "?imageView2/1/w/168/h/168":"?imageView2/1/w/112/h/112"
-
-let NavigaitonAvatarImageSize = ScreenWidth > 375.0 ? "?imageView2/1/w/102/h/102":"?imageView2/1/w/68/h/68"
-
-let HomeCovertImageSize = ScreenWidth > 375.0 ? "?imageView2/1/w/1065/h/600":"?imageView2/1/w/710/h/400"
-
-let HomeDetailCovertImageSize = ScreenWidth > 375.0 ? "?imageView2/1/w/1065/h/708":"?imageView2/1/w/710/h/472"
-
-let HomeDetailMoreInfoImageSize = ScreenWidth > 375.0 ? "?imageView2/1/w/177/h/177":"?imageView2/1/w/118/h/118"
 

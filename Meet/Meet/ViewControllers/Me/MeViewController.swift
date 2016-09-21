@@ -633,7 +633,7 @@ extension MeViewController : UITableViewDataSource {
                     }else{
                         if UserInfo.sharedInstance().avatar != nil {
                             let imageArray = UserInfo.sharedInstance().avatar.components(separatedBy: "?")
-                            cell.avatarImageView.sd_setImage(with: URL.init(string: imageArray[0] + HomeDetailCovertImageSize), placeholderImage: nil, options: .retryFailed, completed: { (image
+                            cell.avatarImageView.sd_setImage(with: URL.init(string: imageArray[0] + UIImage.image(withUrl: imageArray[0], newImage: CGSize.init(width: ScreenWidth - 20, height: (ScreenWidth - 20)*355/236))), placeholderImage: nil, options: .retryFailed, completed: { (image
                                 , error, type, url) in
                                 UserInfo.saveCacheImage(image, withName: "coverPhoto")
                             })

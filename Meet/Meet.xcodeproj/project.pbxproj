@@ -89,7 +89,6 @@
 		1F29FA0F1D8FBC3000B6B130 /* SelectItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29FA0E1D8FBC3000B6B130 /* SelectItemView.swift */; };
 		1F29FA111D8FC14100B6B130 /* SelectItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29FA101D8FC14100B6B130 /* SelectItemViewCell.swift */; };
 		1F2DA9BB1D394B0B0008C434 /* WeiboModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DA9BA1D394B0B0008C434 /* WeiboModel.m */; };
-		1F2F43711D83CDBD00C370BA /* IPhoneDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2F43701D83CDBD00C370BA /* IPhoneDevice.swift */; };
 		1F2F56AE1D361C27005AEBC8 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F2F56AC1D361C27005AEBC8 /* AlipaySDK.bundle */; };
 		1F2F56AF1D361C27005AEBC8 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F2F56AD1D361C27005AEBC8 /* AlipaySDK.framework */; };
 		1F2F56B11D361C63005AEBC8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F2F56B01D361C63005AEBC8 /* QuartzCore.framework */; };
@@ -98,6 +97,7 @@
 		1F2F56B71D361C9A005AEBC8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F2F56B61D361C9A005AEBC8 /* Foundation.framework */; };
 		1F2F56B91D361CA1005AEBC8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F2F56B81D361CA1005AEBC8 /* CFNetwork.framework */; };
 		1F2F56C11D3621F7005AEBC8 /* OrderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2F56C01D3621F7005AEBC8 /* OrderViewModel.m */; };
+		1F36A6691D9253AE00F9DF4E /* UIImage+QiNiuTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F36A6681D9253AE00F9DF4E /* UIImage+QiNiuTools.m */; };
 		1F38683D1D260E2900569032 /* OtherProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F38683C1D260E2900569032 /* OtherProfileTableViewCell.swift */; };
 		1F38683F1D260E3A00569032 /* OtherProfileInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F38683E1D260E3A00569032 /* OtherProfileInfoTableViewCell.swift */; };
 		1F3868431D26141D00569032 /* OtherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3868421D26141D00569032 /* OtherViewController.swift */; };
@@ -466,7 +466,6 @@
 		1F29FA101D8FC14100B6B130 /* SelectItemViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectItemViewCell.swift; sourceTree = "<group>"; };
 		1F2DA9B91D394B0B0008C434 /* WeiboModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboModel.h; path = ../Model/ModelBean/WeiboModel.h; sourceTree = "<group>"; };
 		1F2DA9BA1D394B0B0008C434 /* WeiboModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeiboModel.m; path = ../Model/ModelBean/WeiboModel.m; sourceTree = "<group>"; };
-		1F2F43701D83CDBD00C370BA /* IPhoneDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPhoneDevice.swift; sourceTree = "<group>"; };
 		1F2F56AC1D361C27005AEBC8 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		1F2F56AD1D361C27005AEBC8 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		1F2F56B01D361C63005AEBC8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -476,6 +475,8 @@
 		1F2F56B81D361CA1005AEBC8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		1F2F56BF1D3621F7005AEBC8 /* OrderViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderViewModel.h; path = ../ViewModel/OrderViewModel.h; sourceTree = "<group>"; };
 		1F2F56C01D3621F7005AEBC8 /* OrderViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderViewModel.m; path = ../ViewModel/OrderViewModel.m; sourceTree = "<group>"; };
+		1F36A6671D9253AE00F9DF4E /* UIImage+QiNiuTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+QiNiuTools.h"; sourceTree = "<group>"; };
+		1F36A6681D9253AE00F9DF4E /* UIImage+QiNiuTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+QiNiuTools.m"; sourceTree = "<group>"; };
 		1F38683C1D260E2900569032 /* OtherProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OtherProfileTableViewCell.swift; path = ../Views/OtherProfileTableViewCell.swift; sourceTree = "<group>"; };
 		1F38683E1D260E3A00569032 /* OtherProfileInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OtherProfileInfoTableViewCell.swift; path = ../Views/OtherProfileInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1F3868421D26141D00569032 /* OtherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OtherViewController.swift; path = ../ViewControllers/Home/OtherViewController.swift; sourceTree = "<group>"; };
@@ -1085,7 +1086,6 @@
 				1F293D7E1D12CBB10063A9DA /* String+Size.swift */,
 				1F3868451D2617FD00569032 /* UIViewController+NavigationBar.swift */,
 				1FAA07951D3D05B00017F3E3 /* String+Class.swift */,
-				1F2F43701D83CDBD00C370BA /* IPhoneDevice.swift */,
 				1FD13B3A1D87D0340035760D /* UIImage+Crop.swift */,
 			);
 			path = Extentions;
@@ -1160,6 +1160,8 @@
 				1F810EC91D51F5D0008A5EF1 /* UIViewController+TalKingData.m */,
 				1FD13B351D86D88A0035760D /* UIImage+Crop.h */,
 				1FD13B361D86D88A0035760D /* UIImage+Crop.m */,
+				1F36A6671D9253AE00F9DF4E /* UIImage+QiNiuTools.h */,
+				1F36A6681D9253AE00F9DF4E /* UIImage+QiNiuTools.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2201,7 +2203,6 @@
 				1F293D901D12F48F0063A9DA /* UICollectionView+ARDynamicCacheHeightLayoutCell.m in Sources */,
 				1FAA078C1D3CE6850017F3E3 /* AppointMentTableViewCell.swift in Sources */,
 				1F9DCF101D4C52EA001467E6 /* OrderConfirmViewController.swift in Sources */,
-				1F2F43711D83CDBD00C370BA /* IPhoneDevice.swift in Sources */,
 				DA6CEF131CDAF42300EEABFF /* AddInformationViewController.m in Sources */,
 				1F241B971D8D4415001987F7 /* UIButton+Haneke.m in Sources */,
 				1FBF40BD1D221267005DB46F /* NSString+StringType.m in Sources */,
@@ -2432,6 +2433,7 @@
 				1F79BAD21D071CF700814DED /* UserInfo.m in Sources */,
 				1FBF408C1D1E5BF8005DB46F /* ProfileTableViewCell.swift in Sources */,
 				1F810E931D4F6E89008A5EF1 /* OtherUserInfoViewController.swift in Sources */,
+				1F36A6691D9253AE00F9DF4E /* UIImage+QiNiuTools.m in Sources */,
 				1F8FF7721D6ECE8B00C7A5B9 /* LikeManViewController.swift in Sources */,
 				1F85D99D1D73FD27004DEAFE /* BaseNavigaitonController.swift in Sources */,
 				1FFEE5B91D7AAEB300EEC61F /* NSBundle+TZImagePicker.m in Sources */,

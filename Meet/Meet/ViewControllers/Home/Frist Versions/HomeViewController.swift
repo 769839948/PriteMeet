@@ -46,8 +46,6 @@ class HomeViewController: UIViewController {
     
     var filterStr:String = ""
     
-    var filterGender:String = "0"
-    
     var filterSort:String = "recommend"
     
     override func viewDidLoad() {
@@ -303,18 +301,20 @@ class HomeViewController: UIViewController {
     
     func leftItemClick(_ sender:UIBarButtonItem) {
         let filterView = FilterViewController()
-        filterView.genderStr = self.filterGender
-        filterView.filterStr = self.filterSort
-        
-        filterView.fileStringClouse = { str,gender,sort in
+        filterView.genderStr = UserDefaultsGetSynchronize("gender") != "" ? UserDefaultsGetSynchronize("gender"):"0"
+        filterView.filterStr = UserDefaultsGetSynchronize("sort")  != "" ? UserDefaultsGetSynchronize("sort"):"0"
+        filterView.instureStr = UserDefaultsGetSynchronize("instury")  != "" ? UserDefaultsGetSynchronize("instury"):"0"
+        filterView.fileStringClouse = { str,gender,sort,instury in
             if self.logtitude != 0.0 {
                 self.filterStr = str.appending("&location=\(self.logtitude),\(self.latitude)")
             }else{
                 self.filterStr = str
             }
-            self.filterGender = gender
-            self.filterSort = sort
+            UserDefaultsSetSynchronize(gender, key: "gender")
+            UserDefaultsSetSynchronize(sort, key: "sort")
+            UserDefaultsSetSynchronize(instury, key: "instury")
             self.page = 0;
+            self.tableView.setContentOffset(CGPoint.zero, animated: true)
             self.setUpHomeData()
         }
         let controller = UINavigationController(rootViewController: filterView)

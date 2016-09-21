@@ -300,7 +300,7 @@ class BaseOrderViewController: UIViewController {
         phototView.layer.cornerRadius = PhotoWith/2
         phototView.layer.masksToBounds = true
         let imageArray = orderModel.order_user_info?.avatar.components(separatedBy: "?")
-        phototView.sd_setImage(with: URL.init(string: imageArray![0] + NavigaitonAvatarImageSize), placeholderImage: UIImage.init(color: UIColor.init(hexString: PlaceholderImageColor), size: CGSize(width: PhotoWith, height: PhotoHeight)), options: .retryFailed)
+        phototView.sd_setImage(with: URL.init(string: imageArray![0] + UIImage.image(withUrl: imageArray?[0], newImage: CGSize.init(width: 24, height: 24))), placeholderImage: UIImage.init(color: UIColor.init(hexString: PlaceholderImageColor), size: CGSize(width: PhotoWith, height: PhotoHeight)), options: .retryFailed)
         titleView.addSubview(phototView)
         
         let positionLabel = UILabel(frame: CGRect(x: 0, y: phototView.frame.maxY + 2, width: titleView.frame.size.width, height: 16))

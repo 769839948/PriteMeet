@@ -14,6 +14,7 @@
 #import "MJExtension.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "Meet-Swift.h"
+#import "UIImage+QiNiuTools.h"
 
 @interface ManListCell ()<EqualSpaceFlowLayoutDelegate>
 
@@ -132,7 +133,8 @@
         Cover_photo *coverPhoto = [Cover_photo mj_objectWithKeyValues:model.cover_photo];
         //http://7xsatk.com1.z0.glb.clouddn.com/o_1aqc2rujd1vbc11ten5s12tj115fc.jpg?imageView2/1/w/1065/h/600
         NSArray *imageArray = [coverPhoto.photo componentsSeparatedByString:@"?"];
-        [_photoImage sd_setImageWithURL:[NSURL URLWithString:[imageArray[0] stringByAppendingString:HomeCoverImageSize]] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        NSString *imageUrl = [UIImage imageWithUrl:imageArray[0] newImage:CGSizeMake(ScreenWidth - 20, (ScreenWidth - 20)*200/355)];
+        [_photoImage sd_setImageWithURL:[NSURL URLWithString:[imageArray[0] stringByAppendingString:imageUrl]] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
         }];
     }else{

@@ -57,29 +57,44 @@
     }];
 }
 
-- (void)getHomeFilterList:(NSString *)page
-                 latitude:(double)latitude
-                longitude:(double)longitude
-                   filter:(NSString *)filterName
-             successBlock:(Success)successBlock
-                failBlock:(Fail)failBlock
-              loadingView:(LoadingView)loadViewBlock
+//- (void)getHomeFilterList:(NSString *)page
+//                 latitude:(double)latitude
+//                longitude:(double)longitude
+//                   filter:(NSString *)filterName
+//             successBlock:(Success)successBlock
+//                failBlock:(Fail)failBlock
+//              loadingView:(LoadingView)loadViewBlock
+//{
+//    NSString *url = @"";
+//    if ([UserInfo isLoggedIn]) {
+//        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@&filter=%@&longitude=%@&latitude=%@",RequestGetFilterUserList,page,[UserInfo sharedInstance].uid,filterName,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
+//    }else{
+//        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&filter=%@&longitude=%@&latitude=%@",RequestGetFilterUserList,page,filterName,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
+//    }
+//    
+//    [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
+//        if ([[responseObject objectForKey:@"success"] boolValue]) {
+//            successBlock([responseObject objectForKey:@"content"]);
+//        }else{
+//            failBlock(responseObject);
+//        }
+//    } failure:^(NSDictionary *responseObject) {
+//        failBlock(responseObject);
+//    }];
+//}
+
+- (void)getindexIndustry:(Success)successBlock
+               failBlock:(Fail)failBlock
 {
-    NSString *url = @"";
-    if ([UserInfo isLoggedIn]) {
-        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@&filter=%@&longitude=%@&latitude=%@",RequestGetFilterUserList,page,[UserInfo sharedInstance].uid,filterName,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
-    }else{
-        url = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&filter=%@&longitude=%@&latitude=%@",RequestGetFilterUserList,page,filterName,[NSString stringWithFormat:@"%f",longitude],[NSString stringWithFormat:@"%f",latitude]];
-    }
-    
+    NSString *url = [RequestBaseUrl stringByAppendingString:RequestGetFilterIndustryList];
     [self getWithURLString:url parameters:nil success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
             successBlock([responseObject objectForKey:@"content"]);
         }else{
-            failBlock(responseObject);
+            failBlock(@{@"error":@"请求错误"});
         }
     } failure:^(NSDictionary *responseObject) {
-        failBlock(responseObject);
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 

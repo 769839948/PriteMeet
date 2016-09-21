@@ -26,13 +26,13 @@
  *  @param longitude     longitude description
  *  @param filterName    筛选的方式（智能推荐、按距离排序）
  */
-- (void)getHomeFilterList:(NSString *)page
-                 latitude:(double)latitude
-                longitude:(double)longitude
-                   filter:(NSString *)filterName
-             successBlock:(Success)successBlock
-                failBlock:(Fail)failBlock
-              loadingView:(LoadingView)loadViewBlock;
+//- (void)getHomeFilterList:(NSString *)page
+//                 latitude:(double)latitude
+//                longitude:(double)longitude
+//                   filter:(NSString *)filterName
+//             successBlock:(Success)successBlock
+//                failBlock:(Fail)failBlock
+//              loadingView:(LoadingView)loadViewBlock;
 
 
 - (void)getDataFilterList:(NSString *)page
@@ -40,6 +40,10 @@
              successBlock:(Success)successBlock
                 failBlock:(Fail)failBlock;
 
+
+
+- (void)getindexIndustry:(Success)successBlock
+               failBlock:(Fail)failBlock;
 /**
  *  获取他人用户信息
  *
@@ -74,6 +78,9 @@
  */
 - (void)getDicMap:(Success)successBlock
         failBlock:(Fail)failBlock;
+
+
+
 
 /**
  *  获取所有文案
