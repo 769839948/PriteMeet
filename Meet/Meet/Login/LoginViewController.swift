@@ -25,6 +25,8 @@ class LoginViewController: UIViewController {
     
     var loginButton:UIButton!
     
+    var comfigLabel:UILabel!
+    
     var timeDownLabel:TimeDownView!
 
     var keyboardHeight:CGFloat!
@@ -124,7 +126,7 @@ class LoginViewController: UIViewController {
         originFrame = self.loginButton.frame
         contentView.addSubview(loginButton)
         
-        let comfigLabel = UILabel()
+        comfigLabel = UILabel()
         comfigLabel.text = "登录即代表您同意"
         comfigLabel.font = LoginOldUserBtnFont
         contentView.addSubview(comfigLabel)
@@ -367,6 +369,7 @@ class LoginViewController: UIViewController {
         mobileLabel.textColor = UIColor.init(hexString: PlaceholderImageColor)
         smsCodeField.textColor = UIColor.init(hexString: PlaceholderImageColor)
         mobileField.textColor = UIColor.init(hexString: PlaceholderImageColor)
+        comfigLabel.textColor = UIColor.init(hexString: PlaceholderImageColor)
         proBtn.setTitleColor(UIColor.init(hexString: PlaceholderImageColor), for: UIControlState())
         timeDownLabel.isHidden = true
         loginButton.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: PlaceholderImageColor), size: CGSize(width: 70, height: 46)), for: UIControlState())
@@ -377,6 +380,7 @@ class LoginViewController: UIViewController {
         mobileLabel.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         smsCodeField.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         mobileField.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
+        comfigLabel.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         proBtn.setTitleColor(UIColor.init(hexString: HomeDetailViewNameColor), for: UIControlState())
         timeDownLabel.isHidden = false
         self.changeLoginButtonColor()
@@ -443,6 +447,10 @@ extension LoginViewController : UITextFieldDelegate {
                     smsCodeStr = ""
                 }
             }
+        }
+        
+        if smsCodeStr!.length == 4 && phoneStr?.length == 11 {
+            self.loginButtonClick()
         }
 
         self.changeLoginButtonColor()

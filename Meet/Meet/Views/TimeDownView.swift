@@ -45,6 +45,7 @@ class TimeDownView: UIView {
         timeLabel.layer.masksToBounds = true
         timeLabel.font = LoginButtonTitleFont
         timeLabel.textColor = UIColor.white
+        timeLabel.backgroundColor = UIColor.init(hexString: HomeDetailViewNameColor)
         self.addSubview(timeLabel)
     }
     

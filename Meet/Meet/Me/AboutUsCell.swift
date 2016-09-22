@@ -48,7 +48,7 @@ class AboutUsCell: UITableViewCell {
     }
     
     func configCell(_ title:String, info:String) {
-        let height:CGFloat = info.heightWithConstrainedWidth(ScreenWidth - 20, font: AboutUsInfoFont!)
+        let height:CGFloat = info.heightWithConstrainedWidth(ScreenWidth - 40, font: AboutUsInfoFont!)
         let infoLabelHeight:CGFloat = height > 100 ? 100:height
         if title == "" {
            titleLabel.isHidden = true
@@ -57,7 +57,7 @@ class AboutUsCell: UITableViewCell {
                 make.left.equalTo(self.infoView.snp.left).offset(10)
                 make.right.equalTo(self.infoView.snp.right).offset(-10)
                 make.bottom.equalTo(self.infoView.snp.bottom).offset(-34)
-                make.height.equalTo(infoLabelHeight)
+                make.height.equalTo(infoLabelHeight + 4)
            })
         }else{
             titleLabel.isHidden = false

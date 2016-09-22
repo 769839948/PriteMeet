@@ -150,7 +150,7 @@ class FilterViewController: UIViewController {
     func setUpTextField(frame:CGRect) -> UITextField {
         let textField = UITextField(frame: frame)
         
-        textField.placeholder = "互联网"
+        textField.placeholder = "不限"
         textField.delegate = self
         textField.font = FilterViewTitleInfoFont
         textField.textColor = UIColor.init(hexString: HomeDetailViewPositionColor)

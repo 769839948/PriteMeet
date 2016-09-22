@@ -134,6 +134,7 @@
 		1F79BAD81D080B7B00814DED /* NSFileManager+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BAD71D080B7B00814DED /* NSFileManager+Utils.m */; };
 		1F79BADB1D080B9100814DED /* NSFileManager+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BADA1D080B9100814DED /* NSFileManager+Cache.m */; };
 		1F79BAE31D09248B00814DED /* ZHPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BAE21D09248B00814DED /* ZHPickView.m */; };
+		1F7B05F31D93D25600245389 /* MeetRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7B05F21D93D25600245389 /* MeetRefreshBackFooter.m */; };
 		1F810E8D1D4F01EE008A5EF1 /* UIView+DottedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F810E8C1D4F01EE008A5EF1 /* UIView+DottedLineView.m */; };
 		1F810E8F1D4F3550008A5EF1 /* AppointmentCollectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F810E8E1D4F3550008A5EF1 /* AppointmentCollectView.swift */; };
 		1F810E911D4F37A3008A5EF1 /* AppointmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F810E901D4F37A3008A5EF1 /* AppointmentCell.swift */; };
@@ -220,6 +221,7 @@
 		1FC2C14C1CFD3583001D6D10 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C14B1CFD3583001D6D10 /* NSDateFormatter+Category.m */; };
 		1FC2C14F1CFD362B001D6D10 /* UIViewController+hideExcessLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2C14E1CFD362B001D6D10 /* UIViewController+hideExcessLine.m */; };
 		1FC4C08B1D0D590E00E4BB33 /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4C08A1D0D590E00E4BB33 /* MeViewController.swift */; };
+		1FC66F0E1D937C840091BAB4 /* ImageSplachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC66F0D1D937C840091BAB4 /* ImageSplachView.swift */; };
 		1FC69D6C1D2CDF1900BF0B95 /* GuidanceText.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC69D6B1D2CDF1900BF0B95 /* GuidanceText.m */; };
 		1FC69D6F1D2D053200BF0B95 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC69D6E1D2D053200BF0B95 /* SplashView.swift */; };
 		1FCAFFCC1D012B6900BF53A1 /* UIViewController+NavigationItemColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFCB1D012B6900BF53A1 /* UIViewController+NavigationItemColor.m */; };
@@ -534,6 +536,8 @@
 		1F79BADA1D080B9100814DED /* NSFileManager+Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Cache.m"; sourceTree = "<group>"; };
 		1F79BAE11D09248B00814DED /* ZHPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPickView.h; sourceTree = "<group>"; };
 		1F79BAE21D09248B00814DED /* ZHPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPickView.m; sourceTree = "<group>"; };
+		1F7B05F11D93D25600245389 /* MeetRefreshBackFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetRefreshBackFooter.h; sourceTree = "<group>"; };
+		1F7B05F21D93D25600245389 /* MeetRefreshBackFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetRefreshBackFooter.m; sourceTree = "<group>"; };
 		1F810E8B1D4F01EE008A5EF1 /* UIView+DottedLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DottedLineView.h"; sourceTree = "<group>"; };
 		1F810E8C1D4F01EE008A5EF1 /* UIView+DottedLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DottedLineView.m"; sourceTree = "<group>"; };
 		1F810E8E1D4F3550008A5EF1 /* AppointmentCollectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppointmentCollectView.swift; path = ../Views/AppointmentCollectView.swift; sourceTree = "<group>"; };
@@ -664,6 +668,7 @@
 		1FC2C14D1CFD362B001D6D10 /* UIViewController+hideExcessLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+hideExcessLine.h"; sourceTree = "<group>"; };
 		1FC2C14E1CFD362B001D6D10 /* UIViewController+hideExcessLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+hideExcessLine.m"; sourceTree = "<group>"; };
 		1FC4C08A1D0D590E00E4BB33 /* MeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeViewController.swift; path = ../ViewControllers/Me/MeViewController.swift; sourceTree = "<group>"; };
+		1FC66F0D1D937C840091BAB4 /* ImageSplachView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSplachView.swift; sourceTree = "<group>"; };
 		1FC69D6A1D2CDF1900BF0B95 /* GuidanceText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuidanceText.h; sourceTree = "<group>"; };
 		1FC69D6B1D2CDF1900BF0B95 /* GuidanceText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuidanceText.m; sourceTree = "<group>"; };
 		1FC69D6E1D2D053200BF0B95 /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
@@ -1178,6 +1183,7 @@
 		1F6850171CFFD30E007F3C07 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1F7B05F01D93D20F00245389 /* RefreshView */,
 				1F241ABB1D8D372F001987F7 /* PhotoBrowser */,
 				1FD13B131D869DEB0035760D /* Fusuma */,
 				1FA884751D7ED6560010F508 /* SDPhotoBrowser */,
@@ -1207,6 +1213,15 @@
 				1F79BAE21D09248B00814DED /* ZHPickView.m */,
 			);
 			path = ZHPickView;
+			sourceTree = "<group>";
+		};
+		1F7B05F01D93D20F00245389 /* RefreshView */ = {
+			isa = PBXGroup;
+			children = (
+				1F7B05F11D93D25600245389 /* MeetRefreshBackFooter.h */,
+				1F7B05F21D93D25600245389 /* MeetRefreshBackFooter.m */,
+			);
+			name = RefreshView;
 			sourceTree = "<group>";
 		};
 		1F85D98A1D73FC54004DEAFE /* BaseView */ = {
@@ -1685,6 +1700,7 @@
 				1FD13B211D869DEB0035760D /* FSVideoCameraView.xib */,
 				1FD13B221D869DEB0035760D /* FusumaViewController.swift */,
 				1FD13B241D869DEB0035760D /* FusumaViewController.xib */,
+				1FC66F0D1D937C840091BAB4 /* ImageSplachView.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -2195,6 +2211,7 @@
 				1FF3C5101D2B8A3300BE89A9 /* InviteItemsTableViewCell.swift in Sources */,
 				1FD13B281D869DEB0035760D /* FSAlbumView.swift in Sources */,
 				1FF3C5121D2B8A5000BE89A9 /* InviteDetailInfoTableViewCell.swift in Sources */,
+				1F7B05F31D93D25600245389 /* MeetRefreshBackFooter.m in Sources */,
 				1FCAFFDB1D01983B00BF53A1 /* UserInfoViewModel.m in Sources */,
 				1FFEE5C11D7AAEB300EEC61F /* TZPhotoPreviewController.m in Sources */,
 				1F241B141D8D372F001987F7 /* PhotoBrowser+ZoomAnim.swift in Sources */,
@@ -2361,6 +2378,7 @@
 				DAF5C8851CE5B95000DA7901 /* CoreTextUtils.m in Sources */,
 				1F241B341D8D3730001987F7 /* NVActivityIndicatorAnimationBallRotateChase.swift in Sources */,
 				1F6850231CFFD41E007F3C07 /* PhotoTableViewCell.m in Sources */,
+				1FC66F0E1D937C840091BAB4 /* ImageSplachView.swift in Sources */,
 				1F241B461D8D3730001987F7 /* NVActivityIndicatorAnimationSquareSpin.swift in Sources */,
 				1FAA08201D4319220017F3E3 /* BlackListCollectCell.swift in Sources */,
 				1F810ECA1D51F5D0008A5EF1 /* UIViewController+TalKingData.m in Sources */,

@@ -62,6 +62,7 @@ class MeViewController: UIViewController,TZImagePickerControllerDelegate {
             self.lastModifield()
             self.loadExtenInfo()
             self.loadInviteInfo()
+            self.getOrderNumber()
         
         }
         if (UserInfo.sharedInstance().isFirstLogin && UserInfo.isLoggedIn()) {
@@ -247,7 +248,9 @@ class MeViewController: UIViewController,TZImagePickerControllerDelegate {
             break
         case 4:
             break
-        default: break
+        default:
+            self.pushProfileViewControllr()
+            break
             
         }
     }
@@ -303,18 +306,13 @@ class MeViewController: UIViewController,TZImagePickerControllerDelegate {
     
     func verificationOrderView(){
         if orderNumberArray.count == 0 {
-//            let queue = DispatchQueue(label: "com.meet.order", qos: DispatchQoS.default, attributes: .concurrent, autoreleaseFrequency: .workItem, target: 0)
-////            let queue = DispatchQueue(label: "com.meet.order-queue",
-////                                              attributes: dispatch_queue_attr_make_with_qos_class(DispatchQueue.Attributes(), DispatchQoS.QoSClass.userInitiated, 0))
-//            
-//            queue.async {
-//                self.getOrderNumber()
-//            }
-//            queue.async {
-//                DispatchQueue.main.async(execute: {
-//                    self.presentOrderView()
-//                })
-//            }
+            let queue = DispatchQueue(label: "com.meet.order-queue", qos: .default, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+            queue.async {
+                self.getOrderNumber()
+            }
+            queue.async {
+                self.presentOrderView()
+            }
         }else{
             self.presentOrderView()
         }
@@ -625,7 +623,7 @@ extension MeViewController : UITableViewDataSource {
                     cell.avatarImageView.backgroundColor = UIColor.init(hexString: "e7e7e7")
                     
                    
-                    if UserInfo.sharedInstance().avatar != nil && UserInfo.image(forName: "coverPhoto") != nil {
+                    if UserInfo.sharedInstance().avatar != nil {
                         let imageArray = UserInfo.sharedInstance().avatar.components(separatedBy: "?")
                         
                         UIImage.image(withUrl: imageArray[0], newImage: CGSize.init(width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355),success:{ imageUrl in

@@ -9,6 +9,7 @@
 import UIKit
 import MJRefresh
 import MJExtension
+import DZNEmptyDataSet
 
 typealias successBlock = (_ success:Bool) ->Void
 
@@ -74,6 +75,8 @@ class HomeViewController: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
+        self.tableView.emptyDataSetSource = self
+        self.tableView.emptyDataSetDelegate = self
         self.view.addSubview(self.tableView)
         self.tableView.backgroundColor = UIColor.init(hexString: HomeTableViewBackGroundColor)
         self.tableView.register(ManListCell.self, forCellReuseIdentifier: "MainTableViewCell")
@@ -118,16 +121,14 @@ class HomeViewController: UIViewController {
             if self.bottomView != nil {
                 self.bottomView.isHidden = false
             }
-            
-            let tempArray = HomeModel.mj_objectArray(withKeyValuesArray: dic?["data"])
-            if tempArray?.count == 0 {
-                self.page = self.page - 1
-                self.tableView.mj_footer.endRefreshing()
-                return
-            }
             if self.page == 1 {
                 self.homeModelArray.removeAllObjects()
             }
+            let tempArray = HomeModel.mj_objectArray(withKeyValuesArray: dic?["data"])
+            if tempArray?.count == 0 {
+                self.page = self.page - 1
+            }
+            
             for obj in tempArray! {
                 self.homeModelArray.add(obj)
             }
@@ -193,6 +194,8 @@ class HomeViewController: UIViewController {
     func rightItemClick(_ sender:UIBarButtonItem) {
         self.present(UINavigationController(rootViewController: MeViewController()) , animated: true) {
         }
+//        self.present(UINavigationController(rootViewController: LoginViewController()) , animated: true) {
+//        }
     }
     
     func meetButton(_ frame:CGRect) -> UIButton {
@@ -229,23 +232,13 @@ class HomeViewController: UIViewController {
     
     func verificationOrderView(){
         if orderNumberArray.count == 0 {
-            if #available(iOS 10.0, *) {
-                let queue = DispatchQueue(label: "com.meet.order-queue", qos: .default, attributes: .concurrent, autoreleaseFrequency: .workItem, target: nil)
-                queue.async {
-                    self.getOrderNumber()
-                }
-                queue.async {
-                    self.presentOrderView()
-                }
-            } else {
-//                let queue = DispatchQueue(label: "com.meet.order-queue",
-//                                                        attributes: dispatch_queue_attr_make_with_qos_class(DispatchQueue.Attributes(), DispatchQoS.QoSClass.userInitiated, 0))
-                // Fallback on earlier versions
+            let queue = DispatchQueue(label: "com.meet.order-queue", qos: .default, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+            queue.async {
+                self.getOrderNumber()
             }
-//            let queue = DispatchQueue(label: "com.meet.order-queue",
-//                                              attributes: dispatch_queue_attr_make_with_qos_class(DispatchQueue.Attributes(), DispatchQoS.QoSClass.userInitiated, 0))
-            
-            
+            queue.async {
+                self.presentOrderView()
+            }
         }else{
             self.presentOrderView()
         }
@@ -324,7 +317,7 @@ class HomeViewController: UIViewController {
     }
     
     func setUpRefreshView() {
-        self.tableView.mj_footer = MJRefreshBackNormalFooter.init(refreshingTarget: self, refreshingAction: #selector(HomeViewController.setUpHomeData))
+        self.tableView.mj_footer = MeetRefreshBackFooter.init(refreshingTarget: self, refreshingAction: #selector(HomeViewController.setUpHomeData))
     }
     
     override func didReceiveMemoryWarning() {
@@ -484,6 +477,8 @@ extension HomeViewController : UITableViewDelegate {
     }
 }
 
+
+
 extension HomeViewController : UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return homeModelArray.count
@@ -578,6 +573,40 @@ extension HomeViewController: ScrollingNavigationControllerDelegate {
             UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
         }else{
         }
+    }
+}
+
+extension HomeViewController : DZNEmptyDataSetDelegate {
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+    
+    func  emptyDataSetShouldAllowTouch(_ scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+}
+
+extension HomeViewController : DZNEmptyDataSetSource {
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let string = "暂无符合的朋友\n更改筛选条件再试试吧"
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = .byWordWrapping
+        paragraph.alignment = .center
+        paragraph.lineSpacing = 5.0
+        let attributes = [NSFontAttributeName:UIFont.systemFont(ofSize: 14.0),NSParagraphStyleAttributeName:paragraph,NSForegroundColorAttributeName:UIColor.init(hexString: EmptyDataTitleColor)]
+        return NSAttributedString(string: string, attributes: attributes)
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return UIImage.init(named: "none_filter_user")
+    }
+    
+    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
+        return -20
+    }
+    
+    func spaceHeight(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
+        return 28
     }
 }
 

@@ -51,7 +51,7 @@ class LikeManViewController: UIViewController {
     }
     
     func setUpRefreshView() {
-        self.collectionView.mj_footer = MJRefreshBackNormalFooter.init(refreshingTarget: self, refreshingAction: #selector(LikeManViewController.setUpLikeListData))
+        self.collectionView.mj_footer = MeetRefreshBackFooter.init(refreshingTarget: self, refreshingAction: #selector(LikeManViewController.setUpLikeListData))
     }
     
     func setUpLikeListData() {        

@@ -125,7 +125,7 @@ static CGSize AssetGridThumbnailSize;
     layout.minimumLineSpacing = margin;
     CGFloat top = margin + 44;
     if (iOS7Later) top += 20;
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(margin, top, self.view.tz_width - 2 * margin, self.view.tz_height - 50 - top) collectionViewLayout:layout];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(margin, top, self.view.tz_width - 2 * margin, self.view.tz_height - 64 - top) collectionViewLayout:layout];
     _collectionView.dataSource = self;
     _collectionView.delegate = self;
     _collectionView.backgroundColor = [UIColor colorWithHexString:TableViewBackGroundColor];

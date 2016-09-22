@@ -127,7 +127,7 @@ public final class FusumaViewController: UIViewController {
         albumView.delegate  = self
         videoView.delegate = self
         self.setNavigationItemBack()
-        self.title = "头像选择"
+        self.title = "选择头像"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "完成", style: .plain, target: self, action: #selector(FusumaViewController.doneButtonPressed(_:)))
         let bundle = Bundle(for: self.classForCoder)
         
@@ -239,7 +239,13 @@ public final class FusumaViewController: UIViewController {
 
         albumView.initialize()
 //        cameraView.initialize()
-        
+        let lastIndexPath = IndexPath(row: self.images.count - 1, section: 0)
+        albumView.collectionView.selectItem(at: lastIndexPath, animated: false, scrollPosition: .bottom)
+        albumView.collectionView.scrollToItem(at: lastIndexPath, at: .bottom, animated: true)
+        let lastSectionIndex = (albumView.collectionView?.numberOfSections)! - 1
+        let lastItemIndex = (albumView.collectionView?.numberOfItems(inSection: lastSectionIndex))! - 1
+        let indexPath = IndexPath(row: lastItemIndex, section: lastSectionIndex)
+        albumView.collectionView!.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.bottom, animated: false)
         if hasVideo {
 
             videoView.frame = CGRect(origin: CGPoint.zero, size: videoShotContainer.frame.size)

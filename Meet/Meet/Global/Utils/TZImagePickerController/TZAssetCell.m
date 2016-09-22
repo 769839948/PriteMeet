@@ -190,8 +190,8 @@
 - (void)setModel:(TZAlbumModel *)model {
     _model = model;
     
-    NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:model.name attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor blackColor]}];
-    NSAttributedString *countString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"  %zd",model.count] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor blackColor]}];
+    NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:model.name attributes:@{NSFontAttributeName:TZImagePickerAlbumTitleFont,NSForegroundColorAttributeName:[UIColor colorWithHexString:HomeDetailViewNameColor]}];
+    NSAttributedString *countString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%zd",model.count] attributes:@{NSFontAttributeName:TZImagePickerAlbumNumberFont,NSForegroundColorAttributeName:[UIColor colorWithHexString:HomeDetailViewPositionColor]}];
     self.titleLable.attributedText = nameString;
     self.numberPhoto.attributedText = countString;
     [[TZImageManager manager] getPostImageWithAlbumModel:model completion:^(UIImage *postImage) {

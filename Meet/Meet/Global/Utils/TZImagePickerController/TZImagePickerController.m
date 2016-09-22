@@ -334,7 +334,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = @"照片";
+    self.navigationItem.title = @"选择相册";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"me_dismissBlack"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
     //这里修改过
 //    [[UIBarButtonItem alloc] initWithTitle:[NSBundle tz_localizedStringForKey:@"Cancle"] style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];

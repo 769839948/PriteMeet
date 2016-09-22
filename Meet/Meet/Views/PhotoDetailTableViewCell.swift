@@ -120,7 +120,7 @@ class PhotoDetailTableViewCell: UITableViewCell {
             for index in 0...(headPhotos?.count)! - 1 {
                 let model = headPhotos?.object(at: index) as! Head_Photo_List
                 let qiniuString = UIImage.image(withUrl: model.photo, newImage: CGSize.init(width: 59, height: 59))
-                let urlString = "\(model.photo)\(qiniuString)"
+                let urlString = "\((model.photo))\((qiniuString)!)"
                 let photoImage = UIImageView()
                 photoImage.tag = index
                 photoImage.isUserInteractionEnabled = true

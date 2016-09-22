@@ -60,7 +60,7 @@ class MePhotoTableViewCell: UITableViewCell {
         logoutView.isHidden = true
         self.loginView.isHidden = false
         self.loginView.backgroundColor = UIColor.white
-        if compass.next_page != 100 {
+        if compass.completeness != 100 {
             completeInfoView.isHidden = false
             let compassString = "\(compass.completeness)% \(compass.msg!)"
             completeInfoLabel.text = compassString;

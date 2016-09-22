@@ -17,14 +17,14 @@ import Photos
 final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDelegate, PHPhotoLibraryChangeObserver, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var imageCropView: FSImageCropView!
     @IBOutlet weak var imageCropViewContainer: UIView!
     
+    @IBOutlet weak var selectView: ImageSplachView!
+    
+    @IBOutlet weak var imageCropView: FSImageCropView!
     @IBOutlet weak var collectionViewConstraintHeight: NSLayoutConstraint!
     @IBOutlet weak var imageCropViewConstraintTop: NSLayoutConstraint!
-    
-    @IBOutlet weak var photoSlectImage: UIImageView!
-    
+        
     weak var delegate: FSAlbumViewDelegate? = nil
     
     var images: PHFetchResult<AnyObject>!
@@ -85,20 +85,20 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
         checkPhotoAuth()
         
         photoSelectTap = UITapGestureRecognizer(target: self, action: #selector(FSAlbumView.photoTap(_:)))
-        photoSlectImage.isUserInteractionEnabled = true
-        photoSlectImage.addGestureRecognizer(photoSelectTap)
+        selectView.addGestureRecognizer(photoSelectTap)
         // Sorting condition
 //        let options = PHFetchOptions()
 //        options.sortDescriptors = [
 //            NSSortDescriptor(key: "creationDate", ascending: false)
 //        ]
-        
+//        
 //        images = PHAsset.fetchAssetsWithMediaType(.Image, options: options)
+        
+        
         
         if images.count > 0 {
             changeImage(images[0] as! PHAsset)
             collectionView.reloadData()
-            collectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: UICollectionViewScrollPosition())
         }
         
         PHPhotoLibrary.shared().register(self)
@@ -120,11 +120,24 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
     
     
     func photoTap(_ sender:UITapGestureRecognizer) {
-        let view    = sender.view
-        
-        print("")
+        self.collectionViewShow()
     }
     
+    func collectionViewShow() {
+        UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions(), animations: {
+            if self.imageCropViewContainer.frame.origin.y == 50 - ScreenWidth {
+                self.imageCropViewContainer.frame = CGRect.init(x: 0, y: 0, width: ScreenWidth, height: ScreenWidth)
+                self.collectionView.frame = CGRect.init(x: 0, y: self.imageCropViewContainer.frame.maxY, width: ScreenWidth, height: ScreenWidth)
+            }else{
+                self.imageCropViewContainer.frame = CGRect.init(x: 0, y: 50 - ScreenWidth, width: ScreenWidth, height: ScreenWidth)
+                self.collectionView.frame = CGRect.init(x: 0, y: self.imageCropViewContainer.frame.maxY, width: ScreenWidth, height: ScreenWidth)
+            }
+            
+        }) { (finish) in
+            
+        }
+    }
+        
     func panned(_ sender: UITapGestureRecognizer) {
         
         if sender.state == UIGestureRecognizerState.began {
@@ -243,8 +256,8 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
     // MARK: - UICollectionViewDelegate Protocol
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FSAlbumViewCell", for: indexPath) as! FSAlbumViewCell
-        
         let currentTag = cell.tag + 1
         cell.tag = currentTag
         
@@ -297,6 +310,7 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
         
         dragDirection = Direction.up
         collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+        self.collectionViewShow()
     }
     
     

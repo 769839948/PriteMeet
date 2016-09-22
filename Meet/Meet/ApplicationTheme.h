@@ -73,6 +73,9 @@
 
 #define KeyBoardToobarTitleFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:14.0f]:[UIFont systemFontOfSize:14]
 
+#define RefreshFootViewTitleFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:14.0f]:[UIFont systemFontOfSize:14]
+
+
 #define ImagePickerVCOKButtonFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Light" size:16.0f]:[UIFont systemFontOfSize:16]
 
 #define TZImagePickerAlbumTitleFont (IOS_9LAST)?[UIFont fontWithName:@"PingFangSC-Regular" size:16.0f]:[UIFont systemFontOfSize:16]

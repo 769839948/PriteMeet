@@ -390,7 +390,7 @@ static CGFloat TZScreenScale;
     if ([asset isKindOfClass:[PHAsset class]]) {
         CGSize imageSize;
         if (photoWidth < TZScreenWidth && photoWidth < _photoPreviewMaxWidth) {
-            imageSize = AssetGridThumbnailSize;
+            imageSize = CGSizeMake(AssetGridThumbnailSize.width * 2, AssetGridThumbnailSize.height * 2) ;
         } else {
             PHAsset *phAsset = (PHAsset *)asset;
             CGFloat aspectRatio = phAsset.pixelWidth / (CGFloat)phAsset.pixelHeight;
@@ -401,7 +401,7 @@ static CGFloat TZScreenScale;
         // 修复获取图片时出现的瞬间内存过高问题
         // 下面两行代码，来自hsjcom，他的github是：https://github.com/hsjcom 表示感谢
         PHImageRequestOptions *option = [[PHImageRequestOptions alloc] init];
-        option.resizeMode = PHImageRequestOptionsResizeModeFast;
+        option.resizeMode = PHImageRequestOptionsResizeModeExact;
         PHImageRequestID imageRequestID = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:imageSize contentMode:PHImageContentModeAspectFill options:option resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
             BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
             if (downloadFinined && result) {
@@ -412,9 +412,9 @@ static CGFloat TZScreenScale;
             if ([info objectForKey:PHImageResultIsInCloudKey] && !result) {
                 PHImageRequestOptions *option = [[PHImageRequestOptions alloc]init];
                 option.networkAccessAllowed = YES;
-                option.resizeMode = PHImageRequestOptionsResizeModeFast;
+                option.resizeMode = PHImageRequestOptionsResizeModeExact;
                 [[PHImageManager defaultManager] requestImageDataForAsset:asset options:option resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
-                    UIImage *resultImage = [UIImage imageWithData:imageData scale:0.1];
+                    UIImage *resultImage = [UIImage imageWithData:imageData scale:0.8];
                     resultImage = [self scaleImage:resultImage toSize:imageSize];
                     if (resultImage) {
                         resultImage = [self fixOrientation:resultImage];
@@ -429,8 +429,11 @@ static CGFloat TZScreenScale;
     } else if ([asset isKindOfClass:[ALAsset class]]) {
         ALAsset *alAsset = (ALAsset *)asset;
         dispatch_async(dispatch_get_global_queue(0,0), ^{
-            CGImageRef thumbnailImageRef = alAsset.thumbnail;
-            UIImage *thumbnailImage = [UIImage imageWithCGImage:thumbnailImageRef scale:2.0 orientation:UIImageOrientationUp];
+//            CGImageRef thumbnailImageRef = alAsset.thumbnail;
+//            UIImage *thumbnailImage = [UIImage imageWithCGImage:thumbnailImageRef scale:2.0 orientation:UIImageOrientationUp];
+            ALAssetRepresentation *representation = [asset defaultRepresentation];
+            CGImageRef resolutionRef = [representation fullResolutionImage];
+            UIImage *thumbnailImage = [UIImage imageWithCGImage:resolutionRef scale:1.0f orientation:(UIImageOrientation)representation.orientation];
 #pragma clang diagnostic pop
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (completion) completion(thumbnailImage,nil,YES);
