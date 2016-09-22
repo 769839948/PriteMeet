@@ -17,6 +17,9 @@ typedef void(^Success)(NSDictionary *successDic);
 + (NSString *)imageWithUrl:(NSString *)url newImage:(CGSize)size
 {
     NSDictionary *imageInfo = [UIImage requestWithImageUrl:url];
+    if ([imageInfo objectForKey:@"error"] != nil) {
+        return @"error";
+    }
     NSString *imageStr = [UIImage imageSize:imageInfo newImageSize:size];
     return imageStr;
 }
@@ -68,6 +71,9 @@ typedef void(^Success)(NSDictionary *successDic);
     NSHTTPURLResponse* urlResponse = nil;
     NSError *error = [[NSError alloc] init];
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&error];
+    if (responseData == nil) {
+        return @{@"error":@"加载错误"};
+    }
     return [UIImage toArrayOrNSDictionary:responseData];
 }
 

@@ -14,9 +14,10 @@
 @class TZAlbumModel,TZAssetModel;
 @interface TZImageManager : NSObject
 
++ (instancetype)manager;
+
 @property (nonatomic, strong) PHCachingImageManager *cachingImageManager;
 
-+ (instancetype)manager;
 
 @property (nonatomic, assign) BOOL shouldFixOrientation;
 

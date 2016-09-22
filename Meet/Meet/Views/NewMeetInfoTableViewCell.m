@@ -25,6 +25,8 @@
 
 @property (nonatomic, assign) BOOL isBlock;
 
+
+
 @end
 
 @implementation NewMeetInfoTableViewCell
@@ -41,12 +43,6 @@
 
 - (void)setUpView
 {
-    if (_lineLabel == nil) {
-        _lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 1, ScreenWidth - 40, 0.5)];
-        _lineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
-        [self.contentView addSubview:_lineLabel];
-    }
-    
     //确定是水平滚动，还是垂直滚动
     _flowLayout = [[EqualSpaceFlowLayout alloc] init];
     _interestView = [[InterestCollectView alloc] initWithFrame:CGRectZero collectionViewLayout:_flowLayout];
@@ -54,13 +50,17 @@
     _flowLayout.delegate = _interestView;
     [self.contentView addSubview:_interestView];
     
+    _lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 1, ScreenWidth - 40, 0.5)];
+    _lineLabel.backgroundColor = [UIColor colorWithHexString:lineLabelBackgroundColor];
+    [self.contentView addSubview:_lineLabel];
+
+    
+    
     _meetLabel = [[UILabel alloc] init];
     _meetLabel.textColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
     _meetLabel.numberOfLines = 0;
     _meetLabel.font = AboutUsLabelFont;
-    [self.contentView addSubview:_meetLabel];
-    
-    [self updateConstraints];
+    [self.contentView addSubview:_meetLabel];    
 }
 
 - (void)configCell:(NSString *)meetstring
@@ -91,8 +91,6 @@
             make.height.offset(titleHeight);
         }];
     }
-    [self.contentView addSubview:_interestView];
-    [self.contentView bringSubviewToFront:_interestView];
     [self updateConstraintsIfNeeded];
 }
 

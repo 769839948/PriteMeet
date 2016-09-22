@@ -120,14 +120,24 @@
         detailNextImage.image  = [UIImage imageNamed:@"info_next"];
         [_imageContent addSubview:detailNextImage];
     }else{
-        
         [_textlabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(weakSelf.contentView.mas_bottom).offset(-30);
         }];
     }
     if ([title isEqualToString:@""]) {
+        _titleLabel.hidden = YES;
         [_textlabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(weakSelf.contentView.mas_top).offset(20);
+            make.height.offset([info heightWithFont:HomeDetailAboutUsLabelFont constrainedToWidth:ScreenWidth - 40]);
+        }];
+    }else{
+        _titleLabel.hidden = NO;
+        [_titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.offset([title heightWithFont:HomeDetailAboutUsTitleLabelFont constrainedToWidth:ScreenWidth - 40]);
+        }];
+        [_textlabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(weakSelf.titleLabel.mas_bottom).offset(20);
+            make.height.offset([info heightWithFont:HomeDetailAboutUsLabelFont constrainedToWidth:ScreenWidth - 40]);
         }];
     }
     [self updateConstraintsIfNeeded];

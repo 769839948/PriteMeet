@@ -90,8 +90,9 @@
 {
     InterestCollectViewCell *cell = [self dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     if (self.style == ItemWhiteColorAndBlackBoard) {
-        cell.backgroundColor = [UIColor whiteColor];
+        cell.backgroundColor = [UIColor clearColor];
         cell.titleLabel.textColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
+        cell.titleLabel.backgroundColor = [UIColor whiteColor];
         cell.layer.borderColor = [[UIColor colorWithHexString:HomeDetailViewNameColor] CGColor];
         cell.layer.borderWidth = 1;
     }else if (self.style == ItemBlackAndWhiteLabelText){
@@ -116,7 +117,6 @@
         _isNewMeetBlock = NO;
         self.block(height);
     }
-    
     return cell;
 }
 

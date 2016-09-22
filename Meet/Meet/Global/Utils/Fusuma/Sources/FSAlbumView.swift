@@ -34,7 +34,7 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
     var previousPreheatRect: CGRect = CGRect.zero
     let cellSize = CGSize(width: 100, height: 100)
     var phAsset: PHAsset!
-    
+    let manage = TZImageManager()
     // Variables for calculating the position
     enum Direction {
         case scroll
@@ -127,10 +127,10 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
         UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions(), animations: {
             if self.imageCropViewContainer.frame.origin.y == 50 - ScreenWidth {
                 self.imageCropViewContainer.frame = CGRect.init(x: 0, y: 0, width: ScreenWidth, height: ScreenWidth)
-                self.collectionView.frame = CGRect.init(x: 0, y: self.imageCropViewContainer.frame.maxY, width: ScreenWidth, height: ScreenWidth)
+                self.collectionView.frame = CGRect.init(x: 0, y: self.imageCropViewContainer.frame.maxY, width: ScreenWidth, height: ScreenHeight - self.imageCropViewContainer.frame.maxY)
             }else{
                 self.imageCropViewContainer.frame = CGRect.init(x: 0, y: 50 - ScreenWidth, width: ScreenWidth, height: ScreenWidth)
-                self.collectionView.frame = CGRect.init(x: 0, y: self.imageCropViewContainer.frame.maxY, width: ScreenWidth, height: ScreenWidth)
+                self.collectionView.frame = CGRect.init(x: 0, y: self.imageCropViewContainer.frame.maxY, width: ScreenWidth, height: ScreenHeight - self.imageCropViewContainer.frame.maxY)
             }
             
         }) { (finish) in
@@ -262,18 +262,21 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
         cell.tag = currentTag
         
         let asset = self.images[(indexPath as NSIndexPath).item] as! PHAsset
-        self.imageManager?.requestImage(for: asset,
-            targetSize: cellSize,
-            contentMode: .aspectFill,
-            options: nil) {
-                result, info in
-                
-                if cell.tag == currentTag {
-                    cell.image = result
-                }
-                
+//        self.imageManager?.requestImage(for: asset,
+//            targetSize: cellSize,
+//            contentMode: .aspectFill,
+//            options: nil) {
+//                result, info in
+//                if cell.tag == currentTag {
+//                    cell.image = result
+//                }
+//                
+//        }
+        manage.getPhotoWithAsset(asset, photoWidth: cellSize.width) { (image, any, finist) in
+            if cell.tag == currentTag {
+                cell.image = image
+            }
         }
-        
         return cell
     }
     
@@ -310,7 +313,9 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
         
         dragDirection = Direction.up
         collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
-        self.collectionViewShow()
+        if self.imageCropViewContainer.frame.origin.y == 50 - ScreenWidth {
+            self.collectionViewShow()
+        }
     }
     
     
@@ -402,7 +407,7 @@ private extension FSAlbumView {
             
             let options = PHImageRequestOptions()
             options.isNetworkAccessAllowed = true
-            
+            options.resizeMode = .exact
             self.imageManager?.requestImage(for: asset,
                 targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight),
                 contentMode: .aspectFill,

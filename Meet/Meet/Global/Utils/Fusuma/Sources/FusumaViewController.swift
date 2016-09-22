@@ -239,13 +239,29 @@ public final class FusumaViewController: UIViewController {
 
         albumView.initialize()
 //        cameraView.initialize()
-        let lastIndexPath = IndexPath(row: self.images.count - 1, section: 0)
-        albumView.collectionView.selectItem(at: lastIndexPath, animated: false, scrollPosition: .bottom)
-        albumView.collectionView.scrollToItem(at: lastIndexPath, at: .bottom, animated: true)
         let lastSectionIndex = (albumView.collectionView?.numberOfSections)! - 1
         let lastItemIndex = (albumView.collectionView?.numberOfItems(inSection: lastSectionIndex))! - 1
         let indexPath = IndexPath(row: lastItemIndex, section: lastSectionIndex)
         albumView.collectionView!.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.bottom, animated: false)
+        albumView.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .bottom)
+        let asset = images[lastItemIndex] as! PHAsset
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+            let options = PHImageRequestOptions()
+            options.isNetworkAccessAllowed = true
+            options.resizeMode = .exact
+            self.albumView.imageManager?.requestImage(for: asset,
+                                            targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight),
+                                            contentMode: .aspectFill,
+                                            options: options) {
+                                                result, info in
+                                                
+                                                DispatchQueue.main.async(execute: {
+                                                    
+                                                    self.albumView.imageCropView.imageSize = CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
+                                                    self.albumView.imageCropView.image = result
+                                                })
+            }
+        })
         if hasVideo {
 
             videoView.frame = CGRect(origin: CGPoint.zero, size: videoShotContainer.frame.size)

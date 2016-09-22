@@ -23,15 +23,12 @@
 
 - (UILabel *)titleLabel{
     if (!_titleLabel) {
-//        _titleLabel.backgroundColor = [UIColor colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:1.0];
         _titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
         _titleLabel.layer.contentsScale = 2.0f;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.font = InterestCollectItemFont;
         [self.contentView addSubview:_titleLabel];
     }
-    
-    
     return _titleLabel;
 }
 
