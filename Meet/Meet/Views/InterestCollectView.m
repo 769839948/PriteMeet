@@ -89,24 +89,9 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     InterestCollectViewCell *cell = [self dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    if (self.style == ItemWhiteColorAndBlackBoard) {
-        cell.backgroundColor = [UIColor clearColor];
-        cell.titleLabel.textColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
-        cell.titleLabel.backgroundColor = [UIColor whiteColor];
-        cell.layer.borderColor = [[UIColor colorWithHexString:HomeDetailViewNameColor] CGColor];
-        cell.layer.borderWidth = 1;
-    }else if (self.style == ItemBlackAndWhiteLabelText){
-        cell.backgroundColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
-        cell.titleLabel.textColor = [UIColor whiteColor];
-    }else if (self.style == ItemWhiteBoardOrginBacground){
-        cell.layer.borderColor = [[UIColor whiteColor] CGColor];
-        cell.layer.borderWidth = 1;
-        cell.backgroundColor = [UIColor colorWithHexString:AppointMentBackGroundColor];
-        cell.titleLabel.textColor = [UIColor whiteColor];
-    }
     cell.titleLabel.frame = CGRectMake(7, 0, [self cellWidth:_interstArray[indexPath.row]], 30);
     cell.layer.cornerRadius = 2.0f;
-    [cell filleCellWithFeed:[_interstArray objectAtIndex:indexPath.row]];
+    [cell filleCellWithFeed:[_interstArray objectAtIndex:indexPath.row] type:self.style];
     CGFloat height = [self.collectionViewLayout collectionViewContentSize].height;
     
     if (self.meetInfoBlock && _isMeetBlock) {

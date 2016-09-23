@@ -97,7 +97,7 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
         
         
         if images.count > 0 {
-            changeImage(images[0] as! PHAsset)
+            changeImage(images[images.count - 1] as! PHAsset)
             collectionView.reloadData()
         }
         
@@ -127,10 +127,10 @@ final class FSAlbumView: UIView, UICollectionViewDataSource, UICollectionViewDel
         UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions(), animations: {
             if self.imageCropViewContainer.frame.origin.y == 50 - ScreenWidth {
                 self.imageCropViewContainer.frame = CGRect.init(x: 0, y: 0, width: ScreenWidth, height: ScreenWidth)
-                self.collectionView.frame = CGRect.init(x: 0, y: self.imageCropViewContainer.frame.maxY, width: ScreenWidth, height: ScreenHeight - self.imageCropViewContainer.frame.maxY)
+                self.collectionView.frame = CGRect.init(x: 0, y: self.imageCropViewContainer.frame.maxY, width: ScreenWidth, height: ScreenHeight - self.imageCropViewContainer.frame.maxY - 64)
             }else{
                 self.imageCropViewContainer.frame = CGRect.init(x: 0, y: 50 - ScreenWidth, width: ScreenWidth, height: ScreenWidth)
-                self.collectionView.frame = CGRect.init(x: 0, y: self.imageCropViewContainer.frame.maxY, width: ScreenWidth, height: ScreenHeight - self.imageCropViewContainer.frame.maxY)
+                self.collectionView.frame = CGRect.init(x: 0, y: self.imageCropViewContainer.frame.maxY, width: ScreenWidth, height: ScreenHeight - self.imageCropViewContainer.frame.maxY - 64)
             }
             
         }) { (finish) in
@@ -432,7 +432,7 @@ private extension FSAlbumView {
                 self.imageManager = PHCachingImageManager()
                 if self.images != nil && self.images.count > 0 {
                     
-                    self.changeImage(self.images[0] as! PHAsset)
+                    self.changeImage(self.images[self.images.count - 1] as! PHAsset)
                 }
                 
             case .restricted, .denied:

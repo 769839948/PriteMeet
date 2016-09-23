@@ -244,24 +244,6 @@ public final class FusumaViewController: UIViewController {
         let indexPath = IndexPath(row: lastItemIndex, section: lastSectionIndex)
         albumView.collectionView!.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.bottom, animated: false)
         albumView.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .bottom)
-        let asset = images[lastItemIndex] as! PHAsset
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
-            let options = PHImageRequestOptions()
-            options.isNetworkAccessAllowed = true
-            options.resizeMode = .exact
-            self.albumView.imageManager?.requestImage(for: asset,
-                                            targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight),
-                                            contentMode: .aspectFill,
-                                            options: options) {
-                                                result, info in
-                                                
-                                                DispatchQueue.main.async(execute: {
-                                                    
-                                                    self.albumView.imageCropView.imageSize = CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
-                                                    self.albumView.imageCropView.image = result
-                                                })
-            }
-        })
         if hasVideo {
 
             videoView.frame = CGRect(origin: CGPoint.zero, size: videoShotContainer.frame.size)

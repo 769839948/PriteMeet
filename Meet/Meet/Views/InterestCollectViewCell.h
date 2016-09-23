@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NewMeetInfoTableViewCell.h"
 
 @interface InterestCollectViewCell : UICollectionViewCell
 
@@ -19,6 +20,9 @@
 
 @property (nonatomic, strong) UIColor *titleColor;
 
-- (void)filleCellWithFeed:(NSString *)text;
+- (void)filleCellWithFeed:(NSString *)text type:(CollectionViewItemStyle)type
+;
+
+- (void)filleCellSelect:(BOOL)select;
 
 @end

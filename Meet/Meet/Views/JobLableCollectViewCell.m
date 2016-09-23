@@ -87,7 +87,7 @@ static NSString * const reuseIdentifier = @"InterstCollectViewCell";
     cell.titleLabel.frame = CGRectMake(0, 0, [self cellWidth:_interstArray[indexPath.row]], 30);
     cell.titleLabel.textColor = [UIColor blackColor];
     cell.layer.cornerRadius = 2.0f;
-    [cell filleCellWithFeed:[_interstArray objectAtIndex:indexPath.row]];
+    [cell filleCellWithFeed:[_interstArray objectAtIndex:indexPath.row] type:nil];
     return cell;
 }
 

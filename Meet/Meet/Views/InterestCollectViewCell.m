@@ -21,23 +21,58 @@
 @implementation InterestCollectViewCell
 
 
-- (UILabel *)titleLabel{
-    if (!_titleLabel) {
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
         _titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
         _titleLabel.layer.contentsScale = 2.0f;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.font = InterestCollectItemFont;
         [self.contentView addSubview:_titleLabel];
     }
-    return _titleLabel;
+    return self;
 }
 
-
-- (void)filleCellWithFeed:(NSString *)text
+- (void)filleCellWithFeed:(NSString *)text type:(CollectionViewItemStyle)type
 {
+    if (type == ItemWhiteColorAndBlackBoard) {
+        self.backgroundColor = [UIColor clearColor];
+        self.titleLabel.textColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
+        self.titleLabel.backgroundColor = [UIColor whiteColor];
+        self.layer.borderColor = [[UIColor colorWithHexString:HomeDetailViewNameColor] CGColor];
+        self.layer.borderWidth = 1;
+    }else if (type == ItemBlackAndWhiteLabelText){
+        self.backgroundColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
+        self.titleLabel.textColor = [UIColor whiteColor];
+    }else if (type == ItemWhiteBoardOrginBacground) {
+        self.layer.borderColor = [[UIColor whiteColor] CGColor];
+        self.layer.borderWidth = 1;
+        self.backgroundColor = [UIColor colorWithHexString:AppointMentBackGroundColor];
+        self.titleLabel.textColor = [UIColor whiteColor];
+    }else if (type == ItemOriginBacAndWhiteText) {
+        self.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
+        self.titleLabel.textColor = [UIColor whiteColor];
+        self.isSelect = YES;
+    }else if (type == ItemWhiteBacAndGrateText) {
+        self.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemUnSelect];
+        self.titleLabel.textColor = [UIColor colorWithHexString:MeProfileCollectViewItemUnSelectColor];
+        self.isSelect = NO;
+    }
     self.titleLabel.text = text;
 }
 
+- (void)filleCellSelect:(BOOL)select
+{
+    if (select) {
+        self.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
+        self.titleLabel.textColor = [UIColor whiteColor];
+        self.isSelect = YES;
+    }else{
+        self.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemUnSelect];
+        self.titleLabel.textColor = [UIColor colorWithHexString:MeProfileCollectViewItemUnSelectColor];
+        self.isSelect = NO;
+    }
+}
 
 - (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
 {
