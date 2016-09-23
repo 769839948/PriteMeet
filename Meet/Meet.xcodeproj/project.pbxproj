@@ -127,6 +127,7 @@
 		1F6850361CFFD77A007F3C07 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6850351CFFD77A007F3C07 /* BaseTableViewCell.m */; };
 		1F68503D1CFFE4F2007F3C07 /* NewMeetInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F68503C1CFFE4F2007F3C07 /* NewMeetInfoTableViewCell.m */; };
 		1F6850401CFFFB02007F3C07 /* AllInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F68503F1CFFFB02007F3C07 /* AllInfoTableViewCell.m */; };
+		1F6A6BB11D954B2400A0B398 /* AppGlobalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6A6BB01D954B2400A0B398 /* AppGlobalData.m */; };
 		1F6E8BE51D0276C00044CD40 /* NSObject+PerformSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E8BE41D0276C00044CD40 /* NSObject+PerformSelector.m */; };
 		1F79BAA21D06AF5C00814DED /* ProfileKeyValue.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F79BAA11D06AF5C00814DED /* ProfileKeyValue.txt */; };
 		1F79BAD21D071CF700814DED /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F79BAD11D071CF700814DED /* UserInfo.m */; };
@@ -523,6 +524,8 @@
 		1F68503C1CFFE4F2007F3C07 /* NewMeetInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewMeetInfoTableViewCell.m; path = ../Views/NewMeetInfoTableViewCell.m; sourceTree = "<group>"; };
 		1F68503E1CFFFB02007F3C07 /* AllInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AllInfoTableViewCell.h; path = ../Views/AllInfoTableViewCell.h; sourceTree = "<group>"; };
 		1F68503F1CFFFB02007F3C07 /* AllInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AllInfoTableViewCell.m; path = ../Views/AllInfoTableViewCell.m; sourceTree = "<group>"; };
+		1F6A6BAF1D954B2400A0B398 /* AppGlobalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppGlobalData.h; sourceTree = "<group>"; };
+		1F6A6BB01D954B2400A0B398 /* AppGlobalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppGlobalData.m; sourceTree = "<group>"; };
 		1F6E8BE31D0276C00044CD40 /* NSObject+PerformSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+PerformSelector.h"; sourceTree = "<group>"; };
 		1F6E8BE41D0276C00044CD40 /* NSObject+PerformSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+PerformSelector.m"; sourceTree = "<group>"; };
 		1F79BAA11D06AF5C00814DED /* ProfileKeyValue.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ProfileKeyValue.txt; sourceTree = "<group>"; };
@@ -1861,6 +1864,8 @@
 				1F4E43651CFC56AE00730DEA /* Category */,
 				DA3626711CD1A98E00A8AE39 /* AppData.h */,
 				DA3626721CD1A98E00A8AE39 /* AppData.m */,
+				1F6A6BAF1D954B2400A0B398 /* AppGlobalData.h */,
+				1F6A6BB01D954B2400A0B398 /* AppGlobalData.m */,
 				DA3626731CD1A98E00A8AE39 /* UITools.h */,
 				DA3626741CD1A98E00A8AE39 /* UITools.m */,
 				1F4E436E1CFC57F900730DEA /* ThemeTools.h */,
@@ -2366,6 +2371,7 @@
 				1FD13B301D869DEB0035760D /* FSVideoCameraView.swift in Sources */,
 				1FC2C14F1CFD362B001D6D10 /* UIViewController+hideExcessLine.m in Sources */,
 				DAF5C8BF1CE6D6AD00DA7901 /* RMMapper.m in Sources */,
+				1F6A6BB11D954B2400A0B398 /* AppGlobalData.m in Sources */,
 				1FFEE34B1D7805D600EEC61F /* AboutUsCell.swift in Sources */,
 				DABF8AE01CE7509400CA2A1D /* MyMeetsViewController.m in Sources */,
 				1FAA07DF1D3F17810017F3E3 /* WaitPayViewController.swift in Sources */,
@@ -2645,7 +2651,7 @@
 					"$(PROJECT_DIR)/Meet/3rd/SDKExport",
 					"$(PROJECT_DIR)/Meet/3rd/libWeiboSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.meet.testmeet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meet.meet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Meet/Meet-Bridging-Header.h";
@@ -2677,7 +2683,7 @@
 					"$(PROJECT_DIR)/Meet/3rd/SDKExport",
 					"$(PROJECT_DIR)/Meet/3rd/libWeiboSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.meet.testmeet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meet.meet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Meet/Meet-Bridging-Header.h";

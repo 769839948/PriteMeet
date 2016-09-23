@@ -15,6 +15,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "Meet-Swift.h"
 #import "UIImage+QiNiuTools.h"
+#import "AppGlobalData.h"
 
 @interface ManListCell ()<EqualSpaceFlowLayoutDelegate>
 
@@ -42,11 +43,6 @@
 
 @property (nonatomic, copy) NSString *distance;
 
-@property (nonatomic, copy) NSString *imageUrl;
-
-@property (nonatomic, copy) NSMutableDictionary *imageUrlDic;
-
-
 @end
 
 @implementation ManListCell
@@ -57,7 +53,6 @@
         self.backgroundColor = [UIColor clearColor];
         [self setUpView];
         _dicHeight = 27;
-        _imageUrlDic = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -138,17 +133,16 @@
     if (model.cover_photo != nil || model.cover_photo != NULL) {
         Cover_photo *coverPhoto = [Cover_photo mj_objectWithKeyValues:model.cover_photo];
         NSArray *imageArray = [coverPhoto.photo componentsSeparatedByString:@"?"];
-        if ([_imageUrl isEqualToString:@""] || [_imageUrlDic objectForKey:_user_id] == nil) {
-            __weak typeof(self) weakSelf = self;
+        if ([[AppGlobalData sharedInstance].homeListDic objectForKey:_user_id] == nil) {
+            _photoImage.image = [UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size];
             [UIImage imageWithUrl:imageArray[0] newImage:CGSizeMake(ScreenWidth - 20, (ScreenWidth - 20)*200/355) success:^(NSString *imageUrl) {
-                weakSelf.imageUrl = imageUrl;
-                [_imageUrlDic setObject:imageUrl forKey:_user_id];
+                [[AppGlobalData sharedInstance].homeListDic setObject:imageUrl forKey:_user_id];
                 [_photoImage sd_setImageWithURL:[NSURL URLWithString:[imageArray[0] stringByAppendingString:imageUrl]] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     
                 }];
             }];
         }else{
-            [_photoImage sd_setImageWithURL:[NSURL URLWithString:[imageArray[0] stringByAppendingString:[_imageUrlDic objectForKey:_user_id]]] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            [_photoImage sd_setImageWithURL:[NSURL URLWithString:[imageArray[0] stringByAppendingString:[[AppGlobalData sharedInstance].homeListDic objectForKey:_user_id]]] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
             }];
         }
