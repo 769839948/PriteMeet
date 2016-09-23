@@ -298,8 +298,8 @@ class HomeViewController: UIViewController {
         filterView.filterStr = UserDefaultsGetSynchronize("sort")  != "" ? UserDefaultsGetSynchronize("sort"):"0"
         filterView.instureStr = UserDefaultsGetSynchronize("instury")  != "" ? UserDefaultsGetSynchronize("instury"):"0"
         filterView.fileStringClouse = { str,gender,sort,instury in
-            if self.logtitude != 0.0 {
-                self.filterStr = str.appending("&location=\(self.logtitude),\(self.latitude)")
+            if self.logtitude != 0.0 && sort == "location" {
+                self.filterStr = str.appending("&logtitude=\(self.logtitude)&latitude=\(self.latitude)")
             }else{
                 self.filterStr = str
             }

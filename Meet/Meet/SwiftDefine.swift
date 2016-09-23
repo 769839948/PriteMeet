@@ -98,6 +98,8 @@ let FilterViewTitleInfoFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-R
 
 let FilterViewTitleFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Medium", size: 30):UIFont.systemFont(ofSize: 30)
 
+let LoginTextFieldFont  = version >= 9.0 ? UIFont.systemFont(ofSize: 22.0):UIFont.systemFont(ofSize: 22.0)
+
 
 let ReloadOrderCollectionView = "ReloadOrderCollectionView"
 

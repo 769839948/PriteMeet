@@ -24,7 +24,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
+        _titleLabel = [[UILabel alloc] init];
         _titleLabel.layer.contentsScale = 2.0f;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.font = InterestCollectItemFont;
@@ -35,30 +35,41 @@
 
 - (void)filleCellWithFeed:(NSString *)text type:(CollectionViewItemStyle)type
 {
+    self.titleLabel.frame = CGRectMake(7, 0, [self cellWidth:text] + 18, 30);
+    
     if (type == ItemWhiteColorAndBlackBoard) {
         self.backgroundColor = [UIColor clearColor];
         self.titleLabel.textColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
         self.titleLabel.backgroundColor = [UIColor whiteColor];
+        self.titleLabel.font = InterestCollectItemFont;
         self.layer.borderColor = [[UIColor colorWithHexString:HomeDetailViewNameColor] CGColor];
         self.layer.borderWidth = 1;
     }else if (type == ItemBlackAndWhiteLabelText){
         self.backgroundColor = [UIColor colorWithHexString:HomeDetailViewNameColor];
         self.titleLabel.textColor = [UIColor whiteColor];
+        self.titleLabel.font = InterestCollectItemFont;
+        if (ScreenWidth == 414) {
+            self.titleLabel.frame = CGRectMake(7, -15, [self cellWidth:text] + 18, 60);
+        }
     }else if (type == ItemWhiteBoardOrginBacground) {
         self.layer.borderColor = [[UIColor whiteColor] CGColor];
         self.layer.borderWidth = 1;
+        self.titleLabel.font = InterestCollectItemFont;
         self.backgroundColor = [UIColor colorWithHexString:AppointMentBackGroundColor];
         self.titleLabel.textColor = [UIColor whiteColor];
     }else if (type == ItemOriginBacAndWhiteText) {
         self.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemSelect];
         self.titleLabel.textColor = [UIColor whiteColor];
+        self.titleLabel.font = InterestCollectItemFont;
         self.isSelect = YES;
     }else if (type == ItemWhiteBacAndGrateText) {
         self.backgroundColor = [UIColor colorWithHexString:MeProfileCollectViewItemUnSelect];
         self.titleLabel.textColor = [UIColor colorWithHexString:MeProfileCollectViewItemUnSelectColor];
+        self.titleLabel.font = InterestCollectItemFont;
         self.isSelect = NO;
     }
     self.titleLabel.text = text;
+    [self updateConstraintsIfNeeded];
 }
 
 - (void)filleCellSelect:(BOOL)select

@@ -42,7 +42,7 @@
         if ([[responseObject objectForKey:@"success"] boolValue]) {
             successBlock(responseObject[@"content"]);
         }else{
-            failBlock(@{@"error":@"服务器出错"});
+            failBlock(@{@"error":@"请求出错"});
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(@{@"error":@"网络错误"});
@@ -56,10 +56,10 @@
         if ([[responseObject objectForKey:@"success"] boolValue]) {
             successBlock(responseObject[@"content"][@"pay_url"]);
         }else{
-            
+            failBlock(@{@"error":@"请求错误"});
         }
     } failure:^(NSDictionary *responseObject) {
-        
+        failBlock(@{@"error":@"网络错误"});
     }];
 }
 
@@ -73,7 +73,7 @@
         if ([responseObject[@"success"] boolValue]) {
             successBlock(responseObject[@"content"]);
         }else {
-            failBlock(@{@"error":@"服务器连接错误"});
+            failBlock(@{@"error":@"服务器错误"});
         }
     } failure:^(NSDictionary *responseObject) {
         failBlock(@{@"error":@"网络错误"});

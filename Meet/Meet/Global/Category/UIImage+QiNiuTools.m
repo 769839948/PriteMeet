@@ -100,6 +100,9 @@ typedef void(^Success)(NSDictionary *successDic);
 // 将JSON串转化为字典或者数组
 + (id)toArrayOrNSDictionary:(NSData *)jsonData{
     NSError *error = nil;
+    if (jsonData == nil) {
+        return nil;
+    }
     id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData
                                                     options:NSJSONReadingAllowFragments
                                                       error:&error];

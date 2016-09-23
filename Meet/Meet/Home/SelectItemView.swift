@@ -32,11 +32,11 @@ class SelectItemView: UIView {
     
     func setUpView(){
         let numberOfItem = self.dataSource.selectViewNuberOfItem(selectView: self)
-        let spacllWith:CGFloat = 10
+        let spacllWith:CGFloat = 4
         var maxWidth:CGFloat = 0
         for index in 1...numberOfItem {
             let str = self.dataSource.selectViewItemTitle(selectView:self,index: index - 1)
-            let itemWidth:CGFloat =  str.stringWidth(str, font: FilterViewSelectItemFont!, height: 31) + 30
+            let itemWidth:CGFloat =  str.stringWidth(str, font: FilterViewSelectItemFont!, height: 31) + 28
             let item = SelectItemViewCell.init(frame:CGRect.init(x: maxWidth, y: 0, width: itemWidth, height: self.frame.size.height), title:str)
             
             let itemTap = UITapGestureRecognizer(target: self, action: #selector(SelectItemView.itemTapClick(_:)))

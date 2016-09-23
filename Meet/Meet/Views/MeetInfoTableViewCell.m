@@ -166,7 +166,7 @@
         [_authentication mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(20);
             make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-8);
-            make.size.mas_offset(CGSizeMake(68, 30));
+            make.size.mas_offset(CGSizeMake(67, 31));
         }];
         
         self.didSetupConstraints = YES;

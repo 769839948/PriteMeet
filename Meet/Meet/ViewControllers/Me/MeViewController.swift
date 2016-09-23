@@ -723,8 +723,8 @@ extension MeViewController : UITableViewDataSource {
                         }else if (autoArray?.count == 2) {
                             for index in 0...(autoArray?.count)! - 1 {
                                 var autoName = "、"
-                                if dic.object(forKey: autoArray?[index]) != nil {
-                                    autoName = dic.object(forKey: autoArray?[index]) as! String
+                                if dic.object(forKey: (autoArray?[index])!) != nil {
+                                    autoName = dic.object(forKey: (autoArray?[index])!) as! String
                                 }
                                 if autoName.length > 2 {
                                     let firstChar = (autoName as NSString).substring(to: 2)
@@ -734,7 +734,7 @@ extension MeViewController : UITableViewDataSource {
                             tempString = tempString.replacingOccurrences(of: "、", with: "")
                             string = "尚未通过\(tempString)认证       "
                         }else if (autoArray?.count == 1){
-                            let autoName = dic.object(forKey: autoArray?[0]) as! String
+                            let autoName = dic[(autoArray?[0])!] as! String
                             let firstChar = (autoName as NSString).substring(to: 2)
                             tempString = tempString.replacingOccurrences(of: "\(firstChar)、", with: "")
                             tempString = (tempString as NSString).substring(to: 5)

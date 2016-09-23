@@ -134,7 +134,7 @@
 {
     _user_id = [NSString stringWithFormat:@"%ld",(long)model.uid];
     __weak typeof(self) weakSelf = self;
-    
+    NSLog(@"%f",ScreenWidth);
     if (model.cover_photo != nil || model.cover_photo != NULL) {
         Cover_photo *coverPhoto = [Cover_photo mj_objectWithKeyValues:model.cover_photo];
         NSArray *imageArray = [coverPhoto.photo componentsSeparatedByString:@"?"];
@@ -197,7 +197,7 @@
         [weakSelf.interestView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_offset([self cellHeight:interstArray]);
         }];
-        
+        [self updateConstraintsIfNeeded];
     }
     [ManListCell homeNameLabelColor:_nameLabel];
     [self updateConstraintsIfNeeded];

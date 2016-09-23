@@ -49,6 +49,7 @@
     _style = style;
     _interstArray = [array mutableCopy];
     [self reloadData];
+    [self updateConstraintsIfNeeded];
 }
 
 - (void)setCollectViewData:(NSArray *)array andSelectArray:(NSArray *)selectArray
@@ -57,6 +58,7 @@
     _interstArray = [array mutableCopy];
     _selectItems = [selectArray mutableCopy];
     [self reloadData];
+    [self updateConstraintsIfNeeded];
 }
 
 - (CGFloat)interesHeight
@@ -89,7 +91,6 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     InterestCollectViewCell *cell = [self dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    cell.titleLabel.frame = CGRectMake(7, 0, [self cellWidth:_interstArray[indexPath.row]], 30);
     cell.layer.cornerRadius = 2.0f;
     [cell filleCellWithFeed:[_interstArray objectAtIndex:indexPath.row] type:self.style];
     CGFloat height = [self.collectionViewLayout collectionViewContentSize].height;

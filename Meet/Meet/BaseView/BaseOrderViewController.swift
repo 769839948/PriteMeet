@@ -204,7 +204,7 @@ class BaseOrderViewController: UIViewController {
             let time:UInt32 = UInt32(timeString)!
             self.weChatPayreq.timeStamp = time
             }, fail: { (dic) in
-                
+             MainThreadAlertShow("请求出错", view: self.view)
         })
     }
     

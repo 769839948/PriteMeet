@@ -58,6 +58,11 @@ class LoginViewController: UIViewController {
     
     var proBtn:UIButton!
     
+    var lineLabel1:UILabel!
+    
+    var lineLabel2:UILabel!
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
@@ -111,10 +116,10 @@ class LoginViewController: UIViewController {
         smsCodeField.keyboardType = .numberPad
         loginInfoView.addSubview(smsCodeField)
         
-        let lineLabel1 = self.setUpLineLabel()
+        lineLabel1 = self.setUpLineLabel()
         loginInfoView.addSubview(lineLabel1)
         
-        let lineLabel2 = self.setUpLineLabel()
+        lineLabel2 = self.setUpLineLabel()
         loginInfoView.addSubview(lineLabel2)
         
         loginButton = self.setUpLoginButton()
@@ -259,6 +264,7 @@ class LoginViewController: UIViewController {
         textField.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         textField.tintColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
         textField.delegate = self
+        textField.font = LoginTextFieldFont
         return textField
     }
     
@@ -370,6 +376,8 @@ class LoginViewController: UIViewController {
         smsCodeField.textColor = UIColor.init(hexString: PlaceholderImageColor)
         mobileField.textColor = UIColor.init(hexString: PlaceholderImageColor)
         comfigLabel.textColor = UIColor.init(hexString: PlaceholderImageColor)
+        lineLabel1.backgroundColor = UIColor.init(hexString: PlaceholderImageColor)
+        lineLabel2.backgroundColor = UIColor.init(hexString: PlaceholderImageColor)
         proBtn.setTitleColor(UIColor.init(hexString: PlaceholderImageColor), for: UIControlState())
         timeDownLabel.isHidden = true
         loginButton.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: PlaceholderImageColor), size: CGSize(width: 70, height: 46)), for: UIControlState())
@@ -381,6 +389,8 @@ class LoginViewController: UIViewController {
         smsCodeField.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         mobileField.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
         comfigLabel.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
+        lineLabel1.backgroundColor = UIColor.init(hexString: HomeDetailViewNameColor)
+        lineLabel2.backgroundColor = UIColor.init(hexString: HomeDetailViewNameColor)
         proBtn.setTitleColor(UIColor.init(hexString: HomeDetailViewNameColor), for: UIControlState())
         timeDownLabel.isHidden = false
         self.changeLoginButtonColor()
@@ -447,10 +457,6 @@ extension LoginViewController : UITextFieldDelegate {
                     smsCodeStr = ""
                 }
             }
-        }
-        
-        if smsCodeStr!.length == 4 && phoneStr?.length == 11 {
-            self.loginButtonClick()
         }
 
         self.changeLoginButtonColor()

@@ -13,6 +13,7 @@
 #import "TZAssetCell.h"
 #import "UIView+Layout.h"
 #import "TZImageManager.h"
+#import "UIViewController+NavigationItemColor.h"
 
 @interface TZImagePickerController () {
     NSTimer *_timer;
@@ -36,7 +37,6 @@
     self.navigationBar.barStyle = UIBarStyleDefault;
     self.navigationBar.translucent = YES;
     [TZImageManager manager].shouldFixOrientation = NO;
-
     // Default appearance, you can reset these after this method
     // 默认的外观，你可以在这个方法后重置
     self.oKButtonTitleColorNormal   = [UIColor colorWithRed:(83/255.0) green:(179/255.0) blue:(17/255.0) alpha:1.0];
@@ -61,6 +61,7 @@
     textAttrs[NSForegroundColorAttributeName] = self.barItemTextColor;
     textAttrs[NSFontAttributeName] = self.barItemTextFont;
     [barItem setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
+    [self navigationItemWithLineAndWihteColor];
     
 }
 
@@ -339,6 +340,8 @@
     //这里修改过
 //    [[UIBarButtonItem alloc] initWithTitle:[NSBundle tz_localizedStringForKey:@"Cancle"] style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
 //    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSFontAttributeName:NavigationBarRightItemFont} forState:UIControlStateNormal];
+    [self navigationItemWithLineAndWihteColor];
+    [self addLineNavigationBottom];
     [self configTableView];
 }
 

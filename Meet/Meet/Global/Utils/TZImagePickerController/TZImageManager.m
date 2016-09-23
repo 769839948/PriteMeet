@@ -127,6 +127,9 @@ static CGFloat TZScreenScale;
             }
         }
         for (PHAssetCollection *collection in topLevelUserCollections) {
+            if ([collection.localizedTitle isEqualToString:@"Hipstamatic"] || collection.assetCollectionType != 1) {
+                continue;
+            }
             PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:option];
             if (fetchResult.count < 1) continue;
             [albumArr addObject:[self modelWithResult:fetchResult name:collection.localizedTitle]];

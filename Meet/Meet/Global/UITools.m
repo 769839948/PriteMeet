@@ -146,7 +146,8 @@ static UITools *tools = nil;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeCustomView;
-    hud.bezelView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+    hud.bezelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+    hud.bezelView.layer.cornerRadius = 12.0f;
     hud.label.numberOfLines = 0;
     hud.label.textColor = [UIColor whiteColor];
     hud.label.font = CustomViewFont;
@@ -164,8 +165,9 @@ static UITools *tools = nil;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeCustomView;
-    hud.bezelView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+    hud.bezelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
     hud.label.numberOfLines = 0;
+    hud.bezelView.layer.cornerRadius = 12.0f;
     hud.label.textColor = [UIColor whiteColor];
     hud.label.font = CustomViewFont;
     hud.label.text = message;
