@@ -32,7 +32,7 @@ extension UIViewController {
     }
     
     func disMissBtnPress(_ sender:UIBarButtonItem){
-        self.dismiss(animated: true) { 
+        self.dismiss(animated: true) {
             
         }
     }

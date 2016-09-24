@@ -241,7 +241,6 @@ class MeViewController: UIViewController,TZImagePickerControllerDelegate {
             break
         case 2:
             self.pushHightLightVC()
-//            self.pushProfileViewControllr()
             break
         case 3:
             self.pushHightLightVC()
@@ -342,7 +341,6 @@ class MeViewController: UIViewController,TZImagePickerControllerDelegate {
         centerView.updateLabelText("\(currentIndex)", allnumber: "\(images.count)")
         KeyWindown?.addSubview(centerView)
         for image in images {
-            
             userInfoModel.uploadHeaderList(image as! UIImage, successBlock: { (dic) in
                 centerView.updateLabelText("\(currentIndex)", allnumber: "\(images.count)")
                 if currentIndex == images.count {
@@ -554,7 +552,13 @@ extension MeViewController : UITableViewDelegate{
             case 0:
                 switch (indexPath as NSIndexPath).row {
                 case 0:
-                    return ScreenWidth*236/355 + 116
+//                    if UserInfo.sharedInstance().job_label != nil && UserInfo.sharedInstance().job_label != "" {
+//                        return 115 + UserInfo.sharedInstance().job_label.heightWithConstrainedWidth(ScreenWidth - 40, font: HomeViewDetailPositionFont!)
+//                    }else{
+//                        
+//
+//                    }
+                    return ScreenWidth*236/355 + 115
                 default:
                     return 115
                 }
@@ -625,18 +629,40 @@ extension MeViewController : UITableViewDataSource {
                    
                     if UserInfo.sharedInstance().avatar != nil {
                         let imageArray = UserInfo.sharedInstance().avatar.components(separatedBy: "?")
-                        
-                        UIImage.image(withUrl: imageArray[0], newImage: CGSize.init(width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355),success:{ imageUrl in
-                            cell.avatarImageView.sd_setImage(with: URL.init(string: imageArray[0] + imageUrl!), placeholderImage: UserInfo.image(forName: "coverPhoto"), options: .retryFailed, completed: { (image
-                                , error, type, url) in
-                                UserInfo.saveCacheImage(image, withName: "coverPhoto")
+                        let image = UserInfo.image(forName: "coverPhoto")
+
+//                        if image != nil{
+//                            if (image?.size.width)! / (image?.size.height)! < 1.65 && (image?.size.width)! / (image?.size.height)! > 1.45 {
+//                                //                                        plachImage = 10;
+//                            }else{
+//                                //                                        plachImage =
+//                            }
+//                        }
+                        if ((AppGlobalData.sharedInstance().meInfoDic?["\(UserInfo.sharedInstance().uid)me"]) != nil) {
+                            DispatchQueue.global().async {
+                                let imageUrlStr = (AppGlobalData.sharedInstance().meInfoDic?["\(UserInfo.sharedInstance().uid)me"]) as! String
+                                
+                                DispatchQueue.main.async(execute: {
+                                    
+                                    cell.avatarImageView.sd_setImage(with: URL.init(string: imageArray[0] + imageUrlStr), placeholderImage: UserInfo.image(forName: "coverPhoto"), options: .retryFailed, completed: { (image
+                                        , error, type, url) in
+                                        UserInfo.saveCacheImage(image, withName: "coverPhoto")
+                                    })
+                                })
+                            }
+                        }else {
+                            UIImage.image(withUrl: imageArray[0], newImage: CGSize.init(width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355),success:{ imageUrl in
+                                cell.avatarImageView.sd_setImage(with: URL.init(string: imageArray[0] + imageUrl!), placeholderImage: UserInfo.image(forName: "coverPhoto"), options: .retryFailed, completed: { (image
+                                    , error, type, url) in
+                                    UserInfo.saveCacheImage(image, withName: "coverPhoto")
+                                    AppGlobalData.sharedInstance().meInfoDic.setValue(imageUrl, forKey: "\(UserInfo.sharedInstance().uid)me")
+                                })
                             })
-                        })
-                        
+                        }
                     }else{
                         //没有本地和没有网络上加载图片
                         let coverImage = UserInfo.image(forName: "coverPhoto")
-                        let sizeImage = coverImage?.resizeImage(coverImage!, newSize: CGSize(width: 1065, height: 1065))
+                        let sizeImage = coverImage?.resizeImage(coverImage!, newSize: CGSize(width: 1065, height: 708))
                         let image = UIImage.getImageFrom(sizeImage, subImageSize: CGSize(width: 1065, height: 708), subImageRect: CGRect(x: 0, y: 0, width: 1065, height: 708))
                         
                         cell.avatarImageView.image = image

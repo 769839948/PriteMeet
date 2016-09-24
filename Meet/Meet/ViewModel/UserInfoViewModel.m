@@ -16,6 +16,7 @@
 #import "QiniuSDK.h"
 #import "NSString+StringType.h"
 #import "UIImage+Crop.h"
+#import "UIImage+QiNiuTools.h"
 
 @implementation UserInfoViewModel
 
@@ -230,6 +231,8 @@
                     failBlock(@{@"error":@"上传服务器出错"});
                 }];
                 NSString *imageUrl = [NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@?imageMogr2/auto-orient/thumbnail/%@x%@",parameters[@"key"],parameters[@"width"],parameters[@"height"]];
+                NSString *coverUrl = [[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",fileName] stringByAppendingString:[UIImage imageSize:@{@"width":parameters[@"width"],@"height":parameters[@"height"]} newImageSize:CGSizeMake(355, 236)]];
+                [self saveCoverImage:coverUrl];
                 [self uploadCoverPhoto:imageUrl];
             }else{
                 successBlock(@{@"success":@"1",@"avatar":[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",fileName]});
@@ -352,6 +355,23 @@
                                    }
                                } else{
                                    completionBlock(NO,nil);
+                               }
+                           }];
+    
+}
+
+- (void)saveCoverImage:(NSString *)url;
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               if ( !error )
+                               {
+                                   UIImage *image = [[UIImage alloc] initWithData:data];
+                                   [UserInfo saveCacheImage:image withName:@"coverPhoto"];
+                               } else{
+                                   NSLog(@"error");
                                }
                            }];
     

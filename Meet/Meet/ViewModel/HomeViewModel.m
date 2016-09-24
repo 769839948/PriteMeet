@@ -36,16 +36,26 @@
 
 - (void)getDataFilterList:(NSString *)page
                 filterUrl:(NSString *)url
+                 latitude:(double)latitude
+                logitude:(double)logitude
              successBlock:(Success)successBlock
                 failBlock:(Fail)failBlock
 {
     NSString *filterUrl = @"";
     if ([UserInfo isLoggedIn]) {
-        filterUrl = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@%@",RequestGetFilterUserList,page,[UserInfo sharedInstance].uid,url];
+        if (latitude != 0) {
+            filterUrl = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@%@&location=%f,%f",RequestGetFilterUserList,page,[UserInfo sharedInstance].uid,url,latitude,logitude];
+        }else{
+            filterUrl = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@%@",RequestGetFilterUserList,page,[UserInfo sharedInstance].uid,url];
+        }
     }else{
-        filterUrl = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&%@",RequestGetFilterUserList,page,url];
+        if (latitude != 0) {
+            filterUrl = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&%@&location=%f,%f",RequestGetFilterUserList,page,url,latitude,logitude];
+        }else{
+            filterUrl = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&%@",RequestGetFilterUserList,page,url];
+        }
     }
-    
+    NSLog(@"%@",filterUrl);
     [self getWithURLString:filterUrl parameters:nil success:^(NSDictionary *responseObject) {
         if ([[responseObject objectForKey:@"success"] boolValue]) {
             successBlock([responseObject objectForKey:@"content"]);

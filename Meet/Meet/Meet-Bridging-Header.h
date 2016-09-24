@@ -74,4 +74,6 @@
 #import "UIImage+QiNiuTools.h"
 #import "MeetRefreshBackFooter.h"
 #import "TZImageManager.h"
+#import "AppGlobalData.h"
+#import "PhotosAlbumViewController.h"
 

@@ -936,7 +936,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
                 }
                 
             }else{
-                if (row == RowJobLabel  && !_isBaseView) {
+                if (row == RowJobLabel  && !_isBaseView && [[UserExtenModel shareInstance].auth_info rangeOfString:@"1"].location != NSNotFound) {
                     cell.textField.enabled = NO;
                 }
                 cell.textField.text = _dicValues[_titleContentArray[row]];
@@ -1235,7 +1235,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
 
 - (void)selectPhotoImage
 {
-    PhotosAlbumViewController *photosAlbum = [[PhotosAlbumViewController alloc] initWithMaxImagesCount:1 delegate:self];
+    PhotosAlbumViewController *photosAlbum = [[PhotosAlbumViewController alloc] initWithMaxImagesCount:8 delegate:self];
     photosAlbum.navigationBar.barTintColor = [UIColor whiteColor];
     photosAlbum.navigationBar.tintColor = [UIColor colorWithHexString: HomeDetailViewNameColor];
     photosAlbum.allowPickingVideo = NO;
@@ -1272,7 +1272,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
     UIImage *originImage = [UserInfo imageForName:@"coverPhoto"];
 //    UIImage *cropImage = [UIImage resizeImage:image withWidth:1065 withHeight:768 originX:0 originY:0];
 //    UIImage *cropImage = [image getSubImage:CGRectMake(0, originY, newImageSize.width, newImageSize.height)];
-    UIImage *saveImage = [image croppedImage:CGRectMake(0, originY, 100, 100)];
+//    UIImage *saveImage = [image croppedImage:CGRectMake(0, originY, 100, 100)];
 //    [UIImage resizeImage:image withWidth:imageSize.width withHeight:imageSize.height originX:0 originY:0];
 
     [UserInfo saveCacheImage:image withName:@"coverPhoto"];
@@ -1506,8 +1506,13 @@ typedef NS_ENUM(NSUInteger, RowType) {
                         [_workeExperId addObject:object[@"wid"]];
                         [self updateWorkUserFile:[_arrayWorkExper copy] withId:[_workeExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
-                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-                        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        __weak typeof(self) weakSelf = self;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            // 通知主线程刷新 神马的
+                            [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        });
+                        
                     } fail:^(NSDictionary *object) {
                         [UITools showMessageToView:self.view message:[object objectForKey:@"error"] autoHide:YES];
                     } loadingString:^(NSString *str) {
@@ -1519,7 +1524,12 @@ typedef NS_ENUM(NSUInteger, RowType) {
                         [_eduExperId addObject:object[@"eid"]];
                         [self updateEduUserFile:[_arrayEducateExper copy] withEduId:[_eduExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
-                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                        __weak typeof(self) weakSelf = self;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            // 通知主线程刷新 神马的
+                            [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+
+                        });
                     } fail:^(NSDictionary *object) {
                         [UITools showMessageToView:self.view message:[object objectForKey:@"error"] autoHide:YES];
                     } loadingString:^(NSString *str) {
@@ -1532,7 +1542,11 @@ typedef NS_ENUM(NSUInteger, RowType) {
                         [_arrayWorkExper replaceObjectAtIndex:path.row - 1 withObject:string];
                         [self updateWorkUserFile:[_arrayWorkExper copy] withId:[_workeExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
-                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                        __weak typeof(self) weakSelf = self;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            // 通知主线程刷新 神马的
+                            [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                        });
                     } fail:^(NSDictionary *object) {
                         
                     } loadingString:^(NSString *str) {
@@ -1543,7 +1557,11 @@ typedef NS_ENUM(NSUInteger, RowType) {
                         [_arrayEducateExper replaceObjectAtIndex:path.row - 1 withObject:string];
                         [self updateEduUserFile:[_arrayEducateExper copy] withEduId:[_eduExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
-                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                        __weak typeof(self) weakSelf = self;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            // 通知主线程刷新 神马的
+                            [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                        });
                     } fail:^(NSDictionary *object) {
                         
                     } loadingString:^(NSString *str) {
@@ -1557,7 +1575,11 @@ typedef NS_ENUM(NSUInteger, RowType) {
                         [_workeExperId removeObjectAtIndex:path.row - 1];
                         [self updateWorkUserFile:[_arrayWorkExper copy] withId:[_workeExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
-                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                        __weak typeof(self) weakSelf = self;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            // 通知主线程刷新 神马的
+                            [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                        });
                     } fail:^(NSDictionary *object) {
                         
                     } loadingString:^(NSString *str) {
@@ -1569,7 +1591,11 @@ typedef NS_ENUM(NSUInteger, RowType) {
                         [_eduExperId removeObjectAtIndex:path.row - 1];
                         [self updateEduUserFile:[_arrayEducateExper copy] withEduId:[_eduExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
-                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                        __weak typeof(self) weakSelf = self;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            // 通知主线程刷新 神马的
+                            [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                        });
                     } fail:^(NSDictionary *object) {
                         
                     } loadingString:^(NSString *str) {
@@ -1612,40 +1638,68 @@ typedef NS_ENUM(NSUInteger, RowType) {
                         [_arrayWorkExper addObject:string];
                         [self updateWorkUserFile:[_arrayWorkExper copy] withId:[_workeExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
-                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-                        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        __weak typeof(self) weakSelf = self;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            // 通知主线程刷新 神马的
+                            [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        });
+                        
                     }else{
                         [_arrayEducateExper addObject:string];
                         //                        [_eduExperId addObject:object[@"eid"]];
                         [self updateEduUserFile:[_arrayEducateExper copy] withEduId:[_eduExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
-                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                        __weak typeof(self) weakSelf = self;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            // 通知主线程刷新 神马的
+                            [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+
+                        });
                     }
                 }else if (type == ViewTypeEdit){
                     if (path.section == 2){
                         [_arrayWorkExper replaceObjectAtIndex:path.row - 1 withObject:string];
                         [self updateWorkUserFile:[_arrayWorkExper copy] withId:[_workeExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
-                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                        __weak typeof(self) weakSelf = self;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            // 通知主线程刷新 神马的
+                            [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                            
+                        });
                     }else{
                         [_arrayEducateExper replaceObjectAtIndex:path.row - 1 withObject:string];
                         [self updateEduUserFile:[_arrayEducateExper copy] withEduId:[_eduExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
-                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-                    }
+                        __weak typeof(self) weakSelf = self;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            // 通知主线程刷新 神马的
+                            [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                            
+                        });                    }
                 }else{
                     if (path.section == 2){
                         [_arrayWorkExper removeObjectAtIndex:path.row - 1];
                         [_workeExperId removeObjectAtIndex:path.row - 1];
                         [self updateWorkUserFile:[_arrayWorkExper copy] withId:[_workeExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
-                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-                    }else{
+                        __weak typeof(self) weakSelf = self;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            // 通知主线程刷新 神马的
+                            [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                            
+                        });                    }else{
                         [_arrayEducateExper removeObjectAtIndex:path.row - 1];
                         [_eduExperId removeObjectAtIndex:path.row - 1];
                         [self updateEduUserFile:[_arrayEducateExper copy] withEduId:[_eduExperId copy]];
                         NSIndexSet *indexSet=[[NSIndexSet alloc] initWithIndex:path.section];
-                        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                        __weak typeof(self) weakSelf = self;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            // 通知主线程刷新 神马的
+                            [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                            
+                        });
                     }
                     
                 }

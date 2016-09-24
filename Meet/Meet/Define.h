@@ -53,7 +53,6 @@
 
 
 
-
 #define WeiboApiKey       @"3220687526"
 #define WeiboApiSecret    @"49d47e4aa35158eb8986cf60f5bc27d3"
 #define WeiboRedirectUrl  @"http://sns.whalecloud.com/sina2/callback"

@@ -32,6 +32,8 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 
+- (void)viewWillAppear:(BOOL)animated;
+
 @end
 
 @interface TZImagePickerController : UINavigationController
@@ -128,6 +130,10 @@
 @property (nonatomic, strong) TZAlbumPickerController *albumPickerVc;
 
 - (void)initImageAlbum;
+
+- (void)observeAuthrizationStatusChange;
+
+- (void)reloadImageData;
 
 @end
 

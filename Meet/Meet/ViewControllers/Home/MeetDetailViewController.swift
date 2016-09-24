@@ -494,7 +494,14 @@ class MeetDetailViewController: UIViewController {
         if self.otherUserModel.cover_photo != nil {
             if self.otherUserModel.cover_photo!.photo != "" {
                 let imageStrArray = self.otherUserModel.cover_photo!.photo.components(separatedBy: "?")
-                imageArray.add(imageStrArray[0] + UIImage.image(withUrl: imageStrArray[0], newImage: CGSize.init(width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355)))
+
+                if ((AppGlobalData.sharedInstance().homeDetailDic?[imageStrArray[0]]) != nil) {
+                    imageArray.add(imageStrArray[0] + (AppGlobalData.sharedInstance().homeDetailDic?[imageStrArray[0]] as! String))
+                }else {
+                    let imageStr = UIImage.image(withUrl: imageStrArray[0], newImage: CGSize.init(width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355))
+                    AppGlobalData.sharedInstance().homeDetailDic.setValue(imageStr, forKey: imageStrArray[0])
+                    imageArray.add(imageStrArray[0] + imageStr!)
+                }
             }
         }
         let models = Head_Photo_List.mj_objectArray(withKeyValuesArray: self.otherUserModel.head_photo_list!)

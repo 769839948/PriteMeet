@@ -8,15 +8,6 @@
 
 #import "TZImagePickerController.h"
 
-typedef void  (^ImagePickerSelectImage)(UIImage *image);
-
-
-@interface PhotosAlbumViewController : TZImagePickerController
-
-@property (nonatomic, strong) ImagePickerSelectImage block;
-
-
-@end
 
 typedef void  (^AlbumCollectionViewImage)(UIImage *image);
 
@@ -25,3 +16,16 @@ typedef void  (^AlbumCollectionViewImage)(UIImage *image);
 @property (nonatomic, strong) AlbumCollectionViewImage block;
 
 @end
+
+typedef void  (^ImagePickerSelectImage)(UIImage *image);
+
+
+@interface PhotosAlbumViewController : TZImagePickerController
+
+@property (nonatomic, strong) ImagePickerSelectImage block;
+
+@property (nonatomic, strong) PhotosAlbumCollectionView *photosAlbum;
+
+@end
+
+

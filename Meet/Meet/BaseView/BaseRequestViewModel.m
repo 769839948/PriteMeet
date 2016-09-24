@@ -90,14 +90,17 @@
     NSDictionary *headers = @{ @"content-type": @"application/json",
                                @"cache-control": @"no-cache",
                                @"postman-token": @"9b594c43-9546-7dc8-caee-3fd1f345edd5" };
-    NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
+    
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:URLString]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:10.0];
+    if (parameters != nil) {
+        NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
+        [request setHTTPBody:postData];
+    }
     [request setHTTPMethod:@"DELETE"];
     [request setAllHTTPHeaderFields:headers];
-    [request setHTTPBody:postData];
     
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request

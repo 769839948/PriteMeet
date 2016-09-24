@@ -68,7 +68,7 @@
                                 <color key="textColor" red="0.094117647058823528" green="0.094117647058823528" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="资料完善程度" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcF-hf-C98">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="资料完善程度" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcF-hf-C98">
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="22"/>
                                 <color key="textColor" red="0.52941176470588236" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -109,10 +109,12 @@
                             <constraint firstItem="5oa-oQ-tw7" firstAttribute="top" secondItem="Kte-W0-vYa" secondAttribute="top" id="AcS-pW-sNS"/>
                             <constraint firstItem="wcF-hf-C98" firstAttribute="top" secondItem="xlf-JC-8Uf" secondAttribute="bottom" constant="1" id="Bf1-YP-1nX"/>
                             <constraint firstAttribute="trailing" secondItem="5oa-oQ-tw7" secondAttribute="trailing" id="I1m-7G-ucB"/>
-                            <constraint firstItem="xlf-JC-8Uf" firstAttribute="top" secondItem="4Lu-1W-ZH4" secondAttribute="bottom" constant="47" id="XY5-TS-ak6"/>
                             <constraint firstItem="xlf-JC-8Uf" firstAttribute="centerX" secondItem="Kte-W0-vYa" secondAttribute="centerX" id="ayK-fL-IGB"/>
+                            <constraint firstItem="4Lu-1W-ZH4" firstAttribute="bottom" secondItem="5oa-oQ-tw7" secondAttribute="bottom" constant="-34" id="eAv-Md-nvZ"/>
                             <constraint firstItem="wcF-hf-C98" firstAttribute="centerX" secondItem="Kte-W0-vYa" secondAttribute="centerX" id="jhY-6s-ip1"/>
+                            <constraint firstItem="wcF-hf-C98" firstAttribute="leading" secondItem="Kte-W0-vYa" secondAttribute="leading" constant="10" id="m26-Gs-mrH"/>
                             <constraint firstAttribute="bottom" secondItem="xlf-JC-8Uf" secondAttribute="bottom" constant="53.5" id="pN1-dy-YU4"/>
+                            <constraint firstAttribute="trailing" secondItem="wcF-hf-C98" secondAttribute="trailing" constant="10" id="uB6-NK-EsP"/>
                         </constraints>
                     </view>
                 </subviews>

@@ -25,13 +25,13 @@
     [super prepare];
     
     // 设置控件的高度
-    self.mj_h = 100;
+    self.mj_h = 50;
 
     // 添加label
     UILabel *label = [[UILabel alloc] init];
     label.textColor = [UIColor colorWithHexString:HomeDetailViewMeetNumberColor];
     label.font = RefreshFootViewTitleFont;
-    label.textAlignment = NSTextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentLeft;
     [self addSubview:label];
     self.label = label;
     
@@ -46,9 +46,9 @@
 {
     [super placeSubviews];
     
-    self.label.frame = CGRectMake(0, 53, self.bounds.size.width, 20);
+    self.label.frame = CGRectMake(self.center.x-20, 19, self.bounds.size.width - 50, 20);
     
-    self.loading.center = CGPointMake(self.center.x, 29);
+    self.loading.center = CGPointMake(self.center.x - 40, 29);
 }
 
 #pragma mark 监听scrollView的contentOffset改变
@@ -80,15 +80,15 @@
     switch (state) {
         case MJRefreshStateIdle:
             [self.loading stopAnimating];
-            self.label.text = @"加载更多内容";
+            self.label.text = @"";
             break;
         case MJRefreshStatePulling:
-            [self.loading stopAnimating];
-            self.label.text = @"松开加载更多内容";
+            [self.loading startAnimating];
+            self.label.text = @"正在加载...";
             break;
         case MJRefreshStateRefreshing:
             [self.loading startAnimating];
-            self.label.text = @"正在加载更多内容...";
+            self.label.text = @"正在加载...";
             break;
         case MJRefreshStateNoMoreData:
             [self.loading stopAnimating];

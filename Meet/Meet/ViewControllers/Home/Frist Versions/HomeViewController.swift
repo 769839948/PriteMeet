@@ -19,7 +19,7 @@ enum FillterName {
     case reconmondList
 }
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
 
     @IBOutlet weak var tableView:UITableView!
     
@@ -101,6 +101,21 @@ class HomeViewController: UIViewController {
         locationManager.locationTimeout = 3
         locationManager.reGeocodeTimeout = 2
         locationManager.delegate = self
+        locationManager.requestLocation(withReGeocode: false) { (location, geocode, error) in
+            if error != nil{
+                return
+            }
+            if location != nil{
+                self.latitude = (location?.coordinate.latitude)!
+                self.logtitude = (location?.coordinate.longitude)!
+//                self.setUpHomeData()
+                if UserInfo.isLoggedIn() {
+                    self.viewModel.senderLocation(self.latitude, longitude: self.logtitude)
+                }
+            }else{
+//                self.setUpHomeData()
+            }
+        }
     }
     
     
@@ -110,14 +125,12 @@ class HomeViewController: UIViewController {
         }
         
         self.page = self.page + 1
+        
         if self.filterStr == "" {
-            if self.latitude == 0.0 {
-                self.filterStr = "&filter=recommend"
-            }else{
-                self.filterStr = "&filter=recommend&location=\(self.latitude),\(self.logtitude)"
-            }
+            self.filterStr = "&filter=recommend"
         }
-        viewModel.getDataFilterList("\(self.page)", filterUrl: self.filterStr, successBlock: { (dic) in
+        
+        viewModel.getDataFilterList("\(self.page)", filterUrl: self.filterStr, latitude: self.latitude, logitude: self.logtitude, successBlock: { (dic) in
             if self.bottomView != nil {
                 self.bottomView.isHidden = false
             }
@@ -194,8 +207,6 @@ class HomeViewController: UIViewController {
     func rightItemClick(_ sender:UIBarButtonItem) {
         self.present(UINavigationController(rootViewController: MeViewController()) , animated: true) {
         }
-//        self.present(UINavigationController(rootViewController: LoginViewController()) , animated: true) {
-//        }
     }
     
     func meetButton(_ frame:CGRect) -> UIButton {
@@ -295,19 +306,15 @@ class HomeViewController: UIViewController {
     func leftItemClick(_ sender:UIBarButtonItem) {
         let filterView = FilterViewController()
         filterView.genderStr = UserDefaultsGetSynchronize("gender") != "" ? UserDefaultsGetSynchronize("gender"):"0"
-        filterView.filterStr = UserDefaultsGetSynchronize("sort")  != "" ? UserDefaultsGetSynchronize("sort"):"0"
+        filterView.filterStr = UserDefaultsGetSynchronize("sort")  != "" ? UserDefaultsGetSynchronize("sort"):"recommend"
         filterView.instureStr = UserDefaultsGetSynchronize("instury")  != "" ? UserDefaultsGetSynchronize("instury"):"0"
         filterView.fileStringClouse = { str,gender,sort,instury in
-            if self.logtitude != 0.0 && sort == "location" {
-                self.filterStr = str.appending("&logtitude=\(self.logtitude)&latitude=\(self.latitude)")
-            }else{
-                self.filterStr = str
-            }
+            self.filterStr = str
             UserDefaultsSetSynchronize(gender, key: "gender")
             UserDefaultsSetSynchronize(sort, key: "sort")
             UserDefaultsSetSynchronize(instury, key: "instury")
             self.page = 0;
-            self.tableView.setContentOffset(CGPoint.zero, animated: true)
+            self.tableView.scrollToRow(at: NSIndexPath.init(row: 0, section: 0) as IndexPath, at: .top, animated: false)
             self.setUpHomeData()
         }
         let controller = UINavigationController(rootViewController: filterView)

@@ -37,6 +37,8 @@
 
 - (void)getDataFilterList:(NSString *)page
                 filterUrl:(NSString *)url
+                 latitude:(double)latitude
+                logitude:(double)logitude
              successBlock:(Success)successBlock
                 failBlock:(Fail)failBlock;
 

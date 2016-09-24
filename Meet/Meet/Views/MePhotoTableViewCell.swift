@@ -74,6 +74,9 @@ class MePhotoTableViewCell: UITableViewCell {
         }else{
             completeInfoView.isHidden = true
             infoCompleLabel.text = infoCom;
+//            infoCompleLabel.snp.makeConstraints({ (make) in
+//                make.height.equalTo(infoCom.he)
+//            })
             self.infoCompleLabel.isHidden = false
         }
         let maskPath = UIBezierPath.init(roundedRect: CGRect(x: 0, y: 0, width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355), byRoundingCorners: [.topLeft,.topRight], cornerRadii: CGSize(width: 5, height: 0))
@@ -92,7 +95,7 @@ class MePhotoTableViewCell: UITableViewCell {
     
     func singerTapPress(_ tap:UITapGestureRecognizer) {
         if (self.block != nil) {
-            self.block(0)
+            self.block((tap.view?.tag)!)
         }
     }
     

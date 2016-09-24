@@ -25,6 +25,9 @@ class WorkeAndEduTableViewCell: UITableViewCell {
         let workArray = workeString.components(separatedBy: "-")
         titleName.text = workArray[0]
         position.text = workArray[1]
+        DispatchQueue.main.async {
+            self.updateConstraintsIfNeeded()
+        }
     }
     
     func setEduData(_ workeString:String){
@@ -32,7 +35,9 @@ class WorkeAndEduTableViewCell: UITableViewCell {
         let workArray = workeString.components(separatedBy: "-")
         titleName.text = "\(workArray[0]) \(workArray[2])"
         position.text = workArray[1]
-        
+        DispatchQueue.main.async {
+            self.updateConstraintsIfNeeded()
+        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

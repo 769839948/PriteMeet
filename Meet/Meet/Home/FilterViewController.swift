@@ -65,14 +65,29 @@ class FilterViewController: UIViewController {
     
     func getData() {
         viewModel.getindexIndustry({ (dic) in
-            let industry = dic?["data"]! as! NSDictionary
-            self.industryList = industry.allValues as! [String]
+            let industry = (dic?["data"]! as! NSDictionary)
+            let allKey = (industry.allKeys as! [String]).sorted(by: { (s1, s2) -> Bool in
+                let s1IntValue = Int(s1 as String)
+                let s2IntValue = Int(s2 as String)
+                return s1IntValue! < s2IntValue!
+            })
+            for value in allKey {
+                self.industryList.append(industry[value] as! String)
+            }
             self.industryList.insert("不限", at: 0)
         }) { (dic) in
                 
         }
     }
     
+    override func disMissBtnPress(_ sender:UIBarButtonItem){
+        if pickerView != nil {
+            pickerView.remove()
+        }
+        self.dismiss(animated: true) {
+            
+        }
+    }
     
     func setUpView() {
         let filterTitle = UILabel(frame: CGRect.init(x: 40, y: 71, width: 60, height: 42))

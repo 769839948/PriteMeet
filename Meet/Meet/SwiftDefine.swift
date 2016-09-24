@@ -100,6 +100,9 @@ let FilterViewTitleFont   = version >= 9.0 ? UIFont.init(name: "PingFangSC-Mediu
 
 let LoginTextFieldFont  = version >= 9.0 ? UIFont.systemFont(ofSize: 22.0):UIFont.systemFont(ofSize: 22.0)
 
+let HomeViewDetailPositionFont   = version >= 9.0 ? UIFont .init(name:"PingFangSC-Thin", size:22.0):UIFont.systemFont(ofSize:22)
+
+
 
 let ReloadOrderCollectionView = "ReloadOrderCollectionView"
 
@@ -108,6 +111,8 @@ func Stroyboard(_ storyName:String, viewControllerId:String) -> UIViewController
     let viewController = storyboard.instantiateViewController(withIdentifier: viewControllerId)
     return viewController
 }
+
+
 
 func MainThreadAlertShow(_ msg:String,view:UIView){
     DispatchQueue.main.async {

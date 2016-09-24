@@ -10,7 +10,11 @@
 
 @interface AppGlobalData : NSObject
 
-@property (nonatomic, copy) NSMutableDictionary *homeListDic;
+@property (nonatomic, strong) NSMutableDictionary *homeListDic;
+
+@property (nonatomic, strong) NSMutableDictionary *homeDetailDic;
+
+@property (nonatomic, strong) NSMutableDictionary *meInfoDic;
 
 + (instancetype)sharedInstance;
 

@@ -136,15 +136,23 @@
         if ([[AppGlobalData sharedInstance].homeListDic objectForKey:_user_id] == nil) {
             _photoImage.image = [UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size];
             [UIImage imageWithUrl:imageArray[0] newImage:CGSizeMake(ScreenWidth - 20, (ScreenWidth - 20)*200/355) success:^(NSString *imageUrl) {
-                [[AppGlobalData sharedInstance].homeListDic setObject:imageUrl forKey:_user_id];
+                [[AppGlobalData sharedInstance].homeListDic setValue:imageUrl forKey:_user_id];
                 [_photoImage sd_setImageWithURL:[NSURL URLWithString:[imageArray[0] stringByAppendingString:imageUrl]] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                    
+                    NSLog(@"%@",imageURL);
                 }];
             }];
         }else{
-            [_photoImage sd_setImageWithURL:[NSURL URLWithString:[imageArray[0] stringByAppendingString:[[AppGlobalData sharedInstance].homeListDic objectForKey:_user_id]]] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                
-            }];
+            dispatch_async(dispatch_queue_create(0, 0), ^{
+                // 子线程执行任务（比如获取较大数据）
+                NSString *imageUrl = [[AppGlobalData sharedInstance].homeListDic objectForKey:_user_id];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // 通知主线程刷新 神马的
+                    [_photoImage sd_setImageWithURL:[NSURL URLWithString:[imageArray[0] stringByAppendingString:imageUrl]] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                        NSLog(@"%@",imageURL);
+                    }];
+                });
+            });
+            
         }
     }else{
         _photoImage.backgroundColor = [UIColor colorWithHexString:@"e7e7e7"];

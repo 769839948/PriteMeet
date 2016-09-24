@@ -125,8 +125,14 @@
         
         _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(observeAuthrizationStatusChange) userInfo:nil repeats:YES];
     } else {
+        [self reloadImageData];
         //            [self pushToPhotoPickerVc];
     }
+}
+
+- (void)reloadImageData
+{
+    
 }
 
 /// This init method just for previewing photos / 用这个初始化方法以预览图片
@@ -169,7 +175,9 @@
 
 - (void)observeAuthrizationStatusChange {
     if ([[TZImageManager manager] authorizationStatusAuthorized]) {
-        [self pushToPhotoPickerVc];
+//        [self pushToPhotoPickerVc];
+        [self initImageAlbum];
+        [_albumPickerVc viewWillAppear:YES];
         [_tipLable removeFromSuperview];
         [_timer invalidate];
         _timer = nil;

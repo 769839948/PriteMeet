@@ -11,6 +11,8 @@
 
 @interface PhotosAlbumViewController ()
 
+@property (nonatomic, strong) PhotosAlbumCollectionView *albumPickerVc;
+
 @end
 
 @implementation PhotosAlbumViewController
@@ -26,13 +28,13 @@
 }
 
 - (instancetype)initWithMaxImagesCount:(NSInteger)maxImagesCount delegate:(id<TZImagePickerControllerDelegate>)delegate {
-    PhotosAlbumCollectionView *_albumPickerVc = [[PhotosAlbumCollectionView alloc] init];
-    _albumPickerVc.block = ^(UIImage *image){
+    _photosAlbum = [[PhotosAlbumCollectionView alloc] init];
+    _photosAlbum.block = ^(UIImage *image){
         if (self.block != nil) {
             self.block(image);
         }
     };
-    self = [super initWithRootViewController:_albumPickerVc];
+    self = [super initWithRootViewController:_photosAlbum];
     if (self) {
         self.maxImagesCount = maxImagesCount > 0 ? maxImagesCount : 9; // Default is 9 / 默认最大可选9张图片
         self.pickerDelegate = delegate;
@@ -54,6 +56,11 @@
         [self initImageAlbum];
     }
     return self;
+}
+
+- (void)reloadImageData
+{
+    [_photosAlbum viewWillAppear:YES];
 }
 
 /*

@@ -10,13 +10,16 @@
 
 @implementation AppGlobalData
 
-static AppGlobalData *appGlobalData=nil;
+static AppGlobalData *appGlobalData = nil;
 
 + (instancetype)sharedInstance
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         appGlobalData = [[AppGlobalData alloc] init];
+        appGlobalData.homeListDic = [[NSMutableDictionary alloc] init];
+        appGlobalData.homeDetailDic = [[NSMutableDictionary alloc] init];
+        appGlobalData.meInfoDic = [[NSMutableDictionary alloc] init];
     });
     return appGlobalData;
 }
