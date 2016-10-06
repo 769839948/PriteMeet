@@ -37,22 +37,22 @@
 - (void)getDataFilterList:(NSString *)page
                 filterUrl:(NSString *)url
                  latitude:(double)latitude
-                logitude:(double)logitude
+                longitude:(double)longitude
              successBlock:(Success)successBlock
                 failBlock:(Fail)failBlock
 {
     NSString *filterUrl = @"";
     if ([UserInfo isLoggedIn]) {
         if (latitude != 0) {
-            filterUrl = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@%@&location=%f,%f",RequestGetFilterUserList,page,[UserInfo sharedInstance].uid,url,latitude,logitude];
+            filterUrl = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@%@&longitude=%f&latitude=%f",RequestGetFilterUserList,page,[UserInfo sharedInstance].uid,url,longitude,latitude];
         }else{
             filterUrl = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&cur_user=%@%@",RequestGetFilterUserList,page,[UserInfo sharedInstance].uid,url];
         }
     }else{
         if (latitude != 0) {
-            filterUrl = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&%@&location=%f,%f",RequestGetFilterUserList,page,url,latitude,logitude];
+            filterUrl = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@%@&longitude=%f&latitude=%f",RequestGetFilterUserList,page,url,longitude,latitude];
         }else{
-            filterUrl = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@&%@",RequestGetFilterUserList,page,url];
+            filterUrl = [RequestBaseUrl stringByAppendingFormat:@"%@?page=%@%@",RequestGetFilterUserList,page,url];
         }
     }
     NSLog(@"%@",filterUrl);

@@ -140,7 +140,6 @@ class ApplyMeetViewController: UIViewController {
     }
     
     func applyMeet() {
-        
         if isApplyOrder {
             UITools.showMessage(to: self.view, message: "预约提交中请稍后", autoHide: true)
             return

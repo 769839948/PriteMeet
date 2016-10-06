@@ -21,7 +21,7 @@ enum FillterName {
 
 class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
 
-    @IBOutlet weak var tableView:UITableView!
+    var tableView:UITableView!
     
     var loginView:LoginView!
     
@@ -34,7 +34,7 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
     var homeModelArray:NSMutableArray = NSMutableArray()
     var offscreenCells:NSMutableDictionary = NSMutableDictionary()
     var locationManager:AMapLocationManager!
-    var logtitude:Double = 0.0
+    var longitude:Double = 0.0
     var latitude:Double = 0.0
     var fillterName:FillterName = .reconmondList
     
@@ -51,13 +51,21 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setUpTableView()
+        
+        if UserDefaultsGetSynchronize("gender") != "" {
+           self.filterStr = "&gender=\(UserDefaultsGetSynchronize("gender"))"
+        }
+        if UserDefaultsGetSynchronize("industry") != "" && UserDefaultsGetSynchronize("industry") != "0" {
+            self.filterStr = self.filterStr.appending("&industry=\(UserDefaultsGetSynchronize("industry"))")
+        }
+        let sortStr = UserDefaultsGetSynchronize("sort")  != "" ? UserDefaultsGetSynchronize("sort"):"recommend"
+        self.filterStr = self.filterStr.appending("&filter=\(sortStr)")
+        
         self.getProfileKeyAndValues()
         self.setUpLocationManager()
-        self.setUpRefreshView()
         self.addLineNavigationBottom()
+
         self.talKingDataPageName = "Home"
-        self.setUpHomeData()
         self.getOrderNumber()
         if isFirstShow {
             Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(HomeViewController.addBottomView), userInfo: nil, repeats: false)
@@ -67,11 +75,13 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
                 self.addBottomView()
             }
         }
+        self.view.backgroundColor = UIColor.init(hexString: HomeTableViewBackGroundColor)
 
         // Do any additional setup after loading the view.
     }
 
     func setUpTableView() {
+        self.tableView = UITableView(frame: CGRect.zero, style: .grouped)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
@@ -80,6 +90,18 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
         self.view.addSubview(self.tableView)
         self.tableView.backgroundColor = UIColor.init(hexString: HomeTableViewBackGroundColor)
         self.tableView.register(ManListCell.self, forCellReuseIdentifier: "MainTableViewCell")
+        self.view.addSubview(self.tableView)
+        self.view.addSubview(bottomView)
+//        self.view.sendSubview(toBack: self.tableView)
+        self.tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
+        }
+        (self.navigationController as! ScrollingNavigationController).followScrollView(self.tableView, delay: 50.0)
+//        self.view.bringSubview(toFront: self.bottomView)
+
     }
     
     func getProfileKeyAndValues() {
@@ -101,19 +123,21 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
         locationManager.locationTimeout = 3
         locationManager.reGeocodeTimeout = 2
         locationManager.delegate = self
+//        locationManager.startUpdatingLocation()
         locationManager.requestLocation(withReGeocode: false) { (location, geocode, error) in
             if error != nil{
+                self.setUpHomeData()
                 return
             }
             if location != nil{
                 self.latitude = (location?.coordinate.latitude)!
-                self.logtitude = (location?.coordinate.longitude)!
-//                self.setUpHomeData()
+                self.longitude = (location?.coordinate.longitude)!
+                self.setUpHomeData()
                 if UserInfo.isLoggedIn() {
-                    self.viewModel.senderLocation(self.latitude, longitude: self.logtitude)
+                    self.viewModel.senderLocation(self.latitude, longitude: self.longitude)
                 }
             }else{
-//                self.setUpHomeData()
+                self.setUpHomeData()
             }
         }
     }
@@ -124,15 +148,24 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
             bottomView.isHidden = true
         }
         
+        if self.homeModelArray.count == 0 {
+            self.page = 0;
+        }
+        
         self.page = self.page + 1
+        
+        
+        
         
         if self.filterStr == "" {
             self.filterStr = "&filter=recommend"
         }
         
-        viewModel.getDataFilterList("\(self.page)", filterUrl: self.filterStr, latitude: self.latitude, logitude: self.logtitude, successBlock: { (dic) in
+        viewModel.getDataFilterList("\(self.page)", filterUrl: self.filterStr, latitude: self.latitude, longitude: self.longitude, successBlock: { (dic) in
             if self.bottomView != nil {
                 self.bottomView.isHidden = false
+            }else{
+                self.addBottomView()
             }
             if self.page == 1 {
                 self.homeModelArray.removeAllObjects()
@@ -145,11 +178,20 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
             for obj in tempArray! {
                 self.homeModelArray.add(obj)
             }
+            if (self.tableView == nil) {
+                self.setUpTableView()
+                self.setUpRefreshView()
+            }
             self.tableView.reloadData()
             self.tableView.mj_footer.endRefreshing()
         }) { (dic) in
             self.page = self.page - 1
             self.setUpHomeData()
+            if (self.tableView == nil) {
+                self.setUpTableView()
+                self.setUpRefreshView()
+
+            }
             self.tableView.mj_footer.endRefreshing()
             if self.bottomView != nil {
                 self.bottomView.isHidden = false
@@ -159,7 +201,10 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        (self.navigationController as! ScrollingNavigationController).followScrollView(self.tableView, delay: 50.0)
+        if self.tableView != nil {
+            (self.navigationController as! ScrollingNavigationController).followScrollView(self.tableView, delay: 50.0)
+
+        }
         self.navigationItemCleanColorWithNotLine()
         self.navigationController?.navigationBar.barStyle = .default
         self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: HomeTableViewBackGroundColor), size: CGSize(width: ScreenWidth, height: 64)), for: .default)
@@ -190,8 +235,7 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
         }else{
             self.numberMeet.isHidden = false
         }
-        self.view.addSubview(bottomView)
-        
+//        self.view.addSubview(bottomView)
     }
     
     func setUpNavigationBar() {
@@ -207,6 +251,8 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
     func rightItemClick(_ sender:UIBarButtonItem) {
         self.present(UINavigationController(rootViewController: MeViewController()) , animated: true) {
         }
+//        let apply = ApplyMeetView(frame: CGRect(x: 0,y: 0,width: ScreenWidth,height: ScreenHeight))
+//        KeyWindown?.addSubview(apply)
     }
     
     func meetButton(_ frame:CGRect) -> UIButton {
@@ -307,12 +353,12 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
         let filterView = FilterViewController()
         filterView.genderStr = UserDefaultsGetSynchronize("gender") != "" ? UserDefaultsGetSynchronize("gender"):"0"
         filterView.filterStr = UserDefaultsGetSynchronize("sort")  != "" ? UserDefaultsGetSynchronize("sort"):"recommend"
-        filterView.instureStr = UserDefaultsGetSynchronize("instury")  != "" ? UserDefaultsGetSynchronize("instury"):"0"
+        filterView.instureStr = UserDefaultsGetSynchronize("industry")  != "" ? UserDefaultsGetSynchronize("industry"):"0"
         filterView.fileStringClouse = { str,gender,sort,instury in
             self.filterStr = str
             UserDefaultsSetSynchronize(gender, key: "gender")
             UserDefaultsSetSynchronize(sort, key: "sort")
-            UserDefaultsSetSynchronize(instury, key: "instury")
+            UserDefaultsSetSynchronize(instury, key: "industry")
             self.page = 0;
             self.tableView.scrollToRow(at: NSIndexPath.init(row: 0, section: 0) as IndexPath, at: .top, animated: false)
             self.setUpHomeData()
@@ -383,7 +429,7 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
     func hiderBottomView() {
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: {
             let frame = self.bottomView.frame
-            self.bottomView.frame = CGRect(x: frame.origin.x, y: ScreenHeight + self.view.frame.origin.y, width: frame.size.width, height: frame.size.height)
+            self.bottomView.frame = CGRect(x: frame.origin.x, y: ScreenHeight + self.view.frame.origin.y, width: 56, height: 54)
         }) { (finish) in
             
         }
@@ -391,7 +437,7 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
     func showBottomView() {
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: {
             let frame = self.bottomView.frame
-            self.bottomView.frame = CGRect(x: frame.origin.x, y: ScreenHeight - 88 - self.view.frame.origin.y, width: frame.size.width, height: frame.size.height)
+            self.bottomView.frame = CGRect(x: frame.origin.x, y: ScreenHeight - 88 - self.view.frame.origin.y, width: 56, height: 54)
         }) { (finish) in
             
         }
@@ -542,30 +588,38 @@ extension HomeViewController : AMapLocationManagerDelegate {
     
     func amapLocationManager(_ manager: AMapLocationManager!, didChange status: CLAuthorizationStatus) {
         if status == .notDetermined {
-            self.page = 0
+//            self.page = 0
             self.showLoacationAlert()
         }else if status == .denied {
-            self.page = 0
+//            self.page = 0
             self.showLoacationAlert()
         }else if status == .authorizedWhenInUse || status == .authorizedAlways
         {
-            self.page = 0
+//            self.page = 0
             locationManager.requestLocation(withReGeocode: false) { (location, geocode, error) in
                 if error != nil{
-                    self.showLoacationAlert()
+//                    self.showLoacationAlert()
                     return
                 }
                 if location != nil{
                     self.latitude = (location?.coordinate.latitude)!
-                    self.logtitude = (location?.coordinate.longitude)!
+                    self.longitude = (location?.coordinate.longitude)!
                     self.setUpHomeData()
                     if UserInfo.isLoggedIn() {
-                        self.viewModel .senderLocation(self.latitude, longitude: self.logtitude)
+                        self.viewModel .senderLocation(self.latitude, longitude: self.longitude)
                     }
                 }else{
                     self.setUpHomeData()
                 }
             }
+        }
+    }
+    
+    func amapLocationManager(_ manager: AMapLocationManager!, didUpdate location: CLLocation!) {
+        if location != nil {
+            self.latitude = (location?.coordinate.latitude)!
+            self.longitude = (location?.coordinate.longitude)!
+//            self.setUpHomeData()
         }
     }
 }

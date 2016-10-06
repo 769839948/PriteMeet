@@ -629,15 +629,6 @@ extension MeViewController : UITableViewDataSource {
                    
                     if UserInfo.sharedInstance().avatar != nil {
                         let imageArray = UserInfo.sharedInstance().avatar.components(separatedBy: "?")
-                        let image = UserInfo.image(forName: "coverPhoto")
-
-//                        if image != nil{
-//                            if (image?.size.width)! / (image?.size.height)! < 1.65 && (image?.size.width)! / (image?.size.height)! > 1.45 {
-//                                //                                        plachImage = 10;
-//                            }else{
-//                                //                                        plachImage =
-//                            }
-//                        }
                         if ((AppGlobalData.sharedInstance().meInfoDic?["\(UserInfo.sharedInstance().uid)me"]) != nil) {
                             DispatchQueue.global().async {
                                 let imageUrlStr = (AppGlobalData.sharedInstance().meInfoDic?["\(UserInfo.sharedInstance().uid)me"]) as! String

@@ -127,7 +127,7 @@ class OtherViewController: UIViewController {
         if self.otherProfileModel.work != nil{
             let workArray = Work.mj_objectArray(withKeyValuesArray: self.otherProfileModel.work)
             for workeModel in workArray! {
-                let workString = "\((workeModel as AnyObject).company_name)-\((workeModel as AnyObject).profession)"
+                let workString = "\(((workeModel as! Work).company_name))-\(((workeModel as! Work).profession))"
                 workInfo.add(workString)
             }
         }

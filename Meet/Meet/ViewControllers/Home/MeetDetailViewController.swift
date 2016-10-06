@@ -68,6 +68,8 @@ class MeetDetailViewController: UIViewController {
     
     var reloadHomeListLike:ReloadHomeListLike! = nil
     
+    var photoImageArray:NSMutableArray = NSMutableArray()
+    
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.init(hexString: TableViewBackGroundColor)
         super.viewDidLoad()
@@ -144,13 +146,27 @@ class MeetDetailViewController: UIViewController {
                 return
             }
         }
-        let applyMeetVc = ApplyMeetViewController()
-        applyMeetVc.allItems =  self.inviteArray.mutableCopy() as! NSMutableArray
-        applyMeetVc.host = self.user_id
-        applyMeetVc.realName = otherUserModel.real_name
-        applyMeetVc.jobLabel = otherUserModel.job_label
-        applyMeetVc.avater = otherUserModel.avatar
-        self.navigationController?.pushViewController(applyMeetVc, animated: true)
+        let apply = ApplyMeetView(frame: CGRect(x: 0,y: 0,width: ScreenWidth,height: ScreenHeight))
+        apply.host = self.user_id
+        if self.otherUserModel.engagement!.theme != nil {
+            var appointment_theme = ""
+            let themes = self.otherUserModel.engagement!.theme!
+            let themesArray = Theme.mj_objectArray(withKeyValuesArray: themes)
+            for theme in themesArray! {
+                appointment_theme.append(((theme as! Theme).theme)!)
+                appointment_theme.append(",")
+            }
+            apply.appointment_theme = appointment_theme
+
+        }
+        KeyWindown?.addSubview(apply)
+//        let applyMeetVc = ApplyMeetViewController()
+//        applyMeetVc.allItems =  self.inviteArray.mutableCopy() as! NSMutableArray
+//        applyMeetVc.host = self.user_id
+//        applyMeetVc.realName = otherUserModel.real_name
+//        applyMeetVc.jobLabel = otherUserModel.job_label
+//        applyMeetVc.avater = otherUserModel.avatar
+//        self.navigationController?.pushViewController(applyMeetVc, animated: true)
     }
     
     func setUpNavigationBar(){
@@ -490,27 +506,34 @@ class MeetDetailViewController: UIViewController {
     }
     
     func headerListImages() -> NSArray {
-        let imageArray = NSMutableArray()
-        if self.otherUserModel.cover_photo != nil {
-            if self.otherUserModel.cover_photo!.photo != "" {
-                let imageStrArray = self.otherUserModel.cover_photo!.photo.components(separatedBy: "?")
-
-                if ((AppGlobalData.sharedInstance().homeDetailDic?[imageStrArray[0]]) != nil) {
-                    imageArray.add(imageStrArray[0] + (AppGlobalData.sharedInstance().homeDetailDic?[imageStrArray[0]] as! String))
-                }else {
-                    let imageStr = UIImage.image(withUrl: imageStrArray[0], newImage: CGSize.init(width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355))
-                    AppGlobalData.sharedInstance().homeDetailDic.setValue(imageStr, forKey: imageStrArray[0])
-                    imageArray.add(imageStrArray[0] + imageStr!)
+        if photoImageArray.count != 0 {
+            return photoImageArray
+        }else{
+            let imageArray = NSMutableArray()
+            if self.otherUserModel.cover_photo != nil {
+                if self.otherUserModel.cover_photo!.photo != "" {
+                    let imageStrArray = self.otherUserModel.cover_photo!.photo.components(separatedBy: "?")
+                    
+                    //                if ((AppGlobalData.sharedInstance().homeDetailDic?[imageStrArray[0]]) != nil) {
+                    //                    imageArray.add(imageStrArray[0] + (AppGlobalData.sharedInstance().homeDetailDic?[imageStrArray[0]] as! String))
+                    //                }else {
+                    //                    let imageStr = UIImage.image(withUrl: imageStrArray[0], newImage: CGSize.init(width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355))
+                    //
+                    //                    AppGlobalData.sharedInstance().homeDetailDic.setValue(imageStr, forKey: imageStrArray[0])
+                    //                    imageArray.add(imageStrArray[0] + imageStr!)
+                    //                }
+                    imageArray.add(imageStrArray[0] + UIImage.image(withUrl: imageStrArray[0], newImage: CGSize.init(width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355)))
                 }
             }
+            let models = Head_Photo_List.mj_objectArray(withKeyValuesArray: self.otherUserModel.head_photo_list!)
+            for model in models! {
+                let photoModel = model as! Head_Photo_List
+                let imageStr = photoModel.photo + UIImage.image(withUrl: photoModel.photo, newImage: CGSize.init(width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355))
+                imageArray.add(imageStr)
+            }
+            photoImageArray = imageArray.mutableCopy() as! NSMutableArray
+            return imageArray
         }
-        let models = Head_Photo_List.mj_objectArray(withKeyValuesArray: self.otherUserModel.head_photo_list!)
-        for model in models! {
-            let photoModel = model as! Head_Photo_List
-            let imageStr = photoModel.photo + UIImage.image(withUrl: photoModel.photo, newImage: CGSize.init(width: ScreenWidth - 20, height: (ScreenWidth - 20)*236/355))
-            imageArray.add(imageStr)
-        }
-        return imageArray
     }
     
     func presentImageBrowse(_ index:NSInteger, sourceView:UIView) {

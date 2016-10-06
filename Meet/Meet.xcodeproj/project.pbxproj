@@ -225,6 +225,7 @@
 		1FC66F0E1D937C840091BAB4 /* ImageSplachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC66F0D1D937C840091BAB4 /* ImageSplachView.swift */; };
 		1FC69D6C1D2CDF1900BF0B95 /* GuidanceText.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC69D6B1D2CDF1900BF0B95 /* GuidanceText.m */; };
 		1FC69D6F1D2D053200BF0B95 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC69D6E1D2D053200BF0B95 /* SplashView.swift */; };
+		1FC7A3DE1DA48952005C4EB0 /* ApplyMeetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC7A3DD1DA48952005C4EB0 /* ApplyMeetView.swift */; };
 		1FCAFFCC1D012B6900BF53A1 /* UIViewController+NavigationItemColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFCB1D012B6900BF53A1 /* UIViewController+NavigationItemColor.m */; };
 		1FCAFFD31D01517A00BF53A1 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFD21D01517A00BF53A1 /* LoginViewModel.m */; };
 		1FCAFFDB1D01983B00BF53A1 /* UserInfoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAFFDA1D01983B00BF53A1 /* UserInfoViewModel.m */; };
@@ -675,6 +676,7 @@
 		1FC69D6A1D2CDF1900BF0B95 /* GuidanceText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuidanceText.h; sourceTree = "<group>"; };
 		1FC69D6B1D2CDF1900BF0B95 /* GuidanceText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuidanceText.m; sourceTree = "<group>"; };
 		1FC69D6E1D2D053200BF0B95 /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		1FC7A3DD1DA48952005C4EB0 /* ApplyMeetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplyMeetView.swift; sourceTree = "<group>"; };
 		1FCAFFCA1D012B6900BF53A1 /* UIViewController+NavigationItemColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NavigationItemColor.h"; sourceTree = "<group>"; };
 		1FCAFFCB1D012B6900BF53A1 /* UIViewController+NavigationItemColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavigationItemColor.m"; sourceTree = "<group>"; };
 		1FCAFFD11D01517A00BF53A1 /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewModel.h; path = ../ViewModel/LoginViewModel.h; sourceTree = "<group>"; };
@@ -1402,6 +1404,7 @@
 		1F8FF7921D7017A900C7A5B9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1FC7A3DD1DA48952005C4EB0 /* ApplyMeetView.swift */,
 				1FD97C121D5B1F5C00556568 /* PayView.swift */,
 				1F9ED87E1D66DFEE00DCB06A /* OrderTips.swift */,
 				1FD97BB91D55DBF300556568 /* OrderApplyMeetTableViewCell.swift */,
@@ -2076,6 +2079,17 @@
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 77L324L35A;
 						LastSwiftMigration = 0800;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+							com.apple.Wallet = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -2353,6 +2367,7 @@
 				1FFEE5BE1D7AAEB300EEC61F /* TZImagePickerController.m in Sources */,
 				DABF8AEF1CE9B83300CA2A1D /* AllMeetViewController.m in Sources */,
 				1FAA085A1D45FEE20017F3E3 /* Detail.m in Sources */,
+				1FC7A3DE1DA48952005C4EB0 /* ApplyMeetView.swift in Sources */,
 				1F241B3D1D8D3730001987F7 /* NVActivityIndicatorAnimationBlank.swift in Sources */,
 				1F85D9AB1D7536F6004DEAFE /* HomeModel.swift in Sources */,
 				1F293D761D11A4B90063A9DA /* UINavigationBar+Transparent.m in Sources */,

@@ -284,18 +284,18 @@ class LoginViewController: UIViewController {
     
     func loginButtonClick() {
         
-        if  phoneStr!.length != 11 {
-            MainThreadAlertShow("手机号码输入有误", view: self.view)
-            return
-        }else if smsCodeStr!.length != 4 {
-            MainThreadAlertShow("验证码输入", view: self.view)
-            return
-        }
+//        if  phoneStr!.length != 11 {
+//            MainThreadAlertShow("手机号码输入有误", view: self.view)
+//            return
+//        }else if smsCodeStr!.length != 4 {
+//            MainThreadAlertShow("验证码输入", view: self.view)
+//            return
+//        }
         self.view.endEditing(true)
         loginLabel.text = "正在登录，请稍候..."
         self.loginClickSelectChangeColor()
         
-        viewModel.loginSms(phoneStr, code: smsCodeStr, success: { (dic) in
+        viewModel.loginSms(mobileField.text, code: smsCodeField.text, success: { (dic) in
             if (dic?["success"] as! String) == "oldUser" {
                 self.viewModel.getUserInfo(self.phoneStr, success: { (dic) in
                     UserInfo.synchronize(withDic: dic)
@@ -409,6 +409,8 @@ class LoginViewController: UIViewController {
         if String.isValidateMobile(phoneStr) || phoneStr!.length == 11 {
             viewModel.senderSms(phoneStr, success: { (dic) in
                 }, fail: { (dic) in
+                    self.timeDownLabel.timeCount = 0
+                    self.timeDownLabel.phoneError()
                     MainThreadAlertShow((dic! as [AnyHashable:Any] as NSDictionary).object(forKey: "error") as! String, view: self.view)
             })
         }else{
