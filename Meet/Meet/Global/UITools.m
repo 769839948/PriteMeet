@@ -138,7 +138,7 @@ static UITools *tools = nil;
     hud.customView = [HUDCustomView customViewWidthMessage:message];
     hud.margin = 10.f;
     hud.removeFromSuperViewOnHide = YES;
-    [hud hideAnimated:YES afterDelay:interval];
+//    [hud hideAnimated:YES afterDelay:interval];
     return hud;
 }
 
@@ -146,17 +146,17 @@ static UITools *tools = nil;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeCustomView;
-    hud.bezelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
-    hud.bezelView.layer.cornerRadius = 12.0f;
-    hud.label.numberOfLines = 0;
-    hud.label.textColor = [UIColor whiteColor];
-    hud.label.font = CustomViewFont;
-    hud.label.text = message;
-    hud.removeFromSuperViewOnHide = YES;
-    if (autoHide) {
-        [hud hideAnimated:YES afterDelay:1.0f];
-
-    }
+//    hud.bezelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+//    hud.bezelView.layer.cornerRadius = 12.0f;
+//    hud.label.numberOfLines = 0;
+//    hud.label.textColor = [UIColor whiteColor];
+//    hud.label.font = CustomViewFont;
+//    hud.label.text = message;
+//    hud.removeFromSuperViewOnHide = YES;
+//    if (autoHide) {
+//        [hud hideAnimated:YES afterDelay:1.0f];
+//
+//    }
     return hud;
 }
 
@@ -165,16 +165,16 @@ static UITools *tools = nil;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeCustomView;
-    hud.bezelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
-    hud.label.numberOfLines = 0;
-    hud.bezelView.layer.cornerRadius = 12.0f;
-    hud.label.textColor = [UIColor whiteColor];
-    hud.label.font = CustomViewFont;
-    hud.label.text = message;
-    hud.removeFromSuperViewOnHide = YES;
-    if (autoHide) {
-        [hud hideAnimated:YES afterDelay:1.0f];
-    }
+//    hud.bezelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+//    hud.label.numberOfLines = 0;
+//    hud.bezelView.layer.cornerRadius = 12.0f;
+//    hud.label.textColor = [UIColor whiteColor];
+//    hud.label.font = CustomViewFont;
+//    hud.label.text = message;
+//    hud.removeFromSuperViewOnHide = YES;
+//    if (autoHide) {
+//        [hud hideAnimated:YES afterDelay:1.0f];
+//    }
     return hud;
 }
 
@@ -182,12 +182,12 @@ static UITools *tools = nil;
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.margin = 10.f;
-    hud.removeFromSuperViewOnHide = YES;
-     hud.label.text = message;
-    
-    if (autoHide) {
-        [hud hideAnimated:YES afterDelay:1.5f];
-    }
+//    hud.removeFromSuperViewOnHide = YES;
+//     hud.label.text = message;
+//    
+//    if (autoHide) {
+//        [hud hideAnimated:YES afterDelay:1.5f];
+//    }
     return hud;
 }
 

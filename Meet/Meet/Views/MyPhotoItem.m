@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
 //     NSLog(@"awakeFromNib");
     [_button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [super awakeFromNib];
 }
 
 - (void)buttonAction:(UIButton *)button {

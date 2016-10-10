@@ -11,6 +11,8 @@ import UIKit
 
 let ApplyMeetViewHeight:CGFloat = 420
 
+typealias ApplyMeetSuccessClouse = (_ orderid: String) -> Void
+
 
 class ApplyMeetView: UIView {
     
@@ -32,6 +34,10 @@ class ApplyMeetView: UIView {
  
     let viewModel = OrderViewModel()
     
+    var numberText:UILabel!
+    
+    var applyMeetSuccessClouse:ApplyMeetSuccessClouse!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setUpView()
@@ -49,7 +55,8 @@ class ApplyMeetView: UIView {
         }
         
         UIView.animate(withDuration: 0.25, animations: {
-           self.applyMeetView.frame = CGRect(x: 0, y: ScreenHeight - ApplyMeetViewHeight - 90, width: ScreenWidth, height: ApplyMeetViewHeight)
+            
+           self.applyMeetView.frame = CGRect(x: 0, y: ScreenHeight - self.keyboardHeight - 350, width: ScreenWidth, height: ApplyMeetViewHeight)
             }, completion: { (finish) in
                 
         })
@@ -91,7 +98,7 @@ class ApplyMeetView: UIView {
         applyInfoView = UIView(frame: CGRect(x: ScreenWidth,y: ScreenHeight - ApplyMeetViewHeight + 4,width: ScreenWidth,height: ApplyMeetViewHeight - 100))
         applyInfoView.backgroundColor = UIColor.white
         applyInfoView.addSubview(self.applyViewTitleView(CGRect(x: 0, y: 0, width: ScreenWidth, height: 66)))
-        applyInfoView.addSubview(self.payOrderInfoView(CGRect(x: 0, y: 66, width: ScreenWidth, height: 66)))
+        applyInfoView.addSubview(self.payOrderInfoView(CGRect(x: 0, y: 62, width: ScreenWidth, height: 66)))
         self.addSubview(applyInfoView)
         
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: {
@@ -104,11 +111,14 @@ class ApplyMeetView: UIView {
     func applyViewTitleView(_ frame:CGRect) ->UIView {
         let payInfoViewTitle = UIView(frame: frame)
         
-        let disMissBtn = UIButton(type: .custom)
-        disMissBtn.addTarget(self, action: #selector(PayView.dismissView), for: .touchUpInside)
-        disMissBtn.setImage(UIImage.init(named: "pay_dismiss"), for: UIControlState())
-        disMissBtn.frame = CGRect(x: ScreenWidth - 40, y: 26, width: 20, height: 20)
-        payInfoViewTitle.addSubview(disMissBtn)
+//        let disMissBtn = UIButton(type: .custom)
+//        disMissBtn.addTarget(self, action: #selector(PayView.dismissView), for: .touchUpInside)
+//        disMissBtn.setImage(UIImage.init(named: "pay_dismiss"), for: UIControlState())
+//        disMissBtn.frame = CGRect(x: ScreenWidth - 40, y: 26, width: 20, height: 20)
+//        payInfoViewTitle.addSubview(disMissBtn)
+        
+        
+        
         
         let backBtn = UIButton(type: .custom)
         backBtn.addTarget(self, action: #selector(PayView.backBtnClick), for: .touchUpInside)
@@ -116,28 +126,37 @@ class ApplyMeetView: UIView {
         backBtn.frame = CGRect(x: 20, y: 26, width: 20, height: 20)
         payInfoViewTitle.addSubview(backBtn)
         
-        let lineLabel = UILabel(frame: CGRect(x: 20,y: 64,width: UIScreen.main.bounds.size.width - 40,height: 2))
-        lineLabel.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
-        payInfoViewTitle.addSubview(lineLabel)
+//        let lineLabel = UILabel(frame: CGRect(x: 20,y: 64,width: UIScreen.main.bounds.size.width - 40,height: 2))
+//        lineLabel.backgroundColor = UIColor.init(hexString: lineLabelBackgroundColor)
+//        payInfoViewTitle.addSubview(lineLabel)
         
         return payInfoViewTitle
     }
     
     func payOrderInfoView(_ frame:CGRect) -> UIView{
         let payOrderInfoView = UIView(frame: frame)
-        let infoLabel = UILabel(frame:CGRect(x: 20,y: 26,width: ScreenWidth - 20,height: 100))
-        let str = "约见成功，Meet 将收取 48 元平台费用。\n对方接受约见后，您才需付款。\n付款成功后，双方可互见联系电话及微信。\n见面前，任何一方放弃约见，约见费用立即全额退还。"
+        let infoLabel = UILabel(frame:CGRect(x: 20,y: 59,width: ScreenWidth - 20,height: 100))
+        let str = "\((PlaceholderText.shareInstance().appDic as NSDictionary).object(forKey: "1000003")!)"
         infoLabel.numberOfLines = 0
         let attributeString = NSMutableAttributedString(string: str)
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
-        paragraph.alignment = .left
+        paragraph.alignment = .center
         paragraph.lineSpacing = 5.0
         attributeString.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: HomeDetailViewPositionColor)], range: NSRange.init(location: 0, length: str.length))
         attributeString.addAttributes([NSParagraphStyleAttributeName:paragraph], range: NSRange.init(location: 0, length: str.length))
         attributeString.addAttributes([NSFontAttributeName:OrderInfoPayDetailFont!], range: NSRange.init(location: 0, length: str.length))
         infoLabel.attributedText = attributeString
         payOrderInfoView.addSubview(infoLabel)
+        
+        
+        let titleLabel = UILabel(frame: CGRect(x:0, y: 0, width: ScreenWidth, height: 22))
+        titleLabel.text = "承诺&保障"
+        titleLabel.textAlignment = .center
+        titleLabel.font = ApplyMeetTitleFont!
+        titleLabel.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
+        payOrderInfoView.addSubview(titleLabel)
+        
         return payOrderInfoView
     }
     
@@ -150,8 +169,9 @@ class ApplyMeetView: UIView {
     }
     
     func configApplyView() {
-        applyText = UITextView(frame: CGRect.init(x: 25, y: 74, width: ScreenWidth - 50, height: 180))
-        applyText.placeholderText = "\((PlaceholderText.shareInstance().appDic as NSDictionary).object(forKey: "1000002")!)"
+        applyText = UITextView(frame: CGRect.init(x: 25, y: 112, width: ScreenWidth - 50, height: 180))
+        applyText.placeholderColor = UIColor.init(hexString: PlaceholderTextViewColor)
+        applyText.placeholder = "\((PlaceholderText.shareInstance().appDic as NSDictionary).object(forKey: "1000002")!)"
         applyText.tintColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
         applyText.font = LoginCodeLabelFont
 //        applyText.maxHeight = 100
@@ -159,6 +179,20 @@ class ApplyMeetView: UIView {
         applyText.returnKeyType = .done
         applyText.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemUnSelect)
         applyMeetView.addSubview(applyText)
+        
+        numberText = UILabel(frame: CGRect.init(x: applyText.frame.maxX - 57, y: applyText.frame.maxY - 29, width: 40, height: 16))
+        numberText.font = LoginCodeLabelFont
+        numberText.textColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
+        numberText.textAlignment = .right
+        applyMeetView.addSubview(numberText)
+        
+        
+        let titleLabel = UILabel(frame: CGRect(x:0, y: 62, width: ScreenWidth, height: 22))
+        titleLabel.text = "邀请见面"
+        titleLabel.font = ApplyMeetTitleFont!
+        titleLabel.textAlignment = .center
+        titleLabel.textColor = UIColor.init(hexString: HomeDetailViewNameColor)
+        applyMeetView.addSubview(titleLabel)
     }
     
     func applyMeetViewTitleView(_ frame:CGRect) ->UIView {
@@ -196,7 +230,7 @@ class ApplyMeetView: UIView {
         let payButton = UIButton(type: .custom)
         payButton.frame = CGRect(x: (ScreenWidth - 175)/2, y: applyMeetView.frame.size.height - 75, width: 175, height: 45)
         payButton.backgroundColor = UIColor.init(hexString: MeProfileCollectViewItemSelect)
-        payButton.setTitle("提交申请", for: UIControlState())
+        payButton.setTitle("立即提交申请", for: UIControlState())
         payButton.layer.cornerRadius = 24.0
         payButton.titleLabel?.font = MeetDetailImmitdtFont
         payButton.addTarget(self, action: #selector(ApplyMeetView.applyMeetButtonClick(_:)), for: .touchUpInside)
@@ -232,17 +266,9 @@ class ApplyMeetView: UIView {
         applyModel.guest = UserInfo.sharedInstance().uid
         viewModel.applyMeetOrder(applyModel, successBlock: { (dic) in
             let orderDic = dic! as [AnyHashable:Any] as NSDictionary
-//            self.viewModel.orderDetail(orderDic.object(forKey: "order_id") as! String, successBlock: { (dic) in
-//                let orderModel = OrderModel.mj_object(withKeyValues: dic?["order"])
-//                UserDefaults.standard.set(dic?["customer_service_number"], forKey: "customer_service_number")
-//                let applyDetailView = ConfirmedViewController()
-//                applyDetailView.uid = self.host
-//                applyDetailView.isAppliViewPush = true
-//                applyDetailView.orderModel = orderModel
-//                self.navigationController?.pushViewController(applyDetailView, animated: true)
-//                }, fialBlock: { (dic) in
-//                    
-//            })
+            if self.applyMeetSuccessClouse != nil {
+                self.applyMeetSuccessClouse(orderDic["order_id"] as! String)
+            }
             self.dismissView()
             self.isApplyOrder = false
         }) { (dic) in
@@ -270,13 +296,13 @@ extension ApplyMeetView : UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//        let length = 300 - textView.text.length
-//        introductionCell.numberText.text = "\(length)"
-//        if textView.text.length > 280 {
-//            introductionCell.numberText.isHidden = false
-//        }else{
-//            introductionCell.numberText.isHidden = true
-//        }
+        let length = 300 - textView.text.length
+        numberText.text = "\(length)"
+        if textView.text.length > 280 {
+            numberText.isHidden = false
+        }else{
+            numberText.isHidden = true
+        }
         
         if text == "\n" {
             textView.resignFirstResponder()

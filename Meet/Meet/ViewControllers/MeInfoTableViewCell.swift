@@ -48,9 +48,7 @@ class MeInfoTableViewCell: UITableViewCell {
     }
     
     func configCell(_ image:String, infoString:String, infoDetail:String, shadowColor:Bool,cornerRadiusType:CornerRadiusType){
-        
-        
-        
+                
         infoImageView.image = UIImage(named: image)
         infoLabel.text = infoString
         infoDetailLabel.text = infoDetail

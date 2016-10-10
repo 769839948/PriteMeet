@@ -104,6 +104,15 @@ let HomeViewDetailPositionFont   = version >= 9.0 ? UIFont .init(name:"PingFangS
 
 
 
+let ApplyMeetTitleFont  = version >= 9.0 ? UIFont .init(name:"PingFangSC-Thin", size: 24.0):UIFont.systemFont(ofSize: 24.0)
+
+let InPurchaseNumberFont  = version >= 9.0 ? UIFont .init(name:"PingFangSC-Thin", size: 64.0):UIFont.systemFont(ofSize: 64.0)
+let InPurchaseDetailFont  = version >= 9.0 ? UIFont .init(name:"PingFangSC-Light", size: 12.0):UIFont.systemFont(ofSize: 12.0)
+let InPurchaseButtonFont  = version >= 9.0 ? UIFont .init(name:"PingFangSC-Medium", size: 12.0):UIFont.systemFont(ofSize: 12.0)
+
+
+
+
 let ReloadOrderCollectionView = "ReloadOrderCollectionView"
 
 func Stroyboard(_ storyName:String, viewControllerId:String) -> UIViewController {

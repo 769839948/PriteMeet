@@ -124,7 +124,7 @@ class MeetDetailViewController: UIViewController {
         singerTap.numberOfTapsRequired = 1
         self.bottomView.addGestureRecognizer(singerTap)
         let label = UILabel(frame: self.bottomView.bounds)
-        label.text = "立即约见"
+        label.text = "立即赴约"
         label.textAlignment = NSTextAlignment.center
         label.textColor = UIColor.init(hexString: "FFFFFF")
         label.font = MeetDetailImmitdtFont
@@ -158,6 +158,21 @@ class MeetDetailViewController: UIViewController {
             }
             apply.appointment_theme = appointment_theme
 
+        }
+        
+        let orderViewModel = OrderViewModel()
+        apply.applyMeetSuccessClouse =  { order_id in
+            orderViewModel.orderDetail(order_id, successBlock: { (dic) in
+                let orderModel = OrderModel.mj_object(withKeyValues: dic?["order"])
+                UserDefaults.standard.set(dic?["customer_service_number"], forKey: "customer_service_number")
+                let applyDetailView = ConfirmedViewController()
+                applyDetailView.uid = self.user_id
+                applyDetailView.isAppliViewPush = true
+                applyDetailView.orderModel = orderModel
+                self.navigationController?.pushViewController(applyDetailView, animated: true)
+                }, fialBlock: { (dic) in
+                    
+            })
         }
         KeyWindown?.addSubview(apply)
 //        let applyMeetVc = ApplyMeetViewController()

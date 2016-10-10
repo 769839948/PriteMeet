@@ -91,8 +91,11 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
         self.tableView.backgroundColor = UIColor.init(hexString: HomeTableViewBackGroundColor)
         self.tableView.register(ManListCell.self, forCellReuseIdentifier: "MainTableViewCell")
         self.view.addSubview(self.tableView)
-        self.view.addSubview(bottomView)
-//        self.view.sendSubview(toBack: self.tableView)
+//        if self.bottomView == nil{
+//           self.view.addSubview(bottomView) 
+//        }
+//        self.view.addSubview(bottomView)
+        self.view.sendSubview(toBack: self.tableView)
         self.tableView.snp.makeConstraints { (make) in
             make.top.equalTo(self.view.snp.top).offset(0)
             make.left.equalTo(self.view.snp.left).offset(0)
@@ -100,7 +103,7 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
             make.bottom.equalTo(self.view.snp.bottom).offset(0)
         }
         (self.navigationController as! ScrollingNavigationController).followScrollView(self.tableView, delay: 50.0)
-//        self.view.bringSubview(toFront: self.bottomView)
+        self.view.bringSubview(toFront: self.bottomView)
 
     }
     
@@ -153,9 +156,6 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
         }
         
         self.page = self.page + 1
-        
-        
-        
         
         if self.filterStr == "" {
             self.filterStr = "&filter=recommend"
@@ -235,7 +235,9 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
         }else{
             self.numberMeet.isHidden = false
         }
-//        self.view.addSubview(bottomView)
+        if self.tableView != nil {
+            self.view.addSubview(bottomView)
+        }
     }
     
     func setUpNavigationBar() {
@@ -249,8 +251,12 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
     }
     
     func rightItemClick(_ sender:UIBarButtonItem) {
-        self.present(UINavigationController(rootViewController: MeViewController()) , animated: true) {
+//        self.present(UINavigationController(rootViewController: MeViewController()) , animated: true) {
+//        }
+        
+        self.present(UINavigationController(rootViewController: InPurchaseViewController()) , animated: true) {
         }
+        
 //        let apply = ApplyMeetView(frame: CGRect(x: 0,y: 0,width: ScreenWidth,height: ScreenHeight))
 //        KeyWindown?.addSubview(apply)
     }

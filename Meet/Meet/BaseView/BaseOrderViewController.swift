@@ -251,7 +251,7 @@ class BaseOrderViewController: UIViewController {
         if code == "1" || code == "4" || code == "6" {
             self.orderType = .doing
         }else if code == "11" {
-            self.orderType == .done
+            self.orderType = .done
         }else{
             self.orderType = .cancel
         }

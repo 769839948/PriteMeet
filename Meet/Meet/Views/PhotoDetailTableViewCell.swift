@@ -119,7 +119,8 @@ class PhotoDetailTableViewCell: UITableViewCell {
             }
             for index in 0...(headPhotos?.count)! - 1 {
                 let model = headPhotos?.object(at: index) as! Head_Photo_List
-                let urlString = "\((model.photo))\(("?imageView2/1/w/177/h/177"))"
+                let imageUrl = model.photo.components(separatedBy: "?")
+                let urlString = "\((imageUrl[0]))\(("?imageView2/1/w/177/h/177"))"
                 let photoImage = UIImageView()
                 photoImage.tag = index
                 photoImage.isUserInteractionEnabled = true

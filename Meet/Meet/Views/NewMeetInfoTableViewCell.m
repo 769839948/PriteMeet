@@ -138,7 +138,8 @@
     for (NSInteger idx = 0; idx < interArray.count; idx++) {
         CGSize itemSize = CGSizeMake([self cellWidth:[interArray objectAtIndex:idx]], 30);
         allSizeWidth = allSizeWidth + itemSize.width + 10;
-        if (allSizeWidth > ScreenWidth - 40) {
+        NSLog(@"%f",ScreenWidth - 40);
+        if (allSizeWidth > ScreenWidth - 60) {
             yOffset = yOffset + 40;
             allSizeWidth = itemSize.width + 10;
         }

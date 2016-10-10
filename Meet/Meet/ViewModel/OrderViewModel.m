@@ -169,4 +169,21 @@
     }];
 }
 
+- (void)rejectUrlforAppStore:(NSString *)rejectStr
+                successBlock:(Success)successBlock
+                   failBlock:(Fail)failBlock
+{
+    NSString *url = [RequestBaseUrl stringByAppendingString:[NSString stringWithFormat:@"%@%@",RequestAppStoreReject,[UserInfo sharedInstance].uid]];
+    NSDictionary *parameters = @{@"receipt":rejectStr};
+    [self postWithURLString:url parameters:parameters success:^(NSDictionary *responseObject) {
+        if ([responseObject[@"success"] boolValue]) {
+            successBlock(@{@"success":@"验证成功"});
+        }else{
+            successBlock(@{@"success":@"验证失败"});
+        }
+    } failure:^(NSDictionary *responseObject) {
+        failBlock(@{@"error":@"服务失败"});
+    }];
+}
+
 @end

@@ -1,4 +1,4 @@
-//
+
 //  MeViewController.swift
 //  Demo
 //
@@ -26,7 +26,8 @@ class MeViewController: UIViewController,TZImagePickerControllerDelegate {
     var mePhotoTableViewCell = "MePhotoTableViewCell"
     var photoDetailTableViewCell = "PhotoDetailTableViewCell"
     let newMeetInfoTableViewCell = "NewMeetInfoTableViewCell"
-    
+    let meInfoCoinsTableViewCell = "MeInfoCoinsTableViewCell"
+
     var meetCellHeight:CGFloat = 159
     
     var loginView:LoginView!
@@ -109,7 +110,9 @@ class MeViewController: UIViewController,TZImagePickerControllerDelegate {
         self.tableView.register(mePhotoNib, forCellReuseIdentifier: "MePhotoTableViewCell")
         let mePhotoDetailNib = UINib(nibName: "PhotoDetailTableViewCell", bundle: nil) //nibName指的是我们创建的Cell文件名
         self.tableView.register(mePhotoDetailNib, forCellReuseIdentifier: "PhotoDetailTableViewCell")
-        
+//        self.table
+//        self.tableView.register(meInfoCoinsTableViewCell, forCellReuseIdentifier: "MeInfoCoinsTableViewCell")
+
         self.tableView.register(NewMeetInfoTableViewCell.self, forCellReuseIdentifier: newMeetInfoTableViewCell)
         self.tableView.register(AboutUsCell.self, forCellReuseIdentifier: "AboutUsCell")
         tableView.delegate = self
@@ -131,6 +134,7 @@ class MeViewController: UIViewController,TZImagePickerControllerDelegate {
             self.tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .automatic)
             self.tableView.reloadRows(at: [IndexPath.init(row: 1, section: 1)], with: .automatic)
             self.plachImageListDownLoad()
+            
             }, fail: { (dic) in
                 
             }, loadingString: { (msg) in
@@ -664,9 +668,7 @@ extension MeViewController : UITableViewDataSource {
                         cell.cofigLoginCell(UserInfo.sharedInstance().real_name, infoCom: UserInfo.sharedInstance().job_label,compass: UserExtenModel.shareInstance().completeness)
                         
                     }else{
-
-//                        cell.cofigLoginCell(UserInfo.sharedInstance().real_name, infoCom: UserInfo.sharedInstance().job_label,compass: nil)
-                        
+//                        cell.cofigLoginCell(UserInfo.sharedInstance().real_name, infoCom: UserInfo.sharedInstance().job_label,compass: UserExtenModel.shareInstance().completeness)
                     }
                     frame = cell.avatarImageView.frame;
                     cell.block = { (tag) in
@@ -676,20 +678,24 @@ extension MeViewController : UITableViewDataSource {
                     cell.backgroundColor = UIColor.clear
                     return cell
                 }else{
-                    let cell = tableView.dequeueReusableCell(withIdentifier: photoDetailTableViewCell, for: indexPath) as! PhotoDetailTableViewCell
-                    while cell.contentView.subviews.last != nil {
-                        cell.contentView.subviews.last?.removeFromSuperview()
-                    }
-                    cell.setUpView()
-                    if (UserExtenModel.shareInstance().head_photo_list != nil) {
-                        cell.configCell(UserExtenModel.shareInstance().head_photo_list)
-                    }
-                    cell.closure = { () in
-                        self.presentImagePicker()
-                    }
-                    cell.cellImageArray = { (index, images) in
-                        self.presentImageBrowse(index,images: images)
-                    }
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: photoDetailTableViewCell, for: indexPath) as! PhotoDetailTableViewCell
+//                    while cell.contentView.subviews.last != nil {
+//                        cell.contentView.subviews.last?.removeFromSuperview()
+//                    }
+//                    cell.setUpView()
+//                    if (UserExtenModel.shareInstance().head_photo_list != nil) {
+//                        cell.configCell(UserExtenModel.shareInstance().head_photo_list)
+//                    }
+//                    cell.closure = { () in
+//                        self.presentImagePicker()
+//                    }
+//                    cell.cellImageArray = { (index, images) in
+//                        self.presentImageBrowse(index,images: images)
+//                    }
+//                    cell.selectionStyle = UITableViewCellSelectionStyle.none
+//                    cell.backgroundColor = UIColor.clear
+//                    return cell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: meInfoCoinsTableViewCell, for: indexPath) as! MeInfoCoinsTableViewCell
                     cell.selectionStyle = UITableViewCellSelectionStyle.none
                     cell.backgroundColor = UIColor.clear
                     return cell
@@ -711,6 +717,12 @@ extension MeViewController : UITableViewDataSource {
                     return cell
                 }else if (indexPath as NSIndexPath).row == 2 {
                     let cell = tableView.dequeueReusableCell(withIdentifier: meInfoTableViewCell, for: indexPath) as! MeInfoTableViewCell
+                    cell.configCell("me_videomeet", infoString: "视频见面", infoDetail: "", shadowColor: false,cornerRadiusType: .none)
+                    cell.setInfoButtonBackGroudColor(lineLabelBackgroundColor)
+                    cell.selectionStyle = UITableViewCellSelectionStyle.none
+                    return cell
+                }else if (indexPath as NSIndexPath).row == 3 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: meInfoTableViewCell, for: indexPath) as! MeInfoTableViewCell
                     cell.configCell("me_newmeet", infoString: "我的邀约", infoDetail: "", shadowColor: false,cornerRadiusType: .none)
                     if UserInviteModel.shareInstance().results != nil {
                         cell.infoDetailLabel.text =  (UserInviteModel.shareInstance().results[0]).is_active ? "":"未开启       "
@@ -718,15 +730,17 @@ extension MeViewController : UITableViewDataSource {
                     cell.setInfoButtonBackGroudColor(lineLabelBackgroundColor)
                     cell.selectionStyle = UITableViewCellSelectionStyle.none
                     return cell
-                }else if (indexPath as NSIndexPath).row == 3 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: newMeetInfoTableViewCell, for: indexPath) as! NewMeetInfoTableViewCell
-                    self.configNewMeetCell(cell, indxPath: indexPath)
-                    cell.isHaveShadowColor(false)
-                    cell.hidderLine()
-                    
-                    cell.selectionStyle = UITableViewCellSelectionStyle.none
-                    return cell
-                }else if ((indexPath as NSIndexPath).row == 4){
+                }
+//                else if (indexPath as NSIndexPath).row == 3 {
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: newMeetInfoTableViewCell, for: indexPath) as! NewMeetInfoTableViewCell
+//                    self.configNewMeetCell(cell, indxPath: indexPath)
+//                    cell.isHaveShadowColor(false)
+//                    cell.hidderLine()
+//                    
+//                    cell.selectionStyle = UITableViewCellSelectionStyle.none
+//                    return cell
+//                }
+                else if ((indexPath as NSIndexPath).row == 4){
                     let cell = tableView.dequeueReusableCell(withIdentifier: meInfoTableViewCell, for: indexPath) as! MeInfoTableViewCell
                     cell.configCell((userInfoModel.imageArray() as NSArray) .object(at: (indexPath as NSIndexPath).row - 3) as! String, infoString: (userInfoModel.titleArray() as NSArray).object(at: (indexPath as NSIndexPath).row - 3) as! String, infoDetail: "", shadowColor: false,cornerRadiusType: .none)
                     var string = ""

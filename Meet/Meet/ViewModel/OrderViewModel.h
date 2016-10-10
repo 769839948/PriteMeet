@@ -94,4 +94,8 @@
 - (void)orderNumberOrder:(NSString *)curentId
             successBlock:(Success)successBlock
                failBlock:(Fail)failBlock;
+
+- (void)rejectUrlforAppStore:(NSString *)rejectStr
+                successBlock:(Success)successBlock
+                   failBlock:(Fail)failBlock;
 @end

@@ -232,7 +232,7 @@
                 }];
                 NSString *imageUrl = [NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@?imageMogr2/auto-orient/thumbnail/%@x%@",parameters[@"key"],parameters[@"width"],parameters[@"height"]];
                 NSString *coverUrl = [[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",fileName] stringByAppendingString:[UIImage imageSize:@{@"width":parameters[@"width"],@"height":parameters[@"height"]} newImageSize:CGSizeMake(355, 236)]];
-                [self saveCoverImage:coverUrl];
+                [self saveCoverImage:imageUrl];
                 [self uploadCoverPhoto:imageUrl];
             }else{
                 successBlock(@{@"success":@"1",@"avatar":[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",fileName]});
@@ -482,7 +482,8 @@
         QNUploadManager *upManager = [[QNUploadManager alloc] init];
         NSData *imageData = UIImageJPEGRepresentation(image, 1);
         NSString *timeNow = [self getTimeNow];
-        [upManager putData:imageData key:timeNow token:responseObject[@"token"] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+        NSString *fileName = [NSString stringWithFormat:@"%@.jpge",[NSString md5:timeNow]];
+        [upManager putData:imageData key:fileName token:responseObject[@"token"] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             NSDictionary *parameters = @{@"key":resp[@"key"],
                                          @"hash":resp[@"hash"],
                                          @"width":resp[@"image"][@"width"],
@@ -502,7 +503,7 @@
     UIImage *smallImage = [UIImage imageWithData:smallData];
     [self uploadQiNiuServers:smallImage success:^(NSDictionary *responseObject) {
         NSString *url = [RequestBaseUrl stringByAppendingFormat:@"%@",RequestHeadPhoto];
-        NSArray *photoArray = [NSArray arrayWithObject:[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@",responseObject[@"parameters"][@"key"]]];
+        NSArray *photoArray = [NSArray arrayWithObject:[NSString stringWithFormat:@"http://7xsatk.com1.z0.glb.clouddn.com/%@?imageMogr2/auto-orient/thumbnail/%@x%@",responseObject[@"parameters"][@"key"],responseObject[@"parameters"][@"width"],responseObject[@"parameters"][@"height"]]];
         NSDictionary *parameters = @{@"photos":photoArray,
                                      @"cur_user":[UserInfo sharedInstance].uid
                                      };

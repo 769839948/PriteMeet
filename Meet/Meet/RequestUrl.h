@@ -12,7 +12,7 @@
 /**
  *  后台请求数据URL存放处
  */
-#define  RequestBaseUrl              @"http://test.momeet.cn"   
+#define  RequestBaseUrl              @"http://momeet.cn"
 #define  RequestCreateUser           @"/api/user/signup/"
 #define  RequestCheckUser            @"/api/user/check/"
 #define  RequestCheckCodeBindUser    @"/api/code/is_bound_user/"
@@ -82,6 +82,8 @@
 #define  RequestRejectReson          @"/api/reject_reason_dict/"
 
 #define  RequestNumberOrder          @"/api/appointment_order_count/"
+
+#define  RequestAppStoreReject       @"/api/m_account_receipt/"
 
 #define  RequestPlachText            @"/api/document_map/"
 
