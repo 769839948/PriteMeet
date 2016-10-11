@@ -162,6 +162,7 @@
 		1F5736011DAB4F950078D5B6 /* MWTapDetectingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5735D51DAB4F940078D5B6 /* MWTapDetectingView.m */; };
 		1F5736021DAB4F950078D5B6 /* MWZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5735D71DAB4F940078D5B6 /* MWZoomingScrollView.m */; };
 		1F5736031DAB4F950078D5B6 /* UIImage+MWPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5735D91DAB4F940078D5B6 /* UIImage+MWPhotoBrowser.m */; };
+		1F5736E21DACF72300EE7906 /* GlobalLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5736E11DACF72300EE7906 /* GlobalLoadingView.swift */; };
 		1F5737CE1DAB506C0078D5B6 /* PFDefaultACLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5736091DAB506B0078D5B6 /* PFDefaultACLController.m */; };
 		1F5737CF1DAB506C0078D5B6 /* PFACLState.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F57360D1DAB506B0078D5B6 /* PFACLState.m */; };
 		1F5737D01DAB506C0078D5B6 /* PFMutableACLState.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5736101DAB506B0078D5B6 /* PFMutableACLState.m */; };
@@ -982,6 +983,7 @@
 		1F5736DF1DAB506B0078D5B6 /* PFUserDefaultsPersistenceGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFUserDefaultsPersistenceGroup.h; sourceTree = "<group>"; };
 		1F5736E01DAB506B0078D5B6 /* PFUserDefaultsPersistenceGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFUserDefaultsPersistenceGroup.m; sourceTree = "<group>"; };
 		1F5736E11DAB506B0078D5B6 /* PFPersistenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFPersistenceController.h; sourceTree = "<group>"; };
+		1F5736E11DACF72300EE7906 /* GlobalLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalLoadingView.swift; sourceTree = "<group>"; };
 		1F5736E21DAB506B0078D5B6 /* PFPersistenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPersistenceController.m; sourceTree = "<group>"; };
 		1F5736E31DAB506B0078D5B6 /* PFAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFAlertView.h; sourceTree = "<group>"; };
 		1F5736E41DAB506B0078D5B6 /* PFAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFAlertView.m; sourceTree = "<group>"; };
@@ -4292,6 +4294,7 @@
 				1FFB5F3D1D069A8800021F77 /* ProfileKeyAndValue.m */,
 				1FCDE2B41D65D2140029EF9E /* PlaceholderText.h */,
 				1FCDE2B51D65D2140029EF9E /* PlaceholderText.m */,
+				1F5736E11DACF72300EE7906 /* GlobalLoadingView.swift */,
 			);
 			name = Global;
 			path = Meet/Global;
@@ -4969,6 +4972,7 @@
 				1F5737ED1DAB506C0078D5B6 /* PFFileController.m in Sources */,
 				DAF5C8851CE5B95000DA7901 /* CoreTextUtils.m in Sources */,
 				1F5737D71DAB506C0078D5B6 /* PFCommandURLRequestConstructor.m in Sources */,
+				1F5736E21DACF72300EE7906 /* GlobalLoadingView.swift in Sources */,
 				1F241B341D8D3730001987F7 /* NVActivityIndicatorAnimationBallRotateChase.swift in Sources */,
 				1F6850231CFFD41E007F3C07 /* PhotoTableViewCell.m in Sources */,
 				1F57385C1DAB506C0078D5B6 /* PFInstallation.m in Sources */,

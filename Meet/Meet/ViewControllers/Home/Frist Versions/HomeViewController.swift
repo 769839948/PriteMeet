@@ -87,14 +87,9 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
         self.tableView.separatorStyle = .none
         self.tableView.emptyDataSetSource = self
         self.tableView.emptyDataSetDelegate = self
-        self.view.addSubview(self.tableView)
         self.tableView.backgroundColor = UIColor.init(hexString: HomeTableViewBackGroundColor)
         self.tableView.register(ManListCell.self, forCellReuseIdentifier: "MainTableViewCell")
         self.view.addSubview(self.tableView)
-//        if self.bottomView == nil{
-//           self.view.addSubview(bottomView) 
-//        }
-//        self.view.addSubview(bottomView)
         self.view.sendSubview(toBack: self.tableView)
         self.tableView.snp.makeConstraints { (make) in
             make.top.equalTo(self.view.snp.top).offset(0)
@@ -164,8 +159,6 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
         viewModel.getDataFilterList("\(self.page)", filterUrl: self.filterStr, latitude: self.latitude, longitude: self.longitude, successBlock: { (dic) in
             if self.bottomView != nil {
                 self.bottomView.isHidden = false
-            }else{
-                self.addBottomView()
             }
             if self.page == 1 {
                 self.homeModelArray.removeAllObjects()
@@ -228,6 +221,7 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
         bottomView = UIView(frame:CGRect(x: ScreenWidth  - 84,y: ScreenHeight - 88 - self.view.frame.origin.y,width: 56,height: 54))
         bottomView.layer.shadowOffset = CGSize(width: 0, height: 4)
         bottomView.layer.shadowOpacity = 0.2
+        bottomView.tag = 10000
         bottomView.addSubview(self.meetButton(CGRect(x: 0, y: 0, width: 54, height: 54)))
         bottomView.addSubview(self.meetNumber(CGRect(x: bottomView.frame.size.width - 18, y: 0, width: 18, height: 18)))
         if self.allOrderNumber == 0 {
@@ -235,7 +229,7 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
         }else{
             self.numberMeet.isHidden = false
         }
-        if self.tableView != nil {
+        if self.view.viewWithTag(10000) == nil {
             self.view.addSubview(bottomView)
         }
     }
