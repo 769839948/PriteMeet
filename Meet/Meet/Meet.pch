@@ -30,6 +30,8 @@
 #import "MBProgressHUD.h"
 #import "UIViewController+TalKingData.h"
 #import <Crashlytics/Crashlytics.h>
+#import "EaseUI.h"
+#import <HyphenateSDK/EMSDK.h>
 
 #endif
 

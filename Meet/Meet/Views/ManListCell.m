@@ -137,8 +137,8 @@
             _photoImage.image = [UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size];
             [UIImage imageWithUrl:imageArray[0] newImage:CGSizeMake(ScreenWidth - 20, (ScreenWidth - 20)*200/355) success:^(NSString *imageUrl) {
                 [[AppGlobalData sharedInstance].homeListDic setValue:imageUrl forKey:_user_id];
-                [_photoImage sd_setImageWithURL:[NSURL URLWithString:[imageArray[0] stringByAppendingString:imageUrl]] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                    NSLog(@"%@",imageURL);
+                [_photoImage sd_setImageWithURL:[NSURL URLWithString:[imageArray[0] stringByAppendingString:imageUrl]] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    
                 }];
             }];
         }else{
@@ -147,8 +147,8 @@
                 NSString *imageUrl = [[AppGlobalData sharedInstance].homeListDic objectForKey:_user_id];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // 通知主线程刷新 神马的
-                    [_photoImage sd_setImageWithURL:[NSURL URLWithString:[imageArray[0] stringByAppendingString:imageUrl]] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                        NSLog(@"%@",imageURL);
+                    [_photoImage sd_setImageWithURL:[NSURL URLWithString:[imageArray[0] stringByAppendingString:imageUrl]] placeholderImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"e7e7e7"] size:_photoImage.frame.size] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                        
                     }];
                 });
             });

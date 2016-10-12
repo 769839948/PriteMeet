@@ -22,7 +22,7 @@
     return image;
 }
 
-+(UIImage *) createImageWithColor: (UIColor *) color
++ (UIImage *)createImageWithColor: (UIColor *) color
 {
     CGRect rect=CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);
@@ -35,7 +35,7 @@
 }
 
 
-+(UIImage *) getImageFromURL:(NSString *)fileURL
++ (UIImage *)getImageFromURL:(NSString *)fileURL
 {
     
     NSLog(@"执行图片下载函数");
@@ -45,6 +45,18 @@
     result = [UIImage imageWithData:data];
     return result;
     
+}
+
++ (UIImage *)addImage:(UIImage *)image1 toImage:(UIImage *)image2
+{
+    UIGraphicsBeginImageContext(image1.size);
+    // Draw image1
+    [image1 drawInRect:CGRectMake(0, 0, image1.size.width, image1.size.height)];
+    // Draw image2
+    [image2 drawInRect:CGRectMake(0, 0, image2.size.width, image2.size.height)];
+    UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return resultingImage;
 }
 
 

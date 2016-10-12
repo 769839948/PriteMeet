@@ -107,7 +107,9 @@
         for (NSInteger i = 0; i < images.count; i ++) {
             UIImageView *imageView = [[UIImageView alloc] init];
             NSArray *imageArray = [[images objectAtIndex:i] componentsSeparatedByString:@"?"];
-            [imageView sd_setImageWithURL:[NSURL URLWithString:[imageArray[0] stringByAppendingString:@"?imageView2/1/w/177/h/177"]] placeholderImage:PlaceholderImage options:SDWebImageRetryFailed];
+            [imageView sd_setImageWithURL:[NSURL URLWithString:[imageArray[0] stringByAppendingString:@"?imageView2/1/w/177/h/177"]]  placeholderImage:PlaceholderImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+            }];
             imageView.frame = CGRectMake(i * 64, 0, 59, 59);
             [_imageContent addSubview:imageView];
         }

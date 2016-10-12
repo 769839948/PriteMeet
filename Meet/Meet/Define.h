@@ -19,6 +19,8 @@
 #define ScreenHeight [[UIScreen mainScreen] bounds].size.height//获取屏幕高度
 #define ScreenWidth [[UIScreen mainScreen] bounds].size.width//获取屏幕宽度
 
+#define SysVersion [[[UIDevice currentDevice] systemVersion] floatValue]
+
 #define IOS_7LAST ([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0)?1:0
 #define IOS_8LAST ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)?1:0
 #define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
@@ -67,5 +69,8 @@
 #define AliPayStatues     @"AliPaySuccess"
 
 #define TalkingDataAppId  @"7244A450FDAFB46FFEF7C1B68FBA93D3"
+
+#define kDefaultChatroomId @"203138578711052716"
+
 
 #endif /* Define_h */
