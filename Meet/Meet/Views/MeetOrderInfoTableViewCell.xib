@@ -127,6 +127,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="contactInfo" destination="url-i5-3h4" id="tl0-AL-LIf"/>
                 <outlet property="line" destination="iES-qJ-hcV" id="sgA-Vd-8ya"/>
                 <outlet property="line1" destination="apM-1R-Nqa" id="j9h-6X-Iei"/>
                 <outlet property="line2" destination="Wrx-zh-NoL" id="T1D-wX-wTj"/>

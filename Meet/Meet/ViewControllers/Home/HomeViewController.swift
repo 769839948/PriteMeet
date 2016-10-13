@@ -247,7 +247,7 @@ class HomeViewController: UIViewController,TZImagePickerControllerDelegate {
     func rightItemClick(_ sender:UIBarButtonItem) {
 //        self.present(UINavigationController(rootViewController: MeViewController()) , animated: true) {
 //        }
-        
+//        let live = 
         self.present(UINavigationController(rootViewController: InPurchaseViewController()) , animated: true) {
         }
         
