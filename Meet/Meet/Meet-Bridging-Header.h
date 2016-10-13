@@ -26,8 +26,6 @@
 #import "UIImage+ImageEffects.h"
 #import "UIImage+PureColor.h"
 #import "UserExtenModel.h"
-#import "MoreProfileViewController.h"
-#import "AddStarViewController.h"
 #import "UIImage+Alpha.h"
 #import "UserInviteModel.h"
 #import "ProfileKeyAndValue.h"
