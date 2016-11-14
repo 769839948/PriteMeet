@@ -473,7 +473,7 @@ extension HomeViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return tableView.fd_heightForCell(withIdentifier: "MainTableViewCell", configuration: { (cell) in
-            self .configureCell(cell as! ManListCell, indexPath: indexPath)
+            self.configureCell(cell as! ManListCell, indexPath: indexPath)
         })
     }
     

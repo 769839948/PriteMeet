@@ -17,10 +17,10 @@ PODS:
   - AMapFoundation (1.3.1)
   - AMapLocation (2.1.1):
     - AMapFoundation (~> 1.2)
-  - Crashlytics (3.8.2):
+  - Crashlytics (3.8.3):
     - Fabric (~> 1.6.3)
   - DZNEmptyDataSet (1.8.1)
-  - Fabric (1.6.9)
+  - Fabric (1.6.10)
   - FDFullscreenPopGesture (1.1)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
@@ -37,6 +37,30 @@ PODS:
     - NJKWebViewProgress/ProgressView (= 0.2.3)
   - NJKWebViewProgress/Core (0.2.3)
   - NJKWebViewProgress/ProgressView (0.2.3)
+  - pili-librtmp (1.0.5)
+  - PLMediaStreamingKit (2.1.3):
+    - HappyDNS (~> 0.3.0)
+    - pili-librtmp (= 1.0.5)
+    - PLMediaStreamingKit/Common (= 2.1.3)
+    - PLMediaStreamingKit/PLCameraStreamingKit (= 2.1.3)
+    - PLMediaStreamingKit/PLMediaStreamingKit (= 2.1.3)
+    - PLMediaStreamingKit/PLRTCStreamingKit (= 2.1.3)
+    - PLMediaStreamingKit/PLStreamingKit (= 2.1.3)
+  - PLMediaStreamingKit/Common (2.1.3):
+    - HappyDNS (~> 0.3.0)
+    - pili-librtmp (= 1.0.5)
+  - PLMediaStreamingKit/PLCameraStreamingKit (2.1.3):
+    - HappyDNS (~> 0.3.0)
+    - pili-librtmp (= 1.0.5)
+  - PLMediaStreamingKit/PLMediaStreamingKit (2.1.3):
+    - HappyDNS (~> 0.3.0)
+    - pili-librtmp (= 1.0.5)
+  - PLMediaStreamingKit/PLRTCStreamingKit (2.1.3):
+    - HappyDNS (~> 0.3.0)
+    - pili-librtmp (= 1.0.5)
+  - PLMediaStreamingKit/PLStreamingKit (2.1.3):
+    - HappyDNS (~> 0.3.0)
+    - pili-librtmp (= 1.0.5)
   - pop (1.0.9)
   - Qiniu (7.0.20):
     - AFNetworking (~> 3)
@@ -68,7 +92,8 @@ DEPENDENCIES:
   - MJExtension
   - MJRefresh
   - NJKWebViewProgress
-  - pop (~> 1.0)
+  - PLMediaStreamingKit
+  - pop (~> 1.0.9)
   - Qiniu (from `https://github.com/qiniu/objc-sdk.git`, branch `AFNetworking-3.x`)
   - SDCycleScrollView (~> 1.64)
   - SDWebImage (~> 3.7)
@@ -89,9 +114,9 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AMapFoundation: 636834a27cd003084f56b4232f3031e6a44c7e7e
   AMapLocation: dd203f76b034ef5cb546600f4e1ffad2a3a14072
-  Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
+  Crashlytics: 2b6dbe138a42395577cfa73dfa1aa7248cadf39e
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  Fabric: bc5bec42cef4bcf1ee3ce0e218fc518e4b44dfbb
+  Fabric: c73f371ee543e3f0b80608f2674750e4910d1669
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
@@ -102,6 +127,8 @@ SPEC CHECKSUMS:
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
+  pili-librtmp: 65a6e10f7c314bd1f407ba24bd074c57cba79d0c
+  PLMediaStreamingKit: 18730450543338ad7a8b0352ba5c893ab5ec5a18
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Qiniu: 4dbf1e6acb3236c4d7251046a17d08b16d21fcfe
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
@@ -109,6 +136,6 @@ SPEC CHECKSUMS:
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
   SQLCipher: d490d2effe735895d2204d25a154b1e722278421
 
-PODFILE CHECKSUM: ffbeedbd7bb002d2dcd1cd8c9fd643ffa7dd293e
+PODFILE CHECKSUM: b35d941920b8e58c09d4d862e90c0dcc13951992
 
 COCOAPODS: 1.0.0

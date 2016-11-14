@@ -18,7 +18,7 @@ target "Meet" do
     pod 'Fabric'
     pod 'Crashlytics'
     pod 'Masonry'
-    pod 'pop', '~> 1.0'
+    pod 'pop', '~> 1.0.9'
     pod 'SnapKit'
     pod 'IQKeyboardManager'
     pod 'Qiniu', :git => 'https://github.com/qiniu/objc-sdk.git', :branch => 'AFNetworking-3.x'
@@ -30,4 +30,7 @@ target "Meet" do
     pod 'DZNEmptyDataSet'
     pod 'HyphenateSDK'
     pod 'MBProgressHUD'
+    pod 'PLMediaStreamingKit'
+#    pod 'PLPlayerKit'
+
 end
